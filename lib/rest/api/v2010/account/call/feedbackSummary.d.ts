@@ -17,7 +17,7 @@ type FeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
  * @description Initialize the FeedbackSummaryList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the Account responsible for creating this Call
+ * @param accountSid - The SID of the Account that created this resource
  */
 declare function FeedbackSummaryList(version: V2010, accountSid: string): FeedbackSummaryListInstance;
 
@@ -129,7 +129,7 @@ declare class FeedbackSummaryInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the Account responsible for creating this Call
+   * @param accountSid - The SID of the Account that created this resource
    * @param sid - A string that uniquely identifies this feedback summary resource
    */
   constructor(version: V2010, payload: FeedbackSummaryPayload, accountSid: string, sid: string);

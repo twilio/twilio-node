@@ -88,8 +88,8 @@ interface RecordingListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Recordings that started before this ISO8601 date-time with timezone.
  * @property done - Function to be called upon completion of streaming
  * @property groupingSid - Only show Recordings that have this GroupingSid.
  * @property limit -
@@ -120,8 +120,8 @@ interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Recordings that started before this ISO8601 date-time with timezone.
  * @property groupingSid - Only show Recordings that have this GroupingSid.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -149,8 +149,8 @@ interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Recordings that started before this ISO8601 date-time with timezone.
  * @property groupingSid - Only show Recordings that have this GroupingSid.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
@@ -235,7 +235,7 @@ declare class RecordingInstance extends SerializableClass {
    * @property codec - The codec used to encode the track.
    * @property groupingSids - A list of Sids related to this Recording.
    * @property trackName - The name that was given to the source track of this recording.
-   * @property offset - Offset in miliseconds for this track.
+   * @property offset - Offset in milliseconds for this track.
    * @property links - The links
    *
    * @param version - Version of the resource

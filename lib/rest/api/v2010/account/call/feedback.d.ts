@@ -18,7 +18,7 @@ type FeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'impe
  *
  * @param version - Version of the resource
  * @param accountSid - The unique sid that identifies this account
- * @param callSid - A 34-character string that uniquely identifies the Call resource.
+ * @param callSid - The unique string that identifies this resource
  */
 declare function FeedbackList(version: V2010, accountSid: string, callSid: string): FeedbackListInstance;
 
@@ -120,7 +120,7 @@ declare class FeedbackInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The unique sid that identifies this account
-   * @param callSid - A 34-character string that uniquely identifies the Call resource.
+   * @param callSid - The unique string that identifies this resource
    */
   constructor(version: V2010, payload: FeedbackPayload, accountSid: string, callSid: string);
 

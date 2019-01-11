@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
 
 type SessionMode = 'message-only'|'voice-only'|'voice-and-message';
 
-type SessionStatus = 'in-progress'|'closed'|'failed'|'unknown'|'completed';
+type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
 
 /**
  * @description Initialize the SessionList
@@ -144,16 +144,12 @@ interface SessionListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property status - The status
- * @property uniqueName - The unique_name
  */
 interface SessionListInstanceEachOptions {
   callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  status?: SessionStatus;
-  uniqueName?: string;
 }
 
 /**
@@ -169,14 +165,10 @@ interface SessionListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property status - The status
- * @property uniqueName - The unique_name
  */
 interface SessionListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  status?: SessionStatus;
-  uniqueName?: string;
 }
 
 /**
@@ -185,15 +177,11 @@ interface SessionListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property status - The status
- * @property uniqueName - The unique_name
  */
 interface SessionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  status?: SessionStatus;
-  uniqueName?: string;
 }
 
 interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {

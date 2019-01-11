@@ -78,7 +78,7 @@ interface TrunkListInstance {
   /**
    * Constructs a trunk
    *
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
    */
   get(sid: string): TrunkContext;
   /**
@@ -225,7 +225,7 @@ declare class TrunkContext {
    * @property phoneNumbers - phoneNumbers resource
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
    */
   constructor(version: V1, sid: string);
 
@@ -277,7 +277,7 @@ declare class TrunkInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
    */
   constructor(version: V1, payload: TrunkPayload, sid: string);
 

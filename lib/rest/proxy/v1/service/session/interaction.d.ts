@@ -87,12 +87,10 @@ interface InteractionListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property inboundParticipantStatus - The inbound_participant_status
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property outboundParticipantStatus - The outbound_participant_status
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -103,21 +101,17 @@ interface InteractionListInstance {
 interface InteractionListInstanceEachOptions {
   callback?: (item: InteractionInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  inboundParticipantStatus?: InteractionResourceStatus;
   limit?: number;
-  outboundParticipantStatus?: InteractionResourceStatus;
   pageSize?: number;
 }
 
 /**
  * Options to pass to list
  *
- * @property inboundParticipantStatus - The inbound_participant_status
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property outboundParticipantStatus - The outbound_participant_status
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -126,24 +120,18 @@ interface InteractionListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface InteractionListInstanceOptions {
-  inboundParticipantStatus?: InteractionResourceStatus;
   limit?: number;
-  outboundParticipantStatus?: InteractionResourceStatus;
   pageSize?: number;
 }
 
 /**
  * Options to pass to page
  *
- * @property inboundParticipantStatus - The inbound_participant_status
- * @property outboundParticipantStatus - The outbound_participant_status
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface InteractionListInstancePageOptions {
-  inboundParticipantStatus?: InteractionResourceStatus;
-  outboundParticipantStatus?: InteractionResourceStatus;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

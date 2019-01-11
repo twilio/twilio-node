@@ -26,7 +26,7 @@ declare function CompositionHookList(version: V1): CompositionHookListInstance;
  *
  * @property audioSources - A list of audio sources related to this Composition Hook.
  * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition Hook.
- * @property enabled - Boolean flag for activating the Composition Hook.
+ * @property enabled - Boolean flag indicating if the Composition Hook is active.
  * @property format - Container format of the Composition Hook media file. Any of the following: `mp4`, `webm`.
  * @property friendlyName - Friendly name of the Composition Hook to be shown in the console.
  * @property resolution - Pixel resolution of the composed video.
@@ -116,7 +116,7 @@ interface CompositionHookListInstance {
  *
  * @property audioSources - A list of audio sources related to this Composition Hook.
  * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition Hook.
- * @property enabled - Boolean flag for activating the Composition Hook.
+ * @property enabled - Boolean flag indicating if the Composition Hook is active.
  * @property format - Container format of the Composition Hook media file. Any of the following: `mp4`, `webm`.
  * @property friendlyName - Friendly name of the Composition Hook to be shown in the console.
  * @property resolution - Pixel resolution of the composed video.
@@ -144,8 +144,8 @@ interface CompositionHookListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Composition Hooks created before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
  * @property done - Function to be called upon completion of streaming
  * @property enabled - Only show Composition Hooks enabled or disabled.
  * @property limit -
@@ -172,8 +172,8 @@ interface CompositionHookListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Composition Hooks created before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
  * @property enabled - Only show Composition Hooks enabled or disabled.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -197,8 +197,8 @@ interface CompositionHookListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Composition Hooks created before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
  * @property enabled - Only show Composition Hooks enabled or disabled.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
@@ -275,7 +275,7 @@ declare class CompositionHookInstance extends SerializableClass {
    *
    * @property accountSid - Twilio Account SID.
    * @property friendlyName - Friendly name of the Composition Hook to be shown in the console.
-   * @property enabled - Boolean flag for activating the Composition Hook.
+   * @property enabled - Boolean flag indicating if the Composition Hook is active.
    * @property dateCreated - Date when the Composition Hook Resource was created.
    * @property dateUpdated - Date when the Composition Hook was last updated.
    * @property sid - A 34-character string that uniquely identifies this Composition Hook.
@@ -285,8 +285,8 @@ declare class CompositionHookInstance extends SerializableClass {
    * @property resolution - Pixel resolution of the composed video.
    * @property trim - Boolean flag for clipping intervals that have no media.
    * @property format - The file format for the Compositions triggered by the Composition Hook.
-   * @property statusCallback - The status_callback
-   * @property statusCallbackMethod - The status_callback_method
+   * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
+   * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
    * @property url - The absolute URL for this resource.
    *
    * @param version - Version of the resource

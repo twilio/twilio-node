@@ -16,15 +16,15 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the QueueList
  *
  * @param version - Version of the resource
- * @param accountSid - The account_sid
+ * @param accountSid - The SID of the Account that created this resource
  */
 declare function QueueList(version: V2010, accountSid: string): QueueListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human readable description of the queue
- * @property maxSize - The max number of members allowed in the queue
+ * @property friendlyName - A string to describe this resource
+ * @property maxSize - The max number of calls allowed in the queue
  */
 interface QueueInstanceUpdateOptions {
   friendlyName?: string;
@@ -60,7 +60,7 @@ interface QueueListInstance {
   /**
    * Constructs a queue
    *
-   * @param sid - Fetch by unique queue Sid
+   * @param sid - The unique string that identifies this resource
    */
   get(sid: string): QueueContext;
   /**
@@ -97,7 +97,7 @@ interface QueueListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A user-provided string that identifies this queue.
+ * @property friendlyName - A string to describe this resource
  * @property maxSize - The max number of calls allowed in the queue
  */
 interface QueueListInstanceCreateOptions {
@@ -189,8 +189,8 @@ declare class QueueContext {
    * @property members - members resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique queue Sid
+   * @param accountSid - The SID of the Account that created the resource(s) to fetch
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -221,20 +221,20 @@ declare class QueueInstance extends SerializableClass {
   /**
    * Initialize the QueueContext
    *
-   * @property accountSid - The account_sid
+   * @property accountSid - The SID of the Account that created this resource
    * @property averageWaitTime - Average wait time of members in the queue
-   * @property currentSize - The count of calls currently in the queue.
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property friendlyName - A user-provided string that identifies this queue.
+   * @property currentSize - The number of calls currently in the queue.
+   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
+   * @property friendlyName - A string that you assigned to describe this resource
    * @property maxSize - The max number of calls allowed in the queue
-   * @property sid - A string that uniquely identifies this queue
-   * @property uri - The uri
+   * @property sid - The unique string that identifies this resource
+   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique queue Sid
+   * @param accountSid - The SID of the Account that created this resource
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, payload: QueuePayload, accountSid: string, sid: string);
 

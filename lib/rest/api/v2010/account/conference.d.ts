@@ -23,16 +23,16 @@ type ConferenceUpdateStatus = 'completed';
  * @description Initialize the ConferenceList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created this resource
  */
 declare function ConferenceList(version: V2010, accountSid: string): ConferenceListInstance;
 
 /**
  * Options to pass to update
  *
- * @property announceMethod - Specify GET or POST, defaults to POST
- * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
- * @property status - Specifying completed will end the conference and kick all participants
+ * @property announceMethod - he HTTP method used to call announce_url
+ * @property announceUrl - The URL we should call to announce something into the conference
+ * @property status - The new status of the resource
  */
 interface ConferenceInstanceUpdateOptions {
   announceMethod?: string;
@@ -62,7 +62,7 @@ interface ConferenceListInstance {
   /**
    * Constructs a conference
    *
-   * @param sid - Fetch by unique conference Sid
+   * @param sid - The unique string that identifies this resource
    */
   get(sid: string): ConferenceContext;
   /**
@@ -102,14 +102,14 @@ interface ConferenceListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
- * @property dateUpdated - Filter by date updated
- * @property dateUpdatedAfter - Filter by date updated
- * @property dateUpdatedBefore - Filter by date updated
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the Conference resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -120,7 +120,7 @@ interface ConferenceListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property status - The status of the conference
+ * @property status - The status of the resources to read
  */
 interface ConferenceListInstanceEachOptions {
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
@@ -140,13 +140,13 @@ interface ConferenceListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
- * @property dateUpdated - Filter by date updated
- * @property dateUpdatedAfter - Filter by date updated
- * @property dateUpdatedBefore - Filter by date updated
- * @property friendlyName - Filter by friendly name
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdatedBefore - The `YYYY-MM-DD` value of the resources to read
+ * @property friendlyName - The string that identifies the Conference resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -157,7 +157,7 @@ interface ConferenceListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property status - The status of the conference
+ * @property status - The status of the resources to read
  */
 interface ConferenceListInstanceOptions {
   dateCreated?: Date;
@@ -175,17 +175,17 @@ interface ConferenceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
- * @property dateUpdated - Filter by date updated
- * @property dateUpdatedAfter - Filter by date updated
- * @property dateUpdatedBefore - Filter by date updated
- * @property friendlyName - Filter by friendly name
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateUpdatedBefore - The `YYYY-MM-DD` value of the resources to read
+ * @property friendlyName - The string that identifies the Conference resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property status - The status of the conference
+ * @property status - The status of the resources to read
  */
 interface ConferenceListInstancePageOptions {
   dateCreated?: Date;
@@ -230,8 +230,8 @@ declare class ConferenceContext {
    * @property recordings - recordings resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique conference Sid
+   * @param accountSid - The SID of the Account that created the resource(s) to fetch
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -257,21 +257,21 @@ declare class ConferenceInstance extends SerializableClass {
   /**
    * Initialize the ConferenceContext
    *
-   * @property accountSid - The unique sid that identifies this account
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property apiVersion - The api_version
-   * @property friendlyName - A human readable description of this resource
-   * @property region - A string representing the Twilio Region where the conference was mixed.
-   * @property sid - A string that uniquely identifies this conference
-   * @property status - The status of the conference
-   * @property uri - The URI for this resource
-   * @property subresourceUris - The subresource_uris
+   * @property accountSid - The SID of the Account that created this resource
+   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
+   * @property apiVersion - The API version used to create this conference
+   * @property friendlyName - A string that you assigned to describe this conference room
+   * @property region - A string that represents the Twilio Region where the conference was mixed
+   * @property sid - The unique string that identifies this resource
+   * @property status - The status of this conference
+   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
+   * @property subresourceUris - A list of related resources identified by their relative URIs
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param sid - Fetch by unique conference Sid
+   * @param accountSid - The SID of the Account that created this resource
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, payload: ConferencePayload, accountSid: string, sid: string);
 

@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../interfaces';
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The 34 character unique sid of the Service.
+ * @param serviceSid - The SID of the Service that this resource is associated with
  */
 declare function ShortCodeList(version: V1, serviceSid: string): ShortCodeListInstance;
 
@@ -48,7 +48,7 @@ interface ShortCodeListInstance {
   /**
    * Constructs a short_code
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies this resource
    */
   get(sid: string): ShortCodeContext;
   /**
@@ -85,7 +85,7 @@ interface ShortCodeListInstance {
 /**
  * Options to pass to create
  *
- * @property shortCodeSid - ShortCodeSid for the Shortcode being added to the Service.
+ * @property shortCodeSid - SID of the ShortCode being added to the Service.
  */
 interface ShortCodeListInstanceCreateOptions {
   shortCodeSid: string;
@@ -173,8 +173,8 @@ declare class ShortCodeContext {
    * Initialize the ShortCodeContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -197,20 +197,20 @@ declare class ShortCodeInstance extends SerializableClass {
   /**
    * Initialize the ShortCodeContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @property sid - The 34 character unique sid of the Short Code
-   * @property accountSid - The 34 character unique sid of the Account.
-   * @property serviceSid - The 34 character unique sid of the Service.
-   * @property dateCreated - he date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
+   * @property sid - The unique string that identifies this resource
+   * @property accountSid - The SID of the Account that created this resource
+   * @property serviceSid - The SID of the Service that this resource is associated with
+   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
    * @property shortCode - The E.164 format of the short code.
-   * @property countryCode - The 2 character ISO Country Code of the number.
+   * @property countryCode - The 2-character ISO Country Code of the number.
    * @property capabilities - Any array of values that indicate whether the number can receive calls or messages.
-   * @property url - The url
+   * @property url - The absolute URL of this ShortCode resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The 34 character unique sid of the Service.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service that this resource is associated with
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V1, payload: ShortCodePayload, serviceSid: string, sid: string);
 

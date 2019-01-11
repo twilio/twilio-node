@@ -107,7 +107,6 @@ interface ParticipantListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property identifier - The identifier
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -122,7 +121,6 @@ interface ParticipantListInstanceCreateOptions {
 interface ParticipantListInstanceEachOptions {
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  identifier?: string;
   limit?: number;
   pageSize?: number;
 }
@@ -130,7 +128,6 @@ interface ParticipantListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property identifier - The identifier
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -143,7 +140,6 @@ interface ParticipantListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface ParticipantListInstanceOptions {
-  identifier?: string;
   limit?: number;
   pageSize?: number;
 }
@@ -151,13 +147,11 @@ interface ParticipantListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property identifier - The identifier
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface ParticipantListInstancePageOptions {
-  identifier?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

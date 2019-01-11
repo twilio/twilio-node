@@ -54,7 +54,7 @@ declare class BulkCountryUpdateInstance extends SerializableClass {
    * Initialize the BulkCountryUpdateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property updateCount - The number of countries updated
-   * @property updateRequest - The update_request
+   * @property updateRequest - A URL encoded JSON array of update objects
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

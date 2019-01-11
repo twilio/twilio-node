@@ -84,16 +84,16 @@ interface CountryListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property continent - Filter to retrieve the country permissions by specifying the continent
- * @property countryCode - country codes
+ * @property countryCode - Country code filter
  * @property done - Function to be called upon completion of streaming
- * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
- * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+ * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled
+ * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled
  * @property isoCode - Filter to retrieve the country permissions by specifying the ISO country code
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
+ * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -118,15 +118,15 @@ interface CountryListInstanceEachOptions {
  * Options to pass to list
  *
  * @property continent - Filter to retrieve the country permissions by specifying the continent
- * @property countryCode - country codes
- * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
- * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+ * @property countryCode - Country code filter
+ * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled
+ * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled
  * @property isoCode - Filter to retrieve the country permissions by specifying the ISO country code
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
+ * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -149,11 +149,11 @@ interface CountryListInstanceOptions {
  * Options to pass to page
  *
  * @property continent - Filter to retrieve the country permissions by specifying the continent
- * @property countryCode - country codes
- * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
- * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+ * @property countryCode - Country code filter
+ * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled
+ * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled
  * @property isoCode - Filter to retrieve the country permissions by specifying the ISO country code
- * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
+ * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -218,11 +218,11 @@ declare class CountryInstance extends SerializableClass {
    * @property name - Name of the country
    * @property continent - Name of the continent
    * @property countryCodes - The E.164 assigned country codes(s)
-   * @property lowRiskNumbersEnabled - true, if dialing to low-risk numbers is enabled, else false
-   * @property highRiskSpecialNumbersEnabled - true, if dialing to high-risk special services numbers is enabled, else false. This group of prefixes, are number ranges allocated by the corresponding country. They consist of number types such as premium numbers, special services, shared cost and others
-   * @property highRiskTollfraudNumbersEnabled - true, if dialing to high-risk toll fraud numbers is enabled, else false. This group of prefixes are narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks also called toll fraud. The group of prefixes is formed through integration with anti-fraud databases and verified by analyzing calls on the Twilio Super Network. This group of prefixes are not available for download and are updated frequently
-   * @property url - The URL for this resource
-   * @property links - The links
+   * @property lowRiskNumbersEnabled - `true`, if dialing to low-risk numbers is enabled, else `false`
+   * @property highRiskSpecialNumbersEnabled - `true`, if dialing to high-risk special services numbers is enabled, else `false`
+   * @property highRiskTollfraudNumbersEnabled - `true`, if dialing to high-risk toll fraud numbers is enabled, else `false`
+   * @property url - The absolute URL of this resource
+   * @property links - A list of URLs related to this resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

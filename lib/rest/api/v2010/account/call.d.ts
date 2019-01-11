@@ -27,20 +27,20 @@ type CallUpdateStatus = 'canceled'|'completed';
  * @description Initialize the CallList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the Account responsible for creating this Call
+ * @param accountSid - The SID of the Account that created this resource
  */
 declare function CallList(version: V2010, accountSid: string): CallListInstance;
 
 /**
  * Options to pass to update
  *
- * @property fallbackMethod - HTTP Method to use with FallbackUrl
+ * @property fallbackMethod - HTTP Method to use with fallback_url
  * @property fallbackUrl - Fallback URL in case of error
  * @property method - HTTP method to use to fetch TwiML
- * @property status - Status to update the Call with
- * @property statusCallback - Status Callback URL
- * @property statusCallbackMethod - HTTP Method to use with StatusCallback
- * @property url - URL that returns TwiML
+ * @property status - The new status to update the call with.
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackMethod - HTTP Method to use to call status_callback
+ * @property url - The absolute URL that returns TwiML for this call
  */
 interface CallInstanceUpdateOptions {
   fallbackMethod?: string;
@@ -82,7 +82,7 @@ interface CallListInstance {
   /**
    * Constructs a call
    *
-   * @param sid - Call Sid that uniquely identifies the Call to fetch
+   * @param sid - The unique string that identifies this resource
    */
   get(sid: string): CallContext;
   /**
@@ -119,30 +119,30 @@ interface CallListInstance {
 /**
  * Options to pass to create
  *
- * @property applicationSid - ApplicationSid that configures from where to fetch TwiML
- * @property callerId - The phone number, SIP address, or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
- * @property fallbackMethod - HTTP Method to use with FallbackUrl
+ * @property applicationSid - The SID of the Application resource that will handle the call
+ * @property callerId - The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
+ * @property fallbackMethod - HTTP Method to use with fallback_url
  * @property fallbackUrl - Fallback URL in case of error
  * @property from - Twilio number from which to originate the call
- * @property ifMachine - The if_machine
+ * @property ifMachine - The action to take if an answering machine is detected
  * @property machineDetection - Enable machine detection or end of greeting detection
- * @property machineDetectionTimeout - Number of miliseconds to wait for machine detection
+ * @property machineDetectionTimeout - Number of milliseconds to wait for machine detection
  * @property method - HTTP method to use to fetch TwiML
- * @property record - Whether or not to record the Call
- * @property recordingChannels - mono or dualSet this parameter to specify the number of channels in the final recording.
- * @property recordingStatusCallback - A URL that Twilio will send a webhook request to when the recording is available for access.
- * @property recordingStatusCallbackEvent - The recording status changes that Twilio will send webhooks on to the URL specified in RecordingStatusCallback.
- * @property recordingStatusCallbackMethod - The HTTP method Twilio should use when requesting the `RecordingStatusCallback` URL.
- * @property sendDigits - Digits to send
- * @property sipAuthPassword - The sip_auth_password
- * @property sipAuthUsername - The sip_auth_username
- * @property statusCallback - Status Callback URL
- * @property statusCallbackEvent - The call progress events that Twilio will send webhooks on.
- * @property statusCallbackMethod - HTTP Method to use with StatusCallback
+ * @property record - Whether or not to record the call
+ * @property recordingChannels - The number of channels in the final recording
+ * @property recordingStatusCallback - The URL that we call when the recording is available to be accessed
+ * @property recordingStatusCallbackEvent - The recording status events that will trigger calls to the URL specified in `recording_status_callback`
+ * @property recordingStatusCallbackMethod - The HTTP method we should use when calling the `recording_status_callback` URL
+ * @property sendDigits - The digits to dial after connecting to the number
+ * @property sipAuthPassword - The password required to authenticate the user account specified in `sip_auth_username`.
+ * @property sipAuthUsername - The username used to authenticate the caller making a SIP call
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackEvent - The call progress events that we send to the `status_callback` URL.
+ * @property statusCallbackMethod - HTTP Method to use with status_callback
  * @property timeout - Number of seconds to wait for an answer
  * @property to - Phone number, SIP address, or client identifier to call
  * @property trim - Set this parameter to control trimming of silence on the recording.
- * @property url - Url from which to fetch TwiML
+ * @property url - The absolute URL that returns TwiML for this call
  */
 interface CallListInstanceCreateOptions {
   applicationSid?: string;
@@ -178,9 +178,9 @@ interface CallListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property endTime - EndTime to filter on
- * @property endTimeAfter - EndTime to filter on
- * @property endTimeBefore - EndTime to filter on
+ * @property endTime - Only include usage that occurred on or before this date
+ * @property endTimeAfter - Only include usage that occurred on or before this date
+ * @property endTimeBefore - Only include usage that occurred on or before this date
  * @property from - Phone number or Client identifier to filter `from` on
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -192,12 +192,12 @@ interface CallListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property parentCallSid - Parent Call Sid to filter on
- * @property startTime - StartTime to filter on
- * @property startTimeAfter - StartTime to filter on
- * @property startTimeBefore - StartTime to filter on
- * @property status - Status to filter on
- * @property to - Phone number or Client identifier to filter `to` on
+ * @property parentCallSid - Parent call SID to filter on
+ * @property startTime - Only include calls that started on or after this date
+ * @property startTimeAfter - Only include calls that started on or after this date
+ * @property startTimeBefore - Only include calls that started on or after this date
+ * @property status - The status of the resources to read
+ * @property to - Phone number or Client identifier of calls to include
  */
 interface CallListInstanceEachOptions {
   callback?: (item: CallInstance, done: (err?: Error) => void) => void;
@@ -219,9 +219,9 @@ interface CallListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property endTime - EndTime to filter on
- * @property endTimeAfter - EndTime to filter on
- * @property endTimeBefore - EndTime to filter on
+ * @property endTime - Only include usage that occurred on or before this date
+ * @property endTimeAfter - Only include usage that occurred on or before this date
+ * @property endTimeBefore - Only include usage that occurred on or before this date
  * @property from - Phone number or Client identifier to filter `from` on
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -233,12 +233,12 @@ interface CallListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property parentCallSid - Parent Call Sid to filter on
- * @property startTime - StartTime to filter on
- * @property startTimeAfter - StartTime to filter on
- * @property startTimeBefore - StartTime to filter on
- * @property status - Status to filter on
- * @property to - Phone number or Client identifier to filter `to` on
+ * @property parentCallSid - Parent call SID to filter on
+ * @property startTime - Only include calls that started on or after this date
+ * @property startTimeAfter - Only include calls that started on or after this date
+ * @property startTimeBefore - Only include calls that started on or after this date
+ * @property status - The status of the resources to read
+ * @property to - Phone number or Client identifier of calls to include
  */
 interface CallListInstanceOptions {
   endTime?: Date;
@@ -258,19 +258,19 @@ interface CallListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property endTime - EndTime to filter on
- * @property endTimeAfter - EndTime to filter on
- * @property endTimeBefore - EndTime to filter on
+ * @property endTime - Only include usage that occurred on or before this date
+ * @property endTimeAfter - Only include usage that occurred on or before this date
+ * @property endTimeBefore - Only include usage that occurred on or before this date
  * @property from - Phone number or Client identifier to filter `from` on
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property parentCallSid - Parent Call Sid to filter on
- * @property startTime - StartTime to filter on
- * @property startTimeAfter - StartTime to filter on
- * @property startTimeBefore - StartTime to filter on
- * @property status - Status to filter on
- * @property to - Phone number or Client identifier to filter `to` on
+ * @property parentCallSid - Parent call SID to filter on
+ * @property startTime - Only include calls that started on or after this date
+ * @property startTimeAfter - Only include calls that started on or after this date
+ * @property startTimeBefore - Only include calls that started on or after this date
+ * @property status - The status of the resources to read
+ * @property to - Phone number or Client identifier of calls to include
  */
 interface CallListInstancePageOptions {
   endTime?: Date;
@@ -333,8 +333,8 @@ declare class CallContext {
    * @property feedback - feedback resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Call Sid that uniquely identifies the Call to fetch
+   * @param accountSid - The SID of the Account that created the resource(s) to fetch
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -367,36 +367,36 @@ declare class CallInstance extends SerializableClass {
   /**
    * Initialize the CallContext
    *
-   * @property accountSid - The unique id of the Account responsible for creating this Call
-   * @property annotation - The annotation provided for the Call
-   * @property answeredBy - Either `human` or `machine` if this Call was initiated with answering machine detection. Empty otherwise.
-   * @property apiVersion - The API Version used to create the Call
-   * @property callerName - The caller's name if this Call was an incoming call to a phone number with Caller ID Lookup enabled. Empty otherwise.
-   * @property dateCreated - The date that this resource was created
-   * @property dateUpdated - The date that this resource was last updated
-   * @property direction - A string describing the direction of the Call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
-   * @property duration - The length of the Call in seconds.
-   * @property endTime - The end time of the Call. Null if the call did not complete successfully.
-   * @property forwardedFrom - The forwarding phone number if this Call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Empty otherwise.
-   * @property from - The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-   * @property fromFormatted - The phone number, SIP address or Client identifier that made this Call. Formatted for display.
-   * @property groupSid - A 34-character Group Sid associated with this Call. Empty if no Group is associated with the Call.
-   * @property parentCallSid - A 34-character string that uniquely identifies the Call that created this leg.
-   * @property phoneNumberSid - If the call was inbound, this is the Sid of the `IncomingPhoneNumber` that received the call. If the call was outbound, it is the Sid of the `OutgoingCallerId` from which the call was placed.
-   * @property price - The charge for this Call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+   * @property accountSid - The SID of the Account that created this resource
+   * @property annotation - The annotation provided for the call
+   * @property answeredBy - Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
+   * @property apiVersion - The API Version used to create the call
+   * @property callerName - The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
+   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
+   * @property direction - A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
+   * @property duration - The length of the call in seconds.
+   * @property endTime - The end time of the call. Null if the call did not complete successfully.
+   * @property forwardedFrom - The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.
+   * @property from - The phone number, SIP address or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+   * @property fromFormatted - The calling phone number, SIP address, or Client identifier formatted for display.
+   * @property groupSid - The Group SID associated with this call. If no Group is associated with the call, the field is empty.
+   * @property parentCallSid - The SID that identifies the call that created this leg.
+   * @property phoneNumberSid - If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
+   * @property price - The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
    * @property priceUnit - The currency in which `Price` is measured.
-   * @property sid - A 34-character string that uniquely identifies the Call resource.
-   * @property startTime - The start time of the Call. Null if the call has not yet been dialed.
-   * @property status - A string representing the status of the Call.
-   * @property subresourceUris - Call Instance Subresources
-   * @property to - The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-   * @property toFormatted - The phone number, SIP address or Client identifier that received this Call. Formatted for display.
-   * @property uri - The URI for this resource, relative to `https://api.twilio.com`
+   * @property sid - The unique string that identifies this resource
+   * @property startTime - The start time of the call. Null if the call has not yet been dialed.
+   * @property status - The status of this call.
+   * @property subresourceUris - A list of related subresources identified by their relative URIs
+   * @property to - The phone number, SIP address or Client identifier that received this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+   * @property toFormatted - The phone number, SIP address or Client identifier that received this call. Formatted for display.
+   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the Account responsible for creating this Call
-   * @param sid - Call Sid that uniquely identifies the Call to fetch
+   * @param accountSid - The SID of the Account that created this resource
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, payload: CallPayload, accountSid: string, sid: string);
 

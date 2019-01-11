@@ -19,8 +19,8 @@ type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'
  * @description Initialize the RecordingList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
- * @param callSid - The unique id for the call leg that corresponds to the recording.
+ * @param accountSid - The SID of the Account that created this resource
+ * @param callSid - The SID of the Call this resource is associated with
  */
 declare function RecordingList(version: V2010, accountSid: string, callSid: string): RecordingListInstance;
 
@@ -28,7 +28,7 @@ declare function RecordingList(version: V2010, accountSid: string, callSid: stri
  * Options to pass to update
  *
  * @property pauseBehavior - Whether to record or not during the pause period.
- * @property status - The status to change the recording to.
+ * @property status - The new status of the recording
  */
 interface RecordingInstanceUpdateOptions {
   pauseBehavior?: string;
@@ -64,7 +64,7 @@ interface RecordingListInstance {
   /**
    * Constructs a recording
    *
-   * @param sid - Fetch by unique recording Sid
+   * @param sid - The unique string that identifies this resource
    */
   get(sid: string): RecordingContext;
   /**
@@ -102,9 +102,9 @@ interface RecordingListInstance {
  * Options to pass to create
  *
  * @property recordingChannels - The number of channels that the output recording will be configured with
- * @property recordingStatusCallback - The callback URL for recording actions
+ * @property recordingStatusCallback - The callback URL on each selected recording event
  * @property recordingStatusCallbackEvent - The recording status changes that should generate a callback
- * @property recordingStatusCallbackMethod - The HTTP method Twilio should use when making a request to the RecordingStatusCallback URL
+ * @property recordingStatusCallbackMethod - The HTTP method we should use when calling the recording_status_callback URL
  * @property trim - Whether to trim the silence in the recording
  */
 interface RecordingListInstanceCreateOptions {
@@ -121,9 +121,9 @@ interface RecordingListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -149,9 +149,9 @@ interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -174,9 +174,9 @@ interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -224,9 +224,9 @@ declare class RecordingContext {
    * Initialize the RecordingContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The unique sid that identifies this account
-   * @param callSid - Fetch by unique call Sid for the recording
-   * @param sid - Fetch by unique recording Sid
+   * @param accountSid - The SID of the Account that created the resource(s) to fetch
+   * @param callSid - The Call SID of the resource(s) to fetch
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, accountSid: string, callSid: string, sid: string);
 
@@ -256,29 +256,29 @@ declare class RecordingInstance extends SerializableClass {
   /**
    * Initialize the RecordingContext
    *
-   * @property accountSid - The unique sid that identifies this account
-   * @property apiVersion - The version of the API in use during the recording.
-   * @property callSid - The unique id for the call leg that corresponds to the recording.
-   * @property conferenceSid - The unique id for the conference associated with the recording, if a conference recording.
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property startTime - The start time of the recording, given in RFC 2822 format.
-   * @property duration - The length of the recording, in seconds.
-   * @property sid - A string that uniquely identifies this recording
+   * @property accountSid - The SID of the Account that created this resource
+   * @property apiVersion - The API version used to make the recording
+   * @property callSid - The SID of the Call this resource is associated with
+   * @property conferenceSid - The Conference SID that identifies the conference associated with the recording
+   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
+   * @property startTime - The start time of the recording, given in RFC 2822 format
+   * @property duration - The length of the recording in seconds
+   * @property sid - The unique string that identifies this resource
    * @property price - The one-time cost of creating this recording.
-   * @property uri - The URI for this resource
-   * @property encryptionDetails - Details for how to decrypt the recording.
-   * @property priceUnit - The currency used in the Price property.
-   * @property status - The status of the recording.
-   * @property channels - The number of channels in the final recording file as an integer.
-   * @property source - The way in which this recording was created.
-   * @property errorCode - More information about why the recording is missing, if Status is `absent`.
+   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
+   * @property encryptionDetails - Details about how to decrypt the recording
+   * @property priceUnit - The currency used in the Price property
+   * @property status - The status of this recording
+   * @property channels - The number of channels in the final recording file as an integer
+   * @property source - How this recording was created
+   * @property errorCode - More information about why the recording is missing, if status is `absent`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param callSid - The unique id for the call leg that corresponds to the recording.
-   * @param sid - Fetch by unique recording Sid
+   * @param accountSid - The SID of the Account that created this resource
+   * @param callSid - The SID of the Call this resource is associated with
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, payload: RecordingPayload, accountSid: string, callSid: string, sid: string);
 

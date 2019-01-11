@@ -14,16 +14,16 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the ShortCodeList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created this resource
  */
 declare function ShortCodeList(version: V2010, accountSid: string): ShortCodeListInstance;
 
 /**
  * Options to pass to update
  *
- * @property apiVersion - The API version to use
- * @property friendlyName - A human readable description of this resource
- * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
+ * @property apiVersion - The API version to use to start a new TwiML session
+ * @property friendlyName - A string to describe this resource
+ * @property smsFallbackMethod - HTTP method Twilio will use with sms_fallback_url
  * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
  * @property smsMethod - HTTP method to use when requesting the sms url
  * @property smsUrl - URL Twilio will request when receiving an SMS
@@ -59,7 +59,7 @@ interface ShortCodeListInstance {
   /**
    * Constructs a short_code
    *
-   * @param sid - Fetch by unique short-code Sid
+   * @param sid - The unique string that identifies this resource
    */
   get(sid: string): ShortCodeContext;
   /**
@@ -100,7 +100,7 @@ interface ShortCodeListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the ShortCode resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -125,7 +125,7 @@ interface ShortCodeListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the ShortCode resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -148,7 +148,7 @@ interface ShortCodeListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the ShortCode resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -190,8 +190,8 @@ declare class ShortCodeContext {
    * Initialize the ShortCodeContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique short-code Sid
+   * @param accountSid - The SID of the Account that created the resource(s) to fetch
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -215,23 +215,23 @@ declare class ShortCodeInstance extends SerializableClass {
   /**
    * Initialize the ShortCodeContext
    *
-   * @property accountSid - The unique sid that identifies this account
-   * @property apiVersion - The API version to use
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property friendlyName - A human readable description of this resource
+   * @property accountSid - The SID of the Account that created this resource
+   * @property apiVersion - The API version used to start a new TwiML session
+   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
+   * @property friendlyName - A string that you assigned to describe this resource
    * @property shortCode - The short code. e.g., 894546.
-   * @property sid - A string that uniquely identifies this short-codes
-   * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
+   * @property sid - The unique string that identifies this resource
+   * @property smsFallbackMethod - HTTP method we use to call the sms_fallback_url
    * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
    * @property smsMethod - HTTP method to use when requesting the sms url
-   * @property smsUrl - URL Twilio will request when receiving an SMS
-   * @property uri - The URI for this resource
+   * @property smsUrl - URL we call when receiving an incoming SMS message to this short code
+   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param sid - Fetch by unique short-code Sid
+   * @param accountSid - The SID of the Account that created this resource
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, payload: ShortCodePayload, accountSid: string, sid: string);
 

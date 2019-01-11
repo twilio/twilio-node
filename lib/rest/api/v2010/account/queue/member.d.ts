@@ -14,16 +14,16 @@ import { SerializableClass } from '../../../../../interfaces';
  * @description Initialize the MemberList
  *
  * @param version - Version of the resource
- * @param accountSid - The account_sid
- * @param queueSid - A string that uniquely identifies this queue
+ * @param accountSid - The SID of the Account that created this resource
+ * @param queueSid - The unique string that identifies this resource
  */
 declare function MemberList(version: V2010, accountSid: string, queueSid: string): MemberListInstance;
 
 /**
  * Options to pass to update
  *
- * @property method - The method
- * @property url - The url
+ * @property method - How to pass the update request data
+ * @property url - The absolute URL of this Queue resource
  */
 interface MemberInstanceUpdateOptions {
   method: string;
@@ -52,7 +52,7 @@ interface MemberListInstance {
   /**
    * Constructs a member
    *
-   * @param callSid - The call_sid
+   * @param callSid - The Call SID of the resource(s) to fetch
    */
   get(callSid: string): MemberContext;
   /**
@@ -165,9 +165,9 @@ declare class MemberContext {
    * Initialize the MemberContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
+   * @param accountSid - The SID of the Account that created the resource(s) to fetch
    * @param queueSid - The Queue in which to find the members
-   * @param callSid - The call_sid
+   * @param callSid - The Call SID of the resource(s) to fetch
    */
   constructor(version: V2010, accountSid: string, queueSid: string, callSid: string);
 
@@ -191,17 +191,17 @@ declare class MemberInstance extends SerializableClass {
   /**
    * Initialize the MemberContext
    *
-   * @property callSid - Unique string that identifies this resource
+   * @property callSid - The SID of the Call this resource is associated with
    * @property dateEnqueued - The date the member was enqueued
    * @property position - This member's current position in the queue.
-   * @property uri - The uri
+   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
    * @property waitTime - The number of seconds the member has been in the queue.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
-   * @param queueSid - A string that uniquely identifies this queue
-   * @param callSid - The call_sid
+   * @param accountSid - The SID of the Account that created this resource
+   * @param queueSid - The unique string that identifies this resource
+   * @param callSid - The Call SID of the resource(s) to fetch
    */
   constructor(version: V2010, payload: MemberPayload, accountSid: string, queueSid: string, callSid: string);
 

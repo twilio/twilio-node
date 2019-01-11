@@ -117,8 +117,8 @@ interface CompositionListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Compositions created on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Compositions created before this ISO8601 date-time with timezone.
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -147,8 +147,8 @@ interface CompositionListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Compositions created on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Compositions created before this ISO8601 date-time with timezone.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -174,8 +174,8 @@ interface CompositionListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
+ * @property dateCreatedAfter - Only show Compositions created on or after this ISO8601 date-time with timezone.
+ * @property dateCreatedBefore - Only show Compositions created before this ISO8601 date-time with timezone.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API

@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../../interfaces';
  * @description Initialize the MediaList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created this resource
  * @param messageSid - A string that uniquely identifies this message
  */
 declare function MediaList(version: V2010, accountSid: string, messageSid: string): MediaListInstance;
@@ -42,7 +42,7 @@ interface MediaListInstance {
   /**
    * Constructs a media
    *
-   * @param sid - Fetch by unique media Sid
+   * @param sid - The unique string that identifies this resource
    */
   get(sid: string): MediaContext;
   /**
@@ -82,9 +82,9 @@ interface MediaListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -110,9 +110,9 @@ interface MediaListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -135,9 +135,9 @@ interface MediaListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -175,9 +175,9 @@ declare class MediaContext {
    * Initialize the MediaContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param messageSid - The message_sid
-   * @param sid - Fetch by unique media Sid
+   * @param accountSid - The SID of the Account that created the resource(s) to fetch
+   * @param messageSid - The SID of the Message resource that this Media resource belongs to
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, accountSid: string, messageSid: string, sid: string);
 
@@ -200,19 +200,19 @@ declare class MediaInstance extends SerializableClass {
   /**
    * Initialize the MediaContext
    *
-   * @property accountSid - The unique sid that identifies this account
+   * @property accountSid - The SID of the Account that created this resource
    * @property contentType - The default mime-type of the media
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property parentSid - The unique id of the resource that created the media.
-   * @property sid - A string that uniquely identifies this media
-   * @property uri - The URI for this resource
+   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
+   * @property parentSid - The SID of the resource that created the media
+   * @property sid - The unique string that identifies this resource
+   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
+   * @param accountSid - The SID of the Account that created this resource
    * @param messageSid - A string that uniquely identifies this message
-   * @param sid - Fetch by unique media Sid
+   * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, payload: MediaPayload, accountSid: string, messageSid: string, sid: string);
 

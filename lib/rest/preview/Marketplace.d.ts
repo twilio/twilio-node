@@ -17,8 +17,8 @@ declare class Marketplace extends Version {
   /**
    * Initialize the Marketplace version of Preview
    *
-   * @property installedAddOns - installedAddOns resource
    * @property availableAddOns - availableAddOns resource
+   * @property installedAddOns - installedAddOns resource
    *
    * @param domain - The twilio domain
    */

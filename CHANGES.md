@@ -1,6 +1,16 @@
 twilio-node changelog
 =====================
 
+[2019-01-11] Version 3.27.0
+----------------------------
+**Chat**
+- Mark Member attributes as PII
+
+**Proxy**
+- Remove unsupported query parameters **(breaking change)**
+- Remove invalid session statuses in doc
+
+
 [2019-01-02] Version 3.26.1
 ----------------------------
 **Insights**

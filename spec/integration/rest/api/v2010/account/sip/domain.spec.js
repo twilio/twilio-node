@@ -54,7 +54,8 @@ describe('Domain', function() {
                   'voice_method': 'POST',
                   'voice_status_callback_method': 'POST',
                   'voice_status_callback_url': null,
-                  'voice_url': 'https://dundermifflin.example.com/twilio/app.php'
+                  'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
+                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'start': 0,
@@ -96,7 +97,8 @@ describe('Domain', function() {
                   'voice_method': 'POST',
                   'voice_status_callback_method': 'POST',
                   'voice_status_callback_url': null,
-                  'voice_url': 'https://dundermifflin.example.com/twilio/app.php'
+                  'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
+                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'start': 0,
@@ -143,7 +145,8 @@ describe('Domain', function() {
                   'voice_method': 'POST',
                   'voice_status_callback_method': 'POST',
                   'voice_status_callback_url': null,
-                  'voice_url': 'https://dundermifflin.example.com/twilio/app.php'
+                  'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
+                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'start': 0,
@@ -208,7 +211,8 @@ describe('Domain', function() {
                   'voice_method': 'POST',
                   'voice_status_callback_method': 'POST',
                   'voice_status_callback_url': null,
-                  'voice_url': 'https://dundermifflin.example.com/twilio/app.php'
+                  'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
+                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'start': 0,
@@ -311,7 +315,8 @@ describe('Domain', function() {
           'voice_method': 'POST',
           'voice_status_callback_method': 'POST',
           'voice_status_callback_url': null,
-          'voice_url': 'https://dundermifflin.example.com/twilio/app.php'
+          'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
+          'trunk_sid': null
       });
 
       holodeck.mock(new Response(201, body));
@@ -377,7 +382,8 @@ describe('Domain', function() {
           'voice_method': 'POST',
           'voice_status_callback_method': 'POST',
           'voice_status_callback_url': null,
-          'voice_url': 'https://dundermifflin.example.com/twilio/app.php'
+          'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
+          'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
@@ -442,7 +448,8 @@ describe('Domain', function() {
           'voice_method': 'POST',
           'voice_status_callback_method': 'POST',
           'voice_status_callback_url': null,
-          'voice_url': 'https://dundermifflin.example.com/twilio/app.php'
+          'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
+          'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));

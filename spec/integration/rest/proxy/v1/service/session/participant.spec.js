@@ -64,10 +64,44 @@ describe('Participant', function() {
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'identifier': 'identifier',
-          'proxy_identifier': 'proxy_identifier',
+          'identifier': '+14155551212',
+          'proxy_identifier': '+14155559999',
           'proxy_identifier_sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
+          'date_deleted': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'date_created': '2015-07-30T20:00:00Z',
+          'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'message_interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid fetch_channel response',
+    function() {
+      var body = JSON.stringify({
+          'sid': 'KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identifier': 'messenger:14155551212',
+          'proxy_identifier': 'messenger:14155559999',
+          'proxy_identifier_sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'friendly_name': 'a facebook user',
           'date_deleted': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'date_created': '2015-07-30T20:00:00Z',
@@ -182,10 +216,45 @@ describe('Participant', function() {
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'identifier': 'identifier',
-          'proxy_identifier': 'proxy_identifier',
+          'identifier': '+14155551212',
+          'proxy_identifier': '+14155559999',
           'proxy_identifier_sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
+          'date_deleted': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'date_created': '2015-07-30T20:00:00Z',
+          'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'message_interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions'
+          }
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {identifier: 'identifier'};
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants.create(opts);
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid create_channel response',
+    function() {
+      var body = JSON.stringify({
+          'sid': 'KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identifier': 'messenger:123456',
+          'proxy_identifier': 'messenger:987654532',
+          'proxy_identifier_sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'friendly_name': 'a facebook user',
           'date_deleted': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'date_created': '2015-07-30T20:00:00Z',
