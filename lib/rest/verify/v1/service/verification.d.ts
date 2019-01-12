@@ -58,6 +58,7 @@ interface VerificationResource {
   channel: VerificationChannel;
   date_created: Date;
   date_updated: Date;
+  lookup: string;
   service_sid: string;
   sid: string;
   status: string;
@@ -81,6 +82,7 @@ declare class VerificationInstance extends SerializableClass {
    * @property channel - sms or call
    * @property status - pending, approved, denied or expired
    * @property valid - successful verification
+   * @property lookup - Info about the phone number
    * @property dateCreated - The date this Verification was created
    * @property dateUpdated - The date this Verification was updated
    *
@@ -94,6 +96,7 @@ declare class VerificationInstance extends SerializableClass {
   channel: VerificationChannel;
   dateCreated: Date;
   dateUpdated: Date;
+  lookup: string;
   serviceSid: string;
   sid: string;
   status: string;

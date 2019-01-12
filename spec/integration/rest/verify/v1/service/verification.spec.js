@@ -66,7 +66,16 @@ describe('Verification', function() {
           'status': 'pending',
           'valid': null,
           'date_created': '2015-07-30T20:00:00Z',
-          'date_updated': '2015-07-30T20:00:00Z'
+          'date_updated': '2015-07-30T20:00:00Z',
+          'lookup': {
+              'carrier': {
+                  'error_code': null,
+                  'name': 'Carrier Name',
+                  'mobile_country_code': '310',
+                  'mobile_network_code': '150',
+                  'type': 'mobile'
+              }
+          }
       });
 
       holodeck.mock(new Response(201, body));

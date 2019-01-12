@@ -35,11 +35,13 @@ interface VerificationCheckListInstance {
  * Options to pass to create
  *
  * @property code - The verification string
- * @property to - To phonenumber
+ * @property to - To phone number
+ * @property verificationSid - A SID that uniquely identifies this Verification Check
  */
 interface VerificationCheckListInstanceCreateOptions {
   code: string;
   to?: string;
+  verificationSid?: string;
 }
 
 interface VerificationCheckPayload extends VerificationCheckResource, Page.TwilioResponsePayload {
@@ -69,7 +71,7 @@ declare class VerificationCheckInstance extends SerializableClass {
    * @property sid - A string that uniquely identifies this Verification Check.
    * @property serviceSid - Service Sid.
    * @property accountSid - Account Sid.
-   * @property to - To phonenumber
+   * @property to - To phone number
    * @property channel - sms or call
    * @property status - pending, approved, denied or expired
    * @property valid - successful verification
