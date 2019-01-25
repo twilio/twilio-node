@@ -22,9 +22,9 @@ const token = '12345';
 const defaultSignature = 'RSOYDt4T1cUTdK1PDd93/VVr8B8=';
 const requestUrl = 'https://mycompany.com/myapp.php?foo=1&bar=2';
 const body = "{\"property\": \"value\", \"boolean\": true}";
-const bodySignature = "Ch/3Y02as7ldtcmi3+lBbkFQKyg6gMfPGWMmMvluZiA=";
-const requestUrlWithHash = requestUrl + '&bodySHA256=' + bodySignature.replace('+', '%2B').replace('=', '%3D');
-const requestUrlWithHashSignature = 'afcFvPLPYT8mg/JyIVkdnqQKa2s=';
+const bodySignature = "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620";
+const requestUrlWithHash = requestUrl + '&bodySHA256=' + bodySignature;
+const requestUrlWithHashSignature = 'a9nBmqA0ju/hNViExpshrM61xv4=';
 
 describe('Request validation', () => {
     it('should succeed with the correct signature', () => {
@@ -59,7 +59,7 @@ describe('Request validation', () => {
 
     it('should validate request body with only sha param', () => {
         const shortUrl = 'https://mycompany.com/myapp.php?bodySHA256=' + bodySignature.replace('+', '%2B').replace('=', '%3D');
-        const isValid = validateRequestWithBody(token, 'DXnNFCj8DJ/hZmiSg4UzaDHw5Og=', shortUrl, body);
+        const isValid = validateRequestWithBody(token, 'y77kIzt2vzLz71DgmJGsen2scGs=', shortUrl, body);
 
         expect(isValid).toBeTruthy();
     });
@@ -199,7 +199,7 @@ describe('Request validation middleware', () => {
 
     it('should fail validation of post body with wrong hash', () => {
         const request = httpMocks.createRequest(Object.assign({}, defaultRequest, {
-            originalUrl: requestUrlWithHash.substring(requestUrlWithHash.indexOf('.com/') + 4).replace('Ch', 'Zh'),
+            originalUrl: requestUrlWithHash.substring(requestUrlWithHash.indexOf('.com/') + 4).slice(0, -1),
             body,
             headers: Object.assign({}, defaultRequest.headers, {
                 'X-Twilio-Signature': requestUrlWithHashSignature,
