@@ -15,8 +15,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * @description Initialize the VoipList
  *
  * @param version - Version of the resource
- * @param accountSid - The 34 character string that uniquely identifies your account.
- * @param countryCode - The ISO Country code to lookup phone numbers for.
+ * @param accountSid - The account_sid
+ * @param countryCode - The ISO-3166-1 country code of the country.
  */
 declare function VoipList(version: V2010, accountSid: string, countryCode: string): VoipListInstance;
 
@@ -69,38 +69,38 @@ interface VoipListInstance {
 /**
  * Options to pass to each
  *
- * @property areaCode - The area_code
- * @property beta - The beta
+ * @property areaCode - The area code of the phone numbers to read
+ * @property beta - Whether to read phone numbers new to the Twilio platform
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property contains - The contains
- * @property distance - The distance
+ * @property contains - The pattern on which to match phone numbers
+ * @property distance - The search radius, in miles, for a near_ query. (US/Canada only)
  * @property done - Function to be called upon completion of streaming
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property faxEnabled - The fax_enabled
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property inPostalCode - The in_postal_code
- * @property inRateCenter - The in_rate_center
- * @property inRegion - The in_region
+ * @property excludeAllAddressRequired - Whether to exclude phone numbers that require an Address
+ * @property excludeForeignAddressRequired - Whether to exclude phone numbers that require a foreign address
+ * @property excludeLocalAddressRequired - Whether to exclude phone numbers that require a local address
+ * @property faxEnabled - Whether the phone numbers can receive faxes
+ * @property inLata - Limit results to a specific local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality
+ * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
+ * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+ * @property inRegion - Limit results to a particular region. (US/Canada only)
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property mmsEnabled - The mms_enabled
- * @property nearLatLong - The near_lat_long
- * @property nearNumber - The near_number
+ * @property mmsEnabled - Whether the phone numbers can receive MMS messages
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)
+ * @property nearNumber - Given a phone number, find a geographically close number within distance miles. (US/Canada only)
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property smsEnabled - The sms_enabled
- * @property voiceEnabled - The voice_enabled
+ * @property smsEnabled - Whether the phone numbers can receive text messages
+ * @property voiceEnabled - Whether the phone numbers can receive calls.
  */
 interface VoipListInstanceEachOptions {
   areaCode?: number;
@@ -130,34 +130,34 @@ interface VoipListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property areaCode - The area_code
- * @property beta - The beta
- * @property contains - The contains
- * @property distance - The distance
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property faxEnabled - The fax_enabled
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property inPostalCode - The in_postal_code
- * @property inRateCenter - The in_rate_center
- * @property inRegion - The in_region
+ * @property areaCode - The area code of the phone numbers to read
+ * @property beta - Whether to read phone numbers new to the Twilio platform
+ * @property contains - The pattern on which to match phone numbers
+ * @property distance - The search radius, in miles, for a near_ query. (US/Canada only)
+ * @property excludeAllAddressRequired - Whether to exclude phone numbers that require an Address
+ * @property excludeForeignAddressRequired - Whether to exclude phone numbers that require a foreign address
+ * @property excludeLocalAddressRequired - Whether to exclude phone numbers that require a local address
+ * @property faxEnabled - Whether the phone numbers can receive faxes
+ * @property inLata - Limit results to a specific local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality
+ * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
+ * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+ * @property inRegion - Limit results to a particular region. (US/Canada only)
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property mmsEnabled - The mms_enabled
- * @property nearLatLong - The near_lat_long
- * @property nearNumber - The near_number
+ * @property mmsEnabled - Whether the phone numbers can receive MMS messages
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)
+ * @property nearNumber - Given a phone number, find a geographically close number within distance miles. (US/Canada only)
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property smsEnabled - The sms_enabled
- * @property voiceEnabled - The voice_enabled
+ * @property smsEnabled - Whether the phone numbers can receive text messages
+ * @property voiceEnabled - Whether the phone numbers can receive calls.
  */
 interface VoipListInstanceOptions {
   areaCode?: number;
@@ -185,27 +185,27 @@ interface VoipListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property areaCode - The area_code
- * @property beta - The beta
- * @property contains - The contains
- * @property distance - The distance
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property faxEnabled - The fax_enabled
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property inPostalCode - The in_postal_code
- * @property inRateCenter - The in_rate_center
- * @property inRegion - The in_region
- * @property mmsEnabled - The mms_enabled
- * @property nearLatLong - The near_lat_long
- * @property nearNumber - The near_number
+ * @property areaCode - The area code of the phone numbers to read
+ * @property beta - Whether to read phone numbers new to the Twilio platform
+ * @property contains - The pattern on which to match phone numbers
+ * @property distance - The search radius, in miles, for a near_ query. (US/Canada only)
+ * @property excludeAllAddressRequired - Whether to exclude phone numbers that require an Address
+ * @property excludeForeignAddressRequired - Whether to exclude phone numbers that require a foreign address
+ * @property excludeLocalAddressRequired - Whether to exclude phone numbers that require a local address
+ * @property faxEnabled - Whether the phone numbers can receive faxes
+ * @property inLata - Limit results to a specific local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality
+ * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
+ * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+ * @property inRegion - Limit results to a particular region. (US/Canada only)
+ * @property mmsEnabled - Whether the phone numbers can receive MMS messages
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)
+ * @property nearNumber - Given a phone number, find a geographically close number within distance miles. (US/Canada only)
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property smsEnabled - The sms_enabled
- * @property voiceEnabled - The voice_enabled
+ * @property smsEnabled - Whether the phone numbers can receive text messages
+ * @property voiceEnabled - Whether the phone numbers can receive calls.
  */
 interface VoipListInstancePageOptions {
   areaCode?: number;
@@ -260,24 +260,24 @@ declare class VoipInstance extends SerializableClass {
   /**
    * Initialize the VoipContext
    *
-   * @property friendlyName - The friendly_name
-   * @property phoneNumber - The phone_number
-   * @property lata - The lata
-   * @property locality - The locality
-   * @property rateCenter - The rate_center
-   * @property latitude - The latitude
-   * @property longitude - The longitude
-   * @property region - The region
-   * @property postalCode - The postal_code
-   * @property isoCountry - The iso_country
-   * @property addressRequirements - The address_requirements
-   * @property beta - The beta
-   * @property capabilities - The capabilities
+   * @property friendlyName - A formatted version of the phone number
+   * @property phoneNumber - The phone number in E.164 format
+   * @property lata - The LATA of this phone number
+   * @property locality - The locality or city of this phone number's location
+   * @property rateCenter - The rate center of this phone number
+   * @property latitude - The latitude of this phone number's location
+   * @property longitude - The longitude of this phone number's location
+   * @property region - The two-letter state or province abbreviation of this phone number's location
+   * @property postalCode - The postal or ZIP code of this phone number's location
+   * @property isoCountry - The ISO country code of this phone number
+   * @property addressRequirements - The type of Address resource the phone number requires
+   * @property beta - Whether the phone number is new to the Twilio platform
+   * @property capabilities - Whether a phone number can receive calls or messages
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The 34 character string that uniquely identifies your account.
-   * @param countryCode - The ISO Country code to lookup phone numbers for.
+   * @param accountSid - The account_sid
+   * @param countryCode - The ISO-3166-1 country code of the country.
    */
   constructor(version: V2010, payload: VoipPayload, accountSid: string, countryCode: string);
 

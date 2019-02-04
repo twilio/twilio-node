@@ -73,10 +73,10 @@ interface DailyListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property category - Only include usage of this usage category.
+ * @property category - The usage category of the UsageRecord resources to read
  * @property done - Function to be called upon completion of streaming
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property includeSubaccounts - Whether to include usage from the master account and all its subaccounts
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -87,7 +87,7 @@ interface DailyListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property startDate - Only include usage that has occurred on or after this date.
+ * @property startDate - Only include usage that has occurred on or after this date
  */
 interface DailyListInstanceEachOptions {
   callback?: (item: DailyInstance, done: (err?: Error) => void) => void;
@@ -103,9 +103,9 @@ interface DailyListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property category - Only include usage of this usage category.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
+ * @property category - The usage category of the UsageRecord resources to read
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property includeSubaccounts - Whether to include usage from the master account and all its subaccounts
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -116,7 +116,7 @@ interface DailyListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property startDate - Only include usage that has occurred on or after this date.
+ * @property startDate - Only include usage that has occurred on or after this date
  */
 interface DailyListInstanceOptions {
   category?: DailyCategory;
@@ -130,13 +130,13 @@ interface DailyListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property category - Only include usage of this usage category.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
+ * @property category - The usage category of the UsageRecord resources to read
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property includeSubaccounts - Whether to include usage from the master account and all its subaccounts
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property startDate - Only include usage that has occurred on or after this date.
+ * @property startDate - Only include usage that has occurred on or after this date
  */
 interface DailyListInstancePageOptions {
   category?: DailyCategory;
@@ -177,20 +177,20 @@ declare class DailyInstance extends SerializableClass {
   /**
    * Initialize the DailyContext
    *
-   * @property accountSid - The Account that accrued the usage.
-   * @property apiVersion - The api_version
-   * @property category - The category of usage.
-   * @property count - The number of usage events.
-   * @property countUnit - The units in which Count is measured.
-   * @property description - A human-readable description of the usage category.
-   * @property endDate - The last date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.
-   * @property price - The total price of the usage, in the currency associated with the account.
-   * @property priceUnit - The currency in which Price is measured, in ISO 4127 format.
-   * @property startDate - The first date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.
-   * @property subresourceUris - Subresource Uris for this UsageRecord.
-   * @property uri - The URI that returns only this UsageRecord, relative to https://api.
-   * @property usage - The amount of billed usage.
-   * @property usageUnit - The units in which Usage is measured.
+   * @property accountSid - The SID of the Account accrued the usage
+   * @property apiVersion - The API version used to create the resource
+   * @property category - The category of usage
+   * @property count - The number of usage events
+   * @property countUnit - The units in which count is measured
+   * @property description - A plain-language description of the usage category
+   * @property endDate - The last date for which usage is included in the UsageRecord
+   * @property price - The total price of the usage
+   * @property priceUnit - The currency in which `price` is measured
+   * @property startDate - The first date for which usage is included in this UsageRecord
+   * @property subresourceUris - A list of related resources identified by their relative URIs
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
+   * @property usage - The amount of usage
+   * @property usageUnit - The units in which usage is measured
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

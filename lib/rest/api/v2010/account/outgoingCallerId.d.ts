@@ -14,14 +14,14 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the OutgoingCallerIdList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function OutgoingCallerIdList(version: V2010, accountSid: string): OutgoingCallerIdListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human readable description of the caller ID
+ * @property friendlyName - A string to describe the resource
  */
 interface OutgoingCallerIdInstanceUpdateOptions {
   friendlyName?: string;
@@ -49,7 +49,7 @@ interface OutgoingCallerIdListInstance {
   /**
    * Constructs a outgoing_caller_id
    *
-   * @param sid - Fetch by unique outgoing-caller-id Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): OutgoingCallerIdContext;
   /**
@@ -90,7 +90,7 @@ interface OutgoingCallerIdListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the OutgoingCallerId resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -101,7 +101,7 @@ interface OutgoingCallerIdListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property phoneNumber - Filter by phone number
+ * @property phoneNumber - The phone number of the OutgoingCallerId resources to read
  */
 interface OutgoingCallerIdListInstanceEachOptions {
   callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void;
@@ -115,7 +115,7 @@ interface OutgoingCallerIdListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the OutgoingCallerId resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -126,7 +126,7 @@ interface OutgoingCallerIdListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property phoneNumber - Filter by phone number
+ * @property phoneNumber - The phone number of the OutgoingCallerId resources to read
  */
 interface OutgoingCallerIdListInstanceOptions {
   friendlyName?: string;
@@ -138,11 +138,11 @@ interface OutgoingCallerIdListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the OutgoingCallerId resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property phoneNumber - Filter by phone number
+ * @property phoneNumber - The phone number of the OutgoingCallerId resources to read
  */
 interface OutgoingCallerIdListInstancePageOptions {
   friendlyName?: string;
@@ -175,8 +175,8 @@ declare class OutgoingCallerIdContext {
    * Initialize the OutgoingCallerIdContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique outgoing-caller-id Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -206,18 +206,18 @@ declare class OutgoingCallerIdInstance extends SerializableClass {
   /**
    * Initialize the OutgoingCallerIdContext
    *
-   * @property sid - A string that uniquely identifies this outgoing-caller-ids
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property friendlyName - A human readable description for this resource
-   * @property accountSid - The unique sid that identifies this account
-   * @property phoneNumber - The incoming phone number
-   * @property uri - The URI for this resource
+   * @property sid - The unique string that identifies the resource
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property friendlyName - The string that you assigned to describe the resource
+   * @property accountSid - The SID of the Account that created the resource
+   * @property phoneNumber - The phone number in E.164 format
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param sid - Fetch by unique outgoing-caller-id Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: OutgoingCallerIdPayload, accountSid: string, sid: string);
 

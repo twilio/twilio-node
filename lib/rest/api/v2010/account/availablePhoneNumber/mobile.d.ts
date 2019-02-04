@@ -15,8 +15,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * @description Initialize the MobileList
  *
  * @param version - Version of the resource
- * @param accountSid - The 34 character string that uniquely identifies your account.
- * @param countryCode - The ISO Country code to lookup phone numbers for.
+ * @param accountSid - The account_sid
+ * @param countryCode - The ISO-3166-1 country code of the country.
  */
 declare function MobileList(version: V2010, accountSid: string, countryCode: string): MobileListInstance;
 
@@ -69,20 +69,20 @@ interface MobileListInstance {
 /**
  * Options to pass to each
  *
- * @property areaCode - Find phone numbers in the specified area code.
- * @property beta - Include phone numbers new to the Twilio platform.
+ * @property areaCode - The area code of the phone numbers to read
+ * @property beta - Whether to read phone numbers new to the Twilio platform
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property contains - A pattern on which to match phone numbers.
- * @property distance - Specifies the search radius for a Near- query in miles. (US/Canada only)
+ * @property contains - The pattern on which to match phone numbers
+ * @property distance - The search radius, in miles, for a near_ query. (US/Canada only)
  * @property done - Function to be called upon completion of streaming
- * @property excludeAllAddressRequired - Indicates whether the response includes phone numbers which require any Address.
- * @property excludeForeignAddressRequired - Indicates whether the response includes phone numbers which require a foreign Address.
- * @property excludeLocalAddressRequired - Indicates whether the response includes phone numbers which require a local Address.
- * @property faxEnabled - This indicates whether the phone numbers can receive faxes.
- * @property inLata - Limit results to a specific Local access and transport area. (US/Canada only)
- * @property inLocality - Limit results to a particular locality.
+ * @property excludeAllAddressRequired - Whether to exclude phone numbers that require an Address
+ * @property excludeForeignAddressRequired - Whether to exclude phone numbers that require a foreign address
+ * @property excludeLocalAddressRequired - Whether to exclude phone numbers that require a local address
+ * @property faxEnabled - Whether the phone numbers can receive faxes
+ * @property inLata - Limit results to a specific local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality
  * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
  * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
  * @property inRegion - Limit results to a particular region. (US/Canada only)
@@ -90,17 +90,17 @@ interface MobileListInstance {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property mmsEnabled - This indicates whether the phone numbers can receive MMS messages.
- * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
- * @property nearNumber - Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+ * @property mmsEnabled - Whether the phone numbers can receive MMS messages
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)
+ * @property nearNumber - Given a phone number, find a geographically close number within distance miles. (US/Canada only)
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property smsEnabled - This indicates whether the phone numbers can receive text messages.
- * @property voiceEnabled - This indicates whether the phone numbers can receive calls.
+ * @property smsEnabled - Whether the phone numbers can receive text messages
+ * @property voiceEnabled - Whether the phone numbers can receive calls.
  */
 interface MobileListInstanceEachOptions {
   areaCode?: number;
@@ -130,16 +130,16 @@ interface MobileListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property areaCode - Find phone numbers in the specified area code.
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property contains - A pattern on which to match phone numbers.
- * @property distance - Specifies the search radius for a Near- query in miles. (US/Canada only)
- * @property excludeAllAddressRequired - Indicates whether the response includes phone numbers which require any Address.
- * @property excludeForeignAddressRequired - Indicates whether the response includes phone numbers which require a foreign Address.
- * @property excludeLocalAddressRequired - Indicates whether the response includes phone numbers which require a local Address.
- * @property faxEnabled - This indicates whether the phone numbers can receive faxes.
- * @property inLata - Limit results to a specific Local access and transport area. (US/Canada only)
- * @property inLocality - Limit results to a particular locality.
+ * @property areaCode - The area code of the phone numbers to read
+ * @property beta - Whether to read phone numbers new to the Twilio platform
+ * @property contains - The pattern on which to match phone numbers
+ * @property distance - The search radius, in miles, for a near_ query. (US/Canada only)
+ * @property excludeAllAddressRequired - Whether to exclude phone numbers that require an Address
+ * @property excludeForeignAddressRequired - Whether to exclude phone numbers that require a foreign address
+ * @property excludeLocalAddressRequired - Whether to exclude phone numbers that require a local address
+ * @property faxEnabled - Whether the phone numbers can receive faxes
+ * @property inLata - Limit results to a specific local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality
  * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
  * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
  * @property inRegion - Limit results to a particular region. (US/Canada only)
@@ -147,17 +147,17 @@ interface MobileListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property mmsEnabled - This indicates whether the phone numbers can receive MMS messages.
- * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
- * @property nearNumber - Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+ * @property mmsEnabled - Whether the phone numbers can receive MMS messages
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)
+ * @property nearNumber - Given a phone number, find a geographically close number within distance miles. (US/Canada only)
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property smsEnabled - This indicates whether the phone numbers can receive text messages.
- * @property voiceEnabled - This indicates whether the phone numbers can receive calls.
+ * @property smsEnabled - Whether the phone numbers can receive text messages
+ * @property voiceEnabled - Whether the phone numbers can receive calls.
  */
 interface MobileListInstanceOptions {
   areaCode?: number;
@@ -185,27 +185,27 @@ interface MobileListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property areaCode - Find phone numbers in the specified area code.
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property contains - A pattern on which to match phone numbers.
- * @property distance - Specifies the search radius for a Near- query in miles. (US/Canada only)
- * @property excludeAllAddressRequired - Indicates whether the response includes phone numbers which require any Address.
- * @property excludeForeignAddressRequired - Indicates whether the response includes phone numbers which require a foreign Address.
- * @property excludeLocalAddressRequired - Indicates whether the response includes phone numbers which require a local Address.
- * @property faxEnabled - This indicates whether the phone numbers can receive faxes.
- * @property inLata - Limit results to a specific Local access and transport area. (US/Canada only)
- * @property inLocality - Limit results to a particular locality.
+ * @property areaCode - The area code of the phone numbers to read
+ * @property beta - Whether to read phone numbers new to the Twilio platform
+ * @property contains - The pattern on which to match phone numbers
+ * @property distance - The search radius, in miles, for a near_ query. (US/Canada only)
+ * @property excludeAllAddressRequired - Whether to exclude phone numbers that require an Address
+ * @property excludeForeignAddressRequired - Whether to exclude phone numbers that require a foreign address
+ * @property excludeLocalAddressRequired - Whether to exclude phone numbers that require a local address
+ * @property faxEnabled - Whether the phone numbers can receive faxes
+ * @property inLata - Limit results to a specific local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality
  * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
  * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
  * @property inRegion - Limit results to a particular region. (US/Canada only)
- * @property mmsEnabled - This indicates whether the phone numbers can receive MMS messages.
- * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
- * @property nearNumber - Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+ * @property mmsEnabled - Whether the phone numbers can receive MMS messages
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)
+ * @property nearNumber - Given a phone number, find a geographically close number within distance miles. (US/Canada only)
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property smsEnabled - This indicates whether the phone numbers can receive text messages.
- * @property voiceEnabled - This indicates whether the phone numbers can receive calls.
+ * @property smsEnabled - Whether the phone numbers can receive text messages
+ * @property voiceEnabled - Whether the phone numbers can receive calls.
  */
 interface MobileListInstancePageOptions {
   areaCode?: number;
@@ -260,24 +260,24 @@ declare class MobileInstance extends SerializableClass {
   /**
    * Initialize the MobileContext
    *
-   * @property friendlyName - A nicely-formatted version of the phone number.
-   * @property phoneNumber - The phone number, in E.164 format.
-   * @property lata - The LATA of this phone number.
-   * @property locality - The locality/city of this phone number.
-   * @property rateCenter - The rate center of this phone number.
-   * @property latitude - The latitude coordinate of this phone number.
-   * @property longitude - The longitude coordinate of this phone number.
-   * @property region - The two-letter state or province abbreviation of this phone number.
-   * @property postalCode - The postal code of this phone number.
-   * @property isoCountry - The ISO country code of this phone number.
-   * @property addressRequirements - This indicates whether the phone number requires you or your customer to have an Address registered with Twilio.
-   * @property beta - Phone numbers new to the Twilio platform are marked as beta.
-   * @property capabilities - This is a set of boolean properties that indicate whether a phone number can receive calls or messages.
+   * @property friendlyName - A formatted version of the phone number
+   * @property phoneNumber - The phone number in E.164 format
+   * @property lata - The LATA of this phone number
+   * @property locality - The locality or city of this phone number's location
+   * @property rateCenter - The rate center of this phone number
+   * @property latitude - The latitude of this phone number's location
+   * @property longitude - The longitude of this phone number's location
+   * @property region - The two-letter state or province abbreviation of this phone number's location
+   * @property postalCode - The postal or ZIP code of this phone number's location
+   * @property isoCountry - The ISO country code of this phone number
+   * @property addressRequirements - The type of Address resource the phone number requires
+   * @property beta - Whether the phone number is new to the Twilio platform
+   * @property capabilities - Whether a phone number can receive calls or messages
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The 34 character string that uniquely identifies your account.
-   * @param countryCode - The ISO Country code to lookup phone numbers for.
+   * @param accountSid - The account_sid
+   * @param countryCode - The ISO-3166-1 country code of the country.
    */
   constructor(version: V2010, payload: MobilePayload, accountSid: string, countryCode: string);
 

@@ -17,8 +17,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
- * @param accountSid - The Account id that has installed this Add-on
- * @param resourceSid - The Phone Number id that has installed this Add-on
+ * @param accountSid - The SID of the Account that created the resource
+ * @param resourceSid - The SID of the Phone Number that installed this Add-on
  */
 declare function AssignedAddOnList(version: V2010, accountSid: string, resourceSid: string): AssignedAddOnListInstance;
 
@@ -51,7 +51,7 @@ interface AssignedAddOnListInstance {
   /**
    * Constructs a assigned_add_on
    *
-   * @param sid - The unique Installed Add-on Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): AssignedAddOnContext;
   /**
@@ -88,7 +88,7 @@ interface AssignedAddOnListInstance {
 /**
  * Options to pass to create
  *
- * @property installedAddOnSid - A string that uniquely identifies the Add-on installation
+ * @property installedAddOnSid - The SID that identifies the Add-on installation
  */
 interface AssignedAddOnListInstanceCreateOptions {
   installedAddOnSid: string;
@@ -181,9 +181,9 @@ declare class AssignedAddOnContext {
    * @property extensions - extensions resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param resourceSid - The resource_sid
-   * @param sid - The unique Installed Add-on Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param resourceSid - The SID of the Phone Number that installed this Add-on
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, resourceSid: string, sid: string);
 
@@ -207,23 +207,23 @@ declare class AssignedAddOnInstance extends SerializableClass {
   /**
    * Initialize the AssignedAddOnContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @property sid - A string that uniquely identifies this assigned Add-on installation
-   * @property accountSid - The Account id that has installed this Add-on
-   * @property resourceSid - The Phone Number id that has installed this Add-on
-   * @property friendlyName - A description of this Add-on installation
+   * @property sid - The unique string that identifies the resource
+   * @property accountSid - The SID of the Account that created the resource
+   * @property resourceSid - The SID of the Phone Number that installed this Add-on
+   * @property friendlyName - The string that you assigned to describe the resource
    * @property description - A short description of the Add-on functionality
-   * @property configuration - The JSON object representing the current configuration
-   * @property uniqueName - The string that uniquely identifies this Add-on installation
-   * @property dateCreated - The date this Add-on was installed
-   * @property dateUpdated - The date this Add-on installation was last updated
-   * @property uri - The uri
-   * @property subresourceUris - The subresource_uris
+   * @property configuration - A JSON string that represents the current configuration
+   * @property uniqueName - An application-defined string that uniquely identifies the resource
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
+   * @property subresourceUris - A list of related resources identified by their relative URIs
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The Account id that has installed this Add-on
-   * @param resourceSid - The Phone Number id that has installed this Add-on
-   * @param sid - The unique Installed Add-on Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param resourceSid - The SID of the Phone Number that installed this Add-on
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: AssignedAddOnPayload, accountSid: string, resourceSid: string, sid: string);
 

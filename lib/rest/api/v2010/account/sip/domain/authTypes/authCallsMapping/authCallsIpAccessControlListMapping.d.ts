@@ -14,8 +14,8 @@ import { SerializableClass } from '../../../../../../../../interfaces';
  * @description Initialize the AuthCallsIpAccessControlListMappingList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the account responsible for this domain
- * @param domainSid - A string that uniquely identifies the SIP Domain
+ * @param accountSid - The SID of the Account that created the resource
+ * @param domainSid - The unique string that identifies the resource
  */
 declare function AuthCallsIpAccessControlListMappingList(version: V2010, accountSid: string, domainSid: string): AuthCallsIpAccessControlListMappingListInstance;
 
@@ -48,7 +48,7 @@ interface AuthCallsIpAccessControlListMappingListInstance {
   /**
    * Constructs a auth_calls_ip_access_control_list_mapping
    *
-   * @param sid - Fetch by unique IP Access Control List Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): AuthCallsIpAccessControlListMappingContext;
   /**
@@ -85,7 +85,7 @@ interface AuthCallsIpAccessControlListMappingListInstance {
 /**
  * Options to pass to create
  *
- * @property ipAccessControlListSid - A string that uniquely identifies IP Access Control List
+ * @property ipAccessControlListSid - The SID of the IpAccessControlList resource to map to the SIP domain
  */
 interface AuthCallsIpAccessControlListMappingListInstanceCreateOptions {
   ipAccessControlListSid: string;
@@ -170,9 +170,9 @@ declare class AuthCallsIpAccessControlListMappingContext {
    * Initialize the AuthCallsIpAccessControlListMappingContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param domainSid - The domain_sid
-   * @param sid - Fetch by unique IP Access Control List Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param domainSid - The SID of the SIP domain that contains the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
 
@@ -195,17 +195,17 @@ declare class AuthCallsIpAccessControlListMappingInstance extends SerializableCl
   /**
    * Initialize the AuthCallsIpAccessControlListMappingContext
    *
-   * @property accountSid - The unique sid that identifies this account
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property friendlyName - A human readable description of this resource
-   * @property sid - A string that uniquely identifies this resource
+   * @property accountSid - The SID of the Account that created the resource
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property friendlyName - The string that you assigned to describe the resource
+   * @property sid - The unique string that identifies the resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the account responsible for this domain
-   * @param domainSid - A string that uniquely identifies the SIP Domain
-   * @param sid - Fetch by unique IP Access Control List Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param domainSid - The unique string that identifies the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: AuthCallsIpAccessControlListMappingPayload, accountSid: string, domainSid: string, sid: string);
 

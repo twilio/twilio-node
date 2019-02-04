@@ -96,6 +96,7 @@ interface RecordingListInstance {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property mediaType - Only show Recordings that have this media type.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -112,6 +113,7 @@ interface RecordingListInstanceEachOptions {
   done?: Function;
   groupingSid?: string[];
   limit?: number;
+  mediaType?: RecordingType;
   pageSize?: number;
   sourceSid?: string;
   status?: RecordingStatus;
@@ -127,6 +129,7 @@ interface RecordingListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property mediaType - Only show Recordings that have this media type.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -141,6 +144,7 @@ interface RecordingListInstanceOptions {
   dateCreatedBefore?: Date;
   groupingSid?: string[];
   limit?: number;
+  mediaType?: RecordingType;
   pageSize?: number;
   sourceSid?: string;
   status?: RecordingStatus;
@@ -152,6 +156,7 @@ interface RecordingListInstanceOptions {
  * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time with timezone.
  * @property dateCreatedBefore - Only show Recordings that started before this ISO8601 date-time with timezone.
  * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property mediaType - Only show Recordings that have this media type.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -162,6 +167,7 @@ interface RecordingListInstancePageOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   groupingSid?: string[];
+  mediaType?: RecordingType;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

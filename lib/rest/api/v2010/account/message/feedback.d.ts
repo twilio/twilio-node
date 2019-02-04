@@ -16,8 +16,8 @@ type FeedbackOutcome = 'confirmed'|'umconfirmed';
  * @description Initialize the FeedbackList
  *
  * @param version - Version of the resource
- * @param accountSid - The account_sid
- * @param messageSid - The message_sid
+ * @param accountSid - The SID of the Account that created the resource
+ * @param messageSid - The SID of the Message resource for which the feedback was provided
  */
 declare function FeedbackList(version: V2010, accountSid: string, messageSid: string): FeedbackListInstance;
 
@@ -34,7 +34,7 @@ interface FeedbackListInstance {
 /**
  * Options to pass to create
  *
- * @property outcome - The outcome
+ * @property outcome - Whether the feedback has arrived
  */
 interface FeedbackListInstanceCreateOptions {
   outcome?: FeedbackOutcome;
@@ -62,17 +62,17 @@ declare class FeedbackInstance extends SerializableClass {
   /**
    * Initialize the FeedbackContext
    *
-   * @property accountSid - The account_sid
-   * @property messageSid - The message_sid
-   * @property outcome - unconfirmed or confirmed. If ProvideFeedback=true in the initial HTTP POST, this value will default to unconfirmed. Make an HTTP POST to update this value to confirmed after the message arrives.
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property uri - The uri
+   * @property accountSid - The SID of the Account that created the resource
+   * @property messageSid - The SID of the Message resource for which the feedback was provided
+   * @property outcome - Whether the feedback has arrived
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
-   * @param messageSid - The message_sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param messageSid - The SID of the Message resource for which the feedback was provided
    */
   constructor(version: V2010, payload: FeedbackPayload, accountSid: string, messageSid: string);
 

@@ -27,9 +27,9 @@ declare function TriggerList(version: V2010, accountSid: string): TriggerListIns
 /**
  * Options to pass to update
  *
- * @property callbackMethod - HTTP method to use with callback_url
- * @property callbackUrl - URL Twilio will request when the trigger fires
- * @property friendlyName - A user-specified, human-readable name for the trigger.
+ * @property callbackMethod - The HTTP method to use to call callback_url
+ * @property callbackUrl - The URL we call when the trigger fires
+ * @property friendlyName - A string to describe the resource
  */
 interface TriggerInstanceUpdateOptions {
   callbackMethod?: string;
@@ -66,7 +66,7 @@ interface TriggerListInstance {
   /**
    * Constructs a trigger
    *
-   * @param sid - Fetch by unique usage-trigger Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): TriggerContext;
   /**
@@ -103,12 +103,12 @@ interface TriggerListInstance {
 /**
  * Options to pass to create
  *
- * @property callbackMethod - HTTP method to use with callback_url
- * @property callbackUrl - URL Twilio will request when the trigger fires
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property recurring - How this trigger recurs
- * @property triggerBy - The field in the UsageRecord that fires the trigger
- * @property triggerValue - the value at which the trigger will fire
+ * @property callbackMethod - The HTTP method to use to call callback_url
+ * @property callbackUrl - The URL we call when the trigger fires
+ * @property friendlyName - A string to describe the resource
+ * @property recurring - The frequency of a recurring UsageTrigger
+ * @property triggerBy - The field in the UsageRecord resource that fires the trigger
+ * @property triggerValue - The usage value at which the trigger should fire
  * @property usageCategory - The usage category the trigger watches
  */
 interface TriggerListInstanceCreateOptions {
@@ -138,9 +138,9 @@ interface TriggerListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property recurring - Filter by recurring
- * @property triggerBy - Filter by trigger by
- * @property usageCategory - Filter by Usage Category
+ * @property recurring - The frequency of recurring UsageTriggers to read
+ * @property triggerBy - The trigger field of the UsageTriggers to read
+ * @property usageCategory - The usage category of the UsageTriggers to read
  */
 interface TriggerListInstanceEachOptions {
   callback?: (item: TriggerInstance, done: (err?: Error) => void) => void;
@@ -165,9 +165,9 @@ interface TriggerListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property recurring - Filter by recurring
- * @property triggerBy - Filter by trigger by
- * @property usageCategory - Filter by Usage Category
+ * @property recurring - The frequency of recurring UsageTriggers to read
+ * @property triggerBy - The trigger field of the UsageTriggers to read
+ * @property usageCategory - The usage category of the UsageTriggers to read
  */
 interface TriggerListInstanceOptions {
   limit?: number;
@@ -183,9 +183,9 @@ interface TriggerListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property recurring - Filter by recurring
- * @property triggerBy - Filter by trigger by
- * @property usageCategory - Filter by Usage Category
+ * @property recurring - The frequency of recurring UsageTriggers to read
+ * @property triggerBy - The trigger field of the UsageTriggers to read
+ * @property usageCategory - The usage category of the UsageTriggers to read
  */
 interface TriggerListInstancePageOptions {
   pageNumber?: number;
@@ -228,8 +228,8 @@ declare class TriggerContext {
    * Initialize the TriggerContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique usage-trigger Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -259,27 +259,27 @@ declare class TriggerInstance extends SerializableClass {
   /**
    * Initialize the TriggerContext
    *
-   * @property accountSid - The account this trigger monitors.
-   * @property apiVersion - The api_version
-   * @property callbackMethod - HTTP method to use with callback_url
-   * @property callbackUrl - URL Twilio will request when the trigger fires
-   * @property currentValue - The current value of the field the trigger is watching.
-   * @property dateCreated - The date this resource was created
-   * @property dateFired - The date the trigger was last fired
-   * @property dateUpdated - The date this resource was last updated
-   * @property friendlyName - A user-specified, human-readable name for the trigger.
-   * @property recurring - How this trigger recurs
-   * @property sid - The trigger's unique Sid
-   * @property triggerBy - The field in the UsageRecord that fires the trigger
-   * @property triggerValue - the value at which the trigger will fire
-   * @property uri - The URI for this resource
+   * @property accountSid - The SID of the Account that this trigger monitors
+   * @property apiVersion - The API version used to create the resource
+   * @property callbackMethod - The HTTP method we use to call callback_url
+   * @property callbackUrl - he URL we call when the trigger fires
+   * @property currentValue - The current value of the field the trigger is watching
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateFired - The RFC 2822 date and time in GMT that the trigger was last fired
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property friendlyName - The string that you assigned to describe the trigger
+   * @property recurring - The frequency of a recurring UsageTrigger
+   * @property sid - The unique string that identifies the resource
+   * @property triggerBy - The field in the UsageRecord resource that fires the trigger
+   * @property triggerValue - The value at which the trigger will fire
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    * @property usageCategory - The usage category the trigger watches
-   * @property usageRecordUri - The URI of the UsageRecord this trigger is watching
+   * @property usageRecordUri - The URI of the UsageRecord resource this trigger watches
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
-   * @param sid - Fetch by unique usage-trigger Sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: TriggerPayload, accountSid: string, sid: string);
 

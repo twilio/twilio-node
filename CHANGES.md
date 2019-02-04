@@ -1,6 +1,19 @@
 twilio-node changelog
 =====================
 
+[2019-02-04] Version 3.28.0
+----------------------------
+**Library**
+- PR #410: Switch body validator to use hex instead of base64. Thanks to @cjcodes!
+
+**Video**
+- [Recordings] Add media type filter to list operation
+- [Composer] Filter Composition Hook resources by FriendlyName
+
+**Twiml**
+- Update `language` enum for `Gather` to fix language code for Filipino (Philippines) and include additional supported languages **(breaking change)**
+
+
 [2019-01-11] Version 3.27.1
 ----------------------------
 **Verify**

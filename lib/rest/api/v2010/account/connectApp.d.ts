@@ -17,21 +17,21 @@ type ConnectAppPermission = 'get-all'|'post-all';
  * @description Initialize the ConnectAppList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function ConnectAppList(version: V2010, accountSid: string): ConnectAppListInstance;
 
 /**
  * Options to pass to update
  *
- * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
- * @property companyName - The company name set for this Connect App.
- * @property deauthorizeCallbackMethod - HTTP method Twilio WIll use making requests to the url
- * @property deauthorizeCallbackUrl - URL Twilio will send a request when a user de-authorizes this app
- * @property description - A more detailed human readable description
- * @property friendlyName - A human readable name for the Connect App.
- * @property homepageUrl - The URL users can obtain more information
- * @property permissions - The set of permissions that your ConnectApp requests.
+ * @property authorizeRedirectUrl - The URL to redirect the user to after authorization
+ * @property companyName - The company name to set for the Connect App
+ * @property deauthorizeCallbackMethod - The HTTP method to use when calling deauthorize_callback_url
+ * @property deauthorizeCallbackUrl - The URL to call to de-authorize the Connect App
+ * @property description - A description of the Connect App
+ * @property friendlyName - A string to describe the resource
+ * @property homepageUrl - A public URL where users can obtain more information
+ * @property permissions - The set of permissions that your ConnectApp will request
  */
 interface ConnectAppInstanceUpdateOptions {
   authorizeRedirectUrl?: string;
@@ -66,7 +66,7 @@ interface ConnectAppListInstance {
   /**
    * Constructs a connect_app
    *
-   * @param sid - Fetch by unique connect-app Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ConnectAppContext;
   /**
@@ -184,8 +184,8 @@ declare class ConnectAppContext {
    * Initialize the ConnectAppContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique connect-app Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -209,22 +209,22 @@ declare class ConnectAppInstance extends SerializableClass {
   /**
    * Initialize the ConnectAppContext
    *
-   * @property accountSid - The unique sid that identifies this account
-   * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
-   * @property companyName - The company name set for this Connect App.
-   * @property deauthorizeCallbackMethod - HTTP method Twilio will use making requests to the url
-   * @property deauthorizeCallbackUrl - URL Twilio will send a request when a user de-authorizes this app
-   * @property description - A more detailed human readable description
-   * @property friendlyName - A human readable name for the Connect App.
+   * @property accountSid - The SID of the Account that created the resource
+   * @property authorizeRedirectUrl - The URL to redirect the user to after authorization
+   * @property companyName - The company name set for the Connect App
+   * @property deauthorizeCallbackMethod - The HTTP method we use to call deauthorize_callback_url
+   * @property deauthorizeCallbackUrl - The URL we call to de-authorize the Connect App
+   * @property description - The description of the Connect App
+   * @property friendlyName - The string that you assigned to describe the resource
    * @property homepageUrl - The URL users can obtain more information
-   * @property permissions - The set of permissions that your ConnectApp requests.
-   * @property sid - A string that uniquely identifies this connect-apps
-   * @property uri - The URI for this resource
+   * @property permissions - The set of permissions that your ConnectApp requests
+   * @property sid - The unique string that identifies the resource
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param sid - Fetch by unique connect-app Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: ConnectAppPayload, accountSid: string, sid: string);
 

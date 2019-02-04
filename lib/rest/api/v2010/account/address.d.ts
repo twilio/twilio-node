@@ -17,21 +17,21 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the AddressList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the Account responsible for this address.
+ * @param accountSid - The SID of the Account that is responsible for the resource
  */
 declare function AddressList(version: V2010, accountSid: string): AddressListInstance;
 
 /**
  * Options to pass to update
  *
- * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
- * @property city - The city in which you or your customer is located.
- * @property customerName - Your name or business name, or that of your customer.
- * @property emergencyEnabled - The emergency_enabled
- * @property friendlyName - A human-readable description of the address.
- * @property postalCode - The postal code in which you or your customer is located.
- * @property region - The state or region in which you or your customer is located.
- * @property street - The number and street address where you or your customer is located.
+ * @property autoCorrectAddress - Whether we should automatically correct the address
+ * @property city - The city of the address
+ * @property customerName - The name to associate with the address
+ * @property emergencyEnabled - Whether to enable emergency calling on the address
+ * @property friendlyName - A string to describe the resource
+ * @property postalCode - The postal code of the address
+ * @property region - The state or region of the address
+ * @property street - The number and street address of the address
  */
 interface AddressInstanceUpdateOptions {
   autoCorrectAddress?: boolean;
@@ -73,7 +73,7 @@ interface AddressListInstance {
   /**
    * Constructs a address
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): AddressContext;
   /**
@@ -110,15 +110,15 @@ interface AddressListInstance {
 /**
  * Options to pass to create
  *
- * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
- * @property city - The city in which you or your customer is located.
- * @property customerName - Your name or business name, or that of your customer.
- * @property emergencyEnabled - The emergency_enabled
- * @property friendlyName - A human-readable description of the new address.
- * @property isoCountry - The ISO country code of your or your customer's address.
- * @property postalCode - The postal code in which you or your customer is located.
- * @property region - The state or region in which you or your customer is located.
- * @property street - The number and street address where you or your customer is located.
+ * @property autoCorrectAddress - Whether we should automatically correct the address
+ * @property city - The city of the new address
+ * @property customerName - The name to associate with the new address
+ * @property emergencyEnabled - Whether to enable emergency calling on the new address
+ * @property friendlyName - A string to describe the new resource
+ * @property isoCountry - The ISO country code of the new address
+ * @property postalCode - The postal code of the new address
+ * @property region - The state or region of the new address
+ * @property street - The number and street address of the new address
  */
 interface AddressListInstanceCreateOptions {
   autoCorrectAddress?: boolean;
@@ -138,10 +138,10 @@ interface AddressListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property customerName - Only return the Address resources with customer names that exactly match this name.
+ * @property customerName - The `customer_name` of the Address resources to read
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
- * @property isoCountry - Only return the Address resources in this country.
+ * @property friendlyName - The string that identifies the Address resources to read
+ * @property isoCountry - The ISO country code of the Address resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -166,9 +166,9 @@ interface AddressListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property customerName - Only return the Address resources with customer names that exactly match this name.
- * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
- * @property isoCountry - Only return the Address resources in this country.
+ * @property customerName - The `customer_name` of the Address resources to read
+ * @property friendlyName - The string that identifies the Address resources to read
+ * @property isoCountry - The ISO country code of the Address resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -191,9 +191,9 @@ interface AddressListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property customerName - Only return the Address resources with customer names that exactly match this name.
- * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
- * @property isoCountry - Only return the Address resources in this country.
+ * @property customerName - The `customer_name` of the Address resources to read
+ * @property friendlyName - The string that identifies the Address resources to read
+ * @property isoCountry - The ISO country code of the Address resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -239,8 +239,8 @@ declare class AddressContext {
    * @property dependentPhoneNumbers - dependentPhoneNumbers resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - The sid
+   * @param accountSid - The SID of the Account that is responsible for this address
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -271,25 +271,25 @@ declare class AddressInstance extends SerializableClass {
   /**
    * Initialize the AddressContext
    *
-   * @property accountSid - The unique id of the Account responsible for this address.
-   * @property city - The city in which you or your customer is located.
-   * @property customerName - Your name or business name, or that of your customer.
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property friendlyName - A human-readable description of the address.
-   * @property isoCountry - The ISO country code of your or your customer's address.
-   * @property postalCode - The postal code in which you or your customer is located.
-   * @property region - The state or region in which you or your customer is located.
-   * @property sid - A 34 character string that uniquely identifies this address.
-   * @property street - The number and street address where you or your customer is located.
-   * @property uri - The URI for this resource, relative to https://api.
-   * @property emergencyEnabled - This is a value that indicates if emergency calling has been enabled on this number.
-   * @property validated - In some countries, addresses are validated to comply with local regulation.
+   * @property accountSid - The SID of the Account that is responsible for the resource
+   * @property city - The city in which the address is located
+   * @property customerName - The name associated with the address
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property friendlyName - The string that you assigned to describe the resource
+   * @property isoCountry - The ISO country code of the address
+   * @property postalCode - The postal code of the address
+   * @property region - The state or region of the address
+   * @property sid - The unique string that identifies the resource
+   * @property street - The number and street address of the address
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
+   * @property emergencyEnabled - Whether emergency calling has been enabled on this number
+   * @property validated - Whether the address has been validated to comply with local regulation
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the Account responsible for this address.
-   * @param sid - The sid
+   * @param accountSid - The SID of the Account that is responsible for the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: AddressPayload, accountSid: string, sid: string);
 

@@ -25,11 +25,11 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Video
    *
-   * @property compositions - compositions resource
    * @property compositionHooks - compositionHooks resource
    * @property compositionSettings - compositionSettings resource
    * @property recordings - recordings resource
    * @property recordingSettings - recordingSettings resource
+   * @property compositions - compositions resource
    * @property rooms - rooms resource
    *
    * @param domain - The twilio domain

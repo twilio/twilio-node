@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  *
  * @param version - Version of the resource
  * @param accountSid - The unique id of the Account that is responsible for this resource.
- * @param domainSid - A string that uniquely identifies the SIP Domain
+ * @param domainSid - The unique string that identifies the resource
  */
 declare function CredentialListMappingList(version: V2010, accountSid: string, domainSid: string): CredentialListMappingListInstance;
 
@@ -208,7 +208,7 @@ declare class CredentialListMappingInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The unique id of the Account that is responsible for this resource.
-   * @param domainSid - A string that uniquely identifies the SIP Domain
+   * @param domainSid - The unique string that identifies the resource
    * @param sid - A string that identifies the resource to fetch
    */
   constructor(version: V2010, payload: CredentialListMappingPayload, accountSid: string, domainSid: string, sid: string);

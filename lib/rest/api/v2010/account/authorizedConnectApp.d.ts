@@ -16,7 +16,7 @@ type AuthorizedConnectAppPermission = 'get-all'|'post-all';
  * @description Initialize the AuthorizedConnectAppList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function AuthorizedConnectAppList(version: V2010, accountSid: string): AuthorizedConnectAppListInstance;
 
@@ -42,7 +42,7 @@ interface AuthorizedConnectAppListInstance {
   /**
    * Constructs a authorized_connect_app
    *
-   * @param connectAppSid - The connect_app_sid
+   * @param connectAppSid - The SID of the Connect App to fetch
    */
   get(connectAppSid: string): AuthorizedConnectAppContext;
   /**
@@ -159,8 +159,8 @@ declare class AuthorizedConnectAppContext {
    * Initialize the AuthorizedConnectAppContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param connectAppSid - The connect_app_sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param connectAppSid - The SID of the Connect App to fetch
    */
   constructor(version: V2010, accountSid: string, connectAppSid: string);
 
@@ -177,21 +177,21 @@ declare class AuthorizedConnectAppInstance extends SerializableClass {
   /**
    * Initialize the AuthorizedConnectAppContext
    *
-   * @property accountSid - The unique sid that identifies this account
-   * @property connectAppCompanyName - The company name set for this Connect App.
-   * @property connectAppDescription - Human readable description of the app
-   * @property connectAppFriendlyName - A human readable name for the Connect App.
-   * @property connectAppHomepageUrl - The public URL for this Connect App.
-   * @property connectAppSid - A string that uniquely identifies this app
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property permissions - Permissions authorized to this app
-   * @property uri - The URI for this resource
+   * @property accountSid - The SID of the Account that created the resource
+   * @property connectAppCompanyName - The company name set for the Connect App
+   * @property connectAppDescription - A detailed description of the app
+   * @property connectAppFriendlyName - The name of the Connect App
+   * @property connectAppHomepageUrl - The public URL for the Connect App
+   * @property connectAppSid - The SID that we assigned to the Connect App
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property permissions - Permissions authorized to the app
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param connectAppSid - The connect_app_sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param connectAppSid - The SID of the Connect App to fetch
    */
   constructor(version: V2010, payload: AuthorizedConnectAppPayload, accountSid: string, connectAppSid: string);
 

@@ -54,7 +54,7 @@ interface AvailablePhoneNumberCountryListInstance {
   /**
    * Constructs a available_phone_number_country
    *
-   * @param countryCode - The country_code
+   * @param countryCode - The ISO country code of the country to fetch available phone number information about
    */
   get(countryCode: string): AvailablePhoneNumberCountryContext;
   /**
@@ -174,8 +174,8 @@ declare class AvailablePhoneNumberCountryContext {
    * @property machineToMachine - machineToMachine resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param countryCode - The country_code
+   * @param accountSid - The SID of the Account requesting the available phone number Country resource
+   * @param countryCode - The ISO country code of the country to fetch available phone number information about
    */
   constructor(version: V2010, accountSid: string, countryCode: string);
 
@@ -199,16 +199,16 @@ declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
   /**
    * Initialize the AvailablePhoneNumberCountryContext
    *
-   * @property countryCode - The ISO Country code to lookup phone numbers for.
-   * @property country - The country
-   * @property uri - The uri
-   * @property beta - True if new to Twilio platform.
-   * @property subresourceUris - The subresource_uris
+   * @property countryCode - The ISO-3166-1 country code of the country.
+   * @property country - The name of the country
+   * @property uri - The URI of the Country resource, relative to `https://api.twilio.com`
+   * @property beta - Whether all phone numbers available in the country are new to the Twilio platform.
+   * @property subresourceUris - A list of related resources identified by their relative URIs
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
-   * @param countryCode - The country_code
+   * @param countryCode - The ISO country code of the country to fetch available phone number information about
    */
   constructor(version: V2010, payload: AvailablePhoneNumberCountryPayload, accountSid: string, countryCode: string);
 

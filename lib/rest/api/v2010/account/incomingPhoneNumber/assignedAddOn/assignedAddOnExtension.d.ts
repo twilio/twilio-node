@@ -15,9 +15,9 @@ import { SerializableClass } from '../../../../../../interfaces';
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
- * @param accountSid - The Account id that has installed this Add-on
- * @param resourceSid - The Phone Number id that has installed this Add-on
- * @param assignedAddOnSid - A string that uniquely identifies the assigned Add-on installation
+ * @param accountSid - The SID of the Account that created the resource
+ * @param resourceSid - The SID of the Phone Number to which the Add-on is assigned
+ * @param assignedAddOnSid - The SID that uniquely identifies the assigned Add-on installation
  */
 declare function AssignedAddOnExtensionList(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string): AssignedAddOnExtensionListInstance;
 
@@ -43,7 +43,7 @@ interface AssignedAddOnExtensionListInstance {
   /**
    * Constructs a assigned_add_on_extension
    *
-   * @param sid - The unique Extension Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): AssignedAddOnExtensionContext;
   /**
@@ -161,10 +161,10 @@ declare class AssignedAddOnExtensionContext {
    * Initialize the AssignedAddOnExtensionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param resourceSid - The resource_sid
-   * @param assignedAddOnSid - The assigned_add_on_sid
-   * @param sid - The unique Extension Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param resourceSid - The SID of the Phone Number to which the Add-on is assigned
+   * @param assignedAddOnSid - The SID that uniquely identifies the assigned Add-on installation
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string);
 
@@ -181,22 +181,22 @@ declare class AssignedAddOnExtensionInstance extends SerializableClass {
   /**
    * Initialize the AssignedAddOnExtensionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @property sid - A string that uniquely identifies this Extension
-   * @property accountSid - The Account id that has installed this Add-on
-   * @property resourceSid - The Phone Number id that has installed this Add-on
-   * @property assignedAddOnSid - A string that uniquely identifies the assigned Add-on installation
-   * @property friendlyName - A human-readable description of this Extension
-   * @property productName - A human-readable description of the Extension's Product
-   * @property uniqueName - The string that uniquely identifies this Extension
-   * @property uri - The uri
-   * @property enabled - A Boolean indicating if the Extension will be invoked
+   * @property sid - The unique string that identifies the resource
+   * @property accountSid - The SID of the Account that created the resource
+   * @property resourceSid - The SID of the Phone Number to which the Add-on is assigned
+   * @property assignedAddOnSid - The SID that uniquely identifies the assigned Add-on installation
+   * @property friendlyName - The string that you assigned to describe the resource
+   * @property productName - A string that you assigned to describe the Product this Extension is used within
+   * @property uniqueName - An application-defined string that uniquely identifies the resource
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
+   * @property enabled - Whether the Extension will be invoked
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The Account id that has installed this Add-on
-   * @param resourceSid - The Phone Number id that has installed this Add-on
-   * @param assignedAddOnSid - A string that uniquely identifies the assigned Add-on installation
-   * @param sid - The unique Extension Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param resourceSid - The SID of the Phone Number to which the Add-on is assigned
+   * @param assignedAddOnSid - The SID that uniquely identifies the assigned Add-on installation
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: AssignedAddOnExtensionPayload, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string);
 

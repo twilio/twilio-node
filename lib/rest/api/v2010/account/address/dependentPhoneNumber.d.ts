@@ -19,7 +19,7 @@ type DependentPhoneNumberEmergencyStatus = 'Active'|'Inactive';
  *
  * @param version - Version of the resource
  * @param accountSid - The account_sid
- * @param addressSid - A 34 character string that uniquely identifies this address.
+ * @param addressSid - The unique string that identifies the resource
  */
 declare function DependentPhoneNumberList(version: V2010, accountSid: string, addressSid: string): DependentPhoneNumberListInstance;
 
@@ -198,7 +198,7 @@ declare class DependentPhoneNumberInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The account_sid
-   * @param addressSid - A 34 character string that uniquely identifies this address.
+   * @param addressSid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: DependentPhoneNumberPayload, accountSid: string, addressSid: string);
 

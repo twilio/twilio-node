@@ -17,7 +17,7 @@ type MobileAddressRequirement = 'none'|'any'|'local'|'foreign';
  * @description Initialize the MobileList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function MobileList(version: V2010, accountSid: string): MobileListInstance;
 
@@ -77,24 +77,24 @@ interface MobileListInstance {
 /**
  * Options to pass to create
  *
- * @property addressSid - The 34 character sid of the address Twilio should associate with the number.
- * @property apiVersion - The Twilio REST API version to use for incoming calls made to this number.
- * @property friendlyName - A human readable description of the new incoming phone number.
- * @property identitySid - The identity_sid
- * @property phoneNumber - The phone number you want to purchase.
- * @property smsApplicationSid - The 34 character sid of the application Twilio should use to handle SMSs sent to the new number.
- * @property smsFallbackMethod - The HTTP method that should be used to request the SmsFallbackUrl.
- * @property smsFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
- * @property smsMethod - The HTTP method that should be used to request the SmsUrl.
- * @property smsUrl - The URL that Twilio should request when somebody sends an SMS to the phone number.
- * @property statusCallback - The URL that Twilio will request to pass status parameters to your application.
- * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
- * @property voiceApplicationSid - The 34 character sid of the application Twilio should use to handle phone calls to the new number.
- * @property voiceCallerIdLookup - Do a lookup of a caller's name from the CNAM database and post it to your app.
- * @property voiceFallbackMethod - The HTTP method that should be used to request the VoiceFallbackUrl.
- * @property voiceFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
- * @property voiceMethod - The HTTP method that should be used to request the VoiceUrl.
- * @property voiceUrl - The URL that Twilio should request when somebody dials the new phone number.
+ * @property addressSid - The SID of the Address resource associated with the phone number
+ * @property apiVersion - The API version to use for incoming calls made to the new phone number
+ * @property friendlyName - A string to describe the new phone number
+ * @property identitySid - The SID of the Identity resource to associate with the new phone number
+ * @property phoneNumber - The phone number to purchase in E.164 format
+ * @property smsApplicationSid - The SID of the application to handle SMS messages
+ * @property smsFallbackMethod - HTTP method used with sms_fallback_url
+ * @property smsFallbackUrl - The URL we call when an error occurs while executing TwiML
+ * @property smsMethod - The HTTP method to use with sms url
+ * @property smsUrl - The URL we should call when the new phone number receives an incoming SMS message
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackMethod - The HTTP method we should use to call status_callback
+ * @property voiceApplicationSid - The SID of the application to handle the new phone number
+ * @property voiceCallerIdLookup - Whether to lookup the caller's name
+ * @property voiceFallbackMethod - The HTTP method used with voice_fallback_url
+ * @property voiceFallbackUrl - The URL we will call when an error occurs in TwiML
+ * @property voiceMethod - The HTTP method used with the voice_url
+ * @property voiceUrl - The URL we should call when the phone number receives a call
  */
 interface MobileListInstanceCreateOptions {
   addressSid?: string;
@@ -120,24 +120,24 @@ interface MobileListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property beta - Include phone numbers new to the Twilio platform.
+ * @property beta - Whether to include new phone numbers
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
+ * @property friendlyName - A string that identifies the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
+ * @property origin - Include phone numbers based on their origin. By default, phone numbers of all origin are included.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
+ * @property phoneNumber - The phone numbers of the resources to read
  */
 interface MobileListInstanceEachOptions {
   beta?: boolean;
@@ -153,20 +153,20 @@ interface MobileListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
+ * @property beta - Whether to include new phone numbers
+ * @property friendlyName - A string that identifies the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
+ * @property origin - Include phone numbers based on their origin. By default, phone numbers of all origin are included.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
+ * @property phoneNumber - The phone numbers of the resources to read
  */
 interface MobileListInstanceOptions {
   beta?: boolean;
@@ -180,13 +180,13 @@ interface MobileListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
+ * @property beta - Whether to include new phone numbers
+ * @property friendlyName - A string that identifies the resources to read
+ * @property origin - Include phone numbers based on their origin. By default, phone numbers of all origin are included.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
+ * @property phoneNumber - The phone numbers of the resources to read
  */
 interface MobileListInstancePageOptions {
   beta?: boolean;
@@ -241,38 +241,38 @@ declare class MobileInstance extends SerializableClass {
   /**
    * Initialize the MobileContext
    *
-   * @property accountSid - The unique id of the Account responsible for this phone number.
-   * @property addressSid - The 34 character sid of the address associated with this number.
-   * @property addressRequirements - This indicates whether the phone number requires you or your customer to have an Address registered with Twilio.
-   * @property apiVersion - Calls to this phone number will start a new TwiML session with this API version.
-   * @property beta - Phone numbers new to the Twilio platform are marked as beta.
-   * @property capabilities - This is a set of boolean properties that indicate whether a phone number can receive calls or messages.
-   * @property dateCreated - The date that this resource was created, given as GMT RFC 2822 format.
-   * @property dateUpdated - The date that this resource was last updated, given as GMT RFC 2822 format.
-   * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
-   * @property identitySid - The identity_sid
-   * @property phoneNumber - The incoming phone number.
-   * @property origin - Twilio owned phone numbers are marked as twilio while hosted phone numbers are marked as hosted.
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property smsApplicationSid - The 34 character sid of the application Twilio should use to handle SMSs sent to this number.
-   * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the above URL.
-   * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML from SmsUrl.
-   * @property smsMethod - The HTTP method Twilio will use when making requests to the SmsUrl.
-   * @property smsUrl - The URL Twilio will request when receiving an incoming SMS message to this number.
-   * @property statusCallback - The URL that Twilio will request to pass status parameters to your application.
-   * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
-   * @property trunkSid - The 34 character sid of the Trunk Twilio should use to handle phone calls to this number.
-   * @property uri - The URI for this resource, relative to https://api.
-   * @property voiceApplicationSid - The 34 character sid of the application Twilio should use to handle phone calls to this number.
-   * @property voiceCallerIdLookup - Look up the caller's caller-ID name from the CNAM database.
-   * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the VoiceFallbackUrl.
-   * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by Url.
-   * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
-   * @property voiceUrl - The URL Twilio will request when this phone number receives a call.
+   * @property accountSid - The SID of the Account that created the resource
+   * @property addressSid - The SID of the Address resource associated with the phone number
+   * @property addressRequirements - Whether the phone number requires an Address registered with Twilio.
+   * @property apiVersion - The API version used to start a new TwiML session
+   * @property beta - Whether the phone number is new to the Twilio platform
+   * @property capabilities - Indicate if a phone can receive calls or messages
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property friendlyName - The string that you assigned to describe the resource
+   * @property identitySid - The SID of the Identity resource associated with number
+   * @property phoneNumber - The phone number in E.164 format
+   * @property origin - The phone number's origin. Can be twilio or hosted.
+   * @property sid - The unique string that identifies the resource
+   * @property smsApplicationSid - The SID of the application that handles SMS messages sent to the phone number
+   * @property smsFallbackMethod - The HTTP method used with sms_fallback_url
+   * @property smsFallbackUrl - The URL that we call when an error occurs while retrieving or executing the TwiML
+   * @property smsMethod - The HTTP method to use with sms_url
+   * @property smsUrl - The URL we call when the phone number receives an incoming SMS message
+   * @property statusCallback - The URL to send status information to your application
+   * @property statusCallbackMethod - The HTTP method we use to call status_callback
+   * @property trunkSid - The SID of the Trunk that handles calls to the phone number
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
+   * @property voiceApplicationSid - The SID of the application that handles calls to the phone number
+   * @property voiceCallerIdLookup - Whether to lookup the caller's name
+   * @property voiceFallbackMethod - The HTTP method used with voice_fallback_url
+   * @property voiceFallbackUrl - The URL we call when an error occurs in TwiML
+   * @property voiceMethod - The HTTP method used with the voice_url
+   * @property voiceUrl - The URL we call when the phone number receives a call
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
+   * @param accountSid - The SID of the Account that created the resource
    */
   constructor(version: V2010, payload: MobilePayload, accountSid: string);
 

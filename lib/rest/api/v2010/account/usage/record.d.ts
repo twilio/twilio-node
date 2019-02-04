@@ -81,10 +81,10 @@ interface RecordListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property category - Only include usage of a given category
+ * @property category - The usage category of the UsageRecord resources to read
  * @property done - Function to be called upon completion of streaming
- * @property endDate - Filter by end date
- * @property includeSubaccounts - Include usage from the master account and all subaccounts
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property includeSubaccounts - Whether to include usage from the master account and all its subaccounts
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -95,7 +95,7 @@ interface RecordListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property startDate - Filter by start date
+ * @property startDate - Only include usage that has occurred on or after this date
  */
 interface RecordListInstanceEachOptions {
   callback?: (item: RecordInstance, done: (err?: Error) => void) => void;
@@ -111,9 +111,9 @@ interface RecordListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property category - Only include usage of a given category
- * @property endDate - Filter by end date
- * @property includeSubaccounts - Include usage from the master account and all subaccounts
+ * @property category - The usage category of the UsageRecord resources to read
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property includeSubaccounts - Whether to include usage from the master account and all its subaccounts
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -124,7 +124,7 @@ interface RecordListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property startDate - Filter by start date
+ * @property startDate - Only include usage that has occurred on or after this date
  */
 interface RecordListInstanceOptions {
   category?: RecordCategory;
@@ -138,13 +138,13 @@ interface RecordListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property category - Only include usage of a given category
- * @property endDate - Filter by end date
- * @property includeSubaccounts - Include usage from the master account and all subaccounts
+ * @property category - The usage category of the UsageRecord resources to read
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property includeSubaccounts - Whether to include usage from the master account and all its subaccounts
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property startDate - Filter by start date
+ * @property startDate - Only include usage that has occurred on or after this date
  */
 interface RecordListInstancePageOptions {
   category?: RecordCategory;
@@ -185,20 +185,20 @@ declare class RecordInstance extends SerializableClass {
   /**
    * Initialize the RecordContext
    *
-   * @property accountSid - The Account that accrued the usage
-   * @property apiVersion - The api_version
+   * @property accountSid - The SID of the Account accrued the usage
+   * @property apiVersion - The API version used to create the resource
    * @property category - The category of usage
-   * @property count - The number of usage events (e.g. the number of calls).
-   * @property countUnit - The unit in which `Count` is measured
-   * @property description - A human-readable description of the usage category.
-   * @property endDate - The last date usage is included in this record
+   * @property count - The number of usage events
+   * @property countUnit - The units in which count is measured
+   * @property description - A plain-language description of the usage category
+   * @property endDate - The last date for which usage is included in the UsageRecord
    * @property price - The total price of the usage
-   * @property priceUnit - The currency in which `Price` is measured
-   * @property startDate - The first date usage is included in this record
-   * @property subresourceUris - Subresources Uris for this UsageRecord
-   * @property uri - The URI for this resource
+   * @property priceUnit - The currency in which `price` is measured
+   * @property startDate - The first date for which usage is included in this UsageRecord
+   * @property subresourceUris - A list of related resources identified by their relative URIs
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    * @property usage - The amount of usage
-   * @property usageUnit - The units in which `Usage` is measured
+   * @property usageUnit - The units in which usage is measured
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

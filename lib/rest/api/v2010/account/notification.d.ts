@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the NotificationList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function NotificationList(version: V2010, accountSid: string): NotificationListInstance;
 
@@ -41,7 +41,7 @@ interface NotificationListInstance {
   /**
    * Constructs a notification
    *
-   * @param sid - Fetch by unique notification Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): NotificationContext;
   /**
@@ -189,8 +189,8 @@ declare class NotificationContext {
    * Initialize the NotificationContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique notification Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -213,28 +213,28 @@ declare class NotificationInstance extends SerializableClass {
   /**
    * Initialize the NotificationContext
    *
-   * @property accountSid - The unique sid that identifies this account
-   * @property apiVersion - The version of the Twilio API in use
-   * @property callSid - The string that uniquely identifies the call
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
+   * @property accountSid - The SID of the Account that created the resource
+   * @property apiVersion - The API version used to generate the notification
+   * @property callSid - The SID of the Call the resource is associated with
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
    * @property errorCode - A unique error code corresponding to the notification
    * @property log - An integer log level
    * @property messageDate - The date the notification was generated
-   * @property messageText - The text of the notification.
+   * @property messageText - The text of the notification
    * @property moreInfo - A URL for more information about the error code
    * @property requestMethod - HTTP method used with the request url
    * @property requestUrl - URL of the resource that generated the notification
    * @property requestVariables - Twilio-generated HTTP variables sent to the server
-   * @property responseBody - The HTTP body returned by your server.
-   * @property responseHeaders - The HTTP headers returned by your server.
-   * @property sid - A string that uniquely identifies this notification
-   * @property uri - The URI for this resource
+   * @property responseBody - The HTTP body returned by your server
+   * @property responseHeaders - The HTTP headers returned by your server
+   * @property sid - The unique string that identifies the resource
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param sid - Fetch by unique notification Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: NotificationPayload, accountSid: string, sid: string);
 

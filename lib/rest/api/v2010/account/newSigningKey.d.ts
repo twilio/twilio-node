@@ -31,7 +31,7 @@ interface NewSigningKeyListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - The friendly_name
+ * @property friendlyName - A string to describe the resource
  */
 interface NewSigningKeyListInstanceCreateOptions {
   friendlyName?: string;
@@ -57,11 +57,11 @@ declare class NewSigningKeyInstance extends SerializableClass {
   /**
    * Initialize the NewSigningKeyContext
    *
-   * @property sid - The sid
-   * @property friendlyName - The friendly_name
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property secret - The secret
+   * @property sid - The unique string that identifies the resource
+   * @property friendlyName - The string that you assigned to describe the resource
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property secret - The secret your application uses to sign Access Tokens and to authenticate to the REST API.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

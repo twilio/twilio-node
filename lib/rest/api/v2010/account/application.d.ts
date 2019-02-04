@@ -15,28 +15,28 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the ApplicationList
  *
  * @param version - Version of the resource
- * @param accountSid - A string that uniquely identifies this resource
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function ApplicationList(version: V2010, accountSid: string): ApplicationListInstance;
 
 /**
  * Options to pass to update
  *
- * @property apiVersion - The API version to use
- * @property friendlyName - Human readable description of this resource
- * @property messageStatusCallback - URL to make requests to with status updates
- * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
- * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
- * @property smsMethod - HTTP method to use with sms_url
- * @property smsStatusCallback - URL Twilio with request with status updates
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property statusCallback - URL to hit with status updates
- * @property statusCallbackMethod - HTTP method to use with the status callback
- * @property voiceCallerIdLookup - True or False
- * @property voiceFallbackMethod - HTTP method to use with the fallback url
- * @property voiceFallbackUrl - Fallback URL
- * @property voiceMethod - HTTP method to use with the URL
- * @property voiceUrl - URL Twilio will make requests to when relieving a call
+ * @property apiVersion - The API version to use to start a new TwiML session
+ * @property friendlyName - A string to describe the resource
+ * @property messageStatusCallback - The URL to send message status information to your application
+ * @property smsFallbackMethod - The HTTP method to use with sms_fallback_url
+ * @property smsFallbackUrl - The URL to call when an error occurs while retrieving or executing the TwiML
+ * @property smsMethod - The HTTP method to use with sms_url
+ * @property smsStatusCallback - The URL to send status information to your application
+ * @property smsUrl - The URL to call when the phone number receives an incoming SMS message
+ * @property statusCallback - The URL to send status information to your application
+ * @property statusCallbackMethod - The HTTP method to use to call status_callback
+ * @property voiceCallerIdLookup - Whether to lookup the caller's name
+ * @property voiceFallbackMethod - The HTTP method to use with voice_fallback_url
+ * @property voiceFallbackUrl - The URL to call when a TwiML error occurs
+ * @property voiceMethod - The HTTP method to use with the voice_url
+ * @property voiceUrl - The URL to call when the phone number receives a call
  */
 interface ApplicationInstanceUpdateOptions {
   apiVersion?: string;
@@ -85,7 +85,7 @@ interface ApplicationListInstance {
   /**
    * Constructs a application
    *
-   * @param sid - Fetch by unique Application Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ApplicationContext;
   /**
@@ -122,21 +122,21 @@ interface ApplicationListInstance {
 /**
  * Options to pass to create
  *
- * @property apiVersion - The API version to use
- * @property friendlyName - A human readable description of the application
- * @property messageStatusCallback - URL to make requests to with status updates
- * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
- * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
- * @property smsMethod - HTTP method to use with sms_url
- * @property smsStatusCallback - URL Twilio with request with status updates
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property statusCallback - URL to hit with status updates
- * @property statusCallbackMethod - HTTP method to use with the status callback
- * @property voiceCallerIdLookup - True or False
- * @property voiceFallbackMethod - HTTP method to use with the fallback url
- * @property voiceFallbackUrl - Fallback URL
- * @property voiceMethod - HTTP method to use with the URL
- * @property voiceUrl - URL Twilio will make requests to when relieving a call
+ * @property apiVersion - The API version to use to start a new TwiML session
+ * @property friendlyName - A string to describe the new resource
+ * @property messageStatusCallback - The URL to send message status information to your application
+ * @property smsFallbackMethod - The HTTP method to use with sms_fallback_url
+ * @property smsFallbackUrl - The URL to call when an error occurs while retrieving or executing the TwiML
+ * @property smsMethod - The HTTP method to use with sms_url
+ * @property smsStatusCallback - The URL to send status information to your application
+ * @property smsUrl - The URL to call when the phone number receives an incoming SMS message
+ * @property statusCallback - The URL to send status information to your application
+ * @property statusCallbackMethod - The HTTP method to use to call status_callback
+ * @property voiceCallerIdLookup - Whether to lookup the caller's name
+ * @property voiceFallbackMethod - The HTTP method to use with voice_fallback_url
+ * @property voiceFallbackUrl - The URL to call when a TwiML error occurs
+ * @property voiceMethod - The HTTP method to use with the voice_url
+ * @property voiceUrl - The URL to call when the phone number receives a call
  */
 interface ApplicationListInstanceCreateOptions {
   apiVersion?: string;
@@ -163,7 +163,7 @@ interface ApplicationListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the Application resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -186,7 +186,7 @@ interface ApplicationListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the Application resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -207,7 +207,7 @@ interface ApplicationListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - Filter by friendly name
+ * @property friendlyName - The string that identifies the Application resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -255,8 +255,8 @@ declare class ApplicationContext {
    * Initialize the ApplicationContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique Application Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -286,31 +286,31 @@ declare class ApplicationInstance extends SerializableClass {
   /**
    * Initialize the ApplicationContext
    *
-   * @property accountSid - A string that uniquely identifies this resource
-   * @property apiVersion - The API version to use
-   * @property dateCreated - Date this resource was created
-   * @property dateUpdated - Date this resource was last updated
-   * @property friendlyName - Human readable description of this resource
-   * @property messageStatusCallback - URL to make requests to with status updates
-   * @property sid - A string that uniquely identifies this resource
-   * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
-   * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
-   * @property smsMethod - HTTP method to use with sms_url
-   * @property smsStatusCallback - URL Twilio with request with status updates
-   * @property smsUrl - URL Twilio will request when receiving an SMS
-   * @property statusCallback - URL to hit with status updates
-   * @property statusCallbackMethod - HTTP method to use with the status callback
-   * @property uri - URI for this resource
-   * @property voiceCallerIdLookup - True or False
-   * @property voiceFallbackMethod - HTTP method to use with the fallback url
-   * @property voiceFallbackUrl - Fallback URL
-   * @property voiceMethod - HTTP method to use with the URL
-   * @property voiceUrl - URL Twilio will make requests to when relieving a call
+   * @property accountSid - The SID of the Account that created the resource
+   * @property apiVersion - The API version used to start a new TwiML session
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
+   * @property friendlyName - The string that you assigned to describe the resource
+   * @property messageStatusCallback - The URL to send message status information to your application
+   * @property sid - The unique string that identifies the resource
+   * @property smsFallbackMethod - The HTTP method used with sms_fallback_url
+   * @property smsFallbackUrl - The URL that we call when an error occurs while retrieving or executing the TwiML
+   * @property smsMethod - The HTTP method to use with sms_url
+   * @property smsStatusCallback - The URL to send status information to your application
+   * @property smsUrl - The URL we call when the phone number receives an incoming SMS message
+   * @property statusCallback - The URL to send status information to your application
+   * @property statusCallbackMethod - The HTTP method we use to call status_callback
+   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
+   * @property voiceCallerIdLookup - Whether to lookup the caller's name
+   * @property voiceFallbackMethod - The HTTP method used with voice_fallback_url
+   * @property voiceFallbackUrl - The URL we call when a TwiML error occurs
+   * @property voiceMethod - The HTTP method used with the voice_url
+   * @property voiceUrl - The URL we call when the phone number receives a call
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - A string that uniquely identifies this resource
-   * @param sid - Fetch by unique Application Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: ApplicationPayload, accountSid: string, sid: string);
 

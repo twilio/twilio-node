@@ -148,6 +148,7 @@ interface CompositionHookListInstanceCreateOptions {
  * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
  * @property done - Function to be called upon completion of streaming
  * @property enabled - Only show Composition Hooks enabled or disabled.
+ * @property friendlyName - Only show Composition Hooks with friendly name that match this name.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -165,6 +166,7 @@ interface CompositionHookListInstanceEachOptions {
   dateCreatedBefore?: Date;
   done?: Function;
   enabled?: boolean;
+  friendlyName?: string;
   limit?: number;
   pageSize?: number;
 }
@@ -175,6 +177,7 @@ interface CompositionHookListInstanceEachOptions {
  * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
  * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
  * @property enabled - Only show Composition Hooks enabled or disabled.
+ * @property friendlyName - Only show Composition Hooks with friendly name that match this name.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -190,6 +193,7 @@ interface CompositionHookListInstanceOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   enabled?: boolean;
+  friendlyName?: string;
   limit?: number;
   pageSize?: number;
 }
@@ -200,6 +204,7 @@ interface CompositionHookListInstanceOptions {
  * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
  * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
  * @property enabled - Only show Composition Hooks enabled or disabled.
+ * @property friendlyName - Only show Composition Hooks with friendly name that match this name.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -208,6 +213,7 @@ interface CompositionHookListInstancePageOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   enabled?: boolean;
+  friendlyName?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

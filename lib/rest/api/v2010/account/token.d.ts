@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the TokenList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function TokenList(version: V2010, accountSid: string): TokenListInstance;
 
@@ -59,17 +59,17 @@ declare class TokenInstance extends SerializableClass {
   /**
    * Initialize the TokenContext
    *
-   * @property accountSid - The unique sid that identifies this account
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
+   * @property accountSid - The SID of the Account that created the resource
+   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
+   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
    * @property iceServers - An array representing the ephemeral credentials
    * @property password - The temporary password used for authenticating
    * @property ttl - The duration in seconds the credentials are valid
-   * @property username - The temporary username that uniquely identifies a Token.
+   * @property username - The temporary username that uniquely identifies a Token
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
+   * @param accountSid - The SID of the Account that created the resource
    */
   constructor(version: V2010, payload: TokenPayload, accountSid: string);
 
