@@ -77,6 +77,10 @@ interface FlowListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: FlowListInstancePageOptions, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -181,6 +185,10 @@ declare class FlowContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: FlowInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -233,8 +241,7 @@ declare class FlowInstance extends SerializableClass {
   sid: string;
   status: FlowStatus;
   /**
-   * Produce a plain JSON object version of the FlowInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -258,6 +265,10 @@ declare class FlowPage extends Page<V1, FlowPayload, FlowResource, FlowInstance>
    * @param payload - Payload response from the API
    */
   getInstance(payload: FlowPayload): FlowInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowListInstanceEachOptions, FlowListInstanceOptions, FlowListInstancePageOptions, FlowPage, FlowPayload, FlowResource, FlowSolution }

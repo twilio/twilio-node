@@ -88,6 +88,10 @@ interface SyncMapPermissionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncMapPermissionListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -191,6 +195,10 @@ declare class SyncMapPermissionContext {
    */
   remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SyncMapPermissionInstance
    *
    * @param opts - Options for request
@@ -241,8 +249,7 @@ declare class SyncMapPermissionInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
   serviceSid: string;
   /**
-   * Produce a plain JSON object version of the SyncMapPermissionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -273,6 +280,10 @@ declare class SyncMapPermissionPage extends Page<V1, SyncMapPermissionPayload, S
    * @param payload - Payload response from the API
    */
   getInstance(payload: SyncMapPermissionPayload): SyncMapPermissionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionListInstanceEachOptions, SyncMapPermissionListInstanceOptions, SyncMapPermissionListInstancePageOptions, SyncMapPermissionPage, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionSolution }

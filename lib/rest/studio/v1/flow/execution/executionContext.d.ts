@@ -28,6 +28,10 @@ interface ExecutionContextListInstance {
    * Constructs a execution_context
    */
   get(): ExecutionContextContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface ExecutionContextPayload extends ExecutionContextResource, Page.TwilioResponsePayload {
@@ -63,6 +67,10 @@ declare class ExecutionContextContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -95,8 +103,7 @@ declare class ExecutionContextInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ExecutionContextInstance) => any): void;
   flowSid: string;
   /**
-   * Produce a plain JSON object version of the ExecutionContextInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -119,6 +126,10 @@ declare class ExecutionContextPage extends Page<V1, ExecutionContextPayload, Exe
    * @param payload - Payload response from the API
    */
   getInstance(payload: ExecutionContextPayload): ExecutionContextInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ExecutionContextContext, ExecutionContextInstance, ExecutionContextList, ExecutionContextListInstance, ExecutionContextPage, ExecutionContextPayload, ExecutionContextResource, ExecutionContextSolution }

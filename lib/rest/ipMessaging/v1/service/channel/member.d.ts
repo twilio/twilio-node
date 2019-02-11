@@ -92,6 +92,10 @@ interface MemberListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MemberListInstancePageOptions, callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -215,6 +219,10 @@ declare class MemberContext {
    */
   remove(callback?: (error: Error | null, items: MemberInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a MemberInstance
    *
    * @param opts - Options for request
@@ -272,8 +280,7 @@ declare class MemberInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the MemberInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -303,6 +310,10 @@ declare class MemberPage extends Page<V1, MemberPayload, MemberResource, MemberI
    * @param payload - Payload response from the API
    */
   getInstance(payload: MemberPayload): MemberInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberListInstanceCreateOptions, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }

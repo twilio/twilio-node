@@ -63,6 +63,10 @@ interface DataSessionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DataSessionListInstancePageOptions, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -202,8 +206,7 @@ declare class DataSessionInstance extends SerializableClass {
   simSid: string;
   start: Date;
   /**
-   * Produce a plain JSON object version of the DataSessionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -225,6 +228,10 @@ declare class DataSessionPage extends Page<V1, DataSessionPayload, DataSessionRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: DataSessionPayload): DataSessionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionListInstanceEachOptions, DataSessionListInstanceOptions, DataSessionListInstancePageOptions, DataSessionPage, DataSessionPayload, DataSessionResource, DataSessionSolution }

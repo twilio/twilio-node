@@ -26,6 +26,10 @@ interface BulkCountryUpdateListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts: BulkCountryUpdateListInstanceCreateOptions, callback?: (error: Error | null, item: BulkCountryUpdateInstance) => any): Promise<BulkCountryUpdateInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -62,8 +66,7 @@ declare class BulkCountryUpdateInstance extends SerializableClass {
   constructor(version: V1, payload: BulkCountryUpdatePayload);
 
   /**
-   * Produce a plain JSON object version of the BulkCountryUpdateInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   updateCount: number;
@@ -87,6 +90,10 @@ declare class BulkCountryUpdatePage extends Page<V1, BulkCountryUpdatePayload, B
    * @param payload - Payload response from the API
    */
   getInstance(payload: BulkCountryUpdatePayload): BulkCountryUpdateInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { BulkCountryUpdateInstance, BulkCountryUpdateList, BulkCountryUpdateListInstance, BulkCountryUpdateListInstanceCreateOptions, BulkCountryUpdatePage, BulkCountryUpdatePayload, BulkCountryUpdateResource, BulkCountryUpdateSolution }

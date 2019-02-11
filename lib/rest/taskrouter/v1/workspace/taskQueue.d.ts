@@ -107,6 +107,10 @@ interface TaskQueueListInstance {
    */
   page(opts?: TaskQueueListInstancePageOptions, callback?: (error: Error | null, items: TaskQueuePage) => any): Promise<TaskQueuePage>;
   statistics?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -259,6 +263,10 @@ declare class TaskQueueContext {
   remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
   statistics: TaskQueueStatisticsListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a TaskQueueInstance
    *
    * @param opts - Options for request
@@ -334,8 +342,7 @@ declare class TaskQueueInstance extends SerializableClass {
   targetWorkers: string;
   taskOrder: TaskQueueTaskOrder;
   /**
-   * Produce a plain JSON object version of the TaskQueueInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -366,6 +373,10 @@ declare class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskQueuePayload): TaskQueueInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListInstance, TaskQueueListInstanceCreateOptions, TaskQueueListInstanceEachOptions, TaskQueueListInstanceOptions, TaskQueueListInstancePageOptions, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution }

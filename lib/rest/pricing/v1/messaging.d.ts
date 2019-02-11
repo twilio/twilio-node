@@ -19,6 +19,10 @@ declare function MessagingList(version: V1): MessagingListInstance;
 
 interface MessagingListInstance {
   countries?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface MessagingPayload extends MessagingResource, Page.TwilioResponsePayload {
@@ -50,8 +54,7 @@ declare class MessagingInstance extends SerializableClass {
   links: string;
   name: string;
   /**
-   * Produce a plain JSON object version of the MessagingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -74,6 +77,10 @@ declare class MessagingPage extends Page<V1, MessagingPayload, MessagingResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: MessagingPayload): MessagingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { MessagingInstance, MessagingList, MessagingListInstance, MessagingPage, MessagingPayload, MessagingResource, MessagingSolution }

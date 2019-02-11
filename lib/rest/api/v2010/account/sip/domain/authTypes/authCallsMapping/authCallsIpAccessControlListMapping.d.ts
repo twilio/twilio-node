@@ -80,6 +80,10 @@ interface AuthCallsIpAccessControlListMappingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AuthCallsIpAccessControlListMappingListInstancePageOptions, callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingPage) => any): Promise<AuthCallsIpAccessControlListMappingPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -188,6 +192,10 @@ declare class AuthCallsIpAccessControlListMappingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -228,8 +236,7 @@ declare class AuthCallsIpAccessControlListMappingInstance extends SerializableCl
   remove(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AuthCallsIpAccessControlListMappingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -251,6 +258,10 @@ declare class AuthCallsIpAccessControlListMappingPage extends Page<V2010, AuthCa
    * @param payload - Payload response from the API
    */
   getInstance(payload: AuthCallsIpAccessControlListMappingPayload): AuthCallsIpAccessControlListMappingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AuthCallsIpAccessControlListMappingContext, AuthCallsIpAccessControlListMappingInstance, AuthCallsIpAccessControlListMappingList, AuthCallsIpAccessControlListMappingListInstance, AuthCallsIpAccessControlListMappingListInstanceCreateOptions, AuthCallsIpAccessControlListMappingListInstanceEachOptions, AuthCallsIpAccessControlListMappingListInstanceOptions, AuthCallsIpAccessControlListMappingListInstancePageOptions, AuthCallsIpAccessControlListMappingPage, AuthCallsIpAccessControlListMappingPayload, AuthCallsIpAccessControlListMappingResource, AuthCallsIpAccessControlListMappingSolution }

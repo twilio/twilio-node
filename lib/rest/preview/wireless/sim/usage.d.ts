@@ -39,6 +39,10 @@ interface UsageListInstance {
    * Constructs a usage
    */
   get(): UsageContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
@@ -77,6 +81,10 @@ declare class UsageContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: UsageInstanceFetchOptions, callback?: (error: Error | null, items: UsageInstance) => any): Promise<UsageInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -117,8 +125,7 @@ declare class UsageInstance extends SerializableClass {
   simSid: string;
   simUniqueName: string;
   /**
-   * Produce a plain JSON object version of the UsageInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -141,6 +148,10 @@ declare class UsagePage extends Page<Wireless, UsagePayload, UsageResource, Usag
    * @param payload - Payload response from the API
    */
   getInstance(payload: UsagePayload): UsageInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }

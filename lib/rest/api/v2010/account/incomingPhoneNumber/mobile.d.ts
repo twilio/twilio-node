@@ -72,6 +72,10 @@ interface MobileListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MobileListInstancePageOptions, callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -297,8 +301,7 @@ declare class MobileInstance extends SerializableClass {
   statusCallback: string;
   statusCallbackMethod: string;
   /**
-   * Produce a plain JSON object version of the MobileInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   trunkSid: string;
@@ -328,6 +331,10 @@ declare class MobilePage extends Page<V2010, MobilePayload, MobileResource, Mobi
    * @param payload - Payload response from the API
    */
   getInstance(payload: MobilePayload): MobileInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { MobileInstance, MobileList, MobileListInstance, MobileListInstanceCreateOptions, MobileListInstanceEachOptions, MobileListInstanceOptions, MobileListInstancePageOptions, MobilePage, MobilePayload, MobileResource, MobileSolution }

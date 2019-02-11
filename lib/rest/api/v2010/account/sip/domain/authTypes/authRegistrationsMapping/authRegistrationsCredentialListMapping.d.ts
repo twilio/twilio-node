@@ -80,6 +80,10 @@ interface AuthRegistrationsCredentialListMappingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AuthRegistrationsCredentialListMappingListInstancePageOptions, callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingPage) => any): Promise<AuthRegistrationsCredentialListMappingPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -188,6 +192,10 @@ declare class AuthRegistrationsCredentialListMappingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -228,8 +236,7 @@ declare class AuthRegistrationsCredentialListMappingInstance extends Serializabl
   remove(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AuthRegistrationsCredentialListMappingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -251,6 +258,10 @@ declare class AuthRegistrationsCredentialListMappingPage extends Page<V2010, Aut
    * @param payload - Payload response from the API
    */
   getInstance(payload: AuthRegistrationsCredentialListMappingPayload): AuthRegistrationsCredentialListMappingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AuthRegistrationsCredentialListMappingContext, AuthRegistrationsCredentialListMappingInstance, AuthRegistrationsCredentialListMappingList, AuthRegistrationsCredentialListMappingListInstance, AuthRegistrationsCredentialListMappingListInstanceCreateOptions, AuthRegistrationsCredentialListMappingListInstanceEachOptions, AuthRegistrationsCredentialListMappingListInstanceOptions, AuthRegistrationsCredentialListMappingListInstancePageOptions, AuthRegistrationsCredentialListMappingPage, AuthRegistrationsCredentialListMappingPayload, AuthRegistrationsCredentialListMappingResource, AuthRegistrationsCredentialListMappingSolution }

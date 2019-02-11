@@ -25,6 +25,10 @@ interface BalanceListInstance {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: BalanceListInstance) => any): Promise<BalanceInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface BalancePayload extends BalanceResource, Page.TwilioResponsePayload {
@@ -59,8 +63,7 @@ declare class BalanceInstance extends SerializableClass {
   balance: string;
   currency: string;
   /**
-   * Produce a plain JSON object version of the BalanceInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -82,6 +85,10 @@ declare class BalancePage extends Page<V2010, BalancePayload, BalanceResource, B
    * @param payload - Payload response from the API
    */
   getInstance(payload: BalancePayload): BalanceInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { BalanceInstance, BalanceList, BalanceListInstance, BalancePage, BalancePayload, BalanceResource, BalanceSolution }

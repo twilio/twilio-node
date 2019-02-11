@@ -73,6 +73,10 @@ interface NotificationListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: NotificationListInstancePageOptions, callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -206,6 +210,10 @@ declare class NotificationContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: NotificationInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -268,8 +276,7 @@ declare class NotificationInstance extends SerializableClass {
   responseHeaders: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the NotificationInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -292,6 +299,10 @@ declare class NotificationPage extends Page<V2010, NotificationPayload, Notifica
    * @param payload - Payload response from the API
    */
   getInstance(payload: NotificationPayload): NotificationInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationListInstanceEachOptions, NotificationListInstanceOptions, NotificationListInstancePageOptions, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }

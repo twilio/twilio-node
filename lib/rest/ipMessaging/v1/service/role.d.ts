@@ -91,6 +91,10 @@ interface RoleListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: RoleListInstancePageOptions, callback?: (error: Error | null, items: RolePage) => any): Promise<RolePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -206,6 +210,10 @@ declare class RoleContext {
    */
   remove(callback?: (error: Error | null, items: RoleInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a RoleInstance
    *
    * @param opts - Options for request
@@ -257,8 +265,7 @@ declare class RoleInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the RoleInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   type: RoleRoleType;
@@ -289,6 +296,10 @@ declare class RolePage extends Page<V1, RolePayload, RoleResource, RoleInstance>
    * @param payload - Payload response from the API
    */
   getInstance(payload: RolePayload): RoleInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { RoleContext, RoleInstance, RoleList, RoleListInstance, RoleListInstanceCreateOptions, RoleListInstanceEachOptions, RoleListInstanceOptions, RoleListInstancePageOptions, RolePage, RolePayload, RoleResource, RoleSolution }

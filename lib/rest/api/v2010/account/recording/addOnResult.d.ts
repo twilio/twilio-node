@@ -77,6 +77,10 @@ interface AddOnResultListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AddOnResultListInstancePageOptions, callback?: (error: Error | null, items: AddOnResultPage) => any): Promise<AddOnResultPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -184,6 +188,10 @@ declare class AddOnResultContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -238,8 +246,7 @@ declare class AddOnResultInstance extends SerializableClass {
   status: AddOnResultStatus;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the AddOnResultInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -261,6 +268,10 @@ declare class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResul
    * @param payload - Payload response from the API
    */
   getInstance(payload: AddOnResultPayload): AddOnResultInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultListInstanceEachOptions, AddOnResultListInstanceOptions, AddOnResultListInstancePageOptions, AddOnResultPage, AddOnResultPayload, AddOnResultResource, AddOnResultSolution }

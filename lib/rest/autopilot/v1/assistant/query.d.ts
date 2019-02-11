@@ -91,6 +91,10 @@ interface QueryListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: QueryListInstancePageOptions, callback?: (error: Error | null, items: QueryPage) => any): Promise<QueryPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -230,6 +234,10 @@ declare class QueryContext {
    */
   remove(callback?: (error: Error | null, items: QueryInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a QueryInstance
    *
    * @param opts - Options for request
@@ -290,8 +298,7 @@ declare class QueryInstance extends SerializableClass {
   sourceChannel: string;
   status: string;
   /**
-   * Produce a plain JSON object version of the QueryInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -321,6 +328,10 @@ declare class QueryPage extends Page<V1, QueryPayload, QueryResource, QueryInsta
    * @param payload - Payload response from the API
    */
   getInstance(payload: QueryPayload): QueryInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryListInstanceCreateOptions, QueryListInstanceEachOptions, QueryListInstanceOptions, QueryListInstancePageOptions, QueryPage, QueryPayload, QueryResource, QuerySolution }

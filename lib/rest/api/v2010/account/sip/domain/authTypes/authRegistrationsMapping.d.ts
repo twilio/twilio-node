@@ -19,6 +19,10 @@ declare function AuthTypeRegistrationsList(version: V2010, accountSid: string, d
 
 interface AuthTypeRegistrationsListInstance {
   credentialListMappings?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface AuthTypeRegistrationsPayload extends AuthTypeRegistrationsResource, Page.TwilioResponsePayload {

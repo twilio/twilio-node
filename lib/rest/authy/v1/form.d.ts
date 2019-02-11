@@ -31,6 +31,10 @@ interface FormListInstance {
    * @param formType - The Type of this Form
    */
   get(formType: string): FormContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface FormPayload extends FormResource, Page.TwilioResponsePayload {
@@ -62,6 +66,10 @@ declare class FormContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FormInstance) => any): Promise<FormInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -91,8 +99,7 @@ declare class FormInstance extends SerializableClass {
   formType: FormFormTypes;
   forms: string;
   /**
-   * Produce a plain JSON object version of the FormInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -115,6 +122,10 @@ declare class FormPage extends Page<V1, FormPayload, FormResource, FormInstance>
    * @param payload - Payload response from the API
    */
   getInstance(payload: FormPayload): FormInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FormContext, FormInstance, FormList, FormListInstance, FormPage, FormPayload, FormResource, FormSolution }

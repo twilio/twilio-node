@@ -65,6 +65,10 @@ interface YesterdayListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: YesterdayListInstancePageOptions, callback?: (error: Error | null, items: YesterdayPage) => any): Promise<YesterdayPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -210,8 +214,7 @@ declare class YesterdayInstance extends SerializableClass {
   startDate: Date;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the YesterdayInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -236,6 +239,10 @@ declare class YesterdayPage extends Page<V2010, YesterdayPayload, YesterdayResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: YesterdayPayload): YesterdayInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { YesterdayInstance, YesterdayList, YesterdayListInstance, YesterdayListInstanceEachOptions, YesterdayListInstanceOptions, YesterdayListInstancePageOptions, YesterdayPage, YesterdayPayload, YesterdayResource, YesterdaySolution }

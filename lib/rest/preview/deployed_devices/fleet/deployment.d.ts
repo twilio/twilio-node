@@ -91,6 +91,10 @@ interface DeploymentListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DeploymentListInstancePageOptions, callback?: (error: Error | null, items: DeploymentPage) => any): Promise<DeploymentPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -203,6 +207,10 @@ declare class DeploymentContext {
    */
   remove(callback?: (error: Error | null, items: DeploymentInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a DeploymentInstance
    *
    * @param opts - Options for request
@@ -253,8 +261,7 @@ declare class DeploymentInstance extends SerializableClass {
   sid: string;
   syncServiceSid: string;
   /**
-   * Produce a plain JSON object version of the DeploymentInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -284,6 +291,10 @@ declare class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, De
    * @param payload - Payload response from the API
    */
   getInstance(payload: DeploymentPayload): DeploymentInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentListInstanceCreateOptions, DeploymentListInstanceEachOptions, DeploymentListInstanceOptions, DeploymentListInstancePageOptions, DeploymentPage, DeploymentPayload, DeploymentResource, DeploymentSolution }

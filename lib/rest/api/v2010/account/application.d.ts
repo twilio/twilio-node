@@ -117,6 +117,10 @@ interface ApplicationListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ApplicationListInstancePageOptions, callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -273,6 +277,10 @@ declare class ApplicationContext {
    */
   remove(callback?: (error: Error | null, items: ApplicationInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ApplicationInstance
    *
    * @param opts - Options for request
@@ -342,8 +350,7 @@ declare class ApplicationInstance extends SerializableClass {
   statusCallback: string;
   statusCallbackMethod: string;
   /**
-   * Produce a plain JSON object version of the ApplicationInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -378,6 +385,10 @@ declare class ApplicationPage extends Page<V2010, ApplicationPayload, Applicatio
    * @param payload - Payload response from the API
    */
   getInstance(payload: ApplicationPayload): ApplicationInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationListInstanceCreateOptions, ApplicationListInstanceEachOptions, ApplicationListInstanceOptions, ApplicationListInstancePageOptions, ApplicationPage, ApplicationPayload, ApplicationResource, ApplicationSolution }

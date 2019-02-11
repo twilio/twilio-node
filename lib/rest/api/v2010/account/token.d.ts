@@ -26,6 +26,10 @@ interface TokenListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts?: TokenListInstanceCreateOptions, callback?: (error: Error | null, item: TokenInstance) => any): Promise<TokenInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -79,8 +83,7 @@ declare class TokenInstance extends SerializableClass {
   iceServers: string;
   password: string;
   /**
-   * Produce a plain JSON object version of the TokenInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   ttl: string;
@@ -104,6 +107,10 @@ declare class TokenPage extends Page<V2010, TokenPayload, TokenResource, TokenIn
    * @param payload - Payload response from the API
    */
   getInstance(payload: TokenPayload): TokenInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TokenInstance, TokenList, TokenListInstance, TokenListInstanceCreateOptions, TokenPage, TokenPayload, TokenResource, TokenSolution }

@@ -111,6 +111,10 @@ interface DomainListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DomainListInstancePageOptions, callback?: (error: Error | null, items: DomainPage) => any): Promise<DomainPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -253,6 +257,10 @@ declare class DomainContext {
    */
   remove(callback?: (error: Error | null, items: DomainInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a DomainInstance
    *
    * @param opts - Options for request
@@ -327,8 +335,7 @@ declare class DomainInstance extends SerializableClass {
   sipRegistration: boolean;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the DomainInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -364,6 +371,10 @@ declare class DomainPage extends Page<V2010, DomainPayload, DomainResource, Doma
    * @param payload - Payload response from the API
    */
   getInstance(payload: DomainPayload): DomainInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainListInstanceCreateOptions, DomainListInstanceEachOptions, DomainListInstanceOptions, DomainListInstancePageOptions, DomainPage, DomainPayload, DomainResource, DomainSolution }

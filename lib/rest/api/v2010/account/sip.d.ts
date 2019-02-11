@@ -20,6 +20,10 @@ interface SipListInstance {
   credentialLists?: object;
   domains?: object;
   ipAccessControlLists?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface SipPayload extends SipResource, Page.TwilioResponsePayload {

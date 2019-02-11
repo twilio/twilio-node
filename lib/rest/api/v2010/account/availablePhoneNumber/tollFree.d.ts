@@ -64,6 +64,10 @@ interface TollFreeListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TollFreeListInstancePageOptions, callback?: (error: Error | null, items: TollFreePage) => any): Promise<TollFreePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -295,8 +299,7 @@ declare class TollFreeInstance extends SerializableClass {
   rateCenter: string;
   region: string;
   /**
-   * Produce a plain JSON object version of the TollFreeInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -318,6 +321,10 @@ declare class TollFreePage extends Page<V2010, TollFreePayload, TollFreeResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: TollFreePayload): TollFreeInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreeListInstanceEachOptions, TollFreeListInstanceOptions, TollFreeListInstancePageOptions, TollFreePage, TollFreePayload, TollFreeResource, TollFreeSolution }

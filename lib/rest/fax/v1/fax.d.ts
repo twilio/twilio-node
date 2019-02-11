@@ -99,6 +99,10 @@ interface FaxListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: FaxListInstancePageOptions, callback?: (error: Error | null, items: FaxPage) => any): Promise<FaxPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -260,6 +264,10 @@ declare class FaxContext {
    */
   remove(callback?: (error: Error | null, items: FaxInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a FaxInstance
    *
    * @param opts - Options for request
@@ -333,8 +341,7 @@ declare class FaxInstance extends SerializableClass {
   status: FaxStatus;
   to: string;
   /**
-   * Produce a plain JSON object version of the FaxInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -364,6 +371,10 @@ declare class FaxPage extends Page<V1, FaxPayload, FaxResource, FaxInstance> {
    * @param payload - Payload response from the API
    */
   getInstance(payload: FaxPayload): FaxInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxListInstanceCreateOptions, FaxListInstanceEachOptions, FaxListInstanceOptions, FaxListInstancePageOptions, FaxPage, FaxPayload, FaxResource, FaxSolution }

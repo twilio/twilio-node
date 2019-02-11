@@ -80,6 +80,10 @@ interface IpAccessControlListMappingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: IpAccessControlListMappingListInstancePageOptions, callback?: (error: Error | null, items: IpAccessControlListMappingPage) => any): Promise<IpAccessControlListMappingPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -190,6 +194,10 @@ declare class IpAccessControlListMappingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -233,8 +241,7 @@ declare class IpAccessControlListMappingInstance extends SerializableClass {
   sid: string;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the IpAccessControlListMappingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -257,6 +264,10 @@ declare class IpAccessControlListMappingPage extends Page<V2010, IpAccessControl
    * @param payload - Payload response from the API
    */
   getInstance(payload: IpAccessControlListMappingPayload): IpAccessControlListMappingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingListInstanceCreateOptions, IpAccessControlListMappingListInstanceEachOptions, IpAccessControlListMappingListInstanceOptions, IpAccessControlListMappingListInstancePageOptions, IpAccessControlListMappingPage, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingSolution }

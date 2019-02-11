@@ -45,6 +45,10 @@ interface WorkspaceCumulativeStatisticsListInstance {
    * Constructs a workspace_cumulative_statistics
    */
   get(): WorkspaceCumulativeStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface WorkspaceCumulativeStatisticsPayload extends WorkspaceCumulativeStatisticsResource, Page.TwilioResponsePayload {
@@ -95,6 +99,10 @@ declare class WorkspaceCumulativeStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkspaceCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceCumulativeStatisticsInstance) => any): Promise<WorkspaceCumulativeStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -156,8 +164,7 @@ declare class WorkspaceCumulativeStatisticsInstance extends SerializableClass {
   tasksMoved: number;
   tasksTimedOutInWorkflow: number;
   /**
-   * Produce a plain JSON object version of the WorkspaceCumulativeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -183,6 +190,10 @@ declare class WorkspaceCumulativeStatisticsPage extends Page<V1, WorkspaceCumula
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkspaceCumulativeStatisticsPayload): WorkspaceCumulativeStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkspaceCumulativeStatisticsContext, WorkspaceCumulativeStatisticsInstance, WorkspaceCumulativeStatisticsList, WorkspaceCumulativeStatisticsListInstance, WorkspaceCumulativeStatisticsPage, WorkspaceCumulativeStatisticsPayload, WorkspaceCumulativeStatisticsResource, WorkspaceCumulativeStatisticsSolution }

@@ -75,6 +75,10 @@ interface CountryListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CountryListInstancePageOptions, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -207,6 +211,10 @@ declare class CountryContext {
    */
   fetch(callback?: (error: Error | null, items: CountryInstance) => any): Promise<CountryInstance>;
   highriskSpecialPrefixes: HighriskSpecialPrefixListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -250,8 +258,7 @@ declare class CountryInstance extends SerializableClass {
   lowRiskNumbersEnabled: boolean;
   name: string;
   /**
-   * Produce a plain JSON object version of the CountryInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -274,6 +281,10 @@ declare class CountryPage extends Page<V1, CountryPayload, CountryResource, Coun
    * @param payload - Payload response from the API
    */
   getInstance(payload: CountryPayload): CountryInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryListInstanceEachOptions, CountryListInstanceOptions, CountryListInstancePageOptions, CountryPage, CountryPayload, CountryResource, CountrySolution }

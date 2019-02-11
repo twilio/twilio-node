@@ -98,6 +98,10 @@ interface RoomListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: RoomListInstancePageOptions, callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -255,6 +259,10 @@ declare class RoomContext {
   participants: ParticipantListInstance;
   recordings: RoomRecordingListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a RoomInstance
    *
    * @param opts - Options for request
@@ -323,8 +331,7 @@ declare class RoomInstance extends SerializableClass {
   statusCallback: string;
   statusCallbackMethod: string;
   /**
-   * Produce a plain JSON object version of the RoomInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   type: RoomRoomType;
@@ -357,6 +364,10 @@ declare class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance>
    * @param payload - Payload response from the API
    */
   getInstance(payload: RoomPayload): RoomInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomListInstanceCreateOptions, RoomListInstanceEachOptions, RoomListInstanceOptions, RoomListInstancePageOptions, RoomPage, RoomPayload, RoomResource, RoomSolution }

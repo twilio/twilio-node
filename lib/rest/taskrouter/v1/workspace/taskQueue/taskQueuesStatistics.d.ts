@@ -63,6 +63,10 @@ interface TaskQueuesStatisticsListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TaskQueuesStatisticsListInstancePageOptions, callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any): Promise<TaskQueuesStatisticsPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -195,8 +199,7 @@ declare class TaskQueuesStatisticsInstance extends SerializableClass {
   realtime: string;
   taskQueueSid: string;
   /**
-   * Produce a plain JSON object version of the TaskQueuesStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   workspaceSid: string;
@@ -219,6 +222,10 @@ declare class TaskQueuesStatisticsPage extends Page<V1, TaskQueuesStatisticsPayl
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskQueuesStatisticsPayload): TaskQueuesStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskQueuesStatisticsInstance, TaskQueuesStatisticsList, TaskQueuesStatisticsListInstance, TaskQueuesStatisticsListInstanceEachOptions, TaskQueuesStatisticsListInstanceOptions, TaskQueuesStatisticsListInstancePageOptions, TaskQueuesStatisticsPage, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsSolution }

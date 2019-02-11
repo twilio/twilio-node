@@ -87,6 +87,10 @@ interface PublicKeyListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: PublicKeyListInstancePageOptions, callback?: (error: Error | null, items: PublicKeyPage) => any): Promise<PublicKeyPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -197,6 +201,10 @@ declare class PublicKeyContext {
    */
   remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a PublicKeyInstance
    *
    * @param opts - Options for request
@@ -242,8 +250,7 @@ declare class PublicKeyInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the PublicKeyInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -273,6 +280,10 @@ declare class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: PublicKeyPayload): PublicKeyInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyListInstanceCreateOptions, PublicKeyListInstanceEachOptions, PublicKeyListInstanceOptions, PublicKeyListInstancePageOptions, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }

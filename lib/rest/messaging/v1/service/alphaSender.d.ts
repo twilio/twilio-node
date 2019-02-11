@@ -80,6 +80,10 @@ interface AlphaSenderListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AlphaSenderListInstancePageOptions, callback?: (error: Error | null, items: AlphaSenderPage) => any): Promise<AlphaSenderPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -189,6 +193,10 @@ declare class AlphaSenderContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AlphaSenderInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -233,8 +241,7 @@ declare class AlphaSenderInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AlphaSenderInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -257,6 +264,10 @@ declare class AlphaSenderPage extends Page<V1, AlphaSenderPayload, AlphaSenderRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: AlphaSenderPayload): AlphaSenderInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AlphaSenderContext, AlphaSenderInstance, AlphaSenderList, AlphaSenderListInstance, AlphaSenderListInstanceCreateOptions, AlphaSenderListInstanceEachOptions, AlphaSenderListInstanceOptions, AlphaSenderListInstancePageOptions, AlphaSenderPage, AlphaSenderPayload, AlphaSenderResource, AlphaSenderSolution }

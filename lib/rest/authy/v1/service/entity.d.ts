@@ -82,6 +82,10 @@ interface EntityListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: EntityListInstancePageOptions, callback?: (error: Error | null, items: EntityPage) => any): Promise<EntityPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -194,6 +198,10 @@ declare class EntityContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: EntityInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -242,8 +250,7 @@ declare class EntityInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the EntityInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -266,6 +273,10 @@ declare class EntityPage extends Page<V1, EntityPayload, EntityResource, EntityI
    * @param payload - Payload response from the API
    */
   getInstance(payload: EntityPayload): EntityInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { EntityContext, EntityInstance, EntityList, EntityListInstance, EntityListInstanceCreateOptions, EntityListInstanceEachOptions, EntityListInstanceOptions, EntityListInstancePageOptions, EntityPage, EntityPayload, EntityResource, EntitySolution }

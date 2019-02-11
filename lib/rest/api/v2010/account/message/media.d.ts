@@ -74,6 +74,10 @@ interface MediaListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MediaListInstancePageOptions, callback?: (error: Error | null, items: MediaPage) => any): Promise<MediaPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -193,6 +197,10 @@ declare class MediaContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: MediaInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -236,8 +244,7 @@ declare class MediaInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: MediaInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the MediaInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -260,6 +267,10 @@ declare class MediaPage extends Page<V2010, MediaPayload, MediaResource, MediaIn
    * @param payload - Payload response from the API
    */
   getInstance(payload: MediaPayload): MediaInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaListInstanceEachOptions, MediaListInstanceOptions, MediaListInstancePageOptions, MediaPage, MediaPayload, MediaResource, MediaSolution }

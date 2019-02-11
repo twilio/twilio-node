@@ -63,6 +63,10 @@ interface DayListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DayListInstancePageOptions, callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -157,8 +161,7 @@ declare class DayInstance extends SerializableClass {
   resourceType: string;
   size: number;
   /**
-   * Produce a plain JSON object version of the DayInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -180,6 +183,10 @@ declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInst
    * @param payload - Payload response from the API
    */
   getInstance(payload: DayPayload): DayInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DayInstance, DayList, DayListInstance, DayListInstanceEachOptions, DayListInstanceOptions, DayListInstancePageOptions, DayPage, DayPayload, DayResource, DaySolution }

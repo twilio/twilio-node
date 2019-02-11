@@ -106,6 +106,10 @@ interface WebhookListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: WebhookListInstancePageOptions, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -233,6 +237,10 @@ declare class WebhookContext {
    */
   remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a WebhookInstance
    *
    * @param opts - Options for request
@@ -285,8 +293,7 @@ declare class WebhookInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the WebhookInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   type: string;
@@ -317,6 +324,10 @@ declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, Webh
    * @param payload - Payload response from the API
    */
   getInstance(payload: WebhookPayload): WebhookInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookListInstanceCreateOptions, WebhookListInstanceEachOptions, WebhookListInstanceOptions, WebhookListInstancePageOptions, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }

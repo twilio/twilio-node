@@ -84,6 +84,10 @@ interface SyncListListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncListListInstancePageOptions, callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -200,6 +204,10 @@ declare class SyncListContext {
   remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
   syncListItems: SyncListItemListInstance;
   syncListPermissions: SyncListPermissionListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -255,8 +263,7 @@ declare class SyncListInstance extends SerializableClass {
    */
   syncListPermissions(): SyncListPermissionListInstance;
   /**
-   * Produce a plain JSON object version of the SyncListInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -280,6 +287,10 @@ declare class SyncListPage extends Page<Sync, SyncListPayload, SyncListResource,
    * @param payload - Payload response from the API
    */
   getInstance(payload: SyncListPayload): SyncListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }

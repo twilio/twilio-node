@@ -90,6 +90,10 @@ interface ShortCodeListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ShortCodeListInstancePageOptions, callback?: (error: Error | null, items: ShortCodePage) => any): Promise<ShortCodePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -202,6 +206,10 @@ declare class ShortCodeContext {
    */
   remove(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ShortCodeInstance
    *
    * @param opts - Options for request
@@ -256,8 +264,7 @@ declare class ShortCodeInstance extends SerializableClass {
   shortCode: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ShortCodeInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -287,6 +294,10 @@ declare class ShortCodePage extends Page<V1, ShortCodePayload, ShortCodeResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: ShortCodePayload): ShortCodeInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodeListInstanceCreateOptions, ShortCodeListInstanceEachOptions, ShortCodeListInstanceOptions, ShortCodeListInstancePageOptions, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }

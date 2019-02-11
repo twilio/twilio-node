@@ -75,6 +75,10 @@ interface AssignedAddOnExtensionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AssignedAddOnExtensionListInstancePageOptions, callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any): Promise<AssignedAddOnExtensionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -174,6 +178,10 @@ declare class AssignedAddOnExtensionContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -215,8 +223,7 @@ declare class AssignedAddOnExtensionInstance extends SerializableClass {
   resourceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AssignedAddOnExtensionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -240,6 +247,10 @@ declare class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtens
    * @param payload - Payload response from the API
    */
   getInstance(payload: AssignedAddOnExtensionPayload): AssignedAddOnExtensionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionListInstanceEachOptions, AssignedAddOnExtensionListInstanceOptions, AssignedAddOnExtensionListInstancePageOptions, AssignedAddOnExtensionPage, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionSolution }

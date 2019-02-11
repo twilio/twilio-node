@@ -20,6 +20,10 @@ declare function AuthTypeCallsList(version: V2010, accountSid: string, domainSid
 interface AuthTypeCallsListInstance {
   credentialListMappings?: object;
   ipAccessControlListMappings?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface AuthTypeCallsPayload extends AuthTypeCallsResource, Page.TwilioResponsePayload {

@@ -101,6 +101,10 @@ interface SessionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SessionListInstancePageOptions, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -231,6 +235,10 @@ declare class SessionContext {
    */
   remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SessionInstance
    *
    * @param opts - Options for request
@@ -294,8 +302,7 @@ declare class SessionInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the SessionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -325,6 +332,10 @@ declare class SessionPage extends Page<V1, SessionPayload, SessionResource, Sess
    * @param payload - Payload response from the API
    */
   getInstance(payload: SessionPayload): SessionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionListInstanceCreateOptions, SessionListInstanceEachOptions, SessionListInstanceOptions, SessionListInstancePageOptions, SessionPage, SessionPayload, SessionResource, SessionSolution }

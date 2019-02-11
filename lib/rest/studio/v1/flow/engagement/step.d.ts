@@ -75,6 +75,10 @@ interface StepListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: StepListInstancePageOptions, callback?: (error: Error | null, items: StepPage) => any): Promise<StepPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -178,6 +182,10 @@ declare class StepContext {
    */
   fetch(callback?: (error: Error | null, items: StepInstance) => any): Promise<StepInstance>;
   stepContext: StepContextListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -227,8 +235,7 @@ declare class StepInstance extends SerializableClass {
    */
   stepContext(): StepContextListInstance;
   /**
-   * Produce a plain JSON object version of the StepInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   transitionedFrom: string;
@@ -253,6 +260,10 @@ declare class StepPage extends Page<V1, StepPayload, StepResource, StepInstance>
    * @param payload - Payload response from the API
    */
   getInstance(payload: StepPayload): StepInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { StepContext, StepInstance, StepList, StepListInstance, StepListInstanceEachOptions, StepListInstanceOptions, StepListInstancePageOptions, StepPage, StepPayload, StepResource, StepSolution }

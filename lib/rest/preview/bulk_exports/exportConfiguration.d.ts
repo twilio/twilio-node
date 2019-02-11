@@ -43,6 +43,10 @@ interface ExportConfigurationListInstance {
    * @param resourceType - The resource_type
    */
   get(resourceType: string): ExportConfigurationContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface ExportConfigurationPayload extends ExportConfigurationResource, Page.TwilioResponsePayload {
@@ -75,6 +79,10 @@ declare class ExportConfigurationContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   /**
    * update a ExportConfigurationInstance
    *
@@ -111,8 +119,7 @@ declare class ExportConfigurationInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): void;
   resourceType: string;
   /**
-   * Produce a plain JSON object version of the ExportConfigurationInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -144,6 +151,10 @@ declare class ExportConfigurationPage extends Page<BulkExports, ExportConfigurat
    * @param payload - Payload response from the API
    */
   getInstance(payload: ExportConfigurationPayload): ExportConfigurationInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }

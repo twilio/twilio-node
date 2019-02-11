@@ -81,6 +81,10 @@ interface KeyListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: KeyListInstancePageOptions, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -178,6 +182,10 @@ declare class KeyContext {
    */
   remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a KeyInstance
    *
    * @param opts - Options for request
@@ -221,8 +229,7 @@ declare class KeyInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the KeyInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -251,6 +258,10 @@ declare class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> 
    * @param payload - Payload response from the API
    */
   getInstance(payload: KeyPayload): KeyInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyListInstanceEachOptions, KeyListInstanceOptions, KeyListInstancePageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }

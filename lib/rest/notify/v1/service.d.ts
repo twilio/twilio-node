@@ -115,6 +115,10 @@ interface ServiceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -266,6 +270,10 @@ declare class ServiceContext {
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ServiceInstance
    *
    * @param opts - Options for request
@@ -343,8 +351,7 @@ declare class ServiceInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ServiceInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -374,6 +381,10 @@ declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, Serv
    * @param payload - Payload response from the API
    */
   getInstance(payload: ServicePayload): ServiceInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

@@ -97,6 +97,10 @@ interface OriginationUrlListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: OriginationUrlListInstancePageOptions, callback?: (error: Error | null, items: OriginationUrlPage) => any): Promise<OriginationUrlPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -218,6 +222,10 @@ declare class OriginationUrlContext {
    */
   remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a OriginationUrlInstance
    *
    * @param opts - Options for request
@@ -272,8 +280,7 @@ declare class OriginationUrlInstance extends SerializableClass {
   sid: string;
   sipUrl: string;
   /**
-   * Produce a plain JSON object version of the OriginationUrlInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   trunkSid: string;
@@ -305,6 +312,10 @@ declare class OriginationUrlPage extends Page<V1, OriginationUrlPayload, Origina
    * @param payload - Payload response from the API
    */
   getInstance(payload: OriginationUrlPayload): OriginationUrlInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlListInstanceCreateOptions, OriginationUrlListInstanceEachOptions, OriginationUrlListInstanceOptions, OriginationUrlListInstancePageOptions, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource, OriginationUrlSolution }

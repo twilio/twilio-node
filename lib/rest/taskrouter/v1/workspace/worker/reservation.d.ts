@@ -189,6 +189,10 @@ interface ReservationListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ReservationListInstancePageOptions, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -295,6 +299,10 @@ declare class ReservationContext {
    */
   fetch(callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ReservationInstance
    *
    * @param opts - Options for request
@@ -343,8 +351,7 @@ declare class ReservationInstance extends SerializableClass {
   sid: string;
   taskSid: string;
   /**
-   * Produce a plain JSON object version of the ReservationInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -377,6 +384,10 @@ declare class ReservationPage extends Page<V1, ReservationPayload, ReservationRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: ReservationPayload): ReservationInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationListInstanceEachOptions, ReservationListInstanceOptions, ReservationListInstancePageOptions, ReservationPage, ReservationPayload, ReservationResource, ReservationSolution }

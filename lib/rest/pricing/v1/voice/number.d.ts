@@ -28,6 +28,10 @@ interface NumberListInstance {
    * @param number - The number
    */
   get(number: string): NumberContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface NumberPayload extends NumberResource, Page.TwilioResponsePayload {
@@ -62,6 +66,10 @@ declare class NumberContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: NumberInstance) => any): Promise<NumberInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -97,8 +105,7 @@ declare class NumberInstance extends SerializableClass {
   outboundCallPrice: string;
   priceUnit: string;
   /**
-   * Produce a plain JSON object version of the NumberInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -121,6 +128,10 @@ declare class NumberPage extends Page<V1, NumberPayload, NumberResource, NumberI
    * @param payload - Payload response from the API
    */
   getInstance(payload: NumberPayload): NumberInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }

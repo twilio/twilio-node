@@ -85,6 +85,10 @@ interface WorkerChannelListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: WorkerChannelListInstancePageOptions, callback?: (error: Error | null, items: WorkerChannelPage) => any): Promise<WorkerChannelPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -187,6 +191,10 @@ declare class WorkerChannelContext {
    */
   fetch(callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a WorkerChannelInstance
    *
    * @param opts - Options for request
@@ -240,8 +248,7 @@ declare class WorkerChannelInstance extends SerializableClass {
   taskChannelSid: string;
   taskChannelUniqueName: string;
   /**
-   * Produce a plain JSON object version of the WorkerChannelInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -273,6 +280,10 @@ declare class WorkerChannelPage extends Page<V1, WorkerChannelPayload, WorkerCha
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkerChannelPayload): WorkerChannelInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelListInstanceEachOptions, WorkerChannelListInstanceOptions, WorkerChannelListInstancePageOptions, WorkerChannelPage, WorkerChannelPayload, WorkerChannelResource, WorkerChannelSolution }

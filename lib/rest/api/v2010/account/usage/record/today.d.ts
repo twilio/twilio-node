@@ -65,6 +65,10 @@ interface TodayListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TodayListInstancePageOptions, callback?: (error: Error | null, items: TodayPage) => any): Promise<TodayPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -210,8 +214,7 @@ declare class TodayInstance extends SerializableClass {
   startDate: Date;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the TodayInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -236,6 +239,10 @@ declare class TodayPage extends Page<V2010, TodayPayload, TodayResource, TodayIn
    * @param payload - Payload response from the API
    */
   getInstance(payload: TodayPayload): TodayInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TodayInstance, TodayList, TodayListInstance, TodayListInstanceEachOptions, TodayListInstanceOptions, TodayListInstancePageOptions, TodayPage, TodayPayload, TodayResource, TodaySolution }

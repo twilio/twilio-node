@@ -80,6 +80,10 @@ interface CredentialListMappingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CredentialListMappingListInstancePageOptions, callback?: (error: Error | null, items: CredentialListMappingPage) => any): Promise<CredentialListMappingPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -190,6 +194,10 @@ declare class CredentialListMappingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -233,8 +241,7 @@ declare class CredentialListMappingInstance extends SerializableClass {
   sid: string;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the CredentialListMappingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -257,6 +264,10 @@ declare class CredentialListMappingPage extends Page<V2010, CredentialListMappin
    * @param payload - Payload response from the API
    */
   getInstance(payload: CredentialListMappingPayload): CredentialListMappingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingListInstance, CredentialListMappingListInstanceCreateOptions, CredentialListMappingListInstanceEachOptions, CredentialListMappingListInstanceOptions, CredentialListMappingListInstancePageOptions, CredentialListMappingPage, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingSolution }

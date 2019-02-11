@@ -105,6 +105,10 @@ interface AuthorizationDocumentListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AuthorizationDocumentListInstancePageOptions, callback?: (error: Error | null, items: AuthorizationDocumentPage) => any): Promise<AuthorizationDocumentPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -233,6 +237,10 @@ declare class AuthorizationDocumentContext {
    */
   fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a AuthorizationDocumentInstance
    *
    * @param opts - Options for request
@@ -282,8 +290,7 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
   sid: string;
   status: AuthorizationDocumentStatus;
   /**
-   * Produce a plain JSON object version of the AuthorizationDocumentInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -313,6 +320,10 @@ declare class AuthorizationDocumentPage extends Page<HostedNumbers, Authorizatio
    * @param payload - Payload response from the API
    */
   getInstance(payload: AuthorizationDocumentPayload): AuthorizationDocumentInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentListInstanceCreateOptions, AuthorizationDocumentListInstanceEachOptions, AuthorizationDocumentListInstanceOptions, AuthorizationDocumentListInstancePageOptions, AuthorizationDocumentPage, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentSolution }

@@ -29,6 +29,10 @@ interface TaskStatisticsListInstance {
    * Constructs a task_statistics
    */
   get(): TaskStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface TaskStatisticsPayload extends TaskStatisticsResource, Page.TwilioResponsePayload {
@@ -65,6 +69,10 @@ declare class TaskStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: TaskStatisticsInstance) => any): Promise<TaskStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -99,8 +107,7 @@ declare class TaskStatisticsInstance extends SerializableClass {
   samplesCount: number;
   taskSid: string;
   /**
-   * Produce a plain JSON object version of the TaskStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -123,6 +130,10 @@ declare class TaskStatisticsPage extends Page<V1, TaskStatisticsPayload, TaskSta
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskStatisticsPayload): TaskStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskStatisticsContext, TaskStatisticsInstance, TaskStatisticsList, TaskStatisticsListInstance, TaskStatisticsPage, TaskStatisticsPayload, TaskStatisticsResource, TaskStatisticsSolution }

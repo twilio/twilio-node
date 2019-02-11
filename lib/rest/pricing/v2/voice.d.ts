@@ -20,6 +20,10 @@ declare function VoiceList(version: V2): VoiceListInstance;
 interface VoiceListInstance {
   countries?: object;
   numbers?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface VoicePayload extends VoiceResource, Page.TwilioResponsePayload {
@@ -51,8 +55,7 @@ declare class VoiceInstance extends SerializableClass {
   links: string;
   name: string;
   /**
-   * Produce a plain JSON object version of the VoiceInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -75,6 +78,10 @@ declare class VoicePage extends Page<V2, VoicePayload, VoiceResource, VoiceInsta
    * @param payload - Payload response from the API
    */
   getInstance(payload: VoicePayload): VoiceInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { VoiceInstance, VoiceList, VoiceListInstance, VoicePage, VoicePayload, VoiceResource, VoiceSolution }

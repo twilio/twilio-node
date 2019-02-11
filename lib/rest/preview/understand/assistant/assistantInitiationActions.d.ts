@@ -38,6 +38,10 @@ interface AssistantInitiationActionsListInstance {
    * Constructs a assistant_initiation_actions
    */
   get(): AssistantInitiationActionsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface AssistantInitiationActionsPayload extends AssistantInitiationActionsResource, Page.TwilioResponsePayload {
@@ -70,6 +74,10 @@ declare class AssistantInitiationActionsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AssistantInitiationActionsInstance) => any): Promise<AssistantInitiationActionsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   /**
    * update a AssistantInitiationActionsInstance
    *
@@ -106,8 +114,7 @@ declare class AssistantInitiationActionsInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: AssistantInitiationActionsInstance) => any): void;
   /**
-   * Produce a plain JSON object version of the AssistantInitiationActionsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -137,6 +144,10 @@ declare class AssistantInitiationActionsPage extends Page<Understand, AssistantI
    * @param payload - Payload response from the API
    */
   getInstance(payload: AssistantInitiationActionsPayload): AssistantInitiationActionsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AssistantInitiationActionsContext, AssistantInitiationActionsInstance, AssistantInitiationActionsList, AssistantInitiationActionsListInstance, AssistantInitiationActionsPage, AssistantInitiationActionsPayload, AssistantInitiationActionsResource, AssistantInitiationActionsSolution }

@@ -65,6 +65,10 @@ interface LastMonthListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: LastMonthListInstancePageOptions, callback?: (error: Error | null, items: LastMonthPage) => any): Promise<LastMonthPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -210,8 +214,7 @@ declare class LastMonthInstance extends SerializableClass {
   startDate: Date;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the LastMonthInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -236,6 +239,10 @@ declare class LastMonthPage extends Page<V2010, LastMonthPayload, LastMonthResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: LastMonthPayload): LastMonthInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { LastMonthInstance, LastMonthList, LastMonthListInstance, LastMonthListInstanceEachOptions, LastMonthListInstanceOptions, LastMonthListInstancePageOptions, LastMonthPage, LastMonthPayload, LastMonthResource, LastMonthSolution }

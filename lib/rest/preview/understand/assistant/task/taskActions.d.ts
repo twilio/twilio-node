@@ -39,6 +39,10 @@ interface TaskActionsListInstance {
    * Constructs a task_actions
    */
   get(): TaskActionsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface TaskActionsPayload extends TaskActionsResource, Page.TwilioResponsePayload {
@@ -74,6 +78,10 @@ declare class TaskActionsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   /**
    * update a TaskActionsInstance
    *
@@ -113,8 +121,7 @@ declare class TaskActionsInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: TaskActionsInstance) => any): void;
   taskSid: string;
   /**
-   * Produce a plain JSON object version of the TaskActionsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -144,6 +151,10 @@ declare class TaskActionsPage extends Page<Understand, TaskActionsPayload, TaskA
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskActionsPayload): TaskActionsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskActionsContext, TaskActionsInstance, TaskActionsList, TaskActionsListInstance, TaskActionsPage, TaskActionsPayload, TaskActionsResource, TaskActionsSolution }

@@ -81,6 +81,10 @@ interface RecordingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: RecordingListInstancePageOptions, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -225,6 +229,10 @@ declare class RecordingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   transcriptions: TranscriptionListInstance;
 }
 
@@ -294,8 +302,7 @@ declare class RecordingInstance extends SerializableClass {
   status: RecordingStatus;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the RecordingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -322,6 +329,10 @@ declare class RecordingPage extends Page<V2010, RecordingPayload, RecordingResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: RecordingPayload): RecordingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }

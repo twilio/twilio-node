@@ -29,6 +29,10 @@ interface StreamMessageListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts: StreamMessageListInstanceCreateOptions, callback?: (error: Error | null, item: StreamMessageInstance) => any): Promise<StreamMessageInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -71,8 +75,7 @@ declare class StreamMessageInstance extends SerializableClass {
   data: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the StreamMessageInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -94,6 +97,10 @@ declare class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMes
    * @param payload - Payload response from the API
    */
   getInstance(payload: StreamMessagePayload): StreamMessageInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessageListInstanceCreateOptions, StreamMessagePage, StreamMessagePayload, StreamMessageResource, StreamMessageSolution }

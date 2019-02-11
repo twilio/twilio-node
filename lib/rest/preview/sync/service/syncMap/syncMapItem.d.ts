@@ -95,6 +95,10 @@ interface SyncMapItemListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncMapItemListInstancePageOptions, callback?: (error: Error | null, items: SyncMapItemPage) => any): Promise<SyncMapItemPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -229,6 +233,10 @@ declare class SyncMapItemContext {
    */
   remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SyncMapItemInstance
    *
    * @param opts - Options for request
@@ -284,8 +292,7 @@ declare class SyncMapItemInstance extends SerializableClass {
   revision: string;
   serviceSid: string;
   /**
-   * Produce a plain JSON object version of the SyncMapItemInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -315,6 +322,10 @@ declare class SyncMapItemPage extends Page<Sync, SyncMapItemPayload, SyncMapItem
    * @param payload - Payload response from the API
    */
   getInstance(payload: SyncMapItemPayload): SyncMapItemInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }

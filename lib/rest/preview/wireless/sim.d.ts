@@ -113,6 +113,10 @@ interface SimListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SimListInstancePageOptions, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -252,6 +256,10 @@ declare class SimContext {
    */
   fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SimInstance
    *
    * @param opts - Options for request
@@ -319,8 +327,7 @@ declare class SimInstance extends SerializableClass {
   smsUrl: string;
   status: string;
   /**
-   * Produce a plain JSON object version of the SimInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -359,6 +366,10 @@ declare class SimPage extends Page<Wireless, SimPayload, SimResource, SimInstanc
    * @param payload - Payload response from the API
    */
   getInstance(payload: SimPayload): SimInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

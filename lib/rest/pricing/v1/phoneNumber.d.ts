@@ -19,6 +19,10 @@ declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
 interface PhoneNumberListInstance {
   countries?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
@@ -50,8 +54,7 @@ declare class PhoneNumberInstance extends SerializableClass {
   links: string;
   name: string;
   /**
-   * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -74,6 +77,10 @@ declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

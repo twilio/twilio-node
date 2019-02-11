@@ -38,6 +38,10 @@ interface AssistantFallbackActionsListInstance {
    * Constructs a assistant_fallback_actions
    */
   get(): AssistantFallbackActionsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface AssistantFallbackActionsPayload extends AssistantFallbackActionsResource, Page.TwilioResponsePayload {
@@ -70,6 +74,10 @@ declare class AssistantFallbackActionsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   /**
    * update a AssistantFallbackActionsInstance
    *
@@ -106,8 +114,7 @@ declare class AssistantFallbackActionsInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: AssistantFallbackActionsInstance) => any): void;
   /**
-   * Produce a plain JSON object version of the AssistantFallbackActionsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -137,6 +144,10 @@ declare class AssistantFallbackActionsPage extends Page<Understand, AssistantFal
    * @param payload - Payload response from the API
    */
   getInstance(payload: AssistantFallbackActionsPayload): AssistantFallbackActionsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AssistantFallbackActionsContext, AssistantFallbackActionsInstance, AssistantFallbackActionsList, AssistantFallbackActionsListInstance, AssistantFallbackActionsPage, AssistantFallbackActionsPayload, AssistantFallbackActionsResource, AssistantFallbackActionsSolution }

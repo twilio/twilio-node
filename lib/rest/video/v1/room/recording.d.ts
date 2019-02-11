@@ -81,6 +81,10 @@ interface RoomRecordingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: RoomRecordingListInstancePageOptions, callback?: (error: Error | null, items: RoomRecordingPage) => any): Promise<RoomRecordingPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -213,6 +217,10 @@ declare class RoomRecordingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -271,8 +279,7 @@ declare class RoomRecordingInstance extends SerializableClass {
   sourceSid: string;
   status: RoomRecordingStatus;
   /**
-   * Produce a plain JSON object version of the RoomRecordingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   trackName: string;
@@ -297,6 +304,10 @@ declare class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecor
    * @param payload - Payload response from the API
    */
   getInstance(payload: RoomRecordingPayload): RoomRecordingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingListInstanceEachOptions, RoomRecordingListInstanceOptions, RoomRecordingListInstancePageOptions, RoomRecordingPage, RoomRecordingPayload, RoomRecordingResource, RoomRecordingSolution }

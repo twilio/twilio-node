@@ -83,6 +83,10 @@ interface AssignedAddOnListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AssignedAddOnListInstancePageOptions, callback?: (error: Error | null, items: AssignedAddOnPage) => any): Promise<AssignedAddOnPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -200,6 +204,10 @@ declare class AssignedAddOnContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -254,8 +262,7 @@ declare class AssignedAddOnInstance extends SerializableClass {
   sid: string;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the AssignedAddOnInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -279,6 +286,10 @@ declare class AssignedAddOnPage extends Page<V2010, AssignedAddOnPayload, Assign
    * @param payload - Payload response from the API
    */
   getInstance(payload: AssignedAddOnPayload): AssignedAddOnInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AssignedAddOnContext, AssignedAddOnInstance, AssignedAddOnList, AssignedAddOnListInstance, AssignedAddOnListInstanceCreateOptions, AssignedAddOnListInstanceEachOptions, AssignedAddOnListInstanceOptions, AssignedAddOnListInstancePageOptions, AssignedAddOnPage, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnSolution }

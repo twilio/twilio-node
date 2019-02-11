@@ -69,6 +69,10 @@ interface SubscribedTrackListInstance {
    */
   page(opts?: SubscribedTrackListInstancePageOptions, callback?: (error: Error | null, items: SubscribedTrackPage) => any): Promise<SubscribedTrackPage>;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SubscribedTrackInstance
    *
    * @param opts - Options for request
@@ -231,8 +235,7 @@ declare class SubscribedTrackInstance extends SerializableClass {
   sid: string;
   subscriberSid: string;
   /**
-   * Produce a plain JSON object version of the SubscribedTrackInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -254,6 +257,10 @@ declare class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, Subsc
    * @param payload - Payload response from the API
    */
   getInstance(payload: SubscribedTrackPayload): SubscribedTrackInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackListInstanceEachOptions, SubscribedTrackListInstanceOptions, SubscribedTrackListInstancePageOptions, SubscribedTrackListInstanceUpdateOptions, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }

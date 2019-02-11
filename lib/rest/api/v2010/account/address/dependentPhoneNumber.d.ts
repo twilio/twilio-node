@@ -67,6 +67,10 @@ interface DependentPhoneNumberListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DependentPhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: DependentPhoneNumberPage) => any): Promise<DependentPhoneNumberPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -221,8 +225,7 @@ declare class DependentPhoneNumberInstance extends SerializableClass {
   statusCallback: string;
   statusCallbackMethod: string;
   /**
-   * Produce a plain JSON object version of the DependentPhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   trunkSid: string;
@@ -252,6 +255,10 @@ declare class DependentPhoneNumberPage extends Page<V2010, DependentPhoneNumberP
    * @param payload - Payload response from the API
    */
   getInstance(payload: DependentPhoneNumberPayload): DependentPhoneNumberInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DependentPhoneNumberInstance, DependentPhoneNumberList, DependentPhoneNumberListInstance, DependentPhoneNumberListInstanceEachOptions, DependentPhoneNumberListInstanceOptions, DependentPhoneNumberListInstancePageOptions, DependentPhoneNumberPage, DependentPhoneNumberPayload, DependentPhoneNumberResource, DependentPhoneNumberSolution }

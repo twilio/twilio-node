@@ -141,6 +141,10 @@ interface IncomingPhoneNumberListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: IncomingPhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   tollFree?: object;
 }
 
@@ -345,6 +349,10 @@ declare class IncomingPhoneNumberContext {
    */
   remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a IncomingPhoneNumberInstance
    *
    * @param opts - Options for request
@@ -436,8 +444,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
   statusCallback: string;
   statusCallbackMethod: string;
   /**
-   * Produce a plain JSON object version of the IncomingPhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   trunkSid: string;
@@ -474,6 +481,10 @@ declare class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPay
    * @param payload - Payload response from the API
    */
   getInstance(payload: IncomingPhoneNumberPayload): IncomingPhoneNumberInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { IncomingPhoneNumberContext, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberListInstanceCreateOptions, IncomingPhoneNumberListInstanceEachOptions, IncomingPhoneNumberListInstanceOptions, IncomingPhoneNumberListInstancePageOptions, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberSolution }

@@ -80,6 +80,10 @@ interface AuthCallsCredentialListMappingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AuthCallsCredentialListMappingListInstancePageOptions, callback?: (error: Error | null, items: AuthCallsCredentialListMappingPage) => any): Promise<AuthCallsCredentialListMappingPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -188,6 +192,10 @@ declare class AuthCallsCredentialListMappingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -228,8 +236,7 @@ declare class AuthCallsCredentialListMappingInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AuthCallsCredentialListMappingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -251,6 +258,10 @@ declare class AuthCallsCredentialListMappingPage extends Page<V2010, AuthCallsCr
    * @param payload - Payload response from the API
    */
   getInstance(payload: AuthCallsCredentialListMappingPayload): AuthCallsCredentialListMappingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AuthCallsCredentialListMappingContext, AuthCallsCredentialListMappingInstance, AuthCallsCredentialListMappingList, AuthCallsCredentialListMappingListInstance, AuthCallsCredentialListMappingListInstanceCreateOptions, AuthCallsCredentialListMappingListInstanceEachOptions, AuthCallsCredentialListMappingListInstanceOptions, AuthCallsCredentialListMappingListInstancePageOptions, AuthCallsCredentialListMappingPage, AuthCallsCredentialListMappingPayload, AuthCallsCredentialListMappingResource, AuthCallsCredentialListMappingSolution }

@@ -98,6 +98,10 @@ interface TriggerListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TriggerListInstancePageOptions, callback?: (error: Error | null, items: TriggerPage) => any): Promise<TriggerPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -246,6 +250,10 @@ declare class TriggerContext {
    */
   remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a TriggerInstance
    *
    * @param opts - Options for request
@@ -308,8 +316,7 @@ declare class TriggerInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the TriggerInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   triggerBy: TriggerTriggerField;
@@ -343,6 +350,10 @@ declare class TriggerPage extends Page<V2010, TriggerPayload, TriggerResource, T
    * @param payload - Payload response from the API
    */
   getInstance(payload: TriggerPayload): TriggerInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerListInstanceCreateOptions, TriggerListInstanceEachOptions, TriggerListInstanceOptions, TriggerListInstancePageOptions, TriggerPage, TriggerPayload, TriggerResource, TriggerSolution }

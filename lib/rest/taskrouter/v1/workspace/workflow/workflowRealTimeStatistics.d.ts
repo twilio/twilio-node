@@ -37,6 +37,10 @@ interface WorkflowRealTimeStatisticsListInstance {
    * Constructs a workflow_real_time_statistics
    */
   get(): WorkflowRealTimeStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsResource, Page.TwilioResponsePayload {
@@ -76,6 +80,10 @@ declare class WorkflowRealTimeStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkflowRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -112,8 +120,7 @@ declare class WorkflowRealTimeStatisticsInstance extends SerializableClass {
   tasksByPriority: string;
   tasksByStatus: string;
   /**
-   * Produce a plain JSON object version of the WorkflowRealTimeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   totalTasks: number;
@@ -139,6 +146,10 @@ declare class WorkflowRealTimeStatisticsPage extends Page<V1, WorkflowRealTimeSt
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkflowRealTimeStatisticsPayload): WorkflowRealTimeStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsSolution }

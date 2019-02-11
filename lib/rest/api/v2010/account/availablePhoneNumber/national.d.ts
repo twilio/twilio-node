@@ -64,6 +64,10 @@ interface NationalListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: NationalListInstancePageOptions, callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -295,8 +299,7 @@ declare class NationalInstance extends SerializableClass {
   rateCenter: string;
   region: string;
   /**
-   * Produce a plain JSON object version of the NationalInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -318,6 +321,10 @@ declare class NationalPage extends Page<V2010, NationalPayload, NationalResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: NationalPayload): NationalInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { NationalInstance, NationalList, NationalListInstance, NationalListInstanceEachOptions, NationalListInstanceOptions, NationalListInstancePageOptions, NationalPage, NationalPayload, NationalResource, NationalSolution }

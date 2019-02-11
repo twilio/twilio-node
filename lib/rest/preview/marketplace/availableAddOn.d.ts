@@ -74,6 +74,10 @@ interface AvailableAddOnListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AvailableAddOnListInstancePageOptions, callback?: (error: Error | null, items: AvailableAddOnPage) => any): Promise<AvailableAddOnPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -168,6 +172,10 @@ declare class AvailableAddOnContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): Promise<AvailableAddOnInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -207,8 +215,7 @@ declare class AvailableAddOnInstance extends SerializableClass {
   pricingType: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AvailableAddOnInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -231,6 +238,10 @@ declare class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload
    * @param payload - Payload response from the API
    */
   getInstance(payload: AvailableAddOnPayload): AvailableAddOnInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnListInstanceEachOptions, AvailableAddOnListInstanceOptions, AvailableAddOnListInstancePageOptions, AvailableAddOnPage, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnSolution }
