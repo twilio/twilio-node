@@ -343,7 +343,7 @@ declare class IncomingPhoneNumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<void>;
   /**
    * update a IncomingPhoneNumberInstance
    *
