@@ -23,7 +23,7 @@
     "@types/express": "^4.11.1",
     "deprecate": "1.0.0",
     "jsonwebtoken": "^8.1.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "moment": "2.19.3",
     "q": "2.0.x",
     "request": "^2.87.0",
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.104",
     "@types/node": "^9.4.6",
-    "eslint": "^5.10.0",
+    "eslint": "^5.14.0",
     "express": "^4.16.3",
     "jasmine": "^3.3.1",
     "jsdoc": "3.5.5",
