@@ -93,6 +93,10 @@ interface IpAddressListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: IpAddressListInstancePageOptions, callback?: (error: Error | null, items: IpAddressPage) => any): Promise<IpAddressPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -210,6 +214,10 @@ declare class IpAddressContext {
    */
   remove(callback?: (error: Error | null, items: IpAddressInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a IpAddressInstance
    *
    * @param opts - Options for request
@@ -263,8 +271,7 @@ declare class IpAddressInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: IpAddressInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the IpAddressInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -294,6 +301,10 @@ declare class IpAddressPage extends Page<V2010, IpAddressPayload, IpAddressResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: IpAddressPayload): IpAddressInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressListInstanceCreateOptions, IpAddressListInstanceEachOptions, IpAddressListInstanceOptions, IpAddressListInstancePageOptions, IpAddressPage, IpAddressPayload, IpAddressResource, IpAddressSolution }

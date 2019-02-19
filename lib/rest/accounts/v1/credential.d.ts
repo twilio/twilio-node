@@ -18,6 +18,10 @@ declare function CredentialList(version: V1): CredentialListInstance;
 interface CredentialListInstance {
   aws?: object;
   publicKey?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {

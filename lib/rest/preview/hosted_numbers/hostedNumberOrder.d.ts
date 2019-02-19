@@ -111,6 +111,10 @@ interface HostedNumberOrderListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: HostedNumberOrderListInstancePageOptions, callback?: (error: Error | null, items: HostedNumberOrderPage) => any): Promise<HostedNumberOrderPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -296,6 +300,10 @@ declare class HostedNumberOrderContext {
    */
   remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a HostedNumberOrderInstance
    *
    * @param opts - Options for request
@@ -369,8 +377,7 @@ declare class HostedNumberOrderInstance extends SerializableClass {
   signingDocumentSid: string;
   status: HostedNumberOrderStatus;
   /**
-   * Produce a plain JSON object version of the HostedNumberOrderInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -406,6 +413,10 @@ declare class HostedNumberOrderPage extends Page<HostedNumbers, HostedNumberOrde
    * @param payload - Payload response from the API
    */
   getInstance(payload: HostedNumberOrderPayload): HostedNumberOrderInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { HostedNumberOrderContext, HostedNumberOrderInstance, HostedNumberOrderList, HostedNumberOrderListInstance, HostedNumberOrderListInstanceCreateOptions, HostedNumberOrderListInstanceEachOptions, HostedNumberOrderListInstanceOptions, HostedNumberOrderListInstancePageOptions, HostedNumberOrderPage, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderSolution }

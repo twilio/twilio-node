@@ -114,6 +114,10 @@ interface CallListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CallListInstancePageOptions, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -354,6 +358,10 @@ declare class CallContext {
    */
   remove(callback?: (error: Error | null, items: CallInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a CallInstance
    *
    * @param opts - Options for request
@@ -450,8 +458,7 @@ declare class CallInstance extends SerializableClass {
   to: string;
   toFormatted: string;
   /**
-   * Produce a plain JSON object version of the CallInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -481,6 +488,10 @@ declare class CallPage extends Page<V2010, CallPayload, CallResource, CallInstan
    * @param payload - Payload response from the API
    */
   getInstance(payload: CallPayload): CallInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CallContext, CallInstance, CallList, CallListInstance, CallListInstanceCreateOptions, CallListInstanceEachOptions, CallListInstanceOptions, CallListInstancePageOptions, CallPage, CallPayload, CallResource, CallSolution }

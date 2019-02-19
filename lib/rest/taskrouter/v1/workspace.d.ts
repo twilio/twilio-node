@@ -122,6 +122,10 @@ interface WorkspaceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: WorkspaceListInstancePageOptions, callback?: (error: Error | null, items: WorkspacePage) => any): Promise<WorkspacePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -272,6 +276,10 @@ declare class WorkspaceContext {
   taskQueues: TaskQueueListInstance;
   tasks: TaskListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a WorkspaceInstance
    *
    * @param opts - Options for request
@@ -369,8 +377,7 @@ declare class WorkspaceInstance extends SerializableClass {
   timeoutActivityName: string;
   timeoutActivitySid: string;
   /**
-   * Produce a plain JSON object version of the WorkspaceInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -408,6 +415,10 @@ declare class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkspacePayload): WorkspaceInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspaceListInstanceCreateOptions, WorkspaceListInstanceEachOptions, WorkspaceListInstanceOptions, WorkspaceListInstancePageOptions, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }

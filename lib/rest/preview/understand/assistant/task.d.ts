@@ -104,6 +104,10 @@ interface TaskListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TaskListInstancePageOptions, callback?: (error: Error | null, items: TaskPage) => any): Promise<TaskPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -231,6 +235,10 @@ declare class TaskContext {
   statistics: TaskStatisticsListInstance;
   taskActions: TaskActionsListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a TaskInstance
    *
    * @param opts - Options for request
@@ -300,8 +308,7 @@ declare class TaskInstance extends SerializableClass {
    */
   taskActions(): TaskActionsListInstance;
   /**
-   * Produce a plain JSON object version of the TaskInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -332,6 +339,10 @@ declare class TaskPage extends Page<Understand, TaskPayload, TaskResource, TaskI
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskPayload): TaskInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskListInstanceCreateOptions, TaskListInstanceEachOptions, TaskListInstanceOptions, TaskListInstancePageOptions, TaskPage, TaskPayload, TaskResource, TaskSolution }

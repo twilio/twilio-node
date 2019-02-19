@@ -46,6 +46,10 @@ interface PhoneNumberListInstance {
    * @param phoneNumber - The phone_number
    */
   get(phoneNumber: string): PhoneNumberContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
@@ -81,6 +85,10 @@ declare class PhoneNumberContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -117,8 +125,7 @@ declare class PhoneNumberInstance extends SerializableClass {
   nationalFormat: string;
   phoneNumber: string;
   /**
-   * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -141,6 +148,10 @@ declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

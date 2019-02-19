@@ -73,6 +73,10 @@ interface EventListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: EventListInstancePageOptions, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -242,6 +246,10 @@ declare class EventContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: EventInstance) => any): Promise<EventInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -297,8 +305,7 @@ declare class EventInstance extends SerializableClass {
   source: string;
   sourceIpAddress: string;
   /**
-   * Produce a plain JSON object version of the EventInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -322,6 +329,10 @@ declare class EventPage extends Page<V1, EventPayload, EventResource, EventInsta
    * @param payload - Payload response from the API
    */
   getInstance(payload: EventPayload): EventInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { EventContext, EventInstance, EventList, EventListInstance, EventListInstanceEachOptions, EventListInstanceOptions, EventListInstancePageOptions, EventPage, EventPayload, EventResource, EventSolution }

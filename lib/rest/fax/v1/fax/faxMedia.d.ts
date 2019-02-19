@@ -73,6 +73,10 @@ interface FaxMediaListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: FaxMediaListInstancePageOptions, callback?: (error: Error | null, items: FaxMediaPage) => any): Promise<FaxMediaPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -172,6 +176,10 @@ declare class FaxMediaContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: FaxMediaInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -214,8 +222,7 @@ declare class FaxMediaInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: FaxMediaInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the FaxMediaInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -238,6 +245,10 @@ declare class FaxMediaPage extends Page<V1, FaxMediaPayload, FaxMediaResource, F
    * @param payload - Payload response from the API
    */
   getInstance(payload: FaxMediaPayload): FaxMediaInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListInstance, FaxMediaListInstanceEachOptions, FaxMediaListInstanceOptions, FaxMediaListInstancePageOptions, FaxMediaPage, FaxMediaPayload, FaxMediaResource, FaxMediaSolution }

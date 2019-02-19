@@ -29,6 +29,10 @@ interface ExecutionStepContextListInstance {
    * Constructs a execution_step_context
    */
   get(): ExecutionStepContextContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface ExecutionStepContextPayload extends ExecutionStepContextResource, Page.TwilioResponsePayload {
@@ -67,6 +71,10 @@ declare class ExecutionStepContextContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ExecutionStepContextInstance) => any): Promise<ExecutionStepContextInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -102,8 +110,7 @@ declare class ExecutionStepContextInstance extends SerializableClass {
   flowSid: string;
   stepSid: string;
   /**
-   * Produce a plain JSON object version of the ExecutionStepContextInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -126,6 +133,10 @@ declare class ExecutionStepContextPage extends Page<V1, ExecutionStepContextPayl
    * @param payload - Payload response from the API
    */
   getInstance(payload: ExecutionStepContextPayload): ExecutionStepContextInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ExecutionStepContextContext, ExecutionStepContextInstance, ExecutionStepContextList, ExecutionStepContextListInstance, ExecutionStepContextPage, ExecutionStepContextPayload, ExecutionStepContextResource, ExecutionStepContextSolution }

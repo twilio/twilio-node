@@ -79,6 +79,10 @@ interface CommandListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CommandListInstancePageOptions, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -219,6 +223,10 @@ declare class CommandContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -262,8 +270,7 @@ declare class CommandInstance extends SerializableClass {
   simSid: string;
   status: string;
   /**
-   * Produce a plain JSON object version of the CommandInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -286,6 +293,10 @@ declare class CommandPage extends Page<Wireless, CommandPayload, CommandResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: CommandPayload): CommandInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandListInstanceCreateOptions, CommandListInstanceEachOptions, CommandListInstanceOptions, CommandListInstancePageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution }

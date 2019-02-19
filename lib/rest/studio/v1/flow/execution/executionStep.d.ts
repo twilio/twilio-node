@@ -75,6 +75,10 @@ interface ExecutionStepListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ExecutionStepListInstancePageOptions, callback?: (error: Error | null, items: ExecutionStepPage) => any): Promise<ExecutionStepPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -178,6 +182,10 @@ declare class ExecutionStepContext {
    */
   fetch(callback?: (error: Error | null, items: ExecutionStepInstance) => any): Promise<ExecutionStepInstance>;
   stepContext: ExecutionStepContextListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -227,8 +235,7 @@ declare class ExecutionStepInstance extends SerializableClass {
    */
   stepContext(): ExecutionStepContextListInstance;
   /**
-   * Produce a plain JSON object version of the ExecutionStepInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   transitionedFrom: string;
@@ -253,6 +260,10 @@ declare class ExecutionStepPage extends Page<V1, ExecutionStepPayload, Execution
    * @param payload - Payload response from the API
    */
   getInstance(payload: ExecutionStepPayload): ExecutionStepInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ExecutionStepContext, ExecutionStepInstance, ExecutionStepList, ExecutionStepListInstance, ExecutionStepListInstanceEachOptions, ExecutionStepListInstanceOptions, ExecutionStepListInstancePageOptions, ExecutionStepPage, ExecutionStepPayload, ExecutionStepResource, ExecutionStepSolution }

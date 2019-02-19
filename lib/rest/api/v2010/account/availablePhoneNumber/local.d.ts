@@ -64,6 +64,10 @@ interface LocalListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: LocalListInstancePageOptions, callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -295,8 +299,7 @@ declare class LocalInstance extends SerializableClass {
   rateCenter: string;
   region: string;
   /**
-   * Produce a plain JSON object version of the LocalInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -318,6 +321,10 @@ declare class LocalPage extends Page<V2010, LocalPayload, LocalResource, LocalIn
    * @param payload - Payload response from the API
    */
   getInstance(payload: LocalPayload): LocalInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { LocalInstance, LocalList, LocalListInstance, LocalListInstanceEachOptions, LocalListInstanceOptions, LocalListInstancePageOptions, LocalPage, LocalPayload, LocalResource, LocalSolution }

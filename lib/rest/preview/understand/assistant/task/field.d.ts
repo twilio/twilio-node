@@ -81,6 +81,10 @@ interface FieldListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: FieldListInstancePageOptions, callback?: (error: Error | null, items: FieldPage) => any): Promise<FieldPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -195,6 +199,10 @@ declare class FieldContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: FieldInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -241,8 +249,7 @@ declare class FieldInstance extends SerializableClass {
   sid: string;
   taskSid: string;
   /**
-   * Produce a plain JSON object version of the FieldInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -266,6 +273,10 @@ declare class FieldPage extends Page<Understand, FieldPayload, FieldResource, Fi
    * @param payload - Payload response from the API
    */
   getInstance(payload: FieldPayload): FieldInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldListInstanceCreateOptions, FieldListInstanceEachOptions, FieldListInstanceOptions, FieldListInstancePageOptions, FieldPage, FieldPayload, FieldResource, FieldSolution }

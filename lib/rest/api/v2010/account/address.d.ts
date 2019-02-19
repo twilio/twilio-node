@@ -105,6 +105,10 @@ interface AddressListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AddressListInstancePageOptions, callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -258,6 +262,10 @@ declare class AddressContext {
    */
   remove(callback?: (error: Error | null, items: AddressInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a AddressInstance
    *
    * @param opts - Options for request
@@ -323,8 +331,7 @@ declare class AddressInstance extends SerializableClass {
   sid: string;
   street: string;
   /**
-   * Produce a plain JSON object version of the AddressInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -355,6 +362,10 @@ declare class AddressPage extends Page<V2010, AddressPayload, AddressResource, A
    * @param payload - Payload response from the API
    */
   getInstance(payload: AddressPayload): AddressInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressListInstanceCreateOptions, AddressListInstanceEachOptions, AddressListInstanceOptions, AddressListInstancePageOptions, AddressPage, AddressPayload, AddressResource, AddressSolution }

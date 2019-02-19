@@ -72,6 +72,10 @@ interface AlertListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AlertListInstancePageOptions, callback?: (error: Error | null, items: AlertPage) => any): Promise<AlertPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -197,6 +201,10 @@ declare class AlertContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AlertInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -258,8 +266,7 @@ declare class AlertInstance extends SerializableClass {
   responseHeaders: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AlertInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -282,6 +289,10 @@ declare class AlertPage extends Page<V1, AlertPayload, AlertResource, AlertInsta
    * @param payload - Payload response from the API
    */
   getInstance(payload: AlertPayload): AlertInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertListInstanceEachOptions, AlertListInstanceOptions, AlertListInstancePageOptions, AlertPage, AlertPayload, AlertResource, AlertSolution }

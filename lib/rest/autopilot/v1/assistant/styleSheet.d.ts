@@ -38,6 +38,10 @@ interface StyleSheetListInstance {
    * Constructs a style_sheet
    */
   get(): StyleSheetContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface StyleSheetPayload extends StyleSheetResource, Page.TwilioResponsePayload {
@@ -70,6 +74,10 @@ declare class StyleSheetContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   /**
    * update a StyleSheetInstance
    *
@@ -106,8 +114,7 @@ declare class StyleSheetInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: StyleSheetInstance) => any): void;
   /**
-   * Produce a plain JSON object version of the StyleSheetInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -137,6 +144,10 @@ declare class StyleSheetPage extends Page<V1, StyleSheetPayload, StyleSheetResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: StyleSheetPayload): StyleSheetInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { StyleSheetContext, StyleSheetInstance, StyleSheetList, StyleSheetListInstance, StyleSheetPage, StyleSheetPayload, StyleSheetResource, StyleSheetSolution }

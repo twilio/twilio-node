@@ -83,6 +83,10 @@ interface BindingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: BindingListInstancePageOptions, callback?: (error: Error | null, items: BindingPage) => any): Promise<BindingPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -234,6 +238,10 @@ declare class BindingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -290,8 +298,7 @@ declare class BindingInstance extends SerializableClass {
   sid: string;
   tags: string;
   /**
-   * Produce a plain JSON object version of the BindingInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -314,6 +321,10 @@ declare class BindingPage extends Page<V1, BindingPayload, BindingResource, Bind
    * @param payload - Payload response from the API
    */
   getInstance(payload: BindingPayload): BindingInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingListInstanceCreateOptions, BindingListInstanceEachOptions, BindingListInstanceOptions, BindingListInstancePageOptions, BindingPage, BindingPayload, BindingResource, BindingSolution }

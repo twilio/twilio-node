@@ -102,6 +102,10 @@ interface WorkflowListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: WorkflowListInstancePageOptions, callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -238,6 +242,10 @@ declare class WorkflowContext {
   remove(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
   statistics: WorkflowStatisticsListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a WorkflowInstance
    *
    * @param opts - Options for request
@@ -309,8 +317,7 @@ declare class WorkflowInstance extends SerializableClass {
   statistics(): WorkflowStatisticsListInstance;
   taskReservationTimeout: number;
   /**
-   * Produce a plain JSON object version of the WorkflowInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -341,6 +348,10 @@ declare class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, W
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkflowPayload): WorkflowInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowListInstanceCreateOptions, WorkflowListInstanceEachOptions, WorkflowListInstanceOptions, WorkflowListInstancePageOptions, WorkflowPage, WorkflowPayload, WorkflowResource, WorkflowSolution }

@@ -86,6 +86,10 @@ interface AvailablePhoneNumberCountryListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AvailablePhoneNumberCountryListInstancePageOptions, callback?: (error: Error | null, items: AvailablePhoneNumberCountryPage) => any): Promise<AvailablePhoneNumberCountryPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -190,6 +194,10 @@ declare class AvailablePhoneNumberCountryContext {
   mobile: MobileListInstance;
   national: NationalListInstance;
   sharedCost: SharedCostListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   tollFree: TollFreeListInstance;
   voip: VoipListInstance;
 }
@@ -244,8 +252,7 @@ declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
   sharedCost(): SharedCostListInstance;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the AvailablePhoneNumberCountryInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -276,6 +283,10 @@ declare class AvailablePhoneNumberCountryPage extends Page<V2010, AvailablePhone
    * @param payload - Payload response from the API
    */
   getInstance(payload: AvailablePhoneNumberCountryPayload): AvailablePhoneNumberCountryInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryListInstanceEachOptions, AvailablePhoneNumberCountryListInstanceOptions, AvailablePhoneNumberCountryListInstancePageOptions, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountrySolution }

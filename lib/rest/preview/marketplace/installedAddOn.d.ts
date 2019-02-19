@@ -93,6 +93,10 @@ interface InstalledAddOnListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: InstalledAddOnListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -212,6 +216,10 @@ declare class InstalledAddOnContext {
    */
   remove(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a InstalledAddOnInstance
    *
    * @param opts - Options for request
@@ -268,8 +276,7 @@ declare class InstalledAddOnInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the InstalledAddOnInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -300,6 +307,10 @@ declare class InstalledAddOnPage extends Page<Marketplace, InstalledAddOnPayload
    * @param payload - Payload response from the API
    */
   getInstance(payload: InstalledAddOnPayload): InstalledAddOnInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnListInstanceCreateOptions, InstalledAddOnListInstanceEachOptions, InstalledAddOnListInstanceOptions, InstalledAddOnListInstancePageOptions, InstalledAddOnPage, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnSolution }

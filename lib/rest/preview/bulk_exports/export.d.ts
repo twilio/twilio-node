@@ -31,6 +31,10 @@ interface ExportListInstance {
    * @param resourceType - The resource_type
    */
   get(resourceType: string): ExportContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface ExportPayload extends ExportResource, Page.TwilioResponsePayload {
@@ -64,6 +68,10 @@ declare class ExportContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ExportInstance) => any): Promise<ExportInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -95,8 +103,7 @@ declare class ExportInstance extends SerializableClass {
   links: string;
   resourceType: string;
   /**
-   * Produce a plain JSON object version of the ExportInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -119,6 +126,10 @@ declare class ExportPage extends Page<BulkExports, ExportPayload, ExportResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: ExportPayload): ExportInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource, ExportSolution }

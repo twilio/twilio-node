@@ -88,6 +88,10 @@ interface SyncListPermissionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncListPermissionListInstancePageOptions, callback?: (error: Error | null, items: SyncListPermissionPage) => any): Promise<SyncListPermissionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -191,6 +195,10 @@ declare class SyncListPermissionContext {
    */
   remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SyncListPermissionInstance
    *
    * @param opts - Options for request
@@ -241,8 +249,7 @@ declare class SyncListPermissionInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
   serviceSid: string;
   /**
-   * Produce a plain JSON object version of the SyncListPermissionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -273,6 +280,10 @@ declare class SyncListPermissionPage extends Page<V1, SyncListPermissionPayload,
    * @param payload - Payload response from the API
    */
   getInstance(payload: SyncListPermissionPayload): SyncListPermissionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionListInstanceEachOptions, SyncListPermissionListInstanceOptions, SyncListPermissionListInstancePageOptions, SyncListPermissionPage, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionSolution }

@@ -63,6 +63,10 @@ interface HighriskSpecialPrefixListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: HighriskSpecialPrefixListInstancePageOptions, callback?: (error: Error | null, items: HighriskSpecialPrefixPage) => any): Promise<HighriskSpecialPrefixPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -148,8 +152,7 @@ declare class HighriskSpecialPrefixInstance extends SerializableClass {
 
   prefix: string;
   /**
-   * Produce a plain JSON object version of the HighriskSpecialPrefixInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -171,6 +174,10 @@ declare class HighriskSpecialPrefixPage extends Page<V1, HighriskSpecialPrefixPa
    * @param payload - Payload response from the API
    */
   getInstance(payload: HighriskSpecialPrefixPayload): HighriskSpecialPrefixInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { HighriskSpecialPrefixInstance, HighriskSpecialPrefixList, HighriskSpecialPrefixListInstance, HighriskSpecialPrefixListInstanceEachOptions, HighriskSpecialPrefixListInstanceOptions, HighriskSpecialPrefixListInstancePageOptions, HighriskSpecialPrefixPage, HighriskSpecialPrefixPayload, HighriskSpecialPrefixResource, HighriskSpecialPrefixSolution }

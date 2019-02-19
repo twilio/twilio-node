@@ -106,6 +106,10 @@ interface WorkerListInstance {
    */
   page(opts?: WorkerListInstancePageOptions, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
   statistics?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -277,6 +281,10 @@ declare class WorkerContext {
   reservations: ReservationListInstance;
   statistics: WorkerStatisticsListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a WorkerInstance
    *
    * @param opts - Options for request
@@ -353,8 +361,7 @@ declare class WorkerInstance extends SerializableClass {
    */
   statistics(): WorkerStatisticsListInstance;
   /**
-   * Produce a plain JSON object version of the WorkerInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -389,6 +396,10 @@ declare class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerI
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkerPayload): WorkerInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }

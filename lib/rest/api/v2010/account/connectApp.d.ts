@@ -98,6 +98,10 @@ interface ConnectAppListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ConnectAppListInstancePageOptions, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -196,6 +200,10 @@ declare class ConnectAppContext {
    */
   fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ConnectAppInstance
    *
    * @param opts - Options for request
@@ -246,8 +254,7 @@ declare class ConnectAppInstance extends SerializableClass {
   permissions: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ConnectAppInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -277,6 +284,10 @@ declare class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: ConnectAppPayload): ConnectAppInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppListInstanceEachOptions, ConnectAppListInstanceOptions, ConnectAppListInstancePageOptions, ConnectAppPage, ConnectAppPayload, ConnectAppResource, ConnectAppSolution }

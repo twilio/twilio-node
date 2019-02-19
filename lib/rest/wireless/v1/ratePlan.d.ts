@@ -90,6 +90,10 @@ interface RatePlanListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: RatePlanListInstancePageOptions, callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -226,6 +230,10 @@ declare class RatePlanContext {
    */
   remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a RatePlanInstance
    *
    * @param opts - Options for request
@@ -289,8 +297,7 @@ declare class RatePlanInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the RatePlanInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -322,6 +329,10 @@ declare class RatePlanPage extends Page<V1, RatePlanPayload, RatePlanResource, R
    * @param payload - Payload response from the API
    */
   getInstance(payload: RatePlanPayload): RatePlanInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanListInstanceCreateOptions, RatePlanListInstanceEachOptions, RatePlanListInstanceOptions, RatePlanListInstancePageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

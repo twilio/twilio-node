@@ -26,6 +26,10 @@ interface ValidationRequestListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts: ValidationRequestListInstanceCreateOptions, callback?: (error: Error | null, item: ValidationRequestInstance) => any): Promise<ValidationRequestInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -84,8 +88,7 @@ declare class ValidationRequestInstance extends SerializableClass {
   friendlyName: string;
   phoneNumber: string;
   /**
-   * Produce a plain JSON object version of the ValidationRequestInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   validationCode: number;
@@ -108,6 +111,10 @@ declare class ValidationRequestPage extends Page<V2010, ValidationRequestPayload
    * @param payload - Payload response from the API
    */
   getInstance(payload: ValidationRequestPayload): ValidationRequestInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestListInstanceCreateOptions, ValidationRequestPage, ValidationRequestPayload, ValidationRequestResource, ValidationRequestSolution }

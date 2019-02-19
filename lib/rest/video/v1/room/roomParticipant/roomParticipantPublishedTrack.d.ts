@@ -75,6 +75,10 @@ interface PublishedTrackListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: PublishedTrackListInstancePageOptions, callback?: (error: Error | null, items: PublishedTrackPage) => any): Promise<PublishedTrackPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -172,6 +176,10 @@ declare class PublishedTrackContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any): Promise<PublishedTrackInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -213,8 +221,7 @@ declare class PublishedTrackInstance extends SerializableClass {
   roomSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the PublishedTrackInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -237,6 +244,10 @@ declare class PublishedTrackPage extends Page<V1, PublishedTrackPayload, Publish
    * @param payload - Payload response from the API
    */
   getInstance(payload: PublishedTrackPayload): PublishedTrackInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackListInstanceEachOptions, PublishedTrackListInstanceOptions, PublishedTrackListInstancePageOptions, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource, PublishedTrackSolution }

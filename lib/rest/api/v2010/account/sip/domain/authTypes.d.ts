@@ -20,6 +20,10 @@ declare function AuthTypesList(version: V2010, accountSid: string, domainSid: st
 interface AuthTypesListInstance {
   calls?: object;
   registrations?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface AuthTypesPayload extends AuthTypesResource, Page.TwilioResponsePayload {

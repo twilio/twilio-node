@@ -74,6 +74,10 @@ interface PayloadListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: PayloadListInstancePageOptions, callback?: (error: Error | null, items: PayloadPage) => any): Promise<PayloadPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -181,6 +185,10 @@ declare class PayloadContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: PayloadInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -234,8 +242,7 @@ declare class PayloadInstance extends SerializableClass {
   sid: string;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the PayloadInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -257,6 +264,10 @@ declare class PayloadPage extends Page<V2010, PayloadPayload, PayloadResource, P
    * @param payload - Payload response from the API
    */
   getInstance(payload: PayloadPayload): PayloadInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadListInstanceEachOptions, PayloadListInstanceOptions, PayloadListInstancePageOptions, PayloadPage, PayloadPayload, PayloadResource, PayloadSolution }

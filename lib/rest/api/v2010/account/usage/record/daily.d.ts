@@ -65,6 +65,10 @@ interface DailyListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DailyListInstancePageOptions, callback?: (error: Error | null, items: DailyPage) => any): Promise<DailyPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -210,8 +214,7 @@ declare class DailyInstance extends SerializableClass {
   startDate: Date;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the DailyInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -236,6 +239,10 @@ declare class DailyPage extends Page<V2010, DailyPayload, DailyResource, DailyIn
    * @param payload - Payload response from the API
    */
   getInstance(payload: DailyPayload): DailyInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DailyInstance, DailyList, DailyListInstance, DailyListInstanceEachOptions, DailyListInstanceOptions, DailyListInstancePageOptions, DailyPage, DailyPayload, DailyResource, DailySolution }

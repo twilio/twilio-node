@@ -26,6 +26,10 @@ interface NewKeyListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts?: NewKeyListInstanceCreateOptions, callback?: (error: Error | null, item: NewKeyInstance) => any): Promise<NewKeyInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -75,8 +79,7 @@ declare class NewKeyInstance extends SerializableClass {
   secret: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the NewKeyInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -98,6 +101,10 @@ declare class NewKeyPage extends Page<V2010, NewKeyPayload, NewKeyResource, NewK
    * @param payload - Payload response from the API
    */
   getInstance(payload: NewKeyPayload): NewKeyInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { NewKeyInstance, NewKeyList, NewKeyListInstance, NewKeyListInstanceCreateOptions, NewKeyPage, NewKeyPayload, NewKeyResource, NewKeySolution }

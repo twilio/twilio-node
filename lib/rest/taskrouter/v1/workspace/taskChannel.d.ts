@@ -88,6 +88,10 @@ interface TaskChannelListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TaskChannelListInstancePageOptions, callback?: (error: Error | null, items: TaskChannelPage) => any): Promise<TaskChannelPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -201,6 +205,10 @@ declare class TaskChannelContext {
    */
   remove(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a TaskChannelInstance
    *
    * @param opts - Options for request
@@ -251,8 +259,7 @@ declare class TaskChannelInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the TaskChannelInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -284,6 +291,10 @@ declare class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskChannelPayload): TaskChannelInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelListInstanceCreateOptions, TaskChannelListInstanceEachOptions, TaskChannelListInstanceOptions, TaskChannelListInstancePageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }

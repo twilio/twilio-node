@@ -64,6 +64,10 @@ interface VoipListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: VoipListInstancePageOptions, callback?: (error: Error | null, items: VoipPage) => any): Promise<VoipPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -295,8 +299,7 @@ declare class VoipInstance extends SerializableClass {
   rateCenter: string;
   region: string;
   /**
-   * Produce a plain JSON object version of the VoipInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -318,6 +321,10 @@ declare class VoipPage extends Page<V2010, VoipPayload, VoipResource, VoipInstan
    * @param payload - Payload response from the API
    */
   getInstance(payload: VoipPayload): VoipInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { VoipInstance, VoipList, VoipListInstance, VoipListInstanceEachOptions, VoipListInstanceOptions, VoipListInstancePageOptions, VoipPage, VoipPayload, VoipResource, VoipSolution }

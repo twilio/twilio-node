@@ -91,6 +91,10 @@ interface CertificateListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CertificateListInstancePageOptions, callback?: (error: Error | null, items: CertificatePage) => any): Promise<CertificatePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -212,6 +216,10 @@ declare class CertificateContext {
    */
   remove(callback?: (error: Error | null, items: CertificateInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a CertificateInstance
    *
    * @param opts - Options for request
@@ -264,8 +272,7 @@ declare class CertificateInstance extends SerializableClass {
   sid: string;
   thumbprint: string;
   /**
-   * Produce a plain JSON object version of the CertificateInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -295,6 +302,10 @@ declare class CertificatePage extends Page<DeployedDevices, CertificatePayload, 
    * @param payload - Payload response from the API
    */
   getInstance(payload: CertificatePayload): CertificateInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificateListInstanceCreateOptions, CertificateListInstanceEachOptions, CertificateListInstanceOptions, CertificateListInstancePageOptions, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }

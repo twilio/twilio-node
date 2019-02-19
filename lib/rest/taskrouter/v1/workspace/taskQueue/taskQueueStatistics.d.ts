@@ -46,6 +46,10 @@ interface TaskQueueStatisticsListInstance {
    * Constructs a task_queue_statistics
    */
   get(): TaskQueueStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource, Page.TwilioResponsePayload {
@@ -83,6 +87,10 @@ declare class TaskQueueStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: TaskQueueStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -117,8 +125,7 @@ declare class TaskQueueStatisticsInstance extends SerializableClass {
   realtime: string;
   taskQueueSid: string;
   /**
-   * Produce a plain JSON object version of the TaskQueueStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -142,6 +149,10 @@ declare class TaskQueueStatisticsPage extends Page<V1, TaskQueueStatisticsPayloa
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskQueueStatisticsPayload): TaskQueueStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsSolution }

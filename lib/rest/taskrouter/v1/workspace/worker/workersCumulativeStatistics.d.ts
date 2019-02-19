@@ -43,6 +43,10 @@ interface WorkersCumulativeStatisticsListInstance {
    * Constructs a workers_cumulative_statistics
    */
   get(): WorkersCumulativeStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface WorkersCumulativeStatisticsPayload extends WorkersCumulativeStatisticsResource, Page.TwilioResponsePayload {
@@ -84,6 +88,10 @@ declare class WorkersCumulativeStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): Promise<WorkersCumulativeStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -129,8 +137,7 @@ declare class WorkersCumulativeStatisticsInstance extends SerializableClass {
   reservationsTimedOut: number;
   startTime: Date;
   /**
-   * Produce a plain JSON object version of the WorkersCumulativeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -154,6 +161,10 @@ declare class WorkersCumulativeStatisticsPage extends Page<V1, WorkersCumulative
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkersCumulativeStatisticsPayload): WorkersCumulativeStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsSolution }

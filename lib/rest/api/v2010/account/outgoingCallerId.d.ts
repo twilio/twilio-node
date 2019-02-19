@@ -81,6 +81,10 @@ interface OutgoingCallerIdListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: OutgoingCallerIdListInstancePageOptions, callback?: (error: Error | null, items: OutgoingCallerIdPage) => any): Promise<OutgoingCallerIdPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -193,6 +197,10 @@ declare class OutgoingCallerIdContext {
    */
   remove(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a OutgoingCallerIdInstance
    *
    * @param opts - Options for request
@@ -241,8 +249,7 @@ declare class OutgoingCallerIdInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the OutgoingCallerIdInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -272,6 +279,10 @@ declare class OutgoingCallerIdPage extends Page<V2010, OutgoingCallerIdPayload, 
    * @param payload - Payload response from the API
    */
   getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdListInstanceEachOptions, OutgoingCallerIdListInstanceOptions, OutgoingCallerIdListInstancePageOptions, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdSolution }

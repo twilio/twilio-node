@@ -91,6 +91,10 @@ interface SyncStreamListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncStreamListInstancePageOptions, callback?: (error: Error | null, items: SyncStreamPage) => any): Promise<SyncStreamPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -208,6 +212,10 @@ declare class SyncStreamContext {
   remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
   streamMessages: StreamMessageListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SyncStreamInstance
    *
    * @param opts - Options for request
@@ -265,8 +273,7 @@ declare class SyncStreamInstance extends SerializableClass {
    */
   streamMessages(): StreamMessageListInstance;
   /**
-   * Produce a plain JSON object version of the SyncStreamInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -297,6 +304,10 @@ declare class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: SyncStreamPayload): SyncStreamInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamListInstanceCreateOptions, SyncStreamListInstanceEachOptions, SyncStreamListInstanceOptions, SyncStreamListInstancePageOptions, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }

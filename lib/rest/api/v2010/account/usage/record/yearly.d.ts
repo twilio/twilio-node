@@ -65,6 +65,10 @@ interface YearlyListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: YearlyListInstancePageOptions, callback?: (error: Error | null, items: YearlyPage) => any): Promise<YearlyPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -210,8 +214,7 @@ declare class YearlyInstance extends SerializableClass {
   startDate: Date;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the YearlyInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -236,6 +239,10 @@ declare class YearlyPage extends Page<V2010, YearlyPayload, YearlyResource, Year
    * @param payload - Payload response from the API
    */
   getInstance(payload: YearlyPayload): YearlyInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { YearlyInstance, YearlyList, YearlyListInstance, YearlyListInstanceEachOptions, YearlyListInstanceOptions, YearlyListInstancePageOptions, YearlyPage, YearlyPayload, YearlyResource, YearlySolution }

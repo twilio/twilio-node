@@ -70,6 +70,10 @@ interface RecordListInstance {
    */
   page(opts?: RecordListInstancePageOptions, callback?: (error: Error | null, items: RecordPage) => any): Promise<RecordPage>;
   thisMonth?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   today?: object;
   yearly?: object;
   yesterday?: object;
@@ -218,8 +222,7 @@ declare class RecordInstance extends SerializableClass {
   startDate: Date;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the RecordInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -244,6 +247,10 @@ declare class RecordPage extends Page<V2010, RecordPayload, RecordResource, Reco
    * @param payload - Payload response from the API
    */
   getInstance(payload: RecordPayload): RecordInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { RecordInstance, RecordList, RecordListInstance, RecordListInstanceEachOptions, RecordListInstanceOptions, RecordListInstancePageOptions, RecordPage, RecordPayload, RecordResource, RecordSolution }

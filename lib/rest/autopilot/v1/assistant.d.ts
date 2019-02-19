@@ -115,6 +115,10 @@ interface AssistantListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AssistantListInstancePageOptions, callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -254,6 +258,10 @@ declare class AssistantContext {
   styleSheet: StyleSheetListInstance;
   tasks: TaskListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a AssistantInstance
    *
    * @param opts - Options for request
@@ -338,8 +346,7 @@ declare class AssistantInstance extends SerializableClass {
    */
   tasks(): TaskListInstance;
   /**
-   * Produce a plain JSON object version of the AssistantInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -370,6 +377,10 @@ declare class AssistantPage extends Page<V1, AssistantPayload, AssistantResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: AssistantPayload): AssistantInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantListInstanceCreateOptions, AssistantListInstanceEachOptions, AssistantListInstanceOptions, AssistantListInstancePageOptions, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }

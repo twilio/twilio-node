@@ -37,6 +37,10 @@ interface TaskQueueRealTimeStatisticsListInstance {
    * Constructs a task_queue_real_time_statistics
    */
   get(): TaskQueueRealTimeStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource, Page.TwilioResponsePayload {
@@ -80,6 +84,10 @@ declare class TaskQueueRealTimeStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: TaskQueueRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsInstance) => any): Promise<TaskQueueRealTimeStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -123,8 +131,7 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
   tasksByPriority: string;
   tasksByStatus: string;
   /**
-   * Produce a plain JSON object version of the TaskQueueRealTimeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   totalAvailableWorkers: number;
@@ -151,6 +158,10 @@ declare class TaskQueueRealTimeStatisticsPage extends Page<V1, TaskQueueRealTime
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskQueueRealTimeStatisticsPayload): TaskQueueRealTimeStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage, TaskQueueRealTimeStatisticsPayload, TaskQueueRealTimeStatisticsResource, TaskQueueRealTimeStatisticsSolution }

@@ -18,6 +18,10 @@ declare function UsageList(version: V2010, accountSid: string): UsageListInstanc
 
 interface UsageListInstance {
   records?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   triggers?: object;
 }
 

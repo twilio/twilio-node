@@ -86,6 +86,10 @@ interface ExecutionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ExecutionListInstancePageOptions, callback?: (error: Error | null, items: ExecutionPage) => any): Promise<ExecutionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -219,6 +223,10 @@ declare class ExecutionContext {
    */
   remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
   steps: ExecutionStepListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -277,8 +285,7 @@ declare class ExecutionInstance extends SerializableClass {
    */
   steps(): ExecutionStepListInstance;
   /**
-   * Produce a plain JSON object version of the ExecutionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -301,6 +308,10 @@ declare class ExecutionPage extends Page<V1, ExecutionPayload, ExecutionResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: ExecutionPayload): ExecutionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ExecutionContext, ExecutionInstance, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution }

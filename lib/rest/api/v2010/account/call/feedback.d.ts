@@ -53,6 +53,10 @@ interface FeedbackListInstance {
    * Constructs a feedback
    */
   get(): FeedbackContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
@@ -96,6 +100,10 @@ declare class FeedbackContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   /**
    * update a FeedbackInstance
    *
@@ -145,8 +153,7 @@ declare class FeedbackInstance extends SerializableClass {
   qualityScore: number;
   sid: string;
   /**
-   * Produce a plain JSON object version of the FeedbackInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -175,6 +182,10 @@ declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: FeedbackPayload): FeedbackInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

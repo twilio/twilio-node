@@ -94,6 +94,10 @@ interface ConferenceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -244,6 +248,10 @@ declare class ConferenceContext {
   participants: ParticipantListInstance;
   recordings: RecordingListInstance;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ConferenceInstance
    *
    * @param opts - Options for request
@@ -300,8 +308,7 @@ declare class ConferenceInstance extends SerializableClass {
   status: ConferenceStatus;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the ConferenceInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -331,6 +338,10 @@ declare class ConferencePage extends Page<V2010, ConferencePayload, ConferenceRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: ConferencePayload): ConferenceInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution }

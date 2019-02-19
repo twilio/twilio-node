@@ -46,6 +46,10 @@ interface WorkflowStatisticsListInstance {
    * Constructs a workflow_statistics
    */
   get(): WorkflowStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface WorkflowStatisticsPayload extends WorkflowStatisticsResource, Page.TwilioResponsePayload {
@@ -83,6 +87,10 @@ declare class WorkflowStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any): Promise<WorkflowStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -116,8 +124,7 @@ declare class WorkflowStatisticsInstance extends SerializableClass {
   fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
   realtime: string;
   /**
-   * Produce a plain JSON object version of the WorkflowStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -142,6 +149,10 @@ declare class WorkflowStatisticsPage extends Page<V1, WorkflowStatisticsPayload,
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkflowStatisticsPayload): WorkflowStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsListInstance, WorkflowStatisticsPage, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsSolution }

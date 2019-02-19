@@ -92,6 +92,10 @@ interface QueueListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: QueueListInstancePageOptions, callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -208,6 +212,10 @@ declare class QueueContext {
    */
   remove(callback?: (error: Error | null, items: QueueInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a QueueInstance
    *
    * @param opts - Options for request
@@ -264,8 +272,7 @@ declare class QueueInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: QueueInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the QueueInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -295,6 +302,10 @@ declare class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueIn
    * @param payload - Payload response from the API
    */
   getInstance(payload: QueuePayload): QueueInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueueListInstanceCreateOptions, QueueListInstanceEachOptions, QueueListInstanceOptions, QueueListInstancePageOptions, QueuePage, QueuePayload, QueueResource, QueueSolution }

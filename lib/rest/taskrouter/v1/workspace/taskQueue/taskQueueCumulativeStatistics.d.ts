@@ -46,6 +46,10 @@ interface TaskQueueCumulativeStatisticsListInstance {
    * Constructs a task_queue_cumulative_statistics
    */
   get(): TaskQueueCumulativeStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface TaskQueueCumulativeStatisticsPayload extends TaskQueueCumulativeStatisticsResource, Page.TwilioResponsePayload {
@@ -98,6 +102,10 @@ declare class TaskQueueCumulativeStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): Promise<TaskQueueCumulativeStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -160,8 +168,7 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
   tasksEntered: number;
   tasksMoved: number;
   /**
-   * Produce a plain JSON object version of the TaskQueueCumulativeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -187,6 +194,10 @@ declare class TaskQueueCumulativeStatisticsPage extends Page<V1, TaskQueueCumula
    * @param payload - Payload response from the API
    */
   getInstance(payload: TaskQueueCumulativeStatisticsPayload): TaskQueueCumulativeStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsSolution }

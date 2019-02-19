@@ -65,6 +65,10 @@ interface ThisMonthListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ThisMonthListInstancePageOptions, callback?: (error: Error | null, items: ThisMonthPage) => any): Promise<ThisMonthPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -210,8 +214,7 @@ declare class ThisMonthInstance extends SerializableClass {
   startDate: Date;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the ThisMonthInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -236,6 +239,10 @@ declare class ThisMonthPage extends Page<V2010, ThisMonthPayload, ThisMonthResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: ThisMonthPayload): ThisMonthInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ThisMonthInstance, ThisMonthList, ThisMonthListInstance, ThisMonthListInstanceEachOptions, ThisMonthListInstanceOptions, ThisMonthListInstancePageOptions, ThisMonthPage, ThisMonthPayload, ThisMonthResource, ThisMonthSolution }

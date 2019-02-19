@@ -36,6 +36,10 @@ interface WorkersRealTimeStatisticsListInstance {
    * Constructs a workers_real_time_statistics
    */
   get(): WorkersRealTimeStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsResource, Page.TwilioResponsePayload {
@@ -70,6 +74,10 @@ declare class WorkersRealTimeStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkersRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -100,8 +108,7 @@ declare class WorkersRealTimeStatisticsInstance extends SerializableClass {
    */
   fetch(opts?: WorkersRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance) => any): void;
   /**
-   * Produce a plain JSON object version of the WorkersRealTimeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   totalWorkers: number;
@@ -126,6 +133,10 @@ declare class WorkersRealTimeStatisticsPage extends Page<V1, WorkersRealTimeStat
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkersRealTimeStatisticsPayload): WorkersRealTimeStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkersRealTimeStatisticsContext, WorkersRealTimeStatisticsInstance, WorkersRealTimeStatisticsList, WorkersRealTimeStatisticsListInstance, WorkersRealTimeStatisticsPage, WorkersRealTimeStatisticsPayload, WorkersRealTimeStatisticsResource, WorkersRealTimeStatisticsSolution }

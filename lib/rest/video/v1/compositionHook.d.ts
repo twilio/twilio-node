@@ -109,6 +109,10 @@ interface CompositionHookListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CompositionHookListInstancePageOptions, callback?: (error: Error | null, items: CompositionHookPage) => any): Promise<CompositionHookPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -266,6 +270,10 @@ declare class CompositionHookContext {
    */
   remove(callback?: (error: Error | null, items: CompositionHookInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a CompositionHookInstance
    *
    * @param opts - Options for request
@@ -327,8 +335,7 @@ declare class CompositionHookInstance extends SerializableClass {
   statusCallback: string;
   statusCallbackMethod: string;
   /**
-   * Produce a plain JSON object version of the CompositionHookInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   trim: boolean;
@@ -360,6 +367,10 @@ declare class CompositionHookPage extends Page<V1, CompositionHookPayload, Compo
    * @param payload - Payload response from the API
    */
   getInstance(payload: CompositionHookPayload): CompositionHookInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CompositionHookContext, CompositionHookInstance, CompositionHookList, CompositionHookListInstance, CompositionHookListInstanceCreateOptions, CompositionHookListInstanceEachOptions, CompositionHookListInstanceOptions, CompositionHookListInstancePageOptions, CompositionHookPage, CompositionHookPayload, CompositionHookResource, CompositionHookSolution }

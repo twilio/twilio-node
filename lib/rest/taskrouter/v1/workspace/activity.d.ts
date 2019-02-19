@@ -89,6 +89,10 @@ interface ActivityListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ActivityListInstancePageOptions, callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -213,6 +217,10 @@ declare class ActivityContext {
    */
   remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ActivityInstance
    *
    * @param opts - Options for request
@@ -262,8 +270,7 @@ declare class ActivityInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ActivityInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -294,6 +301,10 @@ declare class ActivityPage extends Page<V1, ActivityPayload, ActivityResource, A
    * @param payload - Payload response from the API
    */
   getInstance(payload: ActivityPayload): ActivityInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityListInstanceCreateOptions, ActivityListInstanceEachOptions, ActivityListInstanceOptions, ActivityListInstancePageOptions, ActivityPage, ActivityPayload, ActivityResource, ActivitySolution }

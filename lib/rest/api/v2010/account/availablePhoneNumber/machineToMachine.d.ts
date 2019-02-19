@@ -64,6 +64,10 @@ interface MachineToMachineListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MachineToMachineListInstancePageOptions, callback?: (error: Error | null, items: MachineToMachinePage) => any): Promise<MachineToMachinePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -295,8 +299,7 @@ declare class MachineToMachineInstance extends SerializableClass {
   rateCenter: string;
   region: string;
   /**
-   * Produce a plain JSON object version of the MachineToMachineInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -318,6 +321,10 @@ declare class MachineToMachinePage extends Page<V2010, MachineToMachinePayload, 
    * @param payload - Payload response from the API
    */
   getInstance(payload: MachineToMachinePayload): MachineToMachineInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { MachineToMachineInstance, MachineToMachineList, MachineToMachineListInstance, MachineToMachineListInstanceEachOptions, MachineToMachineListInstanceOptions, MachineToMachineListInstancePageOptions, MachineToMachinePage, MachineToMachinePayload, MachineToMachineResource, MachineToMachineSolution }

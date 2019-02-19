@@ -78,6 +78,10 @@ interface InteractionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: InteractionListInstancePageOptions, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -191,6 +195,10 @@ declare class InteractionContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: InteractionInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -257,8 +265,7 @@ declare class InteractionInstance extends SerializableClass {
   sessionSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the InteractionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   type: InteractionType;
@@ -282,6 +289,10 @@ declare class InteractionPage extends Page<V1, InteractionPayload, InteractionRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: InteractionPayload): InteractionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionListInstanceEachOptions, InteractionListInstanceOptions, InteractionListInstancePageOptions, InteractionPage, InteractionPayload, InteractionResource, InteractionSolution }

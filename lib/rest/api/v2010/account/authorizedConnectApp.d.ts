@@ -74,6 +74,10 @@ interface AuthorizedConnectAppListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AuthorizedConnectAppListInstancePageOptions, callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any): Promise<AuthorizedConnectAppPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -170,6 +174,10 @@ declare class AuthorizedConnectAppContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -212,8 +220,7 @@ declare class AuthorizedConnectAppInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
   permissions: string;
   /**
-   * Produce a plain JSON object version of the AuthorizedConnectAppInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -236,6 +243,10 @@ declare class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppP
    * @param payload - Payload response from the API
    */
   getInstance(payload: AuthorizedConnectAppPayload): AuthorizedConnectAppInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppListInstanceEachOptions, AuthorizedConnectAppListInstanceOptions, AuthorizedConnectAppListInstancePageOptions, AuthorizedConnectAppPage, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppSolution }

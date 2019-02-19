@@ -86,6 +86,10 @@ interface EngagementListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: EngagementListInstancePageOptions, callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -207,6 +211,10 @@ declare class EngagementContext {
    */
   remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
   steps: StepListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -265,8 +273,7 @@ declare class EngagementInstance extends SerializableClass {
    */
   steps(): StepListInstance;
   /**
-   * Produce a plain JSON object version of the EngagementInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -289,6 +296,10 @@ declare class EngagementPage extends Page<V1, EngagementPayload, EngagementResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: EngagementPayload): EngagementInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

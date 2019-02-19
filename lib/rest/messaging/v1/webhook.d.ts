@@ -47,6 +47,10 @@ interface WebhookListInstance {
    * Constructs a webhook
    */
   get(): WebhookContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
@@ -82,6 +86,10 @@ declare class WebhookContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   /**
    * update a WebhookInstance
    *
@@ -125,8 +133,7 @@ declare class WebhookInstance extends SerializableClass {
   preWebhookUrl: string;
   serviceSid: string;
   /**
-   * Produce a plain JSON object version of the WebhookInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -158,6 +165,10 @@ declare class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, Webh
    * @param payload - Payload response from the API
    */
   getInstance(payload: WebhookPayload): WebhookInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }

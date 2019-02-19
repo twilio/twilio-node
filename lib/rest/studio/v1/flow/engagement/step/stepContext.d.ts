@@ -29,6 +29,10 @@ interface StepContextListInstance {
    * Constructs a step_context
    */
   get(): StepContextContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface StepContextPayload extends StepContextResource, Page.TwilioResponsePayload {
@@ -67,6 +71,10 @@ declare class StepContextContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: StepContextInstance) => any): Promise<StepContextInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -102,8 +110,7 @@ declare class StepContextInstance extends SerializableClass {
   flowSid: string;
   stepSid: string;
   /**
-   * Produce a plain JSON object version of the StepContextInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -126,6 +133,10 @@ declare class StepContextPage extends Page<V1, StepContextPayload, StepContextRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: StepContextPayload): StepContextInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextPayload, StepContextResource, StepContextSolution }

@@ -86,6 +86,10 @@ interface UserChannelListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: UserChannelListInstancePageOptions, callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -186,6 +190,10 @@ declare class UserChannelContext {
    */
   fetch(callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a UserChannelInstance
    *
    * @param opts - Options for request
@@ -235,8 +243,7 @@ declare class UserChannelInstance extends SerializableClass {
   serviceSid: string;
   status: UserChannelChannelStatus;
   /**
-   * Produce a plain JSON object version of the UserChannelInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   unreadMessagesCount: number;
@@ -268,6 +275,10 @@ declare class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: UserChannelPayload): UserChannelInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { UserChannelContext, UserChannelInstance, UserChannelList, UserChannelListInstance, UserChannelListInstanceEachOptions, UserChannelListInstanceOptions, UserChannelListInstancePageOptions, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution }

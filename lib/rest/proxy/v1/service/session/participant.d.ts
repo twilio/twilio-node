@@ -83,6 +83,10 @@ interface ParticipantListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -208,6 +212,10 @@ declare class ParticipantContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -267,8 +275,7 @@ declare class ParticipantInstance extends SerializableClass {
   sessionSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ParticipantInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -291,6 +298,10 @@ declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: ParticipantPayload): ParticipantInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

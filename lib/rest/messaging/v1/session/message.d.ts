@@ -98,6 +98,10 @@ interface MessageListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -220,6 +224,10 @@ declare class MessageContext {
    */
   remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a MessageInstance
    *
    * @param opts - Options for request
@@ -278,8 +286,7 @@ declare class MessageInstance extends SerializableClass {
   sessionSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the MessageInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -309,6 +316,10 @@ declare class MessagePage extends Page<V1, MessagePayload, MessageResource, Mess
    * @param payload - Payload response from the API
    */
   getInstance(payload: MessagePayload): MessageInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }

@@ -87,6 +87,10 @@ interface MessageInteractionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MessageInteractionListInstancePageOptions, callback?: (error: Error | null, items: MessageInteractionPage) => any): Promise<MessageInteractionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -208,6 +212,10 @@ declare class MessageInteractionContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -271,8 +279,7 @@ declare class MessageInteractionInstance extends SerializableClass {
   sessionSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the MessageInteractionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   type: MessageInteractionType;
@@ -296,6 +303,10 @@ declare class MessageInteractionPage extends Page<V1, MessageInteractionPayload,
    * @param payload - Payload response from the API
    */
   getInstance(payload: MessageInteractionPayload): MessageInteractionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListInstance, MessageInteractionListInstanceCreateOptions, MessageInteractionListInstanceEachOptions, MessageInteractionListInstanceOptions, MessageInteractionListInstancePageOptions, MessageInteractionPage, MessageInteractionPayload, MessageInteractionResource, MessageInteractionSolution }

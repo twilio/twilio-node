@@ -95,6 +95,10 @@ interface SyncListItemListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncListItemListInstancePageOptions, callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -227,6 +231,10 @@ declare class SyncListItemContext {
    */
   remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SyncListItemInstance
    *
    * @param opts - Options for request
@@ -282,8 +290,7 @@ declare class SyncListItemInstance extends SerializableClass {
   revision: string;
   serviceSid: string;
   /**
-   * Produce a plain JSON object version of the SyncListItemInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -313,6 +320,10 @@ declare class SyncListItemPage extends Page<Sync, SyncListItemPayload, SyncListI
    * @param payload - Payload response from the API
    */
   getInstance(payload: SyncListItemPayload): SyncListItemInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SyncListItemContext, SyncListItemInstance, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }

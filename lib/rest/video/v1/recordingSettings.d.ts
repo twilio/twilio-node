@@ -47,6 +47,10 @@ interface RecordingSettingsListInstance {
    * Constructs a recording_settings
    */
   get(): RecordingSettingsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface RecordingSettingsPayload extends RecordingSettingsResource, Page.TwilioResponsePayload {
@@ -88,6 +92,10 @@ declare class RecordingSettingsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -131,8 +139,7 @@ declare class RecordingSettingsInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): void;
   friendlyName: string;
   /**
-   * Produce a plain JSON object version of the RecordingSettingsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -155,6 +162,10 @@ declare class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, R
    * @param payload - Payload response from the API
    */
   getInstance(payload: RecordingSettingsPayload): RecordingSettingsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }

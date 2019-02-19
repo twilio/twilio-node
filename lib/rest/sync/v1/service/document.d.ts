@@ -94,6 +94,10 @@ interface DocumentListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DocumentListInstancePageOptions, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -215,6 +219,10 @@ declare class DocumentContext {
    */
   remove(callback?: (error: Error | null, items: DocumentInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a DocumentInstance
    *
    * @param opts - Options for request
@@ -276,8 +284,7 @@ declare class DocumentInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the DocumentInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -308,6 +315,10 @@ declare class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, D
    * @param payload - Payload response from the API
    */
   getInstance(payload: DocumentPayload): DocumentInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

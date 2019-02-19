@@ -75,6 +75,10 @@ interface TranscriptionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TranscriptionListInstancePageOptions, callback?: (error: Error | null, items: TranscriptionPage) => any): Promise<TranscriptionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -182,6 +186,10 @@ declare class TranscriptionContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -235,8 +243,7 @@ declare class TranscriptionInstance extends SerializableClass {
   sid: string;
   status: TranscriptionStatus;
   /**
-   * Produce a plain JSON object version of the TranscriptionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   transcriptionText: string;
@@ -261,6 +268,10 @@ declare class TranscriptionPage extends Page<V2010, TranscriptionPayload, Transc
    * @param payload - Payload response from the API
    */
   getInstance(payload: TranscriptionPayload): TranscriptionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionListInstanceEachOptions, TranscriptionListInstanceOptions, TranscriptionListInstancePageOptions, TranscriptionPage, TranscriptionPayload, TranscriptionResource, TranscriptionSolution }

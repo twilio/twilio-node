@@ -87,6 +87,10 @@ interface AwsListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AwsListInstancePageOptions, callback?: (error: Error | null, items: AwsPage) => any): Promise<AwsPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -197,6 +201,10 @@ declare class AwsContext {
    */
   remove(callback?: (error: Error | null, items: AwsInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a AwsInstance
    *
    * @param opts - Options for request
@@ -242,8 +250,7 @@ declare class AwsInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: AwsInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AwsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -273,6 +280,10 @@ declare class AwsPage extends Page<V1, AwsPayload, AwsResource, AwsInstance> {
    * @param payload - Payload response from the API
    */
   getInstance(payload: AwsPayload): AwsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsListInstanceCreateOptions, AwsListInstanceEachOptions, AwsListInstanceOptions, AwsListInstancePageOptions, AwsPage, AwsPayload, AwsResource, AwsSolution }

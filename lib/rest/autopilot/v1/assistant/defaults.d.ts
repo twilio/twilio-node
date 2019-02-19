@@ -38,6 +38,10 @@ interface DefaultsListInstance {
    * Constructs a defaults
    */
   get(): DefaultsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface DefaultsPayload extends DefaultsResource, Page.TwilioResponsePayload {
@@ -70,6 +74,10 @@ declare class DefaultsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: DefaultsInstance) => any): Promise<DefaultsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   /**
    * update a DefaultsInstance
    *
@@ -106,8 +114,7 @@ declare class DefaultsInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: DefaultsInstance) => any): void;
   /**
-   * Produce a plain JSON object version of the DefaultsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -137,6 +144,10 @@ declare class DefaultsPage extends Page<V1, DefaultsPayload, DefaultsResource, D
    * @param payload - Payload response from the API
    */
   getInstance(payload: DefaultsPayload): DefaultsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DefaultsContext, DefaultsInstance, DefaultsList, DefaultsListInstance, DefaultsPage, DefaultsPayload, DefaultsResource, DefaultsSolution }

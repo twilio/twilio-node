@@ -73,6 +73,10 @@ interface AvailableAddOnExtensionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AvailableAddOnExtensionListInstancePageOptions, callback?: (error: Error | null, items: AvailableAddOnExtensionPage) => any): Promise<AvailableAddOnExtensionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -165,6 +169,10 @@ declare class AvailableAddOnExtensionContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AvailableAddOnExtensionInstance) => any): Promise<AvailableAddOnExtensionInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -198,8 +206,7 @@ declare class AvailableAddOnExtensionInstance extends SerializableClass {
   productName: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the AvailableAddOnExtensionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -223,6 +230,10 @@ declare class AvailableAddOnExtensionPage extends Page<Marketplace, AvailableAdd
    * @param payload - Payload response from the API
    */
   getInstance(payload: AvailableAddOnExtensionPayload): AvailableAddOnExtensionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AvailableAddOnExtensionContext, AvailableAddOnExtensionInstance, AvailableAddOnExtensionList, AvailableAddOnExtensionListInstance, AvailableAddOnExtensionListInstanceEachOptions, AvailableAddOnExtensionListInstanceOptions, AvailableAddOnExtensionListInstancePageOptions, AvailableAddOnExtensionPage, AvailableAddOnExtensionPayload, AvailableAddOnExtensionResource, AvailableAddOnExtensionSolution }

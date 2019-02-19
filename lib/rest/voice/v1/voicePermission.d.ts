@@ -19,6 +19,10 @@ declare function VoicePermissionList(version: V1): VoicePermissionListInstance;
 interface VoicePermissionListInstance {
   bulkCountryUpdates?: object;
   countries?: object;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface VoicePermissionPayload extends VoicePermissionResource, Page.TwilioResponsePayload {

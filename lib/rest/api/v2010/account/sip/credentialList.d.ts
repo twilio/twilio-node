@@ -90,6 +90,10 @@ interface CredentialListListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CredentialListListInstancePageOptions, callback?: (error: Error | null, items: CredentialListPage) => any): Promise<CredentialListPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -202,6 +206,10 @@ declare class CredentialListContext {
    */
   remove(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a CredentialListInstance
    *
    * @param opts - Options for request
@@ -254,8 +262,7 @@ declare class CredentialListInstance extends SerializableClass {
   sid: string;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the CredentialListInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -285,6 +292,10 @@ declare class CredentialListPage extends Page<V2010, CredentialListPayload, Cred
    * @param payload - Payload response from the API
    */
   getInstance(payload: CredentialListPayload): CredentialListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListInstance, CredentialListListInstanceCreateOptions, CredentialListListInstanceEachOptions, CredentialListListInstanceOptions, CredentialListListInstancePageOptions, CredentialListPage, CredentialListPayload, CredentialListResource, CredentialListSolution }

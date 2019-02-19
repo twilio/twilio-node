@@ -29,6 +29,10 @@ interface FeedbackListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts?: FeedbackListInstanceCreateOptions, callback?: (error: Error | null, item: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -82,8 +86,7 @@ declare class FeedbackInstance extends SerializableClass {
   messageSid: string;
   outcome: FeedbackOutcome;
   /**
-   * Produce a plain JSON object version of the FeedbackInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -106,6 +109,10 @@ declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: FeedbackPayload): FeedbackInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackListInstanceCreateOptions, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

@@ -47,6 +47,10 @@ interface CompositionSettingsListInstance {
    * Constructs a composition_settings
    */
   get(): CompositionSettingsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface CompositionSettingsPayload extends CompositionSettingsResource, Page.TwilioResponsePayload {
@@ -88,6 +92,10 @@ declare class CompositionSettingsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -131,8 +139,7 @@ declare class CompositionSettingsInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): void;
   friendlyName: string;
   /**
-   * Produce a plain JSON object version of the CompositionSettingsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -155,6 +162,10 @@ declare class CompositionSettingsPage extends Page<V1, CompositionSettingsPayloa
    * @param payload - Payload response from the API
    */
   getInstance(payload: CompositionSettingsPayload): CompositionSettingsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsSolution }

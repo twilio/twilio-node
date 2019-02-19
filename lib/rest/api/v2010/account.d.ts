@@ -141,6 +141,10 @@ interface AccountListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AccountListInstancePageOptions, callback?: (error: Error | null, items: AccountPage) => any): Promise<AccountPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -301,6 +305,10 @@ declare class AccountContext {
   shortCodes: ShortCodeListInstance;
   signingKeys: SigningKeyListInstance;
   sip: SipListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
   tokens: TokenListInstance;
   transcriptions: TranscriptionListInstance;
   /**
@@ -432,8 +440,7 @@ declare class AccountInstance extends SerializableClass {
   status: AccountStatus;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the AccountInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -480,6 +487,10 @@ declare class AccountPage extends Page<V2010, AccountPayload, AccountResource, A
    * @param payload - Payload response from the API
    */
   getInstance(payload: AccountPayload): AccountInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountListInstanceCreateOptions, AccountListInstanceEachOptions, AccountListInstanceOptions, AccountListInstancePageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution }

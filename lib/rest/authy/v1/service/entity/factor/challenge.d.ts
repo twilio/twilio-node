@@ -55,6 +55,10 @@ interface ChallengeListInstance {
    * @param sid - A string that uniquely identifies this Challenge, or `latest`.
    */
   get(sid: string): ChallengeContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -124,6 +128,10 @@ declare class ChallengeContext {
    */
   remove(callback?: (error: Error | null, items: ChallengeInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ChallengeInstance
    *
    * @param opts - Options for request
@@ -192,8 +200,7 @@ declare class ChallengeInstance extends SerializableClass {
   sid: string;
   status: ChallengeChallengeStatuses;
   /**
-   * Produce a plain JSON object version of the ChallengeInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -223,6 +230,10 @@ declare class ChallengePage extends Page<V1, ChallengePayload, ChallengeResource
    * @param payload - Payload response from the API
    */
   getInstance(payload: ChallengePayload): ChallengeInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ChallengeContext, ChallengeInstance, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }

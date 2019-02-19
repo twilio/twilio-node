@@ -90,6 +90,10 @@ interface IpAccessControlListListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: IpAccessControlListListInstancePageOptions, callback?: (error: Error | null, items: IpAccessControlListPage) => any): Promise<IpAccessControlListPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -202,6 +206,10 @@ declare class IpAccessControlListContext {
    */
   remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a IpAccessControlListInstance
    *
    * @param opts - Options for request
@@ -254,8 +262,7 @@ declare class IpAccessControlListInstance extends SerializableClass {
   sid: string;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the IpAccessControlListInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -285,6 +292,10 @@ declare class IpAccessControlListPage extends Page<V2010, IpAccessControlListPay
    * @param payload - Payload response from the API
    */
   getInstance(payload: IpAccessControlListPayload): IpAccessControlListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListListInstance, IpAccessControlListListInstanceCreateOptions, IpAccessControlListListInstanceEachOptions, IpAccessControlListListInstanceOptions, IpAccessControlListListInstancePageOptions, IpAccessControlListPage, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListSolution }

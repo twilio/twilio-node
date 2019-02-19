@@ -29,6 +29,10 @@ interface VerificationListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts: VerificationListInstanceCreateOptions, callback?: (error: Error | null, item: VerificationInstance) => any): Promise<VerificationInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -112,8 +116,7 @@ declare class VerificationInstance extends SerializableClass {
   status: string;
   to: string;
   /**
-   * Produce a plain JSON object version of the VerificationInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   valid: boolean;
@@ -136,6 +139,10 @@ declare class VerificationPage extends Page<V1, VerificationPayload, Verificatio
    * @param payload - Payload response from the API
    */
   getInstance(payload: VerificationPayload): VerificationInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { VerificationInstance, VerificationList, VerificationListInstance, VerificationListInstanceCreateOptions, VerificationPage, VerificationPayload, VerificationResource, VerificationSolution }

@@ -96,6 +96,10 @@ interface FactorListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: FactorListInstancePageOptions, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -219,6 +223,10 @@ declare class FactorContext {
    */
   remove(callback?: (error: Error | null, items: FactorInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a FactorInstance
    *
    * @param opts - Options for request
@@ -282,8 +290,7 @@ declare class FactorInstance extends SerializableClass {
   sid: string;
   status: FactorFactorStatuses;
   /**
-   * Produce a plain JSON object version of the FactorInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -313,6 +320,10 @@ declare class FactorPage extends Page<V1, FactorPayload, FactorResource, FactorI
    * @param payload - Payload response from the API
    */
   getInstance(payload: FactorPayload): FactorInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FactorContext, FactorInstance, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorPage, FactorPayload, FactorResource, FactorSolution }

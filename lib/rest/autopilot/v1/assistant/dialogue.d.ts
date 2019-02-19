@@ -30,6 +30,10 @@ interface DialogueListInstance {
    * @param sid - The sid
    */
   get(sid: string): DialogueContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface DialoguePayload extends DialogueResource, Page.TwilioResponsePayload {
@@ -64,6 +68,10 @@ declare class DialogueContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: DialogueInstance) => any): Promise<DialogueInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -96,8 +104,7 @@ declare class DialogueInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: DialogueInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the DialogueInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -120,6 +127,10 @@ declare class DialoguePage extends Page<V1, DialoguePayload, DialogueResource, D
    * @param payload - Payload response from the API
    */
   getInstance(payload: DialoguePayload): DialogueInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DialogueContext, DialogueInstance, DialogueList, DialogueListInstance, DialoguePage, DialoguePayload, DialogueResource, DialogueSolution }

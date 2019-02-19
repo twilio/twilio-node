@@ -93,6 +93,10 @@ interface FieldTypeListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: FieldTypeListInstancePageOptions, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -209,6 +213,10 @@ declare class FieldTypeContext {
    */
   remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a FieldTypeInstance
    *
    * @param opts - Options for request
@@ -264,8 +272,7 @@ declare class FieldTypeInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the FieldTypeInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -296,6 +303,10 @@ declare class FieldTypePage extends Page<Understand, FieldTypePayload, FieldType
    * @param payload - Payload response from the API
    */
   getInstance(payload: FieldTypePayload): FieldTypeInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FieldTypeContext, FieldTypeInstance, FieldTypeList, FieldTypeListInstance, FieldTypeListInstanceCreateOptions, FieldTypeListInstanceEachOptions, FieldTypeListInstanceOptions, FieldTypeListInstancePageOptions, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }

@@ -45,6 +45,10 @@ interface WorkspaceStatisticsListInstance {
    * Constructs a workspace_statistics
    */
   get(): WorkspaceStatisticsContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource, Page.TwilioResponsePayload {
@@ -79,6 +83,10 @@ declare class WorkspaceStatisticsContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkspaceStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -110,8 +118,7 @@ declare class WorkspaceStatisticsInstance extends SerializableClass {
   fetch(opts?: WorkspaceStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceStatisticsInstance) => any): void;
   realtime: string;
   /**
-   * Produce a plain JSON object version of the WorkspaceStatisticsInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -135,6 +142,10 @@ declare class WorkspaceStatisticsPage extends Page<V1, WorkspaceStatisticsPayloa
    * @param payload - Payload response from the API
    */
   getInstance(payload: WorkspaceStatisticsPayload): WorkspaceStatisticsInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { WorkspaceStatisticsContext, WorkspaceStatisticsInstance, WorkspaceStatisticsList, WorkspaceStatisticsListInstance, WorkspaceStatisticsPage, WorkspaceStatisticsPayload, WorkspaceStatisticsResource, WorkspaceStatisticsSolution }

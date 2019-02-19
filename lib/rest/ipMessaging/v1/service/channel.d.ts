@@ -101,6 +101,10 @@ interface ChannelListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ChannelListInstancePageOptions, callback?: (error: Error | null, items: ChannelPage) => any): Promise<ChannelPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -236,6 +240,10 @@ declare class ChannelContext {
    */
   remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ChannelInstance
    *
    * @param opts - Options for request
@@ -308,8 +316,7 @@ declare class ChannelInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ChannelInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   type: ChannelChannelType;
@@ -341,6 +348,10 @@ declare class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, Chan
    * @param payload - Payload response from the API
    */
   getInstance(payload: ChannelPayload): ChannelInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }

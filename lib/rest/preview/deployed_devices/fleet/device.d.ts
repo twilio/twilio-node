@@ -96,6 +96,10 @@ interface DeviceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DeviceListInstancePageOptions, callback?: (error: Error | null, items: DevicePage) => any): Promise<DevicePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -224,6 +228,10 @@ declare class DeviceContext {
    */
   remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a DeviceInstance
    *
    * @param opts - Options for request
@@ -281,8 +289,7 @@ declare class DeviceInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the DeviceInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -313,6 +320,10 @@ declare class DevicePage extends Page<DeployedDevices, DevicePayload, DeviceReso
    * @param payload - Payload response from the API
    */
   getInstance(payload: DevicePayload): DeviceInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DeviceListInstanceCreateOptions, DeviceListInstanceEachOptions, DeviceListInstanceOptions, DeviceListInstancePageOptions, DevicePage, DevicePayload, DeviceResource, DeviceSolution }

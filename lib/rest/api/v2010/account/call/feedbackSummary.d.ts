@@ -39,6 +39,10 @@ interface FeedbackSummaryListInstance {
    * @param sid - A string that uniquely identifies this feedback summary resource
    */
   get(sid: string): FeedbackSummaryContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -105,6 +109,10 @@ declare class FeedbackSummaryContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -162,8 +170,7 @@ declare class FeedbackSummaryInstance extends SerializableClass {
   startDate: Date;
   status: FeedbackSummaryStatus;
   /**
-   * Produce a plain JSON object version of the FeedbackSummaryInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -185,6 +192,10 @@ declare class FeedbackSummaryPage extends Page<V2010, FeedbackSummaryPayload, Fe
    * @param payload - Payload response from the API
    */
   getInstance(payload: FeedbackSummaryPayload): FeedbackSummaryInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryListInstanceCreateOptions, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummarySolution }

@@ -65,6 +65,10 @@ interface AllTimeListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AllTimeListInstancePageOptions, callback?: (error: Error | null, items: AllTimePage) => any): Promise<AllTimePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -210,8 +214,7 @@ declare class AllTimeInstance extends SerializableClass {
   startDate: Date;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the AllTimeInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uri: string;
@@ -236,6 +239,10 @@ declare class AllTimePage extends Page<V2010, AllTimePayload, AllTimeResource, A
    * @param payload - Payload response from the API
    */
   getInstance(payload: AllTimePayload): AllTimeInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimeListInstanceEachOptions, AllTimeListInstanceOptions, AllTimeListInstancePageOptions, AllTimePage, AllTimePayload, AllTimeResource, AllTimeSolution }

@@ -94,6 +94,10 @@ interface SampleListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SampleListInstancePageOptions, callback?: (error: Error | null, items: SamplePage) => any): Promise<SamplePage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -218,6 +222,10 @@ declare class SampleContext {
    */
   remove(callback?: (error: Error | null, items: SampleInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a SampleInstance
    *
    * @param opts - Options for request
@@ -273,8 +281,7 @@ declare class SampleInstance extends SerializableClass {
   taggedText: string;
   taskSid: string;
   /**
-   * Produce a plain JSON object version of the SampleInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -304,6 +311,10 @@ declare class SamplePage extends Page<V1, SamplePayload, SampleResource, SampleI
    * @param payload - Payload response from the API
    */
   getInstance(payload: SamplePayload): SampleInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SampleContext, SampleInstance, SampleList, SampleListInstance, SampleListInstanceCreateOptions, SampleListInstanceEachOptions, SampleListInstanceOptions, SampleListInstancePageOptions, SamplePage, SamplePayload, SampleResource, SampleSolution }

@@ -26,6 +26,10 @@ interface NewSigningKeyListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts?: NewSigningKeyListInstanceCreateOptions, callback?: (error: Error | null, item: NewSigningKeyInstance) => any): Promise<NewSigningKeyInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -75,8 +79,7 @@ declare class NewSigningKeyInstance extends SerializableClass {
   secret: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the NewSigningKeyInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
 }
@@ -98,6 +101,10 @@ declare class NewSigningKeyPage extends Page<V2010, NewSigningKeyPayload, NewSig
    * @param payload - Payload response from the API
    */
   getInstance(payload: NewSigningKeyPayload): NewSigningKeyInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { NewSigningKeyInstance, NewSigningKeyList, NewSigningKeyListInstance, NewSigningKeyListInstanceCreateOptions, NewSigningKeyPage, NewSigningKeyPayload, NewSigningKeyResource, NewSigningKeySolution }

@@ -84,6 +84,10 @@ interface SyncMapListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncMapListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -200,6 +204,10 @@ declare class SyncMapContext {
   remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
   syncMapItems: SyncMapItemListInstance;
   syncMapPermissions: SyncMapPermissionListInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -255,8 +263,7 @@ declare class SyncMapInstance extends SerializableClass {
    */
   syncMapPermissions(): SyncMapPermissionListInstance;
   /**
-   * Produce a plain JSON object version of the SyncMapInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -280,6 +287,10 @@ declare class SyncMapPage extends Page<Sync, SyncMapPayload, SyncMapResource, Sy
    * @param payload - Payload response from the API
    */
   getInstance(payload: SyncMapPayload): SyncMapInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }

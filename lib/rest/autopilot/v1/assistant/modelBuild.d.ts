@@ -91,6 +91,10 @@ interface ModelBuildListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ModelBuildListInstancePageOptions, callback?: (error: Error | null, items: ModelBuildPage) => any): Promise<ModelBuildPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -205,6 +209,10 @@ declare class ModelBuildContext {
    */
   remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ModelBuildInstance
    *
    * @param opts - Options for request
@@ -258,8 +266,7 @@ declare class ModelBuildInstance extends SerializableClass {
   sid: string;
   status: ModelBuildStatus;
   /**
-   * Produce a plain JSON object version of the ModelBuildInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uniqueName: string;
@@ -290,6 +297,10 @@ declare class ModelBuildPage extends Page<V1, ModelBuildPayload, ModelBuildResou
    * @param payload - Payload response from the API
    */
   getInstance(payload: ModelBuildPayload): ModelBuildInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildListInstanceCreateOptions, ModelBuildListInstanceEachOptions, ModelBuildListInstanceOptions, ModelBuildListInstancePageOptions, ModelBuildPage, ModelBuildPayload, ModelBuildResource, ModelBuildSolution }

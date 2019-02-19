@@ -84,6 +84,10 @@ interface CompositionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CompositionListInstancePageOptions, callback?: (error: Error | null, items: CompositionPage) => any): Promise<CompositionPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -241,6 +245,10 @@ declare class CompositionContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: CompositionInstance) => any): void;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -302,8 +310,7 @@ declare class CompositionInstance extends SerializableClass {
   size: number;
   status: CompositionStatus;
   /**
-   * Produce a plain JSON object version of the CompositionInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   trim: boolean;
@@ -328,6 +335,10 @@ declare class CompositionPage extends Page<V1, CompositionPayload, CompositionRe
    * @param payload - Payload response from the API
    */
   getInstance(payload: CompositionPayload): CompositionInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionListInstanceCreateOptions, CompositionListInstanceEachOptions, CompositionListInstanceOptions, CompositionListInstancePageOptions, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution }

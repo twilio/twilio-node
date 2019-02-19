@@ -110,6 +110,10 @@ interface TrunkListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TrunkListInstancePageOptions, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 /**
@@ -246,6 +250,10 @@ declare class TrunkContext {
    */
   remove(callback?: (error: Error | null, items: TrunkInstance) => any): void;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a TrunkInstance
    *
    * @param opts - Options for request
@@ -325,8 +333,7 @@ declare class TrunkInstance extends SerializableClass {
   secure: boolean;
   sid: string;
   /**
-   * Produce a plain JSON object version of the TrunkInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
@@ -356,6 +363,10 @@ declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInsta
    * @param payload - Payload response from the API
    */
   getInstance(payload: TrunkPayload): TrunkInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution }

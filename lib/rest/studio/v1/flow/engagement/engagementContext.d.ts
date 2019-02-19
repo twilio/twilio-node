@@ -28,6 +28,10 @@ interface EngagementContextListInstance {
    * Constructs a engagement_context
    */
   get(): EngagementContextContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface EngagementContextPayload extends EngagementContextResource, Page.TwilioResponsePayload {
@@ -63,6 +67,10 @@ declare class EngagementContextContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): Promise<EngagementContextInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -95,8 +103,7 @@ declare class EngagementContextInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): void;
   flowSid: string;
   /**
-   * Produce a plain JSON object version of the EngagementContextInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
@@ -119,6 +126,10 @@ declare class EngagementContextPage extends Page<V1, EngagementContextPayload, E
    * @param payload - Payload response from the API
    */
   getInstance(payload: EngagementContextPayload): EngagementContextInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource, EngagementContextSolution }
