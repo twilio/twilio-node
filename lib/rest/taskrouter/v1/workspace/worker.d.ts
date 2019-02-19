@@ -8,6 +8,7 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
+import serialize = require('../../../../base/serialize');
 import { ReservationList } from './worker/reservation';
 import { ReservationListInstance } from './worker/reservation';
 import { SerializableClass } from '../../../../interfaces';
@@ -34,11 +35,13 @@ declare function WorkerList(version: V1, workspaceSid: string): WorkerListInstan
  * @property activitySid - The activity_sid
  * @property attributes - The attributes
  * @property friendlyName - The friendly_name
+ * @property rejectPendingReservations - The reject_pending_reservations
  */
 interface WorkerInstanceUpdateOptions {
   activitySid?: string;
   attributes?: string;
   friendlyName?: string;
+  rejectPendingReservations?: boolean;
 }
 
 interface WorkerListInstance {

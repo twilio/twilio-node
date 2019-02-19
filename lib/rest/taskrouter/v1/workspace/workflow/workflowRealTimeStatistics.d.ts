@@ -45,6 +45,7 @@ interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsRe
 interface WorkflowRealTimeStatisticsResource {
   account_sid: string;
   longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
   tasks_by_priority: string;
   tasks_by_status: string;
   total_tasks: number;
@@ -85,6 +86,7 @@ declare class WorkflowRealTimeStatisticsInstance extends SerializableClass {
    *
    * @property accountSid - The account_sid
    * @property longestTaskWaitingAge - The age of the longest waiting Task
+   * @property longestTaskWaitingSid - The SID of the longest waiting Task
    * @property tasksByPriority - The tasks_by_priority
    * @property tasksByStatus - The Tasks broken down by status
    * @property totalTasks - The total number of Tasks
@@ -109,6 +111,7 @@ declare class WorkflowRealTimeStatisticsInstance extends SerializableClass {
    */
   fetch(opts?: WorkflowRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): void;
   longestTaskWaitingAge: number;
+  longestTaskWaitingSid: string;
   tasksByPriority: string;
   tasksByStatus: string;
   /**

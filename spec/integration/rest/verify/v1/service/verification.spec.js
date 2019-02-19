@@ -75,7 +75,9 @@ describe('Verification', function() {
                   'mobile_network_code': '150',
                   'type': 'mobile'
               }
-          }
+          },
+          'amount': '$29.99',
+          'payee': 'Acme'
       });
 
       holodeck.mock(new Response(201, body));

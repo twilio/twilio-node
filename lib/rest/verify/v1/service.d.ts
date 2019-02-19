@@ -30,6 +30,7 @@ declare function ServiceList(version: V1): ServiceListInstance;
  * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
  * @property friendlyName - Friendly name of the service
  * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
+ * @property psd2Enabled - Indicates whether PSD2 parameters are enabled or not
  * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
  * @property ttsName - Alternative to be used as Service friendly name in phone calls
  */
@@ -38,6 +39,7 @@ interface ServiceInstanceUpdateOptions {
   dtmfInputRequired?: boolean;
   friendlyName?: string;
   lookupEnabled?: boolean;
+  psd2Enabled?: boolean;
   skipSmsToLandlines?: boolean;
   ttsName?: string;
 }
@@ -112,6 +114,7 @@ interface ServiceListInstance {
  * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
  * @property friendlyName - Friendly name of the service
  * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
+ * @property psd2Enabled - Indicates whether PSD2 parameters are enabled or not
  * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
  * @property ttsName - Alternative to be used as Service friendly name in phone calls
  */
@@ -120,6 +123,7 @@ interface ServiceListInstanceCreateOptions {
   dtmfInputRequired?: boolean;
   friendlyName: string;
   lookupEnabled?: boolean;
+  psd2Enabled?: boolean;
   skipSmsToLandlines?: boolean;
   ttsName?: string;
 }
@@ -193,6 +197,7 @@ interface ServiceResource {
   friendly_name: string;
   links: string;
   lookup_enabled: boolean;
+  psd2_enabled: boolean;
   sid: string;
   skip_sms_to_landlines: boolean;
   tts_name: string;
@@ -248,6 +253,7 @@ declare class ServiceInstance extends SerializableClass {
    * @property friendlyName - Friendly name of the service
    * @property codeLength - Length of verification code. Valid values are 4-10
    * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
+   * @property psd2Enabled - Indicates whether PSD2 parameters are enabled or not
    * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
    * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
    * @property ttsName - Alternative to be used as Service friendly name in phone calls
@@ -277,6 +283,7 @@ declare class ServiceInstance extends SerializableClass {
   friendlyName: string;
   links: string;
   lookupEnabled: boolean;
+  psd2Enabled: boolean;
   /**
    * remove a ServiceInstance
    *

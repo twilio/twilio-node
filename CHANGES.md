@@ -1,6 +1,28 @@
 twilio-node changelog
 =====================
 
+[2019-02-19] Version 3.28.1
+----------------------------
+**Library**
+- PR #416: Bump packages for security. Thanks to @cjcodes!
+
+**Api**
+- Add `force_opt_in` optional param to Messages create request
+- Add agent conference category to usage records
+
+**Flex**
+- First public release
+
+**Taskrouter**
+- Adding `reject_pending_reservations` to worker update endpoint
+- Added `event_date_ms` and `worker_time_in_previous_activity_ms` to Events API response
+- Add ability to filter events by TaskChannel
+
+**Verify**
+- Add `EnablePsd2` optional parameter for PSD2 on Service resource creation or update.
+- Add `Amount`, `Payee` optional parameters for PSD2.
+
+
 [2019-02-04] Version 3.28.0
 ----------------------------
 **Library**

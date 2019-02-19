@@ -45,6 +45,7 @@ interface WorkspaceRealTimeStatisticsResource {
   account_sid: string;
   activity_statistics: string;
   longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
   tasks_by_priority: string;
   tasks_by_status: string;
   total_tasks: number;
@@ -84,6 +85,7 @@ declare class WorkspaceRealTimeStatisticsInstance extends SerializableClass {
    * @property accountSid - The account_sid
    * @property activityStatistics - A breakdown of Workers by Activity
    * @property longestTaskWaitingAge - The age of the longest waiting Task
+   * @property longestTaskWaitingSid - The SID of the longest waiting Task
    * @property tasksByPriority - The tasks_by_priority
    * @property tasksByStatus - The Tasks broken down by status
    * @property totalTasks - The total number of Tasks
@@ -108,6 +110,7 @@ declare class WorkspaceRealTimeStatisticsInstance extends SerializableClass {
    */
   fetch(opts?: WorkspaceRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceRealTimeStatisticsInstance) => any): void;
   longestTaskWaitingAge: number;
+  longestTaskWaitingSid: string;
   tasksByPriority: string;
   tasksByStatus: string;
   /**

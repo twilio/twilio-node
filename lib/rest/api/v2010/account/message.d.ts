@@ -111,6 +111,7 @@ interface MessageListInstance {
  * @property body - The text of the message you want to send, limited to 1600 characters.
  * @property contentRetention - The content_retention
  * @property forceDelivery - The force_delivery
+ * @property forceOptIn - Boolean representing force opt in for a message.
  * @property from - The phone number that initiated the message
  * @property interactiveData - JSON string representing interactive data message.
  * @property maxPrice - The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
@@ -130,6 +131,7 @@ interface MessageListInstanceCreateOptions {
   body?: string;
   contentRetention?: MessageContentRetention;
   forceDelivery?: boolean;
+  forceOptIn?: boolean;
   from?: string;
   interactiveData?: string;
   maxPrice?: number;

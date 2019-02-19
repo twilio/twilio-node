@@ -34,12 +34,16 @@ interface VerificationCheckListInstance {
 /**
  * Options to pass to create
  *
+ * @property amount - Amount of the associated PSD2 compliant transaction.
  * @property code - The verification string
+ * @property payee - Payee of the associated PSD2 compliant transaction.
  * @property to - To phone number
  * @property verificationSid - A SID that uniquely identifies this Verification Check
  */
 interface VerificationCheckListInstanceCreateOptions {
+  amount?: string;
   code: string;
+  payee?: string;
   to?: string;
   verificationSid?: string;
 }
@@ -49,9 +53,11 @@ interface VerificationCheckPayload extends VerificationCheckResource, Page.Twili
 
 interface VerificationCheckResource {
   account_sid: string;
+  amount: string;
   channel: VerificationCheckChannel;
   date_created: Date;
   date_updated: Date;
+  payee: string;
   service_sid: string;
   sid: string;
   status: string;
@@ -75,6 +81,8 @@ declare class VerificationCheckInstance extends SerializableClass {
    * @property channel - sms or call
    * @property status - pending, approved, denied or expired
    * @property valid - successful verification
+   * @property amount - Amount of the associated PSD2 compliant transaction.
+   * @property payee - Payee of the associated PSD2 compliant transaction.
    * @property dateCreated - The date this Verification Check was created
    * @property dateUpdated - The date this Verification Check was updated
    *
@@ -85,9 +93,11 @@ declare class VerificationCheckInstance extends SerializableClass {
   constructor(version: V1, payload: VerificationCheckPayload, serviceSid: string);
 
   accountSid: string;
+  amount: string;
   channel: VerificationCheckChannel;
   dateCreated: Date;
   dateUpdated: Date;
+  payee: string;
   serviceSid: string;
   sid: string;
   status: string;

@@ -46,6 +46,7 @@ interface TaskQueueRealTimeStatisticsResource {
   account_sid: string;
   activity_statistics: string;
   longest_task_waiting_age: number;
+  longest_task_waiting_sid: string;
   task_queue_sid: string;
   tasks_by_priority: string;
   tasks_by_status: string;
@@ -89,6 +90,7 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
    * @property accountSid - The account_sid
    * @property activityStatistics - The current Worker status count breakdown by Activity
    * @property longestTaskWaitingAge - The age of the longest waiting Task
+   * @property longestTaskWaitingSid - The SID of the longest waiting Task
    * @property taskQueueSid - The task_queue_sid
    * @property tasksByPriority - The Tasks broken down by priority
    * @property tasksByStatus - The Tasks broken down by status
@@ -116,6 +118,7 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
    */
   fetch(opts?: TaskQueueRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsInstance) => any): void;
   longestTaskWaitingAge: number;
+  longestTaskWaitingSid: string;
   taskQueueSid: string;
   tasksByPriority: string;
   tasksByStatus: string;

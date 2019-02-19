@@ -60,6 +60,7 @@ describe('TaskQueueRealTimeStatistics', function() {
     function() {
       var body = JSON.stringify({
           'longest_task_waiting_age': 100,
+          'longest_task_waiting_sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_queue_sid': 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'tasks_by_status': {
               'reserved': 0,

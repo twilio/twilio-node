@@ -34,18 +34,22 @@ interface VerificationListInstance {
 /**
  * Options to pass to create
  *
+ * @property amount - Amount of the associated PSD2 compliant transaction.
  * @property channel - sms or call
  * @property customCode - A pre-generated code
  * @property customMessage - A custom message for this verification
  * @property locale - Locale used in the sms or call.
+ * @property payee - Payee of the associated PSD2 compliant transaction.
  * @property sendDigits - Digits to send when a phone call is started
  * @property to - To phonenumber
  */
 interface VerificationListInstanceCreateOptions {
+  amount?: string;
   channel: string;
   customCode?: string;
   customMessage?: string;
   locale?: string;
+  payee?: string;
   sendDigits?: string;
   to: string;
 }
@@ -55,10 +59,12 @@ interface VerificationPayload extends VerificationResource, Page.TwilioResponseP
 
 interface VerificationResource {
   account_sid: string;
+  amount: string;
   channel: VerificationChannel;
   date_created: Date;
   date_updated: Date;
   lookup: string;
+  payee: string;
   service_sid: string;
   sid: string;
   status: string;
@@ -83,6 +89,8 @@ declare class VerificationInstance extends SerializableClass {
    * @property status - pending, approved, denied or expired
    * @property valid - successful verification
    * @property lookup - Info about the phone number
+   * @property amount - Amount of the associated PSD2 compliant transaction.
+   * @property payee - Payee of the associated PSD2 compliant transaction.
    * @property dateCreated - The date this Verification was created
    * @property dateUpdated - The date this Verification was updated
    *
@@ -93,10 +101,12 @@ declare class VerificationInstance extends SerializableClass {
   constructor(version: V1, payload: VerificationPayload, serviceSid: string);
 
   accountSid: string;
+  amount: string;
   channel: VerificationChannel;
   dateCreated: Date;
   dateUpdated: Date;
   lookup: string;
+  payee: string;
   serviceSid: string;
   sid: string;
   status: string;

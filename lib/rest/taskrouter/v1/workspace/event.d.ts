@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the EventList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The unique ID of the Workspace
+ * @param workspaceSid - The workspace_sid
  */
 declare function EventList(version: V1, workspaceSid: string): EventListInstance;
 
@@ -96,11 +96,13 @@ interface EventListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property reservationSid - Filter events by those pertaining to a particular reservation
+ * @property sid - Filter events by those pertaining to a particular event
  * @property startDate - Filter events by a start date.
+ * @property taskChannel - Filter events by those pertaining to a particular task channel
  * @property taskQueueSid - Filter events by those pertaining to a particular queue
  * @property taskSid - Filter events by those pertaining to a particular task
  * @property workerSid - Filter events by those pertaining to a particular worker
- * @property workflowSid - The workflow_sid
+ * @property workflowSid - Filter events by those pertaining to a particular workflow
  */
 interface EventListInstanceEachOptions {
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
@@ -111,7 +113,9 @@ interface EventListInstanceEachOptions {
   minutes?: number;
   pageSize?: number;
   reservationSid?: string;
+  sid?: string;
   startDate?: Date;
+  taskChannel?: string;
   taskQueueSid?: string;
   taskSid?: string;
   workerSid?: string;
@@ -135,11 +139,13 @@ interface EventListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property reservationSid - Filter events by those pertaining to a particular reservation
+ * @property sid - Filter events by those pertaining to a particular event
  * @property startDate - Filter events by a start date.
+ * @property taskChannel - Filter events by those pertaining to a particular task channel
  * @property taskQueueSid - Filter events by those pertaining to a particular queue
  * @property taskSid - Filter events by those pertaining to a particular task
  * @property workerSid - Filter events by those pertaining to a particular worker
- * @property workflowSid - The workflow_sid
+ * @property workflowSid - Filter events by those pertaining to a particular workflow
  */
 interface EventListInstanceOptions {
   endDate?: Date;
@@ -148,7 +154,9 @@ interface EventListInstanceOptions {
   minutes?: number;
   pageSize?: number;
   reservationSid?: string;
+  sid?: string;
   startDate?: Date;
+  taskChannel?: string;
   taskQueueSid?: string;
   taskSid?: string;
   workerSid?: string;
@@ -165,11 +173,13 @@ interface EventListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property reservationSid - Filter events by those pertaining to a particular reservation
+ * @property sid - Filter events by those pertaining to a particular event
  * @property startDate - Filter events by a start date.
+ * @property taskChannel - Filter events by those pertaining to a particular task channel
  * @property taskQueueSid - Filter events by those pertaining to a particular queue
  * @property taskSid - Filter events by those pertaining to a particular task
  * @property workerSid - Filter events by those pertaining to a particular worker
- * @property workflowSid - The workflow_sid
+ * @property workflowSid - Filter events by those pertaining to a particular workflow
  */
 interface EventListInstancePageOptions {
   endDate?: Date;
@@ -179,7 +189,9 @@ interface EventListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   reservationSid?: string;
+  sid?: string;
   startDate?: Date;
+  taskChannel?: string;
   taskQueueSid?: string;
   taskSid?: string;
   workerSid?: string;
@@ -197,6 +209,7 @@ interface EventResource {
   description: string;
   event_data: string;
   event_date: Date;
+  event_date_ms: number;
   event_type: string;
   resource_sid: string;
   resource_type: string;
@@ -205,6 +218,7 @@ interface EventResource {
   source: string;
   source_ip_address: string;
   url: string;
+  workspace_sid: string;
 }
 
 interface EventSolution {
@@ -242,6 +256,7 @@ declare class EventInstance extends SerializableClass {
    * @property description - A description of the event
    * @property eventData - Data about this specific event.
    * @property eventDate - The time this event was sent
+   * @property eventDateMs - The time this event was sent in ms
    * @property eventType - An identifier for this event
    * @property resourceSid - The sid of the object this event is most relevant to
    * @property resourceType - The type of object this event is most relevant to
@@ -250,10 +265,11 @@ declare class EventInstance extends SerializableClass {
    * @property source - The source
    * @property sourceIpAddress - The source_ip_address
    * @property url - The url
+   * @property workspaceSid - The workspace_sid
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The unique ID of the Workspace
+   * @param workspaceSid - The workspace_sid
    * @param sid - The sid
    */
   constructor(version: V1, payload: EventPayload, workspaceSid: string, sid: string);
@@ -266,6 +282,7 @@ declare class EventInstance extends SerializableClass {
   description: string;
   eventData: string;
   eventDate: Date;
+  eventDateMs: number;
   eventType: string;
   /**
    * fetch a EventInstance
@@ -285,6 +302,7 @@ declare class EventInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
+  workspaceSid: string;
 }
 
 
