@@ -12,7 +12,7 @@ import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the EventList
+ * Initialize the EventList
  *
  * @param version - Version of the resource
  */
@@ -29,9 +29,11 @@ interface EventListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -45,9 +47,11 @@ interface EventListInstance {
   get(sid: string): EventContext;
   /**
    * Retrieve a single target page of EventInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -56,7 +60,8 @@ interface EventListInstance {
   /**
    * Lists EventInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -64,9 +69,11 @@ interface EventListInstance {
   list(opts?: EventListInstanceOptions, callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
   /**
    * Retrieve a single page of EventInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -220,21 +227,6 @@ declare class EventContext {
 declare class EventInstance extends SerializableClass {
   /**
    * Initialize the EventContext
-   *
-   * @property accountSid - A 34 character string identifying the Account for which this Event was recorded.
-   * @property actorSid - If available, a 34 character string identifying the actor that caused this event. May be null.
-   * @property actorType - The type of actor that caused this event
-   * @property description - A human-readable description of the event.  May be null.
-   * @property eventData - A freeform json object encoding additional data about the event
-   * @property eventDate - The date-time the event was recorded
-   * @property eventType - The event's type, as a string.
-   * @property resourceSid - A 34 character string identifying the resource that was affected.
-   * @property resourceType - The type of resource that was affected
-   * @property sid - A 34 character string that uniquely identifies this event.
-   * @property source - The originating system or interface that caused the event.  web for events caused by user action in the Twilio Console.  api for events caused through a request to the REST API.  twilio for events caused by an automated or internal Twilio system.
-   * @property sourceIpAddress - The IP address of the source
-   * @property url - The url
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -14,8 +14,10 @@ import { SerializableClass } from '../../../../interfaces';
 type BindingBindingType = 'apn'|'gcm'|'sms'|'fcm'|'facebook-messenger'|'alexa';
 
 /**
- * @description Initialize the BindingList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the BindingList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The service_sid
@@ -40,9 +42,11 @@ interface BindingListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -56,9 +60,11 @@ interface BindingListInstance {
   get(sid: string): BindingContext;
   /**
    * Retrieve a single target page of BindingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -67,7 +73,8 @@ interface BindingListInstance {
   /**
    * Lists BindingInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -75,9 +82,11 @@ interface BindingListInstance {
   list(opts?: BindingListInstanceOptions, callback?: (error: Error | null, items: BindingInstance[]) => any): Promise<BindingInstance[]>;
   /**
    * Retrieve a single page of BindingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -218,7 +227,10 @@ interface BindingSolution {
 
 declare class BindingContext {
   /**
-   * Initialize the BindingContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the BindingContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -247,22 +259,10 @@ declare class BindingContext {
 
 declare class BindingInstance extends SerializableClass {
   /**
-   * Initialize the BindingContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the BindingContext
    *
-   * @property sid - The sid
-   * @property accountSid - The account_sid
-   * @property serviceSid - The service_sid
-   * @property credentialSid - The unique identifier of the Credential resource to be used to send notifications to this Binding.
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property notificationProtocolVersion - The version of the protocol used to send the notification.
-   * @property endpoint - DEPRECATED*
-   * @property identity - The Identity to which this Binding belongs to.
-   * @property bindingType - The type of the Binding.
-   * @property address - The address specific to the channel.
-   * @property tags - The list of tags associated with this Binding.
-   * @property url - The url
-   * @property links - The links
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -307,7 +307,10 @@ declare class BindingInstance extends SerializableClass {
 
 declare class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {
   /**
-   * Initialize the BindingPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the BindingPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

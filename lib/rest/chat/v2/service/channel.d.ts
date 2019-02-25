@@ -24,7 +24,7 @@ type ChannelChannelType = 'public'|'private';
 type ChannelWebhookEnabledType = 'true'|'false';
 
 /**
- * @description Initialize the ChannelList
+ * Initialize the ChannelList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this channel belongs to.
@@ -68,9 +68,11 @@ interface ChannelListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -84,9 +86,11 @@ interface ChannelListInstance {
   get(sid: string): ChannelContext;
   /**
    * Retrieve a single target page of ChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -95,7 +99,8 @@ interface ChannelListInstance {
   /**
    * Lists ChannelInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -103,9 +108,11 @@ interface ChannelListInstance {
   list(opts?: ChannelListInstanceOptions, callback?: (error: Error | null, items: ChannelInstance[]) => any): Promise<ChannelInstance[]>;
   /**
    * Retrieve a single page of ChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -230,11 +237,6 @@ declare class ChannelContext {
   /**
    * Initialize the ChannelContext
    *
-   * @property members - members resource
-   * @property messages - messages resource
-   * @property invites - invites resource
-   * @property webhooks - webhooks resource
-   *
    * @param version - Version of the resource
    * @param serviceSid - Sid of the Service this channel belongs to.
    * @param sid - Key that uniquely defines the channel to fetch.
@@ -274,21 +276,6 @@ declare class ChannelContext {
 declare class ChannelInstance extends SerializableClass {
   /**
    * Initialize the ChannelContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this channel.
-   * @property serviceSid - The unique id of the Service this channel belongs to.
-   * @property friendlyName - The human-readable name of this channel.
-   * @property uniqueName - The unique, addressable name of this channel.
-   * @property attributes - An optional string metadata field you can use to store any data you wish.
-   * @property type - The visibility of this channel - either public or private
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property createdBy - Identity of the channel's creator.
-   * @property membersCount - The number of Members in the Channel
-   * @property messagesCount - The number of Messages in the Channel
-   * @property url - An absolute URL for this channel.
-   * @property links - Absolute URLs to access the Members, Messages , Invites and, if it exists the last Message for this Channel.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -15,8 +15,10 @@ import { SyncMapPermissionList } from './syncMap/syncMapPermission';
 import { SyncMapPermissionListInstance } from './syncMap/syncMapPermission';
 
 /**
- * @description Initialize the SyncMapList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the SyncMapList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Map object.
@@ -52,9 +54,11 @@ interface SyncMapListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -68,9 +72,11 @@ interface SyncMapListInstance {
   get(sid: string): SyncMapContext;
   /**
    * Retrieve a single target page of SyncMapInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -79,7 +85,8 @@ interface SyncMapListInstance {
   /**
    * Lists SyncMapInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -87,9 +94,11 @@ interface SyncMapListInstance {
   list(opts?: SyncMapListInstanceOptions, callback?: (error: Error | null, items: SyncMapInstance[]) => any): Promise<SyncMapInstance[]>;
   /**
    * Retrieve a single page of SyncMapInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -195,10 +204,10 @@ interface SyncMapSolution {
 
 declare class SyncMapContext {
   /**
-   * Initialize the SyncMapContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapContext
    *
-   * @property syncMapItems - syncMapItems resource
-   * @property syncMapPermissions - syncMapPermissions resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -236,19 +245,10 @@ declare class SyncMapContext {
 
 declare class SyncMapInstance extends SerializableClass {
   /**
-   * Initialize the SyncMapContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapContext
    *
-   * @property sid - The unique 34-character SID identifier of the Map.
-   * @property uniqueName - The unique and addressable name of this Map.
-   * @property accountSid - The unique SID identifier of the Twilio Account.
-   * @property serviceSid - The unique SID identifier of the Service Instance that hosts this Map object.
-   * @property url - The absolute URL for this Map.
-   * @property links - A dictionary of URL links to nested resources of this Map.
-   * @property revision - Contains the current revision of this Map, represented by a string identifier.
-   * @property dateExpires - Contains the date this Map expires and gets deleted automatically.
-   * @property dateCreated - The date this Map was created, given in UTC ISO 8601 format.
-   * @property dateUpdated - Specifies the date this Map was last updated, given in UTC ISO 8601 format.
-   * @property createdBy - The identity of the Map creator.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -305,7 +305,10 @@ declare class SyncMapInstance extends SerializableClass {
 
 declare class SyncMapPage extends Page<V1, SyncMapPayload, SyncMapResource, SyncMapInstance> {
   /**
-   * Initialize the SyncMapPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

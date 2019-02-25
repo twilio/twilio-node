@@ -17,7 +17,7 @@ import { UsageRecordListInstance } from './sim/usageRecord';
 type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'scheduled'|'updating';
 
 /**
- * @description Initialize the SimList
+ * Initialize the SimList
  *
  * @param version - Version of the resource
  */
@@ -73,9 +73,11 @@ interface SimListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -89,9 +91,11 @@ interface SimListInstance {
   get(sid: string): SimContext;
   /**
    * Retrieve a single target page of SimInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -100,7 +104,8 @@ interface SimListInstance {
   /**
    * Lists SimInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -108,9 +113,11 @@ interface SimListInstance {
   list(opts?: SimListInstanceOptions, callback?: (error: Error | null, items: SimInstance[]) => any): Promise<SimInstance[]>;
   /**
    * Retrieve a single page of SimInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -246,9 +253,6 @@ declare class SimContext {
   /**
    * Initialize the SimContext
    *
-   * @property usageRecords - usageRecords resource
-   * @property dataSessions - dataSessions resource
-   *
    * @param version - Version of the resource
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
@@ -285,30 +289,6 @@ declare class SimContext {
 declare class SimInstance extends SerializableClass {
   /**
    * Initialize the SimContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid.
-   * @property accountSid - The unique id of the Account that this Sim belongs to.
-   * @property ratePlanSid - The unique ID of the Rate Plan configured for this Sim.
-   * @property friendlyName - A user-provided string that identifies this resource.
-   * @property iccid - The ICCID associated with the SIM.
-   * @property eId - The e_id
-   * @property status - A string representing the status of the Sim.
-   * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a machine-to-machine Command.
-   * @property commandsCallbackMethod - A string representing the HTTP method to use when making a request to commands_callback_url.
-   * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
-   * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
-   * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
-   * @property smsUrl - The URL Twilio will request when the SIM-connected device send an SMS that is not a Command.
-   * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the voice_fallback_url.
-   * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
-   * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
-   * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
-   * @property dateCreated - The date that this resource was created, given as GMT in ISO 8601 format.
-   * @property dateUpdated - The date that this resource was last updated, given as GMT in ISO 8601 format.
-   * @property url - The URL for this resource.
-   * @property links - Each Sim instance resource supports a few subresources, listed here for convenience.
-   * @property ipAddress - The ip_address
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

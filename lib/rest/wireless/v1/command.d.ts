@@ -20,7 +20,7 @@ type CommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
 type CommandTransport = 'sms'|'ip';
 
 /**
- * @description Initialize the CommandList
+ * Initialize the CommandList
  *
  * @param version - Version of the resource
  */
@@ -44,9 +44,11 @@ interface CommandListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -60,9 +62,11 @@ interface CommandListInstance {
   get(sid: string): CommandContext;
   /**
    * Retrieve a single target page of CommandInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -71,7 +75,8 @@ interface CommandListInstance {
   /**
    * Lists CommandInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -79,9 +84,11 @@ interface CommandListInstance {
   list(opts?: CommandListInstanceOptions, callback?: (error: Error | null, items: CommandInstance[]) => any): Promise<CommandInstance[]>;
   /**
    * Retrieve a single page of CommandInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -248,19 +255,6 @@ declare class CommandContext {
 declare class CommandInstance extends SerializableClass {
   /**
    * Initialize the CommandContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account that this Command belongs to.
-   * @property simSid - The unique ID of the SIM that this Command was sent to or from.
-   * @property command - The message being sent to or from the SIM.
-   * @property commandMode - A string representing which mode the SMS was sent or received using.
-   * @property transport - The transport
-   * @property deliveryReceiptRequested - The delivery_receipt_requested
-   * @property status - A string representing the status of the Command.
-   * @property direction - The direction of the Command.
-   * @property dateCreated - The date that this resource was created, given as GMT in ISO 8601 format.
-   * @property dateUpdated - The date that this resource was last updated, given as GMT in ISO 8601 format.
-   * @property url - The URL for this resource.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

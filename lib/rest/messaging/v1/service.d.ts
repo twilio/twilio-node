@@ -20,8 +20,10 @@ import { ShortCodeListInstance } from './service/shortCode';
 type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
 
 /**
- * @description Initialize the ServiceList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the ServiceList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -80,9 +82,11 @@ interface ServiceListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -96,9 +100,11 @@ interface ServiceListInstance {
   get(sid: string): ServiceContext;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -107,7 +113,8 @@ interface ServiceListInstance {
   /**
    * Lists ServiceInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -115,9 +122,11 @@ interface ServiceListInstance {
   list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -253,11 +262,10 @@ interface ServiceSolution {
 
 declare class ServiceContext {
   /**
-   * Initialize the ServiceContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServiceContext
    *
-   * @property phoneNumbers - phoneNumbers resource
-   * @property shortCodes - shortCodes resource
-   * @property alphaSenders - alphaSenders resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param sid - The sid
@@ -295,28 +303,10 @@ declare class ServiceContext {
 
 declare class ServiceInstance extends SerializableClass {
   /**
-   * Initialize the ServiceContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServiceContext
    *
-   * @property sid - Unique 34 character ID of the Service.
-   * @property accountSid - Unique 34 character ID of the Account that created this Service.
-   * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property inboundRequestUrl - The URL Twilio will make a webhook request to when a message is received by any phone number or short code in your Service.
-   * @property inboundMethod - The HTTP method Twilio will use when making requests to the Inbound Request URL.
-   * @property fallbackUrl - The URL that Twilio will request if an error occurs when retrieving or executing the TwiML from your Inbound Request URL.
-   * @property fallbackMethod - The HTTP method Twilio will use when making requests to the Fallback URL.
-   * @property statusCallback - The URL Twilio will make a webhook request to when passing you status updates about the delivery of your messages.
-   * @property stickySender - Configuration to enable or disable Sticky Sender on your Service instance.
-   * @property mmsConverter - Configuration to enable or disable MMS Converter for messages sent through your Service instance.
-   * @property smartEncoding - Configuration to enable or disable Smart Encoding for messages sent through your Service instance.
-   * @property scanMessageContent - The scan_message_content
-   * @property fallbackToLongCode - Configuration to enable or disable Fallback to Long Code for messages sent through your Service instance.
-   * @property areaCodeGeomatch - Configuration to enable or disable Area Code Geomatch on your Service Instance.
-   * @property synchronousValidation - The synchronous_validation
-   * @property validityPeriod - The number of seconds all messages sent from your Service are valid for.
-   * @property url - The url
-   * @property links - The links
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -385,7 +375,10 @@ declare class ServiceInstance extends SerializableClass {
 
 declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
   /**
-   * Initialize the ServicePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServicePage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

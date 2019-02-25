@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../interfaces';
 type ConnectAppPermission = 'get-all'|'post-all';
 
 /**
- * @description Initialize the ConnectAppList
+ * Initialize the ConnectAppList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -55,9 +55,11 @@ interface ConnectAppListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -71,9 +73,11 @@ interface ConnectAppListInstance {
   get(sid: string): ConnectAppContext;
   /**
    * Retrieve a single target page of ConnectAppInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -82,7 +86,8 @@ interface ConnectAppListInstance {
   /**
    * Lists ConnectAppInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -90,9 +95,11 @@ interface ConnectAppListInstance {
   list(opts?: ConnectAppListInstanceOptions, callback?: (error: Error | null, items: ConnectAppInstance[]) => any): Promise<ConnectAppInstance[]>;
   /**
    * Retrieve a single page of ConnectAppInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -216,18 +223,6 @@ declare class ConnectAppContext {
 declare class ConnectAppInstance extends SerializableClass {
   /**
    * Initialize the ConnectAppContext
-   *
-   * @property accountSid - The SID of the Account that created the resource
-   * @property authorizeRedirectUrl - The URL to redirect the user to after authorization
-   * @property companyName - The company name set for the Connect App
-   * @property deauthorizeCallbackMethod - The HTTP method we use to call deauthorize_callback_url
-   * @property deauthorizeCallbackUrl - The URL we call to de-authorize the Connect App
-   * @property description - The description of the Connect App
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property homepageUrl - The URL users can obtain more information
-   * @property permissions - The set of permissions that your ConnectApp requests
-   * @property sid - The unique string that identifies the resource
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

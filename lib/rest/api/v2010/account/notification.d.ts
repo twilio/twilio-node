@@ -12,7 +12,7 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the NotificationList
+ * Initialize the NotificationList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -30,9 +30,11 @@ interface NotificationListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -46,9 +48,11 @@ interface NotificationListInstance {
   get(sid: string): NotificationContext;
   /**
    * Retrieve a single target page of NotificationInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -57,7 +61,8 @@ interface NotificationListInstance {
   /**
    * Lists NotificationInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -65,9 +70,11 @@ interface NotificationListInstance {
   list(opts?: NotificationListInstanceOptions, callback?: (error: Error | null, items: NotificationInstance[]) => any): Promise<NotificationInstance[]>;
   /**
    * Retrieve a single page of NotificationInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -220,24 +227,6 @@ declare class NotificationContext {
 declare class NotificationInstance extends SerializableClass {
   /**
    * Initialize the NotificationContext
-   *
-   * @property accountSid - The SID of the Account that created the resource
-   * @property apiVersion - The API version used to generate the notification
-   * @property callSid - The SID of the Call the resource is associated with
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property errorCode - A unique error code corresponding to the notification
-   * @property log - An integer log level
-   * @property messageDate - The date the notification was generated
-   * @property messageText - The text of the notification
-   * @property moreInfo - A URL for more information about the error code
-   * @property requestMethod - HTTP method used with the request url
-   * @property requestUrl - URL of the resource that generated the notification
-   * @property requestVariables - Twilio-generated HTTP variables sent to the server
-   * @property responseBody - The HTTP body returned by your server
-   * @property responseHeaders - The HTTP headers returned by your server
-   * @property sid - The unique string that identifies the resource
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

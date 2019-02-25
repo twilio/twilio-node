@@ -11,7 +11,7 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the CountryList
+ * Initialize the CountryList
  *
  * @param version - Version of the resource
  */
@@ -28,9 +28,11 @@ interface CountryListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -44,9 +46,11 @@ interface CountryListInstance {
   get(isoCountry: string): CountryContext;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -55,7 +59,8 @@ interface CountryListInstance {
   /**
    * Lists CountryInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -63,9 +68,11 @@ interface CountryListInstance {
   list(opts?: CountryListInstanceOptions, callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -174,12 +181,6 @@ declare class CountryContext {
 declare class CountryInstance extends SerializableClass {
   /**
    * Initialize the CountryContext
-   *
-   * @property country - Name of the country
-   * @property isoCountry - The ISO country code of this number
-   * @property phoneNumberPrices - List of PhoneNumberPrices records
-   * @property priceUnit - The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

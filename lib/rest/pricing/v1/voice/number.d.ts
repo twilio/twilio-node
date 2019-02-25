@@ -11,7 +11,7 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the NumberList
+ * Initialize the NumberList
  *
  * @param version - Version of the resource
  */
@@ -76,14 +76,6 @@ declare class NumberContext {
 declare class NumberInstance extends SerializableClass {
   /**
    * Initialize the NumberContext
-   *
-   * @property number - The number
-   * @property country - Name of the country
-   * @property isoCountry - The ISO country code
-   * @property outboundCallPrice - See OutboundCallPrice record
-   * @property inboundCallPrice - See InboundCallPrice record (returned as null if the Phone Number provided is not a Twilio number owned by this account)
-   * @property priceUnit - The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

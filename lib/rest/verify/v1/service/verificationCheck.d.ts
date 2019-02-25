@@ -13,8 +13,10 @@ import { SerializableClass } from '../../../../interfaces';
 type VerificationCheckChannel = 'sms'|'call';
 
 /**
- * @description Initialize the VerificationCheckList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the VerificationCheckList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -76,19 +78,10 @@ interface VerificationCheckSolution {
 
 declare class VerificationCheckInstance extends SerializableClass {
   /**
-   * Initialize the VerificationCheckContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the VerificationCheckContext
    *
-   * @property sid - A string that uniquely identifies this Verification Check.
-   * @property serviceSid - Service Sid.
-   * @property accountSid - Account Sid.
-   * @property to - To phone number
-   * @property channel - sms or call
-   * @property status - pending, approved, denied or expired
-   * @property valid - successful verification
-   * @property amount - Amount of the associated PSD2 compliant transaction.
-   * @property payee - Payee of the associated PSD2 compliant transaction.
-   * @property dateCreated - The date this Verification Check was created
-   * @property dateUpdated - The date this Verification Check was updated
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -116,7 +109,10 @@ declare class VerificationCheckInstance extends SerializableClass {
 
 declare class VerificationCheckPage extends Page<V1, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {
   /**
-   * Initialize the VerificationCheckPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the VerificationCheckPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

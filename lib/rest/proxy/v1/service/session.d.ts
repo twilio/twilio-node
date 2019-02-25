@@ -20,8 +20,10 @@ type SessionMode = 'message-only'|'voice-only'|'voice-and-message';
 type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
 
 /**
- * @description Initialize the SessionList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the SessionList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -63,9 +65,11 @@ interface SessionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -79,9 +83,11 @@ interface SessionListInstance {
   get(sid: string): SessionContext;
   /**
    * Retrieve a single target page of SessionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -90,7 +96,8 @@ interface SessionListInstance {
   /**
    * Lists SessionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -98,9 +105,11 @@ interface SessionListInstance {
   list(opts?: SessionListInstanceOptions, callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -217,10 +226,10 @@ interface SessionSolution {
 
 declare class SessionContext {
   /**
-   * Initialize the SessionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SessionContext
    *
-   * @property interactions - interactions resource
-   * @property participants - participants resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -258,24 +267,10 @@ declare class SessionContext {
 
 declare class SessionInstance extends SerializableClass {
   /**
-   * Initialize the SessionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SessionContext
    *
-   * @property sid - A string that uniquely identifies this Session.
-   * @property serviceSid - Service Sid.
-   * @property accountSid - Account Sid.
-   * @property dateStarted - The date this Session was started
-   * @property dateEnded - The date this Session was ended
-   * @property dateLastInteraction - The date this Session last had an interaction
-   * @property dateExpiry - The date this Session should expire
-   * @property uniqueName - A unique, developer assigned identifier for this Session.
-   * @property status - The Status of this Session
-   * @property closedReason - Reason Session ended.
-   * @property ttl - TTL for a Session, in seconds.
-   * @property mode - The Mode of this Session
-   * @property dateCreated - The date this Session was created
-   * @property dateUpdated - The date this Session was last updated
-   * @property url - The URL of this resource.
-   * @property links - Nested resource URLs.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -337,7 +332,10 @@ declare class SessionInstance extends SerializableClass {
 
 declare class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
   /**
-   * Initialize the SessionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SessionPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

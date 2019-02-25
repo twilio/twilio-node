@@ -9,7 +9,7 @@ import Page = require('../../../../base/Page');
 import V2010 = require('../../V2010');
 
 /**
- * @description Initialize the SipList
+ * Initialize the SipList
  *
  * @param version - Version of the resource
  * @param accountSid - A 34 character string that uniquely identifies this resource.

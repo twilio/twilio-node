@@ -15,8 +15,11 @@ type DependentHostedNumberOrderStatus = 'received'|'pending-verification'|'verif
 type DependentHostedNumberOrderVerificationType = 'phone-call'|'phone-bill';
 
 /**
- * @description Initialize the DependentHostedNumberOrderList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the DependentHostedNumberOrderList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param signingDocumentSid - LOA document sid.
@@ -30,19 +33,24 @@ interface DependentHostedNumberOrderListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: DependentHostedNumberOrderListInstanceEachOptions, callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of DependentHostedNumberOrderInstance records from
+   * the API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -51,17 +59,21 @@ interface DependentHostedNumberOrderListInstance {
   /**
    * Lists DependentHostedNumberOrderInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: DependentHostedNumberOrderListInstanceOptions, callback?: (error: Error | null, items: DependentHostedNumberOrderInstance[]) => any): Promise<DependentHostedNumberOrderInstance[]>;
   /**
-   * Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single page of DependentHostedNumberOrderInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -195,30 +207,11 @@ interface DependentHostedNumberOrderSolution {
 
 declare class DependentHostedNumberOrderInstance extends SerializableClass {
   /**
-   * Initialize the DependentHostedNumberOrderContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DependentHostedNumberOrderContext
    *
-   * @property sid - HostedNumberOrder sid.
-   * @property accountSid - Account sid.
-   * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
-   * @property addressSid - Address sid.
-   * @property signingDocumentSid - LOA document sid.
-   * @property phoneNumber - An E164 formatted phone number.
-   * @property capabilities - A mapping of phone number capabilities.
-   * @property friendlyName - A human readable description of this resource.
-   * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
-   * @property status - The Status of this HostedNumberOrder.
-   * @property failureReason - Why a hosted_number_order reached status "action-required"
-   * @property dateCreated - The date this HostedNumberOrder was created.
-   * @property dateUpdated - The date this HostedNumberOrder was updated.
-   * @property verificationAttempts - The number of attempts made to verify ownership of the phone number.
-   * @property email - Email.
-   * @property ccEmails - A list of emails.
-   * @property verificationType - The method used for verifying ownership of the number to be hosted.
-   * @property verificationDocumentSid - Verification Document Sid.
-   * @property extension - Phone extension to use for ownership verification call.
-   * @property callDelay - Seconds (0-30) to delay ownership verification call by.
-   * @property verificationCode - The digits passed during the ownership verification call.
-   * @property verificationCallSids - List of IDs for ownership verification calls.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -257,7 +250,11 @@ declare class DependentHostedNumberOrderInstance extends SerializableClass {
 
 declare class DependentHostedNumberOrderPage extends Page<HostedNumbers, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderInstance> {
   /**
-   * Initialize the DependentHostedNumberOrderPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DependentHostedNumberOrderPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

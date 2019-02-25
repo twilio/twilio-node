@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the TaskQueueCumulativeStatisticsList
+ * Initialize the TaskQueueCumulativeStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The workspace_sid
@@ -112,28 +112,6 @@ declare class TaskQueueCumulativeStatisticsContext {
 declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
   /**
    * Initialize the TaskQueueCumulativeStatisticsContext
-   *
-   * @property accountSid - The account_sid
-   * @property avgTaskAcceptanceTime - The average time from Task creation to reservation acceptance while in this TaskQueue
-   * @property startTime - The start_time
-   * @property endTime - The end_time
-   * @property reservationsCreated - The total number of Reservations that were created for Tasks while in this TaskQueue
-   * @property reservationsAccepted - The total number of Reservations that were accepted for Tasks while in this TaskQueue
-   * @property reservationsRejected - The total number of Reservations that were rejected for Tasks while in this TaskQueue
-   * @property reservationsTimedOut - The total number of Reservations that were timed out for Tasks while in this TaskQueue
-   * @property reservationsCanceled - The total number of Reservations that were canceled for Tasks while in this TaskQueue
-   * @property reservationsRescinded - The total number of Reservations that were rescinded
-   * @property splitByWaitTime - The splits of the tasks canceled and accepted based on the provided SplitByWaitTime parameter
-   * @property taskQueueSid - The task_queue_sid
-   * @property waitDurationUntilAccepted - The wait duration stats for tasks that were accepted while in this TaskQueue
-   * @property waitDurationUntilCanceled - The wait duration stats for tasks that were canceled while in this TaskQueue
-   * @property tasksCanceled - The total number of Tasks canceled while in this TaskQueue
-   * @property tasksCompleted - The total number of Tasks completed while in this TaskQueue
-   * @property tasksDeleted - The total number of Tasks that were deleted while in this TaskQueue
-   * @property tasksEntered - The total number of Tasks entered into this TaskQueue
-   * @property tasksMoved - The total number of Tasks moved to another TaskQueue from this TaskQueue
-   * @property workspaceSid - The workspace_sid
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

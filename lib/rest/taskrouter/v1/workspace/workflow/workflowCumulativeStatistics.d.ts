@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the WorkflowCumulativeStatisticsList
+ * Initialize the WorkflowCumulativeStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The workspace_sid
@@ -113,29 +113,6 @@ declare class WorkflowCumulativeStatisticsContext {
 declare class WorkflowCumulativeStatisticsInstance extends SerializableClass {
   /**
    * Initialize the WorkflowCumulativeStatisticsContext
-   *
-   * @property accountSid - The account_sid
-   * @property avgTaskAcceptanceTime - The average time from Task creation to acceptance
-   * @property startTime - The start_time
-   * @property endTime - The end_time
-   * @property reservationsCreated - The total number of Reservations that were created for Workers
-   * @property reservationsAccepted - The total number of Reservations accepted by Workers
-   * @property reservationsRejected - The total number of Reservations that were rejected
-   * @property reservationsTimedOut - The total number of Reservations that were timed out
-   * @property reservationsCanceled - The total number of Reservations that were canceled
-   * @property reservationsRescinded - The total number of Reservations that were rescinded
-   * @property splitByWaitTime - The splits of the tasks canceled and accepted based on the provided SplitByWaitTime parameter.
-   * @property waitDurationUntilAccepted - The wait duration stats for tasks that were accepted.
-   * @property waitDurationUntilCanceled - The wait duration stats for tasks that were canceled.
-   * @property tasksCanceled - The total number of Tasks that were canceled
-   * @property tasksCompleted - The total number of Tasks that were completed
-   * @property tasksEntered - The total number of Tasks that entered this Workflow
-   * @property tasksDeleted - The total number of Tasks that were deleted
-   * @property tasksMoved - The total number of Tasks that were moved from one queue to another
-   * @property tasksTimedOutInWorkflow - The total number of Tasks that were timed out of their Workflows
-   * @property workflowSid - The workflow_sid
-   * @property workspaceSid - The workspace_sid
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

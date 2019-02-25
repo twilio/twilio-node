@@ -12,7 +12,7 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the EventList
+ * Initialize the EventList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The workspace_sid
@@ -30,9 +30,11 @@ interface EventListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -46,9 +48,11 @@ interface EventListInstance {
   get(sid: string): EventContext;
   /**
    * Retrieve a single target page of EventInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -57,7 +61,8 @@ interface EventListInstance {
   /**
    * Lists EventInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -65,9 +70,11 @@ interface EventListInstance {
   list(opts?: EventListInstanceOptions, callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
   /**
    * Retrieve a single page of EventInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -256,24 +263,6 @@ declare class EventContext {
 declare class EventInstance extends SerializableClass {
   /**
    * Initialize the EventContext
-   *
-   * @property accountSid - The account owning this event
-   * @property actorSid - The actor_sid
-   * @property actorType - The actor_type
-   * @property actorUrl - The actor_url
-   * @property description - A description of the event
-   * @property eventData - Data about this specific event.
-   * @property eventDate - The time this event was sent
-   * @property eventDateMs - The time this event was sent in ms
-   * @property eventType - An identifier for this event
-   * @property resourceSid - The sid of the object this event is most relevant to
-   * @property resourceType - The type of object this event is most relevant to
-   * @property resourceUrl - The resource_url
-   * @property sid - The sid
-   * @property source - The source
-   * @property sourceIpAddress - The source_ip_address
-   * @property url - The url
-   * @property workspaceSid - The workspace_sid
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

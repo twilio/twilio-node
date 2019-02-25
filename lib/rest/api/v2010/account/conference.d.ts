@@ -20,7 +20,7 @@ type ConferenceStatus = 'init'|'in-progress'|'completed';
 type ConferenceUpdateStatus = 'completed';
 
 /**
- * @description Initialize the ConferenceList
+ * Initialize the ConferenceList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
@@ -51,9 +51,11 @@ interface ConferenceListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -67,9 +69,11 @@ interface ConferenceListInstance {
   get(sid: string): ConferenceContext;
   /**
    * Retrieve a single target page of ConferenceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -78,7 +82,8 @@ interface ConferenceListInstance {
   /**
    * Lists ConferenceInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -86,9 +91,11 @@ interface ConferenceListInstance {
   list(opts?: ConferenceListInstanceOptions, callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -230,9 +237,6 @@ declare class ConferenceContext {
   /**
    * Initialize the ConferenceContext
    *
-   * @property participants - participants resource
-   * @property recordings - recordings resource
-   *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created the resource(s) to fetch
    * @param sid - The unique string that identifies this resource
@@ -264,17 +268,6 @@ declare class ConferenceContext {
 declare class ConferenceInstance extends SerializableClass {
   /**
    * Initialize the ConferenceContext
-   *
-   * @property accountSid - The SID of the Account that created this resource
-   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
-   * @property apiVersion - The API version used to create this conference
-   * @property friendlyName - A string that you assigned to describe this conference room
-   * @property region - A string that represents the Twilio Region where the conference was mixed
-   * @property sid - The unique string that identifies this resource
-   * @property status - The status of this conference
-   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
-   * @property subresourceUris - A list of related resources identified by their relative URIs
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

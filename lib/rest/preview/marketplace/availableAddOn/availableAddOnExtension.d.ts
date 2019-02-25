@@ -11,8 +11,11 @@ import Response = require('../../../../http/response');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the AvailableAddOnExtensionList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the AvailableAddOnExtensionList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param availableAddOnSid - The available_add_on_sid
@@ -30,9 +33,11 @@ interface AvailableAddOnExtensionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -45,10 +50,13 @@ interface AvailableAddOnExtensionListInstance {
    */
   get(sid: string): AvailableAddOnExtensionContext;
   /**
-   * Retrieve a single target page of AvailableAddOnExtensionInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of AvailableAddOnExtensionInstance records from
+   * the API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -57,7 +65,8 @@ interface AvailableAddOnExtensionListInstance {
   /**
    * Lists AvailableAddOnExtensionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -65,9 +74,11 @@ interface AvailableAddOnExtensionListInstance {
   list(opts?: AvailableAddOnExtensionListInstanceOptions, callback?: (error: Error | null, items: AvailableAddOnExtensionInstance[]) => any): Promise<AvailableAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of AvailableAddOnExtensionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -155,7 +166,11 @@ interface AvailableAddOnExtensionSolution {
 
 declare class AvailableAddOnExtensionContext {
   /**
-   * Initialize the AvailableAddOnExtensionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnExtensionContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param availableAddOnSid - The available_add_on_sid
@@ -178,14 +193,11 @@ declare class AvailableAddOnExtensionContext {
 
 declare class AvailableAddOnExtensionInstance extends SerializableClass {
   /**
-   * Initialize the AvailableAddOnExtensionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnExtensionContext
    *
-   * @property sid - A string that uniquely identifies this Extension
-   * @property availableAddOnSid - The available_add_on_sid
-   * @property friendlyName - A human-readable description of this Extension
-   * @property productName - A human-readable description of the Extension's Product
-   * @property uniqueName - The string that uniquely identifies this Extension
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -216,7 +228,11 @@ declare class AvailableAddOnExtensionInstance extends SerializableClass {
 
 declare class AvailableAddOnExtensionPage extends Page<Marketplace, AvailableAddOnExtensionPayload, AvailableAddOnExtensionResource, AvailableAddOnExtensionInstance> {
   /**
-   * Initialize the AvailableAddOnExtensionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnExtensionPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

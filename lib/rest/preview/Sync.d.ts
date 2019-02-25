@@ -15,8 +15,6 @@ declare class Sync extends Version {
   /**
    * Initialize the Sync version of Preview
    *
-   * @property services - services resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Preview);

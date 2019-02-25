@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
 type ExecutionStatus = 'active'|'ended';
 
 /**
- * @description Initialize the ExecutionList
+ * Initialize the ExecutionList
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -43,9 +43,11 @@ interface ExecutionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -59,9 +61,11 @@ interface ExecutionListInstance {
   get(sid: string): ExecutionContext;
   /**
    * Retrieve a single target page of ExecutionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -70,7 +74,8 @@ interface ExecutionListInstance {
   /**
    * Lists ExecutionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -78,9 +83,11 @@ interface ExecutionListInstance {
   list(opts?: ExecutionListInstanceOptions, callback?: (error: Error | null, items: ExecutionInstance[]) => any): Promise<ExecutionInstance[]>;
   /**
    * Retrieve a single page of ExecutionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -200,9 +207,6 @@ declare class ExecutionContext {
   /**
    * Initialize the ExecutionContext
    *
-   * @property steps - steps resource
-   * @property executionContext - executionContext resource
-   *
    * @param version - Version of the resource
    * @param flowSid - Flow Sid.
    * @param sid - Execution Sid.
@@ -233,18 +237,6 @@ declare class ExecutionContext {
 declare class ExecutionInstance extends SerializableClass {
   /**
    * Initialize the ExecutionContext
-   *
-   * @property sid - A string that uniquely identifies this Execution.
-   * @property accountSid - Account Sid.
-   * @property flowSid - Flow Sid.
-   * @property contactSid - Contact Sid.
-   * @property contactChannelAddress - The phone number, SIP address or Client identifier that triggered this Execution.
-   * @property context - The context
-   * @property status - The Status of this Execution
-   * @property dateCreated - The date this Execution was created
-   * @property dateUpdated - The date this Execution was updated
-   * @property url - The URL of this resource.
-   * @property links - Nested resource URLs.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

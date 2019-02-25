@@ -11,7 +11,7 @@ import V2010 = require('../../V2010');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the NewKeyList
+ * Initialize the NewKeyList
  *
  * @param version - Version of the resource
  * @param accountSid - A 34 character string that uniquely identifies this resource.
@@ -60,12 +60,6 @@ interface NewKeySolution {
 declare class NewKeyInstance extends SerializableClass {
   /**
    * Initialize the NewKeyContext
-   *
-   * @property sid - The unique string that identifies the resource
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property secret - The secret your application uses to sign Access Tokens and to authenticate to the REST API.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

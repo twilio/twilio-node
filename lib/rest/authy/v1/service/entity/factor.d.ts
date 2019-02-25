@@ -17,8 +17,11 @@ type FactorFactorStatuses = 'unverified'|'verified';
 type FactorFactorTypes = 'app-push'|'sms'|'totp';
 
 /**
- * @description Initialize the FactorList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the FactorList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -53,9 +56,11 @@ interface FactorListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -69,9 +74,11 @@ interface FactorListInstance {
   get(sid: string): FactorContext;
   /**
    * Retrieve a single target page of FactorInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -80,7 +87,8 @@ interface FactorListInstance {
   /**
    * Lists FactorInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -88,9 +96,11 @@ interface FactorListInstance {
   list(opts?: FactorListInstanceOptions, callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
   /**
    * Retrieve a single page of FactorInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -198,9 +208,11 @@ interface FactorSolution {
 
 declare class FactorContext {
   /**
-   * Initialize the FactorContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FactorContext
    *
-   * @property challenges - challenges resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -238,20 +250,11 @@ declare class FactorContext {
 
 declare class FactorInstance extends SerializableClass {
   /**
-   * Initialize the FactorContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FactorContext
    *
-   * @property sid - A string that uniquely identifies this Factor.
-   * @property accountSid - Account Sid.
-   * @property serviceSid - Service Sid.
-   * @property entitySid - Entity Sid.
-   * @property identity - Unique identity of the Entity
-   * @property dateCreated - The date this Factor was created
-   * @property dateUpdated - The date this Factor was updated
-   * @property friendlyName - A human readable description of this resource.
-   * @property status - The Status of this Factor
-   * @property factorType - The Type of this Factor
-   * @property url - The URL of this resource.
-   * @property links - Nested resource URLs.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -306,7 +309,11 @@ declare class FactorInstance extends SerializableClass {
 
 declare class FactorPage extends Page<V1, FactorPayload, FactorResource, FactorInstance> {
   /**
-   * Initialize the FactorPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FactorPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

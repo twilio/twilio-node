@@ -26,8 +26,11 @@ import { TaskList } from './assistant/task';
 import { TaskListInstance } from './assistant/task';
 
 /**
- * @description Initialize the AssistantList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the AssistantList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -72,9 +75,11 @@ interface AssistantListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -88,9 +93,11 @@ interface AssistantListInstance {
   get(sid: string): AssistantContext;
   /**
    * Retrieve a single target page of AssistantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -99,7 +106,8 @@ interface AssistantListInstance {
   /**
    * Lists AssistantInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -107,9 +115,11 @@ interface AssistantListInstance {
   list(opts?: AssistantListInstanceOptions, callback?: (error: Error | null, items: AssistantInstance[]) => any): Promise<AssistantInstance[]>;
   /**
    * Retrieve a single page of AssistantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -223,15 +233,11 @@ interface AssistantSolution {
 
 declare class AssistantContext {
   /**
-   * Initialize the AssistantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantContext
    *
-   * @property fieldTypes - fieldTypes resource
-   * @property tasks - tasks resource
-   * @property modelBuilds - modelBuilds resource
-   * @property queries - queries resource
-   * @property styleSheet - styleSheet resource
-   * @property defaults - defaults resource
-   * @property dialogues - dialogues resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - A 34-character string that uniquely identifies this resource.
@@ -273,20 +279,11 @@ declare class AssistantContext {
 
 declare class AssistantInstance extends SerializableClass {
   /**
-   * Initialize the AssistantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantContext
    *
-   * @property accountSid - The unique ID of the Account that created this Assistant.
-   * @property dateCreated - The date that this resource was created
-   * @property dateUpdated - The date that this resource was last updated
-   * @property friendlyName - A text description for the Assistant. It is non-unique and can be up to 255 characters long.
-   * @property latestModelBuildSid - The latest_model_build_sid
-   * @property links - The links
-   * @property logQueries - A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter.
-   * @property sid - A 34-character string that uniquely identifies this resource.
-   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   * @property url - The url
-   * @property callbackUrl - The callback_url
-   * @property callbackEvents - The callback_events
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -363,7 +360,11 @@ declare class AssistantInstance extends SerializableClass {
 
 declare class AssistantPage extends Page<V1, AssistantPayload, AssistantResource, AssistantInstance> {
   /**
-   * Initialize the AssistantPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

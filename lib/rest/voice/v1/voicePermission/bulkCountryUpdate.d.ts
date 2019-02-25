@@ -11,8 +11,11 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the BulkCountryUpdateList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the BulkCountryUpdateList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -55,10 +58,11 @@ interface BulkCountryUpdateSolution {
 
 declare class BulkCountryUpdateInstance extends SerializableClass {
   /**
-   * Initialize the BulkCountryUpdateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the BulkCountryUpdateContext
    *
-   * @property updateCount - The number of countries updated
-   * @property updateRequest - A URL encoded JSON array of update objects
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -76,7 +80,11 @@ declare class BulkCountryUpdateInstance extends SerializableClass {
 
 declare class BulkCountryUpdatePage extends Page<V1, BulkCountryUpdatePayload, BulkCountryUpdateResource, BulkCountryUpdateInstance> {
   /**
-   * Initialize the BulkCountryUpdatePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the BulkCountryUpdatePage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

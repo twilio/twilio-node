@@ -11,8 +11,11 @@ import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the SampleList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the SampleList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The unique ID of the Assistant.
@@ -51,9 +54,11 @@ interface SampleListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -67,9 +72,11 @@ interface SampleListInstance {
   get(sid: string): SampleContext;
   /**
    * Retrieve a single target page of SampleInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -78,7 +85,8 @@ interface SampleListInstance {
   /**
    * Lists SampleInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -86,9 +94,11 @@ interface SampleListInstance {
   list(opts?: SampleListInstanceOptions, callback?: (error: Error | null, items: SampleInstance[]) => any): Promise<SampleInstance[]>;
   /**
    * Retrieve a single page of SampleInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -200,7 +210,11 @@ interface SampleSolution {
 
 declare class SampleContext {
   /**
-   * Initialize the SampleContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SampleContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The unique ID of the Assistant.
@@ -237,18 +251,11 @@ declare class SampleContext {
 
 declare class SampleInstance extends SerializableClass {
   /**
-   * Initialize the SampleContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SampleContext
    *
-   * @property accountSid - The unique ID of the Account that created this Sample.
-   * @property dateCreated - The date that this resource was created
-   * @property dateUpdated - The date that this resource was last updated
-   * @property taskSid - The unique ID of the Task associated with this Sample.
-   * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
-   * @property assistantSid - The unique ID of the Assistant.
-   * @property sid - A 34-character string that uniquely identifies this resource.
-   * @property taggedText - The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-   * @property url - The url
-   * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -297,7 +304,11 @@ declare class SampleInstance extends SerializableClass {
 
 declare class SamplePage extends Page<V1, SamplePayload, SampleResource, SampleInstance> {
   /**
-   * Initialize the SamplePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SamplePage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

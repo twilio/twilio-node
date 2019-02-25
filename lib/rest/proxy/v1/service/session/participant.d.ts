@@ -13,8 +13,10 @@ import { MessageInteractionListInstance } from './participant/messageInteraction
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the ParticipantList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the ParticipantList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -40,9 +42,11 @@ interface ParticipantListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -56,9 +60,11 @@ interface ParticipantListInstance {
   get(sid: string): ParticipantContext;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -67,7 +73,8 @@ interface ParticipantListInstance {
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -75,9 +82,11 @@ interface ParticipantListInstance {
   list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -188,9 +197,10 @@ interface ParticipantSolution {
 
 declare class ParticipantContext {
   /**
-   * Initialize the ParticipantContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ParticipantContext
    *
-   * @property messageInteractions - messageInteractions resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -221,21 +231,10 @@ declare class ParticipantContext {
 
 declare class ParticipantInstance extends SerializableClass {
   /**
-   * Initialize the ParticipantContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ParticipantContext
    *
-   * @property sid - A string that uniquely identifies this Participant.
-   * @property sessionSid - Session Sid.
-   * @property serviceSid - Service Sid.
-   * @property accountSid - Account Sid.
-   * @property friendlyName - A human-readable description of this resource.
-   * @property identifier - The phone number of this Participant.
-   * @property proxyIdentifier - Proxy Identifier.
-   * @property proxyIdentifierSid - Proxy Identifier Sid.
-   * @property dateDeleted - The date this Participant was removed
-   * @property dateCreated - The date this Participant was created
-   * @property dateUpdated - The date this Participant was last updated
-   * @property url - The URL of this resource.
-   * @property links - Nested resource URLs.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -284,7 +283,10 @@ declare class ParticipantInstance extends SerializableClass {
 
 declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * Initialize the ParticipantPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ParticipantPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

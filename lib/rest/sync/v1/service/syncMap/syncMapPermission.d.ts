@@ -12,8 +12,10 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the SyncMapPermissionList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the SyncMapPermissionList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Sync Service Instance SID.
@@ -45,9 +47,11 @@ interface SyncMapPermissionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -61,9 +65,11 @@ interface SyncMapPermissionListInstance {
   get(identity: string): SyncMapPermissionContext;
   /**
    * Retrieve a single target page of SyncMapPermissionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -72,7 +78,8 @@ interface SyncMapPermissionListInstance {
   /**
    * Lists SyncMapPermissionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -80,9 +87,11 @@ interface SyncMapPermissionListInstance {
   list(opts?: SyncMapPermissionListInstanceOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any): Promise<SyncMapPermissionInstance[]>;
   /**
    * Retrieve a single page of SyncMapPermissionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -173,7 +182,10 @@ interface SyncMapPermissionSolution {
 
 declare class SyncMapPermissionContext {
   /**
-   * Initialize the SyncMapPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapPermissionContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Sync Service Instance SID or unique name.
@@ -210,16 +222,10 @@ declare class SyncMapPermissionContext {
 
 declare class SyncMapPermissionInstance extends SerializableClass {
   /**
-   * Initialize the SyncMapPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapPermissionContext
    *
-   * @property accountSid - Twilio Account SID.
-   * @property serviceSid - Sync Service Instance SID.
-   * @property mapSid - Sync Map SID.
-   * @property identity - Identity of the user to whom the Sync Map Permission applies.
-   * @property read - Read access.
-   * @property write - Write access.
-   * @property manage - Manage access.
-   * @property url - URL of this Sync Map Permission.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -266,7 +272,10 @@ declare class SyncMapPermissionInstance extends SerializableClass {
 
 declare class SyncMapPermissionPage extends Page<V1, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {
   /**
-   * Initialize the SyncMapPermissionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapPermissionPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

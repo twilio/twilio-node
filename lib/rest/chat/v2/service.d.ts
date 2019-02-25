@@ -20,7 +20,7 @@ import { UserList } from './service/user';
 import { UserListInstance } from './service/user';
 
 /**
- * @description Initialize the ServiceList
+ * Initialize the ServiceList
  *
  * @param version - Version of the resource
  */
@@ -127,9 +127,11 @@ interface ServiceListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -143,9 +145,11 @@ interface ServiceListInstance {
   get(sid: string): ServiceContext;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -154,7 +158,8 @@ interface ServiceListInstance {
   /**
    * Lists ServiceInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -162,9 +167,11 @@ interface ServiceListInstance {
   list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -279,11 +286,6 @@ declare class ServiceContext {
   /**
    * Initialize the ServiceContext
    *
-   * @property channels - channels resource
-   * @property roles - roles resource
-   * @property users - users resource
-   * @property bindings - bindings resource
-   *
    * @param version - Version of the resource
    * @param sid - The sid
    */
@@ -322,30 +324,6 @@ declare class ServiceContext {
 declare class ServiceInstance extends SerializableClass {
   /**
    * Initialize the ServiceContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this service.
-   * @property friendlyName - The human-readable name of this service.
-   * @property dateCreated - The date that this resource was created
-   * @property dateUpdated - The date that this resource was last updated
-   * @property defaultServiceRoleSid - The service role assigned to users when they are added to the service.
-   * @property defaultChannelRoleSid - The channel role assigned to users when they are added to a channel.
-   * @property defaultChannelCreatorRoleSid - The channel role assigned to a channel creator when joining a new channel.
-   * @property readStatusEnabled - Enable the Message Consumption Horizon feature.
-   * @property reachabilityEnabled - Indicates whether the  the Reachability feature is enabled for this Service instance.
-   * @property typingIndicatorTimeout - The amount of time in seconds after a "started typing" event when clients should assume that user is no longer typing, even if no "ended typing" message was received.
-   * @property consumptionReportInterval - DEPRECATED.
-   * @property limits - Configuration for service instance level limits.
-   * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
-   * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
-   * @property webhookMethod - The webhook request format to use for both PRE and POST webhooks.
-   * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
-   * @property preWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
-   * @property postWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
-   * @property notifications - Notification configuration for the Service instance.
-   * @property media - The media
-   * @property url - An absolute URL for this service.
-   * @property links - URLs to access the Channels, Roles, and Users for this service.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

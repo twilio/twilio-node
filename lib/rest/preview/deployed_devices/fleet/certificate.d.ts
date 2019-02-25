@@ -11,8 +11,11 @@ import Response = require('../../../../http/response');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the CertificateList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the CertificateList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param fleetSid - The unique identifier of the Fleet.
@@ -48,9 +51,11 @@ interface CertificateListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -64,9 +69,11 @@ interface CertificateListInstance {
   get(sid: string): CertificateContext;
   /**
    * Retrieve a single target page of CertificateInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -75,7 +82,8 @@ interface CertificateListInstance {
   /**
    * Lists CertificateInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -83,9 +91,11 @@ interface CertificateListInstance {
   list(opts?: CertificateListInstanceOptions, callback?: (error: Error | null, items: CertificateInstance[]) => any): Promise<CertificateInstance[]>;
   /**
    * Retrieve a single page of CertificateInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -195,7 +205,11 @@ interface CertificateSolution {
 
 declare class CertificateContext {
   /**
-   * Initialize the CertificateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CertificateContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param fleetSid - The fleet_sid
@@ -231,17 +245,11 @@ declare class CertificateContext {
 
 declare class CertificateInstance extends SerializableClass {
   /**
-   * Initialize the CertificateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CertificateContext
    *
-   * @property sid - A string that uniquely identifies this Certificate.
-   * @property url - URL of this Certificate.
-   * @property friendlyName - A human readable description for this Certificate.
-   * @property fleetSid - The unique identifier of the Fleet.
-   * @property accountSid - The unique SID that identifies this Account.
-   * @property deviceSid - The unique identifier of a mapped Device.
-   * @property thumbprint - A Certificate unique payload hash.
-   * @property dateCreated - The date this Certificate was created.
-   * @property dateUpdated - The date this Certificate was updated.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -288,7 +296,11 @@ declare class CertificateInstance extends SerializableClass {
 
 declare class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
   /**
-   * Initialize the CertificatePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CertificatePage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

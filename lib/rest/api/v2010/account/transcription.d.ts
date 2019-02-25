@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../../interfaces';
 type TranscriptionStatus = 'in-progress'|'completed'|'failed';
 
 /**
- * @description Initialize the TranscriptionList
+ * Initialize the TranscriptionList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique sid that identifies this account
@@ -31,9 +31,11 @@ interface TranscriptionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -47,9 +49,11 @@ interface TranscriptionListInstance {
   get(sid: string): TranscriptionContext;
   /**
    * Retrieve a single target page of TranscriptionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -58,7 +62,8 @@ interface TranscriptionListInstance {
   /**
    * Lists TranscriptionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -66,9 +71,11 @@ interface TranscriptionListInstance {
   list(opts?: TranscriptionListInstanceOptions, callback?: (error: Error | null, items: TranscriptionInstance[]) => any): Promise<TranscriptionInstance[]>;
   /**
    * Retrieve a single page of TranscriptionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -193,20 +200,6 @@ declare class TranscriptionContext {
 declare class TranscriptionInstance extends SerializableClass {
   /**
    * Initialize the TranscriptionContext
-   *
-   * @property accountSid - The unique sid that identifies this account
-   * @property apiVersion - The api_version
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property duration - The duration of the transcribed audio, in seconds.
-   * @property price - The charge for this transcription
-   * @property priceUnit - The currency in which Price is measured
-   * @property recordingSid - The string that uniquely identifies the recording
-   * @property sid - A string that uniquely identifies this transcription
-   * @property status - The status of the transcription
-   * @property transcriptionText - The text content of the transcription.
-   * @property type - The type
-   * @property uri - The URI for this resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

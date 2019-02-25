@@ -12,7 +12,7 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the ActivityList
+ * Initialize the ActivityList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The unique ID of the Workspace that this Activity belongs to.
@@ -46,9 +46,11 @@ interface ActivityListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -62,9 +64,11 @@ interface ActivityListInstance {
   get(sid: string): ActivityContext;
   /**
    * Retrieve a single target page of ActivityInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -73,7 +77,8 @@ interface ActivityListInstance {
   /**
    * Lists ActivityInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -81,9 +86,11 @@ interface ActivityListInstance {
   list(opts?: ActivityListInstanceOptions, callback?: (error: Error | null, items: ActivityInstance[]) => any): Promise<ActivityInstance[]>;
   /**
    * Retrieve a single page of ActivityInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -233,15 +240,6 @@ declare class ActivityContext {
 declare class ActivityInstance extends SerializableClass {
   /**
    * Initialize the ActivityContext
-   *
-   * @property accountSid - The unique ID of the Account that owns this Activity.
-   * @property available - Filter by activities that are available or unavailable.
-   * @property dateCreated - The date this Activity was created.
-   * @property dateUpdated - The date this Activity was updated.
-   * @property friendlyName - Filter by an Activity's friendly name
-   * @property sid - The unique ID for this Activity.
-   * @property workspaceSid - The unique ID of the Workspace that this Activity belongs to.
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -11,7 +11,7 @@ import V2 = require('../../V2');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the NumberList
+ * Initialize the NumberList
  *
  * @param version - Version of the resource
  */
@@ -87,15 +87,6 @@ declare class NumberContext {
 declare class NumberInstance extends SerializableClass {
   /**
    * Initialize the NumberContext
-   *
-   * @property destinationNumber - The destination phone number, in E.164
-   * @property originationNumber - The origination phone number, in E.164
-   * @property country - Name of the country
-   * @property isoCountry - The ISO country code
-   * @property outboundCallPrices - List of OutboundCallPriceWithOrigin records
-   * @property inboundCallPrice - List of InboundCallPrice records
-   * @property priceUnit - The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
-   * @property url - The URL of this resource.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

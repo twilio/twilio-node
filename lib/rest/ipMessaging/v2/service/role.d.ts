@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../interfaces';
 type RoleRoleType = 'channel'|'deployment';
 
 /**
- * @description Initialize the RoleList
+ * Initialize the RoleList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this role belongs to.
@@ -48,9 +48,11 @@ interface RoleListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -64,9 +66,11 @@ interface RoleListInstance {
   get(sid: string): RoleContext;
   /**
    * Retrieve a single target page of RoleInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -75,7 +79,8 @@ interface RoleListInstance {
   /**
    * Lists RoleInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -83,9 +88,11 @@ interface RoleListInstance {
   list(opts?: RoleListInstanceOptions, callback?: (error: Error | null, items: RoleInstance[]) => any): Promise<RoleInstance[]>;
   /**
    * Retrieve a single page of RoleInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -226,16 +233,6 @@ declare class RoleContext {
 declare class RoleInstance extends SerializableClass {
   /**
    * Initialize the RoleContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this role.
-   * @property serviceSid - The unique id of the Service this role belongs to.
-   * @property friendlyName - The human-readable name of this role.
-   * @property type - What kind of role this is.
-   * @property permissions - A JSON array of the permissions this role has.
-   * @property dateCreated - The date that this resource was created in ISO 8601 format.
-   * @property dateUpdated - The date that this resource was last updated in ISO 8601 format.
-   * @property url - An absolute URL for this role.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

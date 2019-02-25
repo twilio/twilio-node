@@ -12,7 +12,7 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the DataSessionList
+ * Initialize the DataSessionList
  *
  * @param version - Version of the resource
  * @param simSid - The unique id of the SIM resource that this Data Session is for.
@@ -26,9 +26,11 @@ interface DataSessionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -36,9 +38,11 @@ interface DataSessionListInstance {
   each(opts?: DataSessionListInstanceEachOptions, callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -47,7 +51,8 @@ interface DataSessionListInstance {
   /**
    * Lists DataSessionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -55,9 +60,11 @@ interface DataSessionListInstance {
   list(opts?: DataSessionListInstanceOptions, callback?: (error: Error | null, items: DataSessionInstance[]) => any): Promise<DataSessionInstance[]>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -167,22 +174,6 @@ interface DataSessionSolution {
 declare class DataSessionInstance extends SerializableClass {
   /**
    * Initialize the DataSessionContext
-   *
-   * @property sid - The unique id of the Data Session resource that this Data Record is for.
-   * @property simSid - The unique id of the SIM resource that this Data Session is for.
-   * @property accountSid - The unique id of the Account that the SIM belongs to.
-   * @property radioLink - The generation of wireless technology that the device was attached to the cellular tower using.
-   * @property operatorMcc - The 'mobile country code' is the unique id of the home country where the Data Session took place.
-   * @property operatorMnc - The 'mobile network code' is the unique id specific to the mobile operator network where the Data Session took place.
-   * @property operatorCountry - The three letter country code representing where the device's Data Session took place.
-   * @property operatorName - The friendly name of the mobile operator network that the SIM-connected device is attached to.
-   * @property cellId - The unique id of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
-   * @property cellLocationEstimate - An object representing the estimated location where the device's Data Session took place.
-   * @property packetsUploaded - The number of packets uploaded by the device between the start time and when the Data Session was last updated.
-   * @property packetsDownloaded - The number of packets downloaded by the device between the start time and when the Data Session was last updated.
-   * @property lastUpdated - The date that this resource was last updated, given as GMT in ISO 8601 format.
-   * @property start - The date that this Data Session started, given as GMT in ISO 8601 format.
-   * @property end - The date that this record ended, given as GMT in ISO 8601 format.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

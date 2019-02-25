@@ -20,8 +20,10 @@ import { SyncStreamList } from './service/syncStream';
 import { SyncStreamListInstance } from './service/syncStream';
 
 /**
- * @description Initialize the ServiceList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the ServiceList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -60,9 +62,11 @@ interface ServiceListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -76,9 +80,11 @@ interface ServiceListInstance {
   get(sid: string): ServiceContext;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -87,7 +93,8 @@ interface ServiceListInstance {
   /**
    * Lists ServiceInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -95,9 +102,11 @@ interface ServiceListInstance {
   list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -204,12 +213,10 @@ interface ServiceSolution {
 
 declare class ServiceContext {
   /**
-   * Initialize the ServiceContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServiceContext
    *
-   * @property documents - documents resource
-   * @property syncLists - syncLists resource
-   * @property syncMaps - syncMaps resource
-   * @property syncStreams - syncStreams resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param sid - The sid
@@ -248,19 +255,10 @@ declare class ServiceContext {
 
 declare class ServiceInstance extends SerializableClass {
   /**
-   * Initialize the ServiceContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServiceContext
    *
-   * @property sid - The sid
-   * @property uniqueName - The unique_name
-   * @property accountSid - The account_sid
-   * @property friendlyName - Human-readable name for this service instance
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property url - The url
-   * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
-   * @property reachabilityWebhooksEnabled - true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
-   * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
-   * @property links - The links
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -324,7 +322,10 @@ declare class ServiceInstance extends SerializableClass {
 
 declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
   /**
-   * Initialize the ServicePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServicePage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

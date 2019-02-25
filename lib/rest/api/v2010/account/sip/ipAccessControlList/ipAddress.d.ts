@@ -11,7 +11,7 @@ import V2010 = require('../../../../V2010');
 import { SerializableClass } from '../../../../../../interfaces';
 
 /**
- * @description Initialize the IpAddressList
+ * Initialize the IpAddressList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique id of the Account that is responsible for this resource.
@@ -50,9 +50,11 @@ interface IpAddressListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -66,9 +68,11 @@ interface IpAddressListInstance {
   get(sid: string): IpAddressContext;
   /**
    * Retrieve a single target page of IpAddressInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -77,7 +81,8 @@ interface IpAddressListInstance {
   /**
    * Lists IpAddressInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -85,9 +90,11 @@ interface IpAddressListInstance {
   list(opts?: IpAddressListInstanceOptions, callback?: (error: Error | null, items: IpAddressInstance[]) => any): Promise<IpAddressInstance[]>;
   /**
    * Retrieve a single page of IpAddressInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -230,16 +237,6 @@ declare class IpAddressContext {
 declare class IpAddressInstance extends SerializableClass {
   /**
    * Initialize the IpAddressContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account that is responsible for this resource.
-   * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
-   * @property ipAddress - An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-   * @property cidrPrefixLength - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-   * @property ipAccessControlListSid - The unique id of the IpAccessControlList resource that includes this resource.
-   * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
-   * @property dateUpdated - The date that this resource was last updated, given as GMT in RFC 2822 format.
-   * @property uri - The URI for this resource, relative to https://api.twilio.com
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

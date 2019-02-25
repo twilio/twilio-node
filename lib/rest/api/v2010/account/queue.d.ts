@@ -13,7 +13,7 @@ import { MemberListInstance } from './queue/member';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the QueueList
+ * Initialize the QueueList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
@@ -49,9 +49,11 @@ interface QueueListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -65,9 +67,11 @@ interface QueueListInstance {
   get(sid: string): QueueContext;
   /**
    * Retrieve a single target page of QueueInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -76,7 +80,8 @@ interface QueueListInstance {
   /**
    * Lists QueueInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -84,9 +89,11 @@ interface QueueListInstance {
   list(opts?: QueueListInstanceOptions, callback?: (error: Error | null, items: QueueInstance[]) => any): Promise<QueueInstance[]>;
   /**
    * Retrieve a single page of QueueInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -190,8 +197,6 @@ declare class QueueContext {
   /**
    * Initialize the QueueContext
    *
-   * @property members - members resource
-   *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created the resource(s) to fetch
    * @param sid - The unique string that identifies this resource
@@ -228,16 +233,6 @@ declare class QueueContext {
 declare class QueueInstance extends SerializableClass {
   /**
    * Initialize the QueueContext
-   *
-   * @property accountSid - The SID of the Account that created this resource
-   * @property averageWaitTime - Average wait time of members in the queue
-   * @property currentSize - The number of calls currently in the queue.
-   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
-   * @property friendlyName - A string that you assigned to describe this resource
-   * @property maxSize - The max number of calls allowed in the queue
-   * @property sid - The unique string that identifies this resource
-   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

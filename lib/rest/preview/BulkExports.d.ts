@@ -17,9 +17,6 @@ declare class BulkExports extends Version {
   /**
    * Initialize the BulkExports version of Preview
    *
-   * @property exports - exports resource
-   * @property exportConfiguration - exportConfiguration resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Preview);

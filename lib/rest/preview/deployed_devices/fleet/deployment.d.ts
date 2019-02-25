@@ -11,8 +11,11 @@ import Response = require('../../../../http/response');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the DeploymentList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the DeploymentList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param fleetSid - The unique identifier of the Fleet.
@@ -48,9 +51,11 @@ interface DeploymentListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -64,9 +69,11 @@ interface DeploymentListInstance {
   get(sid: string): DeploymentContext;
   /**
    * Retrieve a single target page of DeploymentInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -75,7 +82,8 @@ interface DeploymentListInstance {
   /**
    * Lists DeploymentInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -83,9 +91,11 @@ interface DeploymentListInstance {
   list(opts?: DeploymentListInstanceOptions, callback?: (error: Error | null, items: DeploymentInstance[]) => any): Promise<DeploymentInstance[]>;
   /**
    * Retrieve a single page of DeploymentInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -186,7 +196,11 @@ interface DeploymentSolution {
 
 declare class DeploymentContext {
   /**
-   * Initialize the DeploymentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeploymentContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param fleetSid - The fleet_sid
@@ -222,16 +236,11 @@ declare class DeploymentContext {
 
 declare class DeploymentInstance extends SerializableClass {
   /**
-   * Initialize the DeploymentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeploymentContext
    *
-   * @property sid - A string that uniquely identifies this Deployment.
-   * @property url - URL of this Deployment.
-   * @property friendlyName - A human readable description for this Deployment
-   * @property fleetSid - The unique identifier of the Fleet.
-   * @property accountSid - The unique SID that identifies this Account.
-   * @property syncServiceSid - The unique identifier of the Sync service instance.
-   * @property dateCreated - The date this Deployment was created.
-   * @property dateUpdated - The date this Deployment was updated.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -277,7 +286,11 @@ declare class DeploymentInstance extends SerializableClass {
 
 declare class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, DeploymentResource, DeploymentInstance> {
   /**
-   * Initialize the DeploymentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeploymentPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

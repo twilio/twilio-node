@@ -19,10 +19,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Pricing
    *
-   * @property messaging - messaging resource
-   * @property phoneNumbers - phoneNumbers resource
-   * @property voice - voice resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Pricing);

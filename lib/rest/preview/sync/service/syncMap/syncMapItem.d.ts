@@ -16,8 +16,11 @@ type SyncMapItemQueryFromBoundType = 'inclusive'|'exclusive';
 type SyncMapItemQueryResultOrder = 'asc'|'desc';
 
 /**
- * @description Initialize the SyncMapItemList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the SyncMapItemList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param serviceSid - The service_sid
@@ -52,9 +55,11 @@ interface SyncMapItemListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -68,9 +73,11 @@ interface SyncMapItemListInstance {
   get(key: string): SyncMapItemContext;
   /**
    * Retrieve a single target page of SyncMapItemInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -79,7 +86,8 @@ interface SyncMapItemListInstance {
   /**
    * Lists SyncMapItemInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -87,9 +95,11 @@ interface SyncMapItemListInstance {
   list(opts?: SyncMapItemListInstanceOptions, callback?: (error: Error | null, items: SyncMapItemInstance[]) => any): Promise<SyncMapItemInstance[]>;
   /**
    * Retrieve a single page of SyncMapItemInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -211,7 +221,11 @@ interface SyncMapItemSolution {
 
 declare class SyncMapItemContext {
   /**
-   * Initialize the SyncMapItemContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncMapItemContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -248,18 +262,11 @@ declare class SyncMapItemContext {
 
 declare class SyncMapItemInstance extends SerializableClass {
   /**
-   * Initialize the SyncMapItemContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncMapItemContext
    *
-   * @property key - The key
-   * @property accountSid - The account_sid
-   * @property serviceSid - The service_sid
-   * @property mapSid - The map_sid
-   * @property url - The url
-   * @property revision - The revision
-   * @property data - The data
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property createdBy - The created_by
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -308,7 +315,11 @@ declare class SyncMapItemInstance extends SerializableClass {
 
 declare class SyncMapItemPage extends Page<Sync, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
   /**
-   * Initialize the SyncMapItemPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncMapItemPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

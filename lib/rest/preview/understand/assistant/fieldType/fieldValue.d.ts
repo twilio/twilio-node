@@ -11,8 +11,11 @@ import Understand = require('../../../Understand');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the FieldValueList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the FieldValueList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The unique ID of the Assistant.
@@ -38,9 +41,11 @@ interface FieldValueListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -54,9 +59,11 @@ interface FieldValueListInstance {
   get(sid: string): FieldValueContext;
   /**
    * Retrieve a single target page of FieldValueInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -65,7 +72,8 @@ interface FieldValueListInstance {
   /**
    * Lists FieldValueInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -73,9 +81,11 @@ interface FieldValueListInstance {
   list(opts?: FieldValueListInstanceOptions, callback?: (error: Error | null, items: FieldValueInstance[]) => any): Promise<FieldValueInstance[]>;
   /**
    * Retrieve a single page of FieldValueInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -187,7 +197,11 @@ interface FieldValueSolution {
 
 declare class FieldValueContext {
   /**
-   * Initialize the FieldValueContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldValueContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
@@ -217,18 +231,11 @@ declare class FieldValueContext {
 
 declare class FieldValueInstance extends SerializableClass {
   /**
-   * Initialize the FieldValueContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldValueContext
    *
-   * @property accountSid - The unique ID of the Account that created this Field Value.
-   * @property dateCreated - The date that this resource was created
-   * @property dateUpdated - The date that this resource was last updated
-   * @property fieldTypeSid - The unique ID of the Field Type associated with this Field Value.
-   * @property language - An ISO language-country string of the value.
-   * @property assistantSid - The unique ID of the Assistant.
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property value - The Field Value itself.
-   * @property url - The url
-   * @property synonymOf - A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -270,7 +277,11 @@ declare class FieldValueInstance extends SerializableClass {
 
 declare class FieldValuePage extends Page<Understand, FieldValuePayload, FieldValueResource, FieldValueInstance> {
   /**
-   * Initialize the FieldValuePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldValuePage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

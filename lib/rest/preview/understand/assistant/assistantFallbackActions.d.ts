@@ -12,8 +12,11 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the AssistantFallbackActionsList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the AssistantFallbackActionsList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The assistant_sid
@@ -61,7 +64,11 @@ interface AssistantFallbackActionsSolution {
 
 declare class AssistantFallbackActionsContext {
   /**
-   * Initialize the AssistantFallbackActionsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantFallbackActionsContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
@@ -90,12 +97,11 @@ declare class AssistantFallbackActionsContext {
 
 declare class AssistantFallbackActionsInstance extends SerializableClass {
   /**
-   * Initialize the AssistantFallbackActionsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantFallbackActionsContext
    *
-   * @property accountSid - The account_sid
-   * @property assistantSid - The assistant_sid
-   * @property url - The url
-   * @property data - The data
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -130,7 +136,11 @@ declare class AssistantFallbackActionsInstance extends SerializableClass {
 
 declare class AssistantFallbackActionsPage extends Page<Understand, AssistantFallbackActionsPayload, AssistantFallbackActionsResource, AssistantFallbackActionsInstance> {
   /**
-   * Initialize the AssistantFallbackActionsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantFallbackActionsPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

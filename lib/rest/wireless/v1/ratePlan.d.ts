@@ -12,7 +12,7 @@ import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the RatePlanList
+ * Initialize the RatePlanList
  *
  * @param version - Version of the resource
  */
@@ -47,9 +47,11 @@ interface RatePlanListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -63,9 +65,11 @@ interface RatePlanListInstance {
   get(sid: string): RatePlanContext;
   /**
    * Retrieve a single target page of RatePlanInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -74,7 +78,8 @@ interface RatePlanListInstance {
   /**
    * Lists RatePlanInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -82,9 +87,11 @@ interface RatePlanListInstance {
   list(opts?: RatePlanListInstanceOptions, callback?: (error: Error | null, items: RatePlanInstance[]) => any): Promise<RatePlanInstance[]>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -246,23 +253,6 @@ declare class RatePlanContext {
 declare class RatePlanInstance extends SerializableClass {
   /**
    * Initialize the RatePlanContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid.
-   * @property accountSid - The unique id of the Account that this Rate Plan belongs to.
-   * @property friendlyName - A user-provided string that identifies this resource.
-   * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity.
-   * @property dataMetering - The model by which to meter data usage, in accordance with the two available data metering models.
-   * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
-   * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS via Commands.
-   * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
-   * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
-   * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
-   * @property internationalRoaming - The international_roaming
-   * @property internationalRoamingDataLimit - The international_roaming_data_limit
-   * @property dateCreated - The date that this resource was created, given as GMT in ISO 8601 format.
-   * @property dateUpdated - The date that this resource was last updated, given as GMT in ISO 8601 format.
-   * @property url - The URL for this resource.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

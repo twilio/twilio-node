@@ -15,8 +15,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Proxy
    *
-   * @property services - services resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Proxy);

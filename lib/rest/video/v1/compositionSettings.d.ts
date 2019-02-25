@@ -12,8 +12,11 @@ import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the CompositionSettingsList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the CompositionSettingsList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -73,7 +76,11 @@ interface CompositionSettingsSolution {
 
 declare class CompositionSettingsContext {
   /**
-   * Initialize the CompositionSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionSettingsContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    */
@@ -101,16 +108,11 @@ declare class CompositionSettingsContext {
 
 declare class CompositionSettingsInstance extends SerializableClass {
   /**
-   * Initialize the CompositionSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionSettingsContext
    *
-   * @property accountSid - The Twilio Account SID associated with this item
-   * @property friendlyName - Friendly name of the configuration to be shown in the console
-   * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
-   * @property awsS3Url - URL of the S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
-   * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
-   * @property encryptionKeySid - SID of the Public Key resource CRxx
-   * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -148,7 +150,11 @@ declare class CompositionSettingsInstance extends SerializableClass {
 
 declare class CompositionSettingsPage extends Page<V1, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsInstance> {
   /**
-   * Initialize the CompositionSettingsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionSettingsPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

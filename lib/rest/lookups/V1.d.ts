@@ -15,8 +15,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Lookups
    *
-   * @property phoneNumbers - phoneNumbers resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Lookups);

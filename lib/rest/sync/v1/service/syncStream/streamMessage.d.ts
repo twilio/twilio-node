@@ -12,8 +12,10 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the StreamMessageList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the StreamMessageList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Instance SID.
@@ -60,10 +62,10 @@ interface StreamMessageSolution {
 
 declare class StreamMessageInstance extends SerializableClass {
   /**
-   * Initialize the StreamMessageContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StreamMessageContext
    *
-   * @property sid - Stream Message SID.
-   * @property data - Stream Message body.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -83,7 +85,10 @@ declare class StreamMessageInstance extends SerializableClass {
 
 declare class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {
   /**
-   * Initialize the StreamMessagePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StreamMessagePage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

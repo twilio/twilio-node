@@ -15,8 +15,6 @@ declare class Understand extends Version {
   /**
    * Initialize the Understand version of Preview
    *
-   * @property assistants - assistants resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Preview);

@@ -22,7 +22,7 @@ import { SerializableClass } from '../../../interfaces';
 type TrunkRecordingSetting = 'do-not-record'|'record-from-ringing'|'record-from-answer';
 
 /**
- * @description Initialize the TrunkList
+ * Initialize the TrunkList
  *
  * @param version - Version of the resource
  */
@@ -67,9 +67,11 @@ interface TrunkListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -83,9 +85,11 @@ interface TrunkListInstance {
   get(sid: string): TrunkContext;
   /**
    * Retrieve a single target page of TrunkInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -94,7 +98,8 @@ interface TrunkListInstance {
   /**
    * Lists TrunkInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -102,9 +107,11 @@ interface TrunkListInstance {
   list(opts?: TrunkListInstanceOptions, callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
   /**
    * Retrieve a single page of TrunkInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -223,11 +230,6 @@ declare class TrunkContext {
   /**
    * Initialize the TrunkContext
    *
-   * @property originationUrls - originationUrls resource
-   * @property credentialsLists - credentialsLists resource
-   * @property ipAccessControlLists - ipAccessControlLists resource
-   * @property phoneNumbers - phoneNumbers resource
-   *
    * @param version - Version of the resource
    * @param sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
    */
@@ -266,22 +268,6 @@ declare class TrunkContext {
 declare class TrunkInstance extends SerializableClass {
   /**
    * Initialize the TrunkContext
-   *
-   * @property accountSid - The unique ID of the Account that owns this Trunk.
-   * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
-   * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
-   * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
-   * @property friendlyName - A human-readable name for the Trunk.
-   * @property secure - The Secure Trunking  settings for this trunk.
-   * @property recording - The recording settings for this trunk.
-   * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
-   * @property authType - The types of authentication you have mapped to your domain.
-   * @property authTypeSet - The auth_type_set
-   * @property dateCreated - The date this Activity was created.
-   * @property dateUpdated - The date this Activity was updated.
-   * @property sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
-   * @property url - The URL for this resource, relative to https://trunking.
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

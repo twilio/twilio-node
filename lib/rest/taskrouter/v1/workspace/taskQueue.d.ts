@@ -19,7 +19,7 @@ import { TaskQueueStatisticsListInstance } from './taskQueue/taskQueueStatistics
 type TaskQueueTaskOrder = 'FIFO'|'LIFO';
 
 /**
- * @description Initialize the TaskQueueList
+ * Initialize the TaskQueueList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
@@ -63,9 +63,11 @@ interface TaskQueueListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -79,9 +81,11 @@ interface TaskQueueListInstance {
   get(sid: string): TaskQueueContext;
   /**
    * Retrieve a single target page of TaskQueueInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -90,7 +94,8 @@ interface TaskQueueListInstance {
   /**
    * Lists TaskQueueInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -98,9 +103,11 @@ interface TaskQueueListInstance {
   list(opts?: TaskQueueListInstanceOptions, callback?: (error: Error | null, items: TaskQueueInstance[]) => any): Promise<TaskQueueInstance[]>;
   /**
    * Retrieve a single page of TaskQueueInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -237,10 +244,6 @@ declare class TaskQueueContext {
   /**
    * Initialize the TaskQueueContext
    *
-   * @property statistics - statistics resource
-   * @property realTimeStatistics - realTimeStatistics resource
-   * @property cumulativeStatistics - cumulativeStatistics resource
-   *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
@@ -279,22 +282,6 @@ declare class TaskQueueContext {
 declare class TaskQueueInstance extends SerializableClass {
   /**
    * Initialize the TaskQueueContext
-   *
-   * @property accountSid - The ID of the Account that owns this TaskQueue
-   * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
-   * @property assignmentActivityName - The assignment_activity_name
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property friendlyName - Filter by a human readable description of a TaskQueue
-   * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
-   * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
-   * @property reservationActivityName - The reservation_activity_name
-   * @property sid - The unique ID of the TaskQueue
-   * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
-   * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
-   * @property url - The url
-   * @property workspaceSid - The ID of the Workspace that owns this TaskQueue
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

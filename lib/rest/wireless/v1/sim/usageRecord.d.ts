@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../interfaces';
 type UsageRecordGranularity = 'hourly'|'daily'|'all';
 
 /**
- * @description Initialize the UsageRecordList
+ * Initialize the UsageRecordList
  *
  * @param version - Version of the resource
  * @param simSid - The unique id of the SIM resource that this Usage Record is for.
@@ -28,9 +28,11 @@ interface UsageRecordListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -38,9 +40,11 @@ interface UsageRecordListInstance {
   each(opts?: UsageRecordListInstanceEachOptions, callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -49,7 +53,8 @@ interface UsageRecordListInstance {
   /**
    * Lists UsageRecordInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -57,9 +62,11 @@ interface UsageRecordListInstance {
   list(opts?: UsageRecordListInstanceOptions, callback?: (error: Error | null, items: UsageRecordInstance[]) => any): Promise<UsageRecordInstance[]>;
   /**
    * Retrieve a single page of UsageRecordInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -165,12 +172,6 @@ interface UsageRecordSolution {
 declare class UsageRecordInstance extends SerializableClass {
   /**
    * Initialize the UsageRecordContext
-   *
-   * @property simSid - The unique id of the SIM resource that this Usage Record is for.
-   * @property accountSid - The unique id of the Account that the SIM belongs to.
-   * @property period - The time period for which usage is reported.
-   * @property commands - An object representing the Commands usage for the SIM over the period.
-   * @property data - An object representing the Data usage for the SIM over the period.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

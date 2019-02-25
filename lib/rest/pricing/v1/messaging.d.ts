@@ -11,7 +11,7 @@ import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the MessagingList
+ * Initialize the MessagingList
  *
  * @param version - Version of the resource
  */
@@ -41,10 +41,6 @@ interface MessagingSolution {
 declare class MessagingInstance extends SerializableClass {
   /**
    * Initialize the MessagingContext
-   *
-   * @property name - The name
-   * @property url - The url
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

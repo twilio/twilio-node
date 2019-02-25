@@ -17,9 +17,6 @@ declare class HostedNumbers extends Version {
   /**
    * Initialize the HostedNumbers version of Preview
    *
-   * @property authorizationDocuments - authorizationDocuments resource
-   * @property hostedNumberOrders - hostedNumberOrders resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Preview);

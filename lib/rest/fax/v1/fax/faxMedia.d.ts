@@ -11,8 +11,10 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the FaxMediaList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the FaxMediaList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param faxSid - Fax SID
@@ -30,9 +32,11 @@ interface FaxMediaListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -46,9 +50,11 @@ interface FaxMediaListInstance {
   get(sid: string): FaxMediaContext;
   /**
    * Retrieve a single target page of FaxMediaInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -57,7 +63,8 @@ interface FaxMediaListInstance {
   /**
    * Lists FaxMediaInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -65,9 +72,11 @@ interface FaxMediaListInstance {
   list(opts?: FaxMediaListInstanceOptions, callback?: (error: Error | null, items: FaxMediaInstance[]) => any): Promise<FaxMediaInstance[]>;
   /**
    * Retrieve a single page of FaxMediaInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -156,7 +165,10 @@ interface FaxMediaSolution {
 
 declare class FaxMediaContext {
   /**
-   * Initialize the FaxMediaContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxMediaContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param faxSid - Fax SID
@@ -185,15 +197,10 @@ declare class FaxMediaContext {
 
 declare class FaxMediaInstance extends SerializableClass {
   /**
-   * Initialize the FaxMediaContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxMediaContext
    *
-   * @property sid - A string that uniquely identifies this fax media
-   * @property accountSid - Account SID
-   * @property faxSid - Fax SID
-   * @property contentType - Media content type
-   * @property dateCreated - The date this fax media was created
-   * @property dateUpdated - The date this fax media was updated
-   * @property url - The URL of this resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -231,7 +238,10 @@ declare class FaxMediaInstance extends SerializableClass {
 
 declare class FaxMediaPage extends Page<V1, FaxMediaPayload, FaxMediaResource, FaxMediaInstance> {
   /**
-   * Initialize the FaxMediaPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxMediaPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

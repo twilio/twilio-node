@@ -11,7 +11,7 @@ import V1 = require('../../../../V1');
 import { SerializableClass } from '../../../../../../interfaces';
 
 /**
- * @description Initialize the StepContextList
+ * Initialize the StepContextList
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -81,13 +81,6 @@ declare class StepContextContext {
 declare class StepContextInstance extends SerializableClass {
   /**
    * Initialize the StepContextContext
-   *
-   * @property accountSid - Account Sid.
-   * @property context - Flow state.
-   * @property engagementSid - Engagement Sid.
-   * @property flowSid - Flow Sid.
-   * @property stepSid - Step Sid.
-   * @property url - The URL of this resource.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

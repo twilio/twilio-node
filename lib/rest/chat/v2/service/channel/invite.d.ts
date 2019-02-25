@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the InviteList
+ * Initialize the InviteList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this member belongs to.
@@ -38,9 +38,11 @@ interface InviteListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -54,9 +56,11 @@ interface InviteListInstance {
   get(sid: string): InviteContext;
   /**
    * Retrieve a single target page of InviteInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -65,7 +69,8 @@ interface InviteListInstance {
   /**
    * Lists InviteInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -73,9 +78,11 @@ interface InviteListInstance {
   list(opts?: InviteListInstanceOptions, callback?: (error: Error | null, items: InviteInstance[]) => any): Promise<InviteInstance[]>;
   /**
    * Retrieve a single page of InviteInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -216,17 +223,6 @@ declare class InviteContext {
 declare class InviteInstance extends SerializableClass {
   /**
    * Initialize the InviteContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this member.
-   * @property channelSid - The unique id of the Channel for this member.
-   * @property serviceSid - The unique id of the Service this member belongs to.
-   * @property identity - A unique string identifier for this User in this Service.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property roleSid - The Role assigned to this member.
-   * @property createdBy - The created_by
-   * @property url - An absolute URL for this member.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

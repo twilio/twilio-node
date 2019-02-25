@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the WorkersStatisticsList
+ * Initialize the WorkersStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The ID of the Workflow this worker is associated with
@@ -97,12 +97,6 @@ declare class WorkersStatisticsContext {
 declare class WorkersStatisticsInstance extends SerializableClass {
   /**
    * Initialize the WorkersStatisticsContext
-   *
-   * @property realtime - The realtime
-   * @property cumulative - The cumulative
-   * @property accountSid - The account_sid
-   * @property workspaceSid - The workspace_sid
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

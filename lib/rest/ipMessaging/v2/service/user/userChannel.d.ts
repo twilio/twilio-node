@@ -15,7 +15,7 @@ type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
 type UserChannelNotificationLevel = 'default'|'muted';
 
 /**
- * @description Initialize the UserChannelList
+ * Initialize the UserChannelList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this channel belongs to.
@@ -43,9 +43,11 @@ interface UserChannelListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -59,9 +61,11 @@ interface UserChannelListInstance {
   get(channelSid: string): UserChannelContext;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -70,7 +74,8 @@ interface UserChannelListInstance {
   /**
    * Lists UserChannelInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -78,9 +83,11 @@ interface UserChannelListInstance {
   list(opts?: UserChannelListInstanceOptions, callback?: (error: Error | null, items: UserChannelInstance[]) => any): Promise<UserChannelInstance[]>;
   /**
    * Retrieve a single page of UserChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -206,18 +213,6 @@ declare class UserChannelContext {
 declare class UserChannelInstance extends SerializableClass {
   /**
    * Initialize the UserChannelContext
-   *
-   * @property accountSid - The unique id of the Account responsible for this channel.
-   * @property serviceSid - The unique id of the Service this channel belongs to.
-   * @property channelSid - The unique id of a Channel.
-   * @property userSid - The unique id of the User this Channel belongs to.
-   * @property memberSid - The unique id of this User as a Member in this Channel.
-   * @property status - The status of the User on this Channel.
-   * @property lastConsumedMessageIndex - The index of the last read Message in this Channel for this User.
-   * @property unreadMessagesCount - The count of unread Messages in this Channel for this User.
-   * @property links - The links
-   * @property url - An absolute URL for this User Channel.
-   * @property notificationLevel - The notification level of the User for this Channel.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

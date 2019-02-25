@@ -13,8 +13,10 @@ import { AssignedAddOnExtensionListInstance } from './assignedAddOn/assignedAddO
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the AssignedAddOnList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the AssignedAddOnList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -40,9 +42,11 @@ interface AssignedAddOnListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -56,9 +60,11 @@ interface AssignedAddOnListInstance {
   get(sid: string): AssignedAddOnContext;
   /**
    * Retrieve a single target page of AssignedAddOnInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -67,7 +73,8 @@ interface AssignedAddOnListInstance {
   /**
    * Lists AssignedAddOnInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -75,9 +82,11 @@ interface AssignedAddOnListInstance {
   list(opts?: AssignedAddOnListInstanceOptions, callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any): Promise<AssignedAddOnInstance[]>;
   /**
    * Retrieve a single page of AssignedAddOnInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -180,9 +189,10 @@ interface AssignedAddOnSolution {
 
 declare class AssignedAddOnContext {
   /**
-   * Initialize the AssignedAddOnContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnContext
    *
-   * @property extensions - extensions resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created the resource to fetch
@@ -213,19 +223,10 @@ declare class AssignedAddOnContext {
 
 declare class AssignedAddOnInstance extends SerializableClass {
   /**
-   * Initialize the AssignedAddOnContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnContext
    *
-   * @property sid - The unique string that identifies the resource
-   * @property accountSid - The SID of the Account that created the resource
-   * @property resourceSid - The SID of the Phone Number that installed this Add-on
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property description - A short description of the Add-on functionality
-   * @property configuration - A JSON string that represents the current configuration
-   * @property uniqueName - An application-defined string that uniquely identifies the resource
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
-   * @property subresourceUris - A list of related resources identified by their relative URIs
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -272,7 +273,10 @@ declare class AssignedAddOnInstance extends SerializableClass {
 
 declare class AssignedAddOnPage extends Page<V2010, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnInstance> {
   /**
-   * Initialize the AssignedAddOnPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

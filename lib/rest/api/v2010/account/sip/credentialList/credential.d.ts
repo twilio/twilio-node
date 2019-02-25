@@ -11,7 +11,7 @@ import V2010 = require('../../../../V2010');
 import { SerializableClass } from '../../../../../../interfaces';
 
 /**
- * @description Initialize the CredentialList
+ * Initialize the CredentialList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique id of the Account that is responsible for this resource.
@@ -46,9 +46,11 @@ interface CredentialListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -62,9 +64,11 @@ interface CredentialListInstance {
   get(sid: string): CredentialContext;
   /**
    * Retrieve a single target page of CredentialInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -73,7 +77,8 @@ interface CredentialListInstance {
   /**
    * Lists CredentialInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -81,9 +86,11 @@ interface CredentialListInstance {
   list(opts?: CredentialListInstanceOptions, callback?: (error: Error | null, items: CredentialInstance[]) => any): Promise<CredentialInstance[]>;
   /**
    * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -222,14 +229,6 @@ declare class CredentialContext {
 declare class CredentialInstance extends SerializableClass {
   /**
    * Initialize the CredentialContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account that is responsible for this resource.
-   * @property credentialListSid - The unique id that identifies the credential list that includes this credential
-   * @property username - The username for this credential.
-   * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
-   * @property dateUpdated - The date that this resource was last updated, given as GMT in RFC 2822 format.
-   * @property uri - The URI for this resource, relative to https://api.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

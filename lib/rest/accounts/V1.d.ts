@@ -15,8 +15,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Accounts
    *
-   * @property credentials - credentials resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Accounts);

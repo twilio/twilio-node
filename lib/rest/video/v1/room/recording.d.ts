@@ -20,7 +20,7 @@ type RoomRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
 type RoomRecordingType = 'audio'|'video'|'data';
 
 /**
- * @description Initialize the RoomRecordingList
+ * Initialize the RoomRecordingList
  *
  * @param version - Version of the resource
  * @param roomSid - The room_sid
@@ -38,9 +38,11 @@ interface RoomRecordingListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -54,9 +56,11 @@ interface RoomRecordingListInstance {
   get(sid: string): RoomRecordingContext;
   /**
    * Retrieve a single target page of RoomRecordingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -65,7 +69,8 @@ interface RoomRecordingListInstance {
   /**
    * Lists RoomRecordingInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -73,9 +78,11 @@ interface RoomRecordingListInstance {
   list(opts?: RoomRecordingListInstanceOptions, callback?: (error: Error | null, items: RoomRecordingInstance[]) => any): Promise<RoomRecordingInstance[]>;
   /**
    * Retrieve a single page of RoomRecordingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -227,23 +234,6 @@ declare class RoomRecordingContext {
 declare class RoomRecordingInstance extends SerializableClass {
   /**
    * Initialize the RoomRecordingContext
-   *
-   * @property accountSid - The account_sid
-   * @property status - The status
-   * @property dateCreated - The date_created
-   * @property sid - The sid
-   * @property sourceSid - The source_sid
-   * @property size - The size
-   * @property url - The url
-   * @property type - The type
-   * @property duration - The duration
-   * @property containerFormat - The container_format
-   * @property codec - The codec
-   * @property groupingSids - The grouping_sids
-   * @property trackName - The track_name
-   * @property offset - The offset
-   * @property roomSid - The room_sid
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
