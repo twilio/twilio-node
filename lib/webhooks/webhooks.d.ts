@@ -60,6 +60,21 @@ export function validateRequest(
 ): boolean;
 
 /**
+ * Utility function to validate an incoming request with a body is from Twilio
+ *
+ * @param authToken - The auth token, as seen in the Twilio Portal
+ * @param twilioHeader - The value of the X-Twilio-Signature header from the request
+ * @param requestUrl - The full URL (with query string) you configured to handle this request
+ * @param body - The body of the request
+ */
+export function validateRequestWithBody(
+  authToken: string,
+  twilioHeader: string,
+  requestUrl: string,
+  body: string
+): boolean;
+
+/**
  * Utility function to validate an incoming request is indeed from Twilio (for use with express).
  * adapted from https://github.com/crabasa/twiliosig
  *
