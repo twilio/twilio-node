@@ -11,8 +11,10 @@ import V2010 = require('../../../../V2010');
 import { SerializableClass } from '../../../../../../interfaces';
 
 /**
- * @description Initialize the AssignedAddOnExtensionList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the AssignedAddOnExtensionList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -32,9 +34,11 @@ interface AssignedAddOnExtensionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -47,10 +51,13 @@ interface AssignedAddOnExtensionListInstance {
    */
   get(sid: string): AssignedAddOnExtensionContext;
   /**
-   * Retrieve a single target page of AssignedAddOnExtensionInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of AssignedAddOnExtensionInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -59,7 +66,8 @@ interface AssignedAddOnExtensionListInstance {
   /**
    * Lists AssignedAddOnExtensionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -67,9 +75,11 @@ interface AssignedAddOnExtensionListInstance {
   list(opts?: AssignedAddOnExtensionListInstanceOptions, callback?: (error: Error | null, items: AssignedAddOnExtensionInstance[]) => any): Promise<AssignedAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -162,7 +172,10 @@ interface AssignedAddOnExtensionSolution {
 
 declare class AssignedAddOnExtensionContext {
   /**
-   * Initialize the AssignedAddOnExtensionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnExtensionContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created the resource to fetch
@@ -187,17 +200,10 @@ declare class AssignedAddOnExtensionContext {
 
 declare class AssignedAddOnExtensionInstance extends SerializableClass {
   /**
-   * Initialize the AssignedAddOnExtensionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnExtensionContext
    *
-   * @property sid - The unique string that identifies the resource
-   * @property accountSid - The SID of the Account that created the resource
-   * @property resourceSid - The SID of the Phone Number to which the Add-on is assigned
-   * @property assignedAddOnSid - The SID that uniquely identifies the assigned Add-on installation
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property productName - A string that you assigned to describe the Product this Extension is used within
-   * @property uniqueName - An application-defined string that uniquely identifies the resource
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
-   * @property enabled - Whether the Extension will be invoked
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -233,7 +239,10 @@ declare class AssignedAddOnExtensionInstance extends SerializableClass {
 
 declare class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionInstance> {
   /**
-   * Initialize the AssignedAddOnExtensionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnExtensionPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

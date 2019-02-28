@@ -18,8 +18,11 @@ type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
 type ChallengeFactorTypes = 'app-push'|'sms'|'totp';
 
 /**
- * @description Initialize the ChallengeList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the ChallengeList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -105,7 +108,11 @@ interface ChallengeSolution {
 
 declare class ChallengeContext {
   /**
-   * Initialize the ChallengeContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ChallengeContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -143,24 +150,11 @@ declare class ChallengeContext {
 
 declare class ChallengeInstance extends SerializableClass {
   /**
-   * Initialize the ChallengeContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ChallengeContext
    *
-   * @property sid - A string that uniquely identifies this Challenge.
-   * @property accountSid - Account Sid.
-   * @property serviceSid - Service Sid.
-   * @property entitySid - Entity Sid.
-   * @property identity - Unique identity of the Entity
-   * @property factorSid - Factor Sid.
-   * @property dateCreated - The date this Challenge was created
-   * @property dateUpdated - The date this Challenge was updated
-   * @property dateResponded - The date this Challenge was responded
-   * @property expirationDate - The date this Challenge is expired
-   * @property status - The Status of this Challenge
-   * @property respondedReason - The Reason of this Challenge `status`
-   * @property details - Public details provided to contextualize the Challenge
-   * @property hiddenDetails - Hidden details provided to contextualize the Challenge
-   * @property factorType - The Factor Type of this Challenge
-   * @property url - The URL of this resource.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -216,7 +210,11 @@ declare class ChallengeInstance extends SerializableClass {
 
 declare class ChallengePage extends Page<V1, ChallengePayload, ChallengeResource, ChallengeInstance> {
   /**
-   * Initialize the ChallengePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ChallengePage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

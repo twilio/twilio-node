@@ -11,7 +11,7 @@ import V2010 = require('../../../V2010');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the MemberList
+ * Initialize the MemberList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
@@ -41,9 +41,11 @@ interface MemberListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -57,9 +59,11 @@ interface MemberListInstance {
   get(callSid: string): MemberContext;
   /**
    * Retrieve a single target page of MemberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -68,7 +72,8 @@ interface MemberListInstance {
   /**
    * Lists MemberInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -76,9 +81,11 @@ interface MemberListInstance {
   list(opts?: MemberListInstanceOptions, callback?: (error: Error | null, items: MemberInstance[]) => any): Promise<MemberInstance[]>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -198,12 +205,6 @@ declare class MemberContext {
 declare class MemberInstance extends SerializableClass {
   /**
    * Initialize the MemberContext
-   *
-   * @property callSid - The SID of the Call this resource is associated with
-   * @property dateEnqueued - The date the member was enqueued
-   * @property position - This member's current position in the queue.
-   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
-   * @property waitTime - The number of seconds the member has been in the queue.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

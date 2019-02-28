@@ -11,8 +11,10 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the ShortCodeList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the ShortCodeList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that this resource is associated with
@@ -37,9 +39,11 @@ interface ShortCodeListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -53,9 +57,11 @@ interface ShortCodeListInstance {
   get(sid: string): ShortCodeContext;
   /**
    * Retrieve a single target page of ShortCodeInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -64,7 +70,8 @@ interface ShortCodeListInstance {
   /**
    * Lists ShortCodeInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -72,9 +79,11 @@ interface ShortCodeListInstance {
   list(opts?: ShortCodeListInstanceOptions, callback?: (error: Error | null, items: ShortCodeInstance[]) => any): Promise<ShortCodeInstance[]>;
   /**
    * Retrieve a single page of ShortCodeInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -174,7 +183,10 @@ interface ShortCodeSolution {
 
 declare class ShortCodeContext {
   /**
-   * Initialize the ShortCodeContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ShortCodeContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
@@ -203,17 +215,10 @@ declare class ShortCodeContext {
 
 declare class ShortCodeInstance extends SerializableClass {
   /**
-   * Initialize the ShortCodeContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ShortCodeContext
    *
-   * @property sid - The unique string that identifies this resource
-   * @property accountSid - The SID of the Account that created this resource
-   * @property serviceSid - The SID of the Service that this resource is associated with
-   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
-   * @property shortCode - The E.164 format of the short code.
-   * @property countryCode - The 2-character ISO Country Code of the number.
-   * @property capabilities - Any array of values that indicate whether the number can receive calls or messages.
-   * @property url - The absolute URL of this ShortCode resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -253,7 +258,10 @@ declare class ShortCodeInstance extends SerializableClass {
 
 declare class ShortCodePage extends Page<V1, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
   /**
-   * Initialize the ShortCodePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ShortCodePage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

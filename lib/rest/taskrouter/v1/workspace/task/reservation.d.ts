@@ -20,7 +20,7 @@ type ReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'r
 type ReservationSupervisorMode = 'monitor'|'whisper'|'barge';
 
 /**
- * @description Initialize the ReservationList
+ * Initialize the ReservationList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The ID of the Workspace that this task is contained within.
@@ -152,9 +152,11 @@ interface ReservationListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -168,9 +170,11 @@ interface ReservationListInstance {
   get(sid: string): ReservationContext;
   /**
    * Retrieve a single target page of ReservationInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -179,7 +183,8 @@ interface ReservationListInstance {
   /**
    * Lists ReservationInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -187,9 +192,11 @@ interface ReservationListInstance {
   list(opts?: ReservationListInstanceOptions, callback?: (error: Error | null, items: ReservationInstance[]) => any): Promise<ReservationInstance[]>;
   /**
    * Retrieve a single page of ReservationInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -321,18 +328,6 @@ declare class ReservationContext {
 declare class ReservationInstance extends SerializableClass {
   /**
    * Initialize the ReservationContext
-   *
-   * @property accountSid - The ID of the Account that owns this Task
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property reservationStatus - The current status of the reservation.
-   * @property sid - The unique ID of this Reservation.
-   * @property taskSid - The ID of the reserved Task
-   * @property workerName - Human readable description of the Worker that is reserved
-   * @property workerSid - The ID of the reserved Worker
-   * @property workspaceSid - The ID of the Workspace that this task is contained within.
-   * @property url - The url
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

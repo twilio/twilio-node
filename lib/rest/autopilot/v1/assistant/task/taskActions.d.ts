@@ -12,8 +12,11 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the TaskActionsList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the TaskActionsList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The unique ID of the parent Assistant.
@@ -64,7 +67,11 @@ interface TaskActionsSolution {
 
 declare class TaskActionsContext {
   /**
-   * Initialize the TaskActionsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the TaskActionsContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The unique ID of the parent Assistant.
@@ -94,13 +101,11 @@ declare class TaskActionsContext {
 
 declare class TaskActionsInstance extends SerializableClass {
   /**
-   * Initialize the TaskActionsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the TaskActionsContext
    *
-   * @property accountSid - The unique ID of the Account that created this Field.
-   * @property assistantSid - The unique ID of the parent Assistant.
-   * @property taskSid - The unique ID of the Task.
-   * @property url - The url
-   * @property data - The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -137,7 +142,11 @@ declare class TaskActionsInstance extends SerializableClass {
 
 declare class TaskActionsPage extends Page<V1, TaskActionsPayload, TaskActionsResource, TaskActionsInstance> {
   /**
-   * Initialize the TaskActionsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the TaskActionsPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

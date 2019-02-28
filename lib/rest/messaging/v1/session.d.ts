@@ -16,8 +16,11 @@ import { ParticipantListInstance } from './session/participant';
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the SessionList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the SessionList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -58,9 +61,11 @@ interface SessionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -74,9 +79,11 @@ interface SessionListInstance {
   get(sid: string): SessionContext;
   /**
    * Retrieve a single target page of SessionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -85,7 +92,8 @@ interface SessionListInstance {
   /**
    * Lists SessionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -93,9 +101,11 @@ interface SessionListInstance {
   list(opts?: SessionListInstanceOptions, callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -210,10 +220,11 @@ interface SessionSolution {
 
 declare class SessionContext {
   /**
-   * Initialize the SessionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SessionContext
    *
-   * @property participants - participants resource
-   * @property messages - messages resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - A 34 character string that uniquely identifies this resource.
@@ -250,19 +261,11 @@ declare class SessionContext {
 
 declare class SessionInstance extends SerializableClass {
   /**
-   * Initialize the SessionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SessionContext
    *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this session.
-   * @property serviceSid - The unique id of the Chat Service this session belongs to.
-   * @property messagingServiceSid - The unique id of the SMS Service this session belongs to.
-   * @property friendlyName - The human-readable name of this session.
-   * @property attributes - An optional string metadata field you can use to store any data you wish.
-   * @property createdBy - Identity of the session's creator.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property url - An absolute URL for this session.
-   * @property links - Absolute URLs to access the Participants and Messages for this Session.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -318,7 +321,11 @@ declare class SessionInstance extends SerializableClass {
 
 declare class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
   /**
-   * Initialize the SessionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SessionPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

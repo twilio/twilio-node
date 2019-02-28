@@ -20,7 +20,7 @@ type RecordingStatus = 'processing'|'completed'|'deleted'|'failed';
 type RecordingType = 'audio'|'video'|'data';
 
 /**
- * @description Initialize the RecordingList
+ * Initialize the RecordingList
  *
  * @param version - Version of the resource
  */
@@ -37,9 +37,11 @@ interface RecordingListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -53,9 +55,11 @@ interface RecordingListInstance {
   get(sid: string): RecordingContext;
   /**
    * Retrieve a single target page of RecordingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -64,7 +68,8 @@ interface RecordingListInstance {
   /**
    * Lists RecordingInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -72,9 +77,11 @@ interface RecordingListInstance {
   list(opts?: RecordingListInstanceOptions, callback?: (error: Error | null, items: RecordingInstance[]) => any): Promise<RecordingInstance[]>;
   /**
    * Retrieve a single page of RecordingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -235,22 +242,6 @@ declare class RecordingContext {
 declare class RecordingInstance extends SerializableClass {
   /**
    * Initialize the RecordingContext
-   *
-   * @property accountSid - Twilio Account SID.
-   * @property status - The status of the Recording.
-   * @property dateCreated - Date when the media recording began writing.
-   * @property sid - A 34-character string that uniquely identifies this Recording.
-   * @property sourceSid - A 34-character string that uniquely identifies the source of this Recording.
-   * @property size - Size of the recorded track, in bytes.
-   * @property url - The absolute URL for this resource.
-   * @property type - Indicates the media type for this recording.
-   * @property duration - Duration of the Recording in seconds.
-   * @property containerFormat - The file format for this Recording.
-   * @property codec - The codec used to encode the track.
-   * @property groupingSids - A list of Sids related to this Recording.
-   * @property trackName - The name that was given to the source track of this recording.
-   * @property offset - Offset in milliseconds for this track.
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -13,8 +13,10 @@ import { SerializableClass } from '../../../../interfaces';
 type VerificationChannel = 'sms'|'call';
 
 /**
- * @description Initialize the VerificationList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the VerificationList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -83,20 +85,10 @@ interface VerificationSolution {
 
 declare class VerificationInstance extends SerializableClass {
   /**
-   * Initialize the VerificationContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the VerificationContext
    *
-   * @property sid - A string that uniquely identifies this Verification.
-   * @property serviceSid - Service Sid.
-   * @property accountSid - Account Sid.
-   * @property to - To phonenumber
-   * @property channel - sms or call
-   * @property status - pending, approved, denied or expired
-   * @property valid - successful verification
-   * @property lookup - Info about the phone number
-   * @property amount - Amount of the associated PSD2 compliant transaction.
-   * @property payee - Payee of the associated PSD2 compliant transaction.
-   * @property dateCreated - The date this Verification was created
-   * @property dateUpdated - The date this Verification was updated
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -125,7 +117,10 @@ declare class VerificationInstance extends SerializableClass {
 
 declare class VerificationPage extends Page<V1, VerificationPayload, VerificationResource, VerificationInstance> {
   /**
-   * Initialize the VerificationPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the VerificationPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

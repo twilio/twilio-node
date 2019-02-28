@@ -12,8 +12,11 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the DefaultsList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the DefaultsList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The assistant_sid
@@ -61,7 +64,11 @@ interface DefaultsSolution {
 
 declare class DefaultsContext {
   /**
-   * Initialize the DefaultsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DefaultsContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
@@ -90,12 +97,11 @@ declare class DefaultsContext {
 
 declare class DefaultsInstance extends SerializableClass {
   /**
-   * Initialize the DefaultsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DefaultsContext
    *
-   * @property accountSid - The account_sid
-   * @property assistantSid - The assistant_sid
-   * @property url - The url
-   * @property data - The data
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -130,7 +136,11 @@ declare class DefaultsInstance extends SerializableClass {
 
 declare class DefaultsPage extends Page<V1, DefaultsPayload, DefaultsResource, DefaultsInstance> {
   /**
-   * Initialize the DefaultsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DefaultsPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

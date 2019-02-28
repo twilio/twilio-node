@@ -12,8 +12,10 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the DocumentPermissionList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the DocumentPermissionList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Sync Service Instance SID.
@@ -45,9 +47,11 @@ interface DocumentPermissionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -60,10 +64,13 @@ interface DocumentPermissionListInstance {
    */
   get(identity: string): DocumentPermissionContext;
   /**
-   * Retrieve a single target page of DocumentPermissionInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of DocumentPermissionInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -72,7 +79,8 @@ interface DocumentPermissionListInstance {
   /**
    * Lists DocumentPermissionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -80,9 +88,11 @@ interface DocumentPermissionListInstance {
   list(opts?: DocumentPermissionListInstanceOptions, callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any): Promise<DocumentPermissionInstance[]>;
   /**
    * Retrieve a single page of DocumentPermissionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -173,7 +183,10 @@ interface DocumentPermissionSolution {
 
 declare class DocumentPermissionContext {
   /**
-   * Initialize the DocumentPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPermissionContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Sync Service Instance SID or unique name.
@@ -210,16 +223,10 @@ declare class DocumentPermissionContext {
 
 declare class DocumentPermissionInstance extends SerializableClass {
   /**
-   * Initialize the DocumentPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPermissionContext
    *
-   * @property accountSid - Twilio Account SID.
-   * @property serviceSid - Sync Service Instance SID.
-   * @property documentSid - Sync Document SID.
-   * @property identity - Identity of the user to whom the Sync Document Permission applies.
-   * @property read - Read access.
-   * @property write - Write access.
-   * @property manage - Manage access.
-   * @property url - URL of this Sync Document Permission.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -266,7 +273,10 @@ declare class DocumentPermissionInstance extends SerializableClass {
 
 declare class DocumentPermissionPage extends Page<V1, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {
   /**
-   * Initialize the DocumentPermissionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPermissionPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

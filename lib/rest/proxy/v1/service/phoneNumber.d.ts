@@ -12,8 +12,10 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the PhoneNumberList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the PhoneNumberList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -47,9 +49,11 @@ interface PhoneNumberListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -63,9 +67,11 @@ interface PhoneNumberListInstance {
   get(sid: string): PhoneNumberContext;
   /**
    * Retrieve a single target page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -74,7 +80,8 @@ interface PhoneNumberListInstance {
   /**
    * Lists PhoneNumberInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -82,9 +89,11 @@ interface PhoneNumberListInstance {
   list(opts?: PhoneNumberListInstanceOptions, callback?: (error: Error | null, items: PhoneNumberInstance[]) => any): Promise<PhoneNumberInstance[]>;
   /**
    * Retrieve a single page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -190,7 +199,10 @@ interface PhoneNumberSolution {
 
 declare class PhoneNumberContext {
   /**
-   * Initialize the PhoneNumberContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the PhoneNumberContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -226,19 +238,10 @@ declare class PhoneNumberContext {
 
 declare class PhoneNumberInstance extends SerializableClass {
   /**
-   * Initialize the PhoneNumberContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the PhoneNumberContext
    *
-   * @property sid - A string that uniquely identifies this Phone Number.
-   * @property accountSid - Account Sid.
-   * @property serviceSid - Service Sid.
-   * @property dateCreated - The date this Phone Number was added to the service
-   * @property dateUpdated - The date this Phone Number was updated
-   * @property phoneNumber - The phone number.
-   * @property friendlyName - A human-readable description of this resource.
-   * @property isoCountry - ISO Country Code,
-   * @property capabilities - A list of capabilities.
-   * @property url - The URL of this resource.
-   * @property isReserved - Reserve for manual assignment to participants only.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -287,7 +290,10 @@ declare class PhoneNumberInstance extends SerializableClass {
 
 declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**
-   * Initialize the PhoneNumberPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the PhoneNumberPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

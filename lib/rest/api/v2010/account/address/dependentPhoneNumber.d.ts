@@ -15,7 +15,7 @@ type DependentPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
 type DependentPhoneNumberEmergencyStatus = 'Active'|'Inactive';
 
 /**
- * @description Initialize the DependentPhoneNumberList
+ * Initialize the DependentPhoneNumberList
  *
  * @param version - Version of the resource
  * @param accountSid - The account_sid
@@ -30,19 +30,24 @@ interface DependentPhoneNumberListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: DependentPhoneNumberListInstanceEachOptions, callback?: (item: DependentPhoneNumberInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Retrieve a single target page of DependentPhoneNumberInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of DependentPhoneNumberInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -51,7 +56,8 @@ interface DependentPhoneNumberListInstance {
   /**
    * Lists DependentPhoneNumberInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -59,9 +65,11 @@ interface DependentPhoneNumberListInstance {
   list(opts?: DependentPhoneNumberListInstanceOptions, callback?: (error: Error | null, items: DependentPhoneNumberInstance[]) => any): Promise<DependentPhoneNumberInstance[]>;
   /**
    * Retrieve a single page of DependentPhoneNumberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -171,33 +179,6 @@ interface DependentPhoneNumberSolution {
 declare class DependentPhoneNumberInstance extends SerializableClass {
   /**
    * Initialize the DependentPhoneNumberContext
-   *
-   * @property sid - The sid
-   * @property accountSid - The account_sid
-   * @property friendlyName - The friendly_name
-   * @property phoneNumber - The phone_number
-   * @property voiceUrl - The voice_url
-   * @property voiceMethod - The voice_method
-   * @property voiceFallbackMethod - The voice_fallback_method
-   * @property voiceFallbackUrl - The voice_fallback_url
-   * @property voiceCallerIdLookup - The voice_caller_id_lookup
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property smsFallbackMethod - The sms_fallback_method
-   * @property smsFallbackUrl - The sms_fallback_url
-   * @property smsMethod - The sms_method
-   * @property smsUrl - The sms_url
-   * @property addressRequirements - The address_requirements
-   * @property capabilities - The capabilities
-   * @property statusCallback - The status_callback
-   * @property statusCallbackMethod - The status_callback_method
-   * @property apiVersion - The api_version
-   * @property smsApplicationSid - The sms_application_sid
-   * @property voiceApplicationSid - The voice_application_sid
-   * @property trunkSid - The trunk_sid
-   * @property emergencyStatus - The emergency_status
-   * @property emergencyAddressSid - The emergency_address_sid
-   * @property uri - The uri
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

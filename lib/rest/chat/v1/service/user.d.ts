@@ -13,7 +13,7 @@ import { UserChannelList } from './user/userChannel';
 import { UserChannelListInstance } from './user/userChannel';
 
 /**
- * @description Initialize the UserList
+ * Initialize the UserList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this user belongs to.
@@ -51,9 +51,11 @@ interface UserListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -67,9 +69,11 @@ interface UserListInstance {
   get(sid: string): UserContext;
   /**
    * Retrieve a single target page of UserInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -78,7 +82,8 @@ interface UserListInstance {
   /**
    * Lists UserInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -86,9 +91,11 @@ interface UserListInstance {
   list(opts?: UserListInstanceOptions, callback?: (error: Error | null, items: UserInstance[]) => any): Promise<UserInstance[]>;
   /**
    * Retrieve a single page of UserInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -201,8 +208,6 @@ declare class UserContext {
   /**
    * Initialize the UserContext
    *
-   * @property userChannels - userChannels resource
-   *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param sid - The sid
@@ -239,21 +244,6 @@ declare class UserContext {
 declare class UserInstance extends SerializableClass {
   /**
    * Initialize the UserContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this user.
-   * @property serviceSid - The unique id of the Service this user belongs to.
-   * @property attributes - An optional string metadata field you can use to store any data you wish.
-   * @property friendlyName - The human-readable name of this user.
-   * @property roleSid - The unique id of the [Role][role] assigned to this user.
-   * @property identity - A unique string that identifies the user within this service - often a username or email address.
-   * @property isOnline - Indicates whether the User is actively connected to the Service instance and online.
-   * @property isNotifiable - Indicates whether the User has a potentially valid Push Notification registration  for the Service instance.
-   * @property dateCreated - The date that this resource was created in ISO 8601 format.
-   * @property dateUpdated - The date that this resource was last updated in ISO 8601 format.
-   * @property joinedChannelsCount - The joined_channels_count
-   * @property links - The links
-   * @property url - An absolute URL for this user.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

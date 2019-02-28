@@ -24,7 +24,7 @@ type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply
 type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted';
 
 /**
- * @description Initialize the MessageList
+ * Initialize the MessageList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique sid that identifies this account
@@ -58,9 +58,11 @@ interface MessageListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -74,9 +76,11 @@ interface MessageListInstance {
   get(sid: string): MessageContext;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -85,7 +89,8 @@ interface MessageListInstance {
   /**
    * Lists MessageInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -93,9 +98,11 @@ interface MessageListInstance {
   list(opts?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -272,9 +279,6 @@ declare class MessageContext {
   /**
    * Initialize the MessageContext
    *
-   * @property media - media resource
-   * @property feedback - feedback resource
-   *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique message Sid
@@ -312,27 +316,6 @@ declare class MessageContext {
 declare class MessageInstance extends SerializableClass {
   /**
    * Initialize the MessageContext
-   *
-   * @property accountSid - The unique sid that identifies this account
-   * @property apiVersion - The version of the Twilio API used to process the message.
-   * @property body - The text body of the message. Up to 1600 characters long.
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property dateSent - The date the message was sent
-   * @property direction - The direction of the message
-   * @property errorCode - The error code associated with the message
-   * @property errorMessage - Human readable description of the ErrorCode
-   * @property from - The phone number that initiated the message
-   * @property messagingServiceSid - The unique id of the Messaging Service used with the message.
-   * @property numMedia - Number of media files associated with the message
-   * @property numSegments - Indicates number of messages used to delivery the body
-   * @property price - The amount billed for the message
-   * @property priceUnit - The currency in which Price is measured
-   * @property sid - A string that uniquely identifies this message
-   * @property status - The status of this message
-   * @property subresourceUris - The URI for any subresources
-   * @property to - The phone number that received the message
-   * @property uri - The URI for this resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

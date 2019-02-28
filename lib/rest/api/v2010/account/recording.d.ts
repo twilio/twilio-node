@@ -20,7 +20,7 @@ type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordV
 type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent';
 
 /**
- * @description Initialize the RecordingList
+ * Initialize the RecordingList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique SID that identifies this account
@@ -38,9 +38,11 @@ interface RecordingListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -54,9 +56,11 @@ interface RecordingListInstance {
   get(sid: string): RecordingContext;
   /**
    * Retrieve a single target page of RecordingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -65,7 +69,8 @@ interface RecordingListInstance {
   /**
    * Lists RecordingInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -73,9 +78,11 @@ interface RecordingListInstance {
   list(opts?: RecordingListInstanceOptions, callback?: (error: Error | null, items: RecordingInstance[]) => any): Promise<RecordingInstance[]>;
   /**
    * Retrieve a single page of RecordingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -207,9 +214,6 @@ declare class RecordingContext {
   /**
    * Initialize the RecordingContext
    *
-   * @property transcriptions - transcriptions resource
-   * @property addOnResults - addOnResults resource
-   *
    * @param version - Version of the resource
    * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique recording SID
@@ -240,25 +244,6 @@ declare class RecordingContext {
 declare class RecordingInstance extends SerializableClass {
   /**
    * Initialize the RecordingContext
-   *
-   * @property accountSid - The unique SID that identifies this account
-   * @property apiVersion - The version of the API in use during the recording.
-   * @property callSid - The unique ID for the call leg that corresponds to the recording.
-   * @property conferenceSid - The unique ID for the conference associated with the recording.
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property startTime - The start time of the recording, in RFC 2822 format.
-   * @property duration - The length of the recording in seconds.
-   * @property sid - A string that uniquely identifies this recording
-   * @property price - The one-time cost of creating this recording.
-   * @property priceUnit - The currency used in the Price property.
-   * @property status - The status of the recording.
-   * @property channels - The number of channels in the final recording file as an integer.
-   * @property source - The way in which this recording was created.
-   * @property errorCode - More information about why the recording is missing, if Status is `absent`.
-   * @property uri - The URI for this resource
-   * @property encryptionDetails - Details for how to decrypt the recording.
-   * @property subresourceUris - A dictionary of URIs for related resources
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -11,7 +11,7 @@ import V2010 = require('../../V2010');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the ValidationRequestList
+ * Initialize the ValidationRequestList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique ID of the Account responsible for this Caller Id.
@@ -70,12 +70,6 @@ interface ValidationRequestSolution {
 declare class ValidationRequestInstance extends SerializableClass {
   /**
    * Initialize the ValidationRequestContext
-   *
-   * @property accountSid - The unique ID of the Account responsible for this Caller Id.
-   * @property phoneNumber - The incoming phone number.
-   * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
-   * @property validationCode - The 6 digit validation code that must be entered via the phone to validate this phone number for Caller ID.
-   * @property callSid - The unique id of the Call created for this validation attempt.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

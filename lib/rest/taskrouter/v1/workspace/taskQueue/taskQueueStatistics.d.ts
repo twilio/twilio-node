@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the TaskQueueStatisticsList
+ * Initialize the TaskQueueStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The workspace_sid
@@ -97,13 +97,6 @@ declare class TaskQueueStatisticsContext {
 declare class TaskQueueStatisticsInstance extends SerializableClass {
   /**
    * Initialize the TaskQueueStatisticsContext
-   *
-   * @property accountSid - The account_sid
-   * @property cumulative - The cumulative
-   * @property realtime - The realtime
-   * @property taskQueueSid - The task_queue_sid
-   * @property workspaceSid - The workspace_sid
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

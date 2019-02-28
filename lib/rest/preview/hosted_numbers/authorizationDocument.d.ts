@@ -16,8 +16,11 @@ import { SerializableClass } from '../../../interfaces';
 type AuthorizationDocumentStatus = 'opened'|'signing'|'signed'|'canceled'|'failed';
 
 /**
- * @description Initialize the AuthorizationDocumentList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the AuthorizationDocumentList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -62,9 +65,11 @@ interface AuthorizationDocumentListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -77,10 +82,13 @@ interface AuthorizationDocumentListInstance {
    */
   get(sid: string): AuthorizationDocumentContext;
   /**
-   * Retrieve a single target page of AuthorizationDocumentInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of AuthorizationDocumentInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -89,7 +97,8 @@ interface AuthorizationDocumentListInstance {
   /**
    * Lists AuthorizationDocumentInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -97,9 +106,11 @@ interface AuthorizationDocumentListInstance {
   list(opts?: AuthorizationDocumentListInstanceOptions, callback?: (error: Error | null, items: AuthorizationDocumentInstance[]) => any): Promise<AuthorizationDocumentInstance[]>;
   /**
    * Retrieve a single page of AuthorizationDocumentInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -220,9 +231,11 @@ interface AuthorizationDocumentSolution {
 
 declare class AuthorizationDocumentContext {
   /**
-   * Initialize the AuthorizationDocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AuthorizationDocumentContext
    *
-   * @property dependentHostedNumberOrders - dependentHostedNumberOrders resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - AuthorizationDocument sid.
@@ -252,17 +265,11 @@ declare class AuthorizationDocumentContext {
 
 declare class AuthorizationDocumentInstance extends SerializableClass {
   /**
-   * Initialize the AuthorizationDocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AuthorizationDocumentContext
    *
-   * @property sid - AuthorizationDocument sid.
-   * @property addressSid - Address sid.
-   * @property status - The Status of this AuthorizationDocument.
-   * @property email - Email.
-   * @property ccEmails - A list of emails.
-   * @property dateCreated - The date this AuthorizationDocument was created.
-   * @property dateUpdated - The date this AuthorizationDocument was updated.
-   * @property url - The url
-   * @property links - The links
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -306,7 +313,11 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
 
 declare class AuthorizationDocumentPage extends Page<HostedNumbers, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentInstance> {
   /**
-   * Initialize the AuthorizationDocumentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AuthorizationDocumentPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

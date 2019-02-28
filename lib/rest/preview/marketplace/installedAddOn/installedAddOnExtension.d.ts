@@ -12,8 +12,11 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the InstalledAddOnExtensionList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the InstalledAddOnExtensionList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param installedAddOnSid - The installed_add_on_sid
@@ -40,9 +43,11 @@ interface InstalledAddOnExtensionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -55,10 +60,13 @@ interface InstalledAddOnExtensionListInstance {
    */
   get(sid: string): InstalledAddOnExtensionContext;
   /**
-   * Retrieve a single target page of InstalledAddOnExtensionInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of InstalledAddOnExtensionInstance records from
+   * the API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -67,7 +75,8 @@ interface InstalledAddOnExtensionListInstance {
   /**
    * Lists InstalledAddOnExtensionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -75,9 +84,11 @@ interface InstalledAddOnExtensionListInstance {
   list(opts?: InstalledAddOnExtensionListInstanceOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance[]) => any): Promise<InstalledAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -166,7 +177,11 @@ interface InstalledAddOnExtensionSolution {
 
 declare class InstalledAddOnExtensionContext {
   /**
-   * Initialize the InstalledAddOnExtensionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnExtensionContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param installedAddOnSid - The installed_add_on_sid
@@ -196,15 +211,11 @@ declare class InstalledAddOnExtensionContext {
 
 declare class InstalledAddOnExtensionInstance extends SerializableClass {
   /**
-   * Initialize the InstalledAddOnExtensionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnExtensionContext
    *
-   * @property sid - A string that uniquely identifies this Extension
-   * @property installedAddOnSid - The installed_add_on_sid
-   * @property friendlyName - A human-readable description of this Extension
-   * @property productName - A human-readable description of the Extension's Product
-   * @property uniqueName - The string that uniquely identifies this Extension
-   * @property enabled - A Boolean indicating if the Extension will be invoked
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -243,7 +254,11 @@ declare class InstalledAddOnExtensionInstance extends SerializableClass {
 
 declare class InstalledAddOnExtensionPage extends Page<Marketplace, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionInstance> {
   /**
-   * Initialize the InstalledAddOnExtensionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnExtensionPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -13,7 +13,7 @@ import { StepContextList } from './step/stepContext';
 import { StepContextListInstance } from './step/stepContext';
 
 /**
- * @description Initialize the StepList
+ * Initialize the StepList
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -32,9 +32,11 @@ interface StepListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -48,9 +50,11 @@ interface StepListInstance {
   get(sid: string): StepContext;
   /**
    * Retrieve a single target page of StepInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -59,7 +63,8 @@ interface StepListInstance {
   /**
    * Lists StepInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -67,9 +72,11 @@ interface StepListInstance {
   list(opts?: StepListInstanceOptions, callback?: (error: Error | null, items: StepInstance[]) => any): Promise<StepInstance[]>;
   /**
    * Retrieve a single page of StepInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -166,8 +173,6 @@ declare class StepContext {
   /**
    * Initialize the StepContext
    *
-   * @property stepContext - stepContext resource
-   *
    * @param version - Version of the resource
    * @param flowSid - Flow Sid.
    * @param engagementSid - Engagement Sid.
@@ -192,19 +197,6 @@ declare class StepContext {
 declare class StepInstance extends SerializableClass {
   /**
    * Initialize the StepContext
-   *
-   * @property sid - A string that uniquely identifies this Step.
-   * @property accountSid - Account Sid.
-   * @property flowSid - Flow Sid.
-   * @property engagementSid - Engagement Sid.
-   * @property name - The event that caused the flow to transition to this Step.
-   * @property context - The context
-   * @property transitionedFrom - The Widget that preceded the Widget for this Step.
-   * @property transitionedTo - The Widget that will follow the Widget for this Step.
-   * @property dateCreated - The date this Step was created
-   * @property dateUpdated - The date this Step was updated
-   * @property url - The URL of this resource.
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

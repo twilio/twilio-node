@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the WorkflowStatisticsList
+ * Initialize the WorkflowStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The workspace_sid
@@ -97,13 +97,6 @@ declare class WorkflowStatisticsContext {
 declare class WorkflowStatisticsInstance extends SerializableClass {
   /**
    * Initialize the WorkflowStatisticsContext
-   *
-   * @property accountSid - The account_sid
-   * @property cumulative - The cumulative
-   * @property realtime - The realtime
-   * @property workflowSid - The workflow_sid
-   * @property workspaceSid - The workspace_sid
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

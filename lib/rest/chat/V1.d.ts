@@ -17,9 +17,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Chat
    *
-   * @property credentials - credentials resource
-   * @property services - services resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Chat);

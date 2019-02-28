@@ -12,8 +12,11 @@ import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the ExportConfigurationList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the ExportConfigurationList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -66,7 +69,11 @@ interface ExportConfigurationSolution {
 
 declare class ExportConfigurationContext {
   /**
-   * Initialize the ExportConfigurationContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportConfigurationContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param resourceType - The resource_type
@@ -95,13 +102,11 @@ declare class ExportConfigurationContext {
 
 declare class ExportConfigurationInstance extends SerializableClass {
   /**
-   * Initialize the ExportConfigurationContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportConfigurationContext
    *
-   * @property enabled - The enabled
-   * @property webhookUrl - The webhook_url
-   * @property webhookMethod - The webhook_method
-   * @property resourceType - The resource_type
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -137,7 +142,11 @@ declare class ExportConfigurationInstance extends SerializableClass {
 
 declare class ExportConfigurationPage extends Page<BulkExports, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationInstance> {
   /**
-   * Initialize the ExportConfigurationPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportConfigurationPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

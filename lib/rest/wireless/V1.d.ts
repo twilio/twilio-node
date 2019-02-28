@@ -19,10 +19,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Wireless
    *
-   * @property commands - commands resource
-   * @property ratePlans - ratePlans resource
-   * @property sims - sims resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Wireless);

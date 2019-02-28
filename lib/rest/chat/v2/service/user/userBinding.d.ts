@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type UserBindingBindingType = 'gcm'|'apn'|'fcm';
 
 /**
- * @description Initialize the UserBindingList
+ * Initialize the UserBindingList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this binding belongs to.
@@ -33,9 +33,11 @@ interface UserBindingListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -49,9 +51,11 @@ interface UserBindingListInstance {
   get(sid: string): UserBindingContext;
   /**
    * Retrieve a single target page of UserBindingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -60,7 +64,8 @@ interface UserBindingListInstance {
   /**
    * Lists UserBindingInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -68,9 +73,11 @@ interface UserBindingListInstance {
   list(opts?: UserBindingListInstanceOptions, callback?: (error: Error | null, items: UserBindingInstance[]) => any): Promise<UserBindingInstance[]>;
   /**
    * Retrieve a single page of UserBindingInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -202,19 +209,6 @@ declare class UserBindingContext {
 declare class UserBindingInstance extends SerializableClass {
   /**
    * Initialize the UserBindingContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this binding.
-   * @property serviceSid - The unique id of the Service this binding belongs to.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property endpoint - The unique endpoint identifier for this Binding.
-   * @property identity - A unique string identifier for the Binding for this User in this Service.
-   * @property userSid - The unique id of the User for this binding.
-   * @property credentialSid - The unique id of the Credential for this binding.
-   * @property bindingType - The push technology to use for this binding.
-   * @property messageTypes - List of message types for this binding.
-   * @property url - An absolute URL for this binding.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../interfaces';
 type ConfigurationStatus = 'ok'|'inprogress'|'notstarted';
 
 /**
- * @description Initialize the ConfigurationList
+ * Initialize the ConfigurationList
  *
  * @param version - Version of the resource
  */
@@ -37,6 +37,10 @@ interface ConfigurationListInstance {
    * Constructs a configuration
    */
   get(): ConfigurationContext;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 interface ConfigurationPayload extends ConfigurationResource, Page.TwilioResponsePayload {
@@ -100,6 +104,10 @@ declare class ConfigurationContext {
    */
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
    * update a ConfigurationInstance
    *
    * @param callback - Callback to handle processed record
@@ -111,36 +119,6 @@ declare class ConfigurationContext {
 declare class ConfigurationInstance extends SerializableClass {
   /**
    * Initialize the ConfigurationContext
-   *
-   * @property accountSid - The unique id of the Account responsible for this configuration
-   * @property dateCreated - The time the Configuration was created, given as GMT in ISO 8601 format
-   * @property dateUpdated - The time the Configuration was last updated, given as GMT in ISO 8601 format
-   * @property attributes - Attiributes
-   * @property status - Status of the Flex onboarding
-   * @property taskrouterWorkspaceSid - The unique ID of the TaskRouter Workspace
-   * @property taskrouterTargetWorkflowSid - The unique ID of the TaskRouter Target Workflow
-   * @property taskrouterTargetTaskqueueSid - The unique ID of the TaskRouter Target TaskQueue
-   * @property taskrouterTaskqueues - Array of TaskRouter TaskQueues
-   * @property taskrouterSkills - Skill description for TaskRouter workers
-   * @property taskrouterWorkerChannels - TaskRouter default channel capacities and availability for workers
-   * @property taskrouterWorkerAttributes - The taskrouter_worker_attributes
-   * @property taskrouterOfflineActivitySid - The unique ID of the offline activity
-   * @property runtimeDomain - Flex resources hosting URL for the main UI
-   * @property messagingServiceInstanceSid - Unique 34 character ID of the Messaging Service
-   * @property chatServiceInstanceSid - The unique id of the Chat Service this user belongs to
-   * @property uiLanguage - Main language of the Flex UI
-   * @property uiAttributes - UI Attributes
-   * @property uiVersion - Pinned UI version
-   * @property serviceVersion - Flex Service version
-   * @property callRecordingEnabled - Call recording enabled
-   * @property callRecordingWebhookUrl - Call recording webhook url
-   * @property crmEnabled - Flag indicating whether CRM is present for Flex
-   * @property crmType - CRM Type
-   * @property crmCallbackUrl - CRM Callback URL
-   * @property crmFallbackUrl - CRM Fallback URL
-   * @property crmAttributes - CRM Attributes
-   * @property publicAttributes - Public Attributes
-   * @property url - The URL for this resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -187,8 +165,7 @@ declare class ConfigurationInstance extends SerializableClass {
   taskrouterWorkerChannels: string;
   taskrouterWorkspaceSid: string;
   /**
-   * Produce a plain JSON object version of the ConfigurationInstance for serialization.
-   * Removes any circular references in the object.
+   * Provide a user-friendly representation
    */
   toJSON(): any;
   uiAttributes: string;
@@ -220,6 +197,10 @@ declare class ConfigurationPage extends Page<V1, ConfigurationPayload, Configura
    * @param payload - Payload response from the API
    */
   getInstance(payload: ConfigurationPayload): ConfigurationInstance;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 export { ConfigurationContext, ConfigurationInstance, ConfigurationList, ConfigurationListInstance, ConfigurationPage, ConfigurationPayload, ConfigurationResource, ConfigurationSolution }

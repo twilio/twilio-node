@@ -12,8 +12,11 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the StyleSheetList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the StyleSheetList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The unique ID of the Assistant
@@ -61,7 +64,11 @@ interface StyleSheetSolution {
 
 declare class StyleSheetContext {
   /**
-   * Initialize the StyleSheetContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the StyleSheetContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The unique ID of the Assistant
@@ -90,12 +97,11 @@ declare class StyleSheetContext {
 
 declare class StyleSheetInstance extends SerializableClass {
   /**
-   * Initialize the StyleSheetContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the StyleSheetContext
    *
-   * @property accountSid - The unique ID of the Account that created this Assistant
-   * @property assistantSid - The unique ID of the Assistant
-   * @property url - The url
-   * @property data - The JSON style sheet object
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -130,7 +136,11 @@ declare class StyleSheetInstance extends SerializableClass {
 
 declare class StyleSheetPage extends Page<Understand, StyleSheetPayload, StyleSheetResource, StyleSheetInstance> {
   /**
-   * Initialize the StyleSheetPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the StyleSheetPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

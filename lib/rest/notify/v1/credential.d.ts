@@ -14,8 +14,10 @@ import { SerializableClass } from '../../../interfaces';
 type CredentialPushService = 'gcm'|'apn'|'fcm';
 
 /**
- * @description Initialize the CredentialList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the CredentialList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -58,9 +60,11 @@ interface CredentialListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -74,9 +78,11 @@ interface CredentialListInstance {
   get(sid: string): CredentialContext;
   /**
    * Retrieve a single target page of CredentialInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -85,7 +91,8 @@ interface CredentialListInstance {
   /**
    * Lists CredentialInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -93,9 +100,11 @@ interface CredentialListInstance {
   list(opts?: CredentialListInstanceOptions, callback?: (error: Error | null, items: CredentialInstance[]) => any): Promise<CredentialInstance[]>;
   /**
    * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -205,7 +214,10 @@ interface CredentialSolution {
 
 declare class CredentialContext {
   /**
-   * Initialize the CredentialContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the CredentialContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param sid - The sid
@@ -240,16 +252,10 @@ declare class CredentialContext {
 
 declare class CredentialInstance extends SerializableClass {
   /**
-   * Initialize the CredentialContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the CredentialContext
    *
-   * @property sid - The sid
-   * @property accountSid - The account_sid
-   * @property friendlyName - Friendly name for stored credential
-   * @property type - Credential type, one of "gcm", "fcm", or "apn"
-   * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property url - The url
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -294,7 +300,10 @@ declare class CredentialInstance extends SerializableClass {
 
 declare class CredentialPage extends Page<V1, CredentialPayload, CredentialResource, CredentialInstance> {
   /**
-   * Initialize the CredentialPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the CredentialPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

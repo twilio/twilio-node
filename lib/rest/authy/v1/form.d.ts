@@ -13,8 +13,11 @@ import { SerializableClass } from '../../../interfaces';
 type FormFormTypes = 'form-app-push'|'form-sms'|'form-totp';
 
 /**
- * @description Initialize the FormList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the FormList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -53,7 +56,11 @@ interface FormSolution {
 
 declare class FormContext {
   /**
-   * Initialize the FormContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FormContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param formType - The Type of this Form
@@ -75,12 +82,11 @@ declare class FormContext {
 
 declare class FormInstance extends SerializableClass {
   /**
-   * Initialize the FormContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FormContext
    *
-   * @property formType - The Type of this Form
-   * @property forms - Object that contains the available forms for this type.
-   * @property formMeta - Additional information for the available forms for this type.
-   * @property url - The URL to access the forms for this type.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -108,7 +114,11 @@ declare class FormInstance extends SerializableClass {
 
 declare class FormPage extends Page<V1, FormPayload, FormResource, FormInstance> {
   /**
-   * Initialize the FormPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FormPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

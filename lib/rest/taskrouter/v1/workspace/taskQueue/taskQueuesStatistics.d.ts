@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the TaskQueuesStatisticsList
+ * Initialize the TaskQueuesStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
@@ -26,19 +26,24 @@ interface TaskQueuesStatisticsListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: TaskQueuesStatisticsListInstanceEachOptions, callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of TaskQueuesStatisticsInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -47,7 +52,8 @@ interface TaskQueuesStatisticsListInstance {
   /**
    * Lists TaskQueuesStatisticsInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -55,9 +61,11 @@ interface TaskQueuesStatisticsListInstance {
   list(opts?: TaskQueuesStatisticsListInstanceOptions, callback?: (error: Error | null, items: TaskQueuesStatisticsInstance[]) => any): Promise<TaskQueuesStatisticsInstance[]>;
   /**
    * Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -181,12 +189,6 @@ interface TaskQueuesStatisticsSolution {
 declare class TaskQueuesStatisticsInstance extends SerializableClass {
   /**
    * Initialize the TaskQueuesStatisticsContext
-   *
-   * @property accountSid - The account_sid
-   * @property cumulative - The cumulative
-   * @property realtime - The realtime
-   * @property taskQueueSid - The task_queue_sid
-   * @property workspaceSid - The workspace_sid
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

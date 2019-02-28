@@ -15,8 +15,10 @@ type InteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'comple
 type InteractionType = 'message'|'voice'|'unknown';
 
 /**
- * @description Initialize the InteractionList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the InteractionList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -35,9 +37,11 @@ interface InteractionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -51,9 +55,11 @@ interface InteractionListInstance {
   get(sid: string): InteractionContext;
   /**
    * Retrieve a single target page of InteractionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -62,7 +68,8 @@ interface InteractionListInstance {
   /**
    * Lists InteractionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -70,9 +77,11 @@ interface InteractionListInstance {
   list(opts?: InteractionListInstanceOptions, callback?: (error: Error | null, items: InteractionInstance[]) => any): Promise<InteractionInstance[]>;
   /**
    * Retrieve a single page of InteractionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -174,7 +183,10 @@ interface InteractionSolution {
 
 declare class InteractionContext {
   /**
-   * Initialize the InteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the InteractionContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -204,27 +216,10 @@ declare class InteractionContext {
 
 declare class InteractionInstance extends SerializableClass {
   /**
-   * Initialize the InteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the InteractionContext
    *
-   * @property sid - A string that uniquely identifies this Interaction.
-   * @property sessionSid - Session Sid.
-   * @property serviceSid - Service Sid.
-   * @property accountSid - Account Sid.
-   * @property data - Further details about an interaction.
-   * @property type - The Type of this Interaction
-   * @property inboundParticipantSid - Inbound Participant Sid.
-   * @property inboundResourceSid - Inbound Resource Sid.
-   * @property inboundResourceStatus - The Inbound Resource Status of this Interaction
-   * @property inboundResourceType - The type of the Inbound Resource, Call or Message.
-   * @property inboundResourceUrl - The URL of the Twilio inbound resource.
-   * @property outboundParticipantSid - Outbound Participant Sid.
-   * @property outboundResourceSid - Outbound Resource Sid.
-   * @property outboundResourceStatus - The Outbound Resource Status of this Interaction
-   * @property outboundResourceType - The type of the Outbound Resource, Call or Message.
-   * @property outboundResourceUrl - The URL of the Twilio outbound resource.
-   * @property dateCreated - The date this Interaction was created
-   * @property dateUpdated - The date this Interaction was last updated
-   * @property url - The URL of this resource.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -275,7 +270,10 @@ declare class InteractionInstance extends SerializableClass {
 
 declare class InteractionPage extends Page<V1, InteractionPayload, InteractionResource, InteractionInstance> {
   /**
-   * Initialize the InteractionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the InteractionPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

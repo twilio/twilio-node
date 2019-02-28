@@ -11,7 +11,7 @@ import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the ExecutionContextList
+ * Initialize the ExecutionContextList
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -77,12 +77,6 @@ declare class ExecutionContextContext {
 declare class ExecutionContextInstance extends SerializableClass {
   /**
    * Initialize the ExecutionContextContext
-   *
-   * @property accountSid - Account Sid.
-   * @property context - Flow state.
-   * @property flowSid - Flow Sid.
-   * @property executionSid - Execution Sid.
-   * @property url - The URL of this resource.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

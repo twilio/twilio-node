@@ -11,8 +11,11 @@ import Response = require('../../../../http/response');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the KeyList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the KeyList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param fleetSid - The unique identifier of the Fleet.
@@ -48,9 +51,11 @@ interface KeyListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -64,9 +69,11 @@ interface KeyListInstance {
   get(sid: string): KeyContext;
   /**
    * Retrieve a single target page of KeyInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -75,7 +82,8 @@ interface KeyListInstance {
   /**
    * Lists KeyInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -83,9 +91,11 @@ interface KeyListInstance {
   list(opts?: KeyListInstanceOptions, callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
   /**
    * Retrieve a single page of KeyInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -193,7 +203,11 @@ interface KeySolution {
 
 declare class KeyContext {
   /**
-   * Initialize the KeyContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the KeyContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param fleetSid - The fleet_sid
@@ -229,17 +243,11 @@ declare class KeyContext {
 
 declare class KeyInstance extends SerializableClass {
   /**
-   * Initialize the KeyContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the KeyContext
    *
-   * @property sid - A string that uniquely identifies this Key.
-   * @property url - URL of this Key.
-   * @property friendlyName - A human readable description for this Key.
-   * @property fleetSid - The unique identifier of the Fleet.
-   * @property accountSid - The unique SID that identifies this Account.
-   * @property deviceSid - The unique identifier of a mapped Device.
-   * @property secret - The key secret.
-   * @property dateCreated - The date this Key credential was created.
-   * @property dateUpdated - The date this Key credential was updated.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -286,7 +294,11 @@ declare class KeyInstance extends SerializableClass {
 
 declare class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, KeyInstance> {
   /**
-   * Initialize the KeyPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the KeyPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

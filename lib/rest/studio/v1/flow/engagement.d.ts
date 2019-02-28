@@ -18,7 +18,7 @@ import { StepListInstance } from './engagement/step';
 type EngagementStatus = 'active'|'ended';
 
 /**
- * @description Initialize the EngagementList
+ * Initialize the EngagementList
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -43,9 +43,11 @@ interface EngagementListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -59,9 +61,11 @@ interface EngagementListInstance {
   get(sid: string): EngagementContext;
   /**
    * Retrieve a single target page of EngagementInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -70,7 +74,8 @@ interface EngagementListInstance {
   /**
    * Lists EngagementInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -78,9 +83,11 @@ interface EngagementListInstance {
   list(opts?: EngagementListInstanceOptions, callback?: (error: Error | null, items: EngagementInstance[]) => any): Promise<EngagementInstance[]>;
   /**
    * Retrieve a single page of EngagementInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -188,9 +195,6 @@ declare class EngagementContext {
   /**
    * Initialize the EngagementContext
    *
-   * @property steps - steps resource
-   * @property engagementContext - engagementContext resource
-   *
    * @param version - Version of the resource
    * @param flowSid - Flow Sid.
    * @param sid - Engagement Sid.
@@ -221,18 +225,6 @@ declare class EngagementContext {
 declare class EngagementInstance extends SerializableClass {
   /**
    * Initialize the EngagementContext
-   *
-   * @property sid - A string that uniquely identifies this Engagement.
-   * @property accountSid - Account Sid.
-   * @property flowSid - Flow Sid.
-   * @property contactSid - Contact Sid.
-   * @property contactChannelAddress - The phone number, SIP address or Client identifier that triggered this Engagement.
-   * @property context - Flow state.
-   * @property status - The Status of this Engagement
-   * @property dateCreated - The date this Engagement was created
-   * @property dateUpdated - The date this Engagement was updated
-   * @property url - The URL of this resource.
-   * @property links - Nested resource URLs.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

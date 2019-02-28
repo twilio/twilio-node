@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../interfaces';
 type CredentialPushService = 'gcm'|'apn'|'fcm';
 
 /**
- * @description Initialize the CredentialList
+ * Initialize the CredentialList
  *
  * @param version - Version of the resource
  */
@@ -57,9 +57,11 @@ interface CredentialListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -73,9 +75,11 @@ interface CredentialListInstance {
   get(sid: string): CredentialContext;
   /**
    * Retrieve a single target page of CredentialInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -84,7 +88,8 @@ interface CredentialListInstance {
   /**
    * Lists CredentialInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -92,9 +97,11 @@ interface CredentialListInstance {
   list(opts?: CredentialListInstanceOptions, callback?: (error: Error | null, items: CredentialInstance[]) => any): Promise<CredentialInstance[]>;
   /**
    * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -240,15 +247,6 @@ declare class CredentialContext {
 declare class CredentialInstance extends SerializableClass {
   /**
    * Initialize the CredentialContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this resource.
-   * @property friendlyName - The human-readable name of this resource.
-   * @property type - Indicates which push notifications service this credential is for - either gcm, fcm, or apn
-   * @property sandbox - [APN only] true when this resource should use the sandbox APN service.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property url - An absolute URL for this credential resource.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

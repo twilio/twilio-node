@@ -12,8 +12,11 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the SyncListPermissionList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the SyncListPermissionList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param serviceSid - Sync Service Instance SID.
@@ -45,9 +48,11 @@ interface SyncListPermissionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -60,10 +65,13 @@ interface SyncListPermissionListInstance {
    */
   get(identity: string): SyncListPermissionContext;
   /**
-   * Retrieve a single target page of SyncListPermissionInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of SyncListPermissionInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -72,7 +80,8 @@ interface SyncListPermissionListInstance {
   /**
    * Lists SyncListPermissionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -80,9 +89,11 @@ interface SyncListPermissionListInstance {
   list(opts?: SyncListPermissionListInstanceOptions, callback?: (error: Error | null, items: SyncListPermissionInstance[]) => any): Promise<SyncListPermissionInstance[]>;
   /**
    * Retrieve a single page of SyncListPermissionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -173,7 +184,11 @@ interface SyncListPermissionSolution {
 
 declare class SyncListPermissionContext {
   /**
-   * Initialize the SyncListPermissionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListPermissionContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -210,16 +225,11 @@ declare class SyncListPermissionContext {
 
 declare class SyncListPermissionInstance extends SerializableClass {
   /**
-   * Initialize the SyncListPermissionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListPermissionContext
    *
-   * @property accountSid - Twilio Account SID.
-   * @property serviceSid - Sync Service Instance SID.
-   * @property listSid - Sync List SID.
-   * @property identity - Identity of the user to whom the Sync List Permission applies.
-   * @property read - Read access.
-   * @property write - Write access.
-   * @property manage - Manage access.
-   * @property url - URL of this Sync List Permission.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -266,7 +276,11 @@ declare class SyncListPermissionInstance extends SerializableClass {
 
 declare class SyncListPermissionPage extends Page<Sync, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionInstance> {
   /**
-   * Initialize the SyncListPermissionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListPermissionPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

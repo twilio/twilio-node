@@ -13,8 +13,11 @@ import { DayListInstance } from './export/day';
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the ExportList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the ExportList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -52,9 +55,11 @@ interface ExportSolution {
 
 declare class ExportContext {
   /**
-   * Initialize the ExportContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportContext
    *
-   * @property days - days resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param resourceType - The resource_type
@@ -77,11 +82,11 @@ declare class ExportContext {
 
 declare class ExportInstance extends SerializableClass {
   /**
-   * Initialize the ExportContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportContext
    *
-   * @property resourceType - The resource_type
-   * @property url - The url
-   * @property links - The links
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -112,7 +117,11 @@ declare class ExportInstance extends SerializableClass {
 
 declare class ExportPage extends Page<BulkExports, ExportPayload, ExportResource, ExportInstance> {
   /**
-   * Initialize the ExportPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

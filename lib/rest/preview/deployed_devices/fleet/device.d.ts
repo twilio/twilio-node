@@ -12,8 +12,11 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the DeviceList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the DeviceList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param fleetSid - The unique identifier of the Fleet.
@@ -53,9 +56,11 @@ interface DeviceListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -69,9 +74,11 @@ interface DeviceListInstance {
   get(sid: string): DeviceContext;
   /**
    * Retrieve a single target page of DeviceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -80,7 +87,8 @@ interface DeviceListInstance {
   /**
    * Lists DeviceInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -88,9 +96,11 @@ interface DeviceListInstance {
   list(opts?: DeviceListInstanceOptions, callback?: (error: Error | null, items: DeviceInstance[]) => any): Promise<DeviceInstance[]>;
   /**
    * Retrieve a single page of DeviceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -207,7 +217,11 @@ interface DeviceSolution {
 
 declare class DeviceContext {
   /**
-   * Initialize the DeviceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeviceContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param fleetSid - The fleet_sid
@@ -243,20 +257,11 @@ declare class DeviceContext {
 
 declare class DeviceInstance extends SerializableClass {
   /**
-   * Initialize the DeviceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeviceContext
    *
-   * @property sid - A string that uniquely identifies this Device.
-   * @property url - URL of this Device.
-   * @property uniqueName - A unique, addressable name of this Device.
-   * @property friendlyName - A human readable description for this Device
-   * @property fleetSid - The unique identifier of the Fleet.
-   * @property enabled - Device enabled flag.
-   * @property accountSid - The unique SID that identifies this Account.
-   * @property identity - An identifier of the Device user.
-   * @property deploymentSid - The unique SID of the Deployment group.
-   * @property dateCreated - The date this Device was created.
-   * @property dateUpdated - The date this Device was updated.
-   * @property dateAuthenticated - The date this Device was authenticated.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -306,7 +311,11 @@ declare class DeviceInstance extends SerializableClass {
 
 declare class DevicePage extends Page<DeployedDevices, DevicePayload, DeviceResource, DeviceInstance> {
   /**
-   * Initialize the DevicePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DevicePage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

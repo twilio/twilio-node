@@ -21,8 +21,11 @@ type CallSummaryDisconnectedBy = 'callee'|'caller'|'unknown';
 type CallSummaryProcessingState = 'complete'|'partial';
 
 /**
- * @description Initialize the CallSummaryList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the CallSummaryList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -75,7 +78,11 @@ interface CallSummarySolution {
 
 declare class CallSummaryContext {
   /**
-   * Initialize the CallSummaryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CallSummaryContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param callSid - The call_sid
@@ -97,26 +104,11 @@ declare class CallSummaryContext {
 
 declare class CallSummaryInstance extends SerializableClass {
   /**
-   * Initialize the CallSummaryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CallSummaryContext
    *
-   * @property accountSid - The account_sid
-   * @property callSid - The call_sid
-   * @property callType - The call_type
-   * @property callState - The call_state
-   * @property processingState - The processing_state
-   * @property direction - The direction
-   * @property disconnectedBy - The disconnected_by
-   * @property startTime - The start_time
-   * @property endTime - The end_time
-   * @property duration - The duration
-   * @property connectDuration - The connect_duration
-   * @property from - The from
-   * @property to - The to
-   * @property carrierEdge - The carrier_edge
-   * @property clientEdge - The client_edge
-   * @property sipEdge - The sip_edge
-   * @property tags - The tags
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -158,7 +150,11 @@ declare class CallSummaryInstance extends SerializableClass {
 
 declare class CallSummaryPage extends Page<V1, CallSummaryPayload, CallSummaryResource, CallSummaryInstance> {
   /**
-   * Initialize the CallSummaryPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CallSummaryPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

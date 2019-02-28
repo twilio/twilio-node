@@ -19,10 +19,6 @@ declare class Wireless extends Version {
   /**
    * Initialize the Wireless version of Preview
    *
-   * @property commands - commands resource
-   * @property ratePlans - ratePlans resource
-   * @property sims - sims resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Preview);

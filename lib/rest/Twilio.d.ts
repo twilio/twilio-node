@@ -92,7 +92,8 @@ declare class Twilio {
   trunking: Trunking;
   usage: (typeof Api.prototype.account.usage);
   /**
-   * Validate that a request to the new SSL certificate is successful.
+   * Validates that a request to the new SSL certificate is successful.
+   *
    * @throws {RestException} if the request fails
    */
   validateSslCert(): Promise<any>;

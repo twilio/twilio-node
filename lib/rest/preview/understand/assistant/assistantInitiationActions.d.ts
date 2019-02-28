@@ -12,8 +12,11 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the AssistantInitiationActionsList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the AssistantInitiationActionsList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The assistant_sid
@@ -61,7 +64,11 @@ interface AssistantInitiationActionsSolution {
 
 declare class AssistantInitiationActionsContext {
   /**
-   * Initialize the AssistantInitiationActionsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantInitiationActionsContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
@@ -90,12 +97,11 @@ declare class AssistantInitiationActionsContext {
 
 declare class AssistantInitiationActionsInstance extends SerializableClass {
   /**
-   * Initialize the AssistantInitiationActionsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantInitiationActionsContext
    *
-   * @property accountSid - The account_sid
-   * @property assistantSid - The assistant_sid
-   * @property url - The url
-   * @property data - The data
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -130,7 +136,11 @@ declare class AssistantInitiationActionsInstance extends SerializableClass {
 
 declare class AssistantInitiationActionsPage extends Page<Understand, AssistantInitiationActionsPayload, AssistantInitiationActionsResource, AssistantInitiationActionsInstance> {
   /**
-   * Initialize the AssistantInitiationActionsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantInitiationActionsPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

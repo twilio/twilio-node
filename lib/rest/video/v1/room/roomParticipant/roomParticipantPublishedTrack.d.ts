@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type PublishedTrackKind = 'audio'|'video'|'data';
 
 /**
- * @description Initialize the PublishedTrackList
+ * Initialize the PublishedTrackList
  *
  * @param version - Version of the resource
  * @param roomSid - Unique Room identifier where this Track is published.
@@ -32,9 +32,11 @@ interface PublishedTrackListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -48,9 +50,11 @@ interface PublishedTrackListInstance {
   get(sid: string): PublishedTrackContext;
   /**
    * Retrieve a single target page of PublishedTrackInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -59,7 +63,8 @@ interface PublishedTrackListInstance {
   /**
    * Lists PublishedTrackInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -67,9 +72,11 @@ interface PublishedTrackListInstance {
   list(opts?: PublishedTrackListInstanceOptions, callback?: (error: Error | null, items: PublishedTrackInstance[]) => any): Promise<PublishedTrackInstance[]>;
   /**
    * Retrieve a single page of PublishedTrackInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -186,16 +193,6 @@ declare class PublishedTrackContext {
 declare class PublishedTrackInstance extends SerializableClass {
   /**
    * Initialize the PublishedTrackContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property participantSid - Unique Participant identifier that publishes this Track.
-   * @property roomSid - Unique Room identifier where this Track is published.
-   * @property name - Track name. Limited to 128 characters.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property enabled - Specifies whether the Track is enabled or not.
-   * @property kind - Specifies whether Track represents `audio`, `video` or `data`
-   * @property url - The absolute URL for this resource.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

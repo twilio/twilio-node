@@ -22,7 +22,7 @@ type RoomRoomType = 'peer-to-peer'|'group'|'group-small';
 type RoomVideoCodec = 'VP8'|'H264';
 
 /**
- * @description Initialize the RoomList
+ * Initialize the RoomList
  *
  * @param version - Version of the resource
  */
@@ -55,9 +55,11 @@ interface RoomListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -71,9 +73,11 @@ interface RoomListInstance {
   get(sid: string): RoomContext;
   /**
    * Retrieve a single target page of RoomInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -82,7 +86,8 @@ interface RoomListInstance {
   /**
    * Lists RoomInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -90,9 +95,11 @@ interface RoomListInstance {
   list(opts?: RoomListInstanceOptions, callback?: (error: Error | null, items: RoomInstance[]) => any): Promise<RoomInstance[]>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -242,9 +249,6 @@ declare class RoomContext {
   /**
    * Initialize the RoomContext
    *
-   * @property recordings - recordings resource
-   * @property participants - participants resource
-   *
    * @param version - Version of the resource
    * @param sid - The Room Sid or name that uniquely identifies this resource.
    */
@@ -275,25 +279,6 @@ declare class RoomContext {
 declare class RoomInstance extends SerializableClass {
   /**
    * Initialize the RoomContext
-   *
-   * @property sid - A system-generated 34-character string that uniquely identifies this resource.
-   * @property status - A string representing the status of the Room.
-   * @property dateCreated - The date that this resource was created, given as a UTC ISO 8601 Timestamp.
-   * @property dateUpdated - The date that this resource was last updated, given as a UTC ISO 8601 Timestamp.
-   * @property accountSid - The unique ID of the Account associated with this Room.
-   * @property enableTurn - Enable Twilio's Network Traversal TURN service.
-   * @property uniqueName - A developer-supplied Name of the Room.
-   * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every Room event.
-   * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
-   * @property endTime - The end time of the Room, given as a UTC ISO 8601 Timestamp.
-   * @property duration - The duration of the Room in seconds.
-   * @property type - Type of Room, either peer-to-peer, group-small or group.
-   * @property maxParticipants - Maximum number of concurrent Participants allowed in the Room.
-   * @property recordParticipantsOnConnect - Start recording when Participants connect.
-   * @property videoCodecs - The video_codecs
-   * @property mediaRegion - Region for the media server in Group Rooms.
-   * @property url - The absolute URL for this resource.
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

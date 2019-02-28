@@ -14,7 +14,7 @@ import { DependentPhoneNumberListInstance } from './address/dependentPhoneNumber
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the AddressList
+ * Initialize the AddressList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that is responsible for the resource
@@ -62,9 +62,11 @@ interface AddressListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -78,9 +80,11 @@ interface AddressListInstance {
   get(sid: string): AddressContext;
   /**
    * Retrieve a single target page of AddressInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -89,7 +93,8 @@ interface AddressListInstance {
   /**
    * Lists AddressInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -97,9 +102,11 @@ interface AddressListInstance {
   list(opts?: AddressListInstanceOptions, callback?: (error: Error | null, items: AddressInstance[]) => any): Promise<AddressInstance[]>;
   /**
    * Retrieve a single page of AddressInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -240,8 +247,6 @@ declare class AddressContext {
   /**
    * Initialize the AddressContext
    *
-   * @property dependentPhoneNumbers - dependentPhoneNumbers resource
-   *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that is responsible for this address
    * @param sid - The unique string that identifies the resource
@@ -278,21 +283,6 @@ declare class AddressContext {
 declare class AddressInstance extends SerializableClass {
   /**
    * Initialize the AddressContext
-   *
-   * @property accountSid - The SID of the Account that is responsible for the resource
-   * @property city - The city in which the address is located
-   * @property customerName - The name associated with the address
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property isoCountry - The ISO country code of the address
-   * @property postalCode - The postal code of the address
-   * @property region - The state or region of the address
-   * @property sid - The unique string that identifies the resource
-   * @property street - The number and street address of the address
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
-   * @property emergencyEnabled - Whether emergency calling has been enabled on this number
-   * @property validated - Whether the address has been validated to comply with local regulation
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

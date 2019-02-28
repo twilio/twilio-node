@@ -14,8 +14,11 @@ import { SerializableClass } from '../../../../interfaces';
 type ParticipantParticipantType = 'chat'|'sms';
 
 /**
- * @description Initialize the ParticipantList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the ParticipantList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param sessionSid - The unique id of the Session for this participant.
@@ -53,9 +56,11 @@ interface ParticipantListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -69,9 +74,11 @@ interface ParticipantListInstance {
   get(sid: string): ParticipantContext;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -80,7 +87,8 @@ interface ParticipantListInstance {
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -88,9 +96,11 @@ interface ParticipantListInstance {
   list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -204,7 +214,11 @@ interface ParticipantSolution {
 
 declare class ParticipantContext {
   /**
-   * Initialize the ParticipantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ParticipantContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sessionSid - The unique id of the Session for this participant.
@@ -240,21 +254,11 @@ declare class ParticipantContext {
 
 declare class ParticipantInstance extends SerializableClass {
   /**
-   * Initialize the ParticipantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ParticipantContext
    *
-   * @property accountSid - The unique id of the Account responsible for this session.
-   * @property serviceSid - The unique id of the Chat Service this session belongs to.
-   * @property messagingServiceSid - The unique id of the SMS Service this session belongs to.
-   * @property sessionSid - The unique id of the Session for this participant.
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property identity - A unique string identifier for the session participant as Chat User.
-   * @property twilioAddress - The address of the Twilio phone number that the participant is in contact with.
-   * @property userAddress - The address of the participant's device.
-   * @property attributes - An optional string metadata field you can use to store any data you wish.
-   * @property type - The type of twilio product, participant is a user of.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property url - An absolute URL for this participant.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -305,7 +309,11 @@ declare class ParticipantInstance extends SerializableClass {
 
 declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * Initialize the ParticipantPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ParticipantPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

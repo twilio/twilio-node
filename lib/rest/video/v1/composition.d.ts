@@ -16,8 +16,11 @@ type CompositionFormat = 'mp4'|'webm';
 type CompositionStatus = 'processing'|'completed'|'deleted'|'failed';
 
 /**
- * @description Initialize the CompositionList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the CompositionList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -41,9 +44,11 @@ interface CompositionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -57,9 +62,11 @@ interface CompositionListInstance {
   get(sid: string): CompositionContext;
   /**
    * Retrieve a single target page of CompositionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -68,7 +75,8 @@ interface CompositionListInstance {
   /**
    * Lists CompositionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -76,9 +84,11 @@ interface CompositionListInstance {
   list(opts?: CompositionListInstanceOptions, callback?: (error: Error | null, items: CompositionInstance[]) => any): Promise<CompositionInstance[]>;
   /**
    * Retrieve a single page of CompositionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -226,7 +236,11 @@ interface CompositionSolution {
 
 declare class CompositionContext {
   /**
-   * Initialize the CompositionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
@@ -254,26 +268,11 @@ declare class CompositionContext {
 
 declare class CompositionInstance extends SerializableClass {
   /**
-   * Initialize the CompositionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionContext
    *
-   * @property accountSid - Twilio Account SID.
-   * @property status - The status of the Composition.
-   * @property dateCreated - Date when the Composition Resource was created.
-   * @property dateCompleted - Date when the media processing task finished.
-   * @property dateDeleted - Date when the Composition Resource generated media was deleted.
-   * @property sid - A 34-character string that uniquely identifies this Composition.
-   * @property roomSid - A 34-character string that uniquely identifies the source of this Composition.
-   * @property audioSources - A list of audio sources related to this Composition.
-   * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition.
-   * @property videoLayout - The JSON video layout description.
-   * @property resolution - Pixel resolution of the composed video.
-   * @property trim - Boolean flag for clipping intervals that have no media.
-   * @property format - The file format for this Composition.
-   * @property bitrate - The bitrate
-   * @property size - Size of the Composed media file expressed in bytes.
-   * @property duration - Duration of the Composed media in seconds.
-   * @property url - The absolute URL for this resource.
-   * @property links - JSON object with the URL where the media file can be fetched.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -321,7 +320,11 @@ declare class CompositionInstance extends SerializableClass {
 
 declare class CompositionPage extends Page<V1, CompositionPayload, CompositionResource, CompositionInstance> {
   /**
-   * Initialize the CompositionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

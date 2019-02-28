@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type FeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'imperfect-audio'|'incorrect-caller-id'|'one-way-audio'|'post-dial-delay'|'unsolicited-call';
 
 /**
- * @description Initialize the FeedbackList
+ * Initialize the FeedbackList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique sid that identifies this account
@@ -117,13 +117,6 @@ declare class FeedbackContext {
 declare class FeedbackInstance extends SerializableClass {
   /**
    * Initialize the FeedbackContext
-   *
-   * @property accountSid - The unique sid that identifies this account
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property issues - Issues experienced during the call
-   * @property qualityScore - 1 to 5 quality score
-   * @property sid - A string that uniquely identifies this feedback resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

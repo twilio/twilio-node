@@ -11,8 +11,11 @@ import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the HighriskSpecialPrefixList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the HighriskSpecialPrefixList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param isoCode - The ISO country code
@@ -26,19 +29,24 @@ interface HighriskSpecialPrefixListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: HighriskSpecialPrefixListInstanceEachOptions, callback?: (item: HighriskSpecialPrefixInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Retrieve a single target page of HighriskSpecialPrefixInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of HighriskSpecialPrefixInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -47,7 +55,8 @@ interface HighriskSpecialPrefixListInstance {
   /**
    * Lists HighriskSpecialPrefixInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -55,9 +64,11 @@ interface HighriskSpecialPrefixListInstance {
   list(opts?: HighriskSpecialPrefixListInstanceOptions, callback?: (error: Error | null, items: HighriskSpecialPrefixInstance[]) => any): Promise<HighriskSpecialPrefixInstance[]>;
   /**
    * Retrieve a single page of HighriskSpecialPrefixInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -140,9 +151,11 @@ interface HighriskSpecialPrefixSolution {
 
 declare class HighriskSpecialPrefixInstance extends SerializableClass {
   /**
-   * Initialize the HighriskSpecialPrefixContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the HighriskSpecialPrefixContext
    *
-   * @property prefix - A prefix that includes the E.164 assigned country code
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -160,7 +173,11 @@ declare class HighriskSpecialPrefixInstance extends SerializableClass {
 
 declare class HighriskSpecialPrefixPage extends Page<V1, HighriskSpecialPrefixPayload, HighriskSpecialPrefixResource, HighriskSpecialPrefixInstance> {
   /**
-   * Initialize the HighriskSpecialPrefixPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the HighriskSpecialPrefixPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

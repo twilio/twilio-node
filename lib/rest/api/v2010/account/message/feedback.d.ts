@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type FeedbackOutcome = 'confirmed'|'umconfirmed';
 
 /**
- * @description Initialize the FeedbackList
+ * Initialize the FeedbackList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -65,13 +65,6 @@ interface FeedbackSolution {
 declare class FeedbackInstance extends SerializableClass {
   /**
    * Initialize the FeedbackContext
-   *
-   * @property accountSid - The SID of the Account that created the resource
-   * @property messageSid - The SID of the Message resource for which the feedback was provided
-   * @property outcome - Whether the feedback has arrived
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -14,8 +14,10 @@ import { SerializableClass } from '../../../../interfaces';
 type NotificationPriority = 'high'|'low';
 
 /**
- * @description Initialize the NotificationList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the NotificationList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The service_sid
@@ -110,28 +112,10 @@ interface NotificationSolution {
 
 declare class NotificationInstance extends SerializableClass {
   /**
-   * Initialize the NotificationContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the NotificationContext
    *
-   * @property sid - The sid
-   * @property accountSid - The account_sid
-   * @property serviceSid - The service_sid
-   * @property dateCreated - The date_created
-   * @property identities - List of Identities.
-   * @property tags - List of Tags
-   * @property segments - The segments
-   * @property priority - Two priorities defined: low and high.
-   * @property ttl - This parameter specifies how long the notification is valid.
-   * @property title - Indicates the notification title.
-   * @property body - Indicates the notification body text.
-   * @property sound - Indicates a sound to be played.
-   * @property action - Specifies the actions to be displayed for the notification.
-   * @property data - This parameter specifies the custom key-value pairs of the notification's payload.
-   * @property apn - APNS specific payload that overrides corresponding attributes in a generic payload for Bindings with the apn BindingType.
-   * @property gcm - GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
-   * @property fcm - FCM specific payload that overrides corresponding attributes in generic payload for Bindings with fcm BindingType.
-   * @property sms - SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
-   * @property facebookMessenger - Messenger specific payload that overrides corresponding attributes in generic payload for Bindings with facebook-messenger BindingType.
-   * @property alexa - The alexa
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -168,7 +152,10 @@ declare class NotificationInstance extends SerializableClass {
 
 declare class NotificationPage extends Page<V1, NotificationPayload, NotificationResource, NotificationInstance> {
   /**
-   * Initialize the NotificationPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the NotificationPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -14,8 +14,10 @@ import { DocumentPermissionListInstance } from './document/documentPermission';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the DocumentList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the DocumentList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Document.
@@ -51,9 +53,11 @@ interface DocumentListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -67,9 +71,11 @@ interface DocumentListInstance {
   get(sid: string): DocumentContext;
   /**
    * Retrieve a single target page of DocumentInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -78,7 +84,8 @@ interface DocumentListInstance {
   /**
    * Lists DocumentInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -86,9 +93,11 @@ interface DocumentListInstance {
   list(opts?: DocumentListInstanceOptions, callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
   /**
    * Retrieve a single page of DocumentInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -195,9 +204,10 @@ interface DocumentSolution {
 
 declare class DocumentContext {
   /**
-   * Initialize the DocumentContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentContext
    *
-   * @property documentPermissions - documentPermissions resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -234,20 +244,10 @@ declare class DocumentContext {
 
 declare class DocumentInstance extends SerializableClass {
   /**
-   * Initialize the DocumentContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentContext
    *
-   * @property sid - The unique 34-character SID identifier of the Document.
-   * @property uniqueName - The unique and addressable name of this Document.
-   * @property accountSid - The unique SID identifier of the Twilio Account.
-   * @property serviceSid - The unique SID identifier of the Service Instance that hosts this Document.
-   * @property url - The absolute URL for this Document.
-   * @property links - A dictionary of URL links to nested resources of this Document.
-   * @property revision - Contains the current revision of this Document, represented by a string identifier.
-   * @property data - Contains arbitrary user-defined, schema-less data that this Document stores, represented by a JSON object, up to 16KB.
-   * @property dateExpires - Contains the date this Document expires and gets deleted automatically.
-   * @property dateCreated - The date this Document was created, given in UTC ISO 8601 format.
-   * @property dateUpdated - Specifies the date this Document was last updated, given in UTC ISO 8601 format.
-   * @property createdBy - The identity of the Document creator.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -301,7 +301,10 @@ declare class DocumentInstance extends SerializableClass {
 
 declare class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, DocumentInstance> {
   /**
-   * Initialize the DocumentPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

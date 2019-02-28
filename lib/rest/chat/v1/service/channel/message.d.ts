@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type MessageOrderType = 'asc'|'desc';
 
 /**
- * @description Initialize the MessageList
+ * Initialize the MessageList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this message belongs to.
@@ -50,9 +50,11 @@ interface MessageListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -66,9 +68,11 @@ interface MessageListInstance {
   get(sid: string): MessageContext;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -77,7 +81,8 @@ interface MessageListInstance {
   /**
    * Lists MessageInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -85,9 +90,11 @@ interface MessageListInstance {
   list(opts?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -240,20 +247,6 @@ declare class MessageContext {
 declare class MessageInstance extends SerializableClass {
   /**
    * Initialize the MessageContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this message.
-   * @property attributes - An optional string metadata field you can use to store any data you wish.
-   * @property serviceSid - The unique id of the Service this message belongs to.
-   * @property to - The unique id of the Channel this message was sent to.
-   * @property channelSid - The channel_sid
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property wasEdited - true if the message has been updated since it was created.
-   * @property from - The identity of the message's author.
-   * @property body - The contents of the message.
-   * @property index - The index of the message within the Channel
-   * @property url - An absolute URL for this message.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

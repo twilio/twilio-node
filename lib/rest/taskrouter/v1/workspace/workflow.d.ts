@@ -17,7 +17,7 @@ import { WorkflowStatisticsList } from './workflow/workflowStatistics';
 import { WorkflowStatisticsListInstance } from './workflow/workflowStatistics';
 
 /**
- * @description Initialize the WorkflowList
+ * Initialize the WorkflowList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The ID of the Workspace that contains this Workflow
@@ -59,9 +59,11 @@ interface WorkflowListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -75,9 +77,11 @@ interface WorkflowListInstance {
   get(sid: string): WorkflowContext;
   /**
    * Retrieve a single target page of WorkflowInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -86,7 +90,8 @@ interface WorkflowListInstance {
   /**
    * Lists WorkflowInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -94,9 +99,11 @@ interface WorkflowListInstance {
   list(opts?: WorkflowListInstanceOptions, callback?: (error: Error | null, items: WorkflowInstance[]) => any): Promise<WorkflowInstance[]>;
   /**
    * Retrieve a single page of WorkflowInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -216,10 +223,6 @@ declare class WorkflowContext {
   /**
    * Initialize the WorkflowContext
    *
-   * @property statistics - statistics resource
-   * @property realTimeStatistics - realTimeStatistics resource
-   * @property cumulativeStatistics - cumulativeStatistics resource
-   *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
@@ -258,20 +261,6 @@ declare class WorkflowContext {
 declare class WorkflowInstance extends SerializableClass {
   /**
    * Initialize the WorkflowContext
-   *
-   * @property accountSid - The ID of the account that owns this Workflow
-   * @property assignmentCallbackUrl - The URL that will be called whenever a task managed by this Workflow is assigned to a Worker.
-   * @property configuration - JSON document configuring the rules for this Workflow.
-   * @property dateCreated - The date this workflow was created.
-   * @property dateUpdated - The date this workflow was last updated.
-   * @property documentContentType - The document_content_type
-   * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
-   * @property friendlyName - Human readable description of this Workflow
-   * @property sid - The unique ID of the Workflow
-   * @property taskReservationTimeout - Determines how long TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
-   * @property workspaceSid - The ID of the Workspace that contains this Workflow
-   * @property url - The url
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

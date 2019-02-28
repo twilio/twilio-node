@@ -11,7 +11,7 @@ import V2010 = require('../../../../V2010');
 import { SerializableClass } from '../../../../../../interfaces';
 
 /**
- * @description Initialize the PayloadList
+ * Initialize the PayloadList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique sid that identifies this account
@@ -31,9 +31,11 @@ interface PayloadListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -47,9 +49,11 @@ interface PayloadListInstance {
   get(sid: string): PayloadContext;
   /**
    * Retrieve a single target page of PayloadInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -58,7 +62,8 @@ interface PayloadListInstance {
   /**
    * Lists PayloadInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -66,9 +71,11 @@ interface PayloadListInstance {
   list(opts?: PayloadListInstanceOptions, callback?: (error: Error | null, items: PayloadInstance[]) => any): Promise<PayloadInstance[]>;
   /**
    * Retrieve a single page of PayloadInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -195,18 +202,6 @@ declare class PayloadContext {
 declare class PayloadInstance extends SerializableClass {
   /**
    * Initialize the PayloadContext
-   *
-   * @property sid - A string that uniquely identifies this payload
-   * @property addOnResultSid - A string that uniquely identifies the result
-   * @property accountSid - The unique sid that identifies this account
-   * @property label - A string that describes the payload.
-   * @property addOnSid - A string that uniquely identifies the Add-on.
-   * @property addOnConfigurationSid - A string that uniquely identifies the Add-on configuration.
-   * @property contentType - The MIME type of the payload.
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property referenceSid - A string that uniquely identifies the recording.
-   * @property subresourceUris - A dictionary of URIs for related resources
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

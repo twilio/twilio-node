@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../../interfaces';
 type AuthorizedConnectAppPermission = 'get-all'|'post-all';
 
 /**
- * @description Initialize the AuthorizedConnectAppList
+ * Initialize the AuthorizedConnectAppList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -31,9 +31,11 @@ interface AuthorizedConnectAppListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -46,10 +48,13 @@ interface AuthorizedConnectAppListInstance {
    */
   get(connectAppSid: string): AuthorizedConnectAppContext;
   /**
-   * Retrieve a single target page of AuthorizedConnectAppInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of AuthorizedConnectAppInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -58,7 +63,8 @@ interface AuthorizedConnectAppListInstance {
   /**
    * Lists AuthorizedConnectAppInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -66,9 +72,11 @@ interface AuthorizedConnectAppListInstance {
   list(opts?: AuthorizedConnectAppListInstanceOptions, callback?: (error: Error | null, items: AuthorizedConnectAppInstance[]) => any): Promise<AuthorizedConnectAppInstance[]>;
   /**
    * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -184,17 +192,6 @@ declare class AuthorizedConnectAppContext {
 declare class AuthorizedConnectAppInstance extends SerializableClass {
   /**
    * Initialize the AuthorizedConnectAppContext
-   *
-   * @property accountSid - The SID of the Account that created the resource
-   * @property connectAppCompanyName - The company name set for the Connect App
-   * @property connectAppDescription - A detailed description of the app
-   * @property connectAppFriendlyName - The name of the Connect App
-   * @property connectAppHomepageUrl - The public URL for the Connect App
-   * @property connectAppSid - The SID that we assigned to the Connect App
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property permissions - Permissions authorized to the app
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -15,8 +15,10 @@ import { SyncListPermissionList } from './syncList/syncListPermission';
 import { SyncListPermissionListInstance } from './syncList/syncListPermission';
 
 /**
- * @description Initialize the SyncListList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the SyncListList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
@@ -52,9 +54,11 @@ interface SyncListListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -68,9 +72,11 @@ interface SyncListListInstance {
   get(sid: string): SyncListContext;
   /**
    * Retrieve a single target page of SyncListInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -79,7 +85,8 @@ interface SyncListListInstance {
   /**
    * Lists SyncListInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -87,9 +94,11 @@ interface SyncListListInstance {
   list(opts?: SyncListListInstanceOptions, callback?: (error: Error | null, items: SyncListInstance[]) => any): Promise<SyncListInstance[]>;
   /**
    * Retrieve a single page of SyncListInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -195,10 +204,10 @@ interface SyncListSolution {
 
 declare class SyncListContext {
   /**
-   * Initialize the SyncListContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListContext
    *
-   * @property syncListItems - syncListItems resource
-   * @property syncListPermissions - syncListPermissions resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -236,19 +245,10 @@ declare class SyncListContext {
 
 declare class SyncListInstance extends SerializableClass {
   /**
-   * Initialize the SyncListContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListContext
    *
-   * @property sid - The unique 34-character SID identifier of the List.
-   * @property uniqueName - The unique and addressable name of this List.
-   * @property accountSid - The unique SID identifier of the Twilio Account.
-   * @property serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
-   * @property url - The absolute URL for this List.
-   * @property links - A dictionary of URL links to nested resources of this List.
-   * @property revision - Contains the current revision of this List, represented by a string identifier.
-   * @property dateExpires - Contains the date this List expires and gets deleted automatically.
-   * @property dateCreated - The date this List was created, given in UTC ISO 8601 format.
-   * @property dateUpdated - Specifies the date this List was last updated, given in UTC ISO 8601 format.
-   * @property createdBy - The identity of the List creator.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -305,7 +305,10 @@ declare class SyncListInstance extends SerializableClass {
 
 declare class SyncListPage extends Page<V1, SyncListPayload, SyncListResource, SyncListInstance> {
   /**
-   * Initialize the SyncListPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

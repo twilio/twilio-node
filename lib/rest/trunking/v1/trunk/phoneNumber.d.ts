@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../../interfaces';
 type PhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
 
 /**
- * @description Initialize the PhoneNumberList
+ * Initialize the PhoneNumberList
  *
  * @param version - Version of the resource
  * @param trunkSid - The trunk_sid
@@ -38,9 +38,11 @@ interface PhoneNumberListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -54,9 +56,11 @@ interface PhoneNumberListInstance {
   get(sid: string): PhoneNumberContext;
   /**
    * Retrieve a single target page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -65,7 +69,8 @@ interface PhoneNumberListInstance {
   /**
    * Lists PhoneNumberInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -73,9 +78,11 @@ interface PhoneNumberListInstance {
   list(opts?: PhoneNumberListInstanceOptions, callback?: (error: Error | null, items: PhoneNumberInstance[]) => any): Promise<PhoneNumberInstance[]>;
   /**
    * Retrieve a single page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -222,33 +229,6 @@ declare class PhoneNumberContext {
 declare class PhoneNumberInstance extends SerializableClass {
   /**
    * Initialize the PhoneNumberContext
-   *
-   * @property accountSid - The account_sid
-   * @property addressRequirements - The address_requirements
-   * @property apiVersion - The api_version
-   * @property beta - The beta
-   * @property capabilities - The capabilities
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property friendlyName - The friendly_name
-   * @property links - The links
-   * @property phoneNumber - The phone_number
-   * @property sid - The sid
-   * @property smsApplicationSid - The sms_application_sid
-   * @property smsFallbackMethod - The sms_fallback_method
-   * @property smsFallbackUrl - The sms_fallback_url
-   * @property smsMethod - The sms_method
-   * @property smsUrl - The sms_url
-   * @property statusCallback - The status_callback
-   * @property statusCallbackMethod - The status_callback_method
-   * @property trunkSid - The trunk_sid
-   * @property url - The url
-   * @property voiceApplicationSid - The voice_application_sid
-   * @property voiceCallerIdLookup - The voice_caller_id_lookup
-   * @property voiceFallbackMethod - The voice_fallback_method
-   * @property voiceFallbackUrl - The voice_fallback_url
-   * @property voiceMethod - The voice_method
-   * @property voiceUrl - The voice_url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

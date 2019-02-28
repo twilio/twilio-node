@@ -11,8 +11,11 @@ import Understand = require('../../../Understand');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the TaskStatisticsList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the TaskStatisticsList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The unique ID of the parent Assistant.
@@ -55,7 +58,11 @@ interface TaskStatisticsSolution {
 
 declare class TaskStatisticsContext {
   /**
-   * Initialize the TaskStatisticsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the TaskStatisticsContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The unique ID of the parent Assistant.
@@ -78,14 +85,11 @@ declare class TaskStatisticsContext {
 
 declare class TaskStatisticsInstance extends SerializableClass {
   /**
-   * Initialize the TaskStatisticsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the TaskStatisticsContext
    *
-   * @property accountSid - The unique ID of the Account that created this Field.
-   * @property assistantSid - The unique ID of the parent Assistant.
-   * @property taskSid - The unique ID of the Task associated with this Field.
-   * @property samplesCount - The total number of Samples associated with this Task.
-   * @property fieldsCount - The total number of Fields associated with this Task.
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -116,7 +120,11 @@ declare class TaskStatisticsInstance extends SerializableClass {
 
 declare class TaskStatisticsPage extends Page<Understand, TaskStatisticsPayload, TaskStatisticsResource, TaskStatisticsInstance> {
   /**
-   * Initialize the TaskStatisticsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the TaskStatisticsPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the MobileList
+ * Initialize the MobileList
  *
  * @param version - Version of the resource
  * @param accountSid - The account_sid
@@ -27,9 +27,11 @@ interface MobileListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -37,9 +39,11 @@ interface MobileListInstance {
   each(opts?: MobileListInstanceEachOptions, callback?: (item: MobileInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of MobileInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -48,7 +52,8 @@ interface MobileListInstance {
   /**
    * Lists MobileInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -56,9 +61,11 @@ interface MobileListInstance {
   list(opts?: MobileListInstanceOptions, callback?: (error: Error | null, items: MobileInstance[]) => any): Promise<MobileInstance[]>;
   /**
    * Retrieve a single page of MobileInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -263,20 +270,6 @@ interface MobileSolution {
 declare class MobileInstance extends SerializableClass {
   /**
    * Initialize the MobileContext
-   *
-   * @property friendlyName - A formatted version of the phone number
-   * @property phoneNumber - The phone number in E.164 format
-   * @property lata - The LATA of this phone number
-   * @property locality - The locality or city of this phone number's location
-   * @property rateCenter - The rate center of this phone number
-   * @property latitude - The latitude of this phone number's location
-   * @property longitude - The longitude of this phone number's location
-   * @property region - The two-letter state or province abbreviation of this phone number's location
-   * @property postalCode - The postal or ZIP code of this phone number's location
-   * @property isoCountry - The ISO country code of this phone number
-   * @property addressRequirements - The type of Address resource the phone number requires
-   * @property beta - Whether the phone number is new to the Twilio platform
-   * @property capabilities - Whether a phone number can receive calls or messages
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

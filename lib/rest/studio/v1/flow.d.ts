@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../interfaces';
 type FlowStatus = 'draft'|'published';
 
 /**
- * @description Initialize the FlowList
+ * Initialize the FlowList
  *
  * @param version - Version of the resource
  */
@@ -34,9 +34,11 @@ interface FlowListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -50,9 +52,11 @@ interface FlowListInstance {
   get(sid: string): FlowContext;
   /**
    * Retrieve a single target page of FlowInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -61,7 +65,8 @@ interface FlowListInstance {
   /**
    * Lists FlowInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -69,9 +74,11 @@ interface FlowListInstance {
   list(opts?: FlowListInstanceOptions, callback?: (error: Error | null, items: FlowInstance[]) => any): Promise<FlowInstance[]>;
   /**
    * Retrieve a single page of FlowInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -163,9 +170,6 @@ declare class FlowContext {
   /**
    * Initialize the FlowContext
    *
-   * @property engagements - engagements resource
-   * @property executions - executions resource
-   *
    * @param version - Version of the resource
    * @param sid - A string that uniquely identifies this Flow.
    */
@@ -195,16 +199,6 @@ declare class FlowContext {
 declare class FlowInstance extends SerializableClass {
   /**
    * Initialize the FlowContext
-   *
-   * @property sid - A string that uniquely identifies this Flow.
-   * @property accountSid - Account Sid.
-   * @property friendlyName - A human readable description of this resource.
-   * @property status - The Status of this Flow
-   * @property version - The latest version number of this Flow's definition.
-   * @property dateCreated - The date this Flow was created
-   * @property dateUpdated - The date this Flow was updated
-   * @property url - The URL of this resource.
-   * @property links - Nested resource URLs.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

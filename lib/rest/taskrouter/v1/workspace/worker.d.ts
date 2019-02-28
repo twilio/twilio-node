@@ -22,7 +22,7 @@ import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistic
 import { WorkersRealTimeStatisticsListInstance } from './worker/workersRealTimeStatistics';
 
 /**
- * @description Initialize the WorkerList
+ * Initialize the WorkerList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The ID of the Workflow this worker is associated with
@@ -62,9 +62,11 @@ interface WorkerListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -78,9 +80,11 @@ interface WorkerListInstance {
   get(sid: string): WorkerContext;
   /**
    * Retrieve a single target page of WorkerInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -89,7 +93,8 @@ interface WorkerListInstance {
   /**
    * Lists WorkerInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -97,9 +102,11 @@ interface WorkerListInstance {
   list(opts?: WorkerListInstanceOptions, callback?: (error: Error | null, items: WorkerInstance[]) => any): Promise<WorkerInstance[]>;
   /**
    * Retrieve a single page of WorkerInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -252,12 +259,6 @@ declare class WorkerContext {
   /**
    * Initialize the WorkerContext
    *
-   * @property realTimeStatistics - realTimeStatistics resource
-   * @property cumulativeStatistics - cumulativeStatistics resource
-   * @property statistics - statistics resource
-   * @property reservations - reservations resource
-   * @property workerChannels - workerChannels resource
-   *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
@@ -298,20 +299,6 @@ declare class WorkerContext {
 declare class WorkerInstance extends SerializableClass {
   /**
    * Initialize the WorkerContext
-   *
-   * @property accountSid - The ID of the account that owns this worker
-   * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
-   * @property activitySid - Filter by workers that are in a particular Activity by SID
-   * @property attributes - JSON object describing this worker.
-   * @property available - Filter by workers that are available or unavailable.
-   * @property dateCreated - DateTime this worker was created
-   * @property dateStatusChanged - DateTime of the last change to the Worker's activity.
-   * @property dateUpdated - DateTime of the last update
-   * @property friendlyName - Filter by a worker's friendly name
-   * @property sid - The unique ID of the worker
-   * @property workspaceSid - The ID of the Workflow this worker is associated with
-   * @property url - The url
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
