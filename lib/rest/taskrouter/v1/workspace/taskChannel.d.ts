@@ -11,7 +11,7 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the TaskChannelList
+ * Initialize the TaskChannelList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
@@ -45,9 +45,11 @@ interface TaskChannelListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -61,9 +63,11 @@ interface TaskChannelListInstance {
   get(sid: string): TaskChannelContext;
   /**
    * Retrieve a single target page of TaskChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -72,7 +76,8 @@ interface TaskChannelListInstance {
   /**
    * Lists TaskChannelInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -80,9 +85,11 @@ interface TaskChannelListInstance {
   list(opts?: TaskChannelListInstanceOptions, callback?: (error: Error | null, items: TaskChannelInstance[]) => any): Promise<TaskChannelInstance[]>;
   /**
    * Retrieve a single page of TaskChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -221,16 +228,6 @@ declare class TaskChannelContext {
 declare class TaskChannelInstance extends SerializableClass {
   /**
    * Initialize the TaskChannelContext
-   *
-   * @property accountSid - The unique ID of the Account that owns this TaskChannel.
-   * @property dateCreated - The date this TaskChannel was created.
-   * @property dateUpdated - The date this TaskChannel was updated.
-   * @property friendlyName - The friendly name of this TaskChannel
-   * @property sid - The unique ID for this TaskChannel.
-   * @property uniqueName - The unique name of TaskChannel, such as 'voice', 'sms', etc.
-   * @property workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
-   * @property url - The url
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

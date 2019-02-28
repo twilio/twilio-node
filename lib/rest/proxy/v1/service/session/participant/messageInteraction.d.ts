@@ -16,8 +16,10 @@ type MessageInteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|
 type MessageInteractionType = 'message'|'voice'|'unknown';
 
 /**
- * @description Initialize the MessageInteractionList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the MessageInteractionList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -44,9 +46,11 @@ interface MessageInteractionListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -59,10 +63,13 @@ interface MessageInteractionListInstance {
    */
   get(sid: string): MessageInteractionContext;
   /**
-   * Retrieve a single target page of MessageInteractionInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of MessageInteractionInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -71,7 +78,8 @@ interface MessageInteractionListInstance {
   /**
    * Lists MessageInteractionInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -79,9 +87,11 @@ interface MessageInteractionListInstance {
   list(opts?: MessageInteractionListInstanceOptions, callback?: (error: Error | null, items: MessageInteractionInstance[]) => any): Promise<MessageInteractionInstance[]>;
   /**
    * Retrieve a single page of MessageInteractionInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -196,7 +206,10 @@ interface MessageInteractionSolution {
 
 declare class MessageInteractionContext {
   /**
-   * Initialize the MessageInteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the MessageInteractionContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -221,28 +234,10 @@ declare class MessageInteractionContext {
 
 declare class MessageInteractionInstance extends SerializableClass {
   /**
-   * Initialize the MessageInteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the MessageInteractionContext
    *
-   * @property sid - A string that uniquely identifies this Message Interaction.
-   * @property sessionSid - Session Sid.
-   * @property serviceSid - Service Sid.
-   * @property accountSid - Account Sid.
-   * @property data - Message body
-   * @property type - The Type of this Message Interaction
-   * @property participantSid - Participant Sid.
-   * @property inboundParticipantSid - Always empty for Message Interactions.
-   * @property inboundResourceSid - Always empty for Message Interactions.
-   * @property inboundResourceStatus - Always empty for Message Interactions.
-   * @property inboundResourceType - Always empty for Message Interactions.
-   * @property inboundResourceUrl - Always empty for Message Interactions.
-   * @property outboundParticipantSid - Outbound Participant Sid.
-   * @property outboundResourceSid - Outbound message resource Sid.
-   * @property outboundResourceStatus - The Outbound Resource Status of this Message Interaction
-   * @property outboundResourceType - Message
-   * @property outboundResourceUrl - The URL of the Twilio message resource.
-   * @property dateCreated - The date this Message Interaction was created
-   * @property dateUpdated - The date this Message Interaction was last updated
-   * @property url - The URL of this resource.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -289,7 +284,10 @@ declare class MessageInteractionInstance extends SerializableClass {
 
 declare class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
   /**
-   * Initialize the MessageInteractionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the MessageInteractionPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -13,8 +13,10 @@ import { StreamMessageList } from './syncStream/streamMessage';
 import { StreamMessageListInstance } from './syncStream/streamMessage';
 
 /**
- * @description Initialize the SyncStreamList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the SyncStreamList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Instance SID.
@@ -48,9 +50,11 @@ interface SyncStreamListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -64,9 +68,11 @@ interface SyncStreamListInstance {
   get(sid: string): SyncStreamContext;
   /**
    * Retrieve a single target page of SyncStreamInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -75,7 +81,8 @@ interface SyncStreamListInstance {
   /**
    * Lists SyncStreamInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -83,9 +90,11 @@ interface SyncStreamListInstance {
   list(opts?: SyncStreamListInstanceOptions, callback?: (error: Error | null, items: SyncStreamInstance[]) => any): Promise<SyncStreamInstance[]>;
   /**
    * Retrieve a single page of SyncStreamInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -188,9 +197,10 @@ interface SyncStreamSolution {
 
 declare class SyncStreamContext {
   /**
-   * Initialize the SyncStreamContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncStreamContext
    *
-   * @property streamMessages - streamMessages resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Instance SID or unique name.
@@ -227,18 +237,10 @@ declare class SyncStreamContext {
 
 declare class SyncStreamInstance extends SerializableClass {
   /**
-   * Initialize the SyncStreamContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncStreamContext
    *
-   * @property sid - Stream SID.
-   * @property uniqueName - Stream unique name.
-   * @property accountSid - Twilio Account SID.
-   * @property serviceSid - Service Instance SID.
-   * @property url - URL of this Stream.
-   * @property links - Nested resource URLs.
-   * @property dateExpires - The date this Stream expires.
-   * @property dateCreated - The date this Stream was created.
-   * @property dateUpdated - The date this Stream was updated.
-   * @property createdBy - Identity of the Stream creator.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -290,7 +292,10 @@ declare class SyncStreamInstance extends SerializableClass {
 
 declare class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResource, SyncStreamInstance> {
   /**
-   * Initialize the SyncStreamPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncStreamPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

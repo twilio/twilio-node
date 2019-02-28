@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../interfaces';
 type PhoneNumberType = 'landline'|'mobile'|'voip';
 
 /**
- * @description Initialize the PhoneNumberList
+ * Initialize the PhoneNumberList
  *
  * @param version - Version of the resource
  */
@@ -95,14 +95,6 @@ declare class PhoneNumberContext {
 declare class PhoneNumberInstance extends SerializableClass {
   /**
    * Initialize the PhoneNumberContext
-   *
-   * @property callerName - String indicating the name of the owner of the phone number.
-   * @property countryCode - The ISO country code for the phone number.
-   * @property phoneNumber - The phone number, in E.
-   * @property nationalFormat - The phone number, in national format.
-   * @property carrier - The carrier
-   * @property addOns - Results of any Add-ons you have specified using the AddOn parameter in the request, as a JSON dictionary.
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

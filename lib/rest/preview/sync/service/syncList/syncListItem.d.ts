@@ -16,8 +16,11 @@ type SyncListItemQueryFromBoundType = 'inclusive'|'exclusive';
 type SyncListItemQueryResultOrder = 'asc'|'desc';
 
 /**
- * @description Initialize the SyncListItemList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the SyncListItemList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param serviceSid - The service_sid
@@ -52,9 +55,11 @@ interface SyncListItemListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -68,9 +73,11 @@ interface SyncListItemListInstance {
   get(index: string): SyncListItemContext;
   /**
    * Retrieve a single target page of SyncListItemInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -79,7 +86,8 @@ interface SyncListItemListInstance {
   /**
    * Lists SyncListItemInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -87,9 +95,11 @@ interface SyncListItemListInstance {
   list(opts?: SyncListItemListInstanceOptions, callback?: (error: Error | null, items: SyncListItemInstance[]) => any): Promise<SyncListItemInstance[]>;
   /**
    * Retrieve a single page of SyncListItemInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -209,7 +219,11 @@ interface SyncListItemSolution {
 
 declare class SyncListItemContext {
   /**
-   * Initialize the SyncListItemContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListItemContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -246,18 +260,11 @@ declare class SyncListItemContext {
 
 declare class SyncListItemInstance extends SerializableClass {
   /**
-   * Initialize the SyncListItemContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListItemContext
    *
-   * @property index - The index
-   * @property accountSid - The account_sid
-   * @property serviceSid - The service_sid
-   * @property listSid - The list_sid
-   * @property url - The url
-   * @property revision - The revision
-   * @property data - The data
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property createdBy - The created_by
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -306,7 +313,11 @@ declare class SyncListItemInstance extends SerializableClass {
 
 declare class SyncListItemPage extends Page<Sync, SyncListItemPayload, SyncListItemResource, SyncListItemInstance> {
   /**
-   * Initialize the SyncListItemPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListItemPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

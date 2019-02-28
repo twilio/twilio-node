@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the NotificationList
+ * Initialize the NotificationList
  *
  * @param version - Version of the resource
  * @param accountSid - The account_sid
@@ -31,9 +31,11 @@ interface NotificationListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -47,9 +49,11 @@ interface NotificationListInstance {
   get(sid: string): NotificationContext;
   /**
    * Retrieve a single target page of NotificationInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -58,7 +62,8 @@ interface NotificationListInstance {
   /**
    * Lists NotificationInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -66,9 +71,11 @@ interface NotificationListInstance {
   list(opts?: NotificationListInstanceOptions, callback?: (error: Error | null, items: NotificationInstance[]) => any): Promise<NotificationInstance[]>;
   /**
    * Retrieve a single page of NotificationInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -223,24 +230,6 @@ declare class NotificationContext {
 declare class NotificationInstance extends SerializableClass {
   /**
    * Initialize the NotificationContext
-   *
-   * @property accountSid - The account_sid
-   * @property apiVersion - The api_version
-   * @property callSid - The call_sid
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property errorCode - The error_code
-   * @property log - The log
-   * @property messageDate - The message_date
-   * @property messageText - The message_text
-   * @property moreInfo - The more_info
-   * @property requestMethod - The request_method
-   * @property requestUrl - The request_url
-   * @property requestVariables - The request_variables
-   * @property responseBody - The response_body
-   * @property responseHeaders - The response_headers
-   * @property sid - The sid
-   * @property uri - The uri
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

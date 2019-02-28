@@ -22,8 +22,10 @@ type FaxStatus = 'queued'|'processing'|'sending'|'delivered'|'receiving'|'receiv
 type FaxUpdateStatus = 'canceled';
 
 /**
- * @description Initialize the FaxList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the FaxList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -56,9 +58,11 @@ interface FaxListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -72,9 +76,11 @@ interface FaxListInstance {
   get(sid: string): FaxContext;
   /**
    * Retrieve a single target page of FaxInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -83,7 +89,8 @@ interface FaxListInstance {
   /**
    * Lists FaxInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -91,9 +98,11 @@ interface FaxListInstance {
   list(opts?: FaxListInstanceOptions, callback?: (error: Error | null, items: FaxInstance[]) => any): Promise<FaxInstance[]>;
   /**
    * Retrieve a single page of FaxInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -241,9 +250,10 @@ interface FaxSolution {
 
 declare class FaxContext {
   /**
-   * Initialize the FaxContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxContext
    *
-   * @property media - media resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param sid - A string that uniquely identifies this fax.
@@ -279,26 +289,10 @@ declare class FaxContext {
 
 declare class FaxInstance extends SerializableClass {
   /**
-   * Initialize the FaxContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxContext
    *
-   * @property sid - A string that uniquely identifies this fax.
-   * @property accountSid - Account SID
-   * @property from - The party that sent the fax
-   * @property to - The party that received the fax
-   * @property quality - The quality of this fax
-   * @property mediaSid - Media SID
-   * @property mediaUrl - URL pointing to fax media
-   * @property numPages - Number of pages
-   * @property duration - The time taken to transmit the fax
-   * @property status - The status of this fax
-   * @property direction - The direction of this fax
-   * @property apiVersion - The API version used
-   * @property price - Fax transmission price
-   * @property priceUnit - Currency used for billing
-   * @property dateCreated - The date this fax was created
-   * @property dateUpdated - The date this fax was updated
-   * @property links - Nested resource URLs
-   * @property url - The URL of this resource
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -357,7 +351,10 @@ declare class FaxInstance extends SerializableClass {
 
 declare class FaxPage extends Page<V1, FaxPayload, FaxResource, FaxInstance> {
   /**
-   * Initialize the FaxPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

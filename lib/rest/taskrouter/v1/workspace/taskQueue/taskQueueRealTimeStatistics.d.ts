@@ -11,7 +11,7 @@ import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the TaskQueueRealTimeStatisticsList
+ * Initialize the TaskQueueRealTimeStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The workspace_sid
@@ -94,19 +94,6 @@ declare class TaskQueueRealTimeStatisticsContext {
 declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
   /**
    * Initialize the TaskQueueRealTimeStatisticsContext
-   *
-   * @property accountSid - The account_sid
-   * @property activityStatistics - The current Worker status count breakdown by Activity
-   * @property longestTaskWaitingAge - The age of the longest waiting Task
-   * @property longestTaskWaitingSid - The SID of the longest waiting Task
-   * @property taskQueueSid - The task_queue_sid
-   * @property tasksByPriority - The Tasks broken down by priority
-   * @property tasksByStatus - The Tasks broken down by status
-   * @property totalAvailableWorkers - The total number of Workers available for Tasks in this TaskQueue
-   * @property totalEligibleWorkers - The total number of Workers eligible for Tasks in this TaskQueue, irrespective of Activity state.
-   * @property totalTasks - The total number of Tasks
-   * @property workspaceSid - The workspace_sid
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

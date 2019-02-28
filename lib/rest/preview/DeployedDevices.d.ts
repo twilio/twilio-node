@@ -15,8 +15,6 @@ declare class DeployedDevices extends Version {
   /**
    * Initialize the DeployedDevices version of Preview
    *
-   * @property fleets - fleets resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Preview);

@@ -11,7 +11,7 @@ import V2010 = require('../../V2010');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the OutgoingCallerIdList
+ * Initialize the OutgoingCallerIdList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -38,9 +38,11 @@ interface OutgoingCallerIdListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -54,9 +56,11 @@ interface OutgoingCallerIdListInstance {
   get(sid: string): OutgoingCallerIdContext;
   /**
    * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -65,7 +69,8 @@ interface OutgoingCallerIdListInstance {
   /**
    * Lists OutgoingCallerIdInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -73,9 +78,11 @@ interface OutgoingCallerIdListInstance {
   list(opts?: OutgoingCallerIdListInstanceOptions, callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any): Promise<OutgoingCallerIdInstance[]>;
   /**
    * Retrieve a single page of OutgoingCallerIdInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -213,14 +220,6 @@ declare class OutgoingCallerIdContext {
 declare class OutgoingCallerIdInstance extends SerializableClass {
   /**
    * Initialize the OutgoingCallerIdContext
-   *
-   * @property sid - The unique string that identifies the resource
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property accountSid - The SID of the Account that created the resource
-   * @property phoneNumber - The phone number in E.164 format
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

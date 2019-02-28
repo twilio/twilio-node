@@ -40,33 +40,6 @@ declare class V2010 extends Version {
   /**
    * Initialize the V2010 version of Api
    *
-   * @property accounts - accounts resource
-   * @property account - account resource
-   * @property addresses - addresses resource
-   * @property applications - applications resource
-   * @property authorizedConnectApps - authorizedConnectApps resource
-   * @property availablePhoneNumbers - availablePhoneNumbers resource
-   * @property balance - balance resource
-   * @property calls - calls resource
-   * @property conferences - conferences resource
-   * @property connectApps - connectApps resource
-   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
-   * @property keys - keys resource
-   * @property messages - messages resource
-   * @property newKeys - newKeys resource
-   * @property newSigningKeys - newSigningKeys resource
-   * @property notifications - notifications resource
-   * @property outgoingCallerIds - outgoingCallerIds resource
-   * @property queues - queues resource
-   * @property recordings - recordings resource
-   * @property signingKeys - signingKeys resource
-   * @property sip - sip resource
-   * @property shortCodes - shortCodes resource
-   * @property tokens - tokens resource
-   * @property transcriptions - transcriptions resource
-   * @property usage - usage resource
-   * @property validationRequests - validationRequests resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Api);

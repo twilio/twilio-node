@@ -11,7 +11,7 @@ import V2010 = require('../../V2010');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the BalanceList
+ * Initialize the BalanceList
  *
  * @param version - Version of the resource
  * @param accountSid - Account Sid.
@@ -48,10 +48,6 @@ interface BalanceSolution {
 declare class BalanceInstance extends SerializableClass {
   /**
    * Initialize the BalanceContext
-   *
-   * @property accountSid - Account Sid.
-   * @property balance - Account balance
-   * @property currency - Currency units
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -18,7 +18,7 @@ import { SubscribedTrackListInstance } from './roomParticipant/roomParticipantSu
 type ParticipantStatus = 'connected'|'disconnected';
 
 /**
- * @description Initialize the ParticipantList
+ * Initialize the ParticipantList
  *
  * @param version - Version of the resource
  * @param roomSid - A system-generated 34-character string that uniquely identifies.
@@ -45,9 +45,11 @@ interface ParticipantListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -61,9 +63,11 @@ interface ParticipantListInstance {
   get(sid: string): ParticipantContext;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -72,7 +76,8 @@ interface ParticipantListInstance {
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -80,9 +85,11 @@ interface ParticipantListInstance {
   list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -202,9 +209,6 @@ declare class ParticipantContext {
   /**
    * Initialize the ParticipantContext
    *
-   * @property publishedTracks - publishedTracks resource
-   * @property subscribedTracks - subscribedTracks resource
-   *
    * @param version - Version of the resource
    * @param roomSid - The room_sid
    * @param sid - The sid
@@ -236,19 +240,6 @@ declare class ParticipantContext {
 declare class ParticipantInstance extends SerializableClass {
   /**
    * Initialize the ParticipantContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property roomSid - A system-generated 34-character string that uniquely identifies.
-   * @property accountSid - The unique ID of the Account associated with this Room.
-   * @property status - A string representing the status of the Participant.
-   * @property identity - The unique name identifier that is assigned to this Participant.
-   * @property dateCreated - The date that this resource was created, given as a UTC ISO 8601 Timestamp.
-   * @property dateUpdated - The date that this resource was last updated, given as a UTC ISO 8601 Timestamp.
-   * @property startTime - The time of Participant connected to the Room, given as a UTC ISO 8601 Timestamp.
-   * @property endTime - The time of Participant disconnected from the Room, given as a UTC ISO 8601 Timestamp.
-   * @property duration - Duration of time in seconds this Participant was connected.
-   * @property url - The absolute URL for this resource.
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

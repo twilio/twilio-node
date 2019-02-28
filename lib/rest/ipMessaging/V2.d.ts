@@ -17,9 +17,6 @@ declare class V2 extends Version {
   /**
    * Initialize the V2 version of IpMessaging
    *
-   * @property credentials - credentials resource
-   * @property services - services resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: IpMessaging);

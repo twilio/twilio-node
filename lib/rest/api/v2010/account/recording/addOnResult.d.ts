@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type AddOnResultStatus = 'canceled'|'completed'|'deleted'|'failed'|'in-progress'|'init'|'processing'|'queued';
 
 /**
- * @description Initialize the AddOnResultList
+ * Initialize the AddOnResultList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique sid that identifies this account
@@ -34,9 +34,11 @@ interface AddOnResultListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -50,9 +52,11 @@ interface AddOnResultListInstance {
   get(sid: string): AddOnResultContext;
   /**
    * Retrieve a single target page of AddOnResultInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -61,7 +65,8 @@ interface AddOnResultListInstance {
   /**
    * Lists AddOnResultInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -69,9 +74,11 @@ interface AddOnResultListInstance {
   list(opts?: AddOnResultListInstanceOptions, callback?: (error: Error | null, items: AddOnResultInstance[]) => any): Promise<AddOnResultInstance[]>;
   /**
    * Retrieve a single page of AddOnResultInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -166,8 +173,6 @@ declare class AddOnResultContext {
   /**
    * Initialize the AddOnResultContext
    *
-   * @property payloads - payloads resource
-   *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param referenceSid - The reference_sid
@@ -198,17 +203,6 @@ declare class AddOnResultContext {
 declare class AddOnResultInstance extends SerializableClass {
   /**
    * Initialize the AddOnResultContext
-   *
-   * @property sid - A string that uniquely identifies this result
-   * @property accountSid - The unique sid that identifies this account
-   * @property status - The status of this result.
-   * @property addOnSid - A string that uniquely identifies the Add-on.
-   * @property addOnConfigurationSid - A string that uniquely identifies the Add-on configuration.
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property dateCompleted - The date this result was completed.
-   * @property referenceSid - A string that uniquely identifies the recording.
-   * @property subresourceUris - A dictionary of URIs for related resources
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

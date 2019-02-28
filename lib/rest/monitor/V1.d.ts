@@ -17,9 +17,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Monitor
    *
-   * @property alerts - alerts resource
-   * @property events - events resource
-   *
    * @param domain - The twilio domain
    */
   constructor(domain: Monitor);

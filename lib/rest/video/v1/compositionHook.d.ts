@@ -14,8 +14,11 @@ import { SerializableClass } from '../../../interfaces';
 type CompositionHookFormat = 'mp4'|'webm';
 
 /**
- * @description Initialize the CompositionHookList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the CompositionHookList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -66,9 +69,11 @@ interface CompositionHookListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -82,9 +87,11 @@ interface CompositionHookListInstance {
   get(sid: string): CompositionHookContext;
   /**
    * Retrieve a single target page of CompositionHookInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -93,7 +100,8 @@ interface CompositionHookListInstance {
   /**
    * Lists CompositionHookInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -101,9 +109,11 @@ interface CompositionHookListInstance {
   list(opts?: CompositionHookListInstanceOptions, callback?: (error: Error | null, items: CompositionHookInstance[]) => any): Promise<CompositionHookInstance[]>;
   /**
    * Retrieve a single page of CompositionHookInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -250,7 +260,11 @@ interface CompositionHookSolution {
 
 declare class CompositionHookContext {
   /**
-   * Initialize the CompositionHookContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionHookContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - The Composition Hook Sid that uniquely identifies the Composition Hook to fetch.
@@ -285,23 +299,11 @@ declare class CompositionHookContext {
 
 declare class CompositionHookInstance extends SerializableClass {
   /**
-   * Initialize the CompositionHookContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionHookContext
    *
-   * @property accountSid - Twilio Account SID.
-   * @property friendlyName - Friendly name of the Composition Hook to be shown in the console.
-   * @property enabled - Boolean flag indicating if the Composition Hook is active.
-   * @property dateCreated - Date when the Composition Hook Resource was created.
-   * @property dateUpdated - Date when the Composition Hook was last updated.
-   * @property sid - A 34-character string that uniquely identifies this Composition Hook.
-   * @property audioSources - A list of audio sources related to this Composition Hook.
-   * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition Hook.
-   * @property videoLayout - The JSON video layout description.
-   * @property resolution - Pixel resolution of the composed video.
-   * @property trim - Boolean flag for clipping intervals that have no media.
-   * @property format - The file format for the Compositions triggered by the Composition Hook.
-   * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
-   * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
-   * @property url - The absolute URL for this resource.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -353,7 +355,11 @@ declare class CompositionHookInstance extends SerializableClass {
 
 declare class CompositionHookPage extends Page<V1, CompositionHookPayload, CompositionHookResource, CompositionHookInstance> {
   /**
-   * Initialize the CompositionHookPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionHookPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

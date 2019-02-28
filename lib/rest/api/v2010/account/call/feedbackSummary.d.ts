@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type FeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
 
 /**
- * @description Initialize the FeedbackSummaryList
+ * Initialize the FeedbackSummaryList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
@@ -119,21 +119,6 @@ declare class FeedbackSummaryContext {
 declare class FeedbackSummaryInstance extends SerializableClass {
   /**
    * Initialize the FeedbackSummaryContext
-   *
-   * @property accountSid - The unique sid that identifies this account
-   * @property callCount - The total number of calls
-   * @property callFeedbackCount - The total number of calls with a feedback entry
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property endDate - The latest feedback entry date in the summary
-   * @property includeSubaccounts - Whether the feedback summary includes subaccounts
-   * @property issues - Issues experienced during the call
-   * @property qualityScoreAverage - The average QualityScore of the feedback entries
-   * @property qualityScoreMedian - The median QualityScore of the feedback entries
-   * @property qualityScoreStandardDeviation - The standard deviation of the quality scores
-   * @property sid - A string that uniquely identifies this feedback entry
-   * @property startDate - The earliest feedback entry date in the summary
-   * @property status - The status of the feedback summary
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

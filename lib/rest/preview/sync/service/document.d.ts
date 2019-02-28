@@ -14,8 +14,11 @@ import { DocumentPermissionListInstance } from './document/documentPermission';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the DocumentList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the DocumentList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param serviceSid - The service_sid
@@ -49,9 +52,11 @@ interface DocumentListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -65,9 +70,11 @@ interface DocumentListInstance {
   get(sid: string): DocumentContext;
   /**
    * Retrieve a single target page of DocumentInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -76,7 +83,8 @@ interface DocumentListInstance {
   /**
    * Lists DocumentInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -84,9 +92,11 @@ interface DocumentListInstance {
   list(opts?: DocumentListInstanceOptions, callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
   /**
    * Retrieve a single page of DocumentInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -190,9 +200,11 @@ interface DocumentSolution {
 
 declare class DocumentContext {
   /**
-   * Initialize the DocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DocumentContext
    *
-   * @property documentPermissions - documentPermissions resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -229,19 +241,11 @@ declare class DocumentContext {
 
 declare class DocumentInstance extends SerializableClass {
   /**
-   * Initialize the DocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DocumentContext
    *
-   * @property sid - The sid
-   * @property uniqueName - The unique_name
-   * @property accountSid - The account_sid
-   * @property serviceSid - The service_sid
-   * @property url - The url
-   * @property links - The links
-   * @property revision - The revision
-   * @property data - The data
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property createdBy - The created_by
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -294,7 +298,11 @@ declare class DocumentInstance extends SerializableClass {
 
 declare class DocumentPage extends Page<Sync, DocumentPayload, DocumentResource, DocumentInstance> {
   /**
-   * Initialize the DocumentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DocumentPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

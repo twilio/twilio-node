@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../../interfaces';
 type TaskStatus = 'pending'|'reserved'|'assigned'|'canceled'|'completed'|'wrapping';
 
 /**
- * @description Initialize the TaskList
+ * Initialize the TaskList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The ID of the Workspace that holds this Task
@@ -58,9 +58,11 @@ interface TaskListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -74,9 +76,11 @@ interface TaskListInstance {
   get(sid: string): TaskContext;
   /**
    * Retrieve a single target page of TaskInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -85,7 +89,8 @@ interface TaskListInstance {
   /**
    * Lists TaskInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -93,9 +98,11 @@ interface TaskListInstance {
   list(opts?: TaskListInstanceOptions, callback?: (error: Error | null, items: TaskInstance[]) => any): Promise<TaskInstance[]>;
   /**
    * Retrieve a single page of TaskInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -270,8 +277,6 @@ declare class TaskContext {
   /**
    * Initialize the TaskContext
    *
-   * @property reservations - reservations resource
-   *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
@@ -308,27 +313,6 @@ declare class TaskContext {
 declare class TaskInstance extends SerializableClass {
   /**
    * Initialize the TaskContext
-   *
-   * @property accountSid - The ID of the account that owns this Task
-   * @property age - The number of seconds since this task was created.
-   * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
-   * @property attributes - The user-defined JSON string describing the custom attributes of this work.
-   * @property addons - The addon data for all installed addons is returned with this attribute
-   * @property dateCreated - Date this task was created, given as ISO 8601 format.
-   * @property dateUpdated - Date this task was updated, given as ISO 8601 format.
-   * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
-   * @property reason - The reason the task was canceled  or completed
-   * @property sid - The unique ID of the Task
-   * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
-   * @property taskQueueFriendlyName - The task_queue_friendly_name
-   * @property taskChannelSid - The ID of the Task Channel
-   * @property taskChannelUniqueName - The unique name of the Task Channel
-   * @property timeout - The amount of time in seconds the task is allowed to live
-   * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
-   * @property workflowFriendlyName - The workflow_friendly_name
-   * @property workspaceSid - The ID of the Workspace that holds this Task
-   * @property url - The url
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

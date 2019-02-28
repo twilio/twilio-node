@@ -11,7 +11,7 @@ import V2010 = require('../../../../../../V2010');
 import { SerializableClass } from '../../../../../../../../interfaces';
 
 /**
- * @description Initialize the AuthCallsIpAccessControlListMappingList
+ * Initialize the AuthCallsIpAccessControlListMappingList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -37,9 +37,11 @@ interface AuthCallsIpAccessControlListMappingListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -52,29 +54,37 @@ interface AuthCallsIpAccessControlListMappingListInstance {
    */
   get(sid: string): AuthCallsIpAccessControlListMappingContext;
   /**
-   * Retrieve a single target page of AuthCallsIpAccessControlListMappingInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of AuthCallsIpAccessControlListMappingInstance
+   * records from the API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
   getPage(targetUrl?: string, callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingPage) => any): Promise<AuthCallsIpAccessControlListMappingPage>;
   /**
-   * Lists AuthCallsIpAccessControlListMappingInstance records from the API as a list.
+   * Lists AuthCallsIpAccessControlListMappingInstance records from the API as a
+   * list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: AuthCallsIpAccessControlListMappingListInstanceOptions, callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance[]) => any): Promise<AuthCallsIpAccessControlListMappingInstance[]>;
   /**
-   * Retrieve a single page of AuthCallsIpAccessControlListMappingInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single page of AuthCallsIpAccessControlListMappingInstance records
+   * from the API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -202,12 +212,6 @@ declare class AuthCallsIpAccessControlListMappingContext {
 declare class AuthCallsIpAccessControlListMappingInstance extends SerializableClass {
   /**
    * Initialize the AuthCallsIpAccessControlListMappingContext
-   *
-   * @property accountSid - The SID of the Account that created the resource
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property sid - The unique string that identifies the resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

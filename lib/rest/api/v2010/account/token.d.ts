@@ -11,7 +11,7 @@ import V2010 = require('../../V2010');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the TokenList
+ * Initialize the TokenList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -62,14 +62,6 @@ interface TokenSolution {
 declare class TokenInstance extends SerializableClass {
   /**
    * Initialize the TokenContext
-   *
-   * @property accountSid - The SID of the Account that created the resource
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property iceServers - An array representing the ephemeral credentials
-   * @property password - The temporary password used for authenticating
-   * @property ttl - The duration in seconds the credentials are valid
-   * @property username - The temporary username that uniquely identifies a Token
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

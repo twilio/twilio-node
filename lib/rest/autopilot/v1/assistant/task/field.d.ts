@@ -11,8 +11,11 @@ import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the FieldList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the FieldList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The unique ID of the Assistant.
@@ -38,9 +41,11 @@ interface FieldListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -54,9 +59,11 @@ interface FieldListInstance {
   get(sid: string): FieldContext;
   /**
    * Retrieve a single target page of FieldInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -65,7 +72,8 @@ interface FieldListInstance {
   /**
    * Lists FieldInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -73,9 +81,11 @@ interface FieldListInstance {
   list(opts?: FieldListInstanceOptions, callback?: (error: Error | null, items: FieldInstance[]) => any): Promise<FieldInstance[]>;
   /**
    * Retrieve a single page of FieldInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -178,7 +188,11 @@ interface FieldSolution {
 
 declare class FieldContext {
   /**
-   * Initialize the FieldContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The unique ID of the Assistant.
@@ -208,17 +222,11 @@ declare class FieldContext {
 
 declare class FieldInstance extends SerializableClass {
   /**
-   * Initialize the FieldContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldContext
    *
-   * @property accountSid - The unique ID of the Account that created this Field.
-   * @property dateCreated - The date that this resource was created
-   * @property dateUpdated - The date that this resource was last updated
-   * @property fieldType - The Field Type of this field. It can be either a Built-in Field Type or the unique_name or sid of a custom Field Type.
-   * @property taskSid - The unique ID of the Task associated with this Field.
-   * @property assistantSid - The unique ID of the Assistant.
-   * @property sid - A 34-character string that uniquely identifies this resource.
-   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -259,7 +267,11 @@ declare class FieldInstance extends SerializableClass {
 
 declare class FieldPage extends Page<V1, FieldPayload, FieldResource, FieldInstance> {
   /**
-   * Initialize the FieldPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type MemberWebhookEnabledType = 'true'|'false';
 
 /**
- * @description Initialize the MemberList
+ * Initialize the MemberList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this member belongs to.
@@ -59,9 +59,11 @@ interface MemberListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -75,9 +77,11 @@ interface MemberListInstance {
   get(sid: string): MemberContext;
   /**
    * Retrieve a single target page of MemberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -86,7 +90,8 @@ interface MemberListInstance {
   /**
    * Lists MemberInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -94,9 +99,11 @@ interface MemberListInstance {
   list(opts?: MemberListInstanceOptions, callback?: (error: Error | null, items: MemberInstance[]) => any): Promise<MemberInstance[]>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -256,19 +263,6 @@ declare class MemberContext {
 declare class MemberInstance extends SerializableClass {
   /**
    * Initialize the MemberContext
-   *
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account responsible for this member.
-   * @property channelSid - The unique id of the Channel for this member.
-   * @property serviceSid - The unique id of the Service this member belongs to.
-   * @property identity - A unique string identifier for this User in this Service.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property roleSid - The Role assigned to this member.
-   * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
-   * @property lastConsumptionTimestamp - An ISO8601 based timestamp string representing the datetime of the last Message read event for this Member within this Channel
-   * @property url - An absolute URL for this member.
-   * @property attributes - An optional string metadata field you can use to store any data you wish.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

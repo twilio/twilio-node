@@ -63,7 +63,7 @@ type AccountStatus = 'active'|'suspended'|'closed';
 type AccountType = 'Trial'|'Full';
 
 /**
- * @description Initialize the AccountList
+ * Initialize the AccountList
  *
  * @param version - Version of the resource
  */
@@ -98,9 +98,11 @@ interface AccountListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -114,9 +116,11 @@ interface AccountListInstance {
   get(sid: string): AccountContext;
   /**
    * Retrieve a single target page of AccountInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -125,7 +129,8 @@ interface AccountListInstance {
   /**
    * Lists AccountInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -133,9 +138,11 @@ interface AccountListInstance {
   list(opts?: AccountListInstanceOptions, callback?: (error: Error | null, items: AccountInstance[]) => any): Promise<AccountInstance[]>;
   /**
    * Retrieve a single page of AccountInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -249,31 +256,6 @@ declare class AccountContext {
   /**
    * Initialize the AccountContext
    *
-   * @property addresses - addresses resource
-   * @property applications - applications resource
-   * @property authorizedConnectApps - authorizedConnectApps resource
-   * @property availablePhoneNumbers - availablePhoneNumbers resource
-   * @property balance - balance resource
-   * @property calls - calls resource
-   * @property conferences - conferences resource
-   * @property connectApps - connectApps resource
-   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
-   * @property keys - keys resource
-   * @property messages - messages resource
-   * @property newKeys - newKeys resource
-   * @property newSigningKeys - newSigningKeys resource
-   * @property notifications - notifications resource
-   * @property outgoingCallerIds - outgoingCallerIds resource
-   * @property queues - queues resource
-   * @property recordings - recordings resource
-   * @property signingKeys - signingKeys resource
-   * @property sip - sip resource
-   * @property shortCodes - shortCodes resource
-   * @property tokens - tokens resource
-   * @property transcriptions - transcriptions resource
-   * @property usage - usage resource
-   * @property validationRequests - validationRequests resource
-   *
    * @param version - Version of the resource
    * @param sid - Fetch by unique Account Sid
    */
@@ -326,17 +308,6 @@ declare class AccountContext {
 declare class AccountInstance extends SerializableClass {
   /**
    * Initialize the AccountContext
-   *
-   * @property authToken - The authorization token for this account
-   * @property dateCreated - The date this account was created
-   * @property dateUpdated - The date this account was last updated
-   * @property friendlyName - A human readable description of this account
-   * @property ownerAccountSid - The unique 34 character id representing the parent of this account
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property status - The status of this account
-   * @property subresourceUris - Account Instance Subresources
-   * @property type - The type of this account
-   * @property uri - The URI for this resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

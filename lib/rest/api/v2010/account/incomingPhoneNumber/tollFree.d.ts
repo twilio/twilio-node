@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type TollFreeAddressRequirement = 'none'|'any'|'local'|'foreign';
 
 /**
- * @description Initialize the TollFreeList
+ * Initialize the TollFreeList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -35,9 +35,11 @@ interface TollFreeListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -45,9 +47,11 @@ interface TollFreeListInstance {
   each(opts?: TollFreeListInstanceEachOptions, callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TollFreeInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -56,7 +60,8 @@ interface TollFreeListInstance {
   /**
    * Lists TollFreeInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -64,9 +69,11 @@ interface TollFreeListInstance {
   list(opts?: TollFreeListInstanceOptions, callback?: (error: Error | null, items: TollFreeInstance[]) => any): Promise<TollFreeInstance[]>;
   /**
    * Retrieve a single page of TollFreeInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -244,35 +251,6 @@ interface TollFreeSolution {
 declare class TollFreeInstance extends SerializableClass {
   /**
    * Initialize the TollFreeContext
-   *
-   * @property accountSid - The SID of the Account that created the resource
-   * @property addressSid - The SID of the Address resource associated with the phone number
-   * @property addressRequirements - Whether the phone number requires an Address registered with Twilio.
-   * @property apiVersion - The API version used to start a new TwiML session
-   * @property beta - Whether the phone number is new to the Twilio platform
-   * @property capabilities - Indicate if a phone can receive calls or messages
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property identitySid - The SID of the Identity resource associated with number
-   * @property phoneNumber - The phone number in E.164 format
-   * @property origin - The phone number's origin. Can be twilio or hosted.
-   * @property sid - The unique string that identifies the resource
-   * @property smsApplicationSid - The SID of the application that handles SMS messages sent to the phone number
-   * @property smsFallbackMethod - The HTTP method used with sms_fallback_url
-   * @property smsFallbackUrl - The URL that we call when an error occurs while retrieving or executing the TwiML
-   * @property smsMethod - The HTTP method to use with sms_url
-   * @property smsUrl - The URL we call when the phone number receives an incoming SMS message
-   * @property statusCallback - The URL to send status information to your application
-   * @property statusCallbackMethod - The HTTP method we use to call status_callback
-   * @property trunkSid - The SID of the Trunk that handles calls to the phone number
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
-   * @property voiceApplicationSid - The SID of the application that handles calls to the phone number
-   * @property voiceCallerIdLookup - Whether to lookup the caller's name
-   * @property voiceFallbackMethod - The HTTP method used with voice_fallback_url
-   * @property voiceFallbackUrl - The URL we call when an error occurs in TwiML
-   * @property voiceMethod - The HTTP method used with the voice_url
-   * @property voiceUrl - The URL we call when the phone number receives a call
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

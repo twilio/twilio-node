@@ -16,7 +16,7 @@ type SubscribedTrackKind = 'audio'|'video'|'data';
 type SubscribedTrackStatus = 'subscribe'|'unsubscribe';
 
 /**
- * @description Initialize the SubscribedTrackList
+ * Initialize the SubscribedTrackList
  *
  * @param version - Version of the resource
  * @param roomSid - The room_sid
@@ -31,9 +31,11 @@ interface SubscribedTrackListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -41,9 +43,11 @@ interface SubscribedTrackListInstance {
   each(opts?: SubscribedTrackListInstanceEachOptions, callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SubscribedTrackInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -52,7 +56,8 @@ interface SubscribedTrackListInstance {
   /**
    * Lists SubscribedTrackInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -60,9 +65,11 @@ interface SubscribedTrackListInstance {
   list(opts?: SubscribedTrackListInstanceOptions, callback?: (error: Error | null, items: SubscribedTrackInstance[]) => any): Promise<SubscribedTrackInstance[]>;
   /**
    * Retrieve a single page of SubscribedTrackInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -207,16 +214,6 @@ interface SubscribedTrackSolution {
 declare class SubscribedTrackInstance extends SerializableClass {
   /**
    * Initialize the SubscribedTrackContext
-   *
-   * @property sid - The sid
-   * @property roomSid - The room_sid
-   * @property name - The name
-   * @property publisherSid - The publisher_sid
-   * @property subscriberSid - The subscriber_sid
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property enabled - The enabled
-   * @property kind - The kind
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

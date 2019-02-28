@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
 
 /**
- * @description Initialize the UserChannelList
+ * Initialize the UserChannelList
  *
  * @param version - Version of the resource
  * @param serviceSid - The service_sid
@@ -28,9 +28,11 @@ interface UserChannelListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -38,9 +40,11 @@ interface UserChannelListInstance {
   each(opts?: UserChannelListInstanceEachOptions, callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -49,7 +53,8 @@ interface UserChannelListInstance {
   /**
    * Lists UserChannelInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -57,9 +62,11 @@ interface UserChannelListInstance {
   list(opts?: UserChannelListInstanceOptions, callback?: (error: Error | null, items: UserChannelInstance[]) => any): Promise<UserChannelInstance[]>;
   /**
    * Retrieve a single page of UserChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -151,15 +158,6 @@ interface UserChannelSolution {
 declare class UserChannelInstance extends SerializableClass {
   /**
    * Initialize the UserChannelContext
-   *
-   * @property accountSid - The account_sid
-   * @property serviceSid - The service_sid
-   * @property channelSid - The channel_sid
-   * @property memberSid - The member_sid
-   * @property status - The status
-   * @property lastConsumedMessageIndex - The last_consumed_message_index
-   * @property unreadMessagesCount - The unread_messages_count
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

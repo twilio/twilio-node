@@ -12,7 +12,7 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the OriginationUrlList
+ * Initialize the OriginationUrlList
  *
  * @param version - Version of the resource
  * @param trunkSid - The unique ID of the Trunk that owns this Origination URL.
@@ -54,9 +54,11 @@ interface OriginationUrlListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -70,9 +72,11 @@ interface OriginationUrlListInstance {
   get(sid: string): OriginationUrlContext;
   /**
    * Retrieve a single target page of OriginationUrlInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -81,7 +85,8 @@ interface OriginationUrlListInstance {
   /**
    * Lists OriginationUrlInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -89,9 +94,11 @@ interface OriginationUrlListInstance {
   list(opts?: OriginationUrlListInstanceOptions, callback?: (error: Error | null, items: OriginationUrlInstance[]) => any): Promise<OriginationUrlInstance[]>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -238,18 +245,6 @@ declare class OriginationUrlContext {
 declare class OriginationUrlInstance extends SerializableClass {
   /**
    * Initialize the OriginationUrlContext
-   *
-   * @property accountSid - The unique ID of the Account that owns this Origination URL.
-   * @property sid - A 34 character string that uniquely identifies the Origination URL in this Twilio Trunk.
-   * @property trunkSid - The unique ID of the Trunk that owns this Origination URL.
-   * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
-   * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
-   * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
-   * @property friendlyName - A human readable descriptive text, up to 64 characters long.
-   * @property priority - Priority ranks the importance of the URI.
-   * @property dateCreated - The date this Activity was created.
-   * @property dateUpdated - The date this Activity was updated.
-   * @property url - The URL for this resource, relative to https://trunking.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -12,8 +12,11 @@ import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the WebhookList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the WebhookList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -74,7 +77,11 @@ interface WebhookSolution {
 
 declare class WebhookContext {
   /**
-   * Initialize the WebhookContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the WebhookContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    */
@@ -102,17 +109,11 @@ declare class WebhookContext {
 
 declare class WebhookInstance extends SerializableClass {
   /**
-   * Initialize the WebhookContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the WebhookContext
    *
-   * @property accountSid - The unique id of the Account responsible for this session.
-   * @property serviceSid - The unique id of the Chat Service this session belongs to.
-   * @property webhookMethod - The HTTP method to be used when sending a webhook request.
-   * @property webhookFilters - The list of webhook event triggers that are enabled for this Service.
-   * @property preWebhookUrl - The absolute url the pre-event webhook request should be sent to.
-   * @property postWebhookUrl - The absolute url the post-event webhook request should be sent to.
-   * @property preWebhookRetryCount - The number of retries in case of pre-event webhook request failures.
-   * @property postWebhookRetryCount - The number of retries in case of post-event webhook request failures.
-   * @property url - An absolute URL for this webhook.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -151,7 +152,11 @@ declare class WebhookInstance extends SerializableClass {
 
 declare class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
-   * Initialize the WebhookPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the WebhookPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

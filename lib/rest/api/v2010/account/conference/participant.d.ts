@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../interfaces';
 type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|'failed';
 
 /**
- * @description Initialize the ParticipantList
+ * Initialize the ParticipantList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique sid that identifies this account
@@ -59,9 +59,11 @@ interface ParticipantListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -75,9 +77,11 @@ interface ParticipantListInstance {
   get(callSid: string): ParticipantContext;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -86,7 +90,8 @@ interface ParticipantListInstance {
   /**
    * Lists ParticipantInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -94,9 +99,11 @@ interface ParticipantListInstance {
   list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -307,18 +314,6 @@ declare class ParticipantContext {
 declare class ParticipantInstance extends SerializableClass {
   /**
    * Initialize the ParticipantContext
-   *
-   * @property accountSid - The unique sid that identifies this account
-   * @property callSid - A string that uniquely identifies this call
-   * @property conferenceSid - A string that uniquely identifies this conference
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property endConferenceOnExit - Indicates if the endConferenceOnExit was set
-   * @property muted - Indicates if the participant is muted
-   * @property hold - true if this participant is currently held.
-   * @property startConferenceOnEnter - Indicates if the startConferenceOnEnter attribute was set
-   * @property status - The status
-   * @property uri - The URI for this resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

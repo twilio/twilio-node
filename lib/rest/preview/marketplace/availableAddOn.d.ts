@@ -13,8 +13,11 @@ import { AvailableAddOnExtensionListInstance } from './availableAddOn/availableA
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the AvailableAddOnList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the AvailableAddOnList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -31,9 +34,11 @@ interface AvailableAddOnListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -47,9 +52,11 @@ interface AvailableAddOnListInstance {
   get(sid: string): AvailableAddOnContext;
   /**
    * Retrieve a single target page of AvailableAddOnInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -58,7 +65,8 @@ interface AvailableAddOnListInstance {
   /**
    * Lists AvailableAddOnInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -66,9 +74,11 @@ interface AvailableAddOnListInstance {
   list(opts?: AvailableAddOnListInstanceOptions, callback?: (error: Error | null, items: AvailableAddOnInstance[]) => any): Promise<AvailableAddOnInstance[]>;
   /**
    * Retrieve a single page of AvailableAddOnInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -156,9 +166,11 @@ interface AvailableAddOnSolution {
 
 declare class AvailableAddOnContext {
   /**
-   * Initialize the AvailableAddOnContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnContext
    *
-   * @property extensions - extensions resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - The unique Available Add-on Sid
@@ -181,15 +193,11 @@ declare class AvailableAddOnContext {
 
 declare class AvailableAddOnInstance extends SerializableClass {
   /**
-   * Initialize the AvailableAddOnContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnContext
    *
-   * @property sid - A string that uniquely identifies this Add-on
-   * @property friendlyName - A description of this Add-on
-   * @property description - A short description of the Add-on functionality
-   * @property pricingType - The way customers are charged for using this Add-on
-   * @property configurationSchema - The JSON Schema describing the Add-on's configuration
-   * @property url - The url
-   * @property links - The links
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -224,7 +232,11 @@ declare class AvailableAddOnInstance extends SerializableClass {
 
 declare class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnInstance> {
   /**
-   * Initialize the AvailableAddOnPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

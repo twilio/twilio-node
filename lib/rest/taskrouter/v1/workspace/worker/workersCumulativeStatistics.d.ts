@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the WorkersCumulativeStatisticsList
+ * Initialize the WorkersCumulativeStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The workspace_sid
@@ -98,19 +98,6 @@ declare class WorkersCumulativeStatisticsContext {
 declare class WorkersCumulativeStatisticsInstance extends SerializableClass {
   /**
    * Initialize the WorkersCumulativeStatisticsContext
-   *
-   * @property accountSid - The account_sid
-   * @property startTime - The start_time
-   * @property endTime - The end_time
-   * @property activityDurations - The minimum, average, maximum and total time Workers spent in each Activity
-   * @property reservationsCreated - The total number of Reservations that were created
-   * @property reservationsAccepted - The total number of Reservations that were accepted
-   * @property reservationsRejected - The total number of Reservations that were rejected
-   * @property reservationsTimedOut - The total number of Reservations that were timed out
-   * @property reservationsCanceled - The total number of Reservations that were canceled
-   * @property reservationsRescinded - The total number of Reservations that were rescinded
-   * @property workspaceSid - The workspace_sid
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

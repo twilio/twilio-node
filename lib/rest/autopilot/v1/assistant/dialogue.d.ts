@@ -11,8 +11,11 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the DialogueList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the DialogueList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param assistantSid - The unique ID of the parent Assistant.
@@ -54,7 +57,11 @@ interface DialogueSolution {
 
 declare class DialogueContext {
   /**
-   * Initialize the DialogueContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DialogueContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
@@ -77,13 +84,11 @@ declare class DialogueContext {
 
 declare class DialogueInstance extends SerializableClass {
   /**
-   * Initialize the DialogueContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DialogueContext
    *
-   * @property accountSid - The unique ID of the Account that created this Field.
-   * @property assistantSid - The unique ID of the parent Assistant.
-   * @property sid - The unique ID of the Dialogue
-   * @property data - The dialogue session object as json
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -113,7 +118,11 @@ declare class DialogueInstance extends SerializableClass {
 
 declare class DialoguePage extends Page<V1, DialoguePayload, DialogueResource, DialogueInstance> {
   /**
-   * Initialize the DialoguePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DialoguePage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

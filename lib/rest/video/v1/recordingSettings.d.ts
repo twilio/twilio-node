@@ -12,8 +12,11 @@ import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the RecordingSettingsList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the RecordingSettingsList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -73,7 +76,11 @@ interface RecordingSettingsSolution {
 
 declare class RecordingSettingsContext {
   /**
-   * Initialize the RecordingSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RecordingSettingsContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    */
@@ -101,16 +108,11 @@ declare class RecordingSettingsContext {
 
 declare class RecordingSettingsInstance extends SerializableClass {
   /**
-   * Initialize the RecordingSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RecordingSettingsContext
    *
-   * @property accountSid - The Twilio Account SID associated with this item
-   * @property friendlyName - Friendly name of the configuration to be shown in the console
-   * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
-   * @property awsS3Url - URL of the S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
-   * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
-   * @property encryptionKeySid - SID of the Public Key resource CRxx
-   * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -148,7 +150,11 @@ declare class RecordingSettingsInstance extends SerializableClass {
 
 declare class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsInstance> {
   /**
-   * Initialize the RecordingSettingsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RecordingSettingsPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -9,7 +9,7 @@ import Page = require('../../../../../../../base/Page');
 import V2010 = require('../../../../../V2010');
 
 /**
- * @description Initialize the AuthTypeCallsList
+ * Initialize the AuthTypeCallsList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource

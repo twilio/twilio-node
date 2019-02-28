@@ -11,8 +11,11 @@ import Wireless = require('../../Wireless');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the UsageList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the UsageList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  * @param simSid - The sim_sid
@@ -67,7 +70,11 @@ interface UsageSolution {
 
 declare class UsageContext {
   /**
-   * Initialize the UsageContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the UsageContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param simSid - The sim_sid
@@ -90,17 +97,11 @@ declare class UsageContext {
 
 declare class UsageInstance extends SerializableClass {
   /**
-   * Initialize the UsageContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the UsageContext
    *
-   * @property simSid - The sim_sid
-   * @property simUniqueName - The sim_unique_name
-   * @property accountSid - The account_sid
-   * @property period - The period
-   * @property commandsUsage - The commands_usage
-   * @property commandsCosts - The commands_costs
-   * @property dataUsage - The data_usage
-   * @property dataCosts - The data_costs
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -134,7 +135,11 @@ declare class UsageInstance extends SerializableClass {
 
 declare class UsagePage extends Page<Wireless, UsagePayload, UsageResource, UsageInstance> {
   /**
-   * Initialize the UsagePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the UsagePage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

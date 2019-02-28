@@ -14,8 +14,11 @@ import { HighriskSpecialPrefixListInstance } from './country/highriskSpecialPref
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the CountryList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the CountryList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -32,9 +35,11 @@ interface CountryListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -48,9 +53,11 @@ interface CountryListInstance {
   get(isoCode: string): CountryContext;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -59,7 +66,8 @@ interface CountryListInstance {
   /**
    * Lists CountryInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -67,9 +75,11 @@ interface CountryListInstance {
   list(opts?: CountryListInstanceOptions, callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -195,9 +205,11 @@ interface CountrySolution {
 
 declare class CountryContext {
   /**
-   * Initialize the CountryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CountryContext
    *
-   * @property highriskSpecialPrefixes - highriskSpecialPrefixes resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param isoCode - The ISO country code
@@ -220,17 +232,11 @@ declare class CountryContext {
 
 declare class CountryInstance extends SerializableClass {
   /**
-   * Initialize the CountryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CountryContext
    *
-   * @property isoCode - The ISO country code
-   * @property name - Name of the country
-   * @property continent - Name of the continent
-   * @property countryCodes - The E.164 assigned country codes(s)
-   * @property lowRiskNumbersEnabled - `true`, if dialing to low-risk numbers is enabled, else `false`
-   * @property highRiskSpecialNumbersEnabled - `true`, if dialing to high-risk special services numbers is enabled, else `false`
-   * @property highRiskTollfraudNumbersEnabled - `true`, if dialing to high-risk toll fraud numbers is enabled, else `false`
-   * @property url - The absolute URL of this resource
-   * @property links - A list of URLs related to this resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -267,7 +273,11 @@ declare class CountryInstance extends SerializableClass {
 
 declare class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
   /**
-   * Initialize the CountryPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CountryPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -12,8 +12,11 @@ import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the RatePlanList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the RatePlanList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -48,9 +51,11 @@ interface RatePlanListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -64,9 +69,11 @@ interface RatePlanListInstance {
   get(sid: string): RatePlanContext;
   /**
    * Retrieve a single target page of RatePlanInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -75,7 +82,8 @@ interface RatePlanListInstance {
   /**
    * Lists RatePlanInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -83,9 +91,11 @@ interface RatePlanListInstance {
   list(opts?: RatePlanListInstanceOptions, callback?: (error: Error | null, items: RatePlanInstance[]) => any): Promise<RatePlanInstance[]>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -207,7 +217,11 @@ interface RatePlanSolution {
 
 declare class RatePlanContext {
   /**
-   * Initialize the RatePlanContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RatePlanContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - The sid
@@ -242,22 +256,11 @@ declare class RatePlanContext {
 
 declare class RatePlanInstance extends SerializableClass {
   /**
-   * Initialize the RatePlanContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RatePlanContext
    *
-   * @property sid - The sid
-   * @property uniqueName - The unique_name
-   * @property accountSid - The account_sid
-   * @property friendlyName - The friendly_name
-   * @property dataEnabled - The data_enabled
-   * @property dataMetering - The data_metering
-   * @property dataLimit - The data_limit
-   * @property messagingEnabled - The messaging_enabled
-   * @property voiceEnabled - The voice_enabled
-   * @property nationalRoamingEnabled - The national_roaming_enabled
-   * @property internationalRoaming - The international_roaming
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property url - The url
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -308,7 +311,11 @@ declare class RatePlanInstance extends SerializableClass {
 
 declare class RatePlanPage extends Page<Wireless, RatePlanPayload, RatePlanResource, RatePlanInstance> {
   /**
-   * Initialize the RatePlanPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RatePlanPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

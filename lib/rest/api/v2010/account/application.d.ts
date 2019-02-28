@@ -12,7 +12,7 @@ import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the ApplicationList
+ * Initialize the ApplicationList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created the resource
@@ -74,9 +74,11 @@ interface ApplicationListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -90,9 +92,11 @@ interface ApplicationListInstance {
   get(sid: string): ApplicationContext;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -101,7 +105,8 @@ interface ApplicationListInstance {
   /**
    * Lists ApplicationInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -109,9 +114,11 @@ interface ApplicationListInstance {
   list(opts?: ApplicationListInstanceOptions, callback?: (error: Error | null, items: ApplicationInstance[]) => any): Promise<ApplicationInstance[]>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -293,27 +300,6 @@ declare class ApplicationContext {
 declare class ApplicationInstance extends SerializableClass {
   /**
    * Initialize the ApplicationContext
-   *
-   * @property accountSid - The SID of the Account that created the resource
-   * @property apiVersion - The API version used to start a new TwiML session
-   * @property dateCreated - The RFC 2822 date and time in GMT that the resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that the resource was last updated
-   * @property friendlyName - The string that you assigned to describe the resource
-   * @property messageStatusCallback - The URL to send message status information to your application
-   * @property sid - The unique string that identifies the resource
-   * @property smsFallbackMethod - The HTTP method used with sms_fallback_url
-   * @property smsFallbackUrl - The URL that we call when an error occurs while retrieving or executing the TwiML
-   * @property smsMethod - The HTTP method to use with sms_url
-   * @property smsStatusCallback - The URL to send status information to your application
-   * @property smsUrl - The URL we call when the phone number receives an incoming SMS message
-   * @property statusCallback - The URL to send status information to your application
-   * @property statusCallbackMethod - The HTTP method we use to call status_callback
-   * @property uri - The URI of the resource, relative to `https://api.twilio.com`
-   * @property voiceCallerIdLookup - Whether to lookup the caller's name
-   * @property voiceFallbackMethod - The HTTP method used with voice_fallback_url
-   * @property voiceFallbackUrl - The URL we call when a TwiML error occurs
-   * @property voiceMethod - The HTTP method used with the voice_url
-   * @property voiceUrl - The URL we call when the phone number receives a call
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -11,7 +11,7 @@ import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the EngagementContextList
+ * Initialize the EngagementContextList
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -77,12 +77,6 @@ declare class EngagementContextContext {
 declare class EngagementContextInstance extends SerializableClass {
   /**
    * Initialize the EngagementContextContext
-   *
-   * @property accountSid - Account Sid.
-   * @property context - Flow state.
-   * @property engagementSid - Engagement Sid.
-   * @property flowSid - Flow Sid.
-   * @property url - The URL of this resource.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

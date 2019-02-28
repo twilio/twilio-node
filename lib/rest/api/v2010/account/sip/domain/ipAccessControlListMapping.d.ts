@@ -11,7 +11,7 @@ import V2010 = require('../../../../V2010');
 import { SerializableClass } from '../../../../../../interfaces';
 
 /**
- * @description Initialize the IpAccessControlListMappingList
+ * Initialize the IpAccessControlListMappingList
  *
  * @param version - Version of the resource
  * @param accountSid - The unique id of the Account that is responsible for this resource.
@@ -37,9 +37,11 @@ interface IpAccessControlListMappingListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -52,10 +54,13 @@ interface IpAccessControlListMappingListInstance {
    */
   get(sid: string): IpAccessControlListMappingContext;
   /**
-   * Retrieve a single target page of IpAccessControlListMappingInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of IpAccessControlListMappingInstance records from
+   * the API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -64,17 +69,21 @@ interface IpAccessControlListMappingListInstance {
   /**
    * Lists IpAccessControlListMappingInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: IpAccessControlListMappingListInstanceOptions, callback?: (error: Error | null, items: IpAccessControlListMappingInstance[]) => any): Promise<IpAccessControlListMappingInstance[]>;
   /**
-   * Retrieve a single page of IpAccessControlListMappingInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single page of IpAccessControlListMappingInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -204,14 +213,6 @@ declare class IpAccessControlListMappingContext {
 declare class IpAccessControlListMappingInstance extends SerializableClass {
   /**
    * Initialize the IpAccessControlListMappingContext
-   *
-   * @property accountSid - The unique id of the Account that is responsible for this resource.
-   * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
-   * @property dateUpdated - The date that this resource was last updated, given as GMT in RFC 2822 format.
-   * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property uri - The URI for this resource, relative to https://api.twilio.com
-   * @property subresourceUris - The list of IP addresses associated with this domain.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

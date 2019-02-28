@@ -11,7 +11,7 @@ import V2010 = require('../../V2010');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the ShortCodeList
+ * Initialize the ShortCodeList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
@@ -48,9 +48,11 @@ interface ShortCodeListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -64,9 +66,11 @@ interface ShortCodeListInstance {
   get(sid: string): ShortCodeContext;
   /**
    * Retrieve a single target page of ShortCodeInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -75,7 +79,8 @@ interface ShortCodeListInstance {
   /**
    * Lists ShortCodeInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -83,9 +88,11 @@ interface ShortCodeListInstance {
   list(opts?: ShortCodeListInstanceOptions, callback?: (error: Error | null, items: ShortCodeInstance[]) => any): Promise<ShortCodeInstance[]>;
   /**
    * Retrieve a single page of ShortCodeInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -222,19 +229,6 @@ declare class ShortCodeContext {
 declare class ShortCodeInstance extends SerializableClass {
   /**
    * Initialize the ShortCodeContext
-   *
-   * @property accountSid - The SID of the Account that created this resource
-   * @property apiVersion - The API version used to start a new TwiML session
-   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
-   * @property friendlyName - A string that you assigned to describe this resource
-   * @property shortCode - The short code. e.g., 894546.
-   * @property sid - The unique string that identifies this resource
-   * @property smsFallbackMethod - HTTP method we use to call the sms_fallback_url
-   * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
-   * @property smsMethod - HTTP method to use when requesting the sms url
-   * @property smsUrl - URL we call when receiving an incoming SMS message to this short code
-   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

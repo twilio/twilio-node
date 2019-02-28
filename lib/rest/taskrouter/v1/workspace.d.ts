@@ -34,7 +34,7 @@ import { WorkspaceStatisticsListInstance } from './workspace/workspaceStatistics
 type WorkspaceQueueOrder = 'FIFO'|'LIFO';
 
 /**
- * @description Initialize the WorkspaceList
+ * Initialize the WorkspaceList
  *
  * @param version - Version of the resource
  */
@@ -79,9 +79,11 @@ interface WorkspaceListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -95,9 +97,11 @@ interface WorkspaceListInstance {
   get(sid: string): WorkspaceContext;
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -106,7 +110,8 @@ interface WorkspaceListInstance {
   /**
    * Lists WorkspaceInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -114,9 +119,11 @@ interface WorkspaceListInstance {
   list(opts?: WorkspaceListInstanceOptions, callback?: (error: Error | null, items: WorkspaceInstance[]) => any): Promise<WorkspaceInstance[]>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -239,17 +246,6 @@ declare class WorkspaceContext {
   /**
    * Initialize the WorkspaceContext
    *
-   * @property activities - activities resource
-   * @property events - events resource
-   * @property tasks - tasks resource
-   * @property taskQueues - taskQueues resource
-   * @property workers - workers resource
-   * @property workflows - workflows resource
-   * @property statistics - statistics resource
-   * @property realTimeStatistics - realTimeStatistics resource
-   * @property cumulativeStatistics - cumulativeStatistics resource
-   * @property taskChannels - taskChannels resource
-   *
    * @param version - Version of the resource
    * @param sid - The sid
    */
@@ -294,22 +290,6 @@ declare class WorkspaceContext {
 declare class WorkspaceInstance extends SerializableClass {
   /**
    * Initialize the WorkspaceContext
-   *
-   * @property accountSid - The ID of the account that owns this Workflow
-   * @property dateCreated - The time the Workspace was created, given as GMT in ISO 8601 format.
-   * @property dateUpdated - The time the Workspace was last updated, given as GMT in ISO 8601 format.
-   * @property defaultActivityName - The human readable name of the default activity.
-   * @property defaultActivitySid - The ID of the Activity that will be used when new Workers are created in this Workspace.
-   * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
-   * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
-   * @property friendlyName - Filter by a workspace's friendly name.
-   * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
-   * @property sid - The unique ID of the Workspace
-   * @property timeoutActivityName - The human readable name of the timeout activity.
-   * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-   * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
-   * @property url - The url
-   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

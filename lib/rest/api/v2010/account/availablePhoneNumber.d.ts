@@ -25,7 +25,7 @@ import { VoipList } from './availablePhoneNumber/voip';
 import { VoipListInstance } from './availablePhoneNumber/voip';
 
 /**
- * @description Initialize the AvailablePhoneNumberCountryList
+ * Initialize the AvailablePhoneNumberCountryList
  *
  * @param version - Version of the resource
  * @param accountSid - A 34 character string that uniquely identifies this resource.
@@ -43,9 +43,11 @@ interface AvailablePhoneNumberCountryListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -58,10 +60,13 @@ interface AvailablePhoneNumberCountryListInstance {
    */
   get(countryCode: string): AvailablePhoneNumberCountryContext;
   /**
-   * Retrieve a single target page of AvailablePhoneNumberCountryInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of AvailablePhoneNumberCountryInstance records
+   * from the API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -70,17 +75,21 @@ interface AvailablePhoneNumberCountryListInstance {
   /**
    * Lists AvailablePhoneNumberCountryInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: AvailablePhoneNumberCountryListInstanceOptions, callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance[]) => any): Promise<AvailablePhoneNumberCountryInstance[]>;
   /**
-   * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -169,14 +178,6 @@ declare class AvailablePhoneNumberCountryContext {
   /**
    * Initialize the AvailablePhoneNumberCountryContext
    *
-   * @property local - local resource
-   * @property tollFree - tollFree resource
-   * @property mobile - mobile resource
-   * @property national - national resource
-   * @property voip - voip resource
-   * @property sharedCost - sharedCost resource
-   * @property machineToMachine - machineToMachine resource
-   *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account requesting the available phone number Country resource
    * @param countryCode - The ISO country code of the country to fetch available phone number information about
@@ -206,12 +207,6 @@ declare class AvailablePhoneNumberCountryContext {
 declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
   /**
    * Initialize the AvailablePhoneNumberCountryContext
-   *
-   * @property countryCode - The ISO-3166-1 country code of the country.
-   * @property country - The name of the country
-   * @property uri - The URI of the Country resource, relative to `https://api.twilio.com`
-   * @property beta - Whether all phone numbers available in the country are new to the Twilio platform.
-   * @property subresourceUris - A list of related resources identified by their relative URIs
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

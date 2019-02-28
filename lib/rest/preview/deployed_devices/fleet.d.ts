@@ -19,8 +19,11 @@ import { KeyListInstance } from './fleet/key';
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * @description Initialize the FleetList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the FleetList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -55,9 +58,11 @@ interface FleetListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -71,9 +76,11 @@ interface FleetListInstance {
   get(sid: string): FleetContext;
   /**
    * Retrieve a single target page of FleetInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -82,7 +89,8 @@ interface FleetListInstance {
   /**
    * Lists FleetInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -90,9 +98,11 @@ interface FleetListInstance {
   list(opts?: FleetListInstanceOptions, callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -191,12 +201,11 @@ interface FleetSolution {
 
 declare class FleetContext {
   /**
-   * Initialize the FleetContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FleetContext
    *
-   * @property devices - devices resource
-   * @property deployments - deployments resource
-   * @property certificates - certificates resource
-   * @property keys - keys resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - A string that uniquely identifies the Fleet.
@@ -235,17 +244,11 @@ declare class FleetContext {
 
 declare class FleetInstance extends SerializableClass {
   /**
-   * Initialize the FleetContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FleetContext
    *
-   * @property sid - A string that uniquely identifies this Fleet.
-   * @property url - URL of this Fleet.
-   * @property uniqueName - A unique, addressable name of this Fleet.
-   * @property friendlyName - A human readable description for this Fleet.
-   * @property accountSid - The unique SID that identifies this Account.
-   * @property defaultDeploymentSid - The unique SID that identifies this Fleet's default Deployment.
-   * @property dateCreated - The date this Fleet was created.
-   * @property dateUpdated - The date this Fleet was updated.
-   * @property links - Nested resource URLs.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -307,7 +310,11 @@ declare class FleetInstance extends SerializableClass {
 
 declare class FleetPage extends Page<DeployedDevices, FleetPayload, FleetResource, FleetInstance> {
   /**
-   * Initialize the FleetPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FleetPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

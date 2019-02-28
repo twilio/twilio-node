@@ -11,7 +11,7 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the IpAccessControlListList
+ * Initialize the IpAccessControlListList
  *
  * @param version - Version of the resource
  * @param trunkSid - The unique sid that identifies the associated Trunk
@@ -36,9 +36,11 @@ interface IpAccessControlListListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -51,10 +53,13 @@ interface IpAccessControlListListInstance {
    */
   get(sid: string): IpAccessControlListContext;
   /**
-   * Retrieve a single target page of IpAccessControlListInstance records from the API.
-   * Request is executed immediately
+   * Retrieve a single target page of IpAccessControlListInstance records from the
+   * API.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -63,7 +68,8 @@ interface IpAccessControlListListInstance {
   /**
    * Lists IpAccessControlListInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -71,9 +77,11 @@ interface IpAccessControlListListInstance {
   list(opts?: IpAccessControlListListInstanceOptions, callback?: (error: Error | null, items: IpAccessControlListInstance[]) => any): Promise<IpAccessControlListInstance[]>;
   /**
    * Retrieve a single page of IpAccessControlListInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -201,14 +209,6 @@ declare class IpAccessControlListContext {
 declare class IpAccessControlListInstance extends SerializableClass {
   /**
    * Initialize the IpAccessControlListContext
-   *
-   * @property accountSid - The unique sid that identifies this account
-   * @property sid - A string that uniquely identifies this resource
-   * @property trunkSid - The unique sid that identifies the associated Trunk
-   * @property friendlyName - A human readable description of this resource
-   * @property dateCreated - The date this resource was created
-   * @property dateUpdated - The date this resource was last updated
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

@@ -12,7 +12,7 @@ import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
- * @description Initialize the WorkerChannelList
+ * Initialize the WorkerChannelList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The unique ID of the Workspace that this WorkerChannel belongs to.
@@ -42,9 +42,11 @@ interface WorkerChannelListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -58,9 +60,11 @@ interface WorkerChannelListInstance {
   get(sid: string): WorkerChannelContext;
   /**
    * Retrieve a single target page of WorkerChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -69,7 +73,8 @@ interface WorkerChannelListInstance {
   /**
    * Lists WorkerChannelInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -77,9 +82,11 @@ interface WorkerChannelListInstance {
   list(opts?: WorkerChannelListInstanceOptions, callback?: (error: Error | null, items: WorkerChannelInstance[]) => any): Promise<WorkerChannelInstance[]>;
   /**
    * Retrieve a single page of WorkerChannelInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -207,20 +214,6 @@ declare class WorkerChannelContext {
 declare class WorkerChannelInstance extends SerializableClass {
   /**
    * Initialize the WorkerChannelContext
-   *
-   * @property accountSid - The unique ID of the Account that owns this WorkerChannel.
-   * @property assignedTasks - The total number of tasks assigned to Worker for this TaskChannel type.
-   * @property available - Boolean value indicating whether the worker should receive Tasks of this TaskChannel type.
-   * @property availableCapacityPercentage - The current available capacity between 0 to 100 for this TaskChannel.
-   * @property configuredCapacity - The current configured capacity for the WorkerChannel.
-   * @property dateCreated - The date this Activity was created.
-   * @property dateUpdated - The date this Activity was updated.
-   * @property sid - The unique ID for this WorkerChannel.
-   * @property taskChannelSid - The unique ID of the TaskChannel.
-   * @property taskChannelUniqueName - The unique name of TaskChannel, such as 'voice', 'sms', etc.
-   * @property workerSid - The unique ID of the Worker that this WorkerChannel belongs to.
-   * @property workspaceSid - The unique ID of the Workspace that this WorkerChannel belongs to.
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

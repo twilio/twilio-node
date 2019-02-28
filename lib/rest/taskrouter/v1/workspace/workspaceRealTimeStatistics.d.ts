@@ -11,7 +11,7 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the WorkspaceRealTimeStatisticsList
+ * Initialize the WorkspaceRealTimeStatisticsList
  *
  * @param version - Version of the resource
  * @param workspaceSid - The workspace_sid
@@ -89,17 +89,6 @@ declare class WorkspaceRealTimeStatisticsContext {
 declare class WorkspaceRealTimeStatisticsInstance extends SerializableClass {
   /**
    * Initialize the WorkspaceRealTimeStatisticsContext
-   *
-   * @property accountSid - The account_sid
-   * @property activityStatistics - A breakdown of Workers by Activity
-   * @property longestTaskWaitingAge - The age of the longest waiting Task
-   * @property longestTaskWaitingSid - The SID of the longest waiting Task
-   * @property tasksByPriority - The tasks_by_priority
-   * @property tasksByStatus - The Tasks broken down by status
-   * @property totalTasks - The total number of Tasks
-   * @property totalWorkers - The total number of Workers in the workspace
-   * @property workspaceSid - The workspace_sid
-   * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

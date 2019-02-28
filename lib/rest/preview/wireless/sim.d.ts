@@ -13,8 +13,11 @@ import { UsageList } from './sim/usage';
 import { UsageListInstance } from './sim/usage';
 
 /**
- * @description Initialize the SimList
- * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ * Initialize the SimList
+ *
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -70,9 +73,11 @@ interface SimListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -86,9 +91,11 @@ interface SimListInstance {
   get(sid: string): SimContext;
   /**
    * Retrieve a single target page of SimInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -97,7 +104,8 @@ interface SimListInstance {
   /**
    * Lists SimInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -105,9 +113,11 @@ interface SimListInstance {
   list(opts?: SimListInstanceOptions, callback?: (error: Error | null, items: SimInstance[]) => any): Promise<SimInstance[]>;
   /**
    * Retrieve a single page of SimInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -240,9 +250,11 @@ interface SimSolution {
 
 declare class SimContext {
   /**
-   * Initialize the SimContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SimContext
    *
-   * @property usage - usage resource
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - The sid
@@ -272,30 +284,11 @@ declare class SimContext {
 
 declare class SimInstance extends SerializableClass {
   /**
-   * Initialize the SimContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SimContext
    *
-   * @property sid - The sid
-   * @property uniqueName - The unique_name
-   * @property accountSid - The account_sid
-   * @property ratePlanSid - The rate_plan_sid
-   * @property friendlyName - The friendly_name
-   * @property iccid - The iccid
-   * @property eId - The e_id
-   * @property status - The status
-   * @property commandsCallbackUrl - The commands_callback_url
-   * @property commandsCallbackMethod - The commands_callback_method
-   * @property smsFallbackMethod - The sms_fallback_method
-   * @property smsFallbackUrl - The sms_fallback_url
-   * @property smsMethod - The sms_method
-   * @property smsUrl - The sms_url
-   * @property voiceFallbackMethod - The voice_fallback_method
-   * @property voiceFallbackUrl - The voice_fallback_url
-   * @property voiceMethod - The voice_method
-   * @property voiceUrl - The voice_url
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property url - The url
-   * @property links - The links
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -352,7 +345,11 @@ declare class SimInstance extends SerializableClass {
 
 declare class SimPage extends Page<Wireless, SimPayload, SimResource, SimInstance> {
   /**
-   * Initialize the SimPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SimPage
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -24,7 +24,7 @@ type CallStatus = 'queued'|'ringing'|'in-progress'|'completed'|'busy'|'failed'|'
 type CallUpdateStatus = 'canceled'|'completed';
 
 /**
- * @description Initialize the CallList
+ * Initialize the CallList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
@@ -70,9 +70,11 @@ interface CallListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -87,9 +89,11 @@ interface CallListInstance {
   get(sid: string): CallContext;
   /**
    * Retrieve a single target page of CallInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -98,7 +102,8 @@ interface CallListInstance {
   /**
    * Lists CallInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -106,9 +111,11 @@ interface CallListInstance {
   list(opts?: CallListInstanceOptions, callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
   /**
    * Retrieve a single page of CallInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -332,10 +339,6 @@ declare class CallContext {
   /**
    * Initialize the CallContext
    *
-   * @property recordings - recordings resource
-   * @property notifications - notifications resource
-   * @property feedback - feedback resource
-   *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created the resource(s) to fetch
    * @param sid - The unique string that identifies this resource
@@ -374,32 +377,6 @@ declare class CallContext {
 declare class CallInstance extends SerializableClass {
   /**
    * Initialize the CallContext
-   *
-   * @property accountSid - The SID of the Account that created this resource
-   * @property annotation - The annotation provided for the call
-   * @property answeredBy - Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
-   * @property apiVersion - The API Version used to create the call
-   * @property callerName - The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
-   * @property dateCreated - The RFC 2822 date and time in GMT that this resource was created
-   * @property dateUpdated - The RFC 2822 date and time in GMT that this resource was last updated
-   * @property direction - A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
-   * @property duration - The length of the call in seconds.
-   * @property endTime - The end time of the call. Null if the call did not complete successfully.
-   * @property forwardedFrom - The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.
-   * @property from - The phone number, SIP address or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-   * @property fromFormatted - The calling phone number, SIP address, or Client identifier formatted for display.
-   * @property groupSid - The Group SID associated with this call. If no Group is associated with the call, the field is empty.
-   * @property parentCallSid - The SID that identifies the call that created this leg.
-   * @property phoneNumberSid - If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
-   * @property price - The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
-   * @property priceUnit - The currency in which `Price` is measured.
-   * @property sid - The unique string that identifies this resource
-   * @property startTime - The start time of the call. Null if the call has not yet been dialed.
-   * @property status - The status of this call.
-   * @property subresourceUris - A list of related subresources identified by their relative URIs
-   * @property to - The phone number, SIP address or Client identifier that received this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-   * @property toFormatted - The phone number, SIP address or Client identifier that received this call. Formatted for display.
-   * @property uri - The URI of this resource, relative to `https://api.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

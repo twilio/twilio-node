@@ -9,7 +9,7 @@ import Page = require('../../../base/Page');
 import V1 = require('../V1');
 
 /**
- * @description Initialize the CredentialList
+ * Initialize the CredentialList
  *
  * @param version - Version of the resource
  */

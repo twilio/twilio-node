@@ -11,8 +11,10 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * @description Initialize the AlphaSenderList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ * Initialize the AlphaSenderList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The 34 character unique sid of the Messaging Service.
@@ -37,9 +39,11 @@ interface AlphaSenderListInstance {
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
    *
-   * The results are passed into the callback function, so this operation is memory efficient.
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Function to process each record
@@ -53,9 +57,11 @@ interface AlphaSenderListInstance {
   get(sid: string): AlphaSenderContext;
   /**
    * Retrieve a single target page of AlphaSenderInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -64,7 +70,8 @@ interface AlphaSenderListInstance {
   /**
    * Lists AlphaSenderInstance records from the API as a list.
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -72,9 +79,11 @@ interface AlphaSenderListInstance {
   list(opts?: AlphaSenderListInstanceOptions, callback?: (error: Error | null, items: AlphaSenderInstance[]) => any): Promise<AlphaSenderInstance[]>;
   /**
    * Retrieve a single page of AlphaSenderInstance records from the API.
-   * Request is executed immediately
    *
-   * If a function is passed as the first argument, it will be used as the callback function.
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
@@ -173,7 +182,10 @@ interface AlphaSenderSolution {
 
 declare class AlphaSenderContext {
   /**
-   * Initialize the AlphaSenderContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AlphaSenderContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -202,16 +214,10 @@ declare class AlphaSenderContext {
 
 declare class AlphaSenderInstance extends SerializableClass {
   /**
-   * Initialize the AlphaSenderContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AlphaSenderContext
    *
-   * @property sid - The 34 character unique sid of the Alpha Sender ID.
-   * @property accountSid - The 34 character unique sid of the Account.
-   * @property serviceSid - The 34 character unique sid of the Messaging Service.
-   * @property dateCreated - The date that this resource was created.
-   * @property dateUpdated - The date that this resource was last updated.
-   * @property alphaSender - An Alphanumeric Sender ID string, up to 11 characters.
-   * @property capabilities - An array of values that indicate whether the number can receive calls or messages.
-   * @property url - The absolute URL for this resource.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -250,7 +256,10 @@ declare class AlphaSenderInstance extends SerializableClass {
 
 declare class AlphaSenderPage extends Page<V1, AlphaSenderPayload, AlphaSenderResource, AlphaSenderInstance> {
   /**
-   * Initialize the AlphaSenderPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AlphaSenderPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
