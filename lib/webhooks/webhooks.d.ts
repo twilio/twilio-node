@@ -60,7 +60,8 @@ export function validateRequest(
 ): boolean;
 
 /**
- * Utility function to validate an incoming request with a body is from Twilio
+ * Utility function to validate an incoming request is indeed from Twilio. This also validates
+ * the request body against the bodySHA256 post parameter.
  *
  * @param authToken - The auth token, as seen in the Twilio Portal
  * @param twilioHeader - The value of the X-Twilio-Signature header from the request
