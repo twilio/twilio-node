@@ -56,8 +56,29 @@ export function validateRequest(
   authToken: string,
   twilioHeader: string,
   url: string,
-  params: object
+  params: Record<string, any>
 ): boolean;
+
+
+/**
+ * Utility function to get the expected signature for a given request
+ *
+ * @param authToken - The auth token, as seen in the Twilio portal
+ * @param url - The full URL (with query string) you configured to handle this request
+ * @param params - the parameters sent with this request
+ */
+export function getExpectedTwilioSignature(
+  authToken: string,
+  url: string,
+  params: Record<string, any>
+): string;
+
+/**
+ * Utility function to get the expected body hash for a given request's body
+ *
+ * @param {string} body - The plain-text body of the request
+ */
+export function getExpectedBodyHash(body: string): string;
 
 /**
  * Utility function to validate an incoming request is indeed from Twilio. This also validates
