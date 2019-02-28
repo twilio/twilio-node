@@ -21,16 +21,10 @@ declare class VoiceResponse {
   /**
    * <Dial> TwiML Verb
    *
-   * @param number - Phone number to dial
-   */
-  dial(number: string): VoiceResponse.Dial;
-  /**
-   * <Dial> TwiML Verb
-   *
    * @param attributes - TwiML attributes
    * @param number - Phone number to dial
    */
-  dial(attributes: VoiceResponse.DialAttributes, number: string): VoiceResponse.Dial;
+  dial(attributes?: VoiceResponse.DialAttributes, number?: string): VoiceResponse.Dial;
   /**
    * <Echo> TwiML Verb
    *
@@ -40,16 +34,10 @@ declare class VoiceResponse {
   /**
    * <Enqueue> TwiML Noun
    *
-   * @param name - Friendly name
-   */
-  enqueue(name: string): VoiceResponse.Enqueue;
-  /**
-   * <Enqueue> TwiML Noun
-   *
    * @param attributes - TwiML attributes
    * @param name - Friendly name
    */
-  enqueue(attributes: VoiceResponse.EnqueueAttributes, name: string): VoiceResponse.Enqueue;
+  enqueue(attributes?: VoiceResponse.EnqueueAttributes, name?: string): VoiceResponse.Enqueue;
   /**
    * <Gather> TwiML Verb
    *
@@ -771,16 +759,10 @@ declare namespace VoiceResponse {
     /**
      * <Client> TwiML Noun
      *
-     * @param identity - Client identity
-     */
-    client(identity: string): VoiceResponse.Client;
-    /**
-     * <Client> TwiML Noun
-     *
      * @param attributes - TwiML attributes
      * @param identity - Client identity
      */
-    client(attributes: VoiceResponse.ClientAttributes, identity: string): VoiceResponse.Client;
+    client(attributes?: VoiceResponse.ClientAttributes, identity?: string): VoiceResponse.Client;
     /**
      * <Conference> TwiML Noun
      *
