@@ -15,8 +15,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the NotificationList
  *
  * @param version - Version of the resource
- * @param accountSid - The account_sid
- * @param callSid - The call_sid
+ * @param accountSid - The SID of the Account that created the resource
+ * @param callSid - The SID of the Call the resource is associated with
  */
 declare function NotificationList(version: V2010, accountSid: string, callSid: string): NotificationListInstance;
 
@@ -44,7 +44,7 @@ interface NotificationListInstance {
   /**
    * Constructs a notification
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): NotificationContext;
   /**
@@ -98,10 +98,10 @@ interface NotificationListInstance {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property log - The log
- * @property messageDate - The message_date
- * @property messageDateAfter - The message_date
- * @property messageDateBefore - The message_date
+ * @property log - Filter by log level
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property messageDateBefore - Filter by date
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -127,10 +127,10 @@ interface NotificationListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property log - The log
- * @property messageDate - The message_date
- * @property messageDateAfter - The message_date
- * @property messageDateBefore - The message_date
+ * @property log - Filter by log level
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property messageDateBefore - Filter by date
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -150,10 +150,10 @@ interface NotificationListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property log - The log
- * @property messageDate - The message_date
- * @property messageDateAfter - The message_date
- * @property messageDateBefore - The message_date
+ * @property log - Filter by log level
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property messageDateBefore - Filter by date
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -202,9 +202,9 @@ declare class NotificationContext {
    * Initialize the NotificationContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param callSid - The call_sid
-   * @param sid - The sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param callSid - The Call SID of the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, callSid: string, sid: string);
 
@@ -233,9 +233,9 @@ declare class NotificationInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
-   * @param callSid - The call_sid
-   * @param sid - The sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param callSid - The SID of the Call the resource is associated with
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: NotificationPayload, accountSid: string, callSid: string, sid: string);
 

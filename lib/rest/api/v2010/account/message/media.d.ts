@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../../../interfaces';
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
- * @param messageSid - A string that uniquely identifies this message
+ * @param messageSid - The unique string that identifies the resource
  */
 declare function MediaList(version: V2010, accountSid: string, messageSid: string): MediaListInstance;
 
@@ -218,7 +218,7 @@ declare class MediaInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The SID of the Account that created this resource
-   * @param messageSid - A string that uniquely identifies this message
+   * @param messageSid - The unique string that identifies the resource
    * @param sid - The unique string that identifies this resource
    */
   constructor(version: V2010, payload: MediaPayload, accountSid: string, messageSid: string, sid: string);

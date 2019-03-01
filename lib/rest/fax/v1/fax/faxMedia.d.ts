@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param faxSid - Fax SID
+ * @param faxSid - The SID of the fax the FaxMedia resource is associated with
  */
 declare function FaxMediaList(version: V1, faxSid: string): FaxMediaListInstance;
 
@@ -45,7 +45,7 @@ interface FaxMediaListInstance {
   /**
    * Constructs a fax_media
    *
-   * @param sid - A string that uniquely identifies this fax media
+   * @param sid - The unique string that identifies the resource to fetch
    */
   get(sid: string): FaxMediaContext;
   /**
@@ -171,8 +171,8 @@ declare class FaxMediaContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param faxSid - Fax SID
-   * @param sid - A string that uniquely identifies this fax media
+   * @param faxSid - The SID of the fax with the FaxMedia resource to fetch
+   * @param sid - The unique string that identifies the resource to fetch
    */
   constructor(version: V1, faxSid: string, sid: string);
 
@@ -204,8 +204,8 @@ declare class FaxMediaInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param faxSid - Fax SID
-   * @param sid - A string that uniquely identifies this fax media
+   * @param faxSid - The SID of the fax the FaxMedia resource is associated with
+   * @param sid - The unique string that identifies the resource to fetch
    */
   constructor(version: V1, payload: FaxMediaPayload, faxSid: string, sid: string);
 

@@ -23,7 +23,7 @@ type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'
  * Initialize the RecordingList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique SID that identifies this account
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function RecordingList(version: V2010, accountSid: string): RecordingListInstance;
 
@@ -51,7 +51,7 @@ interface RecordingListInstance {
   /**
    * Constructs a recording
    *
-   * @param sid - Fetch by unique recording SID
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): RecordingContext;
   /**
@@ -97,14 +97,14 @@ interface RecordingListInstance {
 /**
  * Options to pass to each
  *
- * @property callSid - Filter by call_sid
+ * @property callSid - The Call SID of the resources to read
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property conferenceSid - The unique ID for the conference associated with the recording.
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property conferenceSid - Read by unique Conference SID for the recording
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -132,11 +132,11 @@ interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property callSid - Filter by call_sid
- * @property conferenceSid - The unique ID for the conference associated with the recording.
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property callSid - The Call SID of the resources to read
+ * @property conferenceSid - Read by unique Conference SID for the recording
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -161,11 +161,11 @@ interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property callSid - Filter by call_sid
- * @property conferenceSid - The unique ID for the conference associated with the recording.
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateCreatedBefore - Filter by date created
+ * @property callSid - The Call SID of the resources to read
+ * @property conferenceSid - Read by unique Conference SID for the recording
+ * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -215,8 +215,8 @@ declare class RecordingContext {
    * Initialize the RecordingContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The unique sid that identifies this account
-   * @param sid - Fetch by unique recording SID
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -247,8 +247,8 @@ declare class RecordingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique SID that identifies this account
-   * @param sid - Fetch by unique recording SID
+   * @param accountSid - The SID of the Account that created the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: RecordingPayload, accountSid: string, sid: string);
 

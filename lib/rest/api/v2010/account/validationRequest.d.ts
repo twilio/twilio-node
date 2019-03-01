@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the ValidationRequestList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique ID of the Account responsible for this Caller Id.
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function ValidationRequestList(version: V2010, accountSid: string): ValidationRequestListInstance;
 
@@ -35,12 +35,12 @@ interface ValidationRequestListInstance {
 /**
  * Options to pass to create
  *
- * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
- * @property extension - Digits to dial after connecting the verification call.
- * @property friendlyName - A human readable description for the new caller ID with maximum length 64 characters.
- * @property phoneNumber - The phone number to verify.
- * @property statusCallback - A URL that Twilio will request when the verification call ends to notify your app if the verification process was successful or not.
- * @property statusCallbackMethod - The HTTP method Twilio should use when requesting the above URL.
+ * @property callDelay - The number of seconds to delay before initiating the verification call
+ * @property extension - The digits to dial after connecting the verification call
+ * @property friendlyName - A string to describe the resource
+ * @property phoneNumber - The phone number to verify in E.164 format
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackMethod - The HTTP method we should use to call status_callback
  */
 interface ValidationRequestListInstanceCreateOptions {
   callDelay?: number;
@@ -73,7 +73,7 @@ declare class ValidationRequestInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique ID of the Account responsible for this Caller Id.
+   * @param accountSid - The SID of the Account that created the resource
    */
   constructor(version: V2010, payload: ValidationRequestPayload, accountSid: string);
 

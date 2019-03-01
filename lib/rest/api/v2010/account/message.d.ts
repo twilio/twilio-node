@@ -27,14 +27,14 @@ type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered
  * Initialize the MessageList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
+ * @param accountSid - The SID of the Account that created the resource
  */
 declare function MessageList(version: V2010, accountSid: string): MessageListInstance;
 
 /**
  * Options to pass to update
  *
- * @property body - The text of the message you want to send, limited to 1600 characters.
+ * @property body - The text of the message you want to send
  */
 interface MessageInstanceUpdateOptions {
   body: string;
@@ -71,7 +71,7 @@ interface MessageListInstance {
   /**
    * Constructs a message
    *
-   * @param sid - Fetch by unique message Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): MessageContext;
   /**
@@ -117,40 +117,30 @@ interface MessageListInstance {
 /**
  * Options to pass to create
  *
- * @property addressRetention - The address_retention
  * @property applicationSid - The application to use for callbacks
- * @property body - The text of the message you want to send, limited to 1600 characters.
- * @property contentRetention - The content_retention
- * @property forceDelivery - The force_delivery
- * @property forceOptIn - Boolean representing force opt in for a message.
+ * @property body - The text of the message you want to send. Can be up to 1,600 characters in length.
+ * @property forceOptIn - Whether to forcefully whitelist a from:to pair
  * @property from - The phone number that initiated the message
- * @property interactiveData - JSON string representing interactive data message.
- * @property maxPrice - The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
- * @property maxRate - The max_rate
- * @property mediaUrl - The URL of the media you wish to send out with the message.
- * @property messagingServiceSid - The 34 character unique id of the Messaging Service you want to associate with this Message.
- * @property provideFeedback - Set this value to true if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the Message Feedback API.
- * @property providerSid - The provider_sid
- * @property smartEncoded - The smart_encoded
- * @property statusCallback - URL Twilio will request when the status changes
- * @property to - The phone number to receive the message
- * @property validityPeriod - The number of seconds that the message can remain in a Twilio queue.
+ * @property interactiveData - A JSON string that represents an interactive message
+ * @property maxPrice - The total maximum price up to 4 decimal places in US dollars acceptable for the message to be delivered.
+ * @property mediaUrl - The URL of the media to send with the message
+ * @property messagingServiceSid - The SID of the Messaging Service you want to associate with the message.
+ * @property provideFeedback - Whether to confirm delivery of the message
+ * @property smartEncoded - Whether to detect Unicode characters that have a similar GSM-7 character and replace them
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property to - The destination phone number
+ * @property validityPeriod - The number of seconds that the message can remain in our outgoing queue.
  */
 interface MessageListInstanceCreateOptions {
-  addressRetention?: MessageAddressRetention;
   applicationSid?: string;
   body?: string;
-  contentRetention?: MessageContentRetention;
-  forceDelivery?: boolean;
   forceOptIn?: boolean;
   from?: string;
   interactiveData?: string;
   maxPrice?: number;
-  maxRate?: string;
   mediaUrl?: string[];
   messagingServiceSid?: string;
   provideFeedback?: boolean;
-  providerSid?: string;
   smartEncoded?: boolean;
   statusCallback?: string;
   to: string;
@@ -178,7 +168,7 @@ interface MessageListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property to - Filter by messages to this number
+ * @property to - Filter by messages sent to this number
  */
 interface MessageListInstanceEachOptions {
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
@@ -209,7 +199,7 @@ interface MessageListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property to - Filter by messages to this number
+ * @property to - Filter by messages sent to this number
  */
 interface MessageListInstanceOptions {
   dateSent?: Date;
@@ -231,7 +221,7 @@ interface MessageListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property to - Filter by messages to this number
+ * @property to - Filter by messages sent to this number
  */
 interface MessageListInstancePageOptions {
   dateSent?: Date;
@@ -280,8 +270,8 @@ declare class MessageContext {
    * Initialize the MessageContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique message Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -319,8 +309,8 @@ declare class MessageInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param sid - Fetch by unique message Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: MessagePayload, accountSid: string, sid: string);
 

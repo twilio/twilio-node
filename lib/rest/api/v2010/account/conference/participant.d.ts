@@ -17,28 +17,40 @@ type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|
  * Initialize the ParticipantList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
- * @param conferenceSid - A string that uniquely identifies this conference
+ * @param accountSid - The SID of the Account that created the resource
+ * @param conferenceSid - The SID of the conference the participant is in
  */
 declare function ParticipantList(version: V2010, accountSid: string, conferenceSid: string): ParticipantListInstance;
 
 /**
  * Options to pass to update
  *
- * @property announceMethod - Specify GET or POST, defaults to POST
- * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something to the participant.
- * @property hold - Specifying true will hold the participant, while false will un-hold.
- * @property holdMethod - Specify GET or POST, defaults to GET
- * @property holdUrl - The 'HoldUrl' attribute lets you specify a URL for music that plays when a participant is held.
- * @property muted - Indicates if the participant should be muted
+ * @property announceMethod - The HTTP method we should use to call announce_url
+ * @property announceUrl - The URL we call using the `announce_method` for an announcement to the participant
+ * @property beepOnExit - Whether to play a notification beep to the conference when the participant exit
+ * @property callSidToCoach - The SID of the participant who is being `coached`
+ * @property coaching - Indicates if the participant changed to coach
+ * @property endConferenceOnExit - Whether to end the conference when the participant leaves
+ * @property hold - Whether the participant should be on hold
+ * @property holdMethod - The HTTP method we should use to call hold_url
+ * @property holdUrl - The URL we call using the `hold_method` for  music that plays when the participant is on hold
+ * @property muted - Whether the participant should be muted
+ * @property waitMethod - The HTTP method we should use to call `wait_url`
+ * @property waitUrl - URL that hosts pre-conference hold music
  */
 interface ParticipantInstanceUpdateOptions {
   announceMethod?: string;
   announceUrl?: string;
+  beepOnExit?: boolean;
+  callSidToCoach?: string;
+  coaching?: boolean;
+  endConferenceOnExit?: boolean;
   hold?: boolean;
   holdMethod?: string;
   holdUrl?: string;
   muted?: boolean;
+  waitMethod?: string;
+  waitUrl?: string;
 }
 
 interface ParticipantListInstance {
@@ -72,7 +84,7 @@ interface ParticipantListInstance {
   /**
    * Constructs a participant
    *
-   * @param callSid - Fetch by unique participant Call SID
+   * @param callSid - The Call SID of the resource to fetch
    */
   get(callSid: string): ParticipantContext;
   /**
@@ -118,39 +130,43 @@ interface ParticipantListInstance {
 /**
  * Options to pass to create
  *
- * @property beep - Play a beep when the participant joins the conference.
- * @property conferenceRecord - Record the conference.
- * @property conferenceRecordingStatusCallback - Conference recording callback URL.
- * @property conferenceRecordingStatusCallbackEvent - Set which conference recording state changes should webhook to the `ConferenceRecordingStatusCallback`
- * @property conferenceRecordingStatusCallbackMethod - Method Twilio should use to request the `ConferenceRecordingStatusCallback` URL.
- * @property conferenceStatusCallback - Callback URL for conference events.
- * @property conferenceStatusCallbackEvent - Set which conference state changes should webhook to the `ConferenceStatusCallback`
- * @property conferenceStatusCallbackMethod - HTTP method for requesting `ConferenceStatusCallback` URL.
- * @property conferenceTrim - Trim silence from audio files.
- * @property earlyMedia - Agents can hear the state of the outbound call.
- * @property endConferenceOnExit - End the conference when the participant leaves.
- * @property from - The `from` phone number used to invite a participant.
- * @property maxParticipants - Maximum number of agent conference participants.
- * @property muted - Mute the agent.
- * @property record - Record the agent and their conferences.
- * @property recordingChannels - Specify `mono` or `dual` recording channels.
- * @property recordingStatusCallback - The absolute URL for Twilio's webhook with recording status information.
- * @property recordingStatusCallbackEvent - Set which recording state changes should webhook to the `RecordingStatusCallback`
- * @property recordingStatusCallbackMethod - HTTP method for `RecordingStatusCallback`
- * @property region - The region where Twilio should mix the conference audio.
- * @property sipAuthPassword - SIP password for authentication.
- * @property sipAuthUsername - SIP username used for authenticating.
- * @property startConferenceOnEnter - Begin the conference when the participant joins.
- * @property statusCallback - URL for conference event callback.
- * @property statusCallbackEvent - Set state change events that will trigger a callback.
- * @property statusCallbackMethod - Method Twilio should use to reach the status callback URL.
- * @property timeout - Number of seconds Twilio will wait for an answer.
- * @property to - The number, client id, or sip address of the new participant.
- * @property waitMethod - The method Twilio should use to request `WaitUrl`.
+ * @property beep - Whether to play a notification beep to the conference when the participant joins
+ * @property callSidToCoach - The SID of the participant who is being `coached`
+ * @property coaching - Indicates if the participant changed to coach
+ * @property conferenceRecord - Whether to record the conference the participant is joining
+ * @property conferenceRecordingStatusCallback - The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available
+ * @property conferenceRecordingStatusCallbackEvent - The conference recording state changes that should generate a call to `conference_recording_status_callback`
+ * @property conferenceRecordingStatusCallbackMethod - The HTTP method we should use to call `conference_recording_status_callback`
+ * @property conferenceStatusCallback - The callback URL for conference events
+ * @property conferenceStatusCallbackEvent - The conference state changes that should generate a call to `conference_status_callback`
+ * @property conferenceStatusCallbackMethod - HTTP method for requesting `conference_status_callback` URL
+ * @property conferenceTrim - Whether to trim leading and trailing silence from your recorded conference audio files
+ * @property earlyMedia - Whether agents can hear the state of the outbound call
+ * @property endConferenceOnExit - Whether to end the conference when the participant leaves
+ * @property from - The `from` phone number used to invite a participant
+ * @property maxParticipants - The maximum number of agent conference participants
+ * @property muted - Whether to mute the agent
+ * @property record - Whether to record the participant and their conferences
+ * @property recordingChannels - Specify `mono` or `dual` recording channels
+ * @property recordingStatusCallback - The URL that we should call using the `recording_status_callback_method` when the recording status changes
+ * @property recordingStatusCallbackEvent - The recording state changes that should generate a call to `recording_status_callback`
+ * @property recordingStatusCallbackMethod - The HTTP method we should use when we call `recording_status_callback`
+ * @property region - The region where we should mix the conference audio
+ * @property sipAuthPassword - The SIP password for authentication
+ * @property sipAuthUsername - The SIP username used for authentication
+ * @property startConferenceOnEnter - Whether the conference starts when the participant joins the conference
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackEvent - Set state change events that will trigger a callback
+ * @property statusCallbackMethod - The HTTP method we should use to call `status_callback`
+ * @property timeout - he number of seconds that we should wait for an answer
+ * @property to - The number, client id, or sip address of the new participant
+ * @property waitMethod - The HTTP method we should use to call `wait_url`
  * @property waitUrl - URL that hosts pre-conference hold music
  */
 interface ParticipantListInstanceCreateOptions {
   beep?: string;
+  callSidToCoach?: string;
+  coaching?: boolean;
   conferenceRecord?: string;
   conferenceRecordingStatusCallback?: string;
   conferenceRecordingStatusCallbackEvent?: string[];
@@ -188,13 +204,14 @@ interface ParticipantListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
+ * @property coaching - Whether to return only participants who are coaching another call
  * @property done - Function to be called upon completion of streaming
- * @property hold - Only show participants that are held or unheld.
+ * @property hold - Whether to return only participants that are on hold
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property muted - Filter by muted participants
+ * @property muted - Whether to return only participants that are muted
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -204,6 +221,7 @@ interface ParticipantListInstanceCreateOptions {
  */
 interface ParticipantListInstanceEachOptions {
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
+  coaching?: boolean;
   done?: Function;
   hold?: boolean;
   limit?: number;
@@ -214,12 +232,13 @@ interface ParticipantListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property hold - Only show participants that are held or unheld.
+ * @property coaching - Whether to return only participants who are coaching another call
+ * @property hold - Whether to return only participants that are on hold
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property muted - Filter by muted participants
+ * @property muted - Whether to return only participants that are muted
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -228,6 +247,7 @@ interface ParticipantListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface ParticipantListInstanceOptions {
+  coaching?: boolean;
   hold?: boolean;
   limit?: number;
   muted?: boolean;
@@ -237,13 +257,15 @@ interface ParticipantListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property hold - Only show participants that are held or unheld.
- * @property muted - Filter by muted participants
+ * @property coaching - Whether to return only participants who are coaching another call
+ * @property hold - Whether to return only participants that are on hold
+ * @property muted - Whether to return only participants that are muted
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface ParticipantListInstancePageOptions {
+  coaching?: boolean;
   hold?: boolean;
   muted?: boolean;
   pageNumber?: number;
@@ -257,6 +279,8 @@ interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePay
 interface ParticipantResource {
   account_sid: string;
   call_sid: string;
+  call_sid_to_coach: string;
+  coaching: boolean;
   conference_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -279,9 +303,9 @@ declare class ParticipantContext {
    * Initialize the ParticipantContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The unique sid that identifies this account
-   * @param conferenceSid - The string that uniquely identifies this conference
-   * @param callSid - Fetch by unique participant Call SID
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param conferenceSid - The SID of the conference with the participant to fetch
+   * @param callSid - The Call SID of the resource to fetch
    */
   constructor(version: V2010, accountSid: string, conferenceSid: string, callSid: string);
 
@@ -317,15 +341,17 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param conferenceSid - A string that uniquely identifies this conference
-   * @param callSid - Fetch by unique participant Call SID
+   * @param accountSid - The SID of the Account that created the resource
+   * @param conferenceSid - The SID of the conference the participant is in
+   * @param callSid - The Call SID of the resource to fetch
    */
   constructor(version: V2010, payload: ParticipantPayload, accountSid: string, conferenceSid: string, callSid: string);
 
   private _proxy: ParticipantContext;
   accountSid: string;
   callSid: string;
+  callSidToCoach: string;
+  coaching: boolean;
   conferenceSid: string;
   dateCreated: Date;
   dateUpdated: Date;

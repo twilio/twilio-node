@@ -20,7 +20,7 @@ declare function AwsList(version: V1): AwsListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human readable description of this resource
+ * @property friendlyName - A string to describe the resource
  */
 interface AwsInstanceUpdateOptions {
   friendlyName?: string;
@@ -57,7 +57,7 @@ interface AwsListInstance {
   /**
    * Constructs a aws
    *
-   * @param sid - Fetch by unique Credential Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): AwsContext;
   /**
@@ -104,8 +104,8 @@ interface AwsListInstance {
  * Options to pass to create
  *
  * @property accountSid - The Subaccount this Credential should be associated with.
- * @property credentials - String containing AWS access credentials with format <AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>
- * @property friendlyName - A human readable description of this resource
+ * @property credentials - A string that contains the AWS access credentials in the format <AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>
+ * @property friendlyName - A string to describe the resource
  */
 interface AwsListInstanceCreateOptions {
   accountSid?: string;
@@ -191,7 +191,7 @@ declare class AwsContext {
    * Initialize the AwsContext
    *
    * @param version - Version of the resource
-   * @param sid - Fetch by unique Credential Sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -227,7 +227,7 @@ declare class AwsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - Fetch by unique Credential Sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: AwsPayload, sid: string);
 

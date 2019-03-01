@@ -384,6 +384,33 @@ describe('Composition', function() {
       }));
     }
   );
+  it('should generate valid read_enqueued response',
+    function() {
+      var body = JSON.stringify({
+          'compositions': [],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'compositions'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.video.v1.compositions.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
   it('should generate valid read_empty response',
     function() {
       var body = JSON.stringify({
@@ -538,7 +565,8 @@ describe('Composition', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.compositions.create();
+      var opts = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.video.v1.compositions.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -548,9 +576,11 @@ describe('Composition', function() {
 
       var url = 'https://video.twilio.com/v1/Compositions';
 
+      var values = {RoomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
+          method: 'POST',
+          url: url,
+          data: values
       }));
     }
   );
@@ -609,7 +639,8 @@ describe('Composition', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.video.v1.compositions.create();
+      var opts = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.video.v1.compositions.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

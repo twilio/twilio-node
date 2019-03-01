@@ -20,7 +20,7 @@ declare function PublicKeyList(version: V1): PublicKeyListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human readable description of this resource
+ * @property friendlyName - A string to describe the resource
  */
 interface PublicKeyInstanceUpdateOptions {
   friendlyName?: string;
@@ -57,7 +57,7 @@ interface PublicKeyListInstance {
   /**
    * Constructs a public_key
    *
-   * @param sid - Fetch by unique Credential Sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): PublicKeyContext;
   /**
@@ -104,8 +104,8 @@ interface PublicKeyListInstance {
  * Options to pass to create
  *
  * @property accountSid - The Subaccount this Credential should be associated with.
- * @property friendlyName - A human readable description of this resource
- * @property publicKey - URL encoded representation of the public key
+ * @property friendlyName - A string to describe the resource
+ * @property publicKey - A URL encoded representation of the public key
  */
 interface PublicKeyListInstanceCreateOptions {
   accountSid?: string;
@@ -191,7 +191,7 @@ declare class PublicKeyContext {
    * Initialize the PublicKeyContext
    *
    * @param version - Version of the resource
-   * @param sid - Fetch by unique Credential Sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -227,7 +227,7 @@ declare class PublicKeyInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - Fetch by unique Credential Sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: PublicKeyPayload, sid: string);
 

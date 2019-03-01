@@ -16,8 +16,8 @@ type TranscriptionStatus = 'in-progress'|'completed'|'failed';
  * Initialize the TranscriptionList
  *
  * @param version - Version of the resource
- * @param accountSid - The account_sid
- * @param recordingSid - The recording_sid
+ * @param accountSid - The SID of the Account that created the resource
+ * @param recordingSid - The SID that identifies the transcription's recording
  */
 declare function TranscriptionList(version: V2010, accountSid: string, recordingSid: string): TranscriptionListInstance;
 
@@ -45,7 +45,7 @@ interface TranscriptionListInstance {
   /**
    * Constructs a transcription
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): TranscriptionContext;
   /**
@@ -175,9 +175,9 @@ declare class TranscriptionContext {
    * Initialize the TranscriptionContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param recordingSid - The recording_sid
-   * @param sid - The sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param recordingSid - The SID of the recording that created the transcriptions to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, recordingSid: string, sid: string);
 
@@ -206,9 +206,9 @@ declare class TranscriptionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
-   * @param recordingSid - The recording_sid
-   * @param sid - The sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param recordingSid - The SID that identifies the transcription's recording
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: TranscriptionPayload, accountSid: string, recordingSid: string, sid: string);
 

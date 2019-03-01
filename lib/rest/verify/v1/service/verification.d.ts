@@ -12,6 +12,8 @@ import { SerializableClass } from '../../../../interfaces';
 
 type VerificationChannel = 'sms'|'call';
 
+type VerificationStatus = 'canceled';
+
 /**
  * Initialize the VerificationList
  *
@@ -23,7 +25,20 @@ type VerificationChannel = 'sms'|'call';
  */
 declare function VerificationList(version: V1, serviceSid: string): VerificationListInstance;
 
+/**
+ * Options to pass to update
+ *
+ * @property status - New status to set for the Verification.
+ */
+interface VerificationInstanceUpdateOptions {
+  status: VerificationStatus;
+}
+
 interface VerificationListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  (sid: string): VerificationContext;
   /**
    * create a VerificationInstance
    *
@@ -31,6 +46,12 @@ interface VerificationListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts: VerificationListInstanceCreateOptions, callback?: (error: Error | null, item: VerificationInstance) => any): Promise<VerificationInstance>;
+  /**
+   * Constructs a verification
+   *
+   * @param sid - A string that uniquely identifies this Verification.
+   */
+  get(sid: string): VerificationContext;
   /**
    * Provide a user-friendly representation
    */
@@ -75,11 +96,45 @@ interface VerificationResource {
   sid: string;
   status: string;
   to: string;
+  url: string;
   valid: boolean;
 }
 
 interface VerificationSolution {
   serviceSid?: string;
+}
+
+
+declare class VerificationContext {
+  /**
+   * Initialize the VerificationContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - Service Sid.
+   * @param sid - A string that uniquely identifies this Verification.
+   */
+  constructor(version: V1, serviceSid: string, sid: string);
+
+  /**
+   * fetch a VerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: VerificationInstance) => any): Promise<VerificationInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
+   * update a VerificationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: VerificationInstanceUpdateOptions, callback?: (error: Error | null, items: VerificationInstance) => any): Promise<VerificationInstance>;
 }
 
 
@@ -93,14 +148,22 @@ declare class VerificationInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
+   * @param sid - A string that uniquely identifies this Verification.
    */
-  constructor(version: V1, payload: VerificationPayload, serviceSid: string);
+  constructor(version: V1, payload: VerificationPayload, serviceSid: string, sid: string);
 
+  private _proxy: VerificationContext;
   accountSid: string;
   amount: string;
   channel: VerificationChannel;
   dateCreated: Date;
   dateUpdated: Date;
+  /**
+   * fetch a VerificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: VerificationInstance) => any): void;
   lookup: string;
   payee: string;
   serviceSid: string;
@@ -111,6 +174,14 @@ declare class VerificationInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a VerificationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: VerificationInstanceUpdateOptions, callback?: (error: Error | null, items: VerificationInstance) => any): void;
+  url: string;
   valid: boolean;
 }
 
@@ -140,4 +211,4 @@ declare class VerificationPage extends Page<V1, VerificationPayload, Verificatio
   toJSON(): any;
 }
 
-export { VerificationInstance, VerificationList, VerificationListInstance, VerificationListInstanceCreateOptions, VerificationPage, VerificationPayload, VerificationResource, VerificationSolution }
+export { VerificationContext, VerificationInstance, VerificationList, VerificationListInstance, VerificationListInstanceCreateOptions, VerificationPage, VerificationPayload, VerificationResource, VerificationSolution }

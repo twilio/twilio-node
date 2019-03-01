@@ -34,7 +34,7 @@ declare function FaxList(version: V1): FaxListInstance;
 /**
  * Options to pass to update
  *
- * @property status - The updated status of this fax
+ * @property status - The new status of the resource
  */
 interface FaxInstanceUpdateOptions {
   status?: FaxUpdateStatus;
@@ -71,7 +71,7 @@ interface FaxListInstance {
   /**
    * Constructs a fax
    *
-   * @param sid - A string that uniquely identifies this fax.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): FaxContext;
   /**
@@ -117,15 +117,15 @@ interface FaxListInstance {
 /**
  * Options to pass to create
  *
- * @property from - Twilio number from which to originate the fax
- * @property mediaUrl - URL that points to the fax media
+ * @property from - The number the fax was sent from
+ * @property mediaUrl - The Twilio-hosted URL of the PDF that contains the fax
  * @property quality - The quality of this fax
- * @property sipAuthPassword - Password for SIP authentication
- * @property sipAuthUsername - Username for SIP authentication
- * @property statusCallback - URL for fax status callbacks
- * @property storeMedia - Whether or not to store media
- * @property to - The phone number or SIP address to send the fax to
- * @property ttl - How many minutes to attempt a fax
+ * @property sipAuthPassword - The password for SIP authentication
+ * @property sipAuthUsername - The username for SIP authentication
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property storeMedia - Whether to store a copy of the sent media
+ * @property to - The phone number to receive the fax
+ * @property ttl - How long in minutes to try to send the fax
  */
 interface FaxListInstanceCreateOptions {
   from?: string;
@@ -145,10 +145,10 @@ interface FaxListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Include only faxes created after
- * @property dateCreatedOnOrBefore - Include only faxes created on or before
+ * @property dateCreatedAfter - Retrieve only faxes created after this date
+ * @property dateCreatedOnOrBefore - Retrieve only faxes created on or before this date
  * @property done - Function to be called upon completion of streaming
- * @property from - Include only faxes sent from
+ * @property from - Retrieve only those faxes sent from this phone number
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -159,7 +159,7 @@ interface FaxListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property to - Include only faxes sent to
+ * @property to - Retrieve only those faxes sent to this phone number
  */
 interface FaxListInstanceEachOptions {
   callback?: (item: FaxInstance, done: (err?: Error) => void) => void;
@@ -175,9 +175,9 @@ interface FaxListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Include only faxes created after
- * @property dateCreatedOnOrBefore - Include only faxes created on or before
- * @property from - Include only faxes sent from
+ * @property dateCreatedAfter - Retrieve only faxes created after this date
+ * @property dateCreatedOnOrBefore - Retrieve only faxes created on or before this date
+ * @property from - Retrieve only those faxes sent from this phone number
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -188,7 +188,7 @@ interface FaxListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property to - Include only faxes sent to
+ * @property to - Retrieve only those faxes sent to this phone number
  */
 interface FaxListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -202,13 +202,13 @@ interface FaxListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Include only faxes created after
- * @property dateCreatedOnOrBefore - Include only faxes created on or before
- * @property from - Include only faxes sent from
+ * @property dateCreatedAfter - Retrieve only faxes created after this date
+ * @property dateCreatedOnOrBefore - Retrieve only faxes created on or before this date
+ * @property from - Retrieve only those faxes sent from this phone number
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property to - Include only faxes sent to
+ * @property to - Retrieve only those faxes sent to this phone number
  */
 interface FaxListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -256,7 +256,7 @@ declare class FaxContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - A string that uniquely identifies this fax.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -296,7 +296,7 @@ declare class FaxInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A string that uniquely identifies this fax.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: FaxPayload, sid: string);
 

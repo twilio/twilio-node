@@ -14,6 +14,8 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type FactorFactorStatuses = 'unverified'|'verified';
 
+type FactorFactorStrengths = 'unknown'|'very_low'|'low'|'medium'|'high'|'very_high';
+
 type FactorFactorTypes = 'app-push'|'sms'|'totp';
 
 /**
@@ -190,6 +192,7 @@ interface FactorResource {
   date_created: Date;
   date_updated: Date;
   entity_sid: string;
+  factor_strength: FactorFactorStrengths;
   factor_type: FactorFactorTypes;
   friendly_name: string;
   identity: string;
@@ -273,6 +276,7 @@ declare class FactorInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   entitySid: string;
+  factorStrength: FactorFactorStrengths;
   factorType: FactorFactorTypes;
   /**
    * fetch a FactorInstance

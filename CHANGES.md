@@ -1,6 +1,37 @@
 twilio-node changelog
 =====================
 
+[2019-03-01] Version 3.29.0
+----------------------------
+**Library**
+- PR #391: DeprecationWarning: Buffer(). Thanks to @ShelbyZ!
+- PR #423: refactor to expose utility functions to get expected signature/body hash. Thanks to @Charliekenney23!
+- PR #419: Make the message body optional for TwiML nouns where it is not required. Thanks to @childish-sambino!
+- PR #421: add typedef for validateRequestWithBody. Thanks to @Charliekenney23!
+- PR #418: Add explicit class names to @constructor tags and add all missing @function and @memberof tags. Thanks to @childish-sambino!
+- PR #417: Remove the auto-generated docs from source control. Thanks to @childish-sambino!
+- PR #412: Add ‘toJSON' and ‘inspect' methods to context, instance, list, and page classes. Thanks to @childish-sambino!
+
+**Api**
+- Make conference participant preview parameters public
+
+**Authy**
+- Added support for FactorType and FactorStrength for Factors and Challenges
+
+**Iam**
+- First public release
+
+**Verify**
+- Add endpoint to update/cancel a Verification **(breaking change)**
+
+**Video**
+- [Composer] Make RoomSid mandatory **(breaking change)**
+- [Composer] Add `enqueued` state to Composition
+
+**Twiml**
+- Update message body to not be required for TwiML `Dial` noun.
+
+
 [2019-02-19] Version 3.28.1
 ----------------------------
 **Library**

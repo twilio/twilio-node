@@ -21,7 +21,7 @@ declare function KeyList(version: V2010, accountSid: string): KeyListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
+ * @property friendlyName - A string to describe the resource
  */
 interface KeyInstanceUpdateOptions {
   friendlyName?: string;
@@ -51,7 +51,7 @@ interface KeyListInstance {
   /**
    * Constructs a key
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): KeyContext;
   /**
@@ -171,8 +171,8 @@ declare class KeyContext {
    * Initialize the KeyContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - The sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -209,7 +209,7 @@ declare class KeyInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: KeyPayload, accountSid: string, sid: string);
 

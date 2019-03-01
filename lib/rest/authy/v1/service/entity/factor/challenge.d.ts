@@ -15,6 +15,8 @@ type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
 
 type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
 
+type ChallengeFactorStrengths = 'unknown'|'very_low'|'low'|'medium'|'high'|'very_high';
+
 type ChallengeFactorTypes = 'app-push'|'sms'|'totp';
 
 /**
@@ -89,6 +91,7 @@ interface ChallengeResource {
   entity_sid: string;
   expiration_date: Date;
   factor_sid: string;
+  factor_strength: ChallengeFactorStrengths;
   factor_type: ChallengeFactorTypes;
   hidden_details: string;
   identity: string;
@@ -174,6 +177,7 @@ declare class ChallengeInstance extends SerializableClass {
   entitySid: string;
   expirationDate: Date;
   factorSid: string;
+  factorStrength: ChallengeFactorStrengths;
   factorType: ChallengeFactorTypes;
   /**
    * fetch a ChallengeInstance

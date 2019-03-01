@@ -14,9 +14,9 @@ import { SerializableClass } from '../../../../../../interfaces';
  * Initialize the PayloadList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
- * @param referenceSid - A string that uniquely identifies the recording.
- * @param addOnResultSid - A string that uniquely identifies the result
+ * @param accountSid - The SID of the Account that created the resource
+ * @param referenceSid - The SID of the recording to which the AddOnResult resource that contains the payload belongs
+ * @param addOnResultSid - The SID of the AddOnResult to which the payload belongs
  */
 declare function PayloadList(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string): PayloadListInstance;
 
@@ -44,7 +44,7 @@ interface PayloadListInstance {
   /**
    * Constructs a payload
    *
-   * @param sid - Fetch by unique payload Sid
+   * @param sid - The unique string that identifies the resource to fetch
    */
   get(sid: string): PayloadContext;
   /**
@@ -173,10 +173,10 @@ declare class PayloadContext {
    * Initialize the PayloadContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param referenceSid - The reference_sid
-   * @param addOnResultSid - The add_on_result_sid
-   * @param sid - Fetch by unique payload Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param referenceSid - The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs
+   * @param addOnResultSid - The SID of the AddOnResult to which the payload to fetch belongs
+   * @param sid - The unique string that identifies the resource to fetch
    */
   constructor(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string);
 
@@ -205,10 +205,10 @@ declare class PayloadInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param referenceSid - A string that uniquely identifies the recording.
-   * @param addOnResultSid - A string that uniquely identifies the result
-   * @param sid - Fetch by unique payload Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param referenceSid - The SID of the recording to which the AddOnResult resource that contains the payload belongs
+   * @param addOnResultSid - The SID of the AddOnResult to which the payload belongs
+   * @param sid - The unique string that identifies the resource to fetch
    */
   constructor(version: V2010, payload: PayloadPayload, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string);
 

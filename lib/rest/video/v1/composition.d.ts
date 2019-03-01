@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../interfaces';
 
 type CompositionFormat = 'mp4'|'webm';
 
-type CompositionStatus = 'processing'|'completed'|'deleted'|'failed';
+type CompositionStatus = 'enqueued'|'processing'|'completed'|'deleted'|'failed';
 
 /**
  * Initialize the CompositionList
@@ -37,7 +37,7 @@ interface CompositionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: CompositionListInstanceCreateOptions, callback?: (error: Error | null, item: CompositionInstance) => any): Promise<CompositionInstance>;
+  create(opts: CompositionListInstanceCreateOptions, callback?: (error: Error | null, item: CompositionInstance) => any): Promise<CompositionInstance>;
   /**
    * Streams CompositionInstance records from the API.
    *
@@ -118,7 +118,7 @@ interface CompositionListInstanceCreateOptions {
   audioSourcesExcluded?: string[];
   format?: CompositionFormat;
   resolution?: string;
-  roomSid?: string;
+  roomSid: string;
   statusCallback?: string;
   statusCallbackMethod?: string;
   trim?: boolean;

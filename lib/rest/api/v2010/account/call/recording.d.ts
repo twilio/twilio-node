@@ -19,8 +19,8 @@ type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'
  * Initialize the RecordingList
  *
  * @param version - Version of the resource
- * @param accountSid - The SID of the Account that created this resource
- * @param callSid - The SID of the Call this resource is associated with
+ * @param accountSid - The SID of the Account that created the resource
+ * @param callSid - The SID of the Call the resource is associated with
  */
 declare function RecordingList(version: V2010, accountSid: string, callSid: string): RecordingListInstance;
 
@@ -66,7 +66,7 @@ interface RecordingListInstance {
   /**
    * Constructs a recording
    *
-   * @param sid - The unique string that identifies this resource
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): RecordingContext;
   /**
@@ -115,7 +115,7 @@ interface RecordingListInstance {
  * @property recordingChannels - The number of channels that the output recording will be configured with
  * @property recordingStatusCallback - The callback URL on each selected recording event
  * @property recordingStatusCallbackEvent - The recording status changes that should generate a callback
- * @property recordingStatusCallbackMethod - The HTTP method we should use when calling the recording_status_callback URL
+ * @property recordingStatusCallbackMethod - The HTTP method we should use to call `recording_status_callback`
  * @property trim - Whether to trim the silence in the recording
  */
 interface RecordingListInstanceCreateOptions {
@@ -235,9 +235,9 @@ declare class RecordingContext {
    * Initialize the RecordingContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The SID of the Account that created the resource(s) to fetch
-   * @param callSid - The Call SID of the resource(s) to fetch
-   * @param sid - The unique string that identifies this resource
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param callSid - The Call SID of the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, accountSid: string, callSid: string, sid: string);
 
@@ -273,9 +273,9 @@ declare class RecordingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The SID of the Account that created this resource
-   * @param callSid - The SID of the Call this resource is associated with
-   * @param sid - The unique string that identifies this resource
+   * @param accountSid - The SID of the Account that created the resource
+   * @param callSid - The SID of the Call the resource is associated with
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2010, payload: RecordingPayload, accountSid: string, callSid: string, sid: string);
 

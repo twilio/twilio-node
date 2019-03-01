@@ -18,8 +18,8 @@ type AddOnResultStatus = 'canceled'|'completed'|'deleted'|'failed'|'in-progress'
  * Initialize the AddOnResultList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique sid that identifies this account
- * @param referenceSid - A string that uniquely identifies the recording.
+ * @param accountSid - The SID of the Account that created the resource
+ * @param referenceSid - The SID of the recording to which the AddOnResult resource belongs
  */
 declare function AddOnResultList(version: V2010, accountSid: string, referenceSid: string): AddOnResultListInstance;
 
@@ -47,7 +47,7 @@ interface AddOnResultListInstance {
   /**
    * Constructs a add_on_result
    *
-   * @param sid - Fetch by unique result Sid
+   * @param sid - The unique string that identifies the resource to fetch
    */
   get(sid: string): AddOnResultContext;
   /**
@@ -174,9 +174,9 @@ declare class AddOnResultContext {
    * Initialize the AddOnResultContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param referenceSid - The reference_sid
-   * @param sid - Fetch by unique result Sid
+   * @param accountSid - The SID of the Account that created the resource to fetch
+   * @param referenceSid - The SID of the recording to which the result to fetch belongs
+   * @param sid - The unique string that identifies the resource to fetch
    */
   constructor(version: V2010, accountSid: string, referenceSid: string, sid: string);
 
@@ -206,9 +206,9 @@ declare class AddOnResultInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique sid that identifies this account
-   * @param referenceSid - A string that uniquely identifies the recording.
-   * @param sid - Fetch by unique result Sid
+   * @param accountSid - The SID of the Account that created the resource
+   * @param referenceSid - The SID of the recording to which the AddOnResult resource belongs
+   * @param sid - The unique string that identifies the resource to fetch
    */
   constructor(version: V2010, payload: AddOnResultPayload, accountSid: string, referenceSid: string, sid: string);
 
