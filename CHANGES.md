@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2019-03-06] Version 3.29.1
+----------------------------
+**Twiml**
+- Add `de1` to `<Conference>` regions
+
+
 [2019-03-01] Version 3.29.0
 ----------------------------
 **Library**

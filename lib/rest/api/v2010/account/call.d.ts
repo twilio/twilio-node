@@ -135,7 +135,7 @@ interface CallListInstance {
  * @property fallbackMethod - HTTP Method to use with fallback_url
  * @property fallbackUrl - Fallback URL in case of error
  * @property from - Twilio number from which to originate the call
- * @property ifMachine - The action to take if an answering machine is detected
+ * @property ifMachine - Deprecated. Action to take if a machine has answered the call
  * @property machineDetection - Enable machine detection or end of greeting detection
  * @property machineDetectionTimeout - Number of milliseconds to wait for machine detection
  * @property method - HTTP method to use to fetch TwiML
