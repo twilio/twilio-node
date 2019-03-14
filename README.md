@@ -31,7 +31,7 @@ The `Dockerfile` present in this repository and its respective `twilio/twilio-no
 
 ## Getting help
 
-If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first.
+If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first, and file a support ticket there if you don't find an answer to your question.
 
 If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
 
