@@ -137,7 +137,10 @@ interface CallListInstance {
  * @property from - Twilio number from which to originate the call
  * @property ifMachine - Deprecated. Action to take if a machine has answered the call
  * @property machineDetection - Enable machine detection or end of greeting detection
- * @property machineDetectionTimeout - Number of milliseconds to wait for machine detection
+ * @property machineDetectionSilenceTimeout - Number of milliseconds of initial silence
+ * @property machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity
+ * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
+ * @property machineDetectionTimeout - Number of seconds to wait for machine detection
  * @property method - HTTP method to use to fetch TwiML
  * @property record - Whether or not to record the call
  * @property recordingChannels - The number of channels in the final recording
@@ -163,6 +166,9 @@ interface CallListInstanceCreateOptions {
   from: string;
   ifMachine?: string;
   machineDetection?: string;
+  machineDetectionSilenceTimeout?: number;
+  machineDetectionSpeechEndThreshold?: number;
+  machineDetectionSpeechThreshold?: number;
   machineDetectionTimeout?: number;
   method?: string;
   record?: boolean;

@@ -19,20 +19,20 @@ type MessageWebhookEnabledType = 'true'|'false';
  * Initialize the MessageList
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique id of the Service this message belongs to.
- * @param channelSid - The channel_sid
+ * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param channelSid - The unique ID of the Channel the Message resource belongs to
  */
 declare function MessageList(version: V2, serviceSid: string, channelSid: string): MessageListInstance;
 
 /**
  * Options to pass to update
  *
- * @property attributes - The attributes metadata field you can use to store any data you wish.
- * @property body - The message body string.
- * @property dateCreated - The ISO8601 time specifying the datetime the Message should be set as being created.
- * @property dateUpdated - The ISO8601 time specifying the datetime the Message should be set as having been last updated.
- * @property from - The identity of the message's author.
- * @property lastUpdatedBy - Specify the Identity of the User that last updated the Message
+ * @property attributes - A valid JSON string that contains application-specific data
+ * @property body - The message to send to the channel
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
+ * @property from - The identity of the message's author
+ * @property lastUpdatedBy - The Identity of the User who last updated the Message, if applicable
  */
 interface MessageInstanceUpdateOptions {
   attributes?: string;
@@ -74,7 +74,7 @@ interface MessageListInstance {
   /**
    * Constructs a message
    *
-   * @param sid - Key that uniquely defines the message to fetch.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): MessageContext;
   /**
@@ -120,13 +120,13 @@ interface MessageListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - The attributes metadata field you can use to store any data you wish.
- * @property body - The message body string.
- * @property dateCreated - The ISO8601 time specifying the datetime the Message should be set as being created.
- * @property dateUpdated - The ISO8601 time specifying the datetime the Message should be set as having been last updated.
- * @property from - The identity of the message's author. Defaults to system if not specified.
- * @property lastUpdatedBy - Specify the Identity of the User that last updated the Message
- * @property mediaSid -  The Media Sid to be attached to this Message.
+ * @property attributes - A valid JSON string that contains application-specific data
+ * @property body - The message to send to the channel
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
+ * @property from - The identity of the new message's author
+ * @property lastUpdatedBy - The Identity of the User who last updated the Message
+ * @property mediaSid -  The Media Sid to be attached to the new Message
  */
 interface MessageListInstanceCreateOptions {
   attributes?: string;
@@ -149,7 +149,7 @@ interface MessageListInstanceCreateOptions {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - Specifies sorting order for messages list, possible values are: `asc` or `desc`.
+ * @property order - The sort order of the returned messages
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -172,7 +172,7 @@ interface MessageListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - Specifies sorting order for messages list, possible values are: `asc` or `desc`.
+ * @property order - The sort order of the returned messages
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -189,7 +189,7 @@ interface MessageListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property order - Specifies sorting order for messages list, possible values are: `asc` or `desc`.
+ * @property order - The sort order of the returned messages
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -234,9 +234,9 @@ declare class MessageContext {
    * Initialize the MessageContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - Sid of the Service this message belongs to.
-   * @param channelSid - Key that uniquely defines the channel this message belongs to.
-   * @param sid - Key that uniquely defines the message to fetch.
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param channelSid - The unique ID of the Channel the message to fetch belongs to
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
@@ -272,9 +272,9 @@ declare class MessageInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique id of the Service this message belongs to.
-   * @param channelSid - The channel_sid
-   * @param sid - Key that uniquely defines the message to fetch.
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param channelSid - The unique ID of the Channel the Message resource belongs to
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, payload: MessagePayload, serviceSid: string, channelSid: string, sid: string);
 

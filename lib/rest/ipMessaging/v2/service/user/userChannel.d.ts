@@ -18,15 +18,15 @@ type UserChannelNotificationLevel = 'default'|'muted';
  * Initialize the UserChannelList
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique id of the Service this channel belongs to.
- * @param userSid - The unique id of the User this Channel belongs to.
+ * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param userSid - The SID of the User the User Channel belongs to
  */
 declare function UserChannelList(version: V2, serviceSid: string, userSid: string): UserChannelListInstance;
 
 /**
  * Options to pass to update
  *
- * @property notificationLevel - Push notification level to be assigned to Channel of the User.
+ * @property notificationLevel - The push notification level to assign to the User Channel
  */
 interface UserChannelInstanceUpdateOptions {
   notificationLevel: UserChannelNotificationLevel;
@@ -56,7 +56,7 @@ interface UserChannelListInstance {
   /**
    * Constructs a user_channel
    *
-   * @param channelSid - The unique id of a Channel.
+   * @param channelSid - The SID of the Channel that has the User Channel to fetch
    */
   get(channelSid: string): UserChannelContext;
   /**
@@ -184,9 +184,9 @@ declare class UserChannelContext {
    * Initialize the UserChannelContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The unique id of the Service those channels belong to.
-   * @param userSid - The unique id of a User.
-   * @param channelSid - The unique id of a Channel.
+   * @param serviceSid - The SID of the Service to fetch the User Channel resource from
+   * @param userSid - The SID of the User to fetch the User Channel resource from
+   * @param channelSid - The SID of the Channel that has the User Channel to fetch
    */
   constructor(version: V2, serviceSid: string, userSid: string, channelSid: string);
 
@@ -216,9 +216,9 @@ declare class UserChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique id of the Service this channel belongs to.
-   * @param userSid - The unique id of the User this Channel belongs to.
-   * @param channelSid - The unique id of a Channel.
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param userSid - The SID of the User the User Channel belongs to
+   * @param channelSid - The SID of the Channel that has the User Channel to fetch
    */
   constructor(version: V2, payload: UserChannelPayload, serviceSid: string, userSid: string, channelSid: string);
 

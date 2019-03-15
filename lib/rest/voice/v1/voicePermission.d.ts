@@ -22,6 +22,7 @@ declare function VoicePermissionList(version: V1): VoicePermissionListInstance;
 interface VoicePermissionListInstance {
   bulkCountryUpdates?: object;
   countries?: object;
+  settings?: object;
   /**
    * Provide a user-friendly representation
    */

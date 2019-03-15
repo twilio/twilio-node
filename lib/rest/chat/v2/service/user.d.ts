@@ -20,16 +20,16 @@ type UserWebhookEnabledType = 'true'|'false';
  * Initialize the UserList
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique id of the Service this user belongs to.
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
 declare function UserList(version: V2, serviceSid: string): UserListInstance;
 
 /**
  * Options to pass to update
  *
- * @property attributes - An optional string used to contain any metadata or other information for the User.
- * @property friendlyName - An optional human readable string representing the user.
- * @property roleSid - The unique id of the [Role][role] assigned to this user.
+ * @property attributes - A valid JSON string that contains application-specific data
+ * @property friendlyName - A string to describe the resource
+ * @property roleSid - The SID id of the Role assigned to this user
  */
 interface UserInstanceUpdateOptions {
   attributes?: string;
@@ -68,7 +68,7 @@ interface UserListInstance {
   /**
    * Constructs a user
    *
-   * @param sid - Key that uniquely defines the user to fetch.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): UserContext;
   /**
@@ -114,10 +114,10 @@ interface UserListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - An optional string used to contain any metadata or other information for the User.
- * @property friendlyName - An optional human readable string representing the user.
- * @property identity - A unique string that identifies the user within this service - often a username or email address.
- * @property roleSid - The unique id of the Role assigned to this user.
+ * @property attributes - A valid JSON string that contains application-specific data
+ * @property friendlyName - A string to describe the new resource
+ * @property identity - The `identity` value that identifies the new resource's User
+ * @property roleSid - The SID of the Role assigned to this user
  */
 interface UserListInstanceCreateOptions {
   attributes?: string;
@@ -213,8 +213,8 @@ declare class UserContext {
    * Initialize the UserContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - Sid of the Service this user belongs to.
-   * @param sid - Key that uniquely defines the user to fetch.
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, serviceSid: string, sid: string);
 
@@ -252,8 +252,8 @@ declare class UserInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique id of the Service this user belongs to.
-   * @param sid - Key that uniquely defines the user to fetch.
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, payload: UserPayload, serviceSid: string, sid: string);
 

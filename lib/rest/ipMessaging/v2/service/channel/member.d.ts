@@ -17,20 +17,20 @@ type MemberWebhookEnabledType = 'true'|'false';
  * Initialize the MemberList
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique id of the Service this member belongs to.
- * @param channelSid - The unique id of the Channel for this member.
+ * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param channelSid - The unique ID of the Channel for the member
  */
 declare function MemberList(version: V2, serviceSid: string, channelSid: string): MemberListInstance;
 
 /**
  * Options to pass to update
  *
- * @property attributes - An optional string metadata field you can use to store any data you wish.
- * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.
- * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.
- * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
- * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
- * @property roleSid - The role to be assigned to this member.
+ * @property attributes - A valid JSON string that contains application-specific data
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
+ * @property lastConsumedMessageIndex - The index of the last consumed Message for the Channel for the Member
+ * @property lastConsumptionTimestamp - The ISO 8601 based timestamp string representing the date-time of the last Message read event for the Member within the Channel
+ * @property roleSid - The SID of the Role to assign to the member
  */
 interface MemberInstanceUpdateOptions {
   attributes?: string;
@@ -72,7 +72,7 @@ interface MemberListInstance {
   /**
    * Constructs a member
    *
-   * @param sid - Key that uniquely defines the member to fetch.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): MemberContext;
   /**
@@ -118,13 +118,13 @@ interface MemberListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - An optional string metadata field you can use to store any data you wish.
- * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.  Will be set to the current time by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source
- * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.  Will be set to the null by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source  and where a Member was previously updated.
- * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
- * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.  Should only be used when recreating a Member from a backup/separate source.
- * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.  Should only be used when recreating a Member from a backup/separate source
- * @property roleSid - The role to be assigned to this member. Defaults to the roles specified on the Service.
+ * @property attributes - A valid JSON string that contains application-specific data
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
+ * @property identity - The `identity` value that identifies the new resource's User
+ * @property lastConsumedMessageIndex - The index of the last Message in the Channel the Member has read
+ * @property lastConsumptionTimestamp - The ISO 8601 based timestamp string representing the date-time of the last Message read event for the Member within the Channel
+ * @property roleSid - The SID of the Role to assign to the member
  */
 interface MemberListInstanceCreateOptions {
   attributes?: string;
@@ -143,7 +143,7 @@ interface MemberListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
+ * @property identity - The `identity` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -166,7 +166,7 @@ interface MemberListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
+ * @property identity - The `identity` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -187,7 +187,7 @@ interface MemberListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
+ * @property identity - The `identity` value of the resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -228,9 +228,9 @@ declare class MemberContext {
    * Initialize the MemberContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - Sid of the Service this member belongs to.
-   * @param channelSid - Key that uniquely defines the channel this member belongs to.
-   * @param sid - Key that uniquely defines the member to fetch.
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param channelSid - The unique ID of the channel the member belongs to
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
@@ -266,9 +266,9 @@ declare class MemberInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique id of the Service this member belongs to.
-   * @param channelSid - The unique id of the Channel for this member.
-   * @param sid - Key that uniquely defines the member to fetch.
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param channelSid - The unique ID of the Channel for the member
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, payload: MemberPayload, serviceSid: string, channelSid: string, sid: string);
 

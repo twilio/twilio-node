@@ -1,6 +1,23 @@
 twilio-node changelog
 =====================
 
+[2019-03-15] Version 3.29.2
+----------------------------
+**Library**
+- PR #428: Add a link to create a support ticket to the README. Thanks to @childish-sambino!
+- PR #426: Add a Help Center link and remove outdated documentation contribution guide. Thanks to @childish-sambino!
+- PR #406: Move @types/express to dev dependencies. Thanks to @kroleg!
+- PR #425: Upgrade the ‘request' lib and transitively the ‘extend’ lib to address CVE-2018-16492. Thanks to @childish-sambino!
+- PR #424: Better error message when username doesn't start with AC. Thanks to @aarmora!
+
+**Api**
+- Add `machine_detection_speech_threshold`, `machine_detection_speech_end_threshold`, `machine_detection_silence_timeout` optional params to Call create request
+
+**Flex**
+- Adding Flex Channel Orchestration
+- Adding Flex Flow
+
+
 [2019-03-06] Version 3.29.1
 ----------------------------
 **Twiml**

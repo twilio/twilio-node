@@ -9,6 +9,8 @@ import FlexApi = require('../FlexApi');
 import Version = require('../../base/Version');
 import { ConfigurationList } from './v1/configuration';
 import { ConfigurationListInstance } from './v1/configuration';
+import { FlexFlowList } from './v1/flexFlow';
+import { FlexFlowListInstance } from './v1/flexFlow';
 
 
 declare class V1 extends Version {
@@ -20,6 +22,7 @@ declare class V1 extends Version {
   constructor(domain: FlexApi);
 
   readonly configuration: ConfigurationListInstance;
+  readonly flexFlow: FlexFlowListInstance;
 }
 
 export = V1;

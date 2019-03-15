@@ -29,37 +29,37 @@ declare function ServiceList(version: V2): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property consumptionReportInterval - The consumption_report_interval
- * @property defaultChannelCreatorRoleSid - Channel role assigned to creator of channel when joining for first time
- * @property defaultChannelRoleSid - Channel role assigned on channel join
- * @property defaultServiceRoleSid - The default_service_role_sid
- * @property friendlyName - Human-readable name for this service instance
- * @property limits.channelMembers - The maximum number of Members that can be added to Channels within this Service.
- * @property limits.userChannels - The maximum number of Channels Users can be a Member of within this Service.
- * @property media.compatibilityMessage - The media.compatibility_message
- * @property notifications.addedToChannel.enabled - The notifications.added_to_channel.enabled
- * @property notifications.addedToChannel.sound - The notifications.added_to_channel.sound
- * @property notifications.addedToChannel.template - The notifications.added_to_channel.template
- * @property notifications.invitedToChannel.enabled - The notifications.invited_to_channel.enabled
- * @property notifications.invitedToChannel.sound - The notifications.invited_to_channel.sound
- * @property notifications.invitedToChannel.template - The notifications.invited_to_channel.template
- * @property notifications.logEnabled - The notifications.log_enabled
- * @property notifications.newMessage.badgeCountEnabled - The notifications.new_message.badge_count_enabled
- * @property notifications.newMessage.enabled - The notifications.new_message.enabled
- * @property notifications.newMessage.sound - The notifications.new_message.sound
- * @property notifications.newMessage.template - The notifications.new_message.template
- * @property notifications.removedFromChannel.enabled - The notifications.removed_from_channel.enabled
- * @property notifications.removedFromChannel.sound - The notifications.removed_from_channel.sound
- * @property notifications.removedFromChannel.template - The notifications.removed_from_channel.template
- * @property postWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
- * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
- * @property preWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
- * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
- * @property reachabilityEnabled - true if the reachability feature should be enabled.
- * @property readStatusEnabled - true if the member read status feature is enabled, false if not.
- * @property typingIndicatorTimeout - The duration in seconds indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
- * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
- * @property webhookMethod - The webhook request format to use.
+ * @property consumptionReportInterval - DEPRECATED
+ * @property defaultChannelCreatorRoleSid - The channel role assigned to a channel creator when they join a new channel
+ * @property defaultChannelRoleSid - The channel role assigned to users when they are added to a channel
+ * @property defaultServiceRoleSid - The service role assigned to users when they are added to the service
+ * @property friendlyName - A string to describe the resource
+ * @property limits.channelMembers - The maximum number of Members that can be added to Channels within this Service
+ * @property limits.userChannels - The maximum number of Channels Users can be a Member of within this Service
+ * @property media.compatibilityMessage - The message to send when a media message has no text
+ * @property notifications.addedToChannel.enabled - Whether to send a notification when a member is added to a channel
+ * @property notifications.addedToChannel.sound - The name of the sound to play when a member is added to a channel
+ * @property notifications.addedToChannel.template - The template to use to create the notification text displayed when a member is added to a channel
+ * @property notifications.invitedToChannel.enabled - Whether to send a notification when a user is invited to a channel
+ * @property notifications.invitedToChannel.sound - The name of the sound to play when a user is invited to a channel
+ * @property notifications.invitedToChannel.template - The template to use to create the notification text displayed when a user is invited to a channel
+ * @property notifications.logEnabled - Whether to log notifications
+ * @property notifications.newMessage.badgeCountEnabled - Whether the new message badge is enabled
+ * @property notifications.newMessage.enabled - Whether to send a notification when a new message is added to a channel
+ * @property notifications.newMessage.sound - The name of the sound to play when a new message is added to a channel
+ * @property notifications.newMessage.template - The template to use to create the notification text displayed when a new message is added to a channel
+ * @property notifications.removedFromChannel.enabled - Whether to send a notification to a user when they are removed from a channel
+ * @property notifications.removedFromChannel.sound - The name of the sound to play to a user when they are removed from a channel
+ * @property notifications.removedFromChannel.template - The template to use to create the notification text displayed to a user when they are removed
+ * @property postWebhookRetryCount - The number of times calls to the `post_webhook_url` will be retried
+ * @property postWebhookUrl - The URL for post-event webhooks
+ * @property preWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses
+ * @property preWebhookUrl - The webhook URL for pre-event webhooks
+ * @property reachabilityEnabled - Whether to enable the Reachability Indicator feature for this Service instance
+ * @property readStatusEnabled - Whether to enable the Message Consumption Horizon feature
+ * @property typingIndicatorTimeout - How long in seconds to wait before assuming the user is no longer typing
+ * @property webhookFilters - The list of WebHook events that are enabled for this Service instance
+ * @property webhookMethod - The HTTP method  to use for both PRE and POST webhooks
  */
 interface ServiceInstanceUpdateOptions {
   consumptionReportInterval?: number;
@@ -140,7 +140,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ServiceContext;
   /**
@@ -186,7 +186,7 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - Human-readable name for this service instance
+ * @property friendlyName - A string to describe the resource
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;
@@ -287,7 +287,7 @@ declare class ServiceContext {
    * Initialize the ServiceContext
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, sid: string);
 
@@ -327,7 +327,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, payload: ServicePayload, sid: string);
 
