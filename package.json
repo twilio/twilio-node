@@ -20,6 +20,7 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
+    "@types/express": "^4.11.1",
     "deprecate": "1.0.0",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.11",
@@ -31,7 +32,6 @@
     "xmlbuilder": "9.0.1"
   },
   "devDependencies": {
-    "@types/express": "^4.11.1",
     "@types/lodash": "^4.14.104",
     "@types/node": "^9.4.6",
     "eslint": "^5.14.0",
