@@ -34,7 +34,7 @@ describe('Settings', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .settings().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -60,7 +60,7 @@ describe('Settings', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .settings().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -75,7 +75,7 @@ describe('Settings', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .settings().update();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -101,7 +101,7 @@ describe('Settings', function() {
 
       holodeck.mock(new Response(202, body));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .settings().update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

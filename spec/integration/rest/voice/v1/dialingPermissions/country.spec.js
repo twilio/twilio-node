@@ -34,7 +34,7 @@ describe('Country', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .countries('US').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -72,7 +72,7 @@ describe('Country', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .countries('US').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -114,7 +114,7 @@ describe('Country', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.voice.v1.voicePermissions
+      client.voice.v1.dialingPermissions
                      .countries.each(() => done());
     }
   );
@@ -149,7 +149,7 @@ describe('Country', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.voice.v1.voicePermissions
+      client.voice.v1.dialingPermissions
                      .countries.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
@@ -189,7 +189,7 @@ describe('Country', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.voice.v1.voicePermissions
+      client.voice.v1.dialingPermissions
                      .countries.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
@@ -197,7 +197,7 @@ describe('Country', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .countries.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -247,7 +247,7 @@ describe('Country', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .countries.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

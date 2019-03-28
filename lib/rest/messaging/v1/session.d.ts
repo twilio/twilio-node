@@ -14,6 +14,8 @@ import { MessageListInstance } from './session/message';
 import { ParticipantList } from './session/participant';
 import { ParticipantListInstance } from './session/participant';
 import { SerializableClass } from '../../../interfaces';
+import { WebhookList } from './session/webhook';
+import { WebhookListInstance } from './session/webhook';
 
 /**
  * Initialize the SessionList
@@ -256,6 +258,7 @@ declare class SessionContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
+  webhooks: WebhookListInstance;
 }
 
 
@@ -316,6 +319,10 @@ declare class SessionInstance extends SerializableClass {
    */
   update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): void;
   url: string;
+  /**
+   * Access the webhooks
+   */
+  webhooks(): WebhookListInstance;
 }
 
 

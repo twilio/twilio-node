@@ -41,7 +41,7 @@ interface CountryListInstance {
   /**
    * Constructs a country
    *
-   * @param isoCountry - Fetches voice prices for country
+   * @param isoCountry - The ISO country code of the pricing information to fetch
    */
   get(isoCountry: string): CountryContext;
   /**
@@ -162,7 +162,7 @@ declare class CountryContext {
    * Initialize the CountryContext
    *
    * @param version - Version of the resource
-   * @param isoCountry - Fetches voice prices for country
+   * @param isoCountry - The ISO country code of the pricing information to fetch
    */
   constructor(version: V2, isoCountry: string);
 
@@ -185,7 +185,7 @@ declare class CountryInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param isoCountry - Fetches voice prices for country
+   * @param isoCountry - The ISO country code of the pricing information to fetch
    */
   constructor(version: V2, payload: CountryPayload, isoCountry: string);
 

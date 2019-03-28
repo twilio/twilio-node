@@ -41,7 +41,7 @@ interface CountryListInstance {
   /**
    * Constructs a country
    *
-   * @param isoCountry - The iso_country
+   * @param isoCountry - The ISO country code
    */
   get(isoCountry: string): CountryContext;
   /**
@@ -161,7 +161,7 @@ declare class CountryContext {
    * Initialize the CountryContext
    *
    * @param version - Version of the resource
-   * @param isoCountry - The iso_country
+   * @param isoCountry - The ISO country code
    */
   constructor(version: V1, isoCountry: string);
 
@@ -184,7 +184,7 @@ declare class CountryInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param isoCountry - The iso_country
+   * @param isoCountry - The ISO country code
    */
   constructor(version: V1, payload: CountryPayload, isoCountry: string);
 

@@ -23,10 +23,10 @@ declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 /**
  * Options to pass to fetch
  *
- * @property addOns - Indicates the particular Add-on you would like to use to get more information.
- * @property addOnsData - The add_ons_data
- * @property countryCode - Optional ISO country code of the phone number.
- * @property type - Indicates the type of information you would like returned with your request.
+ * @property addOns - The unique_name of an Add-on you would like to invoke
+ * @property addOnsData - Data specific to the add-on you would like to invoke
+ * @property countryCode - The ISO country code of the phone number
+ * @property type - The type of information to return
  */
 interface PhoneNumberInstanceFetchOptions {
   addOns?: string[];
@@ -43,7 +43,7 @@ interface PhoneNumberListInstance {
   /**
    * Constructs a phone_number
    *
-   * @param phoneNumber - The phone_number
+   * @param phoneNumber - The phone number to fetch in E.164 format
    */
   get(phoneNumber: string): PhoneNumberContext;
   /**
@@ -74,7 +74,7 @@ declare class PhoneNumberContext {
    * Initialize the PhoneNumberContext
    *
    * @param version - Version of the resource
-   * @param phoneNumber - The phone_number
+   * @param phoneNumber - The phone number to fetch in E.164 format
    */
   constructor(version: V1, phoneNumber: string);
 
@@ -98,7 +98,7 @@ declare class PhoneNumberInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param phoneNumber - The phone_number
+   * @param phoneNumber - The phone number to fetch in E.164 format
    */
   constructor(version: V1, payload: PhoneNumberPayload, phoneNumber: string);
 

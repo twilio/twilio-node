@@ -185,6 +185,7 @@ interface QueueResource {
   friendly_name: string;
   max_size: number;
   sid: string;
+  subresource_uris: string;
   uri: string;
 }
 
@@ -266,6 +267,7 @@ declare class QueueInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: QueueInstance) => any): void;
   sid: string;
+  subresourceUris: string;
   /**
    * Provide a user-friendly representation
    */

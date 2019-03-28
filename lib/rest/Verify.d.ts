@@ -8,7 +8,8 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./verify/V1');
-import { ServiceListInstance } from './verify/v1/service';
+import V2 = require('./verify/V2');
+import { ServiceListInstance } from './verify/v2/service';
 
 
 declare class Verify extends Domain {
@@ -21,6 +22,7 @@ declare class Verify extends Domain {
 
   readonly services: ServiceListInstance;
   readonly v1: V1;
+  readonly v2: V2;
 }
 
 export = Verify;

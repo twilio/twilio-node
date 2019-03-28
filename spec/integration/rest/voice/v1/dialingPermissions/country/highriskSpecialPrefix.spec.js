@@ -52,7 +52,7 @@ describe('HighriskSpecialPrefix', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.voice.v1.voicePermissions
+      client.voice.v1.dialingPermissions
                      .countries('US')
                      .highriskSpecialPrefixes.each(() => done());
     }
@@ -79,7 +79,7 @@ describe('HighriskSpecialPrefix', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.voice.v1.voicePermissions
+      client.voice.v1.dialingPermissions
                      .countries('US')
                      .highriskSpecialPrefixes.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -111,7 +111,7 @@ describe('HighriskSpecialPrefix', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.voice.v1.voicePermissions
+      client.voice.v1.dialingPermissions
                      .countries('US')
                      .highriskSpecialPrefixes.each({callback: () => done()}, () => fail('wrong callback!'));
     }
@@ -120,7 +120,7 @@ describe('HighriskSpecialPrefix', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .countries('US')
                                    .highriskSpecialPrefixes.list();
       promise = promise.then(function() {
@@ -139,7 +139,7 @@ describe('HighriskSpecialPrefix', function() {
       }));
     }
   );
-  it('should generate valid read_us response',
+  it('should generate valid read_lv response',
     function() {
       var body = JSON.stringify({
           'content': [
@@ -163,7 +163,7 @@ describe('HighriskSpecialPrefix', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.voice.v1.voicePermissions
+      var promise = client.voice.v1.dialingPermissions
                                    .countries('US')
                                    .highriskSpecialPrefixes.list();
       promise = promise.then(function(response) {

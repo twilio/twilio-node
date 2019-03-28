@@ -20,7 +20,7 @@ declare function NumberList(version: V2): NumberListInstance;
 /**
  * Options to pass to fetch
  *
- * @property originationNumber - The origination_number
+ * @property originationNumber - The origination number for which to fetch pricing information
  */
 interface NumberInstanceFetchOptions {
   originationNumber?: string;
@@ -34,7 +34,7 @@ interface NumberListInstance {
   /**
    * Constructs a number
    *
-   * @param destinationNumber - Fetches voice prices for number
+   * @param destinationNumber - The destination number for which to fetch pricing information
    */
   get(destinationNumber: string): NumberContext;
   /**
@@ -66,7 +66,7 @@ declare class NumberContext {
    * Initialize the NumberContext
    *
    * @param version - Version of the resource
-   * @param destinationNumber - Fetches voice prices for number
+   * @param destinationNumber - The destination number for which to fetch pricing information
    */
   constructor(version: V2, destinationNumber: string);
 
@@ -90,7 +90,7 @@ declare class NumberInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param destinationNumber - Fetches voice prices for number
+   * @param destinationNumber - The destination number for which to fetch pricing information
    */
   constructor(version: V2, payload: NumberPayload, destinationNumber: string);
 

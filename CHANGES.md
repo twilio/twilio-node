@@ -1,6 +1,23 @@
 twilio-node changelog
 =====================
 
+[2019-03-28] Version 3.30.0
+----------------------------
+**Library**
+- PR #433: Revert "Move @types/express to dev dependencies". Thanks to @childish-sambino!
+- PR #434: Upgrade 'js-yaml' to resolve DOS vulnerability. Thanks to @childish-sambino!
+
+**Api**
+- Remove optional `if_machine` call create parameter from helper libraries **(breaking change)**
+- Changed `call_sid` path parameter type on QueueMember fetch and update requests **(breaking change)**
+
+**Voice**
+- changed file names to dialing_permissions prefix **(breaking change)**
+
+**Wireless**
+- Added `ResetStatus` property to Sim resource to allow resetting connectivity via the API.
+
+
 [2019-03-15] Version 3.29.2
 ----------------------------
 **Library**

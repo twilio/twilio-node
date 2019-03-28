@@ -64,6 +64,7 @@ describe('Webhook', function() {
           ],
           'pre_webhook_retry_count': 1,
           'post_webhook_retry_count': 2,
+          'target': 'http',
           'url': 'https://messaging.twilio.com/v1/Sessions/Webhooks'
       });
 
@@ -112,6 +113,7 @@ describe('Webhook', function() {
           ],
           'pre_webhook_retry_count': 1,
           'post_webhook_retry_count': 2,
+          'target': 'flex',
           'url': 'https://messaging.twilio.com/v1/Sessions/Webhooks'
       });
 

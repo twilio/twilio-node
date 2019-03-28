@@ -119,6 +119,7 @@ interface MessageListInstance {
  *
  * @property applicationSid - The application to use for callbacks
  * @property body - The text of the message you want to send. Can be up to 1,600 characters in length.
+ * @property forceDelivery - Reserved
  * @property forceOptIn - Whether to forcefully whitelist a from:to pair
  * @property from - The phone number that initiated the message
  * @property interactiveData - A JSON string that represents an interactive message
@@ -134,6 +135,7 @@ interface MessageListInstance {
 interface MessageListInstanceCreateOptions {
   applicationSid?: string;
   body?: string;
+  forceDelivery?: boolean;
   forceOptIn?: boolean;
   from?: string;
   interactiveData?: string;

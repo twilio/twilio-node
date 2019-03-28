@@ -14,6 +14,8 @@ import { SerializableClass } from '../../../interfaces';
 import { UsageRecordList } from './sim/usageRecord';
 import { UsageRecordListInstance } from './sim/usageRecord';
 
+type SimResetStatus = 'resetting';
+
 type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'scheduled'|'updating';
 
 /**
@@ -32,6 +34,7 @@ declare function SimList(version: V1): SimListInstance;
  * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a Command.
  * @property friendlyName - A user-provided string that identifies this resource.
  * @property ratePlan - The Sid or UniqueName of the RatePlan that this Sim should use.
+ * @property resetStatus - Initiate a connectivity reset on a Sim.
  * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
  * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
  * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
@@ -50,6 +53,7 @@ interface SimInstanceUpdateOptions {
   commandsCallbackUrl?: string;
   friendlyName?: string;
   ratePlan?: string;
+  resetStatus?: SimResetStatus;
   smsFallbackMethod?: string;
   smsFallbackUrl?: string;
   smsMethod?: string;
@@ -231,6 +235,7 @@ interface SimResource {
   ip_address: string;
   links: string;
   rate_plan_sid: string;
+  reset_status: SimResetStatus;
   sid: string;
   sms_fallback_method: string;
   sms_fallback_url: string;
@@ -324,6 +329,7 @@ declare class SimInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SimInstance) => any): void;
+  resetStatus: SimResetStatus;
   sid: string;
   smsFallbackMethod: string;
   smsFallbackUrl: string;

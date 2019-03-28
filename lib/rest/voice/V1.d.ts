@@ -7,8 +7,8 @@
 
 import Version = require('../../base/Version');
 import Voice = require('../Voice');
-import { VoicePermissionList } from './v1/voicePermission';
-import { VoicePermissionListInstance } from './v1/voicePermission';
+import { DialingPermissionsList } from './v1/dialingPermissions';
+import { DialingPermissionsListInstance } from './v1/dialingPermissions';
 
 
 declare class V1 extends Version {
@@ -19,7 +19,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Voice);
 
-  readonly voicePermissions: VoicePermissionListInstance;
+  readonly dialingPermissions: DialingPermissionsListInstance;
 }
 
 export = V1;

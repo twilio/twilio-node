@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../../interfaces';
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
- * @param queueSid - The unique string that identifies this resource
+ * @param queueSid - The SID of the Queue the member is in
  */
 declare function MemberList(version: V2010, accountSid: string, queueSid: string): MemberListInstance;
 
@@ -23,7 +23,7 @@ declare function MemberList(version: V2010, accountSid: string, queueSid: string
  * Options to pass to update
  *
  * @property method - How to pass the update request data
- * @property url - The absolute URL of this Queue resource
+ * @property url - The absolute URL of the Queue resource
  */
 interface MemberInstanceUpdateOptions {
   method: string;
@@ -161,6 +161,7 @@ interface MemberResource {
   call_sid: string;
   date_enqueued: Date;
   position: number;
+  queue_sid: string;
   uri: string;
   wait_time: number;
 }
@@ -177,7 +178,7 @@ declare class MemberContext {
    *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created the resource(s) to fetch
-   * @param queueSid - The Queue in which to find the members
+   * @param queueSid - The SID of the Queue in which to find the members
    * @param callSid - The Call SID of the resource(s) to fetch
    */
   constructor(version: V2010, accountSid: string, queueSid: string, callSid: string);
@@ -209,7 +210,7 @@ declare class MemberInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The SID of the Account that created this resource
-   * @param queueSid - The unique string that identifies this resource
+   * @param queueSid - The SID of the Queue the member is in
    * @param callSid - The Call SID of the resource(s) to fetch
    */
   constructor(version: V2010, payload: MemberPayload, accountSid: string, queueSid: string, callSid: string);
@@ -224,6 +225,7 @@ declare class MemberInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: MemberInstance) => any): void;
   position: number;
+  queueSid: string;
   /**
    * Provide a user-friendly representation
    */

@@ -23,7 +23,7 @@ var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('BulkCountryUpdate', function() {
+describe('VerificationCheck', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -34,9 +34,9 @@ describe('BulkCountryUpdate', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {updateRequest: 'updateRequest'};
-      var promise = client.voice.v1.voicePermissions
-                                   .bulkCountryUpdates.create(opts);
+      var opts = {code: 'code'};
+      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .verificationChecks.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,9 +44,10 @@ describe('BulkCountryUpdate', function() {
       });
       promise.done();
 
-      var url = 'https://voice.twilio.com/v1/DialingPermissions/BulkCountryUpdates';
+      var solution = {serviceSid: 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://verify.twilio.com/v2/Services/<%= serviceSid %>/VerificationCheck')(solution);
 
-      var values = {UpdateRequest: 'updateRequest', };
+      var values = {Code: 'code', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -54,18 +55,27 @@ describe('BulkCountryUpdate', function() {
       }));
     }
   );
-  it('should generate valid create response',
+  it('should generate valid verification_checks response',
     function() {
       var body = JSON.stringify({
-          'update_count': 1,
-          'update_request': 'accepted'
+          'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'to': '+14159373912',
+          'channel': 'sms',
+          'status': 'approved',
+          'valid': false,
+          'amount': '$29.99',
+          'payee': 'Acme',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z'
       });
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {updateRequest: 'updateRequest'};
-      var promise = client.voice.v1.voicePermissions
-                                   .bulkCountryUpdates.create(opts);
+      var opts = {code: 'code'};
+      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .verificationChecks.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

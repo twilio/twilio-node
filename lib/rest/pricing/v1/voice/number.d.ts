@@ -25,7 +25,7 @@ interface NumberListInstance {
   /**
    * Constructs a number
    *
-   * @param number - The number
+   * @param number - The phone number to fetch
    */
   get(number: string): NumberContext;
   /**
@@ -56,7 +56,7 @@ declare class NumberContext {
    * Initialize the NumberContext
    *
    * @param version - Version of the resource
-   * @param number - The number
+   * @param number - The phone number to fetch
    */
   constructor(version: V1, number: string);
 
@@ -79,7 +79,7 @@ declare class NumberInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param number - The number
+   * @param number - The phone number to fetch
    */
   constructor(version: V1, payload: NumberPayload, number: string);
 

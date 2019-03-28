@@ -11,6 +11,8 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
+type WebhookTarget = 'webhook'|'flex';
+
 /**
  * Initialize the WebhookList
  *
@@ -29,6 +31,7 @@ declare function WebhookList(version: V1): WebhookListInstance;
  * @property postWebhookUrl - The absolute url the post-event webhook request should be sent to.
  * @property preWebhookRetryCount - The number of retries in case of pre-event webhook request failures.
  * @property preWebhookUrl - The absolute url the pre-event webhook request should be sent to.
+ * @property target - The routing target of the webhook.
  * @property webhookFilters - The list of webhook event triggers that are enabled for this Service.
  * @property webhookMethod - The HTTP method to be used when sending a webhook request.
  */
@@ -37,6 +40,7 @@ interface WebhookInstanceUpdateOptions {
   postWebhookUrl?: string;
   preWebhookRetryCount?: number;
   preWebhookUrl?: string;
+  target?: WebhookTarget;
   webhookFilters?: string[];
   webhookMethod?: string;
 }
@@ -66,6 +70,7 @@ interface WebhookResource {
   pre_webhook_retry_count: number;
   pre_webhook_url: string;
   service_sid: string;
+  target: WebhookTarget;
   url: string;
   webhook_filters: string;
   webhook_method: string;
@@ -133,6 +138,7 @@ declare class WebhookInstance extends SerializableClass {
   preWebhookRetryCount: number;
   preWebhookUrl: string;
   serviceSid: string;
+  target: WebhookTarget;
   /**
    * Provide a user-friendly representation
    */

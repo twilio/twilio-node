@@ -8,7 +8,7 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./voice/V1');
-import { VoicePermissionListInstance } from './voice/v1/voicePermission';
+import { DialingPermissionsListInstance } from './voice/v1/dialingPermissions';
 
 
 declare class Voice extends Domain {
@@ -19,8 +19,8 @@ declare class Voice extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly dialingPermissions: DialingPermissionsListInstance;
   readonly v1: V1;
-  readonly voicePermissions: VoicePermissionListInstance;
 }
 
 export = Voice;
