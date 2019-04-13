@@ -28,13 +28,13 @@ declare function ServiceList(version: V2): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property codeLength - Length of verification code. Valid values are 4-10
- * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
- * @property friendlyName - Friendly name of the service
- * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
- * @property psd2Enabled - Indicates whether PSD2 parameters are enabled or not
- * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
- * @property ttsName - Alternative to be used as Service friendly name in phone calls
+ * @property codeLength - The length of the verification code to generate
+ * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
+ * @property friendlyName - A string to describe the verification service
+ * @property lookupEnabled - Whether to perform a lookup with each verification
+ * @property psd2Enabled - Whether to pass PSD2 transaction parameters when starting a verification
+ * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
+ * @property ttsName - The name of an alternative text-to-speech service to use in phone calls
  */
 interface ServiceInstanceUpdateOptions {
   codeLength?: number;
@@ -77,7 +77,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - Verification Service Instance SID.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ServiceContext;
   /**
@@ -123,13 +123,13 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property codeLength - Length of verification code. Valid values are 4-10
- * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
- * @property friendlyName - Friendly name of the service
- * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
- * @property psd2Enabled - Indicates whether PSD2 parameters are enabled or not
- * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
- * @property ttsName - Alternative to be used as Service friendly name in phone calls
+ * @property codeLength - The length of the verification code to generate
+ * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
+ * @property friendlyName - A string to describe the verification service
+ * @property lookupEnabled - Whether to perform a lookup with each verification
+ * @property psd2Enabled - Whether to pass PSD2 transaction parameters when starting a verification
+ * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
+ * @property ttsName - The name of an alternative text-to-speech service to use in phone calls
  */
 interface ServiceListInstanceCreateOptions {
   codeLength?: number;
@@ -229,7 +229,7 @@ declare class ServiceContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - Verification Service Instance SID.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, sid: string);
 
@@ -270,7 +270,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - Verification Service Instance SID.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, payload: ServicePayload, sid: string);
 

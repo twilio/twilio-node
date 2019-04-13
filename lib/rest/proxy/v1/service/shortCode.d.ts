@@ -18,14 +18,14 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the resource's parent Service
  */
 declare function ShortCodeList(version: V1, serviceSid: string): ShortCodeListInstance;
 
 /**
  * Options to pass to update
  *
- * @property isReserved - Reserve for manual assignment to participants only.
+ * @property isReserved - Whether the short code should be reserved for manual assignment to participants only
  */
 interface ShortCodeInstanceUpdateOptions {
   isReserved?: boolean;
@@ -62,7 +62,7 @@ interface ShortCodeListInstance {
   /**
    * Constructs a short_code
    *
-   * @param sid - A string that uniquely identifies this Short Code.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ShortCodeContext;
   /**
@@ -108,7 +108,7 @@ interface ShortCodeListInstance {
 /**
  * Options to pass to create
  *
- * @property sid - A string that uniquely identifies this Short Code.
+ * @property sid - The SID of a Twilio ShortCode resource
  */
 interface ShortCodeListInstanceCreateOptions {
   sid: string;
@@ -200,8 +200,8 @@ declare class ShortCodeContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Short Code.
+   * @param serviceSid - The SID of the parent Service to fetch the resource from
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -240,8 +240,8 @@ declare class ShortCodeInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Short Code.
+   * @param serviceSid - The SID of the resource's parent Service
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: ShortCodePayload, serviceSid: string, sid: string);
 

@@ -21,14 +21,14 @@ type VerificationStatus = 'canceled';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
 declare function VerificationList(version: V2, serviceSid: string): VerificationListInstance;
 
 /**
  * Options to pass to update
  *
- * @property status - New status to set for the Verification.
+ * @property status - The new status of the resource
  */
 interface VerificationInstanceUpdateOptions {
   status: VerificationStatus;
@@ -49,7 +49,7 @@ interface VerificationListInstance {
   /**
    * Constructs a verification
    *
-   * @param sid - A string that uniquely identifies this Verification.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): VerificationContext;
   /**
@@ -61,14 +61,14 @@ interface VerificationListInstance {
 /**
  * Options to pass to create
  *
- * @property amount - Amount of the associated PSD2 compliant transaction.
- * @property channel - sms or call
+ * @property amount - The amount of the associated PSD2 compliant transaction.
+ * @property channel - The verification method to use
  * @property customCode - A pre-generated code
- * @property customMessage - A custom message for this verification
- * @property locale - Locale used in the sms or call.
- * @property payee - Payee of the associated PSD2 compliant transaction.
- * @property sendDigits - Digits to send when a phone call is started
- * @property to - To phonenumber
+ * @property customMessage - The text of a custom message to use for the verification
+ * @property locale - The local to use for the verification SMS or call
+ * @property payee - The payee of the associated PSD2 compliant transaction
+ * @property sendDigits - The digits to send after a phone call is answered
+ * @property to - The phone number to verify
  */
 interface VerificationListInstanceCreateOptions {
   amount?: string;
@@ -113,8 +113,8 @@ declare class VerificationContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Verification.
+   * @param serviceSid - The SID of the verification Service to fetch the resource from
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, serviceSid: string, sid: string);
 
@@ -147,8 +147,8 @@ declare class VerificationInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Verification.
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, payload: VerificationPayload, serviceSid: string, sid: string);
 

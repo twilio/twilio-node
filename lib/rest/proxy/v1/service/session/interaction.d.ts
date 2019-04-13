@@ -21,8 +21,8 @@ type InteractionType = 'message'|'voice'|'unknown';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
- * @param sessionSid - Session Sid.
+ * @param serviceSid - The SID of the resource's parent Service
+ * @param sessionSid - The SID of the resource's parent Session
  */
 declare function InteractionList(version: V1, serviceSid: string, sessionSid: string): InteractionListInstance;
 
@@ -50,7 +50,7 @@ interface InteractionListInstance {
   /**
    * Constructs a interaction
    *
-   * @param sid - A string that uniquely identifies this Interaction.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): InteractionContext;
   /**
@@ -189,9 +189,9 @@ declare class InteractionContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sessionSid - Session Sid.
-   * @param sid - A string that uniquely identifies this Interaction.
+   * @param serviceSid - The SID of the parent Service of the resource to fetch
+   * @param sessionSid - he SID of the parent Session of the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, serviceSid: string, sessionSid: string, sid: string);
 
@@ -223,9 +223,9 @@ declare class InteractionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sessionSid - Session Sid.
-   * @param sid - A string that uniquely identifies this Interaction.
+   * @param serviceSid - The SID of the resource's parent Service
+   * @param sessionSid - The SID of the resource's parent Session
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: InteractionPayload, serviceSid: string, sessionSid: string, sid: string);
 

@@ -33,14 +33,14 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property callbackUrl - URL Twilio will send callbacks to
- * @property chatInstanceSid - The Chat Service Instance sid managed by Proxy Service
- * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
- * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
- * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
- * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
- * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
- * @property uniqueName - A human-readable description of this resource.
+ * @property callbackUrl - The URL we should call when the interaction status changes
+ * @property chatInstanceSid - The SID of the Chat Service Instance
+ * @property defaultTtl - Default TTL for a Session, in seconds
+ * @property geoMatchLevel - Where a proxy number must be located relative to the participant identifier
+ * @property interceptCallbackUrl - The URL we call on each interaction
+ * @property numberSelectionBehavior - The preference for Proxy Number selection for the Service instance
+ * @property outOfSessionCallbackUrl - The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface ServiceInstanceUpdateOptions {
   callbackUrl?: string;
@@ -84,7 +84,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - A string that uniquely identifies this Service.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ServiceContext;
   /**
@@ -130,14 +130,14 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property callbackUrl - URL Twilio will send callbacks to
- * @property chatInstanceSid - The Chat Service Instance sid managed by Proxy Service
- * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
- * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
- * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
- * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
- * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
- * @property uniqueName - The human-readable string that uniquely identifies this Service.
+ * @property callbackUrl - The URL we should call when the interaction status changes
+ * @property chatInstanceSid - The SID of the Chat Service Instance
+ * @property defaultTtl - Default TTL for a Session, in seconds
+ * @property geoMatchLevel - Where a proxy number must be located relative to the participant identifier
+ * @property interceptCallbackUrl - The URL we call on each interaction
+ * @property numberSelectionBehavior - The preference for Proxy Number selection for the Service instance
+ * @property outOfSessionCallbackUrl - The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface ServiceListInstanceCreateOptions {
   callbackUrl?: string;
@@ -239,7 +239,7 @@ declare class ServiceContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - A string that uniquely identifies this Service.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -281,7 +281,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A string that uniquely identifies this Service.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 

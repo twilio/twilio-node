@@ -136,6 +136,11 @@ describe('Configuration', function() {
           'public_attributes': {
               'public': 'test'
           },
+          'plugin_service_enabled': true,
+          'plugin_service_attributes': {
+              'agent-logger': '^3.10.5',
+              'typewriter': '^7.0.1'
+          },
           'url': 'https://flex-api.twilio.com/v1/Configuration'
       });
 
@@ -257,6 +262,11 @@ describe('Configuration', function() {
           'public_attributes': {
               'public': 'test'
           },
+          'plugin_service_enabled': true,
+          'plugin_service_attributes': {
+              'agent-logger': '^3.10.5',
+              'typewriter': '^7.0.1'
+          },
           'url': 'https://flex-api.twilio.com/v1/Configuration'
       });
 
@@ -377,6 +387,11 @@ describe('Configuration', function() {
           },
           'public_attributes': {
               'public': 'test'
+          },
+          'plugin_service_enabled': false,
+          'plugin_service_attributes': {
+              'agent-logger': '^3.10.5',
+              'typewriter': '^7.0.1'
           },
           'url': 'https://flex-api.twilio.com/v1/Configuration'
       });

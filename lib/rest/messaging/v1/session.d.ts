@@ -128,8 +128,6 @@ interface SessionListInstance {
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this session.
  * @property messagingServiceSid - The unique id of the SMS Service this session belongs to.
- * @property twilioAddress - Twilio address the participant is contacting to.
- * @property userAddress - Address the participant is contacting from.
  */
 interface SessionListInstanceCreateOptions {
   attributes?: string;
@@ -138,8 +136,6 @@ interface SessionListInstanceCreateOptions {
   dateUpdated?: Date;
   friendlyName?: string;
   messagingServiceSid: string;
-  twilioAddress?: string;
-  userAddress?: string;
 }
 
 /**

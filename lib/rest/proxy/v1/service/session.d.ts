@@ -26,18 +26,18 @@ type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the resource's parent Service
  */
 declare function SessionList(version: V1, serviceSid: string): SessionListInstance;
 
 /**
  * Options to pass to update
  *
- * @property dateExpiry - The date this Session should expire
- * @property mode - The mode
- * @property participants - The participants
- * @property status - The Status of this Session
- * @property ttl - TTL for a Session, in seconds.
+ * @property dateExpiry - The ISO 8601 date when the Session should expire
+ * @property mode - The Mode of the Session
+ * @property participants - The Participant objects to include in the session
+ * @property status - The new status of the resource
+ * @property ttl - When the session will expire
  */
 interface SessionInstanceUpdateOptions {
   dateExpiry?: Date;
@@ -78,7 +78,7 @@ interface SessionListInstance {
   /**
    * Constructs a session
    *
-   * @param sid - A string that uniquely identifies this Session.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): SessionContext;
   /**
@@ -124,12 +124,12 @@ interface SessionListInstance {
 /**
  * Options to pass to create
  *
- * @property dateExpiry - The date this Session should expire
- * @property mode - The Mode of this Session
- * @property participants - The participants
+ * @property dateExpiry - The ISO 8601 date when the Session should expire
+ * @property mode - The Mode of the Session
+ * @property participants - The Participant objects to include in the new session
  * @property status - Session status
- * @property ttl - TTL for a Session, in seconds.
- * @property uniqueName - A unique, developer assigned name of this Session.
+ * @property ttl - When the session will expire
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface SessionListInstanceCreateOptions {
   dateExpiry?: Date;
@@ -232,8 +232,8 @@ declare class SessionContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Session.
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -274,8 +274,8 @@ declare class SessionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Session.
+   * @param serviceSid - The SID of the resource's parent Service
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: SessionPayload, serviceSid: string, sid: string);
 

@@ -1,6 +1,25 @@
 twilio-node changelog
 =====================
 
+[2019-04-12] Version 3.30.1
+----------------------------
+**Library**
+- PR #439: Force 'marked' dependency upgrade to resolve DoS vulnerability. Thanks to @childish-sambino!
+- PR #436: Add latest LTS Node.js release to Travis CI config. Thanks to @childish-sambino!
+
+**Flex**
+- Adding PluginService to Flex Configuration
+
+**Numbers**
+- Add API for Proof of Addresses
+
+**Proxy**
+- Clarify documentation for Service and Session fetch
+
+**Serverless**
+- Serverless scaffolding
+
+
 [2019-03-28] Version 3.30.0
 ----------------------------
 **Library**

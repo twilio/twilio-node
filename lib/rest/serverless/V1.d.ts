@@ -5,7 +5,7 @@
  *       /       /
  */
 
-import Verify = require('../Verify');
+import Serverless = require('../Serverless');
 import Version = require('../../base/Version');
 import { ServiceList } from './v1/service';
 import { ServiceListInstance } from './v1/service';
@@ -13,11 +13,11 @@ import { ServiceListInstance } from './v1/service';
 
 declare class V1 extends Version {
   /**
-   * Initialize the V1 version of Verify
+   * Initialize the V1 version of Serverless
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Verify);
+  constructor(domain: Serverless);
 
   readonly services: ServiceListInstance;
 }

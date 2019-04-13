@@ -22,9 +22,9 @@ type MessageInteractionType = 'message'|'voice'|'unknown';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
- * @param sessionSid - Session Sid.
- * @param participantSid - Participant Sid.
+ * @param serviceSid - The SID of the resource's parent Service
+ * @param sessionSid - The SID of the resource's parent Session
+ * @param participantSid - The SID of the Participant resource
  */
 declare function MessageInteractionList(version: V1, serviceSid: string, sessionSid: string, participantSid: string): MessageInteractionListInstance;
 
@@ -59,7 +59,7 @@ interface MessageInteractionListInstance {
   /**
    * Constructs a message_interaction
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): MessageInteractionContext;
   /**
@@ -107,7 +107,7 @@ interface MessageInteractionListInstance {
  * Options to pass to create
  *
  * @property body - Message body
- * @property mediaUrl - Not supported in beta
+ * @property mediaUrl - Reserved
  */
 interface MessageInteractionListInstanceCreateOptions {
   body?: string;
@@ -212,10 +212,10 @@ declare class MessageInteractionContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sessionSid - The session_sid
-   * @param participantSid - The participant_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param sessionSid - The SID of the parent Session
+   * @param participantSid - The SID of the Participant resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, serviceSid: string, sessionSid: string, participantSid: string, sid: string);
 
@@ -241,10 +241,10 @@ declare class MessageInteractionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sessionSid - Session Sid.
-   * @param participantSid - Participant Sid.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the resource's parent Service
+   * @param sessionSid - The SID of the resource's parent Session
+   * @param participantSid - The SID of the Participant resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: MessageInteractionPayload, serviceSid: string, sessionSid: string, participantSid: string, sid: string);
 

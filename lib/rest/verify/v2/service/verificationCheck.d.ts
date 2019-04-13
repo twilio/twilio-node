@@ -19,7 +19,7 @@ type VerificationCheckChannel = 'sms'|'call';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
 declare function VerificationCheckList(version: V2, serviceSid: string): VerificationCheckListInstance;
 
@@ -40,11 +40,11 @@ interface VerificationCheckListInstance {
 /**
  * Options to pass to create
  *
- * @property amount - Amount of the associated PSD2 compliant transaction.
+ * @property amount - The amount of the associated PSD2 compliant transaction.
  * @property code - The verification string
- * @property payee - Payee of the associated PSD2 compliant transaction.
- * @property to - To phone number
- * @property verificationSid - A SID that uniquely identifies this Verification Check
+ * @property payee - The payee of the associated PSD2 compliant transaction
+ * @property to - The phone number to verify
+ * @property verificationSid - A SID that uniquely identifies the Verification Check
  */
 interface VerificationCheckListInstanceCreateOptions {
   amount?: string;
@@ -85,7 +85,7 @@ declare class VerificationCheckInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
+   * @param serviceSid - The SID of the Service that the resource is associated with
    */
   constructor(version: V2, payload: VerificationCheckPayload, serviceSid: string);
 

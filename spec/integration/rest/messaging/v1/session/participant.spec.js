@@ -65,8 +65,8 @@ describe('Participant', function() {
           'date_created': '2015-12-16T22:18:37Z',
           'date_updated': '2015-12-16T22:18:38Z',
           'type': 'chat',
-          'twilio_address': '+111111',
-          'user_address': '+999999',
+          'twilio_address': '+372666555',
+          'user_address': '+372666556',
           'url': 'https://messaging.twilio.com/v1/Sessions/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -96,8 +96,8 @@ describe('Participant', function() {
           'date_created': '2016-03-24T21:05:50Z',
           'date_updated': '2016-03-24T21:05:50Z',
           'type': 'chat',
-          'twilio_address': '+111111',
-          'user_address': '+999999',
+          'twilio_address': '+372666555',
+          'user_address': '+372666556',
           'url': 'https://messaging.twilio.com/v1/Sessions/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -152,8 +152,8 @@ describe('Participant', function() {
           'date_created': '2015-12-16T22:18:37Z',
           'date_updated': '2015-12-16T22:18:38Z',
           'type': 'chat',
-          'twilio_address': '+111111',
-          'user_address': '+999999',
+          'twilio_address': '+372666555',
+          'user_address': '+372666556',
           'url': 'https://messaging.twilio.com/v1/Sessions/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -208,8 +208,8 @@ describe('Participant', function() {
           'date_created': '2016-03-24T21:05:50Z',
           'date_updated': '2016-03-24T21:05:50Z',
           'type': 'chat',
-          'twilio_address': '+111111',
-          'user_address': '+999999',
+          'twilio_address': '+372666555',
+          'user_address': '+372666556',
           'url': 'https://messaging.twilio.com/v1/Sessions/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -250,8 +250,8 @@ describe('Participant', function() {
                   'date_created': '2016-03-24T21:05:50Z',
                   'date_updated': '2016-03-24T21:05:50Z',
                   'type': 'chat',
-                  'twilio_address': '+111111',
-                  'user_address': '+999999',
+                  'twilio_address': '+372666555',
+                  'user_address': '+372666556',
                   'url': 'https://messaging.twilio.com/v1/Sessions/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
@@ -285,8 +285,8 @@ describe('Participant', function() {
                   'date_created': '2016-03-24T21:05:50Z',
                   'date_updated': '2016-03-24T21:05:50Z',
                   'type': 'chat',
-                  'twilio_address': '+111111',
-                  'user_address': '+999999',
+                  'twilio_address': '+372666555',
+                  'user_address': '+372666556',
                   'url': 'https://messaging.twilio.com/v1/Sessions/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
@@ -325,8 +325,8 @@ describe('Participant', function() {
                   'date_created': '2016-03-24T21:05:50Z',
                   'date_updated': '2016-03-24T21:05:50Z',
                   'type': 'chat',
-                  'twilio_address': '+111111',
-                  'user_address': '+999999',
+                  'twilio_address': '+372666555',
+                  'user_address': '+372666556',
                   'url': 'https://messaging.twilio.com/v1/Sessions/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
@@ -382,8 +382,8 @@ describe('Participant', function() {
                   'date_created': '2016-03-24T21:05:50Z',
                   'date_updated': '2016-03-24T21:05:50Z',
                   'type': 'chat',
-                  'twilio_address': '+111111',
-                  'user_address': '+999999',
+                  'twilio_address': '+372666555',
+                  'user_address': '+372666556',
                   'url': 'https://messaging.twilio.com/v1/Sessions/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]

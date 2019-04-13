@@ -18,14 +18,14 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the PhoneNumber resource's parent Service resource
  */
 declare function PhoneNumberList(version: V1, serviceSid: string): PhoneNumberListInstance;
 
 /**
  * Options to pass to update
  *
- * @property isReserved - Reserve for manual assignment to participants only.
+ * @property isReserved - Whether the new phone number should be reserved
  */
 interface PhoneNumberInstanceUpdateOptions {
   isReserved?: boolean;
@@ -62,7 +62,7 @@ interface PhoneNumberListInstance {
   /**
    * Constructs a phone_number
    *
-   * @param sid - A string that uniquely identifies this Phone Number.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): PhoneNumberContext;
   /**
@@ -108,9 +108,9 @@ interface PhoneNumberListInstance {
 /**
  * Options to pass to create
  *
- * @property isReserved - Reserve for manual assignment to participants only.
- * @property phoneNumber - Twilio Number to assign to your Proxy Service
- * @property sid - Phone Number Sid of Twilio Number to assign to your Proxy Service
+ * @property isReserved - Whether the new phone number should be reserved
+ * @property phoneNumber - The phone number in E.164 format
+ * @property sid - The SID of a Twilio IncomingPhoneNumber resource
  */
 interface PhoneNumberListInstanceCreateOptions {
   isReserved?: boolean;
@@ -205,8 +205,8 @@ declare class PhoneNumberContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Phone Number.
+   * @param serviceSid - The SID of the parent Service resource of the PhoneNumber resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -245,8 +245,8 @@ declare class PhoneNumberInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Phone Number.
+   * @param serviceSid - The SID of the PhoneNumber resource's parent Service resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: PhoneNumberPayload, serviceSid: string, sid: string);
 

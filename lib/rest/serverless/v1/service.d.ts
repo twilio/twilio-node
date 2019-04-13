@@ -9,17 +9,22 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
+import { AssetList } from './service/asset';
+import { AssetListInstance } from './service/asset';
+import { BuildList } from './service/build';
+import { BuildListInstance } from './service/build';
+import { EnvironmentList } from './service/environment';
+import { EnvironmentListInstance } from './service/environment';
+import { FunctionList } from './service/function';
+import { FunctionListInstance } from './service/function';
 import { SerializableClass } from '../../../interfaces';
-import { VerificationCheckList } from './service/verificationCheck';
-import { VerificationCheckListInstance } from './service/verificationCheck';
-import { VerificationList } from './service/verification';
-import { VerificationListInstance } from './service/verification';
 
 /**
  * Initialize the ServiceList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -28,22 +33,12 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property codeLength - Length of verification code. Valid values are 4-10
- * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
- * @property friendlyName - Friendly name of the service
- * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
- * @property psd2Enabled - Indicates whether PSD2 parameters are enabled or not
- * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
- * @property ttsName - Alternative to be used as Service friendly name in phone calls
+ * @property friendlyName - The friendly_name
+ * @property includeCredentials - The include_credentials
  */
 interface ServiceInstanceUpdateOptions {
-  codeLength?: number;
-  dtmfInputRequired?: boolean;
   friendlyName?: string;
-  lookupEnabled?: boolean;
-  psd2Enabled?: boolean;
-  skipSmsToLandlines?: boolean;
-  ttsName?: string;
+  includeCredentials?: boolean;
 }
 
 interface ServiceListInstance {
@@ -77,7 +72,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - Verification Service Instance SID.
+   * @param sid - The sid
    */
   get(sid: string): ServiceContext;
   /**
@@ -123,22 +118,14 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property codeLength - Length of verification code. Valid values are 4-10
- * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
- * @property friendlyName - Friendly name of the service
- * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
- * @property psd2Enabled - Indicates whether PSD2 parameters are enabled or not
- * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
- * @property ttsName - Alternative to be used as Service friendly name in phone calls
+ * @property friendlyName - The friendly_name
+ * @property includeCredentials - The include_credentials
+ * @property uniqueName - The unique_name
  */
 interface ServiceListInstanceCreateOptions {
-  codeLength?: number;
-  dtmfInputRequired?: boolean;
   friendlyName: string;
-  lookupEnabled?: boolean;
-  psd2Enabled?: boolean;
-  skipSmsToLandlines?: boolean;
-  ttsName?: string;
+  includeCredentials?: boolean;
+  uniqueName: string;
 }
 
 /**
@@ -203,17 +190,13 @@ interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
 
 interface ServiceResource {
   account_sid: string;
-  code_length: number;
   date_created: Date;
   date_updated: Date;
-  dtmf_input_required: boolean;
   friendly_name: string;
+  include_credentials: boolean;
   links: string;
-  lookup_enabled: boolean;
-  psd2_enabled: boolean;
   sid: string;
-  skip_sms_to_landlines: boolean;
-  tts_name: string;
+  unique_name: string;
   url: string;
 }
 
@@ -225,26 +208,25 @@ declare class ServiceContext {
   /**
    * Initialize the ServiceContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - Verification Service Instance SID.
+   * @param sid - The sid
    */
   constructor(version: V1, sid: string);
 
+  assets: AssetListInstance;
+  builds: BuildListInstance;
+  environments: EnvironmentListInstance;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  functions: FunctionListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -256,8 +238,6 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  verificationChecks: VerificationCheckListInstance;
-  verifications: VerificationListInstance;
 }
 
 
@@ -265,21 +245,32 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Initialize the ServiceContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - Verification Service Instance SID.
+   * @param sid - The sid
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 
   private _proxy: ServiceContext;
   accountSid: string;
-  codeLength: number;
+  /**
+   * Access the assets
+   */
+  assets(): AssetListInstance;
+  /**
+   * Access the builds
+   */
+  builds(): BuildListInstance;
   dateCreated: Date;
   dateUpdated: Date;
-  dtmfInputRequired: boolean;
+  /**
+   * Access the environments
+   */
+  environments(): EnvironmentListInstance;
   /**
    * fetch a ServiceInstance
    *
@@ -287,22 +278,18 @@ declare class ServiceInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   friendlyName: string;
-  links: string;
-  lookupEnabled: boolean;
-  psd2Enabled: boolean;
   /**
-   * remove a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
+   * Access the functions
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  functions(): FunctionListInstance;
+  includeCredentials: boolean;
+  links: string;
   sid: string;
-  skipSmsToLandlines: boolean;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  ttsName: string;
+  uniqueName: string;
   /**
    * update a ServiceInstance
    *
@@ -311,14 +298,6 @@ declare class ServiceInstance extends SerializableClass {
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
   url: string;
-  /**
-   * Access the verificationChecks
-   */
-  verificationChecks(): VerificationCheckListInstance;
-  /**
-   * Access the verifications
-   */
-  verifications(): VerificationListInstance;
 }
 
 
@@ -326,8 +305,9 @@ declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, Serv
   /**
    * Initialize the ServicePage
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

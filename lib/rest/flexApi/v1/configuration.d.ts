@@ -60,6 +60,8 @@ interface ConfigurationResource {
   date_created: Date;
   date_updated: Date;
   messaging_service_instance_sid: string;
+  plugin_service_attributes: string;
+  plugin_service_enabled: boolean;
   public_attributes: string;
   runtime_domain: string;
   service_version: string;
@@ -152,6 +154,8 @@ declare class ConfigurationInstance extends SerializableClass {
    */
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
   messagingServiceInstanceSid: string;
+  pluginServiceAttributes: string;
+  pluginServiceEnabled: boolean;
   publicAttributes: string;
   runtimeDomain: string;
   serviceVersion: string;

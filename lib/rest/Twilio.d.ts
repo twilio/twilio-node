@@ -22,6 +22,7 @@ import Preview = require('./Preview');
 import Pricing = require('./Pricing');
 import Proxy = require('./Proxy');
 import RequestClient = require('../base/RequestClient');
+import Serverless = require('./Serverless');
 import Studio = require('./Studio');
 import Sync = require('./Sync');
 import Taskrouter = require('./Taskrouter');
@@ -81,6 +82,7 @@ declare class Twilio {
    * @param opts - The options argument
    */
   request(opts: Twilio.RequestOptions): Promise<any>;
+  serverless: Serverless;
   shortCodes: (typeof Api.prototype.account.shortCodes);
   signingKeys: (typeof Api.prototype.account.signingKeys);
   sip: (typeof Api.prototype.account.sip);
