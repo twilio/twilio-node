@@ -34,7 +34,7 @@ describe('Export', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.bulk_exports.exports('resourceType').fetch();
+      var promise = client.preview.bulk_exports.exports('resource_type').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('Export', function() {
       });
       promise.done();
 
-      var solution = {resourceType: 'resourceType'};
+      var solution = {resourceType: 'resource_type'};
       var url = _.template('https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -63,7 +63,7 @@ describe('Export', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.bulk_exports.exports('resourceType').fetch();
+      var promise = client.preview.bulk_exports.exports('resource_type').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

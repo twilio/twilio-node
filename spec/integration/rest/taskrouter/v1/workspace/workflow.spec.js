@@ -421,7 +421,7 @@ describe('Workflow', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName', configuration: 'configuration'};
+      var opts = {friendlyName: 'friendly_name', configuration: 'configuration'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workflows.create(opts);
       promise = promise.then(function() {
@@ -434,7 +434,7 @@ describe('Workflow', function() {
       var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows')(solution);
 
-      var values = {FriendlyName: 'friendlyName', Configuration: 'configuration', };
+      var values = {FriendlyName: 'friendly_name', Configuration: 'configuration', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -466,7 +466,7 @@ describe('Workflow', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendlyName', configuration: 'configuration'};
+      var opts = {friendlyName: 'friendly_name', configuration: 'configuration'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workflows.create(opts);
       promise = promise.then(function(response) {

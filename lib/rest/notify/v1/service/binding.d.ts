@@ -20,7 +20,7 @@ type BindingBindingType = 'apn'|'gcm'|'sms'|'fcm'|'facebook-messenger'|'alexa';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
 declare function BindingList(version: V1, serviceSid: string): BindingListInstance;
 
@@ -55,7 +55,7 @@ interface BindingListInstance {
   /**
    * Constructs a binding
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): BindingContext;
   /**
@@ -101,13 +101,13 @@ interface BindingListInstance {
 /**
  * Options to pass to create
  *
- * @property address - The address specific to the channel.
- * @property bindingType - The type of the Binding.
- * @property credentialSid - The unique identifier of the Credential resource to be used to send notifications to this Binding.
- * @property endpoint - DEPRECATED*
- * @property identity - The Identity to which this Binding belongs to.
- * @property notificationProtocolVersion - The version of the protocol used to send the notification.
- * @property tag - The list of tags associated with this Binding.
+ * @property address - The channel-specific address
+ * @property bindingType - The type of the Binding
+ * @property credentialSid - The SID of the Credential resource to be used to send notifications to this Binding
+ * @property endpoint - Deprecated
+ * @property identity - The `identity` value that identifies the new resource's User
+ * @property notificationProtocolVersion - The protocol version to use to send the notification
+ * @property tag - A tag that can be used to select the Bindings to notify
  */
 interface BindingListInstanceCreateOptions {
   address: string;
@@ -126,8 +126,8 @@ interface BindingListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property endDate - Only list Bindings created on or before the given date.
- * @property identity - Only list Bindings that have any of the specified Identities.
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property identity - The `identity` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -138,8 +138,8 @@ interface BindingListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property startDate - Only list Bindings created on or after the given date.
- * @property tag - Only list Bindings that have all of the specified Tags.
+ * @property startDate - Only include usage that has occurred on or after this date
+ * @property tag - Only list Bindings that have all of the specified Tags
  */
 interface BindingListInstanceEachOptions {
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
@@ -155,8 +155,8 @@ interface BindingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property endDate - Only list Bindings created on or before the given date.
- * @property identity - Only list Bindings that have any of the specified Identities.
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property identity - The `identity` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -167,8 +167,8 @@ interface BindingListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property startDate - Only list Bindings created on or after the given date.
- * @property tag - Only list Bindings that have all of the specified Tags.
+ * @property startDate - Only include usage that has occurred on or after this date
+ * @property tag - Only list Bindings that have all of the specified Tags
  */
 interface BindingListInstanceOptions {
   endDate?: Date;
@@ -182,13 +182,13 @@ interface BindingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property endDate - Only list Bindings created on or before the given date.
- * @property identity - Only list Bindings that have any of the specified Identities.
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property identity - The `identity` value of the resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property startDate - Only list Bindings created on or after the given date.
- * @property tag - Only list Bindings that have all of the specified Tags.
+ * @property startDate - Only include usage that has occurred on or after this date
+ * @property tag - Only list Bindings that have all of the specified Tags
  */
 interface BindingListInstancePageOptions {
   endDate?: Date;
@@ -233,8 +233,8 @@ declare class BindingContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -266,8 +266,8 @@ declare class BindingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: BindingPayload, serviceSid: string, sid: string);
 

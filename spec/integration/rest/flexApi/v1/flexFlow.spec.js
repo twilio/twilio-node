@@ -293,7 +293,7 @@ describe('FlexFlow', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        friendlyName: 'friendlyName',
+        friendlyName: 'friendly_name',
         chatServiceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         channelType: 'web'
       };
@@ -308,7 +308,7 @@ describe('FlexFlow', function() {
       var url = 'https://flex-api.twilio.com/v1/FlexFlows';
 
       var values = {
-        FriendlyName: 'friendlyName',
+        FriendlyName: 'friendly_name',
         ChatServiceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ChannelType: 'web',
       };
@@ -342,7 +342,7 @@ describe('FlexFlow', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        friendlyName: 'friendlyName',
+        friendlyName: 'friendly_name',
         chatServiceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         channelType: 'web'
       };

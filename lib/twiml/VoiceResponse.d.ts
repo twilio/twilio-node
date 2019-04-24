@@ -346,6 +346,7 @@ declare namespace VoiceResponse {
    * Options to pass to gather
    *
    * @property action - Action URL
+   * @property actionOnEmptyResult - Force webhook to the action URL event if there is no input
    * @property bargeIn - Stop playing media upon speech
    * @property debug - Allow debug for gather
    * @property finishOnKey - Finish gather on key
@@ -363,6 +364,7 @@ declare namespace VoiceResponse {
    */
   export interface GatherAttributes {
     action?: string;
+    actionOnEmptyResult?: boolean;
     bargeIn?: boolean;
     debug?: boolean;
     finishOnKey?: string;

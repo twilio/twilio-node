@@ -286,7 +286,7 @@ describe('Field', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {fieldType: 'fieldType', uniqueName: 'uniqueName'};
+      var opts = {fieldType: 'field_type', uniqueName: 'unique_name'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fields.create(opts);
@@ -303,7 +303,7 @@ describe('Field', function() {
       };
       var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Tasks/<%= taskSid %>/Fields')(solution);
 
-      var values = {FieldType: 'fieldType', UniqueName: 'uniqueName', };
+      var values = {FieldType: 'field_type', UniqueName: 'unique_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -327,7 +327,7 @@ describe('Field', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {fieldType: 'fieldType', uniqueName: 'uniqueName'};
+      var opts = {fieldType: 'field_type', uniqueName: 'unique_name'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fields.create(opts);

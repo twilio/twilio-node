@@ -213,7 +213,7 @@ describe('CredentialList', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists.create(opts);
@@ -227,7 +227,7 @@ describe('CredentialList', function() {
       var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists.json')(solution);
 
-      var values = {FriendlyName: 'friendlyName', };
+      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -251,7 +251,7 @@ describe('CredentialList', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists.create(opts);
@@ -322,7 +322,7 @@ describe('CredentialList', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -339,7 +339,7 @@ describe('CredentialList', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= sid %>.json')(solution);
 
-      var values = {FriendlyName: 'friendlyName', };
+      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -363,7 +363,7 @@ describe('CredentialList', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);

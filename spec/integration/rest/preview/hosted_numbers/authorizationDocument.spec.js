@@ -342,11 +342,11 @@ describe('AuthorizationDocument', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        hostedNumberOrderSids: ['hostedNumberOrderSids'],
+        hostedNumberOrderSids: ['hosted_number_order_sids'],
         addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         email: 'email',
-        contactTitle: 'contactTitle',
-        contactPhoneNumber: 'contactPhoneNumber'
+        contactTitle: 'contact_title',
+        contactPhoneNumber: 'contact_phone_number'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
       promise = promise.then(function() {
@@ -359,11 +359,11 @@ describe('AuthorizationDocument', function() {
       var url = 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments';
 
       var values = {
-        HostedNumberOrderSids: serialize.map(['hostedNumberOrderSids'], function(e) { return e; }),
+        HostedNumberOrderSids: serialize.map(['hosted_number_order_sids'], function(e) { return e; }),
         AddressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         Email: 'email',
-        ContactTitle: 'contactTitle',
-        ContactPhoneNumber: 'contactPhoneNumber',
+        ContactTitle: 'contact_title',
+        ContactPhoneNumber: 'contact_phone_number',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -394,11 +394,11 @@ describe('AuthorizationDocument', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        hostedNumberOrderSids: ['hostedNumberOrderSids'],
+        hostedNumberOrderSids: ['hosted_number_order_sids'],
         addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         email: 'email',
-        contactTitle: 'contactTitle',
-        contactPhoneNumber: 'contactPhoneNumber'
+        contactTitle: 'contact_title',
+        contactPhoneNumber: 'contact_phone_number'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
       promise = promise.then(function(response) {

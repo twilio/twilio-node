@@ -133,7 +133,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {uniqueName: 'uniqueName', friendlyName: 'friendlyName'};
+      var opts = {uniqueName: 'unique_name', friendlyName: 'friendly_name'};
       var promise = client.serverless.v1.services.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -144,7 +144,7 @@ describe('Service', function() {
 
       var url = 'https://serverless.twilio.com/v1/Services';
 
-      var values = {UniqueName: 'uniqueName', FriendlyName: 'friendlyName', };
+      var values = {UniqueName: 'unique_name', FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -173,7 +173,7 @@ describe('Service', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {uniqueName: 'uniqueName', friendlyName: 'friendlyName'};
+      var opts = {uniqueName: 'unique_name', friendlyName: 'friendly_name'};
       var promise = client.serverless.v1.services.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

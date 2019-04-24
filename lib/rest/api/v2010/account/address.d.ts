@@ -236,6 +236,7 @@ interface AddressResource {
   street: string;
   uri: string;
   validated: boolean;
+  verified: boolean;
 }
 
 interface AddressSolution {
@@ -333,6 +334,7 @@ declare class AddressInstance extends SerializableClass {
   update(opts?: AddressInstanceUpdateOptions, callback?: (error: Error | null, items: AddressInstance) => any): void;
   uri: string;
   validated: boolean;
+  verified: boolean;
 }
 
 

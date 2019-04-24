@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the IpAccessControlListList
  *
  * @param version - Version of the resource
- * @param trunkSid - The unique sid that identifies the associated Trunk
+ * @param trunkSid - The SID of the Trunk the resource is associated with
  */
 declare function IpAccessControlListList(version: V1, trunkSid: string): IpAccessControlListListInstance;
 
@@ -49,7 +49,7 @@ interface IpAccessControlListListInstance {
   /**
    * Constructs a ip_access_control_list
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): IpAccessControlListContext;
   /**
@@ -96,7 +96,7 @@ interface IpAccessControlListListInstance {
 /**
  * Options to pass to create
  *
- * @property ipAccessControlListSid - The SID of the IP Access Control List that you want to associate with this trunk.
+ * @property ipAccessControlListSid - The SID of the IP Access Control List that you want to associate with the trunk
  */
 interface IpAccessControlListListInstanceCreateOptions {
   ipAccessControlListSid: string;
@@ -182,8 +182,8 @@ declare class IpAccessControlListContext {
    * Initialize the IpAccessControlListContext
    *
    * @param version - Version of the resource
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param trunkSid - The SID of the Trunk from which to fetch the IP Access Control List
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, trunkSid: string, sid: string);
 
@@ -212,8 +212,8 @@ declare class IpAccessControlListInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param trunkSid - The unique sid that identifies the associated Trunk
-   * @param sid - The sid
+   * @param trunkSid - The SID of the Trunk the resource is associated with
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: IpAccessControlListPayload, trunkSid: string, sid: string);
 

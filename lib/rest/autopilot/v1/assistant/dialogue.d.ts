@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the parent Assistant.
+ * @param assistantSid - The SID of the Assistant that is the parent of the resource
  */
 declare function DialogueList(version: V1, assistantSid: string): DialogueListInstance;
 
@@ -30,7 +30,7 @@ interface DialogueListInstance {
   /**
    * Constructs a dialogue
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): DialogueContext;
   /**
@@ -64,8 +64,8 @@ declare class DialogueContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, assistantSid: string, sid: string);
 
@@ -92,8 +92,8 @@ declare class DialogueInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the parent Assistant.
-   * @param sid - The sid
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: DialoguePayload, assistantSid: string, sid: string);
 

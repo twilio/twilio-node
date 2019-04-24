@@ -18,8 +18,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the Assistant.
- * @param fieldTypeSid - The unique ID of the Field Type associated with this Field Value.
+ * @param assistantSid - The SID of the Assistant that is the parent of the FieldType associated with the resource
+ * @param fieldTypeSid - The SID of the Field Type associated with the Field Value
  */
 declare function FieldValueList(version: V1, assistantSid: string, fieldTypeSid: string): FieldValueListInstance;
 
@@ -54,7 +54,7 @@ interface FieldValueListInstance {
   /**
    * Constructs a field_value
    *
-   * @param sid - A 34 character string that uniquely identifies this resource
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): FieldValueContext;
   /**
@@ -100,9 +100,9 @@ interface FieldValueListInstance {
 /**
  * Options to pass to create
  *
- * @property language - An ISO language-country string that specifies the language used for this field value. For example: en-US
- * @property synonymOf - A string value that indicates which word this field value is a synonym of.
- * @property value - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property language - The ISO language-country tag that identifies the language of the value
+ * @property synonymOf - The string value that indicates which word the field value is a synonym of
+ * @property value - The Field Value data
  */
 interface FieldValueListInstanceCreateOptions {
   language: string;
@@ -117,7 +117,7 @@ interface FieldValueListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property language - An ISO language-country string that specifies the language used for this field value. For example: en-US
+ * @property language - The ISO language-country tag that identifies the language of the value
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -140,7 +140,7 @@ interface FieldValueListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property language - An ISO language-country string that specifies the language used for this field value. For example: en-US
+ * @property language - The ISO language-country tag that identifies the language of the value
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -161,7 +161,7 @@ interface FieldValueListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property language - An ISO language-country string that specifies the language used for this field value. For example: en-US
+ * @property language - The ISO language-country tag that identifies the language of the value
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -204,9 +204,9 @@ declare class FieldValueContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the Assistant
-   * @param fieldTypeSid - The unique ID of the Field Type associated with this Field Value
-   * @param sid - A 34 character string that uniquely identifies this resource
+   * @param assistantSid - The SID of the Assistant that is the parent of the FieldType associated with the resource to fetch
+   * @param fieldTypeSid - The SID of the Field Type associated with  the Field Value to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, assistantSid: string, fieldTypeSid: string, sid: string);
 
@@ -239,9 +239,9 @@ declare class FieldValueInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param fieldTypeSid - The unique ID of the Field Type associated with this Field Value.
-   * @param sid - A 34 character string that uniquely identifies this resource
+   * @param assistantSid - The SID of the Assistant that is the parent of the FieldType associated with the resource
+   * @param fieldTypeSid - The SID of the Field Type associated with the Field Value
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: FieldValuePayload, assistantSid: string, fieldTypeSid: string, sid: string);
 

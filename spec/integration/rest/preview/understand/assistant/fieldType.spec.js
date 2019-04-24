@@ -284,7 +284,7 @@ describe('FieldType', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {uniqueName: 'uniqueName'};
+      var opts = {uniqueName: 'unique_name'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes.create(opts);
       promise = promise.then(function() {
@@ -297,7 +297,7 @@ describe('FieldType', function() {
       var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes')(solution);
 
-      var values = {UniqueName: 'uniqueName', };
+      var values = {UniqueName: 'unique_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -323,7 +323,7 @@ describe('FieldType', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {uniqueName: 'uniqueName'};
+      var opts = {uniqueName: 'unique_name'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes.create(opts);
       promise = promise.then(function(response) {

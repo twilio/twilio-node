@@ -39,13 +39,13 @@ declare function AssistantList(version: V1): AssistantListInstance;
 /**
  * Options to pass to update
  *
- * @property callbackEvents - A space-separated list of callback events that will trigger callbacks
- * @property callbackUrl - The callback_url
- * @property defaults - A JSON object that defines the assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
- * @property friendlyName - A text description for the Assistant. It is non-unique and can be up to 255 characters long.
- * @property logQueries - A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter. Defaults to `true` if no value is provided.
- * @property styleSheet - A JSON object that defines the assistant [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property callbackEvents - Reserved
+ * @property callbackUrl - Reserved
+ * @property defaults - A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
+ * @property friendlyName - A string to describe the resource
+ * @property logQueries - Whether queries should be logged and kept after training
+ * @property styleSheet - A JSON string that defines the Assistant's style sheet
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface AssistantInstanceUpdateOptions {
   callbackEvents?: string;
@@ -88,7 +88,7 @@ interface AssistantListInstance {
   /**
    * Constructs a assistant
    *
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): AssistantContext;
   /**
@@ -134,13 +134,13 @@ interface AssistantListInstance {
 /**
  * Options to pass to create
  *
- * @property callbackEvents - A space-separated list of callback events that will trigger callbacks
- * @property callbackUrl - The callback_url
- * @property defaults - A JSON object that defines the assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
- * @property friendlyName - A text description for the Assistant. It is non-unique and can be up to 255 characters long.
- * @property logQueries - A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter. Defaults to `true` if no value is provided.
- * @property styleSheet - A JSON object that defines the assistant [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property callbackEvents - Reserved
+ * @property callbackUrl - Reserved
+ * @property defaults - A JSON object that defines the Assistant's default tasks for various scenarios
+ * @property friendlyName - A string to describe the new resource
+ * @property logQueries - Whether queries should be logged and kept after training
+ * @property styleSheet - A JSON string that defines the Assistant's style sheet
+ * @property uniqueName - An application-defined string that uniquely identifies the new resource
  */
 interface AssistantListInstanceCreateOptions {
   callbackEvents?: string;
@@ -240,7 +240,7 @@ declare class AssistantContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -287,7 +287,7 @@ declare class AssistantInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: AssistantPayload, sid: string);
 

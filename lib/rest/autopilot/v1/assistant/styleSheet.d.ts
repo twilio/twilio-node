@@ -19,14 +19,14 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the Assistant
+ * @param assistantSid - The SID of the Assistant that is the parent of the resource
  */
 declare function StyleSheetList(version: V1, assistantSid: string): StyleSheetListInstance;
 
 /**
  * Options to pass to update
  *
- * @property styleSheet - The JSON Style sheet string
+ * @property styleSheet - The JSON string that describes the style sheet object
  */
 interface StyleSheetInstanceUpdateOptions {
   styleSheet?: string;
@@ -71,7 +71,7 @@ declare class StyleSheetContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the Assistant
+   * @param assistantSid - The SID of the Assistant with the StyleSheet resource to fetch
    */
   constructor(version: V1, assistantSid: string);
 
@@ -105,7 +105,7 @@ declare class StyleSheetInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the Assistant
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource
    */
   constructor(version: V1, payload: StyleSheetPayload, assistantSid: string);
 

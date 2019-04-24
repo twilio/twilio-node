@@ -34,7 +34,7 @@ describe('BulkCountryUpdate', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {updateRequest: 'updateRequest'};
+      var opts = {updateRequest: 'update_request'};
       var promise = client.voice.v1.dialingPermissions
                                    .bulkCountryUpdates.create(opts);
       promise = promise.then(function() {
@@ -46,7 +46,7 @@ describe('BulkCountryUpdate', function() {
 
       var url = 'https://voice.twilio.com/v1/DialingPermissions/BulkCountryUpdates';
 
-      var values = {UpdateRequest: 'updateRequest', };
+      var values = {UpdateRequest: 'update_request', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -63,7 +63,7 @@ describe('BulkCountryUpdate', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {updateRequest: 'updateRequest'};
+      var opts = {updateRequest: 'update_request'};
       var promise = client.voice.v1.dialingPermissions
                                    .bulkCountryUpdates.create(opts);
       promise = promise.then(function(response) {

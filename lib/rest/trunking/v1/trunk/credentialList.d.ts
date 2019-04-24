@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the CredentialListList
  *
  * @param version - Version of the resource
- * @param trunkSid - The trunk_sid
+ * @param trunkSid - The SID of the Trunk the credential list in associated with
  */
 declare function CredentialListList(version: V1, trunkSid: string): CredentialListListInstance;
 
@@ -49,7 +49,7 @@ interface CredentialListListInstance {
   /**
    * Constructs a credential_list
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): CredentialListContext;
   /**
@@ -95,7 +95,7 @@ interface CredentialListListInstance {
 /**
  * Options to pass to create
  *
- * @property credentialListSid - The SID of the Credential List that you want to associate with this trunk. Once associated, Twilio will start authenticating access to the trunk against this list.
+ * @property credentialListSid - The SID of the Credential List that you want to associate with the trunk
  */
 interface CredentialListListInstanceCreateOptions {
   credentialListSid: string;
@@ -181,8 +181,8 @@ declare class CredentialListContext {
    * Initialize the CredentialListContext
    *
    * @param version - Version of the resource
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param trunkSid - The SID of the Trunk from which to fetch the credential list
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, trunkSid: string, sid: string);
 
@@ -211,8 +211,8 @@ declare class CredentialListInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param trunkSid - The SID of the Trunk the credential list in associated with
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: CredentialListPayload, trunkSid: string, sid: string);
 

@@ -184,6 +184,7 @@ interface PhoneNumberResource {
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
+  in_use: number;
   is_reserved: boolean;
   iso_country: string;
   phone_number: string;
@@ -262,6 +263,7 @@ declare class PhoneNumberInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
   friendlyName: string;
+  inUse: number;
   isReserved: boolean;
   isoCountry: string;
   phoneNumber: string;

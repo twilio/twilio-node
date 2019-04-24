@@ -33,13 +33,13 @@ declare function TrunkList(version: V1): TrunkListInstance;
 /**
  * Options to pass to update
  *
- * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
- * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
- * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
- * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
- * @property friendlyName - A human-readable name for the Trunk.
- * @property recording - The recording settings for this trunk.
- * @property secure - The Secure Trunking  settings for this trunk.
+ * @property cnamLookupEnabled - Whether Caller ID Name (CNAM) lookup should be enabled for the trunk
+ * @property disasterRecoveryMethod - The HTTP method we should use to call the disaster_recovery_url
+ * @property disasterRecoveryUrl - The HTTP URL that we should call if an error occurs while sending SIP traffic towards your configured Origination URL
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic
+ * @property friendlyName - A string to describe the resource
+ * @property recording - The recording settings for the trunk
+ * @property secure - Whether Secure Trunking is enabled for the trunk
  */
 interface TrunkInstanceUpdateOptions {
   cnamLookupEnabled?: boolean;
@@ -82,7 +82,7 @@ interface TrunkListInstance {
   /**
    * Constructs a trunk
    *
-   * @param sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): TrunkContext;
   /**
@@ -128,13 +128,13 @@ interface TrunkListInstance {
 /**
  * Options to pass to create
  *
- * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
- * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
- * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
- * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
- * @property friendlyName - A human-readable name for the Trunk.
- * @property recording - The recording settings for this trunk.
- * @property secure - The Secure Trunking  settings for this trunk.
+ * @property cnamLookupEnabled - Whether Caller ID Name (CNAM) lookup should be enabled for the trunk
+ * @property disasterRecoveryMethod - The HTTP method we should use to call the disaster_recovery_url
+ * @property disasterRecoveryUrl - The HTTP URL that we should call if an error occurs while sending SIP traffic towards your configured Origination URL
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic
+ * @property friendlyName - A string to describe the resource
+ * @property recording - The recording settings for the trunk
+ * @property secure - Whether Secure Trunking is enabled for the trunk
  */
 interface TrunkListInstanceCreateOptions {
   cnamLookupEnabled?: boolean;
@@ -233,7 +233,7 @@ declare class TrunkContext {
    * Initialize the TrunkContext
    *
    * @param version - Version of the resource
-   * @param sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -274,7 +274,7 @@ declare class TrunkInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: TrunkPayload, sid: string);
 

@@ -136,7 +136,7 @@ describe('OriginationUrl', function() {
         weight: 1,
         priority: 1,
         enabled: true,
-        friendlyName: 'friendlyName',
+        friendlyName: 'friendly_name',
         sipUrl: 'https://example.com'
       };
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -155,7 +155,7 @@ describe('OriginationUrl', function() {
         Weight: 1,
         Priority: 1,
         Enabled: serialize.bool(true),
-        FriendlyName: 'friendlyName',
+        FriendlyName: 'friendly_name',
         SipUrl: 'https://example.com',
       };
       holodeck.assertHasRequest(new Request({
@@ -187,7 +187,7 @@ describe('OriginationUrl', function() {
         weight: 1,
         priority: 1,
         enabled: true,
-        friendlyName: 'friendlyName',
+        friendlyName: 'friendly_name',
         sipUrl: 'https://example.com'
       };
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')

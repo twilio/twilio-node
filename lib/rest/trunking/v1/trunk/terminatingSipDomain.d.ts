@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the TerminatingSipDomainList
  *
  * @param version - Version of the resource
- * @param trunkSid - Unique string to identify an associated trunk
+ * @param trunkSid - The SID of the Trunk to which we should route calls
  */
 declare function TerminatingSipDomainList(version: V1, trunkSid: string): TerminatingSipDomainListInstance;
 
@@ -49,7 +49,7 @@ interface TerminatingSipDomainListInstance {
   /**
    * Constructs a terminating_sip_domain
    *
-   * @param sid - The unique sid of the domain.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): TerminatingSipDomainContext;
   /**
@@ -96,7 +96,7 @@ interface TerminatingSipDomainListInstance {
 /**
  * Options to pass to create
  *
- * @property sipDomainSid - The SID of the SIP Domain to associate.
+ * @property sipDomainSid - The SID of the SIP Domain to associate with the trunk
  */
 interface TerminatingSipDomainListInstanceCreateOptions {
   sipDomainSid: string;
@@ -193,8 +193,8 @@ declare class TerminatingSipDomainContext {
    * Initialize the TerminatingSipDomainContext
    *
    * @param version - Version of the resource
-   * @param trunkSid - The unique sid of the trunk.
-   * @param sid - The unique sid of the domain.
+   * @param trunkSid - The SID of the Trunk with the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, trunkSid: string, sid: string);
 
@@ -223,8 +223,8 @@ declare class TerminatingSipDomainInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param trunkSid - Unique string to identify an associated trunk
-   * @param sid - The unique sid of the domain.
+   * @param trunkSid - The SID of the Trunk to which we should route calls
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: TerminatingSipDomainPayload, trunkSid: string, sid: string);
 

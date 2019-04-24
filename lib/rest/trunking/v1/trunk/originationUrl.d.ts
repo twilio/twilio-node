@@ -15,18 +15,18 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the OriginationUrlList
  *
  * @param version - Version of the resource
- * @param trunkSid - The unique ID of the Trunk that owns this Origination URL.
+ * @param trunkSid - The SID of the Trunk that owns the Origination URL
  */
 declare function OriginationUrlList(version: V1, trunkSid: string): OriginationUrlListInstance;
 
 /**
  * Options to pass to update
  *
- * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
- * @property friendlyName - A human readable descriptive text, up to 64 characters long.
- * @property priority - Priority ranks the importance of the URI.
- * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
- * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
+ * @property enabled - Whether the URL is enabled
+ * @property friendlyName - A string to describe the resource
+ * @property priority - The relative importance of the URI
+ * @property sipUrl - The SIP address you want Twilio to route your Origination calls to
+ * @property weight - The value that determines the relative load the URI should receive compared to others with the same priority
  */
 interface OriginationUrlInstanceUpdateOptions {
   enabled?: boolean;
@@ -67,7 +67,7 @@ interface OriginationUrlListInstance {
   /**
    * Constructs a origination_url
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): OriginationUrlContext;
   /**
@@ -113,11 +113,11 @@ interface OriginationUrlListInstance {
 /**
  * Options to pass to create
  *
- * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
- * @property friendlyName - A human readable descriptive text, up to 64 characters long.
- * @property priority - Priority ranks the importance of the URI.
- * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
- * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
+ * @property enabled - Whether the URL is enabled
+ * @property friendlyName - A string to describe the resource
+ * @property priority - The relative importance of the URI
+ * @property sipUrl - The SIP address you want Twilio to route your Origination calls to
+ * @property weight - The value that determines the relative load the URI should receive compared to others with the same priority
  */
 interface OriginationUrlListInstanceCreateOptions {
   enabled: boolean;
@@ -211,8 +211,8 @@ declare class OriginationUrlContext {
    * Initialize the OriginationUrlContext
    *
    * @param version - Version of the resource
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param trunkSid - The SID of the Trunk from which to fetch the OriginationUrl
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, trunkSid: string, sid: string);
 
@@ -248,8 +248,8 @@ declare class OriginationUrlInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param trunkSid - The unique ID of the Trunk that owns this Origination URL.
-   * @param sid - The sid
+   * @param trunkSid - The SID of the Trunk that owns the Origination URL
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: OriginationUrlPayload, trunkSid: string, sid: string);
 

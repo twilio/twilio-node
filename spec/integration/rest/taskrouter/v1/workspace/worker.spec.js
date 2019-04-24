@@ -278,7 +278,7 @@ describe('Worker', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workers.create(opts);
       promise = promise.then(function() {
@@ -291,7 +291,7 @@ describe('Worker', function() {
       var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers')(solution);
 
-      var values = {FriendlyName: 'friendlyName', };
+      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -329,7 +329,7 @@ describe('Worker', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workers.create(opts);
       promise = promise.then(function(response) {

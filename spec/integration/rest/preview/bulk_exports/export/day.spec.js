@@ -51,7 +51,7 @@ describe('Day', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.bulk_exports.exports('resourceType')
+      client.preview.bulk_exports.exports('resource_type')
                                  .days.each(() => done());
     }
   );
@@ -76,7 +76,7 @@ describe('Day', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.bulk_exports.exports('resourceType')
+      client.preview.bulk_exports.exports('resource_type')
                                  .days.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
@@ -106,7 +106,7 @@ describe('Day', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.bulk_exports.exports('resourceType')
+      client.preview.bulk_exports.exports('resource_type')
                                  .days.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
@@ -114,7 +114,7 @@ describe('Day', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.bulk_exports.exports('resourceType')
+      var promise = client.preview.bulk_exports.exports('resource_type')
                                                .days.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -123,7 +123,7 @@ describe('Day', function() {
       });
       promise.done();
 
-      var solution = {resourceType: 'resourceType'};
+      var solution = {resourceType: 'resource_type'};
       var url = _.template('https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>/Days')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -155,7 +155,7 @@ describe('Day', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.bulk_exports.exports('resourceType')
+      var promise = client.preview.bulk_exports.exports('resource_type')
                                                .days.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

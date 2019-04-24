@@ -135,7 +135,7 @@ describe('Role', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName', type: 'channel', permission: ['permission']};
+      var opts = {friendlyName: 'friendly_name', type: 'channel', permission: ['permission']};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .roles.create(opts);
       promise = promise.then(function() {
@@ -149,7 +149,7 @@ describe('Role', function() {
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Roles')(solution);
 
       var values = {
-        FriendlyName: 'friendlyName',
+        FriendlyName: 'friendly_name',
         Type: 'channel',
         Permission: serialize.map(['permission'], function(e) { return e; }),
       };
@@ -181,7 +181,7 @@ describe('Role', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendlyName', type: 'channel', permission: ['permission']};
+      var opts = {friendlyName: 'friendly_name', type: 'channel', permission: ['permission']};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .roles.create(opts);
       promise = promise.then(function(response) {

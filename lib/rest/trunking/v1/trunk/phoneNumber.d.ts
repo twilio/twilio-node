@@ -16,7 +16,7 @@ type PhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
  * Initialize the PhoneNumberList
  *
  * @param version - Version of the resource
- * @param trunkSid - The trunk_sid
+ * @param trunkSid - The SID of the Trunk that handles calls to the phone number
  */
 declare function PhoneNumberList(version: V1, trunkSid: string): PhoneNumberListInstance;
 
@@ -51,7 +51,7 @@ interface PhoneNumberListInstance {
   /**
    * Constructs a phone_number
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): PhoneNumberContext;
   /**
@@ -97,7 +97,7 @@ interface PhoneNumberListInstance {
 /**
  * Options to pass to create
  *
- * @property phoneNumberSid - The SID of the Incoming Phone Number that you want to associate with this trunk.
+ * @property phoneNumberSid - The SID of the Incoming Phone Number that you want to associate with the trunk
  */
 interface PhoneNumberListInstanceCreateOptions {
   phoneNumberSid: string;
@@ -202,8 +202,8 @@ declare class PhoneNumberContext {
    * Initialize the PhoneNumberContext
    *
    * @param version - Version of the resource
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param trunkSid - The SID of the Trunk from which to fetch the PhoneNumber resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, trunkSid: string, sid: string);
 
@@ -232,8 +232,8 @@ declare class PhoneNumberInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param trunkSid - The SID of the Trunk that handles calls to the phone number
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: PhoneNumberPayload, trunkSid: string, sid: string);
 

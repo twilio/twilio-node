@@ -124,7 +124,7 @@ describe('Session', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {messagingServiceSid: 'messagingServiceSid'};
+      var opts = {messagingServiceSid: 'messaging_service_sid'};
       var promise = client.messaging.v1.sessions.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -135,7 +135,7 @@ describe('Session', function() {
 
       var url = 'https://messaging.twilio.com/v1/Sessions';
 
-      var values = {MessagingServiceSid: 'messagingServiceSid', };
+      var values = {MessagingServiceSid: 'messaging_service_sid', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -165,7 +165,7 @@ describe('Session', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {messagingServiceSid: 'messagingServiceSid'};
+      var opts = {messagingServiceSid: 'messaging_service_sid'};
       var promise = client.messaging.v1.sessions.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

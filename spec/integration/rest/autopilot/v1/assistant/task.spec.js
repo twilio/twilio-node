@@ -304,7 +304,7 @@ describe('Task', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {uniqueName: 'uniqueName'};
+      var opts = {uniqueName: 'unique_name'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks.create(opts);
       promise = promise.then(function() {
@@ -317,7 +317,7 @@ describe('Task', function() {
       var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://autopilot.twilio.com/v1/Assistants/<%= assistantSid %>/Tasks')(solution);
 
-      var values = {UniqueName: 'uniqueName', };
+      var values = {UniqueName: 'unique_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -347,7 +347,7 @@ describe('Task', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {uniqueName: 'uniqueName'};
+      var opts = {uniqueName: 'unique_name'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks.create(opts);
       promise = promise.then(function(response) {

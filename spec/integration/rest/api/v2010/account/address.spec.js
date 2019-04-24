@@ -35,11 +35,11 @@ describe('Address', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        customerName: 'customerName',
+        customerName: 'customer_name',
         street: 'street',
         city: 'city',
         region: 'region',
-        postalCode: 'postalCode',
+        postalCode: 'postal_code',
         isoCountry: 'US'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,11 +55,11 @@ describe('Address', function() {
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses.json')(solution);
 
       var values = {
-        CustomerName: 'customerName',
+        CustomerName: 'customer_name',
         Street: 'street',
         City: 'city',
         Region: 'region',
-        PostalCode: 'postalCode',
+        PostalCode: 'postal_code',
         IsoCountry: 'US',
       };
       holodeck.assertHasRequest(new Request({
@@ -85,17 +85,18 @@ describe('Address', function() {
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
           'validated': false,
+          'verified': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        customerName: 'customerName',
+        customerName: 'customer_name',
         street: 'street',
         city: 'city',
         region: 'region',
-        postalCode: 'postalCode',
+        postalCode: 'postal_code',
         isoCountry: 'US'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -192,6 +193,7 @@ describe('Address', function() {
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
           'validated': false,
+          'verified': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
@@ -249,6 +251,7 @@ describe('Address', function() {
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
           'validated': false,
+          'verified': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
@@ -283,6 +286,7 @@ describe('Address', function() {
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
                   'validated': false,
+                  'verified': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
@@ -321,6 +325,7 @@ describe('Address', function() {
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
                   'validated': false,
+                  'verified': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
@@ -364,6 +369,7 @@ describe('Address', function() {
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
                   'validated': false,
+                  'verified': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
@@ -424,6 +430,7 @@ describe('Address', function() {
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
                   'validated': false,
+                  'verified': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],

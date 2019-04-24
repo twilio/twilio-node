@@ -18,8 +18,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the Assistant.
- * @param taskSid - The unique ID of the Task associated with this Field.
+ * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
+ * @param taskSid - The SID of the Task for which the statistics were collected
  */
 declare function TaskStatisticsList(version: V1, assistantSid: string, taskSid: string): TaskStatisticsListInstance;
 
@@ -65,8 +65,8 @@ declare class TaskStatisticsContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param taskSid - The unique ID of the Task associated with this Field.
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource to fetch
+   * @param taskSid - The SID of the Task that is associated with the resource to fetch
    */
   constructor(version: V1, assistantSid: string, taskSid: string);
 
@@ -93,8 +93,8 @@ declare class TaskStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param taskSid - The unique ID of the Task associated with this Field.
+   * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
+   * @param taskSid - The SID of the Task for which the statistics were collected
    */
   constructor(version: V1, payload: TaskStatisticsPayload, assistantSid: string, taskSid: string);
 

@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2019-04-24] Version 3.30.2
+----------------------------
+**Library**
+- PR #440: Upgrade 'js-yaml' to resolve DOS vulnerability. Thanks to @childish-sambino!
+
+**Api**
+- Add `verified` property to Addresses
+
+**Numbers**
+- Add API for Identites and documents
+
+**Proxy**
+- Add in use count on number instance
+
+
 [2019-04-12] Version 3.30.1
 ----------------------------
 **Library**

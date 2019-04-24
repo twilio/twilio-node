@@ -381,7 +381,7 @@ describe('Queue', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .queues.create(opts);
       promise = promise.then(function() {
@@ -394,7 +394,7 @@ describe('Queue', function() {
       var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues.json')(solution);
 
-      var values = {FriendlyName: 'friendlyName', };
+      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -421,7 +421,7 @@ describe('Queue', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .queues.create(opts);
       promise = promise.then(function(response) {

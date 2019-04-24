@@ -18,17 +18,17 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the Assistant.
- * @param taskSid - The unique ID of the Task associated with this Sample.
+ * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
+ * @param taskSid - The SID of the Task associated with the resource
  */
 declare function SampleList(version: V1, assistantSid: string, taskSid: string): SampleListInstance;
 
 /**
  * Options to pass to update
  *
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
- * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
- * @property taggedText - The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+ * @property language - The ISO language-country string that specifies the language used for the sample
+ * @property sourceChannel - The communication channel from which the sample was captured
+ * @property taggedText - The text example of how end users might express the task
  */
 interface SampleInstanceUpdateOptions {
   language?: string;
@@ -67,7 +67,7 @@ interface SampleListInstance {
   /**
    * Constructs a sample
    *
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): SampleContext;
   /**
@@ -113,9 +113,9 @@ interface SampleListInstance {
 /**
  * Options to pass to create
  *
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
- * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
- * @property taggedText - The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+ * @property language - The ISO language-country string that specifies the language used for the new sample
+ * @property sourceChannel - The communication channel from which the new sample was captured
+ * @property taggedText - The text example of how end users might express the task
  */
 interface SampleListInstanceCreateOptions {
   language: string;
@@ -130,7 +130,7 @@ interface SampleListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+ * @property language - The ISO language-country string that specifies the language used for the sample
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -153,7 +153,7 @@ interface SampleListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+ * @property language - The ISO language-country string that specifies the language used for the sample
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -174,7 +174,7 @@ interface SampleListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+ * @property language - The ISO language-country string that specifies the language used for the sample
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -217,9 +217,9 @@ declare class SampleContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param taskSid - The unique ID of the Task associated with this Sample.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource to fetch
+   * @param taskSid - The SID of the Task associated with the Sample resource to create
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, assistantSid: string, taskSid: string, sid: string);
 
@@ -259,9 +259,9 @@ declare class SampleInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param taskSid - The unique ID of the Task associated with this Sample.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
+   * @param taskSid - The SID of the Task associated with the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: SamplePayload, assistantSid: string, taskSid: string, sid: string);
 

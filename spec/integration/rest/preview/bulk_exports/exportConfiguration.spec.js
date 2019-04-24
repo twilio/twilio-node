@@ -34,7 +34,7 @@ describe('ExportConfiguration', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.bulk_exports.exportConfiguration('resourceType').fetch();
+      var promise = client.preview.bulk_exports.exportConfiguration('resource_type').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('ExportConfiguration', function() {
       });
       promise.done();
 
-      var solution = {resourceType: 'resourceType'};
+      var solution = {resourceType: 'resource_type'};
       var url = _.template('https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>/Configuration')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -63,7 +63,7 @@ describe('ExportConfiguration', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.bulk_exports.exportConfiguration('resourceType').fetch();
+      var promise = client.preview.bulk_exports.exportConfiguration('resource_type').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -77,7 +77,7 @@ describe('ExportConfiguration', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.bulk_exports.exportConfiguration('resourceType').update();
+      var promise = client.preview.bulk_exports.exportConfiguration('resource_type').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -85,7 +85,7 @@ describe('ExportConfiguration', function() {
       });
       promise.done();
 
-      var solution = {resourceType: 'resourceType'};
+      var solution = {resourceType: 'resource_type'};
       var url = _.template('https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>/Configuration')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -106,7 +106,7 @@ describe('ExportConfiguration', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.bulk_exports.exportConfiguration('resourceType').update();
+      var promise = client.preview.bulk_exports.exportConfiguration('resource_type').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

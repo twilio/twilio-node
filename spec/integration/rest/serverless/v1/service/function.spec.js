@@ -137,7 +137,7 @@ describe('Function', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions.create(opts);
       promise = promise.then(function() {
@@ -150,7 +150,7 @@ describe('Function', function() {
       var solution = {serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Functions')(solution);
 
-      var values = {FriendlyName: 'friendlyName', };
+      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -175,7 +175,7 @@ describe('Function', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions.create(opts);
       promise = promise.then(function(response) {
@@ -191,7 +191,7 @@ describe('Function', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function() {
@@ -207,7 +207,7 @@ describe('Function', function() {
       };
       var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Functions/<%= sid %>')(solution);
 
-      var values = {FriendlyName: 'friendlyName', };
+      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -232,7 +232,7 @@ describe('Function', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function(response) {

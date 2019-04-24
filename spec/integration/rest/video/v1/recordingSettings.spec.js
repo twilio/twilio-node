@@ -79,7 +79,7 @@ describe('RecordingSettings', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.recordingSettings().create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -90,7 +90,7 @@ describe('RecordingSettings', function() {
 
       var url = 'https://video.twilio.com/v1/RecordingSettings/Default';
 
-      var values = {FriendlyName: 'friendlyName', };
+      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -113,7 +113,7 @@ describe('RecordingSettings', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.recordingSettings().create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

@@ -26,12 +26,12 @@ declare function CredentialList(version: V1): CredentialListInstance;
 /**
  * Options to pass to update
  *
- * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
- * @property certificate - [APN only] URL encoded representation of the certificate.
- * @property friendlyName - Friendly name for stored credential
- * @property privateKey - [APN only] URL encoded representation of the private key.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+ * @property apiKey - [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
+ * @property certificate - [APN only] The URL-encoded representation of the certificate
+ * @property friendlyName - A string to describe the resource
+ * @property privateKey - [APN only] URL-encoded representation of the private key
+ * @property sandbox - [APN only] Whether to send the credential to sandbox APNs
+ * @property secret - [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
  */
 interface CredentialInstanceUpdateOptions {
   apiKey?: string;
@@ -73,7 +73,7 @@ interface CredentialListInstance {
   /**
    * Constructs a credential
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): CredentialContext;
   /**
@@ -119,13 +119,13 @@ interface CredentialListInstance {
 /**
  * Options to pass to create
  *
- * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
- * @property certificate - [APN only] URL encoded representation of the certificate.
- * @property friendlyName - Friendly name for stored credential
- * @property privateKey - [APN only] URL encoded representation of the private key.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
- * @property type - Credential type, one of "gcm", "fcm", or "apn"
+ * @property apiKey - [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
+ * @property certificate - [APN only] The URL-encoded representation of the certificate
+ * @property friendlyName - A string to describe the resource
+ * @property privateKey - [APN only] URL-encoded representation of the private key
+ * @property sandbox - [APN only] Whether to send the credential to sandbox APNs
+ * @property secret - [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging
+ * @property type - The Credential type
  */
 interface CredentialListInstanceCreateOptions {
   apiKey?: string;
@@ -220,7 +220,7 @@ declare class CredentialContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -259,7 +259,7 @@ declare class CredentialInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: CredentialPayload, sid: string);
 

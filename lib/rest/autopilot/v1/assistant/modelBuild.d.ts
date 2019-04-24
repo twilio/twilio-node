@@ -20,14 +20,14 @@ type ModelBuildStatus = 'enqueued'|'building'|'completed'|'failed'|'canceled';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the parent Assistant.
+ * @param assistantSid - The SID of the Assistant that is the parent of the resource
  */
 declare function ModelBuildList(version: V1, assistantSid: string): ModelBuildListInstance;
 
 /**
  * Options to pass to update
  *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface ModelBuildInstanceUpdateOptions {
   uniqueName?: string;
@@ -64,7 +64,7 @@ interface ModelBuildListInstance {
   /**
    * Constructs a model_build
    *
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ModelBuildContext;
   /**
@@ -110,8 +110,8 @@ interface ModelBuildListInstance {
 /**
  * Options to pass to create
  *
- * @property statusCallback - The status_callback
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+ * @property statusCallback - The URL we should call using a POST method to send status information to your application
+ * @property uniqueName - An application-defined string that uniquely identifies the new resource
  */
 interface ModelBuildListInstanceCreateOptions {
   statusCallback?: string;
@@ -205,8 +205,8 @@ declare class ModelBuildContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the parent Assistant.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, assistantSid: string, sid: string);
 
@@ -246,8 +246,8 @@ declare class ModelBuildInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the parent Assistant.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: ModelBuildPayload, assistantSid: string, sid: string);
 

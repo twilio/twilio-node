@@ -28,18 +28,18 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property alexaSkillId - The alexa_skill_id
- * @property apnCredentialSid - The SID of the default Credential to be used for APN Bindings
- * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
- * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
- * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
- * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
- * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
- * @property fcmCredentialSid - The SID of the default Credential to be used for FCM Bindings
- * @property friendlyName - Human-readable name for this service instance
- * @property gcmCredentialSid - The SID of the default Credential to be used for GCM Bindings
- * @property logEnabled - The log_enabled
- * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
+ * @property alexaSkillId - Deprecated
+ * @property apnCredentialSid - The SID of the Credential to use for APN Bindings
+ * @property defaultAlexaNotificationProtocolVersion - Deprecated
+ * @property defaultApnNotificationProtocolVersion - The protocol version to use for sending APNS notifications
+ * @property defaultFcmNotificationProtocolVersion - The protocol version to use for sending FCM notifications
+ * @property defaultGcmNotificationProtocolVersion - The protocol version to use for sending GCM notifications
+ * @property facebookMessengerPageId - Deprecated
+ * @property fcmCredentialSid - The SID of the Credential to use for FCM Bindings
+ * @property friendlyName - A string to describe the resource
+ * @property gcmCredentialSid - The SID of the Credential to use for GCM Bindings
+ * @property logEnabled - Whether to log notifications
+ * @property messagingServiceSid - The SID of the Messaging Service to use for SMS Bindings
  */
 interface ServiceInstanceUpdateOptions {
   alexaSkillId?: string;
@@ -87,7 +87,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ServiceContext;
   /**
@@ -133,18 +133,18 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property alexaSkillId - The alexa_skill_id
- * @property apnCredentialSid - The SID of the Credential to be used for APN Bindings.
- * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
- * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
- * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
- * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
- * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
- * @property fcmCredentialSid - The SID of the Credential to be used for FCM Bindings.
- * @property friendlyName - Human-readable name for this service instance
- * @property gcmCredentialSid - The SID of the Credential to be used for GCM Bindings.
- * @property logEnabled - The log_enabled
- * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
+ * @property alexaSkillId - Deprecated
+ * @property apnCredentialSid - The SID of the Credential to use for APN Bindings
+ * @property defaultAlexaNotificationProtocolVersion - Deprecated
+ * @property defaultApnNotificationProtocolVersion - The protocol version to use for sending APNS notifications
+ * @property defaultFcmNotificationProtocolVersion - The protocol version to use for sending FCM notifications
+ * @property defaultGcmNotificationProtocolVersion - The protocol version to use for sending GCM notifications
+ * @property facebookMessengerPageId - Deprecated
+ * @property fcmCredentialSid - The SID of the Credential to use for FCM Bindings
+ * @property friendlyName - A string to describe the resource
+ * @property gcmCredentialSid - The SID of the Credential to use for GCM Bindings
+ * @property logEnabled - Whether to log notifications
+ * @property messagingServiceSid - The SID of the Messaging Service to use for SMS Bindings
  */
 interface ServiceListInstanceCreateOptions {
   alexaSkillId?: string;
@@ -168,7 +168,7 @@ interface ServiceListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter services by FriendlyName
+ * @property friendlyName - The string that identifies the Service resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -191,7 +191,7 @@ interface ServiceListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - Filter services by FriendlyName
+ * @property friendlyName - The string that identifies the Service resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -212,7 +212,7 @@ interface ServiceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - Filter services by FriendlyName
+ * @property friendlyName - The string that identifies the Service resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -260,7 +260,7 @@ declare class ServiceContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -301,7 +301,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 

@@ -19,14 +19,14 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The assistant_sid
+ * @param assistantSid - The SID of the Assistant that is the parent of the resource
  */
 declare function DefaultsList(version: V1, assistantSid: string): DefaultsListInstance;
 
 /**
  * Options to pass to update
  *
- * @property defaults - The defaults
+ * @property defaults - A JSON string that describes the default task links.
  */
 interface DefaultsInstanceUpdateOptions {
   defaults?: string;
@@ -71,7 +71,7 @@ declare class DefaultsContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource to fetch
    */
   constructor(version: V1, assistantSid: string);
 
@@ -105,7 +105,7 @@ declare class DefaultsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The assistant_sid
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource
    */
   constructor(version: V1, payload: DefaultsPayload, assistantSid: string);
 

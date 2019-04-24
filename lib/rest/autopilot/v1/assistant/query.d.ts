@@ -18,15 +18,15 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the parent Assistant.
+ * @param assistantSid - The SID of the Assistant that is the parent of the resource
  */
 declare function QueryList(version: V1, assistantSid: string): QueryListInstance;
 
 /**
  * Options to pass to update
  *
- * @property sampleSid - An optional reference to the Sample created from this query.
- * @property status - A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+ * @property sampleSid - The SID of an optional reference to the Sample created from the query
+ * @property status - The new status of the resource
  */
 interface QueryInstanceUpdateOptions {
   sampleSid?: string;
@@ -64,7 +64,7 @@ interface QueryListInstance {
   /**
    * Constructs a query
    *
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): QueryContext;
   /**
@@ -110,10 +110,10 @@ interface QueryListInstance {
 /**
  * Options to pass to create
  *
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
- * @property modelBuild - The Sid or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
- * @property query - A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
- * @property tasks - Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated task-unique-name-1, task-unique-name-2
+ * @property language - The ISO language-country string that specifies the language used for the new query
+ * @property modelBuild - The SID or unique name of the Model Build to be queried
+ * @property query - The end-user's natural language input
+ * @property tasks - The list of tasks to limit the new query to
  */
 interface QueryListInstanceCreateOptions {
   language: string;
@@ -129,19 +129,19 @@ interface QueryListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
+ * @property language - The ISO language-country string that specifies the language used by the Query resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property modelBuild - The Sid or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+ * @property modelBuild - The SID or unique name of the Model Build to be queried
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property status - A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+ * @property status - The status of the resources to read
  */
 interface QueryListInstanceEachOptions {
   callback?: (item: QueryInstance, done: (err?: Error) => void) => void;
@@ -156,19 +156,19 @@ interface QueryListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
+ * @property language - The ISO language-country string that specifies the language used by the Query resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property modelBuild - The Sid or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+ * @property modelBuild - The SID or unique name of the Model Build to be queried
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property status - A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+ * @property status - The status of the resources to read
  */
 interface QueryListInstanceOptions {
   language?: string;
@@ -181,12 +181,12 @@ interface QueryListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
- * @property modelBuild - The Sid or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+ * @property language - The ISO language-country string that specifies the language used by the Query resources to read
+ * @property modelBuild - The SID or unique name of the Model Build to be queried
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property status - A string that described the query status. The values can be: `pending_review`, `reviewed`, `discarded`
+ * @property status - The status of the resources to read
  */
 interface QueryListInstancePageOptions {
   language?: string;
@@ -230,8 +230,8 @@ declare class QueryContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, assistantSid: string, sid: string);
 
@@ -271,8 +271,8 @@ declare class QueryInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the parent Assistant.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: QueryPayload, assistantSid: string, sid: string);
 

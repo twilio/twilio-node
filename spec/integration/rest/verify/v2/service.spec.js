@@ -34,7 +34,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.verify.v2.services.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,7 +45,7 @@ describe('Service', function() {
 
       var url = 'https://verify.twilio.com/v2/Services';
 
-      var values = {FriendlyName: 'friendlyName', };
+      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -76,7 +76,7 @@ describe('Service', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendlyName'};
+      var opts = {friendlyName: 'friendly_name'};
       var promise = client.verify.v2.services.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

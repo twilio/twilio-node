@@ -18,8 +18,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the Assistant.
- * @param taskSid - The unique ID of the Task associated with this Field.
+ * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
+ * @param taskSid - The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
  */
 declare function FieldList(version: V1, assistantSid: string, taskSid: string): FieldListInstance;
 
@@ -54,7 +54,7 @@ interface FieldListInstance {
   /**
    * Constructs a field
    *
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): FieldContext;
   /**
@@ -100,8 +100,8 @@ interface FieldListInstance {
 /**
  * Options to pass to create
  *
- * @property fieldType - The Field Type of this field. It can be either a Built-in Field Type or the unique_name or sid of a custom Field Type.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property fieldType - The Field Type of this field
+ * @property uniqueName - An application-defined string that uniquely identifies the new resource
  */
 interface FieldListInstanceCreateOptions {
   fieldType: string;
@@ -195,9 +195,9 @@ declare class FieldContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param taskSid - The unique ID of the Task associated with this Field.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource to fetch
+   * @param taskSid - The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, assistantSid: string, taskSid: string, sid: string);
 
@@ -230,9 +230,9 @@ declare class FieldInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param taskSid - The unique ID of the Task associated with this Field.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
+   * @param taskSid - The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: FieldPayload, assistantSid: string, taskSid: string, sid: string);
 

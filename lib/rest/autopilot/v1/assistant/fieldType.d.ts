@@ -20,15 +20,15 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the Assistant.
+ * @param assistantSid - The SID of the Assistant that is the parent of the resource
  */
 declare function FieldTypeList(version: V1, assistantSid: string): FieldTypeListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property friendlyName - A string to describe the resource
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface FieldTypeInstanceUpdateOptions {
   friendlyName?: string;
@@ -66,7 +66,7 @@ interface FieldTypeListInstance {
   /**
    * Constructs a field_type
    *
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): FieldTypeContext;
   /**
@@ -112,8 +112,8 @@ interface FieldTypeListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property friendlyName - A string to describe the new resource
+ * @property uniqueName - An application-defined string that uniquely identifies the new resource
  */
 interface FieldTypeListInstanceCreateOptions {
   friendlyName?: string;
@@ -206,8 +206,8 @@ declare class FieldTypeContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, assistantSid: string, sid: string);
 
@@ -248,8 +248,8 @@ declare class FieldTypeInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the Assistant.
-   * @param sid - A 34-character string that uniquely identifies this resource.
+   * @param assistantSid - The SID of the Assistant that is the parent of the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: FieldTypePayload, assistantSid: string, sid: string);
 

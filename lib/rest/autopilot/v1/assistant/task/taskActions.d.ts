@@ -19,15 +19,15 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the parent Assistant.
- * @param taskSid - The unique ID of the Task.
+ * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
+ * @param taskSid - The SID of the Task associated with the resource
  */
 declare function TaskActionsList(version: V1, assistantSid: string, taskSid: string): TaskActionsListInstance;
 
 /**
  * Options to pass to update
  *
- * @property actions - The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
+ * @property actions - The JSON string that specifies the actions that instruct the Assistant on how to perform the task
  */
 interface TaskActionsInstanceUpdateOptions {
   actions?: string;
@@ -74,8 +74,8 @@ declare class TaskActionsContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The unique ID of the parent Assistant.
-   * @param taskSid - The unique ID of the Task.
+   * @param assistantSid - The SID of the Assistant that is the parent of the Task for which the task actions to fetch were defined
+   * @param taskSid - The SID of the Task for which the task actions to fetch were defined
    */
   constructor(version: V1, assistantSid: string, taskSid: string);
 
@@ -109,8 +109,8 @@ declare class TaskActionsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the parent Assistant.
-   * @param taskSid - The unique ID of the Task.
+   * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
+   * @param taskSid - The SID of the Task associated with the resource
    */
   constructor(version: V1, payload: TaskActionsPayload, assistantSid: string, taskSid: string);
 

@@ -202,7 +202,7 @@ describe('Trigger', function() {
 
       var opts = {
         callbackUrl: 'https://example.com',
-        triggerValue: 'triggerValue',
+        triggerValue: 'trigger_value',
         usageCategory: 'agent-conference'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -220,7 +220,7 @@ describe('Trigger', function() {
 
       var values = {
         CallbackUrl: 'https://example.com',
-        TriggerValue: 'triggerValue',
+        TriggerValue: 'trigger_value',
         UsageCategory: 'agent-conference',
       };
       holodeck.assertHasRequest(new Request({
@@ -255,7 +255,7 @@ describe('Trigger', function() {
 
       var opts = {
         callbackUrl: 'https://example.com',
-        triggerValue: 'triggerValue',
+        triggerValue: 'trigger_value',
         usageCategory: 'agent-conference'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
