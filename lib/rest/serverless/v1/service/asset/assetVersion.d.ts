@@ -20,8 +20,8 @@ type AssetVersionVisibility = 'public'|'private'|'protected';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
- * @param assetSid - The asset_sid
+ * @param serviceSid - Service Sid.
+ * @param assetSid - Asset Sid.
  */
 declare function AssetVersionList(version: V1, serviceSid: string, assetSid: string): AssetVersionListInstance;
 
@@ -56,7 +56,7 @@ interface AssetVersionListInstance {
   /**
    * Constructs a asset_version
    *
-   * @param sid - The sid
+   * @param sid - Asset Version Sid.
    */
   get(sid: string): AssetVersionContext;
   /**
@@ -102,8 +102,8 @@ interface AssetVersionListInstance {
 /**
  * Options to pass to create
  *
- * @property path - The path
- * @property visibility - The visibility
+ * @property path - The URL-friendly string by which this Asset Version can be referenced.
+ * @property visibility - The access control which determines how the Asset Version can be accessed.
  */
 interface AssetVersionListInstanceCreateOptions {
   path: string;
@@ -197,9 +197,9 @@ declare class AssetVersionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param assetSid - The asset_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param assetSid - Asset Sid.
+   * @param sid - Asset Version Sid.
    */
   constructor(version: V1, serviceSid: string, assetSid: string, sid: string);
 
@@ -226,9 +226,9 @@ declare class AssetVersionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param assetSid - The asset_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param assetSid - Asset Sid.
+   * @param sid - Asset Version Sid.
    */
   constructor(version: V1, payload: AssetVersionPayload, serviceSid: string, assetSid: string, sid: string);
 

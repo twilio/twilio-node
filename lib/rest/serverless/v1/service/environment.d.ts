@@ -22,7 +22,7 @@ import { VariableListInstance } from './environment/variable';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
+ * @param serviceSid - Service Sid.
  */
 declare function EnvironmentList(version: V1, serviceSid: string): EnvironmentListInstance;
 
@@ -57,7 +57,7 @@ interface EnvironmentListInstance {
   /**
    * Constructs a environment
    *
-   * @param sid - The sid
+   * @param sid - Environment Sid.
    */
   get(sid: string): EnvironmentContext;
   /**
@@ -103,8 +103,8 @@ interface EnvironmentListInstance {
 /**
  * Options to pass to create
  *
- * @property domainSuffix - The domain_suffix
- * @property uniqueName - The unique_name
+ * @property domainSuffix - A URL-friendly name that represents this Environment.
+ * @property uniqueName - A unique, addressable name of this Environment.
  */
 interface EnvironmentListInstanceCreateOptions {
   domainSuffix?: string;
@@ -199,8 +199,8 @@ declare class EnvironmentContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param sid - Environment Sid.
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -229,8 +229,8 @@ declare class EnvironmentInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param sid - Environment Sid.
    */
   constructor(version: V1, payload: EnvironmentPayload, serviceSid: string, sid: string);
 

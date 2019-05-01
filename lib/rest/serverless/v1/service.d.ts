@@ -33,8 +33,8 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - The friendly_name
- * @property includeCredentials - The include_credentials
+ * @property friendlyName - A human-readable description of this Service.
+ * @property includeCredentials - Whether to inject Account credentials into a Function invocation context.
  */
 interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
@@ -72,7 +72,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - The sid
+   * @param sid - Service Sid.
    */
   get(sid: string): ServiceContext;
   /**
@@ -118,9 +118,9 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - The friendly_name
- * @property includeCredentials - The include_credentials
- * @property uniqueName - The unique_name
+ * @property friendlyName - A human-readable description of this Service.
+ * @property includeCredentials - Whether to inject Account credentials into a Function invocation context.
+ * @property uniqueName - A unique, addressable name of this Service.
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;
@@ -213,7 +213,7 @@ declare class ServiceContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - Service Sid.
    */
   constructor(version: V1, sid: string);
 
@@ -251,7 +251,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - Service Sid.
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 

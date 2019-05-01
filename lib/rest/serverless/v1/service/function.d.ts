@@ -20,14 +20,14 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
+ * @param serviceSid - Service Sid.
  */
 declare function FunctionList(version: V1, serviceSid: string): FunctionListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - The friendly_name
+ * @property friendlyName - A human-readable description of this Function.
  */
 interface FunctionInstanceUpdateOptions {
   friendlyName: string;
@@ -64,7 +64,7 @@ interface FunctionListInstance {
   /**
    * Constructs a function
    *
-   * @param sid - The sid
+   * @param sid - Function Sid.
    */
   get(sid: string): FunctionContext;
   /**
@@ -110,7 +110,7 @@ interface FunctionListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - The friendly_name
+ * @property friendlyName - A human-readable description of this Function.
  */
 interface FunctionListInstanceCreateOptions {
   friendlyName: string;
@@ -201,8 +201,8 @@ declare class FunctionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param sid - Function Sid.
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -237,8 +237,8 @@ declare class FunctionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param sid - Function Sid.
    */
   constructor(version: V1, payload: FunctionPayload, serviceSid: string, sid: string);
 

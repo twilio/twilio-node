@@ -18,16 +18,16 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
- * @param environmentSid - The environment_sid
+ * @param serviceSid - Service Sid.
+ * @param environmentSid - Environment Sid.
  */
 declare function VariableList(version: V1, serviceSid: string, environmentSid: string): VariableListInstance;
 
 /**
  * Options to pass to update
  *
- * @property key - The key
- * @property value - The value
+ * @property key - A string by which this Variable can be referenced.
+ * @property value - A string that contains the actual value of this Variable.
  */
 interface VariableInstanceUpdateOptions {
   key?: string;
@@ -65,7 +65,7 @@ interface VariableListInstance {
   /**
    * Constructs a variable
    *
-   * @param sid - The sid
+   * @param sid - Variable Sid.
    */
   get(sid: string): VariableContext;
   /**
@@ -111,8 +111,8 @@ interface VariableListInstance {
 /**
  * Options to pass to create
  *
- * @property key - The key
- * @property value - The value
+ * @property key - A string by which this Variable can be referenced.
+ * @property value - A string that contains the actual value of this Variable.
  */
 interface VariableListInstanceCreateOptions {
   key: string;
@@ -206,9 +206,9 @@ declare class VariableContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param environmentSid - The environment_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param environmentSid - Environment Sid.
+   * @param sid - Variable Sid.
    */
   constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
 
@@ -242,9 +242,9 @@ declare class VariableInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param environmentSid - The environment_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param environmentSid - Environment Sid.
+   * @param sid - Variable Sid.
    */
   constructor(version: V1, payload: VariablePayload, serviceSid: string, environmentSid: string, sid: string);
 

@@ -18,8 +18,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
- * @param environmentSid - The environment_sid
+ * @param serviceSid - Service Sid.
+ * @param environmentSid - Environment Sid.
  */
 declare function DeploymentList(version: V1, serviceSid: string, environmentSid: string): DeploymentListInstance;
 
@@ -54,7 +54,7 @@ interface DeploymentListInstance {
   /**
    * Constructs a deployment
    *
-   * @param sid - The sid
+   * @param sid - Deployment Sid.
    */
   get(sid: string): DeploymentContext;
   /**
@@ -100,7 +100,7 @@ interface DeploymentListInstance {
 /**
  * Options to pass to create
  *
- * @property buildSid - The build_sid
+ * @property buildSid - Build Sid.
  */
 interface DeploymentListInstanceCreateOptions {
   buildSid: string;
@@ -192,9 +192,9 @@ declare class DeploymentContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param environmentSid - The environment_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param environmentSid - Environment Sid.
+   * @param sid - Deployment Sid.
    */
   constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
 
@@ -221,9 +221,9 @@ declare class DeploymentInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param environmentSid - The environment_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param environmentSid - Environment Sid.
+   * @param sid - Deployment Sid.
    */
   constructor(version: V1, payload: DeploymentPayload, serviceSid: string, environmentSid: string, sid: string);
 

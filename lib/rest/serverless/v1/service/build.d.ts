@@ -11,7 +11,7 @@ import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
-type BuildStatus = 'queued'|'building'|'deploying'|'deployed'|'verified'|'failed';
+type BuildStatus = 'building'|'completed'|'failed';
 
 /**
  * Initialize the BuildList
@@ -21,7 +21,7 @@ type BuildStatus = 'queued'|'building'|'deploying'|'deployed'|'verified'|'failed
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
+ * @param serviceSid - Service Sid.
  */
 declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
 
@@ -56,7 +56,7 @@ interface BuildListInstance {
   /**
    * Constructs a build
    *
-   * @param sid - The sid
+   * @param sid - Build Sid.
    */
   get(sid: string): BuildContext;
   /**
@@ -102,9 +102,9 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - The asset_versions
- * @property dependencies - The dependencies
- * @property functionVersions - The function_versions
+ * @property assetVersions - List of Asset Version Sids.
+ * @property dependencies - List of Dependencies.
+ * @property functionVersions - List of Function Version Sids.
  */
 interface BuildListInstanceCreateOptions {
   assetVersions?: string[];
@@ -199,8 +199,8 @@ declare class BuildContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param sid - Build Sid.
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -227,8 +227,8 @@ declare class BuildInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param sid - Build Sid.
    */
   constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
 

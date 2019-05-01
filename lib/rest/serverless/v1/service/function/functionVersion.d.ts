@@ -20,8 +20,8 @@ type FunctionVersionVisibility = 'public'|'private'|'protected';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
- * @param functionSid - The function_sid
+ * @param serviceSid - Service Sid.
+ * @param functionSid - Function Sid.
  */
 declare function FunctionVersionList(version: V1, serviceSid: string, functionSid: string): FunctionVersionListInstance;
 
@@ -56,7 +56,7 @@ interface FunctionVersionListInstance {
   /**
    * Constructs a function_version
    *
-   * @param sid - The sid
+   * @param sid - Function Version Sid.
    */
   get(sid: string): FunctionVersionContext;
   /**
@@ -102,8 +102,8 @@ interface FunctionVersionListInstance {
 /**
  * Options to pass to create
  *
- * @property path - The path
- * @property visibility - The visibility
+ * @property path - The URL-friendly string by which this Function Version can be referenced.
+ * @property visibility - The access control which determines how the Function Version can be accessed.
  */
 interface FunctionVersionListInstanceCreateOptions {
   path: string;
@@ -197,9 +197,9 @@ declare class FunctionVersionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param functionSid - The function_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param functionSid - Function Sid.
+   * @param sid - Function Version Sid.
    */
   constructor(version: V1, serviceSid: string, functionSid: string, sid: string);
 
@@ -226,9 +226,9 @@ declare class FunctionVersionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param functionSid - The function_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param functionSid - Function Sid.
+   * @param sid - Function Version Sid.
    */
   constructor(version: V1, payload: FunctionVersionPayload, serviceSid: string, functionSid: string, sid: string);
 

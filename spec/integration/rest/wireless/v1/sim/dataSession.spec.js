@@ -49,7 +49,8 @@ describe('DataSession', function() {
                   'packets_downloaded': 0,
                   'last_updated': '2015-07-30T20:00:00Z',
                   'start': '2015-07-30T20:00:00Z',
-                  'end': null
+                  'end': null,
+                  'imeisv': null
               },
               {
                   'sid': 'WNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -66,7 +67,8 @@ describe('DataSession', function() {
                   'packets_downloaded': 0,
                   'last_updated': '2015-07-30T20:00:00Z',
                   'start': '2015-07-30T20:00:00Z',
-                  'end': '2015-07-30T20:00:00Z'
+                  'end': '2015-07-30T20:00:00Z',
+                  'imeisv': '8693070314126600'
               }
           ],
           'meta': {
@@ -103,7 +105,8 @@ describe('DataSession', function() {
                   'packets_downloaded': 0,
                   'last_updated': '2015-07-30T20:00:00Z',
                   'start': '2015-07-30T20:00:00Z',
-                  'end': null
+                  'end': null,
+                  'imeisv': null
               },
               {
                   'sid': 'WNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -120,7 +123,8 @@ describe('DataSession', function() {
                   'packets_downloaded': 0,
                   'last_updated': '2015-07-30T20:00:00Z',
                   'start': '2015-07-30T20:00:00Z',
-                  'end': '2015-07-30T20:00:00Z'
+                  'end': '2015-07-30T20:00:00Z',
+                  'imeisv': '8693070314126600'
               }
           ],
           'meta': {
@@ -162,7 +166,8 @@ describe('DataSession', function() {
                   'packets_downloaded': 0,
                   'last_updated': '2015-07-30T20:00:00Z',
                   'start': '2015-07-30T20:00:00Z',
-                  'end': null
+                  'end': null,
+                  'imeisv': null
               },
               {
                   'sid': 'WNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -179,7 +184,8 @@ describe('DataSession', function() {
                   'packets_downloaded': 0,
                   'last_updated': '2015-07-30T20:00:00Z',
                   'start': '2015-07-30T20:00:00Z',
-                  'end': '2015-07-30T20:00:00Z'
+                  'end': '2015-07-30T20:00:00Z',
+                  'imeisv': '8693070314126600'
               }
           ],
           'meta': {
@@ -238,7 +244,8 @@ describe('DataSession', function() {
                   'packets_downloaded': 0,
                   'last_updated': '2015-07-30T20:00:00Z',
                   'start': '2015-07-30T20:00:00Z',
-                  'end': null
+                  'end': null,
+                  'imeisv': null
               },
               {
                   'sid': 'WNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -255,7 +262,8 @@ describe('DataSession', function() {
                   'packets_downloaded': 0,
                   'last_updated': '2015-07-30T20:00:00Z',
                   'start': '2015-07-30T20:00:00Z',
-                  'end': '2015-07-30T20:00:00Z'
+                  'end': '2015-07-30T20:00:00Z',
+                  'imeisv': '8693070314126600'
               }
           ],
           'meta': {

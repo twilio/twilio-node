@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2019-05-01] Version 3.30.3
+----------------------------
+**Serverless**
+- Documentation
+
+**Wireless**
+- Added `imeisv` to Data Session resource.
+
+
 [2019-04-24] Version 3.30.2
 ----------------------------
 **Library**

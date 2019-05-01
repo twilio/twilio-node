@@ -20,14 +20,14 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
+ * @param serviceSid - Service Sid.
  */
 declare function AssetList(version: V1, serviceSid: string): AssetListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - The friendly_name
+ * @property friendlyName - A human-readable description of this Asset.
  */
 interface AssetInstanceUpdateOptions {
   friendlyName: string;
@@ -64,7 +64,7 @@ interface AssetListInstance {
   /**
    * Constructs a asset
    *
-   * @param sid - The sid
+   * @param sid - Asset Sid.
    */
   get(sid: string): AssetContext;
   /**
@@ -110,7 +110,7 @@ interface AssetListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - The friendly_name
+ * @property friendlyName - A human-readable description of this Asset.
  */
 interface AssetListInstanceCreateOptions {
   friendlyName: string;
@@ -201,8 +201,8 @@ declare class AssetContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param sid - Asset Sid.
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -237,8 +237,8 @@ declare class AssetInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - Service Sid.
+   * @param sid - Asset Sid.
    */
   constructor(version: V1, payload: AssetPayload, serviceSid: string, sid: string);
 
