@@ -24,7 +24,7 @@
     "deprecate": "1.0.0",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.11",
-    "moment": "2.19.3",
+    "moment": "^2.19.3",
     "q": "2.0.x",
     "request": "^2.88.0",
     "rootpath": "0.1.2",
