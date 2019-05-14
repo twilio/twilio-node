@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -96,7 +95,7 @@ describe('Credential', function() {
                       .credentials.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials.json',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/CredentialLists/${credentialListSid}/Credentials.json',
           params: {PageSize: 20},
       }));
     }
@@ -149,11 +148,9 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/CredentialLists/${credentialListSid}/Credentials.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -251,11 +248,9 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/CredentialLists/${credentialListSid}/Credentials.json`;
 
       var values = {Username: 'username', Password: 'password', };
       holodeck.assertHasRequest(new Request({
@@ -308,12 +303,10 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials/<%= sid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/CredentialLists/${credentialListSid}/Credentials/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -363,12 +356,10 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials/<%= sid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/CredentialLists/${credentialListSid}/Credentials/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -418,12 +409,10 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials/<%= sid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/CredentialLists/${credentialListSid}/Credentials/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

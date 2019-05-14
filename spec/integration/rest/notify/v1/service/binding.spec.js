@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('Binding', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://notify.twilio.com/v1/Services/${serviceSid}/Bindings/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -104,11 +101,9 @@ describe('Binding', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://notify.twilio.com/v1/Services/${serviceSid}/Bindings/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -147,8 +142,8 @@ describe('Binding', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://notify.twilio.com/v1/Services/${serviceSid}/Bindings`;
 
       var values = {Identity: 'identity', BindingType: 'apn', Address: 'address', };
       holodeck.assertHasRequest(new Request({
@@ -275,7 +270,7 @@ describe('Binding', function() {
                       .bindings.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings',
+          url: 'https://notify.twilio.com/v1/Services/${serviceSid}/Bindings',
           params: {PageSize: 20},
       }));
     }
@@ -333,8 +328,8 @@ describe('Binding', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://notify.twilio.com/v1/Services/${serviceSid}/Bindings`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

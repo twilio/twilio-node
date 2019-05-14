@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('Session', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/Sessions/<%= sid %>')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/Sessions/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -105,8 +102,8 @@ describe('Session', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/Sessions')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/Sessions`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -155,8 +152,8 @@ describe('Session', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/Sessions')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/Sessions`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -214,11 +211,9 @@ describe('Session', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/Sessions/<%= sid %>')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/Sessions/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -256,11 +251,9 @@ describe('Session', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/Sessions/<%= sid %>')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/Sessions/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

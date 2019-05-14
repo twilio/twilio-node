@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -110,7 +109,7 @@ describe('UserBinding', function() {
                            .userBindings.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Bindings',
+          url: 'https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Bindings',
           params: {PageSize: 20},
       }));
     }
@@ -169,11 +168,9 @@ describe('UserBinding', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Bindings')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var userSid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Bindings`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -273,12 +270,10 @@ describe('UserBinding', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Bindings/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var userSid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Bindings/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -336,12 +331,10 @@ describe('UserBinding', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Bindings/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var userSid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Bindings/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

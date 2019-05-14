@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,8 +43,8 @@ describe('VerificationCheck', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/Verification/Services/<%= serviceSid %>/VerificationCheck')(solution);
+      var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/Verification/Services/${serviceSid}/VerificationCheck`;
 
       var values = {Code: 'code', };
       holodeck.assertHasRequest(new Request({

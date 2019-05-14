@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -94,7 +93,7 @@ describe('SubscribedTrack', function() {
                      .subscribedTracks.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= subscriberSid %>/SubscribedTracks',
+          url: 'https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${subscriberSid}/SubscribedTracks',
           params: {PageSize: 20},
       }));
     }
@@ -145,11 +144,9 @@ describe('SubscribedTrack', function() {
       });
       promise.done();
 
-      var solution = {
-        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        subscriberSid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= subscriberSid %>/SubscribedTracks')(solution);
+      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var subscriberSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${subscriberSid}/SubscribedTracks`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -241,11 +238,9 @@ describe('SubscribedTrack', function() {
       });
       promise.done();
 
-      var solution = {
-        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        subscriberSid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= subscriberSid %>/SubscribedTracks')(solution);
+      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var subscriberSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${subscriberSid}/SubscribedTracks`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

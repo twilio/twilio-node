@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -130,7 +129,7 @@ describe('DependentPhoneNumber', function() {
                       .dependentPhoneNumbers.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= addressSid %>/DependentPhoneNumbers.json',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Addresses/${addressSid}/DependentPhoneNumbers.json',
           params: {PageSize: 20},
       }));
     }
@@ -199,11 +198,9 @@ describe('DependentPhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= addressSid %>/DependentPhoneNumbers.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var addressSid = 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Addresses/${addressSid}/DependentPhoneNumbers.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('AvailableAddOn', function() {
       });
       promise.done();
 
-      var solution = {sid: 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/marketplace/AvailableAddOns/<%= sid %>')(solution);
+      var sid = 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/marketplace/AvailableAddOns/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

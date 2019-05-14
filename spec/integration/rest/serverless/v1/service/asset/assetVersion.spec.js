@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,11 +43,9 @@ describe('AssetVersion', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        assetSid: 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Assets/<%= assetSid %>/Versions')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var assetSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets/${assetSid}/Versions`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -99,12 +96,10 @@ describe('AssetVersion', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        assetSid: 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Assets/<%= assetSid %>/Versions/<%= sid %>')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var assetSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets/${assetSid}/Versions/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -155,11 +150,9 @@ describe('AssetVersion', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        assetSid: 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Assets/<%= assetSid %>/Versions')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var assetSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets/${assetSid}/Versions`;
 
       var values = {Path: 'path', Visibility: 'public', };
       holodeck.assertHasRequest(new Request({

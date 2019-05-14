@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -84,7 +83,7 @@ describe('HighriskSpecialPrefix', function() {
                      .highriskSpecialPrefixes.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://voice.twilio.com/v1/DialingPermissions/Countries/<%= isoCode %>/HighRiskSpecialPrefixes',
+          url: 'https://voice.twilio.com/v1/DialingPermissions/Countries/${isoCode}/HighRiskSpecialPrefixes',
           params: {PageSize: 20},
       }));
     }
@@ -130,8 +129,8 @@ describe('HighriskSpecialPrefix', function() {
       });
       promise.done();
 
-      var solution = {isoCode: 'US'};
-      var url = _.template('https://voice.twilio.com/v1/DialingPermissions/Countries/<%= isoCode %>/HighRiskSpecialPrefixes')(solution);
+      var isoCode = 'US';
+      var url = `https://voice.twilio.com/v1/DialingPermissions/Countries/${isoCode}/HighRiskSpecialPrefixes`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

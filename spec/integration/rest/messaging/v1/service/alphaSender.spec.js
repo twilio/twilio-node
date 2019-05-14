@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,8 +43,8 @@ describe('AlphaSender', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders')(solution);
+      var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/AlphaSenders`;
 
       var values = {AlphaSender: 'alpha_sender', };
       holodeck.assertHasRequest(new Request({
@@ -142,7 +141,7 @@ describe('AlphaSender', function() {
                          .alphaSenders.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders',
+          url: 'https://messaging.twilio.com/v1/Services/${serviceSid}/AlphaSenders',
           params: {PageSize: 20},
       }));
     }
@@ -190,8 +189,8 @@ describe('AlphaSender', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders')(solution);
+      var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/AlphaSenders`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -251,11 +250,9 @@ describe('AlphaSender', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders/<%= sid %>')(solution);
+      var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/AlphaSenders/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -302,11 +299,9 @@ describe('AlphaSender', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders/<%= sid %>')(solution);
+      var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/AlphaSenders/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

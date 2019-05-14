@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,8 +42,8 @@ describe('Engagement', function() {
       });
       promise.done();
 
-      var solution = {flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://studio.twilio.com/v1/Flows/<%= flowSid %>/Engagements')(solution);
+      var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://studio.twilio.com/v1/Flows/${flowSid}/Engagements`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -93,11 +92,9 @@ describe('Engagement', function() {
       });
       promise.done();
 
-      var solution = {
-        flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://studio.twilio.com/v1/Flows/<%= flowSid %>/Engagements/<%= sid %>')(solution);
+      var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://studio.twilio.com/v1/Flows/${flowSid}/Engagements/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -151,8 +148,8 @@ describe('Engagement', function() {
       });
       promise.done();
 
-      var solution = {flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://studio.twilio.com/v1/Flows/<%= flowSid %>/Engagements')(solution);
+      var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://studio.twilio.com/v1/Flows/${flowSid}/Engagements`;
 
       var values = {To: '+15558675310', From: '+15017122661', };
       holodeck.assertHasRequest(new Request({
@@ -208,11 +205,9 @@ describe('Engagement', function() {
       });
       promise.done();
 
-      var solution = {
-        flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://studio.twilio.com/v1/Flows/<%= flowSid %>/Engagements/<%= sid %>')(solution);
+      var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://studio.twilio.com/v1/Flows/${flowSid}/Engagements/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

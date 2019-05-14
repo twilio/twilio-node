@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -47,11 +46,9 @@ describe('StreamMessage', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        streamSid: 'TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Streams/<%= streamSid %>/Messages')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var streamSid = 'TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Streams/${streamSid}/Messages`;
 
       var values = {Data: serialize.object({}), };
       holodeck.assertHasRequest(new Request({

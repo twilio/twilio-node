@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,11 +43,9 @@ describe('ExecutionContext', function() {
       });
       promise.done();
 
-      var solution = {
-        flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        executionSid: 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://studio.twilio.com/v1/Flows/<%= flowSid %>/Executions/<%= executionSid %>/Context')(solution);
+      var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var executionSid = 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://studio.twilio.com/v1/Flows/${flowSid}/Executions/${executionSid}/Context`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -104,7 +103,7 @@ describe('UserChannel', function() {
                            .userChannels.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Channels',
+          url: 'https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Channels',
           params: {PageSize: 20},
       }));
     }
@@ -160,11 +159,9 @@ describe('UserChannel', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Channels')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var userSid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Channels`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -261,12 +258,10 @@ describe('UserChannel', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Channels/<%= channelSid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var userSid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Channels/${channelSid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -322,12 +317,10 @@ describe('UserChannel', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Channels/<%= channelSid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var userSid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Channels/${channelSid}`;
 
       var values = {NotificationLevel: 'default', };
       holodeck.assertHasRequest(new Request({

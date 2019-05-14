@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,11 +43,9 @@ describe('Step', function() {
       });
       promise.done();
 
-      var solution = {
-        flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        engagementSid: 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://studio.twilio.com/v1/Flows/<%= flowSid %>/Engagements/<%= engagementSid %>/Steps')(solution);
+      var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var engagementSid = 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://studio.twilio.com/v1/Flows/${flowSid}/Engagements/${engagementSid}/Steps`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -99,12 +96,10 @@ describe('Step', function() {
       });
       promise.done();
 
-      var solution = {
-        flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        engagementSid: 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://studio.twilio.com/v1/Flows/<%= flowSid %>/Engagements/<%= engagementSid %>/Steps/<%= sid %>')(solution);
+      var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var engagementSid = 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://studio.twilio.com/v1/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,8 +42,8 @@ describe('Asset', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Assets')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -93,11 +92,9 @@ describe('Asset', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Assets/<%= sid %>')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -147,8 +144,8 @@ describe('Asset', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Assets')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets`;
 
       var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
@@ -201,11 +198,9 @@ describe('Asset', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Assets/<%= sid %>')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets/${sid}`;
 
       var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({

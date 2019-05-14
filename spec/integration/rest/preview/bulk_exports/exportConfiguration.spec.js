@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('ExportConfiguration', function() {
       });
       promise.done();
 
-      var solution = {resourceType: 'resource_type'};
-      var url = _.template('https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>/Configuration')(solution);
+      var resourceType = 'resource_type';
+      var url = `https://preview.twilio.com/BulkExports/Exports/${resourceType}/Configuration`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -85,8 +84,8 @@ describe('ExportConfiguration', function() {
       });
       promise.done();
 
-      var solution = {resourceType: 'resource_type'};
-      var url = _.template('https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>/Configuration')(solution);
+      var resourceType = 'resource_type';
+      var url = `https://preview.twilio.com/BulkExports/Exports/${resourceType}/Configuration`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

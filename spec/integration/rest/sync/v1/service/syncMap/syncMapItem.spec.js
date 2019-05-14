@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -46,12 +45,10 @@ describe('SyncMapItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        key: 'key'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Items/<%= key %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var key = 'key';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -103,12 +100,10 @@ describe('SyncMapItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        key: 'key'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Items/<%= key %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var key = 'key';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -149,11 +144,9 @@ describe('SyncMapItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Items')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items`;
 
       var values = {Key: 'key', Data: serialize.object({}), };
       holodeck.assertHasRequest(new Request({
@@ -262,7 +255,7 @@ describe('SyncMapItem', function() {
                     .syncMapItems.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Items',
+          url: 'https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items',
           params: {PageSize: 20},
       }));
     }
@@ -315,11 +308,9 @@ describe('SyncMapItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Items')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -413,12 +404,10 @@ describe('SyncMapItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        key: 'key'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Items/<%= key %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var key = 'key';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

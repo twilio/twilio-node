@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -45,11 +44,9 @@ describe('Document', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -101,11 +98,9 @@ describe('Document', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -143,8 +138,8 @@ describe('Document', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -253,7 +248,7 @@ describe('Document', function() {
                          .documents.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents',
+          url: 'https://preview.twilio.com/Sync/Services/${serviceSid}/Documents',
           params: {PageSize: 20},
       }));
     }
@@ -306,8 +301,8 @@ describe('Document', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -401,11 +396,9 @@ describe('Document', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents/${sid}`;
 
       var values = {Data: serialize.object({}), };
       holodeck.assertHasRequest(new Request({

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require(
     '../../../../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
@@ -50,11 +49,9 @@ describe('AuthRegistrationsCredentialListMapping', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/Auth/Registrations/CredentialListMappings.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Registrations/CredentialListMappings.json`;
 
       var values = {CredentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
@@ -152,7 +149,7 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                       .credentialListMappings.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/Auth/Registrations/CredentialListMappings.json',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Registrations/CredentialListMappings.json',
           params: {PageSize: 20},
       }));
     }
@@ -204,11 +201,9 @@ describe('AuthRegistrationsCredentialListMapping', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/Auth/Registrations/CredentialListMappings.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Registrations/CredentialListMappings.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -303,12 +298,10 @@ describe('AuthRegistrationsCredentialListMapping', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/Auth/Registrations/CredentialListMappings/<%= sid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Registrations/CredentialListMappings/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -360,12 +353,10 @@ describe('AuthRegistrationsCredentialListMapping', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/Auth/Registrations/CredentialListMappings/<%= sid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Registrations/CredentialListMappings/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

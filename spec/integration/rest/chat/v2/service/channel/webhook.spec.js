@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -174,7 +173,7 @@ describe('Webhook', function() {
                     .webhooks.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://chat.twilio.com/v2/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Webhooks',
+          url: 'https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Webhooks',
           params: {PageSize: 20},
       }));
     }
@@ -265,11 +264,9 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Webhooks')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Webhooks`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -401,12 +398,10 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Webhooks/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Webhooks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -459,11 +454,9 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Webhooks')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Webhooks`;
 
       var values = {Type: 'webhook', };
       holodeck.assertHasRequest(new Request({
@@ -524,12 +517,10 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Webhooks/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Webhooks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -587,12 +578,10 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Webhooks/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Webhooks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

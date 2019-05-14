@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('TaskChannel', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels/<%= sid %>')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -179,7 +176,7 @@ describe('TaskChannel', function() {
                           .taskChannels.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels',
+          url: 'https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels',
           params: {PageSize: 20},
       }));
     }
@@ -230,8 +227,8 @@ describe('TaskChannel', function() {
       });
       promise.done();
 
-      var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -322,11 +319,9 @@ describe('TaskChannel', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels/<%= sid %>')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -405,11 +400,9 @@ describe('TaskChannel', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels/<%= sid %>')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -465,8 +458,8 @@ describe('TaskChannel', function() {
       });
       promise.done();
 
-      var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels`;
 
       var values = {FriendlyName: 'friendly_name', UniqueName: 'unique_name', };
       holodeck.assertHasRequest(new Request({

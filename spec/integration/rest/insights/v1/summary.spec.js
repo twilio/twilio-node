@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('CallSummary', function() {
       });
       promise.done();
 
-      var solution = {callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://insights.twilio.com/v1/Voice/<%= callSid %>/Summary')(solution);
+      var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://insights.twilio.com/v1/Voice/${callSid}/Summary`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

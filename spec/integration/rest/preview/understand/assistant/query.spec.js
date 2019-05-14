@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('Query', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries/<%= sid %>')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/Queries/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -195,7 +192,7 @@ describe('Query', function() {
                                .queries.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries',
+          url: 'https://preview.twilio.com/understand/Assistants/${assistantSid}/Queries',
           params: {PageSize: 20},
       }));
     }
@@ -261,8 +258,8 @@ describe('Query', function() {
       });
       promise.done();
 
-      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/Queries`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -369,8 +366,8 @@ describe('Query', function() {
       });
       promise.done();
 
-      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/Queries`;
 
       var values = {Language: 'language', Query: 'query', };
       holodeck.assertHasRequest(new Request({
@@ -438,11 +435,9 @@ describe('Query', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries/<%= sid %>')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/Queries/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -507,11 +502,9 @@ describe('Query', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries/<%= sid %>')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/Queries/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

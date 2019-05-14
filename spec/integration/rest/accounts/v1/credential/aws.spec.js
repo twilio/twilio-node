@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -267,8 +266,8 @@ describe('Aws', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://accounts.twilio.com/v1/Credentials/AWS/<%= sid %>')(solution);
+      var sid = 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://accounts.twilio.com/v1/Credentials/AWS/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -313,8 +312,8 @@ describe('Aws', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://accounts.twilio.com/v1/Credentials/AWS/<%= sid %>')(solution);
+      var sid = 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://accounts.twilio.com/v1/Credentials/AWS/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -359,8 +358,8 @@ describe('Aws', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://accounts.twilio.com/v1/Credentials/AWS/<%= sid %>')(solution);
+      var sid = 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://accounts.twilio.com/v1/Credentials/AWS/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

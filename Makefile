@@ -13,7 +13,7 @@ test:
 docs:
 	npm run jsdoc
 
-clean: node_modules
+clean:
 	rm -rf node_modules
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)

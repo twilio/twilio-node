@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,8 +42,8 @@ describe('Country', function() {
       });
       promise.done();
 
-      var solution = {isoCode: 'US'};
-      var url = _.template('https://voice.twilio.com/v1/DialingPermissions/Countries/<%= isoCode %>')(solution);
+      var isoCode = 'US';
+      var url = `https://voice.twilio.com/v1/DialingPermissions/Countries/${isoCode}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

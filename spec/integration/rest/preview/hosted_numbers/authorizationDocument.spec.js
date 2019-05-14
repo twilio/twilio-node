@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,8 +43,8 @@ describe('AuthorizationDocument', function() {
       });
       promise.done();
 
-      var solution = {sid: 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= sid %>')(solution);
+      var sid = 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -96,8 +95,8 @@ describe('AuthorizationDocument', function() {
       });
       promise.done();
 
-      var solution = {sid: 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= sid %>')(solution);
+      var sid = 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

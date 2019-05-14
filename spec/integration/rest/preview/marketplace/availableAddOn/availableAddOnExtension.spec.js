@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('AvailableAddOnExtension', function() {
       });
       promise.done();
 
-      var solution = {
-        availableAddOnSid: 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/marketplace/AvailableAddOns/<%= availableAddOnSid %>/Extensions/<%= sid %>')(solution);
+      var availableAddOnSid = 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/marketplace/AvailableAddOns/${availableAddOnSid}/Extensions/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -135,7 +132,7 @@ describe('AvailableAddOnExtension', function() {
                                 .extensions.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://preview.twilio.com/marketplace/AvailableAddOns/<%= availableAddOnSid %>/Extensions',
+          url: 'https://preview.twilio.com/marketplace/AvailableAddOns/${availableAddOnSid}/Extensions',
           params: {PageSize: 20},
       }));
     }
@@ -181,8 +178,8 @@ describe('AvailableAddOnExtension', function() {
       });
       promise.done();
 
-      var solution = {availableAddOnSid: 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/marketplace/AvailableAddOns/<%= availableAddOnSid %>/Extensions')(solution);
+      var availableAddOnSid = 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/marketplace/AvailableAddOns/${availableAddOnSid}/Extensions`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

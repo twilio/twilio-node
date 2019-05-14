@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,12 +43,10 @@ describe('Member', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        queueSid: 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members/<%= callSid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var queueSid = 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Queues/${queueSid}/Members/${callSid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -122,12 +119,10 @@ describe('Member', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        queueSid: 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members/<%= callSid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var queueSid = 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Queues/${queueSid}/Members/${callSid}.json`;
 
       var values = {Url: 'https://example.com', Method: 'GET', };
       holodeck.assertHasRequest(new Request({
@@ -245,7 +240,7 @@ describe('Member', function() {
                       .members.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members.json',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Queues/${queueSid}/Members.json',
           params: {PageSize: 20},
       }));
     }
@@ -292,11 +287,9 @@ describe('Member', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        queueSid: 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var queueSid = 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Queues/${queueSid}/Members.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

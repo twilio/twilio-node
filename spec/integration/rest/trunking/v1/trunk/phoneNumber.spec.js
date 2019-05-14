@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/PhoneNumbers/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/PhoneNumbers/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -118,11 +115,9 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/PhoneNumbers/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/PhoneNumbers/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -161,8 +156,8 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/PhoneNumbers')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/PhoneNumbers`;
 
       var values = {PhoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
@@ -331,7 +326,7 @@ describe('PhoneNumber', function() {
                         .phoneNumbers.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/PhoneNumbers',
+          url: 'https://trunking.twilio.com/v1/Trunks/${trunkSid}/PhoneNumbers',
           params: {PageSize: 20},
       }));
     }
@@ -403,8 +398,8 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/PhoneNumbers')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/PhoneNumbers`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

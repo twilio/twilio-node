@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -106,7 +105,7 @@ describe('Reservation', function() {
                           .reservations.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations',
+          url: 'https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Tasks/${taskSid}/Reservations',
           params: {PageSize: 20},
       }));
     }
@@ -163,11 +162,9 @@ describe('Reservation', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        taskSid: 'WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var taskSid = 'WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Tasks/${taskSid}/Reservations`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -265,12 +262,10 @@ describe('Reservation', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        taskSid: 'WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var taskSid = 'WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Tasks/${taskSid}/Reservations/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -326,12 +321,10 @@ describe('Reservation', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        taskSid: 'WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var taskSid = 'WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Tasks/${taskSid}/Reservations/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

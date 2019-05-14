@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,11 +43,9 @@ describe('TaskStatistics', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        taskSid: 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://autopilot.twilio.com/v1/Assistants/<%= assistantSid %>/Tasks/<%= taskSid %>/Statistics')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var taskSid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Tasks/${taskSid}/Statistics`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

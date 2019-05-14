@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -45,12 +44,10 @@ describe('Challenge', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors/<%= factorSid %>/Challenges')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var factorSid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -110,13 +107,11 @@ describe('Challenge', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'sid'
-      };
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors/<%= factorSid %>/Challenges/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var factorSid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'sid';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -158,13 +153,11 @@ describe('Challenge', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'sid'
-      };
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors/<%= factorSid %>/Challenges/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var factorSid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'sid';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -261,13 +254,11 @@ describe('Challenge', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'sid'
-      };
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors/<%= factorSid %>/Challenges/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var factorSid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'sid';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

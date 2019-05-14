@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,8 +43,8 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/ShortCodes`;
 
       var values = {Sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
@@ -100,11 +99,9 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes/<%= sid %>')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/ShortCodes/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -199,7 +196,7 @@ describe('ShortCode', function() {
                      .shortCodes.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes',
+          url: 'https://proxy.twilio.com/v1/Services/${serviceSid}/ShortCodes',
           params: {PageSize: 20},
       }));
     }
@@ -252,8 +249,8 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/ShortCodes`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -318,11 +315,9 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes/<%= sid %>')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/ShortCodes/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -374,11 +369,9 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes/<%= sid %>')(solution);
+      var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/ShortCodes/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

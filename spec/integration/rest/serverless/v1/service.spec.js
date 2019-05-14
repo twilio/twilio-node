@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -89,8 +88,8 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {sid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= sid %>')(solution);
+      var sid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -196,8 +195,8 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {sid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= sid %>')(solution);
+      var sid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -136,7 +135,7 @@ describe('DependentHostedNumberOrder', function() {
                                    .dependentHostedNumberOrders.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= signingDocumentSid %>/DependentHostedNumberOrders',
+          url: 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/${signingDocumentSid}/DependentHostedNumberOrders',
           params: {PageSize: 20},
       }));
     }
@@ -207,8 +206,8 @@ describe('DependentHostedNumberOrder', function() {
       });
       promise.done();
 
-      var solution = {signingDocumentSid: 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= signingDocumentSid %>/DependentHostedNumberOrders')(solution);
+      var signingDocumentSid = 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/${signingDocumentSid}/DependentHostedNumberOrders`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

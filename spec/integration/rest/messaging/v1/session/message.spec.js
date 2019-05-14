@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('Message', function() {
       });
       promise.done();
 
-      var solution = {
-        sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Messages/<%= sid %>')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Messages/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -98,8 +95,8 @@ describe('Message', function() {
       });
       promise.done();
 
-      var solution = {sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Messages')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Messages`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -150,11 +147,9 @@ describe('Message', function() {
       });
       promise.done();
 
-      var solution = {
-        sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Messages/<%= sid %>')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Messages/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -288,7 +283,7 @@ describe('Message', function() {
                          .messages.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Messages',
+          url: 'https://messaging.twilio.com/v1/Sessions/${sessionSid}/Messages',
           params: {PageSize: 20},
       }));
     }
@@ -354,8 +349,8 @@ describe('Message', function() {
       });
       promise.done();
 
-      var solution = {sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Messages')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Messages`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -433,11 +428,9 @@ describe('Message', function() {
       });
       promise.done();
 
-      var solution = {
-        sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Messages/<%= sid %>')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Messages/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

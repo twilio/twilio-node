@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('TerminatingSipDomain', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/TerminatingSipDomains/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/TerminatingSipDomains/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -106,11 +103,9 @@ describe('TerminatingSipDomain', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/TerminatingSipDomains/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/TerminatingSipDomains/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -149,8 +144,8 @@ describe('TerminatingSipDomain', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/TerminatingSipDomains')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/TerminatingSipDomains`;
 
       var values = {SipDomainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
@@ -283,7 +278,7 @@ describe('TerminatingSipDomain', function() {
                         .terminatingSipDomains.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/TerminatingSipDomains',
+          url: 'https://trunking.twilio.com/v1/Trunks/${trunkSid}/TerminatingSipDomains',
           params: {PageSize: 20},
       }));
     }
@@ -343,8 +338,8 @@ describe('TerminatingSipDomain', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/TerminatingSipDomains')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/TerminatingSipDomains`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

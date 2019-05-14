@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,8 +43,8 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers')(solution);
+      var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/PhoneNumbers`;
 
       var values = {PhoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
@@ -128,11 +127,9 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers/<%= sid %>')(solution);
+      var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/PhoneNumbers/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -219,7 +216,7 @@ describe('PhoneNumber', function() {
                          .phoneNumbers.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://messaging.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers',
+          url: 'https://messaging.twilio.com/v1/Services/${serviceSid}/PhoneNumbers',
           params: {PageSize: 20},
       }));
     }
@@ -268,8 +265,8 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers')(solution);
+      var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/PhoneNumbers`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -330,11 +327,9 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers/<%= sid %>')(solution);
+      var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/PhoneNumbers/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

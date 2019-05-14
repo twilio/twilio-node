@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,8 +43,8 @@ describe('Verification', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://verify.twilio.com/v2/Services/<%= serviceSid %>/Verifications')(solution);
+      var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Verifications`;
 
       var values = {To: 'to', Channel: 'channel', };
       holodeck.assertHasRequest(new Request({
@@ -109,8 +108,9 @@ describe('Verification', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', sid: 'sid'};
-      var url = _.template('https://verify.twilio.com/v2/Services/<%= serviceSid %>/Verifications/<%= sid %>')(solution);
+      var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'sid';
+      var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Verifications/${sid}`;
 
       var values = {Status: 'canceled', };
       holodeck.assertHasRequest(new Request({
@@ -173,8 +173,9 @@ describe('Verification', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', sid: 'sid'};
-      var url = _.template('https://verify.twilio.com/v2/Services/<%= serviceSid %>/Verifications/<%= sid %>')(solution);
+      var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'sid';
+      var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Verifications/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

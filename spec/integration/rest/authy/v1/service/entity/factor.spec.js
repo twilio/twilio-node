@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -45,8 +44,9 @@ describe('Factor', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', identity: 'identity'};
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors`;
 
       var values = {Binding: 'binding', FriendlyName: 'friendly_name', FactorType: 'app-push', };
       holodeck.assertHasRequest(new Request({
@@ -105,12 +105,10 @@ describe('Factor', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        sid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var sid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -150,12 +148,10 @@ describe('Factor', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        sid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var sid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -273,7 +269,7 @@ describe('Factor', function() {
                      .factors.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors',
+          url: 'https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors',
           params: {PageSize: 20},
       }));
     }
@@ -330,8 +326,9 @@ describe('Factor', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', identity: 'identity'};
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -429,12 +426,10 @@ describe('Factor', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        sid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var sid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
