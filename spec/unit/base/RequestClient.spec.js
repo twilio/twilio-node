@@ -21,8 +21,7 @@ describe('lastResponse and lastRequest defined', function() {
       data: {'test-data-key': 'test-data-value'},
     };
 
-    client.request(options);
-
+    return client.request(options);
   });
 
   it('should have lastResponse and lastRequest on success', function() {
@@ -41,7 +40,6 @@ describe('lastResponse and lastRequest defined', function() {
     expect(client.lastResponse.statusCode).toEqual(200);
     expect(client.lastResponse.body).toEqual('voltron');
   });
-
 });
 
 describe('lastRequest defined, lastResponse undefined', function() {
@@ -65,8 +63,7 @@ describe('lastRequest defined, lastResponse undefined', function() {
       data: {'test-data-key': 'test-data-value'},
     };
 
-    client.request(options);
-
+    return client.request(options).catch(error => {/* no-op */});
   });
 
   it('should have lastResponse and lastRequest on success', function() {
@@ -83,5 +80,4 @@ describe('lastRequest defined, lastResponse undefined', function() {
     expect(client.lastRequest.data).toEqual({'test-data-key': 'test-data-value'});
     expect(client.lastResponse).toBeUndefined();
   });
-
 });
