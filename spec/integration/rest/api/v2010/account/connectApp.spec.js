@@ -158,14 +158,11 @@ describe('ConnectApp', function() {
           ],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
           'next_page_uri': null,
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
       });
       holodeck.mock(new Response(200, body));
@@ -193,14 +190,11 @@ describe('ConnectApp', function() {
           ],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
           'next_page_uri': null,
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
       });
       holodeck.mock(new Response(200, body));
@@ -233,14 +227,11 @@ describe('ConnectApp', function() {
           ],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
           'next_page_uri': null,
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
       });
       holodeck.mock(new Response(200, body));
@@ -290,14 +281,11 @@ describe('ConnectApp', function() {
           ],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
           'next_page_uri': null,
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
       });
 
@@ -320,14 +308,11 @@ describe('ConnectApp', function() {
           'connect_apps': [],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
           'next_page_uri': null,
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
       });
 
@@ -337,6 +322,48 @@ describe('ConnectApp', function() {
                                     .connectApps.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid remove request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .connectApps('CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+      };
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid delete response',
+    function() {
+      var body = JSON.stringify(null);
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .connectApps('CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function(response) {
+        expect(response).toBe(true);
       }, function() {
         throw new Error('failed');
       });

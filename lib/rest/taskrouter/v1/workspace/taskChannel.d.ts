@@ -8,6 +8,7 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
+import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -21,9 +22,11 @@ declare function TaskChannelList(version: V1, workspaceSid: string): TaskChannel
 /**
  * Options to pass to update
  *
+ * @property channelOptimizedRouting - If true then prioritize longest idle workers
  * @property friendlyName - Toggle the FriendlyName for the TaskChannel
  */
 interface TaskChannelInstanceUpdateOptions {
+  channelOptimizedRouting?: boolean;
   friendlyName?: string;
 }
 
@@ -58,7 +61,7 @@ interface TaskChannelListInstance {
   /**
    * Constructs a task_channel
    *
-   * @param sid - The sid
+   * @param sid - The unique ID for this TaskChannel.
    */
   get(sid: string): TaskChannelContext;
   /**
@@ -104,10 +107,12 @@ interface TaskChannelListInstance {
 /**
  * Options to pass to create
  *
+ * @property channelOptimizedRouting - If true then prioritize longest idle workers
  * @property friendlyName - String representing user-friendly name for the TaskChannel
  * @property uniqueName - String representing unique name for the TaskChannel
  */
 interface TaskChannelListInstanceCreateOptions {
+  channelOptimizedRouting?: boolean;
   friendlyName: string;
   uniqueName: string;
 }
@@ -174,6 +179,7 @@ interface TaskChannelPayload extends TaskChannelResource, Page.TwilioResponsePay
 
 interface TaskChannelResource {
   account_sid: string;
+  channel_optimized_routing: boolean;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
@@ -194,8 +200,8 @@ declare class TaskChannelContext {
    * Initialize the TaskChannelContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
+   * @param sid - The unique ID for this TaskChannel.
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
@@ -232,12 +238,13 @@ declare class TaskChannelInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
-   * @param sid - The sid
+   * @param sid - The unique ID for this TaskChannel.
    */
   constructor(version: V1, payload: TaskChannelPayload, workspaceSid: string, sid: string);
 
   private _proxy: TaskChannelContext;
   accountSid: string;
+  channelOptimizedRouting: boolean;
   dateCreated: Date;
   dateUpdated: Date;
   /**

@@ -16,8 +16,8 @@ type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
  * Initialize the UserChannelList
  *
  * @param version - Version of the resource
- * @param serviceSid - The service_sid
- * @param userSid - A 34 character string that uniquely identifies this resource.
+ * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param userSid - The unique string that identifies the resource
  */
 declare function UserChannelList(version: V1, serviceSid: string, userSid: string): UserChannelListInstance;
 
@@ -161,8 +161,8 @@ declare class UserChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
-   * @param userSid - A 34 character string that uniquely identifies this resource.
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param userSid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: UserChannelPayload, serviceSid: string, userSid: string);
 

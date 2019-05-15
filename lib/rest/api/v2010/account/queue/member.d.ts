@@ -26,7 +26,7 @@ declare function MemberList(version: V2010, accountSid: string, queueSid: string
  * @property url - The absolute URL of the Queue resource
  */
 interface MemberInstanceUpdateOptions {
-  method: string;
+  method?: string;
   url: string;
 }
 

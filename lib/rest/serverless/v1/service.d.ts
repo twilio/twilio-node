@@ -72,7 +72,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - Service Sid.
+   * @param sid - Serverless Service Sid or unique name.
    */
   get(sid: string): ServiceContext;
   /**
@@ -213,7 +213,7 @@ declare class ServiceContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - Service Sid.
+   * @param sid - Serverless Service Sid or unique name.
    */
   constructor(version: V1, sid: string);
 
@@ -251,7 +251,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - Service Sid.
+   * @param sid - Serverless Service Sid or unique name.
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 
