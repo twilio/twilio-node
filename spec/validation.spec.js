@@ -125,13 +125,13 @@ describe('Request validation middleware', () => {
     it('should send 403 when no twilio signature header', () => {
         const newUrl = fullUrl.pathname + fullUrl.search + '&somethingUnexpected=true';
 
-        // Make a copy of the default request so the header object can be modified without 
+        // Make a copy of the default request so the header object can be modified without
         // affecting other tests.
         const noSignatureRequest = Object.assign({}, defaultRequest);
         noSignatureRequest.headers = Object.assign({}, defaultRequest.headers);
         delete noSignatureRequest.headers['X-Twilio-Signature'];
 
-        const request = httpMocks.createRequest(Object.assign({}, defaultRequest, {
+        const request = httpMocks.createRequest(Object.assign({}, noSignatureRequest, {
             originalUrl: newUrl,
         }));
 
