@@ -12,6 +12,8 @@ import serialize = require('../../../../base/serialize');
 import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTrack';
 import { PublishedTrackListInstance } from './roomParticipant/roomParticipantPublishedTrack';
 import { SerializableClass } from '../../../../interfaces';
+import { SubscribeRulesList } from './roomParticipant/roomParticipantSubscribeRule';
+import { SubscribeRulesListInstance } from './roomParticipant/roomParticipantSubscribeRule';
 import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribedTrack';
 import { SubscribedTrackListInstance } from './roomParticipant/roomParticipantSubscribedTrack';
 
@@ -28,7 +30,7 @@ declare function ParticipantList(version: V1, roomSid: string): ParticipantListI
 /**
  * Options to pass to update
  *
- * @property status - Set to disconnected to remove participant.
+ * @property status - Set to `disconnected` to remove participant.
  */
 interface ParticipantInstanceUpdateOptions {
   status?: ParticipantStatus;
@@ -58,7 +60,7 @@ interface ParticipantListInstance {
   /**
    * Constructs a participant
    *
-   * @param sid - The sid
+   * @param sid - A system-generated 34-character string that uniquely identifies this Participant.
    */
   get(sid: string): ParticipantContext;
   /**
@@ -210,8 +212,8 @@ declare class ParticipantContext {
    * Initialize the ParticipantContext
    *
    * @param version - Version of the resource
-   * @param roomSid - The room_sid
-   * @param sid - The sid
+   * @param roomSid - A system-generated 34-character string that uniquely identifies a Room.
+   * @param sid - A system-generated 34-character string that uniquely identifies this Participant.
    */
   constructor(version: V1, roomSid: string, sid: string);
 
@@ -222,6 +224,7 @@ declare class ParticipantContext {
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   publishedTracks: PublishedTrackListInstance;
+  subscribeRules: SubscribeRulesListInstance;
   subscribedTracks: SubscribedTrackListInstance;
   /**
    * Provide a user-friendly representation
@@ -244,7 +247,7 @@ declare class ParticipantInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param roomSid - A system-generated 34-character string that uniquely identifies.
-   * @param sid - The sid
+   * @param sid - A system-generated 34-character string that uniquely identifies this Participant.
    */
   constructor(version: V1, payload: ParticipantPayload, roomSid: string, sid: string);
 
@@ -270,6 +273,10 @@ declare class ParticipantInstance extends SerializableClass {
   sid: string;
   startTime: Date;
   status: ParticipantStatus;
+  /**
+   * Access the subscribeRules
+   */
+  subscribeRules(): SubscribeRulesListInstance;
   /**
    * Access the subscribedTracks
    */

@@ -31,6 +31,15 @@ type CallSummaryProcessingState = 'complete'|'partial';
  */
 declare function CallSummaryList(version: V1): CallSummaryListInstance;
 
+/**
+ * Options to pass to fetch
+ *
+ * @property processingState - The processing_state
+ */
+interface CallSummaryInstanceFetchOptions {
+  processingState?: CallSummaryProcessingState;
+}
+
 interface CallSummaryListInstance {
   /**
    * @param sid - sid of instance
@@ -65,6 +74,7 @@ interface CallSummaryResource {
   end_time: Date;
   from: string;
   processing_state: CallSummaryProcessingState;
+  sdk_edge: string;
   sip_edge: string;
   start_time: Date;
   tags: string;
@@ -92,9 +102,10 @@ declare class CallSummaryContext {
   /**
    * fetch a CallSummaryInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
+  fetch(opts?: CallSummaryInstanceFetchOptions, callback?: (error: Error | null, items: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -131,11 +142,13 @@ declare class CallSummaryInstance extends SerializableClass {
   /**
    * fetch a CallSummaryInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CallSummaryInstance) => any): void;
+  fetch(opts?: CallSummaryInstanceFetchOptions, callback?: (error: Error | null, items: CallSummaryInstance) => any): void;
   from: string;
   processingState: CallSummaryProcessingState;
+  sdkEdge: string;
   sipEdge: string;
   startTime: Date;
   tags: string;

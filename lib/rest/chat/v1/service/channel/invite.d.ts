@@ -15,8 +15,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the InviteList
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique id of the Service this member belongs to.
- * @param channelSid - The unique id of the Channel for this member.
+ * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param channelSid - The SID of the Channel the new resource belongs to
  */
 declare function InviteList(version: V1, serviceSid: string, channelSid: string): InviteListInstance;
 
@@ -51,7 +51,7 @@ interface InviteListInstance {
   /**
    * Constructs a invite
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): InviteContext;
   /**
@@ -97,8 +97,8 @@ interface InviteListInstance {
 /**
  * Options to pass to create
  *
- * @property identity - A unique string identifier for this User in this Service.
- * @property roleSid - The Role assigned to this member.
+ * @property identity - The `identity` value that identifies the new resource's User
+ * @property roleSid - The Role assigned to the new member
  */
 interface InviteListInstanceCreateOptions {
   identity: string;
@@ -112,7 +112,7 @@ interface InviteListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property identity - A unique string identifier for this User in this Service.
+ * @property identity - The `identity` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -135,7 +135,7 @@ interface InviteListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property identity - A unique string identifier for this User in this Service.
+ * @property identity - The `identity` value of the resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -156,7 +156,7 @@ interface InviteListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property identity - A unique string identifier for this User in this Service.
+ * @property identity - The `identity` value of the resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -195,9 +195,9 @@ declare class InviteContext {
    * Initialize the InviteContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param channelSid - The channel_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param channelSid - The SID of the Channel the resource to fetch belongs to
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
 
@@ -226,9 +226,9 @@ declare class InviteInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique id of the Service this member belongs to.
-   * @param channelSid - The unique id of the Channel for this member.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param channelSid - The SID of the Channel the new resource belongs to
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: InvitePayload, serviceSid: string, channelSid: string, sid: string);
 

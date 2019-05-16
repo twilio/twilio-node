@@ -23,6 +23,8 @@ type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply
 
 type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted';
 
+type MessageTrafficType = 'free';
+
 /**
  * Initialize the MessageList
  *

@@ -2,8 +2,8 @@
 logs
 *.log
 
-### Backup package.json created during release ###
-package.json.bak
+### Backup package.json files created during release ###
+*.bak
 
 ### Runtime data ###
 pids
@@ -22,4 +22,3 @@ config.js
 
 ### jsdoc dir ###
 docs
-
