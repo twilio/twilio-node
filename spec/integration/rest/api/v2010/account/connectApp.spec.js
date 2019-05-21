@@ -337,11 +337,9 @@ describe('ConnectApp', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/ConnectApps/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
