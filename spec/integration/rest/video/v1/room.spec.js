@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('Room', function() {
       });
       promise.done();
 
-      var solution = {sid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= sid %>')(solution);
+      var sid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -401,8 +400,8 @@ describe('Room', function() {
       });
       promise.done();
 
-      var solution = {sid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= sid %>')(solution);
+      var sid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${sid}`;
 
       var values = {Status: 'in-progress', };
       holodeck.assertHasRequest(new Request({

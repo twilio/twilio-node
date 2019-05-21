@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('Alert', function() {
       });
       promise.done();
 
-      var solution = {sid: 'NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://monitor.twilio.com/v1/Alerts/<%= sid %>')(solution);
+      var sid = 'NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://monitor.twilio.com/v1/Alerts/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -97,8 +96,8 @@ describe('Alert', function() {
       });
       promise.done();
 
-      var solution = {sid: 'NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://monitor.twilio.com/v1/Alerts/<%= sid %>')(solution);
+      var sid = 'NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://monitor.twilio.com/v1/Alerts/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

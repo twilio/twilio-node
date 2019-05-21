@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -267,8 +266,8 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {sid: 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://wireless.twilio.com/v1/RatePlans/<%= sid %>')(solution);
+      var sid = 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://wireless.twilio.com/v1/RatePlans/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -382,8 +381,8 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {sid: 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://wireless.twilio.com/v1/RatePlans/<%= sid %>')(solution);
+      var sid = 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://wireless.twilio.com/v1/RatePlans/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -440,8 +439,8 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {sid: 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://wireless.twilio.com/v1/RatePlans/<%= sid %>')(solution);
+      var sid = 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://wireless.twilio.com/v1/RatePlans/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

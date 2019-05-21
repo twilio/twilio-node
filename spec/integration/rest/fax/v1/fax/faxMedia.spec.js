@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('FaxMedia', function() {
       });
       promise.done();
 
-      var solution = {
-        faxSid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media/<%= sid %>')(solution);
+      var faxSid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://fax.twilio.com/v1/Faxes/${faxSid}/Media/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -138,7 +135,7 @@ describe('FaxMedia', function() {
                    .media.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media',
+          url: 'https://fax.twilio.com/v1/Faxes/${faxSid}/Media',
           params: {PageSize: 20},
       }));
     }
@@ -185,8 +182,8 @@ describe('FaxMedia', function() {
       });
       promise.done();
 
-      var solution = {faxSid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media')(solution);
+      var faxSid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://fax.twilio.com/v1/Faxes/${faxSid}/Media`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -245,11 +242,9 @@ describe('FaxMedia', function() {
       });
       promise.done();
 
-      var solution = {
-        faxSid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media/<%= sid %>')(solution);
+      var faxSid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://fax.twilio.com/v1/Faxes/${faxSid}/Media/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

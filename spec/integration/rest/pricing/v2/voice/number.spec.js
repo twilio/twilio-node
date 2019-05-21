@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,8 +42,8 @@ describe('Number', function() {
       });
       promise.done();
 
-      var solution = {destinationNumber: '+15017122661'};
-      var url = _.template('https://pricing.twilio.com/v2/Voice/Numbers/<%= destinationNumber %>')(solution);
+      var destinationNumber = '+15017122661';
+      var url = `https://pricing.twilio.com/v2/Voice/Numbers/${destinationNumber}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

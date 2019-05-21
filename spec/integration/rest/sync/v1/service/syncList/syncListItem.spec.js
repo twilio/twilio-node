@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -46,12 +45,10 @@ describe('SyncListItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        index: 1
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items/<%= index %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var index = 1;
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Lists/${listSid}/Items/${index}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -103,12 +100,10 @@ describe('SyncListItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        index: 1
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items/<%= index %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var index = 1;
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Lists/${listSid}/Items/${index}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -149,11 +144,9 @@ describe('SyncListItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Lists/${listSid}/Items`;
 
       var values = {Data: serialize.object({}), };
       holodeck.assertHasRequest(new Request({
@@ -262,7 +255,7 @@ describe('SyncListItem', function() {
                     .syncListItems.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items',
+          url: 'https://sync.twilio.com/v1/Services/${serviceSid}/Lists/${listSid}/Items',
           params: {PageSize: 20},
       }));
     }
@@ -315,11 +308,9 @@ describe('SyncListItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Lists/${listSid}/Items`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -413,12 +404,10 @@ describe('SyncListItem', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        index: 1
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items/<%= index %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var index = 1;
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Lists/${listSid}/Items/${index}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

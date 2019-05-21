@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -202,7 +201,7 @@ describe('TaskQueuesStatistics', function() {
                           .statistics.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/Statistics',
+          url: 'https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskQueues/Statistics',
           params: {PageSize: 20},
       }));
     }
@@ -307,8 +306,8 @@ describe('TaskQueuesStatistics', function() {
       });
       promise.done();
 
-      var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/Statistics')(solution);
+      var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskQueues/Statistics`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

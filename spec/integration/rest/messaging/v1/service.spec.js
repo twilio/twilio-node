@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -109,8 +108,8 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {sid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= sid %>')(solution);
+      var sid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -395,8 +394,8 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {sid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= sid %>')(solution);
+      var sid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -459,8 +458,8 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {sid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Services/<%= sid %>')(solution);
+      var sid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('Sim', function() {
       });
       promise.done();
 
-      var solution = {sid: 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://wireless.twilio.com/v1/Sims/<%= sid %>')(solution);
+      var sid = 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://wireless.twilio.com/v1/Sims/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -365,8 +364,8 @@ describe('Sim', function() {
       });
       promise.done();
 
-      var solution = {sid: 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://wireless.twilio.com/v1/Sims/<%= sid %>')(solution);
+      var sid = 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://wireless.twilio.com/v1/Sims/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -431,8 +430,8 @@ describe('Sim', function() {
       });
       promise.done();
 
-      var solution = {sid: 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://wireless.twilio.com/v1/Sims/<%= sid %>')(solution);
+      var sid = 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://wireless.twilio.com/v1/Sims/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

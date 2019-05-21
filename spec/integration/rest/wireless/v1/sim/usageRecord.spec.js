@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -98,7 +97,7 @@ describe('UsageRecord', function() {
                         .usageRecords.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://wireless.twilio.com/v1/Sims/<%= simSid %>/UsageRecords',
+          url: 'https://wireless.twilio.com/v1/Sims/${simSid}/UsageRecords',
           params: {PageSize: 20},
       }));
     }
@@ -150,8 +149,8 @@ describe('UsageRecord', function() {
       });
       promise.done();
 
-      var solution = {simSid: 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://wireless.twilio.com/v1/Sims/<%= simSid %>/UsageRecords')(solution);
+      var simSid = 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://wireless.twilio.com/v1/Sims/${simSid}/UsageRecords`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

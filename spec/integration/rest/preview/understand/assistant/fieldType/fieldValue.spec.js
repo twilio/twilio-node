@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,12 +43,10 @@ describe('FieldValue', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        fieldTypeSid: 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= fieldTypeSid %>/FieldValues/<%= sid %>')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var fieldTypeSid = 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -152,7 +149,7 @@ describe('FieldValue', function() {
                                .fieldValues.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= fieldTypeSid %>/FieldValues',
+          url: 'https://preview.twilio.com/understand/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues',
           params: {PageSize: 20},
       }));
     }
@@ -204,11 +201,9 @@ describe('FieldValue', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        fieldTypeSid: 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= fieldTypeSid %>/FieldValues')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var fieldTypeSid = 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -302,11 +297,9 @@ describe('FieldValue', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        fieldTypeSid: 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= fieldTypeSid %>/FieldValues')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var fieldTypeSid = 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues`;
 
       var values = {Language: 'language', Value: 'value', };
       holodeck.assertHasRequest(new Request({
@@ -360,12 +353,10 @@ describe('FieldValue', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        fieldTypeSid: 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= fieldTypeSid %>/FieldValues/<%= sid %>')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var fieldTypeSid = 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

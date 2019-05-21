@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('Participant', function() {
       });
       promise.done();
 
-      var solution = {
-        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= sid %>')(solution);
+      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -165,7 +162,7 @@ describe('Participant', function() {
                      .participants.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants',
+          url: 'https://video.twilio.com/v1/Rooms/${roomSid}/Participants',
           params: {PageSize: 20},
       }));
     }
@@ -221,8 +218,8 @@ describe('Participant', function() {
       });
       promise.done();
 
-      var solution = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants')(solution);
+      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -318,11 +315,9 @@ describe('Participant', function() {
       });
       promise.done();
 
-      var solution = {
-        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= sid %>')(solution);
+      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

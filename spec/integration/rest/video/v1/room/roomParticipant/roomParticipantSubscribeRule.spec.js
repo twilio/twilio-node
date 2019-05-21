@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,11 +43,9 @@ describe('SubscribeRules', function() {
       });
       promise.done();
 
-      var solution = {
-        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        participantSid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= participantSid %>/SubscribeRules')(solution);
+      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var participantSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${participantSid}/SubscribeRules`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -94,11 +91,9 @@ describe('SubscribeRules', function() {
       });
       promise.done();
 
-      var solution = {
-        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        participantSid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= participantSid %>/SubscribeRules')(solution);
+      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var participantSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${participantSid}/SubscribeRules`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

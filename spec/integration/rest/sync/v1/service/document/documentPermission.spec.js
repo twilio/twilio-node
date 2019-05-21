@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -46,12 +45,10 @@ describe('DocumentPermission', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        documentSid: 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents/<%= documentSid %>/Permissions/<%= identity %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var documentSid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Documents/${documentSid}/Permissions/${identity}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -100,12 +97,10 @@ describe('DocumentPermission', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        documentSid: 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents/<%= documentSid %>/Permissions/<%= identity %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var documentSid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Documents/${documentSid}/Permissions/${identity}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -193,7 +188,7 @@ describe('DocumentPermission', function() {
                     .documentPermissions.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents/<%= documentSid %>/Permissions',
+          url: 'https://sync.twilio.com/v1/Services/${serviceSid}/Documents/${documentSid}/Permissions',
           params: {PageSize: 20},
       }));
     }
@@ -243,11 +238,9 @@ describe('DocumentPermission', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        documentSid: 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents/<%= documentSid %>/Permissions')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var documentSid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Documents/${documentSid}/Permissions`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -339,12 +332,10 @@ describe('DocumentPermission', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        documentSid: 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents/<%= documentSid %>/Permissions/<%= identity %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var documentSid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Documents/${documentSid}/Permissions/${identity}`;
 
       var values = {
         Read: serialize.bool(true),

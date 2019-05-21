@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('CompositionHook', function() {
       });
       promise.done();
 
-      var solution = {sid: 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://video.twilio.com/v1/CompositionHooks/<%= sid %>')(solution);
+      var sid = 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/CompositionHooks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -477,8 +476,8 @@ describe('CompositionHook', function() {
       });
       promise.done();
 
-      var solution = {sid: 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://video.twilio.com/v1/CompositionHooks/<%= sid %>')(solution);
+      var sid = 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/CompositionHooks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -597,8 +596,8 @@ describe('CompositionHook', function() {
       });
       promise.done();
 
-      var solution = {sid: 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://video.twilio.com/v1/CompositionHooks/<%= sid %>')(solution);
+      var sid = 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/CompositionHooks/${sid}`;
 
       var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,11 +43,9 @@ describe('Variable', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        environmentSid: 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Environments/<%= environmentSid %>/Variables')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var environmentSid = 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Environments/${environmentSid}/Variables`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -99,12 +96,10 @@ describe('Variable', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        environmentSid: 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Environments/<%= environmentSid %>/Variables/<%= sid %>')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var environmentSid = 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Environments/${environmentSid}/Variables/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -155,11 +150,9 @@ describe('Variable', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        environmentSid: 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Environments/<%= environmentSid %>/Variables')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var environmentSid = 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Environments/${environmentSid}/Variables`;
 
       var values = {Key: 'key', Value: 'value', };
       holodeck.assertHasRequest(new Request({
@@ -212,12 +205,10 @@ describe('Variable', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        environmentSid: 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Environments/<%= environmentSid %>/Variables/<%= sid %>')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var environmentSid = 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Environments/${environmentSid}/Variables/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

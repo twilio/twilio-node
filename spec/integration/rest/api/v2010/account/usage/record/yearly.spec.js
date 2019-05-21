@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -128,7 +127,7 @@ describe('Yearly', function() {
                       .yearly.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Records/Yearly.json',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Usage/Records/Yearly.json',
           params: {PageSize: 20},
       }));
     }
@@ -197,8 +196,8 @@ describe('Yearly', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Records/Yearly.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Usage/Records/Yearly.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -247,8 +246,8 @@ describe('FlexFlow', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://flex-api.twilio.com/v1/FlexFlows/<%= sid %>')(solution);
+      var sid = 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://flex-api.twilio.com/v1/FlexFlows/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -368,8 +367,8 @@ describe('FlexFlow', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://flex-api.twilio.com/v1/FlexFlows/<%= sid %>')(solution);
+      var sid = 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://flex-api.twilio.com/v1/FlexFlows/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -421,8 +420,8 @@ describe('FlexFlow', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://flex-api.twilio.com/v1/FlexFlows/<%= sid %>')(solution);
+      var sid = 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://flex-api.twilio.com/v1/FlexFlows/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('CredentialList', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/CredentialLists/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -93,11 +90,9 @@ describe('CredentialList', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/CredentialLists/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -136,8 +131,8 @@ describe('CredentialList', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/CredentialLists`;
 
       var values = {CredentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
@@ -231,7 +226,7 @@ describe('CredentialList', function() {
                         .credentialsLists.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists',
+          url: 'https://trunking.twilio.com/v1/Trunks/${trunkSid}/CredentialLists',
           params: {PageSize: 20},
       }));
     }
@@ -278,8 +273,8 @@ describe('CredentialList', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/CredentialLists`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

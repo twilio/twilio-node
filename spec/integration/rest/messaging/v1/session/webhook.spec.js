@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -176,7 +175,7 @@ describe('Webhook', function() {
                          .webhooks.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Webhooks',
+          url: 'https://messaging.twilio.com/v1/Sessions/${sessionSid}/Webhooks',
           params: {PageSize: 20},
       }));
     }
@@ -267,8 +266,8 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Webhooks')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Webhooks`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -399,11 +398,9 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {
-        sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Webhooks/<%= sid %>')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Webhooks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -454,8 +451,8 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Webhooks')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Webhooks`;
 
       var values = {Target: 'webhook', };
       holodeck.assertHasRequest(new Request({
@@ -515,11 +512,9 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {
-        sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Webhooks/<%= sid %>')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Webhooks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -576,11 +571,9 @@ describe('Webhook', function() {
       });
       promise.done();
 
-      var solution = {
-        sessionSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://messaging.twilio.com/v1/Sessions/<%= sessionSid %>/Webhooks/<%= sid %>')(solution);
+      var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Webhooks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

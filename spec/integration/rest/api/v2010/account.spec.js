@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -110,8 +109,8 @@ describe('Account', function() {
       });
       promise.done();
 
-      var solution = {sid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= sid %>.json')(solution);
+      var sid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -443,8 +442,8 @@ describe('Account', function() {
       });
       promise.done();
 
-      var solution = {sid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= sid %>.json')(solution);
+      var sid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

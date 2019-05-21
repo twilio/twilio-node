@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,11 +43,9 @@ describe('FunctionVersion', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        functionSid: 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Functions/<%= functionSid %>/Versions')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var functionSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Functions/${functionSid}/Versions`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -99,12 +96,10 @@ describe('FunctionVersion', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        functionSid: 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Functions/<%= functionSid %>/Versions/<%= sid %>')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var functionSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -155,11 +150,9 @@ describe('FunctionVersion', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        functionSid: 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://serverless.twilio.com/v1/Services/<%= serviceSid %>/Functions/<%= functionSid %>/Versions')(solution);
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var functionSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Functions/${functionSid}/Versions`;
 
       var values = {Path: 'path', Visibility: 'public', };
       holodeck.assertHasRequest(new Request({

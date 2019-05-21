@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('Trunk', function() {
       });
       promise.done();
 
-      var solution = {sid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
+      var sid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -105,8 +104,8 @@ describe('Trunk', function() {
       });
       promise.done();
 
-      var solution = {sid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
+      var sid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -449,8 +448,8 @@ describe('Trunk', function() {
       });
       promise.done();
 
-      var solution = {sid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
+      var sid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

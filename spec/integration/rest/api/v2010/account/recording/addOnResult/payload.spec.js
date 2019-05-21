@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -45,13 +44,11 @@ describe('Payload', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        referenceSid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        addOnResultSid: 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= referenceSid %>/AddOnResults/<%= addOnResultSid %>/Payloads/<%= sid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var referenceSid = 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var addOnResultSid = 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -164,7 +161,7 @@ describe('Payload', function() {
                       .payloads.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= referenceSid %>/AddOnResults/<%= addOnResultSid %>/Payloads.json',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads.json',
           params: {PageSize: 20},
       }));
     }
@@ -220,12 +217,10 @@ describe('Payload', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        referenceSid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        addOnResultSid: 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= referenceSid %>/AddOnResults/<%= addOnResultSid %>/Payloads.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var referenceSid = 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var addOnResultSid = 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -322,13 +317,11 @@ describe('Payload', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        referenceSid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        addOnResultSid: 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= referenceSid %>/AddOnResults/<%= addOnResultSid %>/Payloads/<%= sid %>.json')(solution);
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var referenceSid = 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var addOnResultSid = 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${referenceSid}/AddOnResults/${addOnResultSid}/Payloads/${sid}.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('Deployment', function() {
       });
       promise.done();
 
-      var solution = {
-        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments/<%= sid %>')(solution);
+      var fleetSid = 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/DeployedDevices/Fleets/${fleetSid}/Deployments/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -94,11 +91,9 @@ describe('Deployment', function() {
       });
       promise.done();
 
-      var solution = {
-        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments/<%= sid %>')(solution);
+      var fleetSid = 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/DeployedDevices/Fleets/${fleetSid}/Deployments/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -136,8 +131,8 @@ describe('Deployment', function() {
       });
       promise.done();
 
-      var solution = {fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments')(solution);
+      var fleetSid = 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/DeployedDevices/Fleets/${fleetSid}/Deployments`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -231,7 +226,7 @@ describe('Deployment', function() {
                                      .deployments.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments',
+          url: 'https://preview.twilio.com/DeployedDevices/Fleets/${fleetSid}/Deployments',
           params: {PageSize: 20},
       }));
     }
@@ -279,8 +274,8 @@ describe('Deployment', function() {
       });
       promise.done();
 
-      var solution = {fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments')(solution);
+      var fleetSid = 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/DeployedDevices/Fleets/${fleetSid}/Deployments`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -368,11 +363,9 @@ describe('Deployment', function() {
       });
       promise.done();
 
-      var solution = {
-        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments/<%= sid %>')(solution);
+      var fleetSid = 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/DeployedDevices/Fleets/${fleetSid}/Deployments/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

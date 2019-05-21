@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('Task', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://autopilot.twilio.com/v1/Assistants/<%= assistantSid %>/Tasks/<%= sid %>')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Tasks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -162,7 +159,7 @@ describe('Task', function() {
                          .tasks.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://autopilot.twilio.com/v1/Assistants/<%= assistantSid %>/Tasks',
+          url: 'https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Tasks',
           params: {PageSize: 20},
       }));
     }
@@ -217,8 +214,8 @@ describe('Task', function() {
       });
       promise.done();
 
-      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://autopilot.twilio.com/v1/Assistants/<%= assistantSid %>/Tasks')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Tasks`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -314,8 +311,8 @@ describe('Task', function() {
       });
       promise.done();
 
-      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://autopilot.twilio.com/v1/Assistants/<%= assistantSid %>/Tasks')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Tasks`;
 
       var values = {UniqueName: 'unique_name', };
       holodeck.assertHasRequest(new Request({
@@ -372,11 +369,9 @@ describe('Task', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://autopilot.twilio.com/v1/Assistants/<%= assistantSid %>/Tasks/<%= sid %>')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Tasks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -430,11 +425,9 @@ describe('Task', function() {
       });
       promise.done();
 
-      var solution = {
-        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://autopilot.twilio.com/v1/Assistants/<%= assistantSid %>/Tasks/<%= sid %>')(solution);
+      var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Tasks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

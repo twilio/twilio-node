@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
+      var sid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://fax.twilio.com/v1/Faxes/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -386,8 +385,8 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
+      var sid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://fax.twilio.com/v1/Faxes/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -444,8 +443,8 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
+      var sid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://fax.twilio.com/v1/Faxes/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('Form', function() {
       });
       promise.done();
 
-      var solution = {formType: 'form-app-push'};
-      var url = _.template('https://authy.twilio.com/v1/Forms/<%= formType %>')(solution);
+      var formType = 'form-app-push';
+      var url = `https://authy.twilio.com/v1/Forms/${formType}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

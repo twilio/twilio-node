@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -46,12 +45,10 @@ describe('SyncMapPermission', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity'
-      };
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Permissions/<%= identity %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Permissions/${identity}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -100,12 +97,10 @@ describe('SyncMapPermission', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity'
-      };
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Permissions/<%= identity %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Permissions/${identity}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -193,7 +188,7 @@ describe('SyncMapPermission', function() {
                          .syncMapPermissions.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Permissions',
+          url: 'https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Permissions',
           params: {PageSize: 20},
       }));
     }
@@ -243,11 +238,9 @@ describe('SyncMapPermission', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Permissions')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Permissions`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -339,12 +332,10 @@ describe('SyncMapPermission', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        mapSid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity'
-      };
-      var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Permissions/<%= identity %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Permissions/${identity}`;
 
       var values = {
         Read: serialize.bool(true),

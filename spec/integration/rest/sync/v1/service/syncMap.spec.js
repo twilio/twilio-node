@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -43,11 +42,9 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -100,11 +97,9 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -142,8 +137,8 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -196,11 +191,9 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -312,7 +305,7 @@ describe('SyncMap', function() {
                     .syncMaps.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps',
+          url: 'https://sync.twilio.com/v1/Services/${serviceSid}/Maps',
           params: {PageSize: 20},
       }));
     }
@@ -366,8 +359,8 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

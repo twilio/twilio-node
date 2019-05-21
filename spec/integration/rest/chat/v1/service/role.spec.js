@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -45,11 +44,9 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v1/Services/${serviceSid}/Roles/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -102,11 +99,9 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v1/Services/${serviceSid}/Roles/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -145,8 +140,8 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v1/Services/${serviceSid}/Roles`;
 
       var values = {
         FriendlyName: 'friendly_name',
@@ -265,7 +260,7 @@ describe('Role', function() {
                     .roles.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles',
+          url: 'https://chat.twilio.com/v1/Services/${serviceSid}/Roles',
           params: {PageSize: 20},
       }));
     }
@@ -319,8 +314,8 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v1/Services/${serviceSid}/Roles`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -415,11 +410,9 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://chat.twilio.com/v1/Services/${serviceSid}/Roles/${sid}`;
 
       var values = {Permission: serialize.map(['permission'], function(e) { return e; }), };
       holodeck.assertHasRequest(new Request({

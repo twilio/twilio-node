@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -44,8 +43,8 @@ describe('Entity', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities`;
 
       var values = {Identity: 'identity', };
       holodeck.assertHasRequest(new Request({
@@ -97,8 +96,9 @@ describe('Entity', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', identity: 'identity'};
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -136,8 +136,9 @@ describe('Entity', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', identity: 'identity'};
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -237,7 +238,7 @@ describe('Entity', function() {
                      .entities.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities',
+          url: 'https://authy.twilio.com/v1/Services/${serviceSid}/Entities',
           params: {PageSize: 20},
       }));
     }
@@ -287,8 +288,8 @@ describe('Entity', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities')(solution);
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

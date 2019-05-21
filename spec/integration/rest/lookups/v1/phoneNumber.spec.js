@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -42,8 +41,8 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {phoneNumber: '+15017122661'};
-      var url = _.template('https://lookups.twilio.com/v1/PhoneNumbers/<%= phoneNumber %>')(solution);
+      var phoneNumber = '+15017122661';
+      var url = `https://lookups.twilio.com/v1/PhoneNumbers/${phoneNumber}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',

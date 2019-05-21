@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var _ = require('lodash');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -45,11 +44,9 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -99,11 +96,9 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -148,8 +143,8 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls`;
 
       var values = {
         Weight: 1,
@@ -267,7 +262,7 @@ describe('OriginationUrl', function() {
                         .originationUrls.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls',
+          url: 'https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls',
           params: {PageSize: 20},
       }));
     }
@@ -318,8 +313,8 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -410,11 +405,9 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sid: 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>')(solution);
+      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
