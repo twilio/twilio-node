@@ -69,6 +69,12 @@ describe('Request validation', () => {
 
         expect(isValid).toBeFalsy();
     });
+
+    it('should fail when signature undefined', () => {
+        const isValid = validateRequest(token, undefined, requestUrl, defaultParams);
+
+        expect(isValid).toBeFalsy();
+    });
 });
 
 describe('Request validation middleware', () => {

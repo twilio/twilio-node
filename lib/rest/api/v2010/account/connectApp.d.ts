@@ -207,6 +207,12 @@ declare class ConnectAppContext {
    */
   fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
   /**
+   * remove a ConnectAppInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -247,6 +253,12 @@ declare class ConnectAppInstance extends SerializableClass {
   friendlyName: string;
   homepageUrl: string;
   permissions: string;
+  /**
+   * remove a ConnectAppInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
   sid: string;
   /**
    * Provide a user-friendly representation

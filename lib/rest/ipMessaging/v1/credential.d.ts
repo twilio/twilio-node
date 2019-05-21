@@ -23,12 +23,12 @@ declare function CredentialList(version: V1): CredentialListInstance;
 /**
  * Options to pass to update
  *
- * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
- * @property certificate - [APN only] URL encoded representation of the certificate, e.
- * @property friendlyName - Friendly name for stored credential
- * @property privateKey - [APN only] URL encoded representation of the private key, e.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property secret - The secret
+ * @property apiKey - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential
+ * @property certificate - [APN only] The URL encoded representation of the certificate
+ * @property friendlyName - A string to describe the resource
+ * @property privateKey - [APN only] The URL encoded representation of the private key
+ * @property sandbox - [APN only] Whether to send the credential to sandbox APNs
+ * @property secret - [FCM only] The Server key of your project from Firebase console
  */
 interface CredentialInstanceUpdateOptions {
   apiKey?: string;
@@ -70,7 +70,7 @@ interface CredentialListInstance {
   /**
    * Constructs a credential
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): CredentialContext;
   /**
@@ -116,13 +116,13 @@ interface CredentialListInstance {
 /**
  * Options to pass to create
  *
- * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
- * @property certificate - [APN only] URL encoded representation of the certificate, e.
- * @property friendlyName - Friendly name for stored credential
- * @property privateKey - [APN only] URL encoded representation of the private key, e.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property secret - The secret
- * @property type - Credential type, one of "gcm" or "apn"
+ * @property apiKey - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential
+ * @property certificate - [APN only] The URL encoded representation of the certificate
+ * @property friendlyName - A string to describe the resource
+ * @property privateKey - [APN only] The URL encoded representation of the private key
+ * @property sandbox - [APN only] Whether to send the credential to sandbox APNs
+ * @property secret - [FCM only] The Server key of your project from Firebase console
+ * @property type - The type of push-notification service the credential is for
  */
 interface CredentialListInstanceCreateOptions {
   apiKey?: string;
@@ -214,7 +214,7 @@ declare class CredentialContext {
    * Initialize the CredentialContext
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -250,7 +250,7 @@ declare class CredentialInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: CredentialPayload, sid: string);
 

@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "3.30.3",
+  "version": "3.31.0",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -20,11 +20,11 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
-    "@types/express": "^4.11.1",
+    "@types/express": "^4.16.1",
     "deprecate": "1.0.0",
-    "jsonwebtoken": "^8.1.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
-    "moment": "^2.19.3",
+    "moment": "^2.24.0",
     "q": "2.0.x",
     "request": "^2.88.0",
     "rootpath": "0.1.2",
@@ -32,14 +32,14 @@
     "xmlbuilder": "9.0.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.104",
-    "@types/node": "^9.4.6",
-    "eslint": "^5.14.0",
-    "express": "^4.16.3",
-    "jasmine": "^3.3.1",
+    "@types/lodash": "^4.14.129",
+    "@types/node": "^9.6.48",
+    "eslint": "^5.16.0",
+    "express": "^4.16.4",
+    "jasmine": "^3.4.0",
     "jsdoc": "3.5.5",
-    "jshint": "^2.9.7",
-    "node-mocks-http": "^1.7.0",
+    "jshint": "^2.10.2",
+    "node-mocks-http": "^1.7.5",
     "proxyquire": "1.8.0",
     "typescript": "^2.8.3"
   },

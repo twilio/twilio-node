@@ -29,105 +29,58 @@ describe('SubscribedTrack', function() {
       httpClient: holodeck
     });
   });
-  it('should treat the first each arg as a callback',
-    function(done) {
-      var body = JSON.stringify({
-          'subscribed_tracks': [
-              {
-                  'publisher_sid': 'PAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-                  'subscriber_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
-                  'date_updated': '2015-07-30T20:00:00Z',
-                  'sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'name': 'bob-track',
-                  'kind': 'data',
-                  'enabled': true
-              }
-          ],
-          'meta': {
-              'page': 0,
-              'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks?PageSize=50&Page=0',
-              'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks?PageSize=50&Page=0',
-              'next_page_url': null,
-              'key': 'subscribed_tracks'
-          }
+  it('should generate valid fetch request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .subscribedTracks('MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
-      holodeck.mock(new Response(200, body));
-      client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                     .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                     .subscribedTracks.each(() => done());
-    }
-  );
-  it('should treat the second arg as a callback',
-    function(done) {
-      var body = JSON.stringify({
-          'subscribed_tracks': [
-              {
-                  'publisher_sid': 'PAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-                  'subscriber_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
-                  'date_updated': '2015-07-30T20:00:00Z',
-                  'sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'name': 'bob-track',
-                  'kind': 'data',
-                  'enabled': true
-              }
-          ],
-          'meta': {
-              'page': 0,
-              'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks?PageSize=50&Page=0',
-              'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks?PageSize=50&Page=0',
-              'next_page_url': null,
-              'key': 'subscribed_tracks'
-          }
-      });
-      holodeck.mock(new Response(200, body));
-      client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                     .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                     .subscribedTracks.each({pageSize: 20}, () => done());
+      promise.done();
+
+      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var participantSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks/${sid}`;
+
       holodeck.assertHasRequest(new Request({
-          method: 'GET',
-          url: 'https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${subscriberSid}/SubscribedTracks',
-          params: {PageSize: 20},
+        method: 'GET',
+        url: url
       }));
     }
   );
-  it('should find the callback in the opts object',
-    function(done) {
+  it('should generate valid fetch response',
+    function() {
       var body = JSON.stringify({
-          'subscribed_tracks': [
-              {
-                  'publisher_sid': 'PAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-                  'subscriber_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
-                  'date_updated': '2015-07-30T20:00:00Z',
-                  'sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'name': 'bob-track',
-                  'kind': 'data',
-                  'enabled': true
-              }
-          ],
-          'meta': {
-              'page': 0,
-              'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks?PageSize=50&Page=0',
-              'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks?PageSize=50&Page=0',
-              'next_page_url': null,
-              'key': 'subscribed_tracks'
-          }
+          'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'participant_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'publisher_sid': 'PAbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'name': 'bob-track',
+          'kind': 'data',
+          'enabled': true,
+          'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks/MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
+
       holodeck.mock(new Response(200, body));
-      client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                     .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                     .subscribedTracks.each({callback: () => done()}, () => fail('wrong callback!'));
+
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .subscribedTracks('MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
     }
   );
   it('should generate valid list request',
@@ -145,8 +98,8 @@ describe('SubscribedTrack', function() {
       promise.done();
 
       var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var subscriberSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${subscriberSid}/SubscribedTracks`;
+      var participantSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -174,99 +127,6 @@ describe('SubscribedTrack', function() {
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .subscribedTracks.list();
-      promise = promise.then(function(response) {
-        expect(response).toBeDefined();
-      }, function() {
-        throw new Error('failed');
-      });
-
-      promise.done();
-    }
-  );
-  it('should generate valid read_filters response',
-    function() {
-      var body = JSON.stringify({
-          'subscribed_tracks': [
-              {
-                  'publisher_sid': 'PAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-                  'subscriber_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
-                  'date_updated': '2015-07-30T20:00:00Z',
-                  'sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'name': 'bob-track',
-                  'kind': 'data',
-                  'enabled': true
-              }
-          ],
-          'meta': {
-              'page': 0,
-              'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks?PageSize=50&Page=0',
-              'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks?PageSize=50&Page=0',
-              'next_page_url': null,
-              'key': 'subscribed_tracks'
-          }
-      });
-
-      holodeck.mock(new Response(200, body));
-
-      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .subscribedTracks.list();
-      promise = promise.then(function(response) {
-        expect(response).toBeDefined();
-      }, function() {
-        throw new Error('failed');
-      });
-
-      promise.done();
-    }
-  );
-  it('should generate valid update request',
-    function() {
-      holodeck.mock(new Response(500, '{}'));
-
-      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .subscribedTracks.update();
-      promise = promise.then(function() {
-        throw new Error('failed');
-      }, function(error) {
-        expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
-
-      var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var subscriberSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://video.twilio.com/v1/Rooms/${roomSid}/Participants/${subscriberSid}/SubscribedTracks`;
-
-      holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
-      }));
-    }
-  );
-  it('should generate valid update_filters response',
-    function() {
-      var body = JSON.stringify({
-          'publisher_sid': null,
-          'subscriber_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': null,
-          'date_updated': null,
-          'sid': null,
-          'name': 'bob-track',
-          'kind': 'data',
-          'enabled': null
-      });
-
-      holodeck.mock(new Response(202, body));
-
-      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .subscribedTracks.update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

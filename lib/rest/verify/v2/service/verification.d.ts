@@ -65,7 +65,7 @@ interface VerificationListInstance {
  * @property channel - The verification method to use
  * @property customCode - A pre-generated code
  * @property customMessage - The text of a custom message to use for the verification
- * @property locale - The local to use for the verification SMS or call
+ * @property locale - The locale to use for the verification SMS or call
  * @property payee - The payee of the associated PSD2 compliant transaction
  * @property sendDigits - The digits to send after a phone call is answered
  * @property to - The phone number to verify

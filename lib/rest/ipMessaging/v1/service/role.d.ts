@@ -17,14 +17,14 @@ type RoleRoleType = 'channel'|'deployment';
  * Initialize the RoleList
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique id of the Service this role belongs to.
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
 declare function RoleList(version: V1, serviceSid: string): RoleListInstance;
 
 /**
  * Options to pass to update
  *
- * @property permission - A permission this role should have.
+ * @property permission - A permission the role should have
  */
 interface RoleInstanceUpdateOptions {
   permission: string[];
@@ -61,7 +61,7 @@ interface RoleListInstance {
   /**
    * Constructs a role
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): RoleContext;
   /**
@@ -107,9 +107,9 @@ interface RoleListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - The human-readable name of this role.
- * @property permission - A permission this role should have.
- * @property type - What kind of role this is.
+ * @property friendlyName - A string to describe the new resource
+ * @property permission - A permission the role should have
+ * @property type - The type of role
  */
 interface RoleListInstanceCreateOptions {
   friendlyName: string;
@@ -199,8 +199,8 @@ declare class RoleContext {
    * Initialize the RoleContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -236,8 +236,8 @@ declare class RoleInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique id of the Service this role belongs to.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: RolePayload, serviceSid: string, sid: string);
 

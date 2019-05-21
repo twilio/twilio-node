@@ -153,7 +153,7 @@ interface DataSessionResource {
   cell_id: string;
   cell_location_estimate: string;
   end: Date;
-  imeisv: string;
+  imei: string;
   last_updated: Date;
   operator_country: string;
   operator_mcc: string;
@@ -186,7 +186,7 @@ declare class DataSessionInstance extends SerializableClass {
   cellId: string;
   cellLocationEstimate: string;
   end: Date;
-  imeisv: string;
+  imei: string;
   lastUpdated: Date;
   operatorCountry: string;
   operatorMcc: string;

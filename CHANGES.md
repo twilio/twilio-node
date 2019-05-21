@@ -1,6 +1,37 @@
 twilio-node changelog
 =====================
 
+[2019-05-15] Version 3.31.0
+----------------------------
+**Library**
+- [PR #447](https://github.com/twilio/twilio-node/pull/447): Check X-Twilio-Signature in webhook middleware. Thanks to [@neerajwadhwa](https://github.com/neerajwadhwa)!
+- [PR #444](https://github.com/twilio/twilio-node/pull/444): Allow using newer moment versions. Thanks to [@szedlakmate](https://github.com/szedlakmate)!
+
+**Api**
+- Make `method` optional for queue members update
+
+**Chat**
+- Removed `webhook.*.format` update parameters in Service resource from public library visibility in v1 **(breaking change)**
+
+**Insights**
+- Added client metrics as sdk_edge to summary.
+- Added optional query param processing_state.
+
+**Numbers**
+- Add addtional metadata fields on a Document
+- Add status callback fields and parameters
+
+**Taskrouter**
+- Added `channel_optimized_routing` attribute to task-channel endpoint
+
+**Video**
+- [Rooms] Add Video Subscription API
+
+**Wireless**
+- Added `imei` to Data Session resource.
+- Remove `imeisv` from Data Session resource. **(breaking change)**
+
+
 [2019-05-01] Version 3.30.3
 ----------------------------
 **Serverless**

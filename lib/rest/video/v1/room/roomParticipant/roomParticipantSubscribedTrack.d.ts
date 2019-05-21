@@ -8,23 +8,24 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 type SubscribedTrackKind = 'audio'|'video'|'data';
-
-type SubscribedTrackStatus = 'subscribe'|'unsubscribe';
 
 /**
  * Initialize the SubscribedTrackList
  *
  * @param version - Version of the resource
- * @param roomSid - The room_sid
- * @param subscriberSid - The subscriber_sid
+ * @param roomSid - Unique Room identifier where this Track is published.
+ * @param participantSid - Unique Participant identifier that subscribes to this Track.
  */
-declare function SubscribedTrackList(version: V1, roomSid: string, subscriberSid: string): SubscribedTrackListInstance;
+declare function SubscribedTrackList(version: V1, roomSid: string, participantSid: string): SubscribedTrackListInstance;
 
 interface SubscribedTrackListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  (sid: string): SubscribedTrackContext;
   /**
    * Streams SubscribedTrackInstance records from the API.
    *
@@ -41,6 +42,12 @@ interface SubscribedTrackListInstance {
    * @param callback - Function to process each record
    */
   each(opts?: SubscribedTrackListInstanceEachOptions, callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Constructs a subscribed_track
+   *
+   * @param sid - A 34 character string that uniquely identifies this resource.
+   */
+  get(sid: string): SubscribedTrackContext;
   /**
    * Retrieve a single target page of SubscribedTrackInstance records from the API.
    *
@@ -79,13 +86,6 @@ interface SubscribedTrackListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  /**
-   * update a SubscribedTrackInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SubscribedTrackListInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedTrackListInstance) => any): Promise<SubscribedTrackInstance>;
 }
 
 /**
@@ -94,10 +94,7 @@ interface SubscribedTrackListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
  * @property done - Function to be called upon completion of streaming
- * @property kind - The kind
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -108,27 +105,17 @@ interface SubscribedTrackListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property publisher - The publisher
- * @property track - The track
  */
 interface SubscribedTrackListInstanceEachOptions {
   callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
   done?: Function;
-  kind?: SubscribedTrackKind;
   limit?: number;
   pageSize?: number;
-  publisher?: string;
-  track?: string;
 }
 
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
- * @property kind - The kind
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -139,55 +126,23 @@ interface SubscribedTrackListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property publisher - The publisher
- * @property track - The track
  */
 interface SubscribedTrackListInstanceOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  kind?: SubscribedTrackKind;
   limit?: number;
   pageSize?: number;
-  publisher?: string;
-  track?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
- * @property kind - The kind
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property publisher - The publisher
- * @property track - The track
  */
 interface SubscribedTrackListInstancePageOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  kind?: SubscribedTrackKind;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  publisher?: string;
-  track?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property kind - The kind
- * @property publisher - The publisher
- * @property status - The status
- * @property track - The track
- */
-interface SubscribedTrackListInstanceUpdateOptions {
-  kind?: SubscribedTrackKind;
-  publisher?: string;
-  status?: SubscribedTrackStatus;
-  track?: string;
 }
 
 interface SubscribedTrackPayload extends SubscribedTrackResource, Page.TwilioResponsePayload {
@@ -199,15 +154,40 @@ interface SubscribedTrackResource {
   enabled: boolean;
   kind: SubscribedTrackKind;
   name: string;
+  participant_sid: string;
   publisher_sid: string;
   room_sid: string;
   sid: string;
-  subscriber_sid: string;
+  url: string;
 }
 
 interface SubscribedTrackSolution {
+  participantSid?: string;
   roomSid?: string;
-  subscriberSid?: string;
+}
+
+
+declare class SubscribedTrackContext {
+  /**
+   * Initialize the SubscribedTrackContext
+   *
+   * @param version - Version of the resource
+   * @param roomSid - Unique Room identifier where this Track is subscribed.
+   * @param participantSid - Unique Participant identifier that subscribes to this Track.
+   * @param sid - A 34 character string that uniquely identifies this resource.
+   */
+  constructor(version: V1, roomSid: string, participantSid: string, sid: string);
+
+  /**
+   * fetch a SubscribedTrackInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -217,24 +197,33 @@ declare class SubscribedTrackInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - The room_sid
-   * @param subscriberSid - The subscriber_sid
+   * @param roomSid - Unique Room identifier where this Track is published.
+   * @param participantSid - Unique Participant identifier that subscribes to this Track.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, payload: SubscribedTrackPayload, roomSid: string, subscriberSid: string);
+  constructor(version: V1, payload: SubscribedTrackPayload, roomSid: string, participantSid: string, sid: string);
 
+  private _proxy: SubscribedTrackContext;
   dateCreated: Date;
   dateUpdated: Date;
   enabled: boolean;
+  /**
+   * fetch a SubscribedTrackInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: SubscribedTrackInstance) => any): void;
   kind: SubscribedTrackKind;
   name: string;
+  participantSid: string;
   publisherSid: string;
   roomSid: string;
   sid: string;
-  subscriberSid: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  url: string;
 }
 
 
@@ -260,4 +249,4 @@ declare class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, Subsc
   toJSON(): any;
 }
 
-export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackListInstanceEachOptions, SubscribedTrackListInstanceOptions, SubscribedTrackListInstancePageOptions, SubscribedTrackListInstanceUpdateOptions, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }
+export { SubscribedTrackContext, SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackListInstanceEachOptions, SubscribedTrackListInstanceOptions, SubscribedTrackListInstancePageOptions, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }

@@ -27,76 +27,60 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property consumptionReportInterval - ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
- * @property defaultChannelCreatorRoleSid - Channel role assigned to creator of channel when joining for first time
- * @property defaultChannelRoleSid - Channel role assigned on channel join
- * @property defaultServiceRoleSid - The default_service_role_sid
- * @property friendlyName - Human-readable name for this service instance
- * @property limits.channelMembers - The limits.channel_members
- * @property limits.userChannels - The limits.user_channels
- * @property notifications.addedToChannel.enabled - The notifications.added_to_channel.enabled
- * @property notifications.addedToChannel.template - The notifications.added_to_channel.template
- * @property notifications.invitedToChannel.enabled - The notifications.invited_to_channel.enabled
- * @property notifications.invitedToChannel.template - The notifications.invited_to_channel.template
- * @property notifications.newMessage.enabled - The notifications.new_message.enabled
- * @property notifications.newMessage.template - The notifications.new_message.template
- * @property notifications.removedFromChannel.enabled - The notifications.removed_from_channel.enabled
- * @property notifications.removedFromChannel.template - The notifications.removed_from_channel.template
- * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
- * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
- * @property reachabilityEnabled - true if the reachability feature should be enabled.
- * @property readStatusEnabled - true if the member read status feature is enabled, false if not.
- * @property typingIndicatorTimeout - ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
- * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
- * @property webhookMethod - The webhook request format to use.
- * @property webhooks.onChannelAdd.format - The webhooks.on_channel_add.format
- * @property webhooks.onChannelAdd.method - The webhooks.on_channel_add.method
- * @property webhooks.onChannelAdd.url - The webhooks.on_channel_add.url
- * @property webhooks.onChannelAdded.format - The webhooks.on_channel_added.format
- * @property webhooks.onChannelAdded.method - The webhooks.on_channel_added.method
- * @property webhooks.onChannelAdded.url - The webhooks.on_channel_added.url
- * @property webhooks.onChannelDestroy.format - The webhooks.on_channel_destroy.format
- * @property webhooks.onChannelDestroy.method - The webhooks.on_channel_destroy.method
- * @property webhooks.onChannelDestroy.url - The webhooks.on_channel_destroy.url
- * @property webhooks.onChannelDestroyed.format - The webhooks.on_channel_destroyed.format
- * @property webhooks.onChannelDestroyed.method - The webhooks.on_channel_destroyed.method
- * @property webhooks.onChannelDestroyed.url - The webhooks.on_channel_destroyed.url
- * @property webhooks.onChannelUpdate.format - The webhooks.on_channel_update.format
- * @property webhooks.onChannelUpdate.method - The webhooks.on_channel_update.method
- * @property webhooks.onChannelUpdate.url - The webhooks.on_channel_update.url
- * @property webhooks.onChannelUpdated.format - The webhooks.on_channel_updated.format
- * @property webhooks.onChannelUpdated.method - The webhooks.on_channel_updated.method
- * @property webhooks.onChannelUpdated.url - The webhooks.on_channel_updated.url
- * @property webhooks.onMemberAdd.format - The webhooks.on_member_add.format
- * @property webhooks.onMemberAdd.method - The webhooks.on_member_add.method
- * @property webhooks.onMemberAdd.url - The webhooks.on_member_add.url
- * @property webhooks.onMemberAdded.format - The webhooks.on_member_added.format
- * @property webhooks.onMemberAdded.method - The webhooks.on_member_added.method
- * @property webhooks.onMemberAdded.url - The webhooks.on_member_added.url
- * @property webhooks.onMemberRemove.format - The webhooks.on_member_remove.format
- * @property webhooks.onMemberRemove.method - The webhooks.on_member_remove.method
- * @property webhooks.onMemberRemove.url - The webhooks.on_member_remove.url
- * @property webhooks.onMemberRemoved.format - The webhooks.on_member_removed.format
- * @property webhooks.onMemberRemoved.method - The webhooks.on_member_removed.method
- * @property webhooks.onMemberRemoved.url - The webhooks.on_member_removed.url
- * @property webhooks.onMessageRemove.format - The webhooks.on_message_remove.format
- * @property webhooks.onMessageRemove.method - The webhooks.on_message_remove.method
- * @property webhooks.onMessageRemove.url - The webhooks.on_message_remove.url
- * @property webhooks.onMessageRemoved.format - The webhooks.on_message_removed.format
- * @property webhooks.onMessageRemoved.method - The webhooks.on_message_removed.method
- * @property webhooks.onMessageRemoved.url - The webhooks.on_message_removed.url
- * @property webhooks.onMessageSend.format - The webhooks.on_message_send.format
- * @property webhooks.onMessageSend.method - The webhooks.on_message_send.method
- * @property webhooks.onMessageSend.url - The webhooks.on_message_send.url
- * @property webhooks.onMessageSent.format - The webhooks.on_message_sent.format
- * @property webhooks.onMessageSent.method - The webhooks.on_message_sent.method
- * @property webhooks.onMessageSent.url - The webhooks.on_message_sent.url
- * @property webhooks.onMessageUpdate.format - The webhooks.on_message_update.format
- * @property webhooks.onMessageUpdate.method - The webhooks.on_message_update.method
- * @property webhooks.onMessageUpdate.url - The webhooks.on_message_update.url
- * @property webhooks.onMessageUpdated.format - The webhooks.on_message_updated.format
- * @property webhooks.onMessageUpdated.method - The webhooks.on_message_updated.method
- * @property webhooks.onMessageUpdated.url - The webhooks.on_message_updated.url
+ * @property consumptionReportInterval - DEPRECATED
+ * @property defaultChannelCreatorRoleSid - The channel role assigned to a channel creator when they join a new channel
+ * @property defaultChannelRoleSid - The channel role assigned to users when they are added to a channel
+ * @property defaultServiceRoleSid - The service role assigned to users when they are added to the service
+ * @property friendlyName - A string to describe the resource
+ * @property limits.channelMembers - The maximum number of Members that can be added to Channels within this Service
+ * @property limits.userChannels - The maximum number of Channels Users can be a Member of within this Service
+ * @property notifications.addedToChannel.enabled - Whether to send a notification when a member is added to a channel
+ * @property notifications.addedToChannel.template - The template to use to create the notification text displayed when a member is added to a channel
+ * @property notifications.invitedToChannel.enabled - Whether to send a notification when a user is invited to a channel
+ * @property notifications.invitedToChannel.template - The template to use to create the notification text displayed when a user is invited to a channel
+ * @property notifications.newMessage.enabled - Whether to send a notification when a new message is added to a channel
+ * @property notifications.newMessage.template - The template to use to create the notification text displayed when a new message is added to a channel
+ * @property notifications.removedFromChannel.enabled - Whether to send a notification to a user when they are removed from a channel
+ * @property notifications.removedFromChannel.template - The template to use to create the notification text displayed to a user when they are removed
+ * @property postWebhookUrl - The URL for post-event webhooks
+ * @property preWebhookUrl - The webhook URL for pre-event webhooks
+ * @property reachabilityEnabled - Whether to enable the Reachability Indicator feature for this Service instance
+ * @property readStatusEnabled - Whether to enable the Message Consumption Horizon feature
+ * @property typingIndicatorTimeout - How long in seconds to wait before assuming the user is no longer typing
+ * @property webhookFilters - The list of WebHook events that are enabled for this Service instance
+ * @property webhookMethod - The HTTP method  to use for both PRE and POST webhooks
+ * @property webhooks.onChannelAdd.method - The HTTP method to use when calling the webhooks.on_channel_add.url
+ * @property webhooks.onChannelAdd.url - The URL of the webhook to call in response to the on_channel_add event
+ * @property webhooks.onChannelAdded.method - The URL of the webhook to call in response to the on_channel_added event
+ * @property webhooks.onChannelAdded.url - The URL of the webhook to call in response to the on_channel_added event
+ * @property webhooks.onChannelDestroy.method - The HTTP method to use when calling the webhooks.on_channel_destroy.url
+ * @property webhooks.onChannelDestroy.url - The URL of the webhook to call in response to the on_channel_destroy event
+ * @property webhooks.onChannelDestroyed.method - The HTTP method to use when calling the webhooks.on_channel_destroyed.url
+ * @property webhooks.onChannelDestroyed.url - The URL of the webhook to call in response to the on_channel_added event
+ * @property webhooks.onChannelUpdate.method - The HTTP method to use when calling the webhooks.on_channel_update.url
+ * @property webhooks.onChannelUpdate.url - The URL of the webhook to call in response to the on_channel_update event
+ * @property webhooks.onChannelUpdated.method - The HTTP method to use when calling the webhooks.on_channel_updated.url
+ * @property webhooks.onChannelUpdated.url - he URL of the webhook to call in response to the on_channel_updated event
+ * @property webhooks.onMemberAdd.method - The HTTP method to use when calling the webhooks.on_member_add.url
+ * @property webhooks.onMemberAdd.url - The URL of the webhook to call in response to the on_member_add event
+ * @property webhooks.onMemberAdded.method - he HTTP method to use when calling the webhooks.on_channel_updated.url
+ * @property webhooks.onMemberAdded.url - The URL of the webhook to call in response to the on_channel_updated event
+ * @property webhooks.onMemberRemove.method - The HTTP method to use when calling the webhooks.on_member_remove.url
+ * @property webhooks.onMemberRemove.url - The URL of the webhook to call in response to the on_member_remove event
+ * @property webhooks.onMemberRemoved.method - The HTTP method to use when calling the webhooks.on_member_removed.url
+ * @property webhooks.onMemberRemoved.url - The URL of the webhook to call in response to the on_member_removed event
+ * @property webhooks.onMessageRemove.method - The HTTP method to use when calling the webhooks.on_message_remove.url
+ * @property webhooks.onMessageRemove.url - The URL of the webhook to call in response to the on_message_remove event
+ * @property webhooks.onMessageRemoved.method - The HTTP method to use when calling the webhooks.on_message_removed.url
+ * @property webhooks.onMessageRemoved.url - The URL of the webhook to call in response to the on_message_removed event
+ * @property webhooks.onMessageSend.method - The HTTP method to use when calling the webhooks.on_message_send.url
+ * @property webhooks.onMessageSend.url - The URL of the webhook to call in response to the on_message_send event
+ * @property webhooks.onMessageSent.method - The URL of the webhook to call in response to the on_message_sent event
+ * @property webhooks.onMessageSent.url - The URL of the webhook to call in response to the on_message_sent event
+ * @property webhooks.onMessageUpdate.method - The HTTP method to use when calling the webhooks.on_message_update.url
+ * @property webhooks.onMessageUpdate.url - The URL of the webhook to call in response to the on_message_update event
+ * @property webhooks.onMessageUpdated.method - The HTTP method to use when calling the webhooks.on_message_updated.url
+ * @property webhooks.onMessageUpdated.url - The URL of the webhook to call in response to the on_message_updated event
  */
 interface ServiceInstanceUpdateOptions {
   consumptionReportInterval?: number;
@@ -137,82 +121,66 @@ interface ServiceInstanceUpdateOptions {
     onMessageSend?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMessageUpdate?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMessageRemove?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onChannelAdd?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onChannelDestroy?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onChannelUpdate?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMemberAdd?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMemberRemove?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMessageSent?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMessageUpdated?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMessageRemoved?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onChannelAdded?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onChannelDestroyed?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onChannelUpdated?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMemberAdded?: {
       url?: string;
       method?: string;
-      format?: string;
     };
     onMemberRemoved?: {
       url?: string;
       method?: string;
-      format?: string;
     };
   };
 }
@@ -248,7 +216,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ServiceContext;
   /**
@@ -294,7 +262,7 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - Human-readable name for this service instance
+ * @property friendlyName - A string to describe the resource
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;
@@ -393,7 +361,7 @@ declare class ServiceContext {
    * Initialize the ServiceContext
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
@@ -432,7 +400,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 
