@@ -12,7 +12,7 @@ import { SerializableClass } from '../../../../interfaces';
 
 type VerificationChannel = 'sms'|'call';
 
-type VerificationStatus = 'canceled';
+type VerificationStatus = 'canceled'|'approved';
 
 /**
  * Initialize the VerificationList

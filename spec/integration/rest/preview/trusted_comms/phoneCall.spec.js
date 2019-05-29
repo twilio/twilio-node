@@ -33,7 +33,7 @@ describe('PhoneCall', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {from: 'from', to: 'to', url: 'url'};
+      var opts = {from: 'from', to: 'to'};
       var promise = client.preview.trusted_comms.phoneCalls.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('PhoneCall', function() {
 
       var url = 'https://preview.twilio.com/TrustedComms/Business/PhoneCalls';
 
-      var values = {From: 'from', To: 'to', Url: 'url', };
+      var values = {From: 'from', To: 'to', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -66,7 +66,7 @@ describe('PhoneCall', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: 'from', to: 'to', url: 'url'};
+      var opts = {from: 'from', to: 'to'};
       var promise = client.preview.trusted_comms.phoneCalls.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

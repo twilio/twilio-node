@@ -1,6 +1,16 @@
 twilio-node changelog
 =====================
 
+[2019-05-29] Version 3.31.1
+----------------------------
+**Library**
+- [PR #449](https://github.com/twilio/twilio-node/pull/449): Replace string templating with interpolation. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #446](https://github.com/twilio/twilio-node/pull/446): Assign default value to twilioHeader during validation. Thanks to [@mniehe](https://github.com/mniehe)!
+
+**Verify**
+- Add `approved` to status enum
+
+
 [2019-05-15] Version 3.31.0
 ----------------------------
 **Library**

@@ -193,9 +193,9 @@ describe('Composition', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'url': 'https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'compositions'
           }
@@ -270,9 +270,9 @@ describe('Composition', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'url': 'https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'compositions'
           }
@@ -352,9 +352,9 @@ describe('Composition', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'url': 'https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'compositions'
           }
@@ -389,10 +389,10 @@ describe('Composition', function() {
           'compositions': [],
           'meta': {
               'page': 0,
-              'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'page_size': 10,
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?Status=enqueued&PageSize=10&Page=0',
               'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'url': 'https://video.twilio.com/v1/Compositions?Status=enqueued&PageSize=10&Page=0',
               'next_page_url': null,
               'key': 'compositions'
           }
@@ -417,9 +417,9 @@ describe('Composition', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?Status=completed&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'url': 'https://video.twilio.com/v1/Compositions?Status=completed&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'compositions'
           }
@@ -503,9 +503,9 @@ describe('Composition', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'url': 'https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'compositions'
           }

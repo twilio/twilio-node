@@ -169,7 +169,7 @@ describe('Account', function() {
   it('should treat the first each arg as a callback',
     function(done) {
       var body = JSON.stringify({
-          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
           'accounts': [
@@ -207,7 +207,7 @@ describe('Account', function() {
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
-          'uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'page_size': 50,
           'start': 0,
           'next_page_uri': null,
@@ -220,7 +220,7 @@ describe('Account', function() {
   it('should treat the second arg as a callback',
     function(done) {
       var body = JSON.stringify({
-          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
           'accounts': [
@@ -258,7 +258,7 @@ describe('Account', function() {
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
-          'uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'page_size': 50,
           'start': 0,
           'next_page_uri': null,
@@ -276,7 +276,7 @@ describe('Account', function() {
   it('should find the callback in the opts object',
     function(done) {
       var body = JSON.stringify({
-          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
           'accounts': [
@@ -314,7 +314,7 @@ describe('Account', function() {
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
-          'uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'page_size': 50,
           'start': 0,
           'next_page_uri': null,
@@ -347,11 +347,11 @@ describe('Account', function() {
   it('should generate valid read_empty response',
     function() {
       var body = JSON.stringify({
-          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
           'accounts': [],
-          'uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'page_size': 50,
           'start': 0,
           'next_page_uri': null,
@@ -373,7 +373,7 @@ describe('Account', function() {
   it('should generate valid read_full response',
     function() {
       var body = JSON.stringify({
-          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
           'accounts': [
@@ -411,7 +411,7 @@ describe('Account', function() {
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
-          'uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'page_size': 50,
           'start': 0,
           'next_page_uri': null,

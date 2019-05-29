@@ -8,6 +8,7 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import TrustedComms = require('../TrustedComms');
+import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -38,16 +39,62 @@ interface PhoneCallListInstance {
 /**
  * Options to pass to create
  *
- * @property from - The originating Phone Number
+ * @property applicationSid - Refers to the Voice API Initiate Call parameter
+ * @property callerId - Refers to the Voice API Initiate Call parameter
+ * @property fallbackMethod - Refers to the Voice API Initiate Call parameter
+ * @property fallbackUrl - Refers to the Voice API Initiate Call parameter
+ * @property from - Twilio number from which to originate the call
+ * @property machineDetection - Refers to the Voice API Initiate Call parameter
+ * @property machineDetectionSilenceTimeout - Refers to the Voice API Initiate Call parameter
+ * @property machineDetectionSpeechEndThreshold - Refers to the Voice API Initiate Call parameter
+ * @property machineDetectionSpeechThreshold - Refers to the Voice API Initiate Call parameter
+ * @property machineDetectionTimeout - Refers to the Voice API Initiate Call parameter
+ * @property method - Refers to the Voice API Initiate Call parameter
  * @property reason - The business reason for this phone call
+ * @property record - Refers to the Voice API Initiate Call parameter
+ * @property recordingChannels - Refers to the Voice API Initiate Call parameter
+ * @property recordingStatusCallback - Refers to the Voice API Initiate Call parameter
+ * @property recordingStatusCallbackEvent - Refers to the Voice API Initiate Call parameter
+ * @property recordingStatusCallbackMethod - Refers to the Voice API Initiate Call parameter
+ * @property sendDigits - Refers to the Voice API Initiate Call parameter
+ * @property sipAuthPassword - Refers to the Voice API Initiate Call parameter
+ * @property sipAuthUsername - Refers to the Voice API Initiate Call parameter
+ * @property statusCallback - Refers to the Voice API Initiate Call parameter
+ * @property statusCallbackEvent - Refers to the Voice API Initiate Call parameter
+ * @property statusCallbackMethod - Refers to the Voice API Initiate Call parameter
+ * @property timeout - Refers to the Voice API Initiate Call parameter
  * @property to - The terminating Phone Number
- * @property url - The Twiml URL
+ * @property trim - Refers to the Voice API Initiate Call parameter
+ * @property url - Refers to the Voice API Initiate Call parameter
  */
 interface PhoneCallListInstanceCreateOptions {
+  applicationSid?: string;
+  callerId?: string;
+  fallbackMethod?: string;
+  fallbackUrl?: string;
   from: string;
+  machineDetection?: string;
+  machineDetectionSilenceTimeout?: number;
+  machineDetectionSpeechEndThreshold?: number;
+  machineDetectionSpeechThreshold?: number;
+  machineDetectionTimeout?: number;
+  method?: string;
   reason?: string;
+  record?: boolean;
+  recordingChannels?: string;
+  recordingStatusCallback?: string;
+  recordingStatusCallbackEvent?: string[];
+  recordingStatusCallbackMethod?: string;
+  sendDigits?: string;
+  sipAuthPassword?: string;
+  sipAuthUsername?: string;
+  statusCallback?: string;
+  statusCallbackEvent?: string[];
+  statusCallbackMethod?: string;
+  timeout?: number;
   to: string;
-  url: string;
+  trim?: string;
+  url?: string;
 }
 
 interface PhoneCallPayload extends PhoneCallResource, Page.TwilioResponsePayload {

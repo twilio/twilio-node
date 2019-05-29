@@ -103,13 +103,13 @@ describe('Country', function() {
               }
           ],
           'meta': {
-              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0',
+              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0',
               'key': 'content',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0'
+              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
@@ -138,13 +138,13 @@ describe('Country', function() {
               }
           ],
           'meta': {
-              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0',
+              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0',
               'key': 'content',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0'
+              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
@@ -178,13 +178,13 @@ describe('Country', function() {
               }
           ],
           'meta': {
-              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0',
+              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0',
               'key': 'content',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0'
+              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
@@ -234,13 +234,13 @@ describe('Country', function() {
               }
           ],
           'meta': {
-              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0',
+              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0',
               'key': 'content',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0'
+              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0'
           }
       });
 

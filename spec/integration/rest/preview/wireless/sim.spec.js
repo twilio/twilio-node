@@ -125,13 +125,13 @@ describe('Sim', function() {
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0'
+              'url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
@@ -171,13 +171,13 @@ describe('Sim', function() {
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0'
+              'url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
@@ -222,13 +222,13 @@ describe('Sim', function() {
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0'
+              'url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
@@ -260,13 +260,13 @@ describe('Sim', function() {
       var body = JSON.stringify({
           'sims': [],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0'
+              'url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0'
           }
       });
 
@@ -315,13 +315,13 @@ describe('Sim', function() {
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/wireless/Sims?PageSize=50&Page=0'
+              'url': 'https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0'
           }
       });
 
