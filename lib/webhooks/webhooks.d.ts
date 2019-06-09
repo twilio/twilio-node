@@ -29,19 +29,19 @@ export interface WebhookOptions {
    * auth token and validate=true, this is an error condition, so we will return
    * a 500.
    */
-  validate: boolean;
+  validate?: boolean;
   /**
    * Add helpers to the response object to improve support for XML (TwiML) rendering.  Default true.
    */
-  includeHelpers: boolean;
+  includeHelpers?: boolean;
   /**
    * Manually specify the host name used by Twilio in a number's webhook config
    */
-  host: string;
+  host?: string;
   /**
    * Manually specify the protocol used by Twilio in a number's webhook config
    */
-  protocol: string;
+  protocol?: string;
 }
 
 /**
