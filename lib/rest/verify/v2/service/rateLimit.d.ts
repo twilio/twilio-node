@@ -7,56 +7,45 @@
 
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
-import { InteractionList } from './session/interaction';
-import { InteractionListInstance } from './session/interaction';
-import { ParticipantList } from './session/participant';
-import { ParticipantListInstance } from './session/participant';
+import V2 = require('../../V2');
+import { BucketList } from './rateLimit/bucket';
+import { BucketListInstance } from './rateLimit/bucket';
 import { SerializableClass } from '../../../../interfaces';
 
-type SessionMode = 'message-only'|'voice-only'|'voice-and-message';
-
-type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
-
 /**
- * Initialize the SessionList
+ * Initialize the RateLimitList
  *
  * PLEASE NOTE that this class contains beta products that are subject to change.
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the resource's parent Service
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
-declare function SessionList(version: V1, serviceSid: string): SessionListInstance;
+declare function RateLimitList(version: V2, serviceSid: string): RateLimitListInstance;
 
 /**
  * Options to pass to update
  *
- * @property dateExpiry - The ISO 8601 date when the Session should expire
- * @property status - The new status of the resource
- * @property ttl - When the session will expire
+ * @property description - Description of this Rate Limit
  */
-interface SessionInstanceUpdateOptions {
-  dateExpiry?: Date;
-  status?: SessionStatus;
-  ttl?: number;
+interface RateLimitInstanceUpdateOptions {
+  description?: string;
 }
 
-interface SessionListInstance {
+interface RateLimitListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): SessionContext;
+  (sid: string): RateLimitContext;
   /**
-   * create a SessionInstance
+   * create a RateLimitInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: SessionListInstanceCreateOptions, callback?: (error: Error | null, item: SessionInstance) => any): Promise<SessionInstance>;
+  create(opts: RateLimitListInstanceCreateOptions, callback?: (error: Error | null, item: RateLimitInstance) => any): Promise<RateLimitInstance>;
   /**
-   * Streams SessionInstance records from the API.
+   * Streams RateLimitInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -70,15 +59,15 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SessionListInstanceEachOptions, callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: RateLimitListInstanceEachOptions, callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a session
+   * Constructs a rate_limit
    *
    * @param sid - The unique string that identifies the resource
    */
-  get(sid: string): SessionContext;
+  get(sid: string): RateLimitContext;
   /**
-   * Retrieve a single target page of SessionInstance records from the API.
+   * Retrieve a single target page of RateLimitInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -88,9 +77,9 @@ interface SessionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: RateLimitPage) => any): Promise<RateLimitPage>;
   /**
-   * Lists SessionInstance records from the API as a list.
+   * Lists RateLimitInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -98,9 +87,9 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SessionListInstanceOptions, callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
+  list(opts?: RateLimitListInstanceOptions, callback?: (error: Error | null, items: RateLimitInstance[]) => any): Promise<RateLimitInstance[]>;
   /**
-   * Retrieve a single page of SessionInstance records from the API.
+   * Retrieve a single page of RateLimitInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -110,7 +99,7 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SessionListInstancePageOptions, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  page(opts?: RateLimitListInstancePageOptions, callback?: (error: Error | null, items: RateLimitPage) => any): Promise<RateLimitPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -120,20 +109,12 @@ interface SessionListInstance {
 /**
  * Options to pass to create
  *
- * @property dateExpiry - The ISO 8601 date when the Session should expire
- * @property mode - The Mode of the Session
- * @property participants - The Participant objects to include in the new session
- * @property status - Session status
- * @property ttl - When the session will expire
- * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property description - Description of this Rate Limit
+ * @property uniqueName - A unique, developer assigned name of this Rate Limit.
  */
-interface SessionListInstanceCreateOptions {
-  dateExpiry?: Date;
-  mode?: SessionMode;
-  participants?: string[];
-  status?: SessionStatus;
-  ttl?: number;
-  uniqueName?: string;
+interface RateLimitListInstanceCreateOptions {
+  description?: string;
+  uniqueName: string;
 }
 
 /**
@@ -154,8 +135,8 @@ interface SessionListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface SessionListInstanceEachOptions {
-  callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
+interface RateLimitListInstanceEachOptions {
+  callback?: (item: RateLimitInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -175,7 +156,7 @@ interface SessionListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface SessionListInstanceOptions {
+interface RateLimitListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -187,148 +168,129 @@ interface SessionListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface SessionListInstancePageOptions {
+interface RateLimitListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {
+interface RateLimitPayload extends RateLimitResource, Page.TwilioResponsePayload {
 }
 
-interface SessionResource {
+interface RateLimitResource {
   account_sid: string;
-  closed_reason: string;
   date_created: Date;
-  date_ended: Date;
-  date_expiry: Date;
-  date_last_interaction: Date;
-  date_started: Date;
   date_updated: Date;
+  description: string;
   links: string;
-  mode: SessionMode;
   service_sid: string;
   sid: string;
-  status: SessionStatus;
-  ttl: number;
   unique_name: string;
   url: string;
 }
 
-interface SessionSolution {
+interface RateLimitSolution {
   serviceSid?: string;
 }
 
 
-declare class SessionContext {
+declare class RateLimitContext {
   /**
-   * Initialize the SessionContext
+   * Initialize the RateLimitContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param serviceSid - The SID of the Service that the resource is associated with
    * @param sid - The unique string that identifies the resource
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V2, serviceSid: string, sid: string);
 
+  buckets: BucketListInstance;
   /**
-   * fetch a SessionInstance
+   * fetch a RateLimitInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
-  interactions: InteractionListInstance;
-  participants: ParticipantListInstance;
+  fetch(callback?: (error: Error | null, items: RateLimitInstance) => any): Promise<RateLimitInstance>;
   /**
-   * remove a SessionInstance
+   * remove a RateLimitInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RateLimitInstance) => any): void;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
-   * update a SessionInstance
+   * update a RateLimitInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
+  update(opts?: RateLimitInstanceUpdateOptions, callback?: (error: Error | null, items: RateLimitInstance) => any): Promise<RateLimitInstance>;
 }
 
 
-declare class SessionInstance extends SerializableClass {
+declare class RateLimitInstance extends SerializableClass {
   /**
-   * Initialize the SessionContext
+   * Initialize the RateLimitContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the resource's parent Service
+   * @param serviceSid - The SID of the Service that the resource is associated with
    * @param sid - The unique string that identifies the resource
    */
-  constructor(version: V1, payload: SessionPayload, serviceSid: string, sid: string);
+  constructor(version: V2, payload: RateLimitPayload, serviceSid: string, sid: string);
 
-  private _proxy: SessionContext;
+  private _proxy: RateLimitContext;
   accountSid: string;
-  closedReason: string;
+  /**
+   * Access the buckets
+   */
+  buckets(): BucketListInstance;
   dateCreated: Date;
-  dateEnded: Date;
-  dateExpiry: Date;
-  dateLastInteraction: Date;
-  dateStarted: Date;
   dateUpdated: Date;
+  description: string;
   /**
-   * fetch a SessionInstance
+   * fetch a RateLimitInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SessionInstance) => any): void;
-  /**
-   * Access the interactions
-   */
-  interactions(): InteractionListInstance;
+  fetch(callback?: (error: Error | null, items: RateLimitInstance) => any): void;
   links: string;
-  mode: SessionMode;
   /**
-   * Access the participants
-   */
-  participants(): ParticipantListInstance;
-  /**
-   * remove a SessionInstance
+   * remove a RateLimitInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RateLimitInstance) => any): void;
   serviceSid: string;
   sid: string;
-  status: SessionStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  ttl: number;
   uniqueName: string;
   /**
-   * update a SessionInstance
+   * update a RateLimitInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): void;
+  update(opts?: RateLimitInstanceUpdateOptions, callback?: (error: Error | null, items: RateLimitInstance) => any): void;
   url: string;
 }
 
 
-declare class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
+declare class RateLimitPage extends Page<V2, RateLimitPayload, RateLimitResource, RateLimitInstance> {
   /**
-   * Initialize the SessionPage
+   * Initialize the RateLimitPage
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
@@ -337,18 +299,18 @@ declare class SessionPage extends Page<V1, SessionPayload, SessionResource, Sess
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: SessionSolution);
+  constructor(version: V2, response: Response<string>, solution: RateLimitSolution);
 
   /**
-   * Build an instance of SessionInstance
+   * Build an instance of RateLimitInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SessionPayload): SessionInstance;
+  getInstance(payload: RateLimitPayload): RateLimitInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionListInstanceCreateOptions, SessionListInstanceEachOptions, SessionListInstanceOptions, SessionListInstancePageOptions, SessionPage, SessionPayload, SessionResource, SessionSolution }
+export { RateLimitContext, RateLimitInstance, RateLimitList, RateLimitListInstance, RateLimitListInstanceCreateOptions, RateLimitListInstanceEachOptions, RateLimitListInstanceOptions, RateLimitListInstancePageOptions, RateLimitPage, RateLimitPayload, RateLimitResource, RateLimitSolution }

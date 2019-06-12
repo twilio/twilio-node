@@ -8,6 +8,7 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
+import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 type VerificationChannel = 'sms'|'call';
@@ -67,6 +68,7 @@ interface VerificationListInstance {
  * @property customMessage - The text of a custom message to use for the verification
  * @property locale - The locale to use for the verification SMS or call
  * @property payee - The payee of the associated PSD2 compliant transaction
+ * @property rateLimits - The custom key-value pairs of Programmable Rate Limits.
  * @property sendDigits - The digits to send after a phone call is answered
  * @property to - The phone number to verify
  */
@@ -77,6 +79,7 @@ interface VerificationListInstanceCreateOptions {
   customMessage?: string;
   locale?: string;
   payee?: string;
+  rateLimits?: string;
   sendDigits?: string;
   to: string;
 }

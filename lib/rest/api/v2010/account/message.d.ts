@@ -21,7 +21,7 @@ type MessageContentRetention = 'retain'|'discard';
 
 type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
 
-type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted';
+type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read';
 
 type MessageTrafficType = 'free';
 
@@ -255,7 +255,7 @@ interface MessageResource {
   messaging_service_sid: string;
   num_media: string;
   num_segments: string;
-  price: number;
+  price: string;
   price_unit: string;
   sid: string;
   status: MessageStatus;
@@ -346,7 +346,7 @@ declare class MessageInstance extends SerializableClass {
   messagingServiceSid: string;
   numMedia: string;
   numSegments: string;
-  price: number;
+  price: string;
   priceUnit: string;
   /**
    * remove a MessageInstance

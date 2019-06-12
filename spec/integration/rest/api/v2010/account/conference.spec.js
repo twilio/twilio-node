@@ -181,29 +181,59 @@ describe('Conference', function() {
       var body = JSON.stringify({
           'conferences': [
               {
-                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'api_version': '2010-04-01',
-                  'date_created': 'Mon, 22 Aug 2011 20:58:45 +0000',
-                  'date_updated': 'Mon, 22 Aug 2011 20:58:46 +0000',
-                  'friendly_name': null,
-                  'region': 'us1',
-                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'in-progress',
+                  'region': 'jp1',
+                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_updated': 'Sat, 03 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Sat, 03 Jan 2015 11:23:45 +0000',
                   'subresource_uris': {
                       'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json',
                       'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
                   },
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'unknown',
+                  'sid': 'CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+                  'date_updated': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'us1',
+                  'sid': 'CFcccccccccccccccccccccccccccccccc',
+                  'date_updated': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
           'next_page_uri': null,
-          'page': 0,
-          'page_size': 1,
           'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
+          'page': 0,
+          'page_size': 3,
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1'
+          'end': 2
       });
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -215,29 +245,59 @@ describe('Conference', function() {
       var body = JSON.stringify({
           'conferences': [
               {
-                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'api_version': '2010-04-01',
-                  'date_created': 'Mon, 22 Aug 2011 20:58:45 +0000',
-                  'date_updated': 'Mon, 22 Aug 2011 20:58:46 +0000',
-                  'friendly_name': null,
-                  'region': 'us1',
-                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'in-progress',
+                  'region': 'jp1',
+                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_updated': 'Sat, 03 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Sat, 03 Jan 2015 11:23:45 +0000',
                   'subresource_uris': {
                       'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json',
                       'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
                   },
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'unknown',
+                  'sid': 'CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+                  'date_updated': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'us1',
+                  'sid': 'CFcccccccccccccccccccccccccccccccc',
+                  'date_updated': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
           'next_page_uri': null,
-          'page': 0,
-          'page_size': 1,
           'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
+          'page': 0,
+          'page_size': 3,
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1'
+          'end': 2
       });
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -254,29 +314,59 @@ describe('Conference', function() {
       var body = JSON.stringify({
           'conferences': [
               {
-                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'api_version': '2010-04-01',
-                  'date_created': 'Mon, 22 Aug 2011 20:58:45 +0000',
-                  'date_updated': 'Mon, 22 Aug 2011 20:58:46 +0000',
-                  'friendly_name': null,
-                  'region': 'us1',
-                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'in-progress',
+                  'region': 'jp1',
+                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_updated': 'Sat, 03 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Sat, 03 Jan 2015 11:23:45 +0000',
                   'subresource_uris': {
                       'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json',
                       'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
                   },
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'unknown',
+                  'sid': 'CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+                  'date_updated': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'us1',
+                  'sid': 'CFcccccccccccccccccccccccccccccccc',
+                  'date_updated': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
           'next_page_uri': null,
-          'page': 0,
-          'page_size': 1,
           'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
+          'page': 0,
+          'page_size': 3,
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1'
+          'end': 2
       });
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -305,34 +395,18 @@ describe('Conference', function() {
       }));
     }
   );
-  it('should generate valid read_full response',
+  it('should generate valid read_empty response',
     function() {
       var body = JSON.stringify({
-          'conferences': [
-              {
-                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'api_version': '2010-04-01',
-                  'date_created': 'Mon, 22 Aug 2011 20:58:45 +0000',
-                  'date_updated': 'Mon, 22 Aug 2011 20:58:46 +0000',
-                  'friendly_name': null,
-                  'region': 'us1',
-                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'in-progress',
-                  'subresource_uris': {
-                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json',
-                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
-                  },
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
-              }
-          ],
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=0',
+          'conferences': [],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=init&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=50&Page=0',
           'next_page_uri': null,
-          'page': 0,
-          'page_size': 1,
           'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=init&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=50&Page=0',
+          'page': 0,
+          'page_size': 50,
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1'
+          'end': 0
       });
 
       holodeck.mock(new Response(200, body));
@@ -348,18 +422,210 @@ describe('Conference', function() {
       promise.done();
     }
   );
-  it('should generate valid read_empty response',
+  it('should generate valid read_full response',
     function() {
       var body = JSON.stringify({
-          'conferences': [],
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=0',
+          'conferences': [
+              {
+                  'status': 'in-progress',
+                  'region': 'jp1',
+                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_updated': 'Sat, 03 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Sat, 03 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'unknown',
+                  'sid': 'CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+                  'date_updated': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'us1',
+                  'sid': 'CFcccccccccccccccccccccccccccccccc',
+                  'date_updated': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
           'next_page_uri': null,
-          'page': 0,
-          'page_size': 1,
           'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
+          'page': 0,
+          'page_size': 3,
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1'
+          'end': 2
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid read_next response',
+    function() {
+      var body = JSON.stringify({
+          'conferences': [
+              {
+                  'status': 'in-progress',
+                  'region': 'jp1',
+                  'sid': 'CFdddddddddddddddddddddddddddddddd',
+                  'date_updated': 'Thu, 01 Jan 2015 10:23:45 +0000',
+                  'date_created': 'Thu, 01 Jan 2015 10:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFdddddddddddddddddddddddddddddddd/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFdddddddddddddddddddddddddddddddd/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFdddddddddddddddddddddddddddddddd.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'unknown',
+                  'sid': 'CFeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+                  'date_updated': 'Thu, 01 Jan 2015 09:23:45 +0000',
+                  'date_created': 'Thu, 01 Jan 2015 09:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'us1',
+                  'sid': 'CFffffffffffffffffffffffffffffffff',
+                  'date_updated': 'Thu, 01 Jan 2015 08:23:45 +0000',
+                  'date_created': 'Thu, 01 Jan 2015 08:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFffffffffffffffffffffffffffffffff/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFffffffffffffffffffffffffffffffff/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFffffffffffffffffffffffffffffffff.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
+          'next_page_uri': null,
+          'previous_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0&PageToken=PBCFdddddddddddddddddddddddddddddddd',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=1&PageToken=PACFcccccccccccccccccccccccccccccccc',
+          'page': 1,
+          'page_size': 3,
+          'start': 3,
+          'end': 5
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid read_previous response',
+    function() {
+      var body = JSON.stringify({
+          'conferences': [
+              {
+                  'status': 'in-progress',
+                  'region': 'jp1',
+                  'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_updated': 'Sat, 03 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Sat, 03 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'unknown',
+                  'sid': 'CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+                  'date_updated': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Fri, 02 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'status': 'in-progress',
+                  'region': 'us1',
+                  'sid': 'CFcccccccccccccccccccccccccccccccc',
+                  'date_updated': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'date_created': 'Thu, 01 Jan 2015 11:23:45 +0000',
+                  'subresource_uris': {
+                      'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Participants.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc/Recordings.json'
+                  },
+                  'friendly_name': 'friendly_name',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFcccccccccccccccccccccccccccccccc.json',
+                  'api_version': '2010-04-01',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0',
+          'next_page_uri': null,
+          'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?Status=in-progress&DateUpdated%3E=2018-11-12&DateUpdated%3C=2018-11-11&DateCreated=2008-01-03&FriendlyName=friendly_name&DateUpdated=2018-11-13&DateCreated%3C=2008-01-01&DateCreated%3E=2008-01-02&PageSize=3&Page=0&PageToken=PBCFdddddddddddddddddddddddddddddddd',
+          'page': 0,
+          'page_size': 3,
+          'start': 0,
+          'end': 2
       });
 
       holodeck.mock(new Response(200, body));

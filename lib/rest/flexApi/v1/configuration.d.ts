@@ -59,6 +59,7 @@ interface ConfigurationResource {
   crm_type: string;
   date_created: Date;
   date_updated: Date;
+  integrations: string;
   messaging_service_instance_sid: string;
   plugin_service_attributes: string;
   plugin_service_enabled: boolean;
@@ -153,6 +154,7 @@ declare class ConfigurationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
+  integrations: string;
   messagingServiceInstanceSid: string;
   pluginServiceAttributes: string;
   pluginServiceEnabled: boolean;

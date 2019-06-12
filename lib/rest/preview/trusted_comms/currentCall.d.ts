@@ -51,12 +51,20 @@ interface CurrentCallPayload extends CurrentCallResource, Page.TwilioResponsePay
 }
 
 interface CurrentCallResource {
+  bg_color: string;
+  caller: string;
   created_at: Date;
+  font_color: string;
   from: string;
+  logo: string;
+  manager: string;
   reason: string;
+  shield_img: string;
   sid: string;
+  status: string;
   to: string;
   url: string;
+  use_case: string;
 }
 
 interface CurrentCallSolution {
@@ -103,6 +111,8 @@ declare class CurrentCallInstance extends SerializableClass {
   constructor(version: TrustedComms, payload: CurrentCallPayload);
 
   private _proxy: CurrentCallContext;
+  bgColor: string;
+  caller: string;
   createdAt: Date;
   /**
    * fetch a CurrentCallInstance
@@ -111,15 +121,21 @@ declare class CurrentCallInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: CurrentCallInstanceFetchOptions, callback?: (error: Error | null, items: CurrentCallInstance) => any): void;
+  fontColor: string;
   from: string;
+  logo: string;
+  manager: string;
   reason: string;
+  shieldImg: string;
   sid: string;
+  status: string;
   to: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
+  useCase: string;
 }
 
 

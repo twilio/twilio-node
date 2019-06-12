@@ -11,7 +11,7 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
-type FlexFlowChannelType = 'web'|'sms'|'facebook'|'whatsapp'|'line';
+type FlexFlowChannelType = 'web'|'sms'|'facebook'|'whatsapp'|'line'|'custom';
 
 type FlexFlowIntegrationType = 'studio'|'external'|'task';
 

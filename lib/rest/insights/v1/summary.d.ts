@@ -62,6 +62,7 @@ interface CallSummaryPayload extends CallSummaryResource, Page.TwilioResponsePay
 
 interface CallSummaryResource {
   account_sid: string;
+  attributes: string;
   call_sid: string;
   call_state: CallSummaryCallState;
   call_type: CallSummaryCallType;
@@ -129,6 +130,7 @@ declare class CallSummaryInstance extends SerializableClass {
 
   private _proxy: CallSummaryContext;
   accountSid: string;
+  attributes: string;
   callSid: string;
   callState: CallSummaryCallState;
   callType: CallSummaryCallType;

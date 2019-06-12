@@ -34,12 +34,16 @@ declare function ServiceList(version: V1): ServiceListInstance;
  *
  * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
  * @property friendlyName - Human-readable name for this service instance
+ * @property reachabilityDebouncingEnabled - true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
+ * @property reachabilityDebouncingWindow - Determines how long an identity must be offline before reachability webhooks fire.
  * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
  * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
  */
 interface ServiceInstanceUpdateOptions {
   aclEnabled?: boolean;
   friendlyName?: string;
+  reachabilityDebouncingEnabled?: boolean;
+  reachabilityDebouncingWindow?: number;
   reachabilityWebhooksEnabled?: boolean;
   webhookUrl?: string;
 }
@@ -75,7 +79,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - The sid
+   * @param sid - A unique identifier for this service instance.
    */
   get(sid: string): ServiceContext;
   /**
@@ -123,12 +127,16 @@ interface ServiceListInstance {
  *
  * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
  * @property friendlyName - Human-readable name for this service instance
+ * @property reachabilityDebouncingEnabled - true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
+ * @property reachabilityDebouncingWindow - Determines how long an identity must be offline before reachability webhooks fire.
  * @property reachabilityWebhooksEnabled - true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
  * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
  */
 interface ServiceListInstanceCreateOptions {
   aclEnabled?: boolean;
   friendlyName?: string;
+  reachabilityDebouncingEnabled?: boolean;
+  reachabilityDebouncingWindow?: number;
   reachabilityWebhooksEnabled?: boolean;
   webhookUrl?: string;
 }
@@ -200,6 +208,8 @@ interface ServiceResource {
   date_updated: Date;
   friendly_name: string;
   links: string;
+  reachability_debouncing_enabled: boolean;
+  reachability_debouncing_window: number;
   reachability_webhooks_enabled: boolean;
   sid: string;
   unique_name: string;
@@ -219,7 +229,7 @@ declare class ServiceContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A unique identifier for this service instance.
    */
   constructor(version: V1, sid: string);
 
@@ -262,7 +272,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A unique identifier for this service instance.
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 
@@ -283,6 +293,8 @@ declare class ServiceInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   friendlyName: string;
   links: string;
+  reachabilityDebouncingEnabled: boolean;
+  reachabilityDebouncingWindow: number;
   reachabilityWebhooksEnabled: boolean;
   /**
    * remove a ServiceInstance

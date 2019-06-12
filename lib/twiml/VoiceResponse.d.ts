@@ -550,10 +550,10 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to room
    *
-   * @property participantidentity - Participant identity when connecting to the Room
+   * @property participantIdentity - Participant identity when connecting to the Room
    */
   export interface RoomAttributes {
-    participantidentity?: string;
+    participantIdentity?: string;
   }
 
   /**

@@ -24,6 +24,8 @@ import { StyleSheetList } from './assistant/styleSheet';
 import { StyleSheetListInstance } from './assistant/styleSheet';
 import { TaskList } from './assistant/task';
 import { TaskListInstance } from './assistant/task';
+import { WebhookList } from './assistant/webhook';
+import { WebhookListInstance } from './assistant/webhook';
 
 /**
  * Initialize the AssistantList
@@ -274,6 +276,7 @@ declare class AssistantContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
+  webhooks: WebhookListInstance;
 }
 
 
@@ -355,6 +358,10 @@ declare class AssistantInstance extends SerializableClass {
    */
   update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): void;
   url: string;
+  /**
+   * Access the webhooks
+   */
+  webhooks(): WebhookListInstance;
 }
 
 

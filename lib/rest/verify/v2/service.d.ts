@@ -9,6 +9,8 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
 import serialize = require('../../../base/serialize');
+import { RateLimitList } from './service/rateLimit';
+import { RateLimitListInstance } from './service/rateLimit';
 import { SerializableClass } from '../../../interfaces';
 import { VerificationCheckList } from './service/verificationCheck';
 import { VerificationCheckListInstance } from './service/verificationCheck';
@@ -239,6 +241,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  rateLimits: RateLimitListInstance;
   /**
    * remove a ServiceInstance
    *
@@ -290,6 +293,10 @@ declare class ServiceInstance extends SerializableClass {
   links: string;
   lookupEnabled: boolean;
   psd2Enabled: boolean;
+  /**
+   * Access the rateLimits
+   */
+  rateLimits(): RateLimitListInstance;
   /**
    * remove a ServiceInstance
    *
