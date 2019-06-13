@@ -21,7 +21,7 @@ as through in-line code documentation here in the library.
 
 ## End User Docs
 
-Check out these [code examples](https://github.com/twilio/twilio-node/tree/master/examples) in JavaScript and TypeScript to get up and running quickly.
+Check out these [code examples](examples) in JavaScript and TypeScript to get up and running quickly.
 
 For detailed usage information and API docs, head out here:
 
