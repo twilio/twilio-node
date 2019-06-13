@@ -21,6 +21,8 @@ as through in-line code documentation here in the library.
 
 ## End User Docs
 
+Check out these [code examples](examples) in JavaScript and TypeScript to get up and running quickly.
+
 For detailed usage information and API docs, head out here:
 
 [https://www.twilio.com/docs/libraries/node](https://www.twilio.com/docs/libraries/node)
@@ -52,7 +54,7 @@ After cloning the repository, install the dependencies by running the following 
 npm install
 ```
 
-You can run the existing tests to see if everything is okay by executing: 
+You can run the existing tests to see if everything is okay by executing:
 
 ```bash
 npm test
