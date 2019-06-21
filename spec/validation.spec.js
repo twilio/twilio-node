@@ -91,17 +91,6 @@ describe('Request validation middleware', () => {
         originalUrl: fullUrl.pathname + fullUrl.search,
         body: defaultParams,
     };
-    const defaultRequestWithoutTwilioSignature = {
-        method: 'POST',
-        protocol: fullUrl.protocol,
-        host: fullUrl.host,
-        headers: {
-            'host': fullUrl.host,
-        },
-        url: fullUrl.pathname + fullUrl.search,
-        originalUrl: fullUrl.pathname + fullUrl.search,
-        body: defaultParams,
-    };
     const middleware = webhook(token);
     let response;
 
@@ -230,17 +219,4 @@ describe('Request validation middleware', () => {
         expect(response.statusCode).toEqual(403);
     });
 
-    it('should fail if no twilio signature is provided in the request headers', () => {
-        const newUrl = fullUrl.pathname + fullUrl.search + '&somethingUnexpected=true';
-        const request = httpMocks.createRequest(Object.assign({},
-            defaultRequestWithoutTwilioSignature, {
-            originalUrl: newUrl,
-        }));
-
-        middleware(request, response, error => {
-            expect(true).toBeFalsy();
-        });
-
-        expect(response.statusCode).toEqual(400);
-    });
 });
