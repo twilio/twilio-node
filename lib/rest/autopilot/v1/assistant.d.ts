@@ -44,6 +44,7 @@ declare function AssistantList(version: V1): AssistantListInstance;
  * @property callbackEvents - Reserved
  * @property callbackUrl - Reserved
  * @property defaults - A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
+ * @property developmentStage - A string describing the state of the assistant.
  * @property friendlyName - A string to describe the resource
  * @property logQueries - Whether queries should be logged and kept after training
  * @property styleSheet - A JSON string that defines the Assistant's style sheet
@@ -53,6 +54,7 @@ interface AssistantInstanceUpdateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
   defaults?: string;
+  developmentStage?: string;
   friendlyName?: string;
   logQueries?: boolean;
   styleSheet?: string;
@@ -220,10 +222,12 @@ interface AssistantResource {
   callback_url: string;
   date_created: Date;
   date_updated: Date;
+  development_stage: string;
   friendly_name: string;
   latest_model_build_sid: string;
   links: string;
   log_queries: boolean;
+  needs_model_build: boolean;
   sid: string;
   unique_name: string;
   url: string;
@@ -304,6 +308,7 @@ declare class AssistantInstance extends SerializableClass {
    * Access the defaults
    */
   defaults(): DefaultsListInstance;
+  developmentStage: string;
   /**
    * Access the dialogues
    */
@@ -326,6 +331,7 @@ declare class AssistantInstance extends SerializableClass {
    * Access the modelBuilds
    */
   modelBuilds(): ModelBuildListInstance;
+  needsModelBuild: boolean;
   /**
    * Access the queries
    */

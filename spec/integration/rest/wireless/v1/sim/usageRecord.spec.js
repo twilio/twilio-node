@@ -35,10 +35,58 @@ describe('UsageRecord', function() {
           'usage_records': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'commands': {},
-                  'data': {},
+                  'commands': {
+                      'billing_units': 'USD',
+                      'billed': 0,
+                      'total': 3,
+                      'from_sim': 1,
+                      'to_sim': 2,
+                      'home': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 3,
+                          'from_sim': 1,
+                          'to_sim': 2
+                      },
+                      'national_roaming': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 0,
+                          'from_sim': 0,
+                          'to_sim': 0
+                      },
+                      'international_roaming': []
+                  },
+                  'data': {
+                      'billing_units': 'USD',
+                      'billed': 0.35,
+                      'total': 3494609,
+                      'upload': 731560,
+                      'download': 2763049,
+                      'units': 'bytes',
+                      'home': {
+                          'billing_units': 'USD',
+                          'billed': 0.35,
+                          'total': 3494609,
+                          'upload': 731560,
+                          'download': 2763049,
+                          'units': 'bytes'
+                      },
+                      'national_roaming': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 0,
+                          'upload': 0,
+                          'download': 0,
+                          'units': 'bytes'
+                      },
+                      'international_roaming': []
+                  },
                   'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'period': {}
+                  'period': {
+                      'start': '2015-07-30T20:00:00Z',
+                      'end': '2015-07-30T20:00:00Z'
+                  }
               },
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -69,10 +117,58 @@ describe('UsageRecord', function() {
           'usage_records': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'commands': {},
-                  'data': {},
+                  'commands': {
+                      'billing_units': 'USD',
+                      'billed': 0,
+                      'total': 3,
+                      'from_sim': 1,
+                      'to_sim': 2,
+                      'home': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 3,
+                          'from_sim': 1,
+                          'to_sim': 2
+                      },
+                      'national_roaming': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 0,
+                          'from_sim': 0,
+                          'to_sim': 0
+                      },
+                      'international_roaming': []
+                  },
+                  'data': {
+                      'billing_units': 'USD',
+                      'billed': 0.35,
+                      'total': 3494609,
+                      'upload': 731560,
+                      'download': 2763049,
+                      'units': 'bytes',
+                      'home': {
+                          'billing_units': 'USD',
+                          'billed': 0.35,
+                          'total': 3494609,
+                          'upload': 731560,
+                          'download': 2763049,
+                          'units': 'bytes'
+                      },
+                      'national_roaming': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 0,
+                          'upload': 0,
+                          'download': 0,
+                          'units': 'bytes'
+                      },
+                      'international_roaming': []
+                  },
                   'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'period': {}
+                  'period': {
+                      'start': '2015-07-30T20:00:00Z',
+                      'end': '2015-07-30T20:00:00Z'
+                  }
               },
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -108,10 +204,58 @@ describe('UsageRecord', function() {
           'usage_records': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'commands': {},
-                  'data': {},
+                  'commands': {
+                      'billing_units': 'USD',
+                      'billed': 0,
+                      'total': 3,
+                      'from_sim': 1,
+                      'to_sim': 2,
+                      'home': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 3,
+                          'from_sim': 1,
+                          'to_sim': 2
+                      },
+                      'national_roaming': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 0,
+                          'from_sim': 0,
+                          'to_sim': 0
+                      },
+                      'international_roaming': []
+                  },
+                  'data': {
+                      'billing_units': 'USD',
+                      'billed': 0.35,
+                      'total': 3494609,
+                      'upload': 731560,
+                      'download': 2763049,
+                      'units': 'bytes',
+                      'home': {
+                          'billing_units': 'USD',
+                          'billed': 0.35,
+                          'total': 3494609,
+                          'upload': 731560,
+                          'download': 2763049,
+                          'units': 'bytes'
+                      },
+                      'national_roaming': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 0,
+                          'upload': 0,
+                          'download': 0,
+                          'units': 'bytes'
+                      },
+                      'international_roaming': []
+                  },
                   'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'period': {}
+                  'period': {
+                      'start': '2015-07-30T20:00:00Z',
+                      'end': '2015-07-30T20:00:00Z'
+                  }
               },
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -164,10 +308,58 @@ describe('UsageRecord', function() {
           'usage_records': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'commands': {},
-                  'data': {},
+                  'commands': {
+                      'billing_units': 'USD',
+                      'billed': 0,
+                      'total': 3,
+                      'from_sim': 1,
+                      'to_sim': 2,
+                      'home': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 3,
+                          'from_sim': 1,
+                          'to_sim': 2
+                      },
+                      'national_roaming': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 0,
+                          'from_sim': 0,
+                          'to_sim': 0
+                      },
+                      'international_roaming': []
+                  },
+                  'data': {
+                      'billing_units': 'USD',
+                      'billed': 0.35,
+                      'total': 3494609,
+                      'upload': 731560,
+                      'download': 2763049,
+                      'units': 'bytes',
+                      'home': {
+                          'billing_units': 'USD',
+                          'billed': 0.35,
+                          'total': 3494609,
+                          'upload': 731560,
+                          'download': 2763049,
+                          'units': 'bytes'
+                      },
+                      'national_roaming': {
+                          'billing_units': 'USD',
+                          'billed': 0,
+                          'total': 0,
+                          'upload': 0,
+                          'download': 0,
+                          'units': 'bytes'
+                      },
+                      'international_roaming': []
+                  },
                   'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'period': {}
+                  'period': {
+                      'start': '2015-07-30T20:00:00Z',
+                      'end': '2015-07-30T20:00:00Z'
+                  }
               },
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',

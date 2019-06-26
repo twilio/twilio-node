@@ -22,7 +22,7 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('CurrentCall', function() {
+describe('Cps', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -33,7 +33,7 @@ describe('CurrentCall', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.trusted_comms.currentCalls().fetch();
+      var promise = client.preview.trusted_comms.cps().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,7 +41,7 @@ describe('CurrentCall', function() {
       });
       promise.done();
 
-      var url = 'https://preview.twilio.com/TrustedComms/CurrentCall';
+      var url = 'https://preview.twilio.com/TrustedComms/CPS';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -49,28 +49,17 @@ describe('CurrentCall', function() {
       }));
     }
   );
-  it('should generate valid read_found response',
+  it('should generate valid fetch response',
     function() {
       var body = JSON.stringify({
-          'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'from': '+1500123',
-          'to': '+1500456',
-          'status': 'ringing',
-          'reason': 'Hello Jhon, your bank appointment has been confirmed.',
-          'created_at': '2019-05-01T20:00:00Z',
-          'caller': 'Owl Bank',
-          'logo': 'https://www.twilio.com/marketing/bundles/company/img/logos/red/twilio-logo-red.png',
-          'bg_color': '#fff',
-          'font_color': '#f22f46',
-          'use_case': 'conversational',
-          'manager': 'Twilio',
-          'shield_img': 'https://www.twilio.com/marketing/bundles/company/img/badges/red/twilio-badge-red.png',
-          'url': 'https://preview.twilio.com/TrustedComms/CurrentCall'
+          'phone_number': '+1500123',
+          'cps_url': 'https://preview.twilio.com/TrustedComms/CurrentCall',
+          'url': 'https://preview.twilio.com/TrustedComms/CPS'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.trusted_comms.currentCalls().fetch();
+      var promise = client.preview.trusted_comms.cps().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

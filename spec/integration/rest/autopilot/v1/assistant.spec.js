@@ -59,6 +59,8 @@ describe('Assistant', function() {
           'friendly_name': 'so so friendly',
           'latest_model_build_sid': null,
           'log_queries': true,
+          'development_stage': 'in-development',
+          'needs_model_build': false,
           'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'so-so-unique',
           'links': {
@@ -99,6 +101,8 @@ describe('Assistant', function() {
                   'friendly_name': 'so so friendly',
                   'latest_model_build_sid': null,
                   'log_queries': true,
+                  'development_stage': 'in-development',
+                  'needs_model_build': false,
                   'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'unique_name': 'so-so-unique',
                   'links': {
@@ -141,6 +145,8 @@ describe('Assistant', function() {
                   'friendly_name': 'so so friendly',
                   'latest_model_build_sid': null,
                   'log_queries': true,
+                  'development_stage': 'in-development',
+                  'needs_model_build': false,
                   'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'unique_name': 'so-so-unique',
                   'links': {
@@ -188,6 +194,8 @@ describe('Assistant', function() {
                   'friendly_name': 'so so friendly',
                   'latest_model_build_sid': null,
                   'log_queries': true,
+                  'development_stage': 'in-development',
+                  'needs_model_build': false,
                   'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'unique_name': 'so-so-unique',
                   'links': {
@@ -277,6 +285,8 @@ describe('Assistant', function() {
                   'friendly_name': 'so so friendly',
                   'latest_model_build_sid': null,
                   'log_queries': true,
+                  'development_stage': 'in-development',
+                  'needs_model_build': false,
                   'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'unique_name': 'so-so-unique',
                   'links': {
@@ -346,6 +356,8 @@ describe('Assistant', function() {
           'friendly_name': 'so so friendly',
           'latest_model_build_sid': null,
           'log_queries': true,
+          'development_stage': 'in-development',
+          'needs_model_build': false,
           'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'so-so-unique',
           'links': {
@@ -405,6 +417,8 @@ describe('Assistant', function() {
           'friendly_name': 'so so friendly',
           'latest_model_build_sid': null,
           'log_queries': true,
+          'development_stage': 'in-development',
+          'needs_model_build': false,
           'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'so-so-unique',
           'links': {

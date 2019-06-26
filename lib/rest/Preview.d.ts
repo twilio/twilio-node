@@ -20,6 +20,7 @@ import { AssistantListInstance } from './preview/understand/assistant';
 import { AuthorizationDocumentListInstance } from './preview/hosted_numbers/authorizationDocument';
 import { AvailableAddOnListInstance } from './preview/marketplace/availableAddOn';
 import { CommandListInstance } from './preview/wireless/command';
+import { CpsListInstance } from './preview/trusted_comms/cps';
 import { CurrentCallListInstance } from './preview/trusted_comms/currentCall';
 import { DeviceListInstance } from './preview/trusted_comms/device';
 import { ExportConfigurationListInstance } from './preview/bulk_exports/exportConfiguration';
@@ -47,6 +48,7 @@ declare class Preview extends Domain {
   readonly availableAddOns: AvailableAddOnListInstance;
   readonly bulk_exports: BulkExports;
   readonly commands: CommandListInstance;
+  readonly cps: CpsListInstance;
   readonly currentCalls: CurrentCallListInstance;
   readonly deployed_devices: DeployedDevices;
   readonly devices: DeviceListInstance;

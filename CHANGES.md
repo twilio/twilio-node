@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2019-06-26] Version 3.33.0
+----------------------------
+**Library**
+- [PR #457](https://github.com/twilio/twilio-node/pull/457): Add link to code examples in README. Thanks to [@annthurium](https://github.com/annthurium)!
+
+**Autopilot**
+- Adds two new properties in Assistant i.e needs_model_build and development_stage
+
+**Preview**
+- Changed phone numbers from _URL|Path_ to `X-XCNAM-Sensitive` headers **(breaking change)**
+
+**Verify**
+- Add `MessagingConfiguration` resource to verify service
+
+
 [2019-06-12] Version 3.32.0
 ----------------------------
 **Library**

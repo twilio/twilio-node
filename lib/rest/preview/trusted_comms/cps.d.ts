@@ -11,7 +11,7 @@ import TrustedComms = require('../TrustedComms');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * Initialize the CurrentCallList
+ * Initialize the CpsList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
@@ -19,50 +19,39 @@ import { SerializableClass } from '../../../interfaces';
  *
  * @param version - Version of the resource
  */
-declare function CurrentCallList(version: TrustedComms): CurrentCallListInstance;
+declare function CpsList(version: TrustedComms): CpsListInstance;
 
-interface CurrentCallListInstance {
+interface CpsListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): CurrentCallContext;
+  (sid: string): CpsContext;
   /**
-   * Constructs a current_call
+   * Constructs a cps
    */
-  get(): CurrentCallContext;
+  get(): CpsContext;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-interface CurrentCallPayload extends CurrentCallResource, Page.TwilioResponsePayload {
+interface CpsPayload extends CpsResource, Page.TwilioResponsePayload {
 }
 
-interface CurrentCallResource {
-  bg_color: string;
-  caller: string;
-  created_at: Date;
-  font_color: string;
-  from: string;
-  logo: string;
-  manager: string;
-  reason: string;
-  shield_img: string;
-  sid: string;
-  status: string;
-  to: string;
+interface CpsResource {
+  cps_url: string;
+  phone_number: string;
   url: string;
-  use_case: string;
 }
 
-interface CurrentCallSolution {
+interface CpsSolution {
 }
 
 
-declare class CurrentCallContext {
+declare class CpsContext {
   /**
-   * Initialize the CurrentCallContext
+   * Initialize the CpsContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -73,11 +62,11 @@ declare class CurrentCallContext {
   constructor(version: TrustedComms);
 
   /**
-   * fetch a CurrentCallInstance
+   * fetch a CpsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  fetch(callback?: (error: Error | null, items: CpsInstance) => any): Promise<CpsInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -85,9 +74,9 @@ declare class CurrentCallContext {
 }
 
 
-declare class CurrentCallInstance extends SerializableClass {
+declare class CpsInstance extends SerializableClass {
   /**
-   * Initialize the CurrentCallContext
+   * Initialize the CpsContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -96,39 +85,28 @@ declare class CurrentCallInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: TrustedComms, payload: CurrentCallPayload);
+  constructor(version: TrustedComms, payload: CpsPayload);
 
-  private _proxy: CurrentCallContext;
-  bgColor: string;
-  caller: string;
-  createdAt: Date;
+  private _proxy: CpsContext;
+  cpsUrl: string;
   /**
-   * fetch a CurrentCallInstance
+   * fetch a CpsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CurrentCallInstance) => any): void;
-  fontColor: string;
-  from: string;
-  logo: string;
-  manager: string;
-  reason: string;
-  shieldImg: string;
-  sid: string;
-  status: string;
-  to: string;
+  fetch(callback?: (error: Error | null, items: CpsInstance) => any): void;
+  phoneNumber: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
-  useCase: string;
 }
 
 
-declare class CurrentCallPage extends Page<TrustedComms, CurrentCallPayload, CurrentCallResource, CurrentCallInstance> {
+declare class CpsPage extends Page<TrustedComms, CpsPayload, CpsResource, CpsInstance> {
   /**
-   * Initialize the CurrentCallPage
+   * Initialize the CpsPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -138,18 +116,18 @@ declare class CurrentCallPage extends Page<TrustedComms, CurrentCallPayload, Cur
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: TrustedComms, response: Response<string>, solution: CurrentCallSolution);
+  constructor(version: TrustedComms, response: Response<string>, solution: CpsSolution);
 
   /**
-   * Build an instance of CurrentCallInstance
+   * Build an instance of CpsInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CurrentCallPayload): CurrentCallInstance;
+  getInstance(payload: CpsPayload): CpsInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { CurrentCallContext, CurrentCallInstance, CurrentCallList, CurrentCallListInstance, CurrentCallPage, CurrentCallPayload, CurrentCallResource, CurrentCallSolution }
+export { CpsContext, CpsInstance, CpsList, CpsListInstance, CpsPage, CpsPayload, CpsResource, CpsSolution }

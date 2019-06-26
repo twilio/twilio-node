@@ -9,6 +9,8 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
 import serialize = require('../../../base/serialize');
+import { MessagingConfigurationList } from './service/messagingConfiguration';
+import { MessagingConfigurationListInstance } from './service/messagingConfiguration';
 import { RateLimitList } from './service/rateLimit';
 import { RateLimitListInstance } from './service/rateLimit';
 import { SerializableClass } from '../../../interfaces';
@@ -241,6 +243,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  messagingConfigurations: MessagingConfigurationListInstance;
   rateLimits: RateLimitListInstance;
   /**
    * remove a ServiceInstance
@@ -292,6 +295,10 @@ declare class ServiceInstance extends SerializableClass {
   friendlyName: string;
   links: string;
   lookupEnabled: boolean;
+  /**
+   * Access the messagingConfigurations
+   */
+  messagingConfigurations(): MessagingConfigurationListInstance;
   psd2Enabled: boolean;
   /**
    * Access the rateLimits

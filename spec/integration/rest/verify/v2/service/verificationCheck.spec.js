@@ -63,9 +63,9 @@ describe('VerificationCheck', function() {
           'to': '+14159373912',
           'channel': 'sms',
           'status': 'approved',
-          'valid': false,
-          'amount': '$29.99',
-          'payee': 'Acme',
+          'valid': true,
+          'amount': null,
+          'payee': null,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z'
       });
