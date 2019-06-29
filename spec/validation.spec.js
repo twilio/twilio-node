@@ -241,6 +241,6 @@ describe('Request validation middleware', () => {
             expect(true).toBeFalsy();
         });
 
-        expect(response.statusCode).toEqual(400);å
+        expect(response.statusCode).toEqual(400);
     });
 });
