@@ -37,6 +37,7 @@ declare namespace twilio {
   export const jwt: JwtInterface;
   export const twiml: TwimlInterface;
   export const validateRequest: typeof webhookTools.validateRequest;
+  export const validateRequestWithBody: typeof webhookTools.validateRequestWithBody;
   export const validateExpressRequest: typeof webhookTools.validateExpressRequest;
   export const webhook: typeof webhookTools.webhook;
 }
