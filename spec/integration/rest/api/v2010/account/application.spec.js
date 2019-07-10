@@ -33,9 +33,8 @@ describe('Application', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendly_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .applications.create(opts);
+                                    .applications.create();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -46,11 +45,9 @@ describe('Application', function() {
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Applications.json`;
 
-      var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -81,9 +78,8 @@ describe('Application', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .applications.create(opts);
+                                    .applications.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

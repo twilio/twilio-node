@@ -1,6 +1,20 @@
 twilio-node changelog
 =====================
 
+[2019-07-10] Version 3.33.1
+----------------------------
+**Library**
+- [PR #463](https://github.com/twilio/twilio-node/pull/463): Add missing type for 'validateRequestWithBody'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #460](https://github.com/twilio/twilio-node/pull/460): Request middleware fails on validate set to false. Thanks to [@khalilchoudhry](https://github.com/khalilchoudhry)!
+
+**Api**
+- Make `friendly_name` optional for applications create
+- Add new property `as_of` date to Usage Record API calls
+
+**Wireless**
+- Added Usage Records resource.
+
+
 [2019-06-26] Version 3.33.0
 ----------------------------
 **Library**

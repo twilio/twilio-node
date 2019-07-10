@@ -173,6 +173,7 @@ interface RecordPayload extends RecordResource, Page.TwilioResponsePayload {
 interface RecordResource {
   account_sid: string;
   api_version: string;
+  as_of: string;
   category: RecordCategory;
   count: string;
   count_unit: string;
@@ -204,6 +205,7 @@ declare class RecordInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
+  asOf: string;
   category: RecordCategory;
   count: string;
   countUnit: string;
