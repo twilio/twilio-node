@@ -219,6 +219,12 @@ declare class VariableContext {
    */
   fetch(callback?: (error: Error | null, items: VariableInstance) => any): Promise<VariableInstance>;
   /**
+   * remove a VariableInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: VariableInstance) => any): void;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -260,6 +266,12 @@ declare class VariableInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: VariableInstance) => any): void;
   key: string;
+  /**
+   * remove a VariableInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: VariableInstance) => any): void;
   serviceSid: string;
   sid: string;
   /**

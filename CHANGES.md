@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2019-07-24] Version 3.33.2
+----------------------------
+**Library**
+- [PR #464](https://github.com/twilio/twilio-node/pull/464): Bump lodash from 4.17.11 to 4.17.13. Thanks to [@dependabot[bot]](https://github.com/dependabot[bot])!
+
+**Insights**
+- Added `properties` to summary.
+
+**Preview**
+- Added endpoint to brand a call without initiating it, so it can be initiated manually by the Customer
+
+**Twiml**
+- Update `<Conference>` recording events **(breaking change)**
+
+
 [2019-07-10] Version 3.33.1
 ----------------------------
 **Library**

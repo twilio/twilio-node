@@ -161,7 +161,7 @@ declare namespace VoiceResponse {
 
   type ConferenceRecord = 'do-not-record'|'record-from-start';
 
-  type ConferenceRecordingEvent = 'started'|'stopped'|'paused'|'resumed'|'completed'|'absent';
+  type ConferenceRecordingEvent = 'in-progress'|'completed'|'absent';
 
   type ConferenceRegion = 'us1'|'ie1'|'sg1'|'br1'|'au1'|'jp1'|'de1';
 

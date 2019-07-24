@@ -19,6 +19,7 @@ import Wireless = require('./preview/Wireless');
 import { AssistantListInstance } from './preview/understand/assistant';
 import { AuthorizationDocumentListInstance } from './preview/hosted_numbers/authorizationDocument';
 import { AvailableAddOnListInstance } from './preview/marketplace/availableAddOn';
+import { BrandedCallListInstance } from './preview/trusted_comms/brandedCall';
 import { CommandListInstance } from './preview/wireless/command';
 import { CpsListInstance } from './preview/trusted_comms/cps';
 import { CurrentCallListInstance } from './preview/trusted_comms/currentCall';
@@ -46,6 +47,7 @@ declare class Preview extends Domain {
   readonly assistants: AssistantListInstance;
   readonly authorizationDocuments: AuthorizationDocumentListInstance;
   readonly availableAddOns: AvailableAddOnListInstance;
+  readonly brandedCalls: BrandedCallListInstance;
   readonly bulk_exports: BulkExports;
   readonly commands: CommandListInstance;
   readonly cps: CpsListInstance;

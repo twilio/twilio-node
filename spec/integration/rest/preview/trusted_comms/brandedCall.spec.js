@@ -22,18 +22,19 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('CallSummary', function() {
+describe('BrandedCall', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
-  it('should generate valid fetch request',
+  it('should generate valid create request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.insights.v1.summary('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var opts = {from: 'from', to: 'to', reason: 'reason'};
+      var promise = client.preview.trusted_comms.brandedCalls.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,46 +42,37 @@ describe('CallSummary', function() {
       });
       promise.done();
 
-      var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://insights.twilio.com/v1/Voice/${callSid}/Summary`;
+      var url = 'https://preview.twilio.com/TrustedComms/Business/BrandedCalls';
 
+      var values = {From: 'from', To: 'to', Reason: 'reason', };
       holodeck.assertHasRequest(new Request({
-        method: 'GET',
-        url: url
+          method: 'POST',
+          url: url,
+          data: values
       }));
     }
   );
-  it('should generate valid fetch response',
+  it('should generate valid create response',
     function() {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'call_type': 'carrier',
-          'call_state': 'ringing',
-          'processing_state': 'complete',
-          'direction': 'inbound',
-          'disconnected_by': 'callee',
-          'start_time': '2015-07-30T20:00:00Z',
-          'end_time': '2015-07-30T20:00:00Z',
-          'duration': 100,
-          'connect_duration': 99,
-          'from': {},
-          'to': {},
-          'carrier_edge': {},
-          'client_edge': {},
-          'sdk_edge': {},
-          'sip_edge': {},
-          'tags': [
-              'tags'
-          ],
-          'attributes': {},
-          'properties': {},
-          'url': 'https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Summary'
+          'bg_color': '#fff',
+          'caller': 'Owl Bank',
+          'created_at': '2019-05-01T20:00:00Z',
+          'font_color': '#000',
+          'from': '+15000000000',
+          'logo': 'https://www.twilio.com/marketing/bundles/company/img/logos/red/twilio-logo-red.png',
+          'reason': 'Hello Jhon, your appointment has been confirmed.',
+          'status': 'unknown',
+          'to': '+573000000000',
+          'use_case': 'conversational',
+          'url': 'https://preview.twilio.com/TrustedComms/Business/BrandedCalls'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
-      var promise = client.insights.v1.summary('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var opts = {from: 'from', to: 'to', reason: 'reason'};
+      var promise = client.preview.trusted_comms.brandedCalls.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

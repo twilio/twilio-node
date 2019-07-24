@@ -212,6 +212,12 @@ declare class EnvironmentContext {
    */
   fetch(callback?: (error: Error | null, items: EnvironmentInstance) => any): Promise<EnvironmentInstance>;
   /**
+   * remove a EnvironmentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -252,6 +258,12 @@ declare class EnvironmentInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
   links: string;
+  /**
+   * remove a EnvironmentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
   serviceSid: string;
   sid: string;
   /**
