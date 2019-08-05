@@ -155,6 +155,46 @@ describe('Build', function() {
       promise.done();
     }
   );
+  it('should generate valid remove request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .builds('ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Builds/${sid}`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid delete response',
+    function() {
+      var body = JSON.stringify(null);
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .builds('ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function(response) {
+        expect(response).toBe(true);
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
   it('should generate valid create request',
     function() {
       holodeck.mock(new Response(500, '{}'));

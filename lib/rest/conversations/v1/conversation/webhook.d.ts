@@ -11,34 +11,55 @@ import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
-type BuildStatus = 'building'|'completed'|'failed';
+type WebhookMethod = 'GET'|'POST';
+
+type WebhookTarget = 'webhook'|'trigger'|'studio';
 
 /**
- * Initialize the BuildList
+ * Initialize the WebhookList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param conversationSid - The unique id of the Conversation for this webhook.
  */
-declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
+declare function WebhookList(version: V1, conversationSid: string): WebhookListInstance;
 
-interface BuildListInstance {
+/**
+ * Options to pass to update
+ *
+ * @property configuration.filters - The list of events, firing webhook event for this Conversation.
+ * @property configuration.flowSid - The studio flow sid, where the webhook should be sent to.
+ * @property configuration.method - The HTTP method to be used when sending a webhook request.
+ * @property configuration.triggers - The list of keywords, firing webhook event for this Conversation.
+ * @property configuration.url - The absolute url the webhook request should be sent to.
+ */
+interface WebhookInstanceUpdateOptions {
+  configuration?: {
+    url?: string;
+    method?: WebhookMethod;
+    filters?: string[];
+    triggers?: string[];
+    flowSid?: string;
+  };
+}
+
+interface WebhookListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): BuildContext;
+  (sid: string): WebhookContext;
   /**
-   * create a BuildInstance
+   * create a WebhookInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: BuildListInstanceCreateOptions, callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
+  create(opts: WebhookListInstanceCreateOptions, callback?: (error: Error | null, item: WebhookInstance) => any): Promise<WebhookInstance>;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams WebhookInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -52,15 +73,15 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: WebhookListInstanceEachOptions, callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a build
+   * Constructs a webhook
    *
-   * @param sid - Build Sid.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  get(sid: string): BuildContext;
+  get(sid: string): WebhookContext;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of WebhookInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -70,9 +91,9 @@ interface BuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists WebhookInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -80,9 +101,9 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(opts?: WebhookListInstanceOptions, callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of WebhookInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -92,7 +113,7 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(opts?: WebhookListInstancePageOptions, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -102,14 +123,24 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - List of Asset Version Sids.
- * @property dependencies - List of Dependencies.
- * @property functionVersions - List of Function Version Sids.
+ * @property configuration.filters - The list of events, firing webhook event for this Conversation.
+ * @property configuration.flowSid - The studio flow sid, where the webhook should be sent to.
+ * @property configuration.method - The HTTP method to be used when sending a webhook request.
+ * @property configuration.replayAfter - The message index for which and it's successors the webhook will be replayed.
+ * @property configuration.triggers - The list of keywords, firing webhook event for this Conversation.
+ * @property configuration.url - The absolute url the webhook request should be sent to.
+ * @property target - The target of this webhook.
  */
-interface BuildListInstanceCreateOptions {
-  assetVersions?: string[];
-  dependencies?: string;
-  functionVersions?: string[];
+interface WebhookListInstanceCreateOptions {
+  configuration?: {
+    url?: string;
+    method?: WebhookMethod;
+    filters?: string[];
+    triggers?: string[];
+    flowSid?: string;
+    replayAfter?: number;
+  };
+  target: WebhookTarget;
 }
 
 /**
@@ -130,8 +161,8 @@ interface BuildListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceEachOptions {
-  callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
+interface WebhookListInstanceEachOptions {
+  callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -151,7 +182,7 @@ interface BuildListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceOptions {
+interface WebhookListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -163,69 +194,74 @@ interface BuildListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface BuildListInstancePageOptions {
+interface WebhookListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
+interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
 }
 
-interface BuildResource {
+interface WebhookResource {
   account_sid: string;
-  asset_versions: string;
+  configuration: string;
+  conversation_sid: string;
   date_created: Date;
   date_updated: Date;
-  dependencies: string;
-  function_versions: string;
-  service_sid: string;
   sid: string;
-  status: BuildStatus;
+  target: string;
   url: string;
 }
 
-interface BuildSolution {
-  serviceSid?: string;
+interface WebhookSolution {
+  conversationSid?: string;
 }
 
 
-declare class BuildContext {
+declare class WebhookContext {
   /**
-   * Initialize the BuildContext
+   * Initialize the WebhookContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param conversationSid - The unique id of the Conversation for this webhook.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, conversationSid: string, sid: string);
 
   /**
-   * fetch a BuildInstance
+   * fetch a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   /**
-   * remove a BuildInstance
+   * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a WebhookInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
 }
 
 
-declare class BuildInstance extends SerializableClass {
+declare class WebhookInstance extends SerializableClass {
   /**
-   * Initialize the BuildContext
+   * Initialize the WebhookContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -233,44 +269,49 @@ declare class BuildInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param conversationSid - The unique id of the Conversation for this webhook.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
+  constructor(version: V1, payload: WebhookPayload, conversationSid: string, sid: string);
 
-  private _proxy: BuildContext;
+  private _proxy: WebhookContext;
   accountSid: string;
-  assetVersions: string;
+  configuration: string;
+  conversationSid: string;
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: string;
   /**
-   * fetch a BuildInstance
+   * fetch a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  functionVersions: string;
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): void;
   /**
-   * remove a BuildInstance
+   * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  serviceSid: string;
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
   sid: string;
-  status: BuildStatus;
+  target: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a WebhookInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): void;
   url: string;
 }
 
 
-declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+declare class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
-   * Initialize the BuildPage
+   * Initialize the WebhookPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -280,18 +321,18 @@ declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInsta
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution);
+  constructor(version: V1, response: Response<string>, solution: WebhookSolution);
 
   /**
-   * Build an instance of BuildInstance
+   * Build an instance of WebhookInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance;
+  getInstance(payload: WebhookPayload): WebhookInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { BuildContext, BuildInstance, BuildList, BuildListInstance, BuildListInstanceCreateOptions, BuildListInstanceEachOptions, BuildListInstanceOptions, BuildListInstancePageOptions, BuildPage, BuildPayload, BuildResource, BuildSolution }
+export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookListInstanceCreateOptions, WebhookListInstanceEachOptions, WebhookListInstanceOptions, WebhookListInstancePageOptions, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }

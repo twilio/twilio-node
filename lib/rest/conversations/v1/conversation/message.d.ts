@@ -11,34 +11,49 @@ import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
-type BuildStatus = 'building'|'completed'|'failed';
+type MessageWebhookEnabledType = 'true'|'false';
 
 /**
- * Initialize the BuildList
+ * Initialize the MessageList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param conversationSid - The unique id of the Conversation for this message.
  */
-declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
+declare function MessageList(version: V1, conversationSid: string): MessageListInstance;
 
-interface BuildListInstance {
+/**
+ * Options to pass to update
+ *
+ * @property author - The channel specific identifier of the message's author.
+ * @property body - The content of the message.
+ * @property dateCreated - The date that this resource was created.
+ * @property dateUpdated - The date that this resource was last updated.
+ */
+interface MessageInstanceUpdateOptions {
+  author?: string;
+  body?: string;
+  dateCreated?: Date;
+  dateUpdated?: Date;
+}
+
+interface MessageListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): BuildContext;
+  (sid: string): MessageContext;
   /**
-   * create a BuildInstance
+   * create a MessageInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: BuildListInstanceCreateOptions, callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
+  create(opts?: MessageListInstanceCreateOptions, callback?: (error: Error | null, item: MessageInstance) => any): Promise<MessageInstance>;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams MessageInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -52,15 +67,15 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a build
+   * Constructs a message
    *
-   * @param sid - Build Sid.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  get(sid: string): BuildContext;
+  get(sid: string): MessageContext;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of MessageInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -70,9 +85,9 @@ interface BuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists MessageInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -80,9 +95,9 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(opts?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of MessageInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -92,7 +107,7 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(opts?: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
   /**
    * Provide a user-friendly representation
    */
@@ -102,14 +117,16 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - List of Asset Version Sids.
- * @property dependencies - List of Dependencies.
- * @property functionVersions - List of Function Version Sids.
+ * @property author - The channel specific identifier of the message's author.
+ * @property body - The content of the message.
+ * @property dateCreated - The date that this resource was created.
+ * @property dateUpdated - The date that this resource was last updated.
  */
-interface BuildListInstanceCreateOptions {
-  assetVersions?: string[];
-  dependencies?: string;
-  functionVersions?: string[];
+interface MessageListInstanceCreateOptions {
+  author?: string;
+  body?: string;
+  dateCreated?: Date;
+  dateUpdated?: Date;
 }
 
 /**
@@ -130,8 +147,8 @@ interface BuildListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceEachOptions {
-  callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
+interface MessageListInstanceEachOptions {
+  callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -151,7 +168,7 @@ interface BuildListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceOptions {
+interface MessageListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -163,69 +180,75 @@ interface BuildListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface BuildListInstancePageOptions {
+interface MessageListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
+interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
 }
 
-interface BuildResource {
+interface MessageResource {
   account_sid: string;
-  asset_versions: string;
+  author: string;
+  body: string;
+  conversation_sid: string;
   date_created: Date;
   date_updated: Date;
-  dependencies: string;
-  function_versions: string;
-  service_sid: string;
+  index: number;
   sid: string;
-  status: BuildStatus;
   url: string;
 }
 
-interface BuildSolution {
-  serviceSid?: string;
+interface MessageSolution {
+  conversationSid?: string;
 }
 
 
-declare class BuildContext {
+declare class MessageContext {
   /**
-   * Initialize the BuildContext
+   * Initialize the MessageContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param conversationSid - The unique id of the Conversation for this message.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, conversationSid: string, sid: string);
 
   /**
-   * fetch a BuildInstance
+   * fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
   /**
-   * remove a BuildInstance
+   * remove a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a MessageInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
 }
 
 
-declare class BuildInstance extends SerializableClass {
+declare class MessageInstance extends SerializableClass {
   /**
-   * Initialize the BuildContext
+   * Initialize the MessageContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -233,44 +256,50 @@ declare class BuildInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param conversationSid - The unique id of the Conversation for this message.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
+  constructor(version: V1, payload: MessagePayload, conversationSid: string, sid: string);
 
-  private _proxy: BuildContext;
+  private _proxy: MessageContext;
   accountSid: string;
-  assetVersions: string;
+  author: string;
+  body: string;
+  conversationSid: string;
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: string;
   /**
-   * fetch a BuildInstance
+   * fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  functionVersions: string;
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  index: number;
   /**
-   * remove a BuildInstance
+   * remove a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  serviceSid: string;
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
   sid: string;
-  status: BuildStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a MessageInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): void;
   url: string;
 }
 
 
-declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+declare class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
   /**
-   * Initialize the BuildPage
+   * Initialize the MessagePage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -280,18 +309,18 @@ declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInsta
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution);
+  constructor(version: V1, response: Response<string>, solution: MessageSolution);
 
   /**
-   * Build an instance of BuildInstance
+   * Build an instance of MessageInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance;
+  getInstance(payload: MessagePayload): MessageInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { BuildContext, BuildInstance, BuildList, BuildListInstance, BuildListInstanceCreateOptions, BuildListInstanceEachOptions, BuildListInstanceOptions, BuildListInstancePageOptions, BuildPage, BuildPayload, BuildResource, BuildSolution }
+export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }

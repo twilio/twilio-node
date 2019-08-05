@@ -5,16 +5,15 @@
  *       /       /
  */
 
-import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
-import { SerializableClass } from '../../../../interfaces';
+import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
+import V1 = require('../../../V1');
+import { SerializableClass } from '../../../../../interfaces';
 
-type BuildStatus = 'building'|'completed'|'failed';
+type LogLevel = 'info'|'warn'|'error';
 
 /**
- * Initialize the BuildList
+ * Initialize the LogList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
@@ -22,23 +21,17 @@ type BuildStatus = 'building'|'completed'|'failed';
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
+ * @param environmentSid - Environment Sid.
  */
-declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
+declare function LogList(version: V1, serviceSid: string, environmentSid: string): LogListInstance;
 
-interface BuildListInstance {
+interface LogListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): BuildContext;
+  (sid: string): LogContext;
   /**
-   * create a BuildInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts?: BuildListInstanceCreateOptions, callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
-  /**
-   * Streams BuildInstance records from the API.
+   * Streams LogInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -52,15 +45,15 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: LogListInstanceEachOptions, callback?: (item: LogInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a build
+   * Constructs a log
    *
-   * @param sid - Build Sid.
+   * @param sid - Log Sid.
    */
-  get(sid: string): BuildContext;
+  get(sid: string): LogContext;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of LogInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -70,9 +63,9 @@ interface BuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: LogPage) => any): Promise<LogPage>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists LogInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -80,9 +73,9 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(opts?: LogListInstanceOptions, callback?: (error: Error | null, items: LogInstance[]) => any): Promise<LogInstance[]>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of LogInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -92,24 +85,11 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(opts?: LogListInstancePageOptions, callback?: (error: Error | null, items: LogPage) => any): Promise<LogPage>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-}
-
-/**
- * Options to pass to create
- *
- * @property assetVersions - List of Asset Version Sids.
- * @property dependencies - List of Dependencies.
- * @property functionVersions - List of Function Version Sids.
- */
-interface BuildListInstanceCreateOptions {
-  assetVersions?: string[];
-  dependencies?: string;
-  functionVersions?: string[];
 }
 
 /**
@@ -119,6 +99,7 @@ interface BuildListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
+ * @property functionSid - Function Sid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -130,9 +111,10 @@ interface BuildListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceEachOptions {
-  callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
+interface LogListInstanceEachOptions {
+  callback?: (item: LogInstance, done: (err?: Error) => void) => void;
   done?: Function;
+  functionSid?: string;
   limit?: number;
   pageSize?: number;
 }
@@ -140,6 +122,7 @@ interface BuildListInstanceEachOptions {
 /**
  * Options to pass to list
  *
+ * @property functionSid - Function Sid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -151,7 +134,8 @@ interface BuildListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceOptions {
+interface LogListInstanceOptions {
+  functionSid?: string;
   limit?: number;
   pageSize?: number;
 }
@@ -159,40 +143,44 @@ interface BuildListInstanceOptions {
 /**
  * Options to pass to page
  *
+ * @property functionSid - Function Sid.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface BuildListInstancePageOptions {
+interface LogListInstancePageOptions {
+  functionSid?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
+interface LogPayload extends LogResource, Page.TwilioResponsePayload {
 }
 
-interface BuildResource {
+interface LogResource {
   account_sid: string;
-  asset_versions: string;
   date_created: Date;
-  date_updated: Date;
-  dependencies: string;
-  function_versions: string;
+  deployment_sid: string;
+  environment_sid: string;
+  function_sid: string;
+  level: LogLevel;
+  message: string;
+  request_sid: string;
   service_sid: string;
   sid: string;
-  status: BuildStatus;
   url: string;
 }
 
-interface BuildSolution {
+interface LogSolution {
+  environmentSid?: string;
   serviceSid?: string;
 }
 
 
-declare class BuildContext {
+declare class LogContext {
   /**
-   * Initialize the BuildContext
+   * Initialize the LogContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -200,22 +188,17 @@ declare class BuildContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param environmentSid - Environment Sid.
+   * @param sid - Log Sid.
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
 
   /**
-   * fetch a BuildInstance
+   * fetch a LogInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
-  /**
-   * remove a BuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: LogInstance) => any): Promise<LogInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -223,9 +206,9 @@ declare class BuildContext {
 }
 
 
-declare class BuildInstance extends SerializableClass {
+declare class LogInstance extends SerializableClass {
   /**
-   * Initialize the BuildContext
+   * Initialize the LogContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -234,32 +217,28 @@ declare class BuildInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param environmentSid - Environment Sid.
+   * @param sid - Log Sid.
    */
-  constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
+  constructor(version: V1, payload: LogPayload, serviceSid: string, environmentSid: string, sid: string);
 
-  private _proxy: BuildContext;
+  private _proxy: LogContext;
   accountSid: string;
-  assetVersions: string;
   dateCreated: Date;
-  dateUpdated: Date;
-  dependencies: string;
+  deploymentSid: string;
+  environmentSid: string;
   /**
-   * fetch a BuildInstance
+   * fetch a LogInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  functionVersions: string;
-  /**
-   * remove a BuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: LogInstance) => any): void;
+  functionSid: string;
+  level: LogLevel;
+  message: string;
+  requestSid: string;
   serviceSid: string;
   sid: string;
-  status: BuildStatus;
   /**
    * Provide a user-friendly representation
    */
@@ -268,9 +247,9 @@ declare class BuildInstance extends SerializableClass {
 }
 
 
-declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+declare class LogPage extends Page<V1, LogPayload, LogResource, LogInstance> {
   /**
-   * Initialize the BuildPage
+   * Initialize the LogPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -280,18 +259,18 @@ declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInsta
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution);
+  constructor(version: V1, response: Response<string>, solution: LogSolution);
 
   /**
-   * Build an instance of BuildInstance
+   * Build an instance of LogInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance;
+  getInstance(payload: LogPayload): LogInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { BuildContext, BuildInstance, BuildList, BuildListInstance, BuildListInstanceCreateOptions, BuildListInstanceEachOptions, BuildListInstanceOptions, BuildListInstancePageOptions, BuildPage, BuildPayload, BuildResource, BuildSolution }
+export { LogContext, LogInstance, LogList, LogListInstance, LogListInstanceEachOptions, LogListInstanceOptions, LogListInstancePageOptions, LogPage, LogPayload, LogResource, LogSolution }

@@ -11,34 +11,45 @@ import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
-type BuildStatus = 'building'|'completed'|'failed';
+type ParticipantWebhookEnabledType = 'true'|'false';
 
 /**
- * Initialize the BuildList
+ * Initialize the ParticipantList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param conversationSid - The unique id of the Conversation for this participant.
  */
-declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
+declare function ParticipantList(version: V1, conversationSid: string): ParticipantListInstance;
 
-interface BuildListInstance {
+/**
+ * Options to pass to update
+ *
+ * @property dateCreated - The date that this resource was created.
+ * @property dateUpdated - The date that this resource was last updated.
+ */
+interface ParticipantInstanceUpdateOptions {
+  dateCreated?: Date;
+  dateUpdated?: Date;
+}
+
+interface ParticipantListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): BuildContext;
+  (sid: string): ParticipantContext;
   /**
-   * create a BuildInstance
+   * create a ParticipantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: BuildListInstanceCreateOptions, callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
+  create(opts?: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item: ParticipantInstance) => any): Promise<ParticipantInstance>;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams ParticipantInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -52,15 +63,15 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a build
+   * Constructs a participant
    *
-   * @param sid - Build Sid.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  get(sid: string): BuildContext;
+  get(sid: string): ParticipantContext;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of ParticipantInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -70,9 +81,9 @@ interface BuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists ParticipantInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -80,9 +91,9 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of ParticipantInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -92,7 +103,7 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -102,14 +113,20 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - List of Asset Version Sids.
- * @property dependencies - List of Dependencies.
- * @property functionVersions - List of Function Version Sids.
+ * @property dateCreated - The date that this resource was created.
+ * @property dateUpdated - The date that this resource was last updated.
+ * @property identity - A unique string identifier for the conversation participant as Chat User.
+ * @property messagingBinding.address - The address of the participant's device.
+ * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
  */
-interface BuildListInstanceCreateOptions {
-  assetVersions?: string[];
-  dependencies?: string;
-  functionVersions?: string[];
+interface ParticipantListInstanceCreateOptions {
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  identity?: string;
+  messagingBinding?: {
+    address?: string;
+    proxyAddress?: string;
+  };
 }
 
 /**
@@ -130,8 +147,8 @@ interface BuildListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceEachOptions {
-  callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
+interface ParticipantListInstanceEachOptions {
+  callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -151,7 +168,7 @@ interface BuildListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceOptions {
+interface ParticipantListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -163,69 +180,74 @@ interface BuildListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface BuildListInstancePageOptions {
+interface ParticipantListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
+interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
 }
 
-interface BuildResource {
+interface ParticipantResource {
   account_sid: string;
-  asset_versions: string;
+  conversation_sid: string;
   date_created: Date;
   date_updated: Date;
-  dependencies: string;
-  function_versions: string;
-  service_sid: string;
+  identity: string;
+  messaging_binding: string;
   sid: string;
-  status: BuildStatus;
   url: string;
 }
 
-interface BuildSolution {
-  serviceSid?: string;
+interface ParticipantSolution {
+  conversationSid?: string;
 }
 
 
-declare class BuildContext {
+declare class ParticipantContext {
   /**
-   * Initialize the BuildContext
+   * Initialize the ParticipantContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param conversationSid - The unique id of the Conversation for this participant.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, conversationSid: string, sid: string);
 
   /**
-   * fetch a BuildInstance
+   * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   /**
-   * remove a BuildInstance
+   * remove a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ParticipantInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
 }
 
 
-declare class BuildInstance extends SerializableClass {
+declare class ParticipantInstance extends SerializableClass {
   /**
-   * Initialize the BuildContext
+   * Initialize the ParticipantContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -233,44 +255,49 @@ declare class BuildInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param conversationSid - The unique id of the Conversation for this participant.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
+  constructor(version: V1, payload: ParticipantPayload, conversationSid: string, sid: string);
 
-  private _proxy: BuildContext;
+  private _proxy: ParticipantContext;
   accountSid: string;
-  assetVersions: string;
+  conversationSid: string;
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: string;
   /**
-   * fetch a BuildInstance
+   * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  functionVersions: string;
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  identity: string;
+  messagingBinding: string;
   /**
-   * remove a BuildInstance
+   * remove a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  serviceSid: string;
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   sid: string;
-  status: BuildStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ParticipantInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   url: string;
 }
 
 
-declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * Initialize the BuildPage
+   * Initialize the ParticipantPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -280,18 +307,18 @@ declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInsta
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution);
+  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
 
   /**
-   * Build an instance of BuildInstance
+   * Build an instance of ParticipantInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance;
+  getInstance(payload: ParticipantPayload): ParticipantInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { BuildContext, BuildInstance, BuildList, BuildListInstance, BuildListInstanceCreateOptions, BuildListInstanceEachOptions, BuildListInstanceOptions, BuildListInstancePageOptions, BuildPage, BuildPayload, BuildResource, BuildSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
