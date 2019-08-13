@@ -30,17 +30,17 @@ describe('Task', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -53,7 +53,7 @@ describe('Task', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'unique_name': 'unique_name',
           'links': {
@@ -76,13 +76,12 @@ describe('Task', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -202,17 +201,17 @@ describe('Task', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/Tasks`;
@@ -224,7 +223,7 @@ describe('Task', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'key': 'tasks',
@@ -242,17 +241,16 @@ describe('Task', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'key': 'tasks',
@@ -288,28 +286,27 @@ describe('Task', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {uniqueName: 'unique_name'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/Tasks`;
@@ -323,7 +320,7 @@ describe('Task', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'unique_name': 'unique_name',
           'links': {
@@ -347,27 +344,26 @@ describe('Task', function() {
       var opts = {uniqueName: 'unique_name'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -380,7 +376,7 @@ describe('Task', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'unique_name': 'unique_name',
           'links': {
@@ -403,27 +399,26 @@ describe('Task', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -436,20 +431,19 @@ describe('Task', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

@@ -30,17 +30,17 @@ describe('TaskChannel', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -53,7 +53,7 @@ describe('TaskChannel', function() {
     }
   );
   it('should generate valid fetch_sid response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-04-14T17:35:54Z',
@@ -73,17 +73,16 @@ describe('TaskChannel', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch_unique_name response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-04-14T17:35:54Z',
@@ -103,13 +102,12 @@ describe('TaskChannel', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -220,17 +218,17 @@ describe('TaskChannel', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels`;
@@ -242,7 +240,7 @@ describe('TaskChannel', function() {
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'channels': [
               {
@@ -275,17 +273,16 @@ describe('TaskChannel', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'channels': [],
           'meta': {
@@ -303,27 +300,26 @@ describe('TaskChannel', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -336,7 +332,7 @@ describe('TaskChannel', function() {
     }
   );
   it('should generate valid update_sid response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -356,17 +352,16 @@ describe('TaskChannel', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update_unique_name response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -386,27 +381,26 @@ describe('TaskChannel', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -419,52 +413,50 @@ describe('TaskChannel', function() {
     }
   );
   it('should generate valid delete_sid response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid delete_unique_name response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {friendlyName: 'friendly_name', uniqueName: 'unique_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels`;
@@ -478,7 +470,7 @@ describe('TaskChannel', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -499,13 +491,12 @@ describe('TaskChannel', function() {
       var opts = {friendlyName: 'friendly_name', uniqueName: 'unique_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

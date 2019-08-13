@@ -32,7 +32,7 @@ describe('AuthRegistrationsCredentialListMapping', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
@@ -42,12 +42,12 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -62,7 +62,7 @@ describe('AuthRegistrationsCredentialListMapping', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
@@ -80,13 +80,12 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -185,7 +184,7 @@ describe('AuthRegistrationsCredentialListMapping', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -194,12 +193,12 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -212,7 +211,7 @@ describe('AuthRegistrationsCredentialListMapping', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Registrations/CredentialListMappings.json?PageSize=50&Page=0',
           'end': 0,
@@ -233,17 +232,16 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Registrations/CredentialListMappings.json?PageSize=50&Page=0',
           'end': 0,
@@ -272,17 +270,16 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -291,12 +288,12 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -310,7 +307,7 @@ describe('AuthRegistrationsCredentialListMapping', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
@@ -327,17 +324,16 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -346,12 +342,12 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -365,7 +361,7 @@ describe('AuthRegistrationsCredentialListMapping', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
@@ -376,13 +372,12 @@ describe('AuthRegistrationsCredentialListMapping', function() {
                                     .auth
                                     .registrations
                                     .credentialListMappings('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

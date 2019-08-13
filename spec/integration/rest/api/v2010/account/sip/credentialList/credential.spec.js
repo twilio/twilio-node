@@ -134,19 +134,19 @@ describe('Credential', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -159,7 +159,7 @@ describe('Credential', function() {
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'credentials': [
               {
@@ -191,17 +191,16 @@ describe('Credential', function() {
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'credentials': [],
           'end': 0,
@@ -223,17 +222,16 @@ describe('Credential', function() {
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {username: 'username', password: 'password'};
@@ -241,12 +239,12 @@ describe('Credential', function() {
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -261,7 +259,7 @@ describe('Credential', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'credential_list_sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -279,29 +277,28 @@ describe('Credential', function() {
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -315,7 +312,7 @@ describe('Credential', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'credential_list_sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -332,29 +329,28 @@ describe('Credential', function() {
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -368,7 +364,7 @@ describe('Credential', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'credential_list_sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -385,29 +381,28 @@ describe('Credential', function() {
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -421,7 +416,7 @@ describe('Credential', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
@@ -430,13 +425,12 @@ describe('Credential', function() {
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

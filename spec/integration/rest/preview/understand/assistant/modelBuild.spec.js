@@ -30,17 +30,17 @@ describe('ModelBuild', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -53,7 +53,7 @@ describe('ModelBuild', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -71,13 +71,12 @@ describe('ModelBuild', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -182,17 +181,17 @@ describe('ModelBuild', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/ModelBuilds`;
@@ -204,7 +203,7 @@ describe('ModelBuild', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'page': 0,
@@ -222,17 +221,16 @@ describe('ModelBuild', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'page': 0,
@@ -263,27 +261,26 @@ describe('ModelBuild', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.create();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/ModelBuilds`;
@@ -295,7 +292,7 @@ describe('ModelBuild', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -313,27 +310,26 @@ describe('ModelBuild', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.create();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -346,7 +342,7 @@ describe('ModelBuild', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -364,27 +360,26 @@ describe('ModelBuild', function() {
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -397,20 +392,19 @@ describe('ModelBuild', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

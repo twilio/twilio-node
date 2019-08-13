@@ -30,18 +30,18 @@ describe('Feedback', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .feedback.create();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var messageSid = 'MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -54,7 +54,7 @@ describe('Feedback', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
@@ -69,13 +69,12 @@ describe('Feedback', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .feedback.create();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

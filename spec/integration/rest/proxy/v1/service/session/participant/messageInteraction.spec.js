@@ -30,19 +30,19 @@ describe('MessageInteraction', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .messageInteractions.create();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sessionSid = 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -56,7 +56,7 @@ describe('MessageInteraction', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'data': '{\'body\':\'some message\'}',
@@ -86,29 +86,28 @@ describe('MessageInteraction', function() {
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .messageInteractions.create();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .messageInteractions('KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sessionSid = 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -123,7 +122,7 @@ describe('MessageInteraction', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'data': '{\'body\':\'some message\'}',
@@ -153,29 +152,28 @@ describe('MessageInteraction', function() {
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .messageInteractions('KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .messageInteractions.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sessionSid = 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -189,7 +187,7 @@ describe('MessageInteraction', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'interactions': [],
           'meta': {
@@ -209,13 +207,12 @@ describe('MessageInteraction', function() {
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .messageInteractions.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

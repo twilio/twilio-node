@@ -32,17 +32,17 @@ describe('OriginationUrl', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -55,7 +55,7 @@ describe('OriginationUrl', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'weight': 1,
           'date_updated': '2018-05-07T20:20:46Z',
@@ -74,27 +74,26 @@ describe('OriginationUrl', function() {
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -107,24 +106,23 @@ describe('OriginationUrl', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
@@ -136,12 +134,12 @@ describe('OriginationUrl', function() {
       };
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls`;
@@ -161,7 +159,7 @@ describe('OriginationUrl', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'weight': 1,
           'date_updated': '2018-05-07T20:50:58Z',
@@ -187,13 +185,12 @@ describe('OriginationUrl', function() {
       };
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -301,17 +298,17 @@ describe('OriginationUrl', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls`;
@@ -323,7 +320,7 @@ describe('OriginationUrl', function() {
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
@@ -355,17 +352,16 @@ describe('OriginationUrl', function() {
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
@@ -383,27 +379,26 @@ describe('OriginationUrl', function() {
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -416,7 +411,7 @@ describe('OriginationUrl', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'weight': 2,
           'date_updated': '2018-05-07T20:50:58Z',
@@ -435,13 +430,12 @@ describe('OriginationUrl', function() {
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

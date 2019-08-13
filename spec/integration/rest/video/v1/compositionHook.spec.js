@@ -30,16 +30,16 @@ describe('CompositionHook', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://video.twilio.com/v1/CompositionHooks/${sid}`;
@@ -51,7 +51,7 @@ describe('CompositionHook', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'My composition hook',
@@ -110,13 +110,12 @@ describe('CompositionHook', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -338,16 +337,16 @@ describe('CompositionHook', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.video.v1.compositionHooks.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://video.twilio.com/v1/CompositionHooks';
 
@@ -358,7 +357,7 @@ describe('CompositionHook', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'composition_hooks': [],
           'meta': {
@@ -375,17 +374,16 @@ describe('CompositionHook', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.video.v1.compositionHooks.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_results response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'composition_hooks': [
               {
@@ -455,26 +453,25 @@ describe('CompositionHook', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.video.v1.compositionHooks.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://video.twilio.com/v1/CompositionHooks/${sid}`;
@@ -486,33 +483,32 @@ describe('CompositionHook', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.compositionHooks.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://video.twilio.com/v1/CompositionHooks';
 
@@ -525,7 +521,7 @@ describe('CompositionHook', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'friendly_name': 'My composition hook',
           'enabled': false,
@@ -574,27 +570,26 @@ describe('CompositionHook', function() {
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.compositionHooks.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://video.twilio.com/v1/CompositionHooks/${sid}`;
@@ -608,7 +603,7 @@ describe('CompositionHook', function() {
     }
   );
   it('should generate valid update_all_fields response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'friendly_name': 'My composition hook',
           'enabled': true,
@@ -657,17 +652,16 @@ describe('CompositionHook', function() {
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update_with_defaults response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'friendly_name': 'My composition hook',
           'enabled': true,
@@ -695,13 +689,12 @@ describe('CompositionHook', function() {
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

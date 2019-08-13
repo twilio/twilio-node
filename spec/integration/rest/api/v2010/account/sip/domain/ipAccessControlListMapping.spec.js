@@ -30,19 +30,19 @@ describe('IpAccessControlListMapping', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -56,7 +56,7 @@ describe('IpAccessControlListMapping', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Fri, 17 Jul 2015 21:25:15 +0000',
@@ -75,17 +75,16 @@ describe('IpAccessControlListMapping', function() {
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {ipAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
@@ -93,12 +92,12 @@ describe('IpAccessControlListMapping', function() {
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -113,7 +112,7 @@ describe('IpAccessControlListMapping', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Fri, 17 Jul 2015 21:25:15 +0000',
@@ -133,13 +132,12 @@ describe('IpAccessControlListMapping', function() {
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -253,19 +251,19 @@ describe('IpAccessControlListMapping', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -278,7 +276,7 @@ describe('IpAccessControlListMapping', function() {
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlListMappings.json?SipDomainSid=SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
@@ -312,17 +310,16 @@ describe('IpAccessControlListMapping', function() {
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlListMappings.json?SipDomainSid=SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
@@ -344,29 +341,28 @@ describe('IpAccessControlListMapping', function() {
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -380,7 +376,7 @@ describe('IpAccessControlListMapping', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
@@ -389,13 +385,12 @@ describe('IpAccessControlListMapping', function() {
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

@@ -30,16 +30,16 @@ describe('Account', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts.create();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://api.twilio.com/2010-04-01/Accounts.json';
 
@@ -50,7 +50,7 @@ describe('Account', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'auth_token': 'auth_token',
           'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
@@ -88,26 +88,25 @@ describe('Account', function() {
       holodeck.mock(new Response(201, body));
 
       var promise = client.api.v2010.accounts.create();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${sid}.json`;
@@ -119,7 +118,7 @@ describe('Account', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'auth_token': 'auth_token',
           'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
@@ -157,13 +156,12 @@ describe('Account', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -325,16 +323,16 @@ describe('Account', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://api.twilio.com/2010-04-01/Accounts.json';
 
@@ -345,7 +343,7 @@ describe('Account', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'first_page_uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'end': 0,
@@ -361,17 +359,16 @@ describe('Account', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.api.v2010.accounts.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'first_page_uri': '/2010-04-01/Accounts.json?FriendlyName=friendly_name&Status=active&PageSize=50&Page=0',
           'end': 0,
@@ -421,26 +418,25 @@ describe('Account', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.api.v2010.accounts.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${sid}.json`;
@@ -452,7 +448,7 @@ describe('Account', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'auth_token': 'AUTHTOKEN',
           'date_created': 'Sun, 15 Mar 2009 02:08:47 +0000',
@@ -479,13 +475,12 @@ describe('Account', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

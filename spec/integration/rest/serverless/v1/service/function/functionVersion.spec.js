@@ -30,18 +30,18 @@ describe('FunctionVersion', function() {
     });
   });
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functionVersions.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var functionSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -54,7 +54,7 @@ describe('FunctionVersion', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'function_versions': [],
           'meta': {
@@ -73,28 +73,27 @@ describe('FunctionVersion', function() {
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functionVersions.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functionVersions('ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var functionSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -108,7 +107,7 @@ describe('FunctionVersion', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'ZN00000000000000000000000000000000',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -125,13 +124,12 @@ describe('FunctionVersion', function() {
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functionVersions('ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

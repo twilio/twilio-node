@@ -30,18 +30,18 @@ describe('Participant', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var conferenceSid = 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -55,7 +55,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -77,28 +77,27 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var conferenceSid = 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -112,7 +111,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid mute_participant response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -134,17 +133,16 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid modify_participant response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -166,29 +164,28 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {from: '+15017122661', to: '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var conferenceSid = 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -203,7 +200,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid create_with_sid response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -226,17 +223,16 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create_with_friendly_name response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -259,17 +255,16 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create_with_sid_as_coach response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -292,28 +287,27 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var conferenceSid = 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -327,7 +321,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
@@ -335,13 +329,12 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -500,18 +493,18 @@ describe('Participant', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var conferenceSid = 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -524,7 +517,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'participants': [],
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json?Hold=True&PageSize=50&Page=0',
@@ -542,17 +535,16 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'participants': [
               {
@@ -601,17 +593,16 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_next response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'participants': [
               {
@@ -660,17 +651,16 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_previous response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'participants': [
               {
@@ -719,13 +709,12 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

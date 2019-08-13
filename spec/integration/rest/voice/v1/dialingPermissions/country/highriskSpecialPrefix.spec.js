@@ -116,18 +116,18 @@ describe('HighriskSpecialPrefix', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.voice.v1.dialingPermissions
                                    .countries('US')
                                    .highriskSpecialPrefixes.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var isoCode = 'US';
       var url = `https://voice.twilio.com/v1/DialingPermissions/Countries/${isoCode}/HighRiskSpecialPrefixes`;
@@ -139,7 +139,7 @@ describe('HighriskSpecialPrefix', function() {
     }
   );
   it('should generate valid read_lv response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'content': [
               {
@@ -165,13 +165,12 @@ describe('HighriskSpecialPrefix', function() {
       var promise = client.voice.v1.dialingPermissions
                                    .countries('US')
                                    .highriskSpecialPrefixes.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

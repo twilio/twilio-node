@@ -30,17 +30,17 @@ describe('Number', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.pricing.v2.voice
                                      .numbers('+15017122661').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var destinationNumber = '+15017122661';
       var url = `https://pricing.twilio.com/v2/Voice/Numbers/${destinationNumber}`;
@@ -52,7 +52,7 @@ describe('Number', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'country': 'United States',
           'destination_number': '+18001234567',
@@ -80,13 +80,12 @@ describe('Number', function() {
 
       var promise = client.pricing.v2.voice
                                      .numbers('+15017122661').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

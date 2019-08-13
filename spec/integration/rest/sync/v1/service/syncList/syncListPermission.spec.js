@@ -32,18 +32,18 @@ describe('SyncListPermission', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -57,7 +57,7 @@ describe('SyncListPermission', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -74,28 +74,27 @@ describe('SyncListPermission', function() {
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -109,7 +108,7 @@ describe('SyncListPermission', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
@@ -117,13 +116,12 @@ describe('SyncListPermission', function() {
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -225,18 +223,18 @@ describe('SyncListPermission', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -249,7 +247,7 @@ describe('SyncListPermission', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'permissions': [],
           'meta': {
@@ -268,17 +266,16 @@ describe('SyncListPermission', function() {
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'permissions': [
               {
@@ -308,29 +305,28 @@ describe('SyncListPermission', function() {
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {read: true, write: true, manage: true};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').update(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -350,7 +346,7 @@ describe('SyncListPermission', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -368,13 +364,12 @@ describe('SyncListPermission', function() {
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').update(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

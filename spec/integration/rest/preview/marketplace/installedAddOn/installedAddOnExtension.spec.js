@@ -32,17 +32,17 @@ describe('InstalledAddOnExtension', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var installedAddOnSid = 'XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -55,7 +55,7 @@ describe('InstalledAddOnExtension', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'installed_add_on_sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -70,28 +70,27 @@ describe('InstalledAddOnExtension', function() {
 
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {enabled: true};
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var installedAddOnSid = 'XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -106,7 +105,7 @@ describe('InstalledAddOnExtension', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'installed_add_on_sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -122,13 +121,12 @@ describe('InstalledAddOnExtension', function() {
       var opts = {enabled: true};
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -224,17 +222,17 @@ describe('InstalledAddOnExtension', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var installedAddOnSid = 'XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/marketplace/InstalledAddOns/${installedAddOnSid}/Extensions`;
@@ -246,7 +244,7 @@ describe('InstalledAddOnExtension', function() {
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'extensions': [
               {
@@ -274,17 +272,16 @@ describe('InstalledAddOnExtension', function() {
 
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'extensions': [],
           'meta': {
@@ -302,13 +299,12 @@ describe('InstalledAddOnExtension', function() {
 
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

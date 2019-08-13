@@ -30,17 +30,17 @@ describe('FaxMedia', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var faxSid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -53,7 +53,7 @@ describe('FaxMedia', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'content_type': 'application/pdf',
@@ -68,13 +68,12 @@ describe('FaxMedia', function() {
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -170,17 +169,17 @@ describe('FaxMedia', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var faxSid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://fax.twilio.com/v1/Faxes/${faxSid}/Media`;
@@ -192,7 +191,7 @@ describe('FaxMedia', function() {
     }
   );
   it('should generate valid read response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'media': [
               {
@@ -220,27 +219,26 @@ describe('FaxMedia', function() {
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var faxSid = 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -253,20 +251,19 @@ describe('FaxMedia', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

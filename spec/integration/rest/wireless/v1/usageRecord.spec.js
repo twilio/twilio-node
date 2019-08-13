@@ -272,16 +272,16 @@ describe('UsageRecord', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.wireless.v1.usageRecords.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://wireless.twilio.com/v1/UsageRecords';
 
@@ -292,7 +292,7 @@ describe('UsageRecord', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'usage_records': [
               {
@@ -370,13 +370,12 @@ describe('UsageRecord', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.wireless.v1.usageRecords.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

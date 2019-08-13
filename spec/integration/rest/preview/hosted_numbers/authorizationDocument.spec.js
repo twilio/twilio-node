@@ -32,16 +32,16 @@ describe('AuthorizationDocument', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/${sid}`;
@@ -53,7 +53,7 @@ describe('AuthorizationDocument', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'address_sid': 'AD11111111111111111111111111111111',
           'cc_emails': [
@@ -74,26 +74,25 @@ describe('AuthorizationDocument', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/${sid}`;
@@ -105,7 +104,7 @@ describe('AuthorizationDocument', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'cc_emails': [
@@ -126,13 +125,12 @@ describe('AuthorizationDocument', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -246,16 +244,16 @@ describe('AuthorizationDocument', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments';
 
@@ -266,7 +264,7 @@ describe('AuthorizationDocument', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?Status=signed&Email=test%2Bhosted%40twilio.com&PageSize=50&Page=0',
@@ -283,17 +281,16 @@ describe('AuthorizationDocument', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0',
@@ -327,17 +324,16 @@ describe('AuthorizationDocument', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
@@ -348,12 +344,12 @@ describe('AuthorizationDocument', function() {
         contactPhoneNumber: 'contact_phone_number'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments';
 
@@ -372,7 +368,7 @@ describe('AuthorizationDocument', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'cc_emails': [
@@ -400,13 +396,12 @@ describe('AuthorizationDocument', function() {
         contactPhoneNumber: 'contact_phone_number'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

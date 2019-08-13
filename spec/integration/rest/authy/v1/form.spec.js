@@ -30,16 +30,16 @@ describe('Form', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.authy.v1.forms('form-app-push').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var formType = 'form-app-push';
       var url = `https://authy.twilio.com/v1/Forms/${formType}`;
@@ -51,7 +51,7 @@ describe('Form', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'form_type': 'form-sms',
           'forms': {
@@ -66,13 +66,12 @@ describe('Form', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.authy.v1.forms('form-app-push').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

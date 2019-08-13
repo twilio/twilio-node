@@ -30,19 +30,19 @@ describe('Bucket', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {max: 1, interval: 1};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var rateLimitSid = 'RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -57,7 +57,7 @@ describe('Bucket', function() {
     }
   );
   it('should generate valid create_bucket response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'rate_limit_sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -76,28 +76,27 @@ describe('Bucket', function() {
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets('BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var rateLimitSid = 'RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -111,7 +110,7 @@ describe('Bucket', function() {
     }
   );
   it('should generate valid update_bucket response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'rate_limit_sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -129,28 +128,27 @@ describe('Bucket', function() {
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets('BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets('BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var rateLimitSid = 'RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -164,7 +162,7 @@ describe('Bucket', function() {
     }
   );
   it('should generate valid fetch_bucket response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'rate_limit_sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -182,13 +180,12 @@ describe('Bucket', function() {
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets('BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -293,18 +290,18 @@ describe('Bucket', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var rateLimitSid = 'RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -317,7 +314,7 @@ describe('Bucket', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'buckets': [],
           'meta': {
@@ -336,17 +333,16 @@ describe('Bucket', function() {
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'buckets': [
               {
@@ -377,28 +373,27 @@ describe('Bucket', function() {
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets('BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var rateLimitSid = 'RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -412,7 +407,7 @@ describe('Bucket', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
@@ -420,13 +415,12 @@ describe('Bucket', function() {
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets('BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

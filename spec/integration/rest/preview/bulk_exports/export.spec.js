@@ -30,16 +30,16 @@ describe('Export', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.bulk_exports.exports('resource_type').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var resourceType = 'resource_type';
       var url = `https://preview.twilio.com/BulkExports/Exports/${resourceType}`;
@@ -51,7 +51,7 @@ describe('Export', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'resource_type': 'Calls',
           'url': 'https://preview.twilio.com/BulkExports/Exports/Calls',
@@ -63,13 +63,12 @@ describe('Export', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.bulk_exports.exports('resource_type').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });
