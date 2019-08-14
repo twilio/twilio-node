@@ -137,18 +137,18 @@ describe('UserChannel', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .userChannels.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var userSid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -161,7 +161,7 @@ describe('UserChannel', function() {
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'page': 0,
@@ -194,17 +194,16 @@ describe('UserChannel', function() {
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .userChannels.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'page': 0,
@@ -223,13 +222,12 @@ describe('UserChannel', function() {
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .userChannels.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

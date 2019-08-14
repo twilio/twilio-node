@@ -30,17 +30,17 @@ describe('Participant', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants.create();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Participants`;
@@ -52,7 +52,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid create_identity response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -73,17 +73,16 @@ describe('Participant', function() {
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants.create();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create_address response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -104,27 +103,26 @@ describe('Participant', function() {
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants.create();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -137,7 +135,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -158,27 +156,26 @@ describe('Participant', function() {
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -191,7 +188,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -212,13 +209,12 @@ describe('Participant', function() {
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -332,17 +328,17 @@ describe('Participant', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://messaging.twilio.com/v1/Sessions/${sessionSid}/Participants`;
@@ -354,7 +350,7 @@ describe('Participant', function() {
     }
   );
   it('should generate valid read response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'page': 0,
@@ -388,27 +384,26 @@ describe('Participant', function() {
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sessionSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -421,20 +416,19 @@ describe('Participant', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.messaging.v1.sessions('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

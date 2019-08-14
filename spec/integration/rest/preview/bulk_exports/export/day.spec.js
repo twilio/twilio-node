@@ -110,17 +110,17 @@ describe('Day', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.bulk_exports.exports('resource_type')
                                                .days.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var resourceType = 'resource_type';
       var url = `https://preview.twilio.com/BulkExports/Exports/${resourceType}/Days`;
@@ -132,7 +132,7 @@ describe('Day', function() {
     }
   );
   it('should generate valid read response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'days': [
               {
@@ -156,13 +156,12 @@ describe('Day', function() {
 
       var promise = client.preview.bulk_exports.exports('resource_type')
                                                .days.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

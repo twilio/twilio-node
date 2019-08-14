@@ -30,16 +30,16 @@ describe('CallSummary', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.insights.v1.summary('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://insights.twilio.com/v1/Voice/${callSid}/Summary`;
@@ -51,7 +51,7 @@ describe('CallSummary', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -81,13 +81,12 @@ describe('CallSummary', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.insights.v1.summary('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

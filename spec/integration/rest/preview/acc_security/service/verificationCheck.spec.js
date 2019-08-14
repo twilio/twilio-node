@@ -30,18 +30,18 @@ describe('VerificationCheck', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {code: 'code'};
       var promise = client.preview.acc_security.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                .verificationChecks.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/Verification/Services/${serviceSid}/VerificationCheck`;
@@ -55,7 +55,7 @@ describe('VerificationCheck', function() {
     }
   );
   it('should generate valid verification_checks response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -73,13 +73,12 @@ describe('VerificationCheck', function() {
       var opts = {code: 'code'};
       var promise = client.preview.acc_security.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                .verificationChecks.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

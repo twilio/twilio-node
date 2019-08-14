@@ -32,19 +32,19 @@ describe('StreamMessage', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {data: {}};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncStreams('TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .streamMessages.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var streamSid = 'TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -59,7 +59,7 @@ describe('StreamMessage', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'TZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'data': {}
@@ -71,13 +71,12 @@ describe('StreamMessage', function() {
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncStreams('TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .streamMessages.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

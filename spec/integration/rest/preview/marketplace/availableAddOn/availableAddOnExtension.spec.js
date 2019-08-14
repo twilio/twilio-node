@@ -30,17 +30,17 @@ describe('AvailableAddOnExtension', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var availableAddOnSid = 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -53,7 +53,7 @@ describe('AvailableAddOnExtension', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'available_add_on_sid': 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -67,13 +67,12 @@ describe('AvailableAddOnExtension', function() {
 
       var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -166,17 +165,17 @@ describe('AvailableAddOnExtension', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var availableAddOnSid = 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/marketplace/AvailableAddOns/${availableAddOnSid}/Extensions`;
@@ -188,7 +187,7 @@ describe('AvailableAddOnExtension', function() {
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'extensions': [
               {
@@ -215,17 +214,16 @@ describe('AvailableAddOnExtension', function() {
 
       var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'extensions': [],
           'meta': {
@@ -243,13 +241,12 @@ describe('AvailableAddOnExtension', function() {
 
       var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

@@ -30,16 +30,16 @@ describe('PhoneNumber', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var phoneNumber = '+15017122661';
       var url = `https://lookups.twilio.com/v1/PhoneNumbers/${phoneNumber}`;
@@ -51,7 +51,7 @@ describe('PhoneNumber', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'caller_name': {
               'caller_name': 'Delicious Cheese Cake',
@@ -89,17 +89,16 @@ describe('PhoneNumber', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch_carrier response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'caller_name': null,
           'carrier': {
@@ -120,17 +119,16 @@ describe('PhoneNumber', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch_caller_name response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'caller_name': {
               'caller_name': 'Delicious Cheese Cake',
@@ -149,17 +147,16 @@ describe('PhoneNumber', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch_carrier_and_caller_name response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'caller_name': {
               'caller_name': 'Delicious Cheese Cake',
@@ -189,17 +186,16 @@ describe('PhoneNumber', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch_addons_whitepages_pro response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'caller_name': {
               'caller_name': 'EMPIRE STATE BUILDING',
@@ -267,17 +263,16 @@ describe('PhoneNumber', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch_addons_nomorobo response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'caller_name': null,
           'country_code': 'US',
@@ -315,17 +310,16 @@ describe('PhoneNumber', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid fetch_addons_payfone response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'caller_name': null,
           'country_code': 'US',
@@ -368,13 +362,12 @@ describe('PhoneNumber', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

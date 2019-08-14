@@ -30,16 +30,16 @@ describe('CurrentCall', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.trusted_comms.currentCalls().fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://preview.twilio.com/TrustedComms/CurrentCall';
 
@@ -50,7 +50,7 @@ describe('CurrentCall', function() {
     }
   );
   it('should generate valid read_found response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'from': '+1500123',
@@ -71,13 +71,12 @@ describe('CurrentCall', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.trusted_comms.currentCalls().fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

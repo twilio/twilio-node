@@ -30,17 +30,17 @@ describe('Settings', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.voice.v1.dialingPermissions
                                    .settings().fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://voice.twilio.com/v1/Settings';
 
@@ -51,7 +51,7 @@ describe('Settings', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'dialing_permissions_inheritance': true,
           'url': 'https://voice.twilio.com/v1/Settings'
@@ -61,27 +61,26 @@ describe('Settings', function() {
 
       var promise = client.voice.v1.dialingPermissions
                                    .settings().fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.voice.v1.dialingPermissions
                                    .settings().update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://voice.twilio.com/v1/Settings';
 
@@ -92,7 +91,7 @@ describe('Settings', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'dialing_permissions_inheritance': true,
           'url': 'https://voice.twilio.com/v1/Settings'
@@ -102,13 +101,12 @@ describe('Settings', function() {
 
       var promise = client.voice.v1.dialingPermissions
                                    .settings().update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

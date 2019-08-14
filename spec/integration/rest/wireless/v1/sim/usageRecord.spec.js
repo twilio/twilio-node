@@ -281,17 +281,17 @@ describe('UsageRecord', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.wireless.v1.sims('DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .usageRecords.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var simSid = 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://wireless.twilio.com/v1/Sims/${simSid}/UsageRecords`;
@@ -303,7 +303,7 @@ describe('UsageRecord', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'usage_records': [
               {
@@ -384,13 +384,12 @@ describe('UsageRecord', function() {
 
       var promise = client.wireless.v1.sims('DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .usageRecords.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

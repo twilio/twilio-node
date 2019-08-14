@@ -30,17 +30,17 @@ describe('Device', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {phoneNumber: 'phone_number', pushToken: 'push_token'};
       var promise = client.preview.trusted_comms.devices.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://preview.twilio.com/TrustedComms/Devices';
 
@@ -53,7 +53,7 @@ describe('Device', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'sid': 'DDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'binding_sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -65,13 +65,12 @@ describe('Device', function() {
 
       var opts = {phoneNumber: 'phone_number', pushToken: 'push_token'};
       var promise = client.preview.trusted_comms.devices.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

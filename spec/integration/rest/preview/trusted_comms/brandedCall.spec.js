@@ -30,17 +30,17 @@ describe('BrandedCall', function() {
     });
   });
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {from: 'from', to: 'to', reason: 'reason'};
       var promise = client.preview.trusted_comms.brandedCalls.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://preview.twilio.com/TrustedComms/Business/BrandedCalls';
 
@@ -53,7 +53,7 @@ describe('BrandedCall', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'bg_color': '#fff',
@@ -73,13 +73,12 @@ describe('BrandedCall', function() {
 
       var opts = {from: 'from', to: 'to', reason: 'reason'};
       var promise = client.preview.trusted_comms.brandedCalls.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

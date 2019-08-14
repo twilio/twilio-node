@@ -30,16 +30,16 @@ describe('Webhook', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.conversations.v1.webhooks().fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://conversations.twilio.com/v1/Conversations/Webhooks';
 
@@ -50,7 +50,7 @@ describe('Webhook', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'pre_webhook_url': 'https://example.com/pre',
@@ -67,26 +67,25 @@ describe('Webhook', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.conversations.v1.webhooks().fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.conversations.v1.webhooks().update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://conversations.twilio.com/v1/Conversations/Webhooks';
 
@@ -97,7 +96,7 @@ describe('Webhook', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'pre_webhook_url': 'https://example.com/pre',
@@ -113,13 +112,12 @@ describe('Webhook', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.conversations.v1.webhooks().update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

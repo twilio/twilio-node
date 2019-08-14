@@ -30,18 +30,18 @@ describe('PublishedTrack', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .publishedTracks('MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var participantSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -55,7 +55,7 @@ describe('PublishedTrack', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
@@ -73,28 +73,27 @@ describe('PublishedTrack', function() {
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .publishedTracks('MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .publishedTracks.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var roomSid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var participantSid = 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -107,7 +106,7 @@ describe('PublishedTrack', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'published_tracks': [],
           'meta': {
@@ -126,13 +125,12 @@ describe('PublishedTrack', function() {
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .publishedTracks.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });

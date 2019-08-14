@@ -32,16 +32,16 @@ describe('HostedNumberOrder', function() {
     });
   });
   it('should generate valid fetch request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/HostedNumbers/HostedNumberOrders/${sid}`;
@@ -53,7 +53,7 @@ describe('HostedNumberOrder', function() {
     }
   );
   it('should generate valid fetch response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': 'AD11111111111111111111111111111111',
@@ -92,26 +92,25 @@ describe('HostedNumberOrder', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid remove request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/HostedNumbers/HostedNumberOrders/${sid}`;
@@ -123,32 +122,31 @@ describe('HostedNumberOrder', function() {
     }
   );
   it('should generate valid delete response',
-    function() {
+    function(done) {
       var body = JSON.stringify(null);
 
       holodeck.mock(new Response(204, body));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBe(true);
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid update request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var sid = 'HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/HostedNumbers/HostedNumberOrders/${sid}`;
@@ -160,7 +158,7 @@ describe('HostedNumberOrder', function() {
     }
   );
   it('should generate valid update response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': 'AD11111111111111111111111111111111',
@@ -199,13 +197,12 @@ describe('HostedNumberOrder', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should treat the first each arg as a callback',
@@ -373,16 +370,16 @@ describe('HostedNumberOrder', function() {
     }
   );
   it('should generate valid list request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders.list();
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders';
 
@@ -393,7 +390,7 @@ describe('HostedNumberOrder', function() {
     }
   );
   it('should generate valid read_empty response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz&PageSize=50&Page=0',
@@ -410,17 +407,16 @@ describe('HostedNumberOrder', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid read_full response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders?PageSize=50&Page=0',
@@ -472,27 +468,26 @@ describe('HostedNumberOrder', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders.list();
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create request',
-    function() {
+    function(done) {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {phoneNumber: '+15017122661', smsCapability: true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
-      promise = promise.then(function() {
+      promise.then(function() {
         throw new Error('failed');
       }, function(error) {
         expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
+        done();
+      }).done();
 
       var url = 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders';
 
@@ -505,7 +500,7 @@ describe('HostedNumberOrder', function() {
     }
   );
   it('should generate valid create response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': 'AD11111111111111111111111111111111',
@@ -539,17 +534,16 @@ describe('HostedNumberOrder', function() {
 
       var opts = {phoneNumber: '+15017122661', smsCapability: true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create_without_optional_loa_fields response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': null,
@@ -583,17 +577,16 @@ describe('HostedNumberOrder', function() {
 
       var opts = {phoneNumber: '+15017122661', smsCapability: true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
   it('should generate valid create_with_phone_bill_verification response',
-    function() {
+    function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': null,
@@ -627,13 +620,12 @@ describe('HostedNumberOrder', function() {
 
       var opts = {phoneNumber: '+15017122661', smsCapability: true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
-      promise = promise.then(function(response) {
+      promise.then(function(response) {
         expect(response).toBeDefined();
+        done();
       }, function() {
         throw new Error('failed');
-      });
-
-      promise.done();
+      }).done();
     }
   );
 });
