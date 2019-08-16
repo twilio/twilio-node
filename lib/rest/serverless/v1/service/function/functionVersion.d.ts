@@ -31,13 +31,6 @@ interface FunctionVersionListInstance {
    */
   (sid: string): FunctionVersionContext;
   /**
-   * create a FunctionVersionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: FunctionVersionListInstanceCreateOptions, callback?: (error: Error | null, item: FunctionVersionInstance) => any): Promise<FunctionVersionInstance>;
-  /**
    * Streams FunctionVersionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -97,17 +90,6 @@ interface FunctionVersionListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-}
-
-/**
- * Options to pass to create
- *
- * @property path - The URL-friendly string by which this Function Version can be referenced.
- * @property visibility - The access control which determines how the Function Version can be accessed.
- */
-interface FunctionVersionListInstanceCreateOptions {
-  path: string;
-  visibility: FunctionVersionVisibility;
 }
 
 /**
@@ -175,7 +157,6 @@ interface FunctionVersionResource {
   date_created: Date;
   function_sid: string;
   path: string;
-  pre_signed_upload_url: string;
   service_sid: string;
   sid: string;
   url: string;
@@ -243,7 +224,6 @@ declare class FunctionVersionInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: FunctionVersionInstance) => any): void;
   functionSid: string;
   path: string;
-  preSignedUploadUrl: string;
   serviceSid: string;
   sid: string;
   /**
@@ -281,4 +261,4 @@ declare class FunctionVersionPage extends Page<V1, FunctionVersionPayload, Funct
   toJSON(): any;
 }
 
-export { FunctionVersionContext, FunctionVersionInstance, FunctionVersionList, FunctionVersionListInstance, FunctionVersionListInstanceCreateOptions, FunctionVersionListInstanceEachOptions, FunctionVersionListInstanceOptions, FunctionVersionListInstancePageOptions, FunctionVersionPage, FunctionVersionPayload, FunctionVersionResource, FunctionVersionSolution }
+export { FunctionVersionContext, FunctionVersionInstance, FunctionVersionList, FunctionVersionListInstance, FunctionVersionListInstanceEachOptions, FunctionVersionListInstanceOptions, FunctionVersionListInstancePageOptions, FunctionVersionPage, FunctionVersionPayload, FunctionVersionResource, FunctionVersionSolution }

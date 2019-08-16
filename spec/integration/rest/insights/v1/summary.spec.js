@@ -74,6 +74,7 @@ describe('CallSummary', function() {
               'tags'
           ],
           'attributes': {},
+          'properties': {},
           'url': 'https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Summary'
       });
 

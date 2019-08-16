@@ -11,6 +11,7 @@ import V1 = require('./wireless/V1');
 import { CommandListInstance } from './wireless/v1/command';
 import { RatePlanListInstance } from './wireless/v1/ratePlan';
 import { SimListInstance } from './wireless/v1/sim';
+import { UsageRecordListInstance } from './wireless/v1/usageRecord';
 
 
 declare class Wireless extends Domain {
@@ -24,6 +25,7 @@ declare class Wireless extends Domain {
   readonly commands: CommandListInstance;
   readonly ratePlans: RatePlanListInstance;
   readonly sims: SimListInstance;
+  readonly usageRecords: UsageRecordListInstance;
   readonly v1: V1;
 }
 

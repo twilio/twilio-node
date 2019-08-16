@@ -165,6 +165,7 @@ interface TodayPayload extends TodayResource, Page.TwilioResponsePayload {
 interface TodayResource {
   account_sid: string;
   api_version: string;
+  as_of: string;
   category: TodayCategory;
   count: string;
   count_unit: string;
@@ -196,6 +197,7 @@ declare class TodayInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
+  asOf: string;
   category: TodayCategory;
   count: string;
   countUnit: string;

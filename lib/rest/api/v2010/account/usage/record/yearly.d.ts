@@ -165,6 +165,7 @@ interface YearlyPayload extends YearlyResource, Page.TwilioResponsePayload {
 interface YearlyResource {
   account_sid: string;
   api_version: string;
+  as_of: string;
   category: YearlyCategory;
   count: string;
   count_unit: string;
@@ -196,6 +197,7 @@ declare class YearlyInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
+  asOf: string;
   category: YearlyCategory;
   count: string;
   countUnit: string;

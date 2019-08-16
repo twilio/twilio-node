@@ -5,40 +5,33 @@
  *       /       /
  */
 
-import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
-import { SerializableClass } from '../../../../interfaces';
-
-type BuildStatus = 'building'|'completed'|'failed';
+import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
+import V1 = require('../V1');
+import serialize = require('../../../base/serialize');
+import { SerializableClass } from '../../../interfaces';
 
 /**
- * Initialize the BuildList
- *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * Initialize the ChannelList
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
  */
-declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
+declare function ChannelList(version: V1): ChannelListInstance;
 
-interface BuildListInstance {
+interface ChannelListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): BuildContext;
+  (sid: string): ChannelContext;
   /**
-   * create a BuildInstance
+   * create a ChannelInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: BuildListInstanceCreateOptions, callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
+  create(opts: ChannelListInstanceCreateOptions, callback?: (error: Error | null, item: ChannelInstance) => any): Promise<ChannelInstance>;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams ChannelInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -52,15 +45,15 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: ChannelListInstanceEachOptions, callback?: (item: ChannelInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a build
+   * Constructs a channel
    *
-   * @param sid - Build Sid.
+   * @param sid - Flex Chat Channel Sid
    */
-  get(sid: string): BuildContext;
+  get(sid: string): ChannelContext;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of ChannelInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -70,9 +63,9 @@ interface BuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ChannelPage) => any): Promise<ChannelPage>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists ChannelInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -80,9 +73,9 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(opts?: ChannelListInstanceOptions, callback?: (error: Error | null, items: ChannelInstance[]) => any): Promise<ChannelInstance[]>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of ChannelInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -92,7 +85,7 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(opts?: ChannelListInstancePageOptions, callback?: (error: Error | null, items: ChannelPage) => any): Promise<ChannelPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -102,14 +95,28 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - List of Asset Version Sids.
- * @property dependencies - List of Dependencies.
- * @property functionVersions - List of Function Version Sids.
+ * @property chatFriendlyName - Chat channel friendly name
+ * @property chatUniqueName - Chat channel unique name
+ * @property chatUserFriendlyName - Customer friendly name
+ * @property flexFlowSid - The unique ID of the FlexFlow
+ * @property identity - Chat User identity
+ * @property longLived - Long Lived flag
+ * @property preEngagementData - Pre-engagement data
+ * @property target - Target Contact Identity
+ * @property taskAttributes - Task attributes to be added for the TaskRouter Task
+ * @property taskSid - TaskRouter Task Sid.
  */
-interface BuildListInstanceCreateOptions {
-  assetVersions?: string[];
-  dependencies?: string;
-  functionVersions?: string[];
+interface ChannelListInstanceCreateOptions {
+  chatFriendlyName: string;
+  chatUniqueName?: string;
+  chatUserFriendlyName: string;
+  flexFlowSid: string;
+  identity: string;
+  longLived?: boolean;
+  preEngagementData?: string;
+  target?: string;
+  taskAttributes?: string;
+  taskSid?: string;
 }
 
 /**
@@ -130,8 +137,8 @@ interface BuildListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceEachOptions {
-  callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
+interface ChannelListInstanceEachOptions {
+  callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -151,7 +158,7 @@ interface BuildListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceOptions {
+interface ChannelListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -163,59 +170,51 @@ interface BuildListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface BuildListInstancePageOptions {
+interface ChannelListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
+interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {
 }
 
-interface BuildResource {
+interface ChannelResource {
   account_sid: string;
-  asset_versions: string;
   date_created: Date;
   date_updated: Date;
-  dependencies: string;
-  function_versions: string;
-  service_sid: string;
+  flex_flow_sid: string;
   sid: string;
-  status: BuildStatus;
+  task_sid: string;
   url: string;
+  user_sid: string;
 }
 
-interface BuildSolution {
-  serviceSid?: string;
+interface ChannelSolution {
 }
 
 
-declare class BuildContext {
+declare class ChannelContext {
   /**
-   * Initialize the BuildContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * Initialize the ChannelContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param sid - Flex Chat Channel Sid
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, sid: string);
 
   /**
-   * fetch a BuildInstance
+   * fetch a ChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
   /**
-   * remove a BuildInstance
+   * remove a ChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
   /**
    * Provide a user-friendly representation
    */
@@ -223,75 +222,64 @@ declare class BuildContext {
 }
 
 
-declare class BuildInstance extends SerializableClass {
+declare class ChannelInstance extends SerializableClass {
   /**
-   * Initialize the BuildContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * Initialize the ChannelContext
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param sid - Flex Chat Channel Sid
    */
-  constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
+  constructor(version: V1, payload: ChannelPayload, sid: string);
 
-  private _proxy: BuildContext;
+  private _proxy: ChannelContext;
   accountSid: string;
-  assetVersions: string;
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: string;
   /**
-   * fetch a BuildInstance
+   * fetch a ChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  functionVersions: string;
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  flexFlowSid: string;
   /**
-   * remove a BuildInstance
+   * remove a ChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  serviceSid: string;
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
   sid: string;
-  status: BuildStatus;
+  taskSid: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
+  userSid: string;
 }
 
 
-declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+declare class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, ChannelInstance> {
   /**
-   * Initialize the BuildPage
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * Initialize the ChannelPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution);
+  constructor(version: V1, response: Response<string>, solution: ChannelSolution);
 
   /**
-   * Build an instance of BuildInstance
+   * Build an instance of ChannelInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance;
+  getInstance(payload: ChannelPayload): ChannelInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { BuildContext, BuildInstance, BuildList, BuildListInstance, BuildListInstanceCreateOptions, BuildListInstanceEachOptions, BuildListInstanceOptions, BuildListInstancePageOptions, BuildPage, BuildPayload, BuildResource, BuildSolution }
+export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }

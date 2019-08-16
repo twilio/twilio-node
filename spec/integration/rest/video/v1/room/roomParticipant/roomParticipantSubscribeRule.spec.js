@@ -60,7 +60,16 @@ describe('SubscribeRules', function() {
           'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': null,
           'date_updated': null,
-          'rules': []
+          'rules': [
+              {
+                  'type': 'include',
+                  'all': true,
+                  'publisher': null,
+                  'track': null,
+                  'kind': null,
+                  'priority': null
+              }
+          ]
       });
 
       holodeck.mock(new Response(200, body));
@@ -110,7 +119,11 @@ describe('SubscribeRules', function() {
           'rules': [
               {
                   'type': 'exclude',
-                  'all': true
+                  'all': true,
+                  'publisher': null,
+                  'track': null,
+                  'kind': null,
+                  'priority': null
               }
           ]
       });

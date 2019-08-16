@@ -5,40 +5,45 @@
  *       /       /
  */
 
-import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
-import { SerializableClass } from '../../../../interfaces';
+import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
+import V1 = require('../V1');
+import { SerializableClass } from '../../../interfaces';
 
-type BuildStatus = 'building'|'completed'|'failed';
+type WebChannelChatStatus = 'inactive';
 
 /**
- * Initialize the BuildList
- *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * Initialize the WebChannelList
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
  */
-declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
+declare function WebChannelList(version: V1): WebChannelListInstance;
 
-interface BuildListInstance {
+/**
+ * Options to pass to update
+ *
+ * @property chatStatus - Chat status
+ * @property postEngagementData - Post-engagement data
+ */
+interface WebChannelInstanceUpdateOptions {
+  chatStatus?: WebChannelChatStatus;
+  postEngagementData?: string;
+}
+
+interface WebChannelListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): BuildContext;
+  (sid: string): WebChannelContext;
   /**
-   * create a BuildInstance
+   * create a WebChannelInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: BuildListInstanceCreateOptions, callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
+  create(opts: WebChannelListInstanceCreateOptions, callback?: (error: Error | null, item: WebChannelInstance) => any): Promise<WebChannelInstance>;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams WebChannelInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -52,15 +57,15 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: WebChannelListInstanceEachOptions, callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a build
+   * Constructs a web_channel
    *
-   * @param sid - Build Sid.
+   * @param sid - Flex Chat Channel Sid
    */
-  get(sid: string): BuildContext;
+  get(sid: string): WebChannelContext;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of WebChannelInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -70,9 +75,9 @@ interface BuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WebChannelPage) => any): Promise<WebChannelPage>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists WebChannelInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -80,9 +85,9 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(opts?: WebChannelListInstanceOptions, callback?: (error: Error | null, items: WebChannelInstance[]) => any): Promise<WebChannelInstance[]>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of WebChannelInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -92,7 +97,7 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(opts?: WebChannelListInstancePageOptions, callback?: (error: Error | null, items: WebChannelPage) => any): Promise<WebChannelPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -102,14 +107,20 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - List of Asset Version Sids.
- * @property dependencies - List of Dependencies.
- * @property functionVersions - List of Function Version Sids.
+ * @property chatFriendlyName - Chat channel friendly name
+ * @property chatUniqueName - Chat channel unique name
+ * @property customerFriendlyName - Customer friendly name
+ * @property flexFlowSid - The unique ID of the FlexFlow
+ * @property identity - Chat identity
+ * @property preEngagementData - Pre-engagement data
  */
-interface BuildListInstanceCreateOptions {
-  assetVersions?: string[];
-  dependencies?: string;
-  functionVersions?: string[];
+interface WebChannelListInstanceCreateOptions {
+  chatFriendlyName: string;
+  chatUniqueName?: string;
+  customerFriendlyName: string;
+  flexFlowSid: string;
+  identity: string;
+  preEngagementData?: string;
 }
 
 /**
@@ -130,8 +141,8 @@ interface BuildListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceEachOptions {
-  callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
+interface WebChannelListInstanceEachOptions {
+  callback?: (item: WebChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -151,7 +162,7 @@ interface BuildListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceOptions {
+interface WebChannelListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -163,135 +174,126 @@ interface BuildListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface BuildListInstancePageOptions {
+interface WebChannelListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
+interface WebChannelPayload extends WebChannelResource, Page.TwilioResponsePayload {
 }
 
-interface BuildResource {
+interface WebChannelResource {
   account_sid: string;
-  asset_versions: string;
   date_created: Date;
   date_updated: Date;
-  dependencies: string;
-  function_versions: string;
-  service_sid: string;
+  flex_flow_sid: string;
   sid: string;
-  status: BuildStatus;
   url: string;
 }
 
-interface BuildSolution {
-  serviceSid?: string;
+interface WebChannelSolution {
 }
 
 
-declare class BuildContext {
+declare class WebChannelContext {
   /**
-   * Initialize the BuildContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * Initialize the WebChannelContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param sid - Flex Chat Channel Sid
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, sid: string);
 
   /**
-   * fetch a BuildInstance
+   * fetch a WebChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
+  fetch(callback?: (error: Error | null, items: WebChannelInstance) => any): Promise<WebChannelInstance>;
   /**
-   * remove a BuildInstance
+   * remove a WebChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WebChannelInstance) => any): void;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a WebChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WebChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WebChannelInstance) => any): Promise<WebChannelInstance>;
 }
 
 
-declare class BuildInstance extends SerializableClass {
+declare class WebChannelInstance extends SerializableClass {
   /**
-   * Initialize the BuildContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * Initialize the WebChannelContext
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param sid - Flex Chat Channel Sid
    */
-  constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
+  constructor(version: V1, payload: WebChannelPayload, sid: string);
 
-  private _proxy: BuildContext;
+  private _proxy: WebChannelContext;
   accountSid: string;
-  assetVersions: string;
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: string;
   /**
-   * fetch a BuildInstance
+   * fetch a WebChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  functionVersions: string;
+  fetch(callback?: (error: Error | null, items: WebChannelInstance) => any): void;
+  flexFlowSid: string;
   /**
-   * remove a BuildInstance
+   * remove a WebChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  serviceSid: string;
+  remove(callback?: (error: Error | null, items: WebChannelInstance) => any): void;
   sid: string;
-  status: BuildStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a WebChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WebChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WebChannelInstance) => any): void;
   url: string;
 }
 
 
-declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+declare class WebChannelPage extends Page<V1, WebChannelPayload, WebChannelResource, WebChannelInstance> {
   /**
-   * Initialize the BuildPage
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * Initialize the WebChannelPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution);
+  constructor(version: V1, response: Response<string>, solution: WebChannelSolution);
 
   /**
-   * Build an instance of BuildInstance
+   * Build an instance of WebChannelInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance;
+  getInstance(payload: WebChannelPayload): WebChannelInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { BuildContext, BuildInstance, BuildList, BuildListInstance, BuildListInstanceCreateOptions, BuildListInstanceEachOptions, BuildListInstanceOptions, BuildListInstancePageOptions, BuildPage, BuildPayload, BuildResource, BuildSolution }
+export { WebChannelContext, WebChannelInstance, WebChannelList, WebChannelListInstance, WebChannelListInstanceCreateOptions, WebChannelListInstanceEachOptions, WebChannelListInstanceOptions, WebChannelListInstancePageOptions, WebChannelPage, WebChannelPayload, WebChannelResource, WebChannelSolution }

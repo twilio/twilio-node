@@ -228,6 +228,12 @@ declare class ServiceContext {
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   functions: FunctionListInstance;
   /**
+   * remove a ServiceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -284,6 +290,12 @@ declare class ServiceInstance extends SerializableClass {
   functions(): FunctionListInstance;
   includeCredentials: boolean;
   links: string;
+  /**
+   * remove a ServiceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   sid: string;
   /**
    * Provide a user-friendly representation

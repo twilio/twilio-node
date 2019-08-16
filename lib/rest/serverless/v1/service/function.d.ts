@@ -214,6 +214,12 @@ declare class FunctionContext {
   fetch(callback?: (error: Error | null, items: FunctionInstance) => any): Promise<FunctionInstance>;
   functionVersions: FunctionVersionListInstance;
   /**
+   * remove a FunctionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FunctionInstance) => any): void;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -258,6 +264,12 @@ declare class FunctionInstance extends SerializableClass {
    */
   functionVersions(): FunctionVersionListInstance;
   links: string;
+  /**
+   * remove a FunctionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FunctionInstance) => any): void;
   serviceSid: string;
   sid: string;
   /**

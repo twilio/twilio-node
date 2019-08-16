@@ -146,6 +146,18 @@ declare class VoiceResponse {
    */
   sms(attributes: VoiceResponse.SmsAttributes, message: string): void;
   /**
+   * <Start> TwiML Verb
+   *
+   * @param attributes - TwiML attributes
+   */
+  start(attributes?: VoiceResponse.StartAttributes): VoiceResponse.Start;
+  /**
+   * <Stop> TwiML Verb
+   *
+   * @param attributes - TwiML attributes
+   */
+  stop(attributes?: object): VoiceResponse.Stop;
+  /**
    * Convert to XML
    */
   toString(): string;
@@ -161,7 +173,7 @@ declare namespace VoiceResponse {
 
   type ConferenceRecord = 'do-not-record'|'record-from-start';
 
-  type ConferenceRecordingEvent = 'started'|'stopped'|'paused'|'resumed'|'completed'|'absent';
+  type ConferenceRecordingEvent = 'in-progress'|'completed'|'absent';
 
   type ConferenceRegion = 'us1'|'ie1'|'sg1'|'br1'|'au1'|'jp1'|'de1';
 
@@ -220,6 +232,8 @@ declare namespace VoiceResponse {
   type SsmlSayAsInterpretAs = 'character'|'spell-out'|'cardinal'|'number'|'ordinal'|'digits'|'fraction'|'unit'|'date'|'time'|'address'|'expletive'|'telephone';
 
   type SsmlSayAsRole = 'mdy'|'dmy'|'ymd'|'md'|'dm'|'ym'|'my'|'d'|'m'|'y'|'yyyymmdd';
+
+  type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks'|'mixed_track';
 
   /**
    * Options to pass to client
@@ -591,6 +605,17 @@ declare namespace VoiceResponse {
   }
 
   /**
+   * Options to pass to siprec
+   *
+   * @property connectorName - Unique name for Connector
+   * @property name - Friendly name given to SIPREC
+   */
+  export interface SiprecAttributes {
+    connectorName?: string;
+    name?: string;
+  }
+
+  /**
    * Options to pass to sms
    *
    * @property action - Action URL
@@ -690,6 +715,32 @@ declare namespace VoiceResponse {
   }
 
   /**
+   * Options to pass to start
+   *
+   * @property action - Action URL
+   * @property method - Action URL method
+   */
+  export interface StartAttributes {
+    action?: string;
+    method?: string;
+  }
+
+  /**
+   * Options to pass to stream
+   *
+   * @property connectorName - Unique name for Stream Connector
+   * @property name - Friendly name given to the Stream
+   * @property track - Track to be streamed to remote service
+   * @property url - URL of the remote service where the Stream is routed
+   */
+  export interface StreamAttributes {
+    connectorName?: string;
+    name?: string;
+    track?: StreamTrack;
+    url?: string;
+  }
+
+  /**
    * Options to pass to task
    *
    * @property priority - Task priority
@@ -753,6 +804,12 @@ declare namespace VoiceResponse {
      * @param name - Room name
      */
     room(attributes: VoiceResponse.RoomAttributes, name: string): void;
+    /**
+     * <Stream> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream;
   }
 
 
@@ -1049,6 +1106,62 @@ declare namespace VoiceResponse {
      * @param words - Words to speak
      */
     ssmlW(attributes: VoiceResponse.SsmlWAttributes, words: string): void;
+  }
+
+
+  class Siprec {
+
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(attributes?: VoiceResponse.ParameterAttributes): void;
+  }
+
+
+  class Start {
+
+    /**
+     * <Siprec> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    siprec(attributes?: VoiceResponse.SiprecAttributes): VoiceResponse.Siprec;
+    /**
+     * <Stream> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream;
+  }
+
+
+  class Stop {
+
+    /**
+     * <Siprec> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    siprec(attributes?: VoiceResponse.SiprecAttributes): VoiceResponse.Siprec;
+    /**
+     * <Stream> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream;
+  }
+
+
+  class Stream {
+
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(attributes?: VoiceResponse.ParameterAttributes): void;
   }
 }
 

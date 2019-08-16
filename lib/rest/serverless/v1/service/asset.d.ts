@@ -214,6 +214,12 @@ declare class AssetContext {
    */
   fetch(callback?: (error: Error | null, items: AssetInstance) => any): Promise<AssetInstance>;
   /**
+   * remove a AssetInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AssetInstance) => any): void;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -258,6 +264,12 @@ declare class AssetInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: AssetInstance) => any): void;
   friendlyName: string;
   links: string;
+  /**
+   * remove a AssetInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AssetInstance) => any): void;
   serviceSid: string;
   sid: string;
   /**
