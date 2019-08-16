@@ -31,6 +31,13 @@ interface AssetVersionListInstance {
    */
   (sid: string): AssetVersionContext;
   /**
+   * create a AssetVersionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  create(opts: AssetVersionListInstanceCreateOptions, callback?: (error: Error | null, item: AssetVersionInstance) => any): Promise<AssetVersionInstance>;
+  /**
    * Streams AssetVersionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -90,6 +97,17 @@ interface AssetVersionListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property path - The URL-friendly string by which this Asset Version can be referenced.
+ * @property visibility - The access control which determines how the Asset Version can be accessed.
+ */
+interface AssetVersionListInstanceCreateOptions {
+  path: string;
+  visibility: AssetVersionVisibility;
 }
 
 /**
@@ -157,6 +175,7 @@ interface AssetVersionResource {
   asset_sid: string;
   date_created: Date;
   path: string;
+  pre_signed_upload_url: string;
   service_sid: string;
   sid: string;
   url: string;
@@ -224,6 +243,7 @@ declare class AssetVersionInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: AssetVersionInstance) => any): void;
   path: string;
+  preSignedUploadUrl: string;
   serviceSid: string;
   sid: string;
   /**
@@ -261,4 +281,4 @@ declare class AssetVersionPage extends Page<V1, AssetVersionPayload, AssetVersio
   toJSON(): any;
 }
 
-export { AssetVersionContext, AssetVersionInstance, AssetVersionList, AssetVersionListInstance, AssetVersionListInstanceEachOptions, AssetVersionListInstanceOptions, AssetVersionListInstancePageOptions, AssetVersionPage, AssetVersionPayload, AssetVersionResource, AssetVersionSolution }
+export { AssetVersionContext, AssetVersionInstance, AssetVersionList, AssetVersionListInstance, AssetVersionListInstanceCreateOptions, AssetVersionListInstanceEachOptions, AssetVersionListInstanceOptions, AssetVersionListInstancePageOptions, AssetVersionPage, AssetVersionPayload, AssetVersionResource, AssetVersionSolution }

@@ -60,7 +60,7 @@ interface RatePlanListInstance {
   /**
    * Constructs a rate_plan
    *
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The sid
    */
   get(sid: string): RatePlanContext;
   /**
@@ -107,14 +107,14 @@ interface RatePlanListInstance {
  * Options to pass to create
  *
  * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
- * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the 'home' (T-Mobile USA) network.
- * @property dataMetering - The model by which to meter data usage, in accordance with the available data metering models.
+ * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
+ * @property dataMetering - The model by which to meter data usage, in accordance with the two available data metering models.
  * @property friendlyName - A user-provided string that identifies this resource.
- * @property internationalRoaming - Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity and messaging outside of the United States.
- * @property internationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of international roaming (non-US) data usage (download and upload combined) allowed during one month.
+ * @property internationalRoaming - The international_roaming
+ * @property internationalRoamingDataLimit - The international_roaming_data_limit
  * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
- * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on networks in the United States other than the 'home' (T-Mobile USA) network.
- * @property nationalRoamingEnabled - Defines whether SIMs can roam onto networks other than the 'home' (T-Mobile USA) network in the United States.
+ * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
+ * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
  * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
  */
@@ -220,7 +220,7 @@ declare class RatePlanContext {
    * Initialize the RatePlanContext
    *
    * @param version - Version of the resource
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The sid
    */
   constructor(version: V1, sid: string);
 
@@ -256,7 +256,7 @@ declare class RatePlanInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The sid
    */
   constructor(version: V1, payload: RatePlanPayload, sid: string);
 

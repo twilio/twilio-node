@@ -211,12 +211,6 @@ declare class BuildContext {
    */
   fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
   /**
-   * remove a BuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -251,12 +245,6 @@ declare class BuildInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
   functionVersions: string;
-  /**
-   * remove a BuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
   serviceSid: string;
   sid: string;
   status: BuildStatus;

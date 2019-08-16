@@ -165,7 +165,6 @@ interface DailyPayload extends DailyResource, Page.TwilioResponsePayload {
 interface DailyResource {
   account_sid: string;
   api_version: string;
-  as_of: string;
   category: DailyCategory;
   count: string;
   count_unit: string;
@@ -197,7 +196,6 @@ declare class DailyInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  asOf: string;
   category: DailyCategory;
   count: string;
   countUnit: string;

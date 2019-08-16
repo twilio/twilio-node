@@ -165,7 +165,6 @@ interface YesterdayPayload extends YesterdayResource, Page.TwilioResponsePayload
 interface YesterdayResource {
   account_sid: string;
   api_version: string;
-  as_of: string;
   category: YesterdayCategory;
   count: string;
   count_unit: string;
@@ -197,7 +196,6 @@ declare class YesterdayInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  asOf: string;
   category: YesterdayCategory;
   count: string;
   countUnit: string;

@@ -165,7 +165,6 @@ interface AllTimePayload extends AllTimeResource, Page.TwilioResponsePayload {
 interface AllTimeResource {
   account_sid: string;
   api_version: string;
-  as_of: string;
   category: AllTimeCategory;
   count: string;
   count_unit: string;
@@ -197,7 +196,6 @@ declare class AllTimeInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  asOf: string;
   category: AllTimeCategory;
   count: string;
   countUnit: string;

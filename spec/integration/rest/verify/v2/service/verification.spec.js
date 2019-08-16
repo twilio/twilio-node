@@ -60,7 +60,7 @@ describe('Verification', function() {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'to': '+15017122661',
+          'to': '+14159373912',
           'channel': 'sms',
           'status': 'pending',
           'valid': false,
@@ -99,7 +99,7 @@ describe('Verification', function() {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'to': '+15017122661',
+          'to': '+14159373912',
           'channel': 'sms',
           'status': 'pending',
           'valid': false,
@@ -164,49 +164,10 @@ describe('Verification', function() {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'to': '+15017122661',
+          'to': '+14159373912',
           'channel': 'sms',
           'status': 'canceled',
           'valid': false,
-          'date_created': '2015-07-30T20:00:00Z',
-          'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
-          'amount': null,
-          'payee': null,
-          'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
-
-      holodeck.mock(new Response(200, body));
-
-      var opts = {status: 'canceled'};
-      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .verifications('sid').update(opts);
-      promise.then(function(response) {
-        expect(response).toBeDefined();
-        done();
-      }, function() {
-        throw new Error('failed');
-      }).done();
-    }
-  );
-  it('should generate valid approve_verification_with_pn response',
-    function(done) {
-      var body = JSON.stringify({
-          'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'to': '+14159373912',
-          'channel': 'sms',
-          'status': 'approved',
-          'valid': true,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'lookup': {
@@ -265,7 +226,7 @@ describe('Verification', function() {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'to': '+15017122661',
+          'to': '+14159373912',
           'channel': 'sms',
           'status': 'pending',
           'valid': false,

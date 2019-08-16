@@ -165,7 +165,6 @@ interface LastMonthPayload extends LastMonthResource, Page.TwilioResponsePayload
 interface LastMonthResource {
   account_sid: string;
   api_version: string;
-  as_of: string;
   category: LastMonthCategory;
   count: string;
   count_unit: string;
@@ -197,7 +196,6 @@ declare class LastMonthInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  asOf: string;
   category: LastMonthCategory;
   count: string;
   countUnit: string;

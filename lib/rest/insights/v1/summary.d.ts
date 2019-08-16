@@ -75,7 +75,6 @@ interface CallSummaryResource {
   end_time: Date;
   from: string;
   processing_state: CallSummaryProcessingState;
-  properties: string;
   sdk_edge: string;
   sip_edge: string;
   start_time: Date;
@@ -151,7 +150,6 @@ declare class CallSummaryInstance extends SerializableClass {
   fetch(opts?: CallSummaryInstanceFetchOptions, callback?: (error: Error | null, items: CallSummaryInstance) => any): void;
   from: string;
   processingState: CallSummaryProcessingState;
-  properties: string;
   sdkEdge: string;
   sipEdge: string;
   startTime: Date;

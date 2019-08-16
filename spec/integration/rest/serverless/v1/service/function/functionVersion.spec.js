@@ -115,6 +115,7 @@ describe('FunctionVersion', function() {
           'function_sid': 'ZH00000000000000000000000000000000',
           'path': 'test-path',
           'visibility': 'public',
+          'pre_signed_upload_url': null,
           'date_created': '2018-11-10T20:00:00Z',
           'url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000'
       });
@@ -124,6 +125,66 @@ describe('FunctionVersion', function() {
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functionVersions('ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create request',
+    function(done) {
+      holodeck.mock(new Response(500, '{}'));
+
+      var opts = {path: 'path', visibility: 'public'};
+      var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .functionVersions.create(opts);
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var functionSid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Functions/${functionSid}/Versions`;
+
+      var values = {Path: 'path', Visibility: 'public', };
+      holodeck.assertHasRequest(new Request({
+          method: 'POST',
+          url: url,
+          data: values
+      }));
+    }
+  );
+  it('should generate valid create response',
+    function(done) {
+      var body = JSON.stringify({
+          'sid': 'ZN00000000000000000000000000000000',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'ZS00000000000000000000000000000000',
+          'function_sid': 'ZH00000000000000000000000000000000',
+          'path': '/some/sample/path',
+          'visibility': 'protected',
+          'date_created': '2018-11-10T20:00:00Z',
+          'pre_signed_upload_url': {
+              'url': 'https://s3.amazonaws.com/com.twilio.dev.serverless',
+              'expiration': '2019-01-01T00:08:00.000Z',
+              'method': 'PUT',
+              'kmsARN': 'arn:aws:kms:us-east-1:719084529295:key/2a7bf064-c88c-4fdd-b376-625d7bcd2d98'
+          },
+          'url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {path: 'path', visibility: 'public'};
+      var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .functionVersions.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

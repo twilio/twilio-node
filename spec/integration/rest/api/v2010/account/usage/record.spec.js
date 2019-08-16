@@ -47,7 +47,6 @@ describe('Record', function() {
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'api_version': '2010-04-01',
-                  'as_of': '2019-06-24T22:32:49+00:00',
                   'category': 'totalprice',
                   'count': null,
                   'count_unit': '',
@@ -96,7 +95,6 @@ describe('Record', function() {
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'api_version': '2010-04-01',
-                  'as_of': '2019-06-24T22:32:49+00:00',
                   'category': 'totalprice',
                   'count': null,
                   'count_unit': '',
@@ -150,7 +148,6 @@ describe('Record', function() {
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'api_version': '2010-04-01',
-                  'as_of': '2019-06-24T22:32:49+00:00',
                   'category': 'totalprice',
                   'count': null,
                   'count_unit': '',
@@ -222,7 +219,6 @@ describe('Record', function() {
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'api_version': '2010-04-01',
-                  'as_of': '2019-06-24T22:32:49+00:00',
                   'category': 'totalprice',
                   'count': null,
                   'count_unit': '',

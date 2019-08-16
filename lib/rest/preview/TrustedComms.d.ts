@@ -7,8 +7,6 @@
 
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
-import { BrandedCallList } from './trusted_comms/brandedCall';
-import { BrandedCallListInstance } from './trusted_comms/brandedCall';
 import { CpsList } from './trusted_comms/cps';
 import { CpsListInstance } from './trusted_comms/cps';
 import { CurrentCallList } from './trusted_comms/currentCall';
@@ -27,7 +25,6 @@ declare class TrustedComms extends Version {
    */
   constructor(domain: Preview);
 
-  readonly brandedCalls: BrandedCallListInstance;
   readonly cps: CpsListInstance;
   readonly currentCalls: CurrentCallListInstance;
   readonly devices: DeviceListInstance;

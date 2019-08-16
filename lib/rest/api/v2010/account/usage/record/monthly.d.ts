@@ -165,7 +165,6 @@ interface MonthlyPayload extends MonthlyResource, Page.TwilioResponsePayload {
 interface MonthlyResource {
   account_sid: string;
   api_version: string;
-  as_of: string;
   category: MonthlyCategory;
   count: string;
   count_unit: string;
@@ -197,7 +196,6 @@ declare class MonthlyInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  asOf: string;
   category: MonthlyCategory;
   count: string;
   countUnit: string;

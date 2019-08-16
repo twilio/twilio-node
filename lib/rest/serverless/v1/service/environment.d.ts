@@ -10,8 +10,6 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { DeploymentList } from './environment/deployment';
 import { DeploymentListInstance } from './environment/deployment';
-import { LogList } from './environment/log';
-import { LogListInstance } from './environment/log';
 import { SerializableClass } from '../../../../interfaces';
 import { VariableList } from './environment/variable';
 import { VariableListInstance } from './environment/variable';
@@ -213,13 +211,6 @@ declare class EnvironmentContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: EnvironmentInstance) => any): Promise<EnvironmentInstance>;
-  logs: LogListInstance;
-  /**
-   * remove a EnvironmentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
   /**
    * Provide a user-friendly representation
    */
@@ -261,16 +252,6 @@ declare class EnvironmentInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
   links: string;
-  /**
-   * Access the logs
-   */
-  logs(): LogListInstance;
-  /**
-   * remove a EnvironmentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
   serviceSid: string;
   sid: string;
   /**
