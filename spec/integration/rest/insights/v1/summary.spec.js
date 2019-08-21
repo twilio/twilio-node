@@ -58,8 +58,6 @@ describe('CallSummary', function() {
           'call_type': 'carrier',
           'call_state': 'ringing',
           'processing_state': 'complete',
-          'direction': 'inbound',
-          'disconnected_by': 'callee',
           'start_time': '2015-07-30T20:00:00Z',
           'end_time': '2015-07-30T20:00:00Z',
           'duration': 100,

@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.137",
-    "@types/node": "^9.6.50",
+    "@types/node": "^9.6.51",
     "eslint": "^5.16.0",
     "express": "^4.17.1",
     "jasmine": "^3.4.0",

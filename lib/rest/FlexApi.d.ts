@@ -8,8 +8,10 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./flexApi/V1');
+import { ChannelListInstance } from './flexApi/v1/channel';
 import { ConfigurationListInstance } from './flexApi/v1/configuration';
 import { FlexFlowListInstance } from './flexApi/v1/flexFlow';
+import { WebChannelListInstance } from './flexApi/v1/webChannel';
 
 
 declare class FlexApi extends Domain {
@@ -20,9 +22,11 @@ declare class FlexApi extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly channel: ChannelListInstance;
   readonly configuration: ConfigurationListInstance;
   readonly flexFlow: FlexFlowListInstance;
   readonly v1: V1;
+  readonly webChannel: WebChannelListInstance;
 }
 
 export = FlexApi;

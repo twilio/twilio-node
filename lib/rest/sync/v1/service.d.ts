@@ -38,6 +38,7 @@ declare function ServiceList(version: V1): ServiceListInstance;
  * @property reachabilityDebouncingWindow - Determines how long an identity must be offline before reachability webhooks fire.
  * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
  * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
+ * @property webhooksFromRestEnabled - true or false - controls whether this instance fires webhooks when Sync objects are updated through REST
  */
 interface ServiceInstanceUpdateOptions {
   aclEnabled?: boolean;
@@ -46,6 +47,7 @@ interface ServiceInstanceUpdateOptions {
   reachabilityDebouncingWindow?: number;
   reachabilityWebhooksEnabled?: boolean;
   webhookUrl?: string;
+  webhooksFromRestEnabled?: boolean;
 }
 
 interface ServiceListInstance {
@@ -131,6 +133,7 @@ interface ServiceListInstance {
  * @property reachabilityDebouncingWindow - Determines how long an identity must be offline before reachability webhooks fire.
  * @property reachabilityWebhooksEnabled - true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
  * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
+ * @property webhooksFromRestEnabled - true or false - controls whether this instance fires webhooks when Sync objects are updated through REST
  */
 interface ServiceListInstanceCreateOptions {
   aclEnabled?: boolean;
@@ -139,6 +142,7 @@ interface ServiceListInstanceCreateOptions {
   reachabilityDebouncingWindow?: number;
   reachabilityWebhooksEnabled?: boolean;
   webhookUrl?: string;
+  webhooksFromRestEnabled?: boolean;
 }
 
 /**
@@ -215,6 +219,7 @@ interface ServiceResource {
   unique_name: string;
   url: string;
   webhook_url: string;
+  webhooks_from_rest_enabled: boolean;
 }
 
 interface ServiceSolution {
@@ -329,6 +334,7 @@ declare class ServiceInstance extends SerializableClass {
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
   url: string;
   webhookUrl: string;
+  webhooksFromRestEnabled: boolean;
 }
 
 

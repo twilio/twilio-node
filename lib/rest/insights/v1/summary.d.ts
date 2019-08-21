@@ -14,10 +14,6 @@ type CallSummaryCallState = 'ringing'|'completed'|'busy'|'fail'|'noanswer'|'canc
 
 type CallSummaryCallType = 'carrier'|'sip'|'trunking'|'client';
 
-type CallSummaryDirection = 'inbound'|'outbound_api'|'outbound_dial'|'trunking_originating'|'trunking_terminating';
-
-type CallSummaryDisconnectedBy = 'callee'|'caller'|'unknown';
-
 type CallSummaryProcessingState = 'complete'|'partial';
 
 /**
@@ -69,8 +65,6 @@ interface CallSummaryResource {
   carrier_edge: string;
   client_edge: string;
   connect_duration: number;
-  direction: CallSummaryDirection;
-  disconnected_by: CallSummaryDisconnectedBy;
   duration: number;
   end_time: Date;
   from: string;
@@ -138,8 +132,6 @@ declare class CallSummaryInstance extends SerializableClass {
   carrierEdge: string;
   clientEdge: string;
   connectDuration: number;
-  direction: CallSummaryDirection;
-  disconnectedBy: CallSummaryDisconnectedBy;
   duration: number;
   endTime: Date;
   /**

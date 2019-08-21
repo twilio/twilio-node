@@ -7,10 +7,14 @@
 
 import FlexApi = require('../FlexApi');
 import Version = require('../../base/Version');
+import { ChannelList } from './v1/channel';
+import { ChannelListInstance } from './v1/channel';
 import { ConfigurationList } from './v1/configuration';
 import { ConfigurationListInstance } from './v1/configuration';
 import { FlexFlowList } from './v1/flexFlow';
 import { FlexFlowListInstance } from './v1/flexFlow';
+import { WebChannelList } from './v1/webChannel';
+import { WebChannelListInstance } from './v1/webChannel';
 
 
 declare class V1 extends Version {
@@ -21,8 +25,10 @@ declare class V1 extends Version {
    */
   constructor(domain: FlexApi);
 
+  readonly channel: ChannelListInstance;
   readonly configuration: ConfigurationListInstance;
   readonly flexFlow: FlexFlowListInstance;
+  readonly webChannel: WebChannelListInstance;
 }
 
 export = V1;

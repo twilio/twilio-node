@@ -193,9 +193,13 @@ declare namespace VoiceResponse {
 
   type NumberEvent = 'initiated'|'ringing'|'answered'|'completed';
 
+  type PayBankAccountType = 'consumer-checking'|'consumer-savings'|'commercial-checking'|'commercial-savings';
+
   type PayInput = 'dtmf';
 
   type PayLanguage = 'de-DE'|'en-AU'|'en-CA'|'en-GB'|'en-IN'|'en-IE'|'en-NZ'|'en-PH'|'en-ZA'|'en-US'|'es-ES'|'es-US'|'fr-CA'|'fr-FR'|'it-IT';
+
+  type PayPaymentMethod = 'ach-debit'|'credit-card';
 
   type PayStatusCallbackMethod = 'GET'|'POST';
 
@@ -207,7 +211,7 @@ declare namespace VoiceResponse {
 
   type PromptErrorType = 'timeout'|'invalid-card-number'|'invalid-card-type'|'invalid-date'|'invalid-security-code'|'internal-error';
 
-  type PromptFor = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'payment-processing';
+  type PromptFor = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'payment-processing'|'bank-account-number'|'bank-routing-number';
 
   type RecordRecordingEvent = 'in-progress'|'completed'|'absent';
 
@@ -438,13 +442,16 @@ declare namespace VoiceResponse {
    * Options to pass to pay
    *
    * @property action - Action URL
+   * @property bankAccountType - Bank account type for ach transactions. If set, payment method attribute must be provided and value should be set to ach-debit. defaults to consumer-checking
    * @property chargeAmount - Amount to process. If value is greater than 0 then make the payment else create a payment token
    * @property currency - Currency of the amount attribute
    * @property description - Details regarding the payment
    * @property input - Input type Twilio should accept
    * @property language - Language to use
    * @property maxAttempts - Maximum number of allowed retries when gathering input
+   * @property minPostalCodeLength - Prompt for minimum postal code length
    * @property paymentConnector - Unique name for payment connector
+   * @property paymentMethod - Payment method to be used. defaults to credit-card
    * @property postalCode - Prompt for postal code and it should be true/false or default postal code
    * @property securityCode - Prompt for security code
    * @property statusCallback - Status callback URL
@@ -455,13 +462,16 @@ declare namespace VoiceResponse {
    */
   export interface PayAttributes {
     action?: string;
+    bankAccountType?: PayBankAccountType;
     chargeAmount?: string;
     currency?: string;
     description?: string;
     input?: PayInput;
     language?: PayLanguage;
     maxAttempts?: number;
+    minPostalCodeLength?: number;
     paymentConnector?: string;
+    paymentMethod?: PayPaymentMethod;
     postalCode?: string;
     securityCode?: boolean;
     statusCallback?: string;
@@ -488,7 +498,7 @@ declare namespace VoiceResponse {
    * @property attempt - Current attempt count
    * @property cardType - Type of the credit card
    * @property errorType - Type of error
-   * @property for_ - Name of the credit card data element
+   * @property for_ - Name of the payment source data element
    */
   export interface PromptAttributes {
     attempt?: string;
@@ -941,6 +951,12 @@ declare namespace VoiceResponse {
 
   class Pay {
 
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(attributes?: VoiceResponse.ParameterAttributes): void;
     /**
      * <Prompt> Twiml Verb
      *
