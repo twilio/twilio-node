@@ -1,6 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
 var Twilio = require('../lib');
 
 var accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -116,7 +115,7 @@ promise.then(function(trunk) {
 // List messages using callbacks
 twilio.messages.list(function(err, messages) {
   console.log('Listing messages using callbacks');
-  _.each(messages, function(message) {
+  messages.forEach(function (message) {
     console.log(message.sid);
   });
 });
@@ -125,7 +124,7 @@ twilio.messages.list(function(err, messages) {
 promise = twilio.messages.list();
 promise.then(function(messages) {
   console.log('Listing messages using promises');
-  _.each(messages, function(message) {
+  messages.forEach(function (message) {
     console.log(message.sid);
   });
 });
