@@ -39,7 +39,7 @@ interface EngagementContextPayload extends EngagementContextResource, Page.Twili
 
 interface EngagementContextResource {
   account_sid: string;
-  context: string;
+  context: object;
   engagement_sid: string;
   flow_sid: string;
   url: string;
@@ -87,7 +87,7 @@ declare class EngagementContextInstance extends SerializableClass {
 
   private _proxy: EngagementContextContext;
   accountSid: string;
-  context: string;
+  context: object;
   engagementSid: string;
   /**
    * fetch a EngagementContextInstance

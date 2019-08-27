@@ -151,7 +151,7 @@ interface DataSessionPayload extends DataSessionResource, Page.TwilioResponsePay
 interface DataSessionResource {
   account_sid: string;
   cell_id: string;
-  cell_location_estimate: string;
+  cell_location_estimate: object;
   end: Date;
   imei: string;
   last_updated: Date;
@@ -184,7 +184,7 @@ declare class DataSessionInstance extends SerializableClass {
 
   accountSid: string;
   cellId: string;
-  cellLocationEstimate: string;
+  cellLocationEstimate: object;
   end: Date;
   imei: string;
   lastUpdated: Date;

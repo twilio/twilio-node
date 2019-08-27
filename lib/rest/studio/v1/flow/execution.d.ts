@@ -108,7 +108,7 @@ interface ExecutionListInstance {
  */
 interface ExecutionListInstanceCreateOptions {
   from: string;
-  parameters?: string;
+  parameters?: object;
   to: string;
 }
 
@@ -188,7 +188,7 @@ interface ExecutionResource {
   account_sid: string;
   contact_channel_address: string;
   contact_sid: string;
-  context: string;
+  context: object;
   date_created: Date;
   date_updated: Date;
   flow_sid: string;
@@ -249,7 +249,7 @@ declare class ExecutionInstance extends SerializableClass {
   accountSid: string;
   contactChannelAddress: string;
   contactSid: string;
-  context: string;
+  context: object;
   dateCreated: Date;
   dateUpdated: Date;
   /**

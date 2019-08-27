@@ -40,7 +40,7 @@ interface ExecutionStepContextPayload extends ExecutionStepContextResource, Page
 
 interface ExecutionStepContextResource {
   account_sid: string;
-  context: string;
+  context: object;
   execution_sid: string;
   flow_sid: string;
   step_sid: string;
@@ -92,7 +92,7 @@ declare class ExecutionStepContextInstance extends SerializableClass {
 
   private _proxy: ExecutionStepContextContext;
   accountSid: string;
-  context: string;
+  context: object;
   executionSid: string;
   /**
    * fetch a ExecutionStepContextInstance

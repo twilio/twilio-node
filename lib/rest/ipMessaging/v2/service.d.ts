@@ -261,10 +261,10 @@ interface ServiceResource {
   default_channel_role_sid: string;
   default_service_role_sid: string;
   friendly_name: string;
-  limits: string;
+  limits: object;
   links: string;
-  media: string;
-  notifications: string;
+  media: object;
+  notifications: object;
   post_webhook_retry_count: number;
   post_webhook_url: string;
   pre_webhook_retry_count: number;
@@ -354,10 +354,10 @@ declare class ServiceInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   friendlyName: string;
-  limits: string;
+  limits: object;
   links: string;
-  media: string;
-  notifications: string;
+  media: object;
+  notifications: object;
   postWebhookRetryCount: number;
   postWebhookUrl: string;
   preWebhookRetryCount: number;

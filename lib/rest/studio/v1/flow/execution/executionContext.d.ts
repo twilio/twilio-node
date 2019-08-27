@@ -39,7 +39,7 @@ interface ExecutionContextPayload extends ExecutionContextResource, Page.TwilioR
 
 interface ExecutionContextResource {
   account_sid: string;
-  context: string;
+  context: object;
   execution_sid: string;
   flow_sid: string;
   url: string;
@@ -87,7 +87,7 @@ declare class ExecutionContextInstance extends SerializableClass {
 
   private _proxy: ExecutionContextContext;
   accountSid: string;
-  context: string;
+  context: object;
   executionSid: string;
   /**
    * fetch a ExecutionContextInstance

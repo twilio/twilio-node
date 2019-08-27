@@ -56,8 +56,8 @@ interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource, Page.T
 
 interface WorkspaceStatisticsResource {
   account_sid: string;
-  cumulative: string;
-  realtime: string;
+  cumulative: object;
+  realtime: object;
   url: string;
   workspace_sid: string;
 }
@@ -102,7 +102,7 @@ declare class WorkspaceStatisticsInstance extends SerializableClass {
 
   private _proxy: WorkspaceStatisticsContext;
   accountSid: string;
-  cumulative: string;
+  cumulative: object;
   /**
    * fetch a WorkspaceStatisticsInstance
    *
@@ -110,7 +110,7 @@ declare class WorkspaceStatisticsInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkspaceStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceStatisticsInstance) => any): void;
-  realtime: string;
+  realtime: object;
   /**
    * Provide a user-friendly representation
    */

@@ -214,7 +214,7 @@ interface MessageResource {
   from: string;
   index: number;
   last_updated_by: string;
-  media: string;
+  media: object;
   service_sid: string;
   sid: string;
   to: string;
@@ -294,7 +294,7 @@ declare class MessageInstance extends SerializableClass {
   from: string;
   index: number;
   lastUpdatedBy: string;
-  media: string;
+  media: object;
   /**
    * remove a MessageInstance
    *

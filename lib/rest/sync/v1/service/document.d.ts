@@ -31,7 +31,7 @@ declare function DocumentList(version: V1, serviceSid: string): DocumentListInst
  * @property ttl - New time-to-live of this Document in seconds.
  */
 interface DocumentInstanceUpdateOptions {
-  data?: string;
+  data?: object;
   ttl?: number;
 }
 
@@ -117,7 +117,7 @@ interface DocumentListInstance {
  * @property uniqueName - Human-readable name for this document
  */
 interface DocumentListInstanceCreateOptions {
-  data?: string;
+  data?: object;
   ttl?: number;
   uniqueName?: string;
 }
@@ -185,7 +185,7 @@ interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
 interface DocumentResource {
   account_sid: string;
   created_by: string;
-  data: string;
+  data: object;
   date_created: Date;
   date_expires: Date;
   date_updated: Date;
@@ -259,7 +259,7 @@ declare class DocumentInstance extends SerializableClass {
   private _proxy: DocumentContext;
   accountSid: string;
   createdBy: string;
-  data: string;
+  data: object;
   dateCreated: Date;
   dateExpires: Date;
   dateUpdated: Date;

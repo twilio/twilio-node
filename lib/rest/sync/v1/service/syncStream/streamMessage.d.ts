@@ -43,14 +43,14 @@ interface StreamMessageListInstance {
  * @property data - Stream Message body.
  */
 interface StreamMessageListInstanceCreateOptions {
-  data: string;
+  data: object;
 }
 
 interface StreamMessagePayload extends StreamMessageResource, Page.TwilioResponsePayload {
 }
 
 interface StreamMessageResource {
-  data: string;
+  data: object;
   sid: string;
 }
 
@@ -74,7 +74,7 @@ declare class StreamMessageInstance extends SerializableClass {
    */
   constructor(version: V1, payload: StreamMessagePayload, serviceSid: string, streamSid: string);
 
-  data: string;
+  data: object;
   sid: string;
   /**
    * Provide a user-friendly representation

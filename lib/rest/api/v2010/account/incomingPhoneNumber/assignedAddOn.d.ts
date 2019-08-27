@@ -169,7 +169,7 @@ interface AssignedAddOnPayload extends AssignedAddOnResource, Page.TwilioRespons
 
 interface AssignedAddOnResource {
   account_sid: string;
-  configuration: string;
+  configuration: object;
   date_created: Date;
   date_updated: Date;
   description: string;
@@ -238,7 +238,7 @@ declare class AssignedAddOnInstance extends SerializableClass {
 
   private _proxy: AssignedAddOnContext;
   accountSid: string;
-  configuration: string;
+  configuration: object;
   dateCreated: Date;
   dateUpdated: Date;
   description: string;

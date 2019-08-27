@@ -29,7 +29,7 @@ declare function StyleSheetList(version: V1, assistantSid: string): StyleSheetLi
  * @property styleSheet - The JSON string that describes the style sheet object
  */
 interface StyleSheetInstanceUpdateOptions {
-  styleSheet?: string;
+  styleSheet?: object;
 }
 
 interface StyleSheetListInstance {
@@ -53,7 +53,7 @@ interface StyleSheetPayload extends StyleSheetResource, Page.TwilioResponsePaylo
 interface StyleSheetResource {
   account_sid: string;
   assistant_sid: string;
-  data: string;
+  data: object;
   url: string;
 }
 
@@ -112,7 +112,7 @@ declare class StyleSheetInstance extends SerializableClass {
   private _proxy: StyleSheetContext;
   accountSid: string;
   assistantSid: string;
-  data: string;
+  data: object;
   /**
    * fetch a StyleSheetInstance
    *

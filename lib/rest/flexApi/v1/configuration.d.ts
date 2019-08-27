@@ -48,11 +48,11 @@ interface ConfigurationPayload extends ConfigurationResource, Page.TwilioRespons
 
 interface ConfigurationResource {
   account_sid: string;
-  attributes: string;
+  attributes: object;
   call_recording_enabled: boolean;
   call_recording_webhook_url: string;
   chat_service_instance_sid: string;
-  crm_attributes: string;
+  crm_attributes: object;
   crm_callback_url: string;
   crm_enabled: boolean;
   crm_fallback_url: string;
@@ -61,10 +61,10 @@ interface ConfigurationResource {
   date_updated: Date;
   integrations: string;
   messaging_service_instance_sid: string;
-  outbound_call_flows: string;
-  plugin_service_attributes: string;
+  outbound_call_flows: object;
+  plugin_service_attributes: object;
   plugin_service_enabled: boolean;
-  public_attributes: string;
+  public_attributes: object;
   runtime_domain: string;
   service_version: string;
   status: ConfigurationStatus;
@@ -73,10 +73,10 @@ interface ConfigurationResource {
   taskrouter_target_taskqueue_sid: string;
   taskrouter_target_workflow_sid: string;
   taskrouter_taskqueues: string;
-  taskrouter_worker_attributes: string;
-  taskrouter_worker_channels: string;
+  taskrouter_worker_attributes: object;
+  taskrouter_worker_channels: object;
   taskrouter_workspace_sid: string;
-  ui_attributes: string;
+  ui_attributes: object;
   ui_language: string;
   ui_version: string;
   url: string;
@@ -131,7 +131,7 @@ declare class ConfigurationInstance extends SerializableClass {
 
   private _proxy: ConfigurationContext;
   accountSid: string;
-  attributes: string;
+  attributes: object;
   callRecordingEnabled: boolean;
   callRecordingWebhookUrl: string;
   chatServiceInstanceSid: string;
@@ -141,7 +141,7 @@ declare class ConfigurationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   create(callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
-  crmAttributes: string;
+  crmAttributes: object;
   crmCallbackUrl: string;
   crmEnabled: boolean;
   crmFallbackUrl: string;
@@ -157,10 +157,10 @@ declare class ConfigurationInstance extends SerializableClass {
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
   integrations: string;
   messagingServiceInstanceSid: string;
-  outboundCallFlows: string;
-  pluginServiceAttributes: string;
+  outboundCallFlows: object;
+  pluginServiceAttributes: object;
   pluginServiceEnabled: boolean;
-  publicAttributes: string;
+  publicAttributes: object;
   runtimeDomain: string;
   serviceVersion: string;
   status: ConfigurationStatus;
@@ -169,14 +169,14 @@ declare class ConfigurationInstance extends SerializableClass {
   taskrouterTargetTaskqueueSid: string;
   taskrouterTargetWorkflowSid: string;
   taskrouterTaskqueues: string;
-  taskrouterWorkerAttributes: string;
-  taskrouterWorkerChannels: string;
+  taskrouterWorkerAttributes: object;
+  taskrouterWorkerChannels: object;
   taskrouterWorkspaceSid: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  uiAttributes: string;
+  uiAttributes: object;
   uiLanguage: string;
   uiVersion: string;
   /**

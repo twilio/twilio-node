@@ -29,7 +29,7 @@ declare function AssistantFallbackActionsList(version: Understand, assistantSid:
  * @property fallbackActions - The fallback_actions
  */
 interface AssistantFallbackActionsInstanceUpdateOptions {
-  fallbackActions?: string;
+  fallbackActions?: object;
 }
 
 interface AssistantFallbackActionsListInstance {
@@ -53,7 +53,7 @@ interface AssistantFallbackActionsPayload extends AssistantFallbackActionsResour
 interface AssistantFallbackActionsResource {
   account_sid: string;
   assistant_sid: string;
-  data: string;
+  data: object;
   url: string;
 }
 
@@ -112,7 +112,7 @@ declare class AssistantFallbackActionsInstance extends SerializableClass {
   private _proxy: AssistantFallbackActionsContext;
   accountSid: string;
   assistantSid: string;
-  data: string;
+  data: object;
   /**
    * fetch a AssistantFallbackActionsInstance
    *

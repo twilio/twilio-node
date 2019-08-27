@@ -40,7 +40,7 @@ interface StepContextPayload extends StepContextResource, Page.TwilioResponsePay
 
 interface StepContextResource {
   account_sid: string;
-  context: string;
+  context: object;
   engagement_sid: string;
   flow_sid: string;
   step_sid: string;
@@ -92,7 +92,7 @@ declare class StepContextInstance extends SerializableClass {
 
   private _proxy: StepContextContext;
   accountSid: string;
-  context: string;
+  context: object;
   engagementSid: string;
   /**
    * fetch a StepContextInstance

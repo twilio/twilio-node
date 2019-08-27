@@ -150,7 +150,7 @@ interface StepPayload extends StepResource, Page.TwilioResponsePayload {
 
 interface StepResource {
   account_sid: string;
-  context: string;
+  context: object;
   date_created: Date;
   date_updated: Date;
   engagement_sid: string;
@@ -208,7 +208,7 @@ declare class StepInstance extends SerializableClass {
 
   private _proxy: StepContext;
   accountSid: string;
-  context: string;
+  context: object;
   dateCreated: Date;
   dateUpdated: Date;
   engagementSid: string;

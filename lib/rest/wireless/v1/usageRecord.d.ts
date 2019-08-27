@@ -157,9 +157,9 @@ interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePay
 
 interface UsageRecordResource {
   account_sid: string;
-  commands: string;
-  data: string;
-  period: string;
+  commands: object;
+  data: object;
+  period: object;
 }
 
 interface UsageRecordSolution {
@@ -176,9 +176,9 @@ declare class UsageRecordInstance extends SerializableClass {
   constructor(version: V1, payload: UsageRecordPayload);
 
   accountSid: string;
-  commands: string;
-  data: string;
-  period: string;
+  commands: object;
+  data: object;
+  period: object;
   /**
    * Provide a user-friendly representation
    */

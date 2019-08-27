@@ -31,7 +31,7 @@ declare function InstalledAddOnList(version: Marketplace): InstalledAddOnListIns
  * @property uniqueName - The string that uniquely identifies this Add-on installation
  */
 interface InstalledAddOnInstanceUpdateOptions {
-  configuration?: string;
+  configuration?: object;
   uniqueName?: string;
 }
 
@@ -120,7 +120,7 @@ interface InstalledAddOnListInstance {
 interface InstalledAddOnListInstanceCreateOptions {
   acceptTermsOfService: boolean;
   availableAddOnSid: string;
-  configuration?: string;
+  configuration?: object;
   uniqueName?: string;
 }
 
@@ -186,7 +186,7 @@ interface InstalledAddOnPayload extends InstalledAddOnResource, Page.TwilioRespo
 
 interface InstalledAddOnResource {
   account_sid: string;
-  configuration: string;
+  configuration: object;
   date_created: Date;
   date_updated: Date;
   description: string;
@@ -257,7 +257,7 @@ declare class InstalledAddOnInstance extends SerializableClass {
 
   private _proxy: InstalledAddOnContext;
   accountSid: string;
-  configuration: string;
+  configuration: object;
   dateCreated: Date;
   dateUpdated: Date;
   description: string;

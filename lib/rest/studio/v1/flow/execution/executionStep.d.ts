@@ -150,7 +150,7 @@ interface ExecutionStepPayload extends ExecutionStepResource, Page.TwilioRespons
 
 interface ExecutionStepResource {
   account_sid: string;
-  context: string;
+  context: object;
   date_created: Date;
   date_updated: Date;
   execution_sid: string;
@@ -208,7 +208,7 @@ declare class ExecutionStepInstance extends SerializableClass {
 
   private _proxy: ExecutionStepContext;
   accountSid: string;
-  context: string;
+  context: object;
   dateCreated: Date;
   dateUpdated: Date;
   executionSid: string;

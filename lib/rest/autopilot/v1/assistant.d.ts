@@ -53,11 +53,11 @@ declare function AssistantList(version: V1): AssistantListInstance;
 interface AssistantInstanceUpdateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
-  defaults?: string;
+  defaults?: object;
   developmentStage?: string;
   friendlyName?: string;
   logQueries?: boolean;
-  styleSheet?: string;
+  styleSheet?: object;
   uniqueName?: string;
 }
 
@@ -149,10 +149,10 @@ interface AssistantListInstance {
 interface AssistantListInstanceCreateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
-  defaults?: string;
+  defaults?: object;
   friendlyName?: string;
   logQueries?: boolean;
-  styleSheet?: string;
+  styleSheet?: object;
   uniqueName?: string;
 }
 

@@ -195,7 +195,7 @@ interface ParticipantResource {
   date_created: Date;
   date_updated: Date;
   identity: string;
-  messaging_binding: string;
+  messaging_binding: object;
   sid: string;
   url: string;
 }
@@ -272,7 +272,7 @@ declare class ParticipantInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   identity: string;
-  messagingBinding: string;
+  messagingBinding: object;
   /**
    * remove a ParticipantInstance
    *

@@ -40,7 +40,7 @@ declare function TaskList(version: V1, assistantSid: string): TaskListInstance;
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface TaskInstanceUpdateOptions {
-  actions?: string;
+  actions?: object;
   actionsUrl?: string;
   friendlyName?: string;
   uniqueName?: string;
@@ -129,7 +129,7 @@ interface TaskListInstance {
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface TaskListInstanceCreateOptions {
-  actions?: string;
+  actions?: object;
   actionsUrl?: string;
   friendlyName?: string;
   uniqueName: string;
