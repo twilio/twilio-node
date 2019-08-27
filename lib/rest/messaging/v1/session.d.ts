@@ -348,4 +348,4 @@ declare class SessionPage extends Page<V1, SessionPayload, SessionResource, Sess
   toJSON(): any;
 }
 
-export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionListInstanceCreateOptions, SessionListInstanceEachOptions, SessionListInstanceOptions, SessionListInstancePageOptions, SessionPage, SessionPayload, SessionResource, SessionSolution }
+export { SessionContext, SessionInstance, SessionInstanceUpdateOptions, SessionList, SessionListInstance, SessionListInstanceCreateOptions, SessionListInstanceEachOptions, SessionListInstanceOptions, SessionListInstancePageOptions, SessionPage, SessionPayload, SessionResource, SessionSolution }

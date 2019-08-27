@@ -214,4 +214,4 @@ declare class VerificationPage extends Page<V2, VerificationPayload, Verificatio
   toJSON(): any;
 }
 
-export { VerificationContext, VerificationInstance, VerificationList, VerificationListInstance, VerificationListInstanceCreateOptions, VerificationPage, VerificationPayload, VerificationResource, VerificationSolution }
+export { VerificationContext, VerificationInstance, VerificationInstanceUpdateOptions, VerificationList, VerificationListInstance, VerificationListInstanceCreateOptions, VerificationPage, VerificationPayload, VerificationResource, VerificationSolution }

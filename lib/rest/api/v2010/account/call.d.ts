@@ -475,4 +475,4 @@ declare class CallPage extends Page<V2010, CallPayload, CallResource, CallInstan
   toJSON(): any;
 }
 
-export { CallContext, CallInstance, CallList, CallListInstance, CallListInstanceCreateOptions, CallListInstanceEachOptions, CallListInstanceOptions, CallListInstancePageOptions, CallPage, CallPayload, CallResource, CallSolution }
+export { CallContext, CallInstance, CallInstanceUpdateOptions, CallList, CallListInstance, CallListInstanceCreateOptions, CallListInstanceEachOptions, CallListInstanceOptions, CallListInstancePageOptions, CallPage, CallPayload, CallResource, CallSolution }

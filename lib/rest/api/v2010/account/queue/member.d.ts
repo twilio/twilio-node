@@ -264,4 +264,4 @@ declare class MemberPage extends Page<V2010, MemberPayload, MemberResource, Memb
   toJSON(): any;
 }
 
-export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }
+export { MemberContext, MemberInstance, MemberInstanceUpdateOptions, MemberList, MemberListInstance, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }

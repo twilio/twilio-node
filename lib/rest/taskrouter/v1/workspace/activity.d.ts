@@ -305,4 +305,4 @@ declare class ActivityPage extends Page<V1, ActivityPayload, ActivityResource, A
   toJSON(): any;
 }
 
-export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityListInstanceCreateOptions, ActivityListInstanceEachOptions, ActivityListInstanceOptions, ActivityListInstancePageOptions, ActivityPage, ActivityPayload, ActivityResource, ActivitySolution }
+export { ActivityContext, ActivityInstance, ActivityInstanceUpdateOptions, ActivityList, ActivityListInstance, ActivityListInstanceCreateOptions, ActivityListInstanceEachOptions, ActivityListInstanceOptions, ActivityListInstancePageOptions, ActivityPage, ActivityPayload, ActivityResource, ActivitySolution }

@@ -315,4 +315,4 @@ declare class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResou
   toJSON(): any;
 }
 
-export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamListInstanceCreateOptions, SyncStreamListInstanceEachOptions, SyncStreamListInstanceOptions, SyncStreamListInstancePageOptions, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }
+export { SyncStreamContext, SyncStreamInstance, SyncStreamInstanceUpdateOptions, SyncStreamList, SyncStreamListInstance, SyncStreamListInstanceCreateOptions, SyncStreamListInstanceEachOptions, SyncStreamListInstanceOptions, SyncStreamListInstancePageOptions, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }

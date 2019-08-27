@@ -301,4 +301,4 @@ declare class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelRe
   toJSON(): any;
 }
 
-export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelListInstanceCreateOptions, TaskChannelListInstanceEachOptions, TaskChannelListInstanceOptions, TaskChannelListInstancePageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }
+export { TaskChannelContext, TaskChannelInstance, TaskChannelInstanceUpdateOptions, TaskChannelList, TaskChannelListInstance, TaskChannelListInstanceCreateOptions, TaskChannelListInstanceEachOptions, TaskChannelListInstanceOptions, TaskChannelListInstancePageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }

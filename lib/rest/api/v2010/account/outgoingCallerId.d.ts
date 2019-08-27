@@ -284,4 +284,4 @@ declare class OutgoingCallerIdPage extends Page<V2010, OutgoingCallerIdPayload, 
   toJSON(): any;
 }
 
-export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdListInstanceEachOptions, OutgoingCallerIdListInstanceOptions, OutgoingCallerIdListInstancePageOptions, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdSolution }
+export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdInstanceUpdateOptions, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdListInstanceEachOptions, OutgoingCallerIdListInstanceOptions, OutgoingCallerIdListInstancePageOptions, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdSolution }

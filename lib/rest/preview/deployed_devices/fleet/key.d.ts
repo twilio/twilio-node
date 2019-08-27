@@ -318,4 +318,4 @@ declare class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, Key
   toJSON(): any;
 }
 
-export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyListInstanceCreateOptions, KeyListInstanceEachOptions, KeyListInstanceOptions, KeyListInstancePageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }
+export { KeyContext, KeyInstance, KeyInstanceUpdateOptions, KeyList, KeyListInstance, KeyListInstanceCreateOptions, KeyListInstanceEachOptions, KeyListInstanceOptions, KeyListInstancePageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }

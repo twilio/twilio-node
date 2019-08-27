@@ -319,4 +319,4 @@ declare class FieldTypePage extends Page<V1, FieldTypePayload, FieldTypeResource
   toJSON(): any;
 }
 
-export { FieldTypeContext, FieldTypeInstance, FieldTypeList, FieldTypeListInstance, FieldTypeListInstanceCreateOptions, FieldTypeListInstanceEachOptions, FieldTypeListInstanceOptions, FieldTypeListInstancePageOptions, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }
+export { FieldTypeContext, FieldTypeInstance, FieldTypeInstanceUpdateOptions, FieldTypeList, FieldTypeListInstance, FieldTypeListInstanceCreateOptions, FieldTypeListInstanceEachOptions, FieldTypeListInstanceOptions, FieldTypeListInstancePageOptions, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }

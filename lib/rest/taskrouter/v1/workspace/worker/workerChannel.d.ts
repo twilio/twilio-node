@@ -279,4 +279,4 @@ declare class WorkerChannelPage extends Page<V1, WorkerChannelPayload, WorkerCha
   toJSON(): any;
 }
 
-export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelListInstanceEachOptions, WorkerChannelListInstanceOptions, WorkerChannelListInstancePageOptions, WorkerChannelPage, WorkerChannelPayload, WorkerChannelResource, WorkerChannelSolution }
+export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelInstanceUpdateOptions, WorkerChannelList, WorkerChannelListInstance, WorkerChannelListInstanceEachOptions, WorkerChannelListInstanceOptions, WorkerChannelListInstancePageOptions, WorkerChannelPage, WorkerChannelPayload, WorkerChannelResource, WorkerChannelSolution }

@@ -322,4 +322,4 @@ declare class InstalledAddOnPage extends Page<Marketplace, InstalledAddOnPayload
   toJSON(): any;
 }
 
-export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnListInstanceCreateOptions, InstalledAddOnListInstanceEachOptions, InstalledAddOnListInstanceOptions, InstalledAddOnListInstancePageOptions, InstalledAddOnPage, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnSolution }
+export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnInstanceUpdateOptions, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnListInstanceCreateOptions, InstalledAddOnListInstanceEachOptions, InstalledAddOnListInstanceOptions, InstalledAddOnListInstancePageOptions, InstalledAddOnPage, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnSolution }

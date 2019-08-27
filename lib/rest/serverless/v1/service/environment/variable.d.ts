@@ -316,4 +316,4 @@ declare class VariablePage extends Page<V1, VariablePayload, VariableResource, V
   toJSON(): any;
 }
 
-export { VariableContext, VariableInstance, VariableList, VariableListInstance, VariableListInstanceCreateOptions, VariableListInstanceEachOptions, VariableListInstanceOptions, VariableListInstancePageOptions, VariablePage, VariablePayload, VariableResource, VariableSolution }
+export { VariableContext, VariableInstance, VariableInstanceUpdateOptions, VariableList, VariableListInstance, VariableListInstanceCreateOptions, VariableListInstanceEachOptions, VariableListInstanceOptions, VariableListInstancePageOptions, VariablePage, VariablePayload, VariableResource, VariableSolution }

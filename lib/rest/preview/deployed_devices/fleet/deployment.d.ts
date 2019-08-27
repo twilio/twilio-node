@@ -310,4 +310,4 @@ declare class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, De
   toJSON(): any;
 }
 
-export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentListInstanceCreateOptions, DeploymentListInstanceEachOptions, DeploymentListInstanceOptions, DeploymentListInstancePageOptions, DeploymentPage, DeploymentPayload, DeploymentResource, DeploymentSolution }
+export { DeploymentContext, DeploymentInstance, DeploymentInstanceUpdateOptions, DeploymentList, DeploymentListInstance, DeploymentListInstanceCreateOptions, DeploymentListInstanceEachOptions, DeploymentListInstanceOptions, DeploymentListInstancePageOptions, DeploymentPage, DeploymentPayload, DeploymentResource, DeploymentSolution }

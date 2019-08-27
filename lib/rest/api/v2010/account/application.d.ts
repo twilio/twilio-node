@@ -377,4 +377,4 @@ declare class ApplicationPage extends Page<V2010, ApplicationPayload, Applicatio
   toJSON(): any;
 }
 
-export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationListInstanceCreateOptions, ApplicationListInstanceEachOptions, ApplicationListInstanceOptions, ApplicationListInstancePageOptions, ApplicationPage, ApplicationPayload, ApplicationResource, ApplicationSolution }
+export { ApplicationContext, ApplicationInstance, ApplicationInstanceUpdateOptions, ApplicationList, ApplicationListInstance, ApplicationListInstanceCreateOptions, ApplicationListInstanceEachOptions, ApplicationListInstanceOptions, ApplicationListInstancePageOptions, ApplicationPage, ApplicationPayload, ApplicationResource, ApplicationSolution }

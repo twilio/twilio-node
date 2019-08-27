@@ -351,4 +351,4 @@ declare class TaskPage extends Page<Understand, TaskPayload, TaskResource, TaskI
   toJSON(): any;
 }
 
-export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskListInstanceCreateOptions, TaskListInstanceEachOptions, TaskListInstanceOptions, TaskListInstancePageOptions, TaskPage, TaskPayload, TaskResource, TaskSolution }
+export { TaskContext, TaskInstance, TaskInstanceUpdateOptions, TaskList, TaskListInstance, TaskListInstanceCreateOptions, TaskListInstanceEachOptions, TaskListInstanceOptions, TaskListInstancePageOptions, TaskPage, TaskPayload, TaskResource, TaskSolution }

@@ -328,4 +328,4 @@ declare class SamplePage extends Page<V1, SamplePayload, SampleResource, SampleI
   toJSON(): any;
 }
 
-export { SampleContext, SampleInstance, SampleList, SampleListInstance, SampleListInstanceCreateOptions, SampleListInstanceEachOptions, SampleListInstanceOptions, SampleListInstancePageOptions, SamplePage, SamplePayload, SampleResource, SampleSolution }
+export { SampleContext, SampleInstance, SampleInstanceUpdateOptions, SampleList, SampleListInstance, SampleListInstanceCreateOptions, SampleListInstanceEachOptions, SampleListInstanceOptions, SampleListInstancePageOptions, SamplePage, SamplePayload, SampleResource, SampleSolution }

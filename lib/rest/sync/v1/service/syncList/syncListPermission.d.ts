@@ -296,4 +296,4 @@ declare class SyncListPermissionPage extends Page<V1, SyncListPermissionPayload,
   toJSON(): any;
 }
 
-export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionListInstanceEachOptions, SyncListPermissionListInstanceOptions, SyncListPermissionListInstancePageOptions, SyncListPermissionPage, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionSolution }
+export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionInstanceUpdateOptions, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionListInstanceEachOptions, SyncListPermissionListInstanceOptions, SyncListPermissionListInstancePageOptions, SyncListPermissionPage, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionSolution }

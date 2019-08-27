@@ -144,4 +144,4 @@ declare class WorkerStatisticsPage extends Page<V1, WorkerStatisticsPayload, Wor
   toJSON(): any;
 }
 
-export { WorkerStatisticsContext, WorkerStatisticsInstance, WorkerStatisticsList, WorkerStatisticsListInstance, WorkerStatisticsPage, WorkerStatisticsPayload, WorkerStatisticsResource, WorkerStatisticsSolution }
+export { WorkerStatisticsContext, WorkerStatisticsInstance, WorkerStatisticsInstanceFetchOptions, WorkerStatisticsList, WorkerStatisticsListInstance, WorkerStatisticsPage, WorkerStatisticsPayload, WorkerStatisticsResource, WorkerStatisticsSolution }

@@ -338,4 +338,4 @@ declare class ConversationPage extends Page<V1, ConversationPayload, Conversatio
   toJSON(): any;
 }
 
-export { ConversationContext, ConversationInstance, ConversationList, ConversationListInstance, ConversationListInstanceCreateOptions, ConversationListInstanceEachOptions, ConversationListInstanceOptions, ConversationListInstancePageOptions, ConversationPage, ConversationPayload, ConversationResource, ConversationSolution }
+export { ConversationContext, ConversationInstance, ConversationInstanceUpdateOptions, ConversationList, ConversationListInstance, ConversationListInstanceCreateOptions, ConversationListInstanceEachOptions, ConversationListInstanceOptions, ConversationListInstancePageOptions, ConversationPage, ConversationPayload, ConversationResource, ConversationSolution }

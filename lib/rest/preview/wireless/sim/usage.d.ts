@@ -159,4 +159,4 @@ declare class UsagePage extends Page<Wireless, UsagePayload, UsageResource, Usag
   toJSON(): any;
 }
 
-export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }
+export { UsageContext, UsageInstance, UsageInstanceFetchOptions, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }

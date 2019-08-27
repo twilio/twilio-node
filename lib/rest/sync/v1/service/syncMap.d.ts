@@ -328,4 +328,4 @@ declare class SyncMapPage extends Page<V1, SyncMapPayload, SyncMapResource, Sync
   toJSON(): any;
 }
 
-export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }
+export { SyncMapContext, SyncMapInstance, SyncMapInstanceUpdateOptions, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }

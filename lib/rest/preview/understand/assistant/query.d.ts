@@ -344,4 +344,4 @@ declare class QueryPage extends Page<Understand, QueryPayload, QueryResource, Qu
   toJSON(): any;
 }
 
-export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryListInstanceCreateOptions, QueryListInstanceEachOptions, QueryListInstanceOptions, QueryListInstancePageOptions, QueryPage, QueryPayload, QueryResource, QuerySolution }
+export { QueryContext, QueryInstance, QueryInstanceUpdateOptions, QueryList, QueryListInstance, QueryListInstanceCreateOptions, QueryListInstanceEachOptions, QueryListInstanceOptions, QueryListInstancePageOptions, QueryPage, QueryPayload, QueryResource, QuerySolution }

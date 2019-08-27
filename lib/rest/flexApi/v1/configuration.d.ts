@@ -211,4 +211,4 @@ declare class ConfigurationPage extends Page<V1, ConfigurationPayload, Configura
   toJSON(): any;
 }
 
-export { ConfigurationContext, ConfigurationInstance, ConfigurationList, ConfigurationListInstance, ConfigurationPage, ConfigurationPayload, ConfigurationResource, ConfigurationSolution }
+export { ConfigurationContext, ConfigurationInstance, ConfigurationInstanceFetchOptions, ConfigurationList, ConfigurationListInstance, ConfigurationPage, ConfigurationPayload, ConfigurationResource, ConfigurationSolution }

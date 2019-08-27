@@ -286,4 +286,4 @@ declare class AwsPage extends Page<V1, AwsPayload, AwsResource, AwsInstance> {
   toJSON(): any;
 }
 
-export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsListInstanceCreateOptions, AwsListInstanceEachOptions, AwsListInstanceOptions, AwsListInstancePageOptions, AwsPage, AwsPayload, AwsResource, AwsSolution }
+export { AwsContext, AwsInstance, AwsInstanceUpdateOptions, AwsList, AwsListInstance, AwsListInstanceCreateOptions, AwsListInstanceEachOptions, AwsListInstanceOptions, AwsListInstancePageOptions, AwsPage, AwsPayload, AwsResource, AwsSolution }

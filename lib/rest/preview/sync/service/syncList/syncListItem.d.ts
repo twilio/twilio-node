@@ -337,4 +337,4 @@ declare class SyncListItemPage extends Page<Sync, SyncListItemPayload, SyncListI
   toJSON(): any;
 }
 
-export { SyncListItemContext, SyncListItemInstance, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }
+export { SyncListItemContext, SyncListItemInstance, SyncListItemInstanceUpdateOptions, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }

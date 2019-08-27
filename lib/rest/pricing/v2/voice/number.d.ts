@@ -139,4 +139,4 @@ declare class NumberPage extends Page<V2, NumberPayload, NumberResource, NumberI
   toJSON(): any;
 }
 
-export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }
+export { NumberContext, NumberInstance, NumberInstanceFetchOptions, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }

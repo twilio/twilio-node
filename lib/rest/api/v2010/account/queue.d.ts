@@ -303,4 +303,4 @@ declare class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueIn
   toJSON(): any;
 }
 
-export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueueListInstanceCreateOptions, QueueListInstanceEachOptions, QueueListInstanceOptions, QueueListInstancePageOptions, QueuePage, QueuePayload, QueueResource, QueueSolution }
+export { QueueContext, QueueInstance, QueueInstanceUpdateOptions, QueueList, QueueListInstance, QueueListInstanceCreateOptions, QueueListInstanceEachOptions, QueueListInstanceOptions, QueueListInstancePageOptions, QueuePage, QueuePayload, QueueResource, QueueSolution }

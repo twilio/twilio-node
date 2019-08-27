@@ -304,4 +304,4 @@ declare class IpAddressPage extends Page<V2010, IpAddressPayload, IpAddressResou
   toJSON(): any;
 }
 
-export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressListInstanceCreateOptions, IpAddressListInstanceEachOptions, IpAddressListInstanceOptions, IpAddressListInstancePageOptions, IpAddressPage, IpAddressPayload, IpAddressResource, IpAddressSolution }
+export { IpAddressContext, IpAddressInstance, IpAddressInstanceUpdateOptions, IpAddressList, IpAddressListInstance, IpAddressListInstanceCreateOptions, IpAddressListInstanceEachOptions, IpAddressListInstanceOptions, IpAddressListInstancePageOptions, IpAddressPage, IpAddressPayload, IpAddressResource, IpAddressSolution }

@@ -183,4 +183,4 @@ declare class CallSummaryPage extends Page<V1, CallSummaryPayload, CallSummaryRe
   toJSON(): any;
 }
 
-export { CallSummaryContext, CallSummaryInstance, CallSummaryList, CallSummaryListInstance, CallSummaryPage, CallSummaryPayload, CallSummaryResource, CallSummarySolution }
+export { CallSummaryContext, CallSummaryInstance, CallSummaryInstanceFetchOptions, CallSummaryList, CallSummaryListInstance, CallSummaryPage, CallSummaryPayload, CallSummaryResource, CallSummarySolution }

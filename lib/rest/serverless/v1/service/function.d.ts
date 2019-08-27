@@ -313,4 +313,4 @@ declare class FunctionPage extends Page<V1, FunctionPayload, FunctionResource, F
   toJSON(): any;
 }
 
-export { FunctionContext, FunctionInstance, FunctionList, FunctionListInstance, FunctionListInstanceCreateOptions, FunctionListInstanceEachOptions, FunctionListInstanceOptions, FunctionListInstancePageOptions, FunctionPage, FunctionPayload, FunctionResource, FunctionSolution }
+export { FunctionContext, FunctionInstance, FunctionInstanceUpdateOptions, FunctionList, FunctionListInstance, FunctionListInstanceCreateOptions, FunctionListInstanceEachOptions, FunctionListInstanceOptions, FunctionListInstancePageOptions, FunctionPage, FunctionPayload, FunctionResource, FunctionSolution }

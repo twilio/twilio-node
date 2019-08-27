@@ -166,4 +166,4 @@ declare class ExportConfigurationPage extends Page<BulkExports, ExportConfigurat
   toJSON(): any;
 }
 
-export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }
+export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationInstanceUpdateOptions, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }

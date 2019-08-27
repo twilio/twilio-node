@@ -337,4 +337,4 @@ declare class FactorPage extends Page<V1, FactorPayload, FactorResource, FactorI
   toJSON(): any;
 }
 
-export { FactorContext, FactorInstance, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorPage, FactorPayload, FactorResource, FactorSolution }
+export { FactorContext, FactorInstance, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorPage, FactorPayload, FactorResource, FactorSolution }
