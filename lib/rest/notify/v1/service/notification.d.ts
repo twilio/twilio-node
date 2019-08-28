@@ -68,14 +68,14 @@ interface NotificationListInstanceCreateOptions {
   facebookMessenger?: string;
   fcm?: string;
   gcm?: string;
-  identity?: string[];
+  identity?: string | string[];
   priority?: NotificationPriority;
-  segment?: string[];
+  segment?: string | string[];
   sms?: string;
   sound?: string;
-  tag?: string[];
+  tag?: string | string[];
   title?: string;
-  toBinding?: string[];
+  toBinding?: string | string[];
   ttl?: number;
 }
 
@@ -93,14 +93,14 @@ interface NotificationResource {
   facebook_messenger: string;
   fcm: string;
   gcm: string;
-  identities: string;
+  identities: string[];
   priority: NotificationPriority;
-  segments: string;
+  segments: string[];
   service_sid: string;
   sid: string;
   sms: string;
   sound: string;
-  tags: string;
+  tags: string[];
   title: string;
   ttl: number;
 }
@@ -133,14 +133,14 @@ declare class NotificationInstance extends SerializableClass {
   facebookMessenger: string;
   fcm: string;
   gcm: string;
-  identities: string;
+  identities: string[];
   priority: NotificationPriority;
-  segments: string;
+  segments: string[];
   serviceSid: string;
   sid: string;
   sms: string;
   sound: string;
-  tags: string;
+  tags: string[];
   title: string;
   /**
    * Provide a user-friendly representation

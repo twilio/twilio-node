@@ -111,7 +111,7 @@ interface MessageInteractionListInstance {
  */
 interface MessageInteractionListInstanceCreateOptions {
   body?: string;
-  mediaUrl?: string[];
+  mediaUrl?: string | string[];
 }
 
 /**

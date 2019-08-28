@@ -158,7 +158,7 @@ interface MemberListInstanceCreateOptions {
 interface MemberListInstanceEachOptions {
   callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  identity?: string[];
+  identity?: string | string[];
   limit?: number;
   pageSize?: number;
 }
@@ -179,7 +179,7 @@ interface MemberListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface MemberListInstanceOptions {
-  identity?: string[];
+  identity?: string | string[];
   limit?: number;
   pageSize?: number;
 }
@@ -193,7 +193,7 @@ interface MemberListInstanceOptions {
  * @property pageToken - PageToken provided by the API
  */
 interface MemberListInstancePageOptions {
-  identity?: string[];
+  identity?: string | string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

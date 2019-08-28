@@ -59,7 +59,7 @@ interface ConfigurationResource {
   crm_type: string;
   date_created: Date;
   date_updated: Date;
-  integrations: string;
+  integrations: string[];
   messaging_service_instance_sid: string;
   outbound_call_flows: string;
   plugin_service_attributes: string;
@@ -69,10 +69,10 @@ interface ConfigurationResource {
   service_version: string;
   status: ConfigurationStatus;
   taskrouter_offline_activity_sid: string;
-  taskrouter_skills: string;
+  taskrouter_skills: string[];
   taskrouter_target_taskqueue_sid: string;
   taskrouter_target_workflow_sid: string;
-  taskrouter_taskqueues: string;
+  taskrouter_taskqueues: string[];
   taskrouter_worker_attributes: string;
   taskrouter_worker_channels: string;
   taskrouter_workspace_sid: string;
@@ -155,7 +155,7 @@ declare class ConfigurationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
-  integrations: string;
+  integrations: string[];
   messagingServiceInstanceSid: string;
   outboundCallFlows: string;
   pluginServiceAttributes: string;
@@ -165,10 +165,10 @@ declare class ConfigurationInstance extends SerializableClass {
   serviceVersion: string;
   status: ConfigurationStatus;
   taskrouterOfflineActivitySid: string;
-  taskrouterSkills: string;
+  taskrouterSkills: string[];
   taskrouterTargetTaskqueueSid: string;
   taskrouterTargetWorkflowSid: string;
-  taskrouterTaskqueues: string;
+  taskrouterTaskqueues: string[];
   taskrouterWorkerAttributes: string;
   taskrouterWorkerChannels: string;
   taskrouterWorkspaceSid: string;

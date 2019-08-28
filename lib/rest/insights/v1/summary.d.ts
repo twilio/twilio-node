@@ -73,7 +73,7 @@ interface CallSummaryResource {
   sdk_edge: string;
   sip_edge: string;
   start_time: Date;
-  tags: string;
+  tags: string[];
   to: string;
   url: string;
 }
@@ -147,7 +147,7 @@ declare class CallSummaryInstance extends SerializableClass {
   sdkEdge: string;
   sipEdge: string;
   startTime: Date;
-  tags: string;
+  tags: string[];
   to: string;
   /**
    * Provide a user-friendly representation

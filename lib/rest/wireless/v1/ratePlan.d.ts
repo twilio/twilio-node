@@ -123,7 +123,7 @@ interface RatePlanListInstanceCreateOptions {
   dataLimit?: number;
   dataMetering?: string;
   friendlyName?: string;
-  internationalRoaming?: string[];
+  internationalRoaming?: string | string[];
   internationalRoamingDataLimit?: number;
   messagingEnabled?: boolean;
   nationalRoamingDataLimit?: number;
@@ -200,7 +200,7 @@ interface RatePlanResource {
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
-  international_roaming: string;
+  international_roaming: string[];
   international_roaming_data_limit: number;
   messaging_enabled: boolean;
   national_roaming_data_limit: number;
@@ -274,7 +274,7 @@ declare class RatePlanInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
   friendlyName: string;
-  internationalRoaming: string;
+  internationalRoaming: string[];
   internationalRoamingDataLimit: number;
   messagingEnabled: boolean;
   nationalRoamingDataLimit: number;

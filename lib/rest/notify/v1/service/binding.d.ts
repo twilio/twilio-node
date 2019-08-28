@@ -116,7 +116,7 @@ interface BindingListInstanceCreateOptions {
   endpoint?: string;
   identity: string;
   notificationProtocolVersion?: string;
-  tag?: string[];
+  tag?: string | string[];
 }
 
 /**
@@ -145,11 +145,11 @@ interface BindingListInstanceEachOptions {
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   endDate?: Date;
-  identity?: string[];
+  identity?: string | string[];
   limit?: number;
   pageSize?: number;
   startDate?: Date;
-  tag?: string[];
+  tag?: string | string[];
 }
 
 /**
@@ -172,11 +172,11 @@ interface BindingListInstanceEachOptions {
  */
 interface BindingListInstanceOptions {
   endDate?: Date;
-  identity?: string[];
+  identity?: string | string[];
   limit?: number;
   pageSize?: number;
   startDate?: Date;
-  tag?: string[];
+  tag?: string | string[];
 }
 
 /**
@@ -192,12 +192,12 @@ interface BindingListInstanceOptions {
  */
 interface BindingListInstancePageOptions {
   endDate?: Date;
-  identity?: string[];
+  identity?: string | string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
-  tag?: string[];
+  tag?: string | string[];
 }
 
 interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
@@ -216,7 +216,7 @@ interface BindingResource {
   notification_protocol_version: string;
   service_sid: string;
   sid: string;
-  tags: string;
+  tags: string[];
   url: string;
 }
 
@@ -296,7 +296,7 @@ declare class BindingInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
   serviceSid: string;
   sid: string;
-  tags: string;
+  tags: string[];
   /**
    * Provide a user-friendly representation
    */

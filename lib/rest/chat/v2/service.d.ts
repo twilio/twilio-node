@@ -105,7 +105,7 @@ interface ServiceInstanceUpdateOptions {
   reachabilityEnabled?: boolean;
   readStatusEnabled?: boolean;
   typingIndicatorTimeout?: number;
-  webhookFilters?: string[];
+  webhookFilters?: string | string[];
   webhookMethod?: string;
 }
 
@@ -274,7 +274,7 @@ interface ServiceResource {
   sid: string;
   typing_indicator_timeout: number;
   url: string;
-  webhook_filters: string;
+  webhook_filters: string[];
   webhook_method: string;
 }
 
@@ -392,7 +392,7 @@ declare class ServiceInstance extends SerializableClass {
    * Access the users
    */
   users(): UserListInstance;
-  webhookFilters: string;
+  webhookFilters: string[];
   webhookMethod: string;
 }
 
