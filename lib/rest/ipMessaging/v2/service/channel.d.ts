@@ -81,7 +81,7 @@ interface ChannelListInstance {
   /**
    * Constructs a channel
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the resource
    */
   get(sid: string): ChannelContext;
   /**
@@ -133,7 +133,7 @@ interface ChannelListInstance {
  * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
  * @property friendlyName - A string to describe the new resource
  * @property type - The visibility of the channel
- * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property uniqueName - An application-defined string that uniquely identifies the Channel resource
  */
 interface ChannelListInstanceCreateOptions {
   attributes?: string;
@@ -239,7 +239,7 @@ declare class ChannelContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the resource
    */
   constructor(version: V2, serviceSid: string, sid: string);
 
@@ -280,7 +280,7 @@ declare class ChannelInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the resource
    */
   constructor(version: V2, payload: ChannelPayload, serviceSid: string, sid: string);
 

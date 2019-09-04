@@ -151,7 +151,7 @@ interface AvailableAddOnPayload extends AvailableAddOnResource, Page.TwilioRespo
 }
 
 interface AvailableAddOnResource {
-  configuration_schema: string;
+  configuration_schema: object;
   description: string;
   friendly_name: string;
   links: string;
@@ -206,7 +206,7 @@ declare class AvailableAddOnInstance extends SerializableClass {
   constructor(version: Marketplace, payload: AvailableAddOnPayload, sid: string);
 
   private _proxy: AvailableAddOnContext;
-  configurationSchema: string;
+  configurationSchema: object;
   description: string;
   /**
    * Access the extensions

@@ -18,17 +18,17 @@ import { SerializableClass } from '../../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Sync Service Instance SID.
- * @param listSid - Sync List SID.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
+ * @param listSid - The SID of the Sync List to which the Permission applies
  */
 declare function SyncListPermissionList(version: V1, serviceSid: string, listSid: string): SyncListPermissionListInstance;
 
 /**
  * Options to pass to update
  *
- * @property manage - Manage access.
- * @property read - Read access.
- * @property write - Write access.
+ * @property manage - Manage access
+ * @property read - Read access
+ * @property write - Write access
  */
 interface SyncListPermissionInstanceUpdateOptions {
   manage: boolean;
@@ -60,7 +60,7 @@ interface SyncListPermissionListInstance {
   /**
    * Constructs a sync_list_permission
    *
-   * @param identity - Identity of the user to whom the Sync List Permission applies.
+   * @param identity - The application-defined string that uniquely identifies the User's Sync List Permission resource to fetch
    */
   get(identity: string): SyncListPermissionContext;
   /**
@@ -189,9 +189,9 @@ declare class SyncListPermissionContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Sync Service Instance SID or unique name.
-   * @param listSid - Sync List SID or unique name.
-   * @param identity - Identity of the user to whom the Sync List Permission applies.
+   * @param serviceSid - The SID of the Sync Service with the Sync List Permission resource to fetch
+   * @param listSid - The SID of the Sync List with the Sync List Permission resource to fetch
+   * @param identity - The application-defined string that uniquely identifies the User's Sync List Permission resource to fetch
    */
   constructor(version: V1, serviceSid: string, listSid: string, identity: string);
 
@@ -230,9 +230,9 @@ declare class SyncListPermissionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Sync Service Instance SID.
-   * @param listSid - Sync List SID.
-   * @param identity - Identity of the user to whom the Sync List Permission applies.
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param listSid - The SID of the Sync List to which the Permission applies
+   * @param identity - The application-defined string that uniquely identifies the User's Sync List Permission resource to fetch
    */
   constructor(version: V1, payload: SyncListPermissionPayload, serviceSid: string, listSid: string, identity: string);
 

@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the DataSessionList
  *
  * @param version - Version of the resource
- * @param simSid - The unique id of the SIM resource that this Data Session is for.
+ * @param simSid - The SID of the Sim resource that the Data Session is for
  */
 declare function DataSessionList(version: V1, simSid: string): DataSessionListInstance;
 
@@ -83,7 +83,7 @@ interface DataSessionListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property end - The end
+ * @property end - The date that the record ended, given as GMT in ISO 8601 format
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -94,7 +94,7 @@ interface DataSessionListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property start - The start
+ * @property start - The date that the Data Session started, given as GMT in ISO 8601 format
  */
 interface DataSessionListInstanceEachOptions {
   callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void;
@@ -108,7 +108,7 @@ interface DataSessionListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property end - The end
+ * @property end - The date that the record ended, given as GMT in ISO 8601 format
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -119,7 +119,7 @@ interface DataSessionListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property start - The start
+ * @property start - The date that the Data Session started, given as GMT in ISO 8601 format
  */
 interface DataSessionListInstanceOptions {
   end?: Date;
@@ -131,11 +131,11 @@ interface DataSessionListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property end - The end
+ * @property end - The date that the record ended, given as GMT in ISO 8601 format
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property start - The start
+ * @property start - The date that the Data Session started, given as GMT in ISO 8601 format
  */
 interface DataSessionListInstancePageOptions {
   end?: Date;
@@ -151,7 +151,7 @@ interface DataSessionPayload extends DataSessionResource, Page.TwilioResponsePay
 interface DataSessionResource {
   account_sid: string;
   cell_id: string;
-  cell_location_estimate: string;
+  cell_location_estimate: object;
   end: Date;
   imei: string;
   last_updated: Date;
@@ -178,13 +178,13 @@ declare class DataSessionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param simSid - The unique id of the SIM resource that this Data Session is for.
+   * @param simSid - The SID of the Sim resource that the Data Session is for
    */
   constructor(version: V1, payload: DataSessionPayload, simSid: string);
 
   accountSid: string;
   cellId: string;
-  cellLocationEstimate: string;
+  cellLocationEstimate: object;
   end: Date;
   imei: string;
   lastUpdated: Date;

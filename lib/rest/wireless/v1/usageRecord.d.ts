@@ -84,8 +84,8 @@ interface UsageRecordListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property end - Only include usage that has occurred on or before this date.
- * @property granularity - The time-based grouping that results are aggregated by.
+ * @property end - Only include usage that has occurred on or before this date
+ * @property granularity - The time-based grouping that results are aggregated by
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -96,7 +96,7 @@ interface UsageRecordListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property start - Only include usage that has occurred on or after this date.
+ * @property start - Only include usage that has occurred on or after this date
  */
 interface UsageRecordListInstanceEachOptions {
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
@@ -111,8 +111,8 @@ interface UsageRecordListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property end - Only include usage that has occurred on or before this date.
- * @property granularity - The time-based grouping that results are aggregated by.
+ * @property end - Only include usage that has occurred on or before this date
+ * @property granularity - The time-based grouping that results are aggregated by
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -123,7 +123,7 @@ interface UsageRecordListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property start - Only include usage that has occurred on or after this date.
+ * @property start - Only include usage that has occurred on or after this date
  */
 interface UsageRecordListInstanceOptions {
   end?: Date;
@@ -136,12 +136,12 @@ interface UsageRecordListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property end - Only include usage that has occurred on or before this date.
- * @property granularity - The time-based grouping that results are aggregated by.
+ * @property end - Only include usage that has occurred on or before this date
+ * @property granularity - The time-based grouping that results are aggregated by
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property start - Only include usage that has occurred on or after this date.
+ * @property start - Only include usage that has occurred on or after this date
  */
 interface UsageRecordListInstancePageOptions {
   end?: Date;
@@ -157,9 +157,9 @@ interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePay
 
 interface UsageRecordResource {
   account_sid: string;
-  commands: string;
-  data: string;
-  period: string;
+  commands: object;
+  data: object;
+  period: object;
 }
 
 interface UsageRecordSolution {
@@ -176,9 +176,9 @@ declare class UsageRecordInstance extends SerializableClass {
   constructor(version: V1, payload: UsageRecordPayload);
 
   accountSid: string;
-  commands: string;
-  data: string;
-  period: string;
+  commands: object;
+  data: object;
+  period: object;
   /**
    * Provide a user-friendly representation
    */

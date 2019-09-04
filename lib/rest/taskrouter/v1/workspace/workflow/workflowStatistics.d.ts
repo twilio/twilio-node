@@ -57,8 +57,8 @@ interface WorkflowStatisticsPayload extends WorkflowStatisticsResource, Page.Twi
 
 interface WorkflowStatisticsResource {
   account_sid: string;
-  cumulative: string;
-  realtime: string;
+  cumulative: object;
+  realtime: object;
   url: string;
   workflow_sid: string;
   workspace_sid: string;
@@ -107,7 +107,7 @@ declare class WorkflowStatisticsInstance extends SerializableClass {
 
   private _proxy: WorkflowStatisticsContext;
   accountSid: string;
-  cumulative: string;
+  cumulative: object;
   /**
    * fetch a WorkflowStatisticsInstance
    *
@@ -115,7 +115,7 @@ declare class WorkflowStatisticsInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
-  realtime: string;
+  realtime: object;
   /**
    * Provide a user-friendly representation
    */

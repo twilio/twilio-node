@@ -28,10 +28,12 @@ declare function ParticipantList(version: V1, conversationSid: string): Particip
 /**
  * Options to pass to update
  *
+ * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  */
 interface ParticipantInstanceUpdateOptions {
+  attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
 }
@@ -113,6 +115,7 @@ interface ParticipantListInstance {
 /**
  * Options to pass to create
  *
+ * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property identity - A unique string identifier for the conversation participant as Chat User.
@@ -120,6 +123,7 @@ interface ParticipantListInstance {
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
  */
 interface ParticipantListInstanceCreateOptions {
+  attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
   identity?: string;
@@ -191,11 +195,12 @@ interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePay
 
 interface ParticipantResource {
   account_sid: string;
+  attributes: string;
   conversation_sid: string;
   date_created: Date;
   date_updated: Date;
   identity: string;
-  messaging_binding: string;
+  messaging_binding: object;
   sid: string;
   url: string;
 }
@@ -262,6 +267,7 @@ declare class ParticipantInstance extends SerializableClass {
 
   private _proxy: ParticipantContext;
   accountSid: string;
+  attributes: string;
   conversationSid: string;
   dateCreated: Date;
   dateUpdated: Date;
@@ -272,7 +278,7 @@ declare class ParticipantInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   identity: string;
-  messagingBinding: string;
+  messagingBinding: object;
   /**
    * remove a ParticipantInstance
    *

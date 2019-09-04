@@ -18,8 +18,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Instance SID.
- * @param streamSid - Stream SID.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
+ * @param streamSid - The unique string that identifies the resource
  */
 declare function StreamMessageList(version: V1, serviceSid: string, streamSid: string): StreamMessageListInstance;
 
@@ -40,17 +40,17 @@ interface StreamMessageListInstance {
 /**
  * Options to pass to create
  *
- * @property data - Stream Message body.
+ * @property data - A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body
  */
 interface StreamMessageListInstanceCreateOptions {
-  data: string;
+  data: object;
 }
 
 interface StreamMessagePayload extends StreamMessageResource, Page.TwilioResponsePayload {
 }
 
 interface StreamMessageResource {
-  data: string;
+  data: object;
   sid: string;
 }
 
@@ -69,12 +69,12 @@ declare class StreamMessageInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Instance SID.
-   * @param streamSid - Stream SID.
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param streamSid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: StreamMessagePayload, serviceSid: string, streamSid: string);
 
-  data: string;
+  data: object;
   sid: string;
   /**
    * Provide a user-friendly representation

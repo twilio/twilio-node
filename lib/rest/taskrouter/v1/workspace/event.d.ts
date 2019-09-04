@@ -218,7 +218,7 @@ interface EventResource {
   actor_type: string;
   actor_url: string;
   description: string;
-  event_data: string;
+  event_data: object;
   event_date: Date;
   event_date_ms: number;
   event_type: string;
@@ -277,7 +277,7 @@ declare class EventInstance extends SerializableClass {
   actorType: string;
   actorUrl: string;
   description: string;
-  eventData: string;
+  eventData: object;
   eventDate: Date;
   eventDateMs: number;
   eventType: string;

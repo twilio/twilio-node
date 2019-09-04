@@ -189,7 +189,7 @@ interface RecordingResource {
   date_created: Date;
   date_updated: Date;
   duration: string;
-  encryption_details: string;
+  encryption_details: object;
   error_code: number;
   price: number;
   price_unit: string;
@@ -264,7 +264,7 @@ declare class RecordingInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   duration: string;
-  encryptionDetails: string;
+  encryptionDetails: object;
   errorCode: number;
   /**
    * fetch a RecordingInstance

@@ -61,7 +61,7 @@ interface RoleListInstance {
   /**
    * Constructs a role
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Role resource to fetch
    */
   get(sid: string): RoleContext;
   /**
@@ -200,7 +200,7 @@ declare class RoleContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Role resource to fetch
    */
   constructor(version: V2, serviceSid: string, sid: string);
 
@@ -237,7 +237,7 @@ declare class RoleInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Role resource to fetch
    */
   constructor(version: V2, payload: RolePayload, serviceSid: string, sid: string);
 

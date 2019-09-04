@@ -14,8 +14,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the EngagementContextList
  *
  * @param version - Version of the resource
- * @param flowSid - Flow Sid.
- * @param engagementSid - Engagement Sid.
+ * @param flowSid - Flow SID
+ * @param engagementSid - Engagement SID
  */
 declare function EngagementContextList(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance;
 
@@ -39,7 +39,7 @@ interface EngagementContextPayload extends EngagementContextResource, Page.Twili
 
 interface EngagementContextResource {
   account_sid: string;
-  context: string;
+  context: object;
   engagement_sid: string;
   flow_sid: string;
   url: string;
@@ -56,8 +56,8 @@ declare class EngagementContextContext {
    * Initialize the EngagementContextContext
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param engagementSid - Engagement Sid.
+   * @param flowSid - Flow SID
+   * @param engagementSid - Engagement SID
    */
   constructor(version: V1, flowSid: string, engagementSid: string);
 
@@ -80,14 +80,14 @@ declare class EngagementContextInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - Flow Sid.
-   * @param engagementSid - Engagement Sid.
+   * @param flowSid - Flow SID
+   * @param engagementSid - Engagement SID
    */
   constructor(version: V1, payload: EngagementContextPayload, flowSid: string, engagementSid: string);
 
   private _proxy: EngagementContextContext;
   accountSid: string;
-  context: string;
+  context: object;
   engagementSid: string;
   /**
    * fetch a EngagementContextInstance

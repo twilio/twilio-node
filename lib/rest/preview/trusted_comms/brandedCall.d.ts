@@ -38,11 +38,13 @@ interface BrandedCallListInstance {
 /**
  * Options to pass to create
  *
+ * @property callSid - The call_sid
  * @property from - Twilio number from which to brand the call
  * @property reason - The business reason for this phone call
  * @property to - The terminating Phone Number
  */
 interface BrandedCallListInstanceCreateOptions {
+  callSid?: string;
   from: string;
   reason: string;
   to: string;
@@ -60,6 +62,7 @@ interface BrandedCallResource {
   from: string;
   logo: string;
   reason: string;
+  sid: string;
   status: string;
   to: string;
   url: string;
@@ -91,6 +94,7 @@ declare class BrandedCallInstance extends SerializableClass {
   from: string;
   logo: string;
   reason: string;
+  sid: string;
   status: string;
   to: string;
   /**
