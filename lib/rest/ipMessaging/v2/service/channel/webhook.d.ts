@@ -19,8 +19,8 @@ type WebhookType = 'webhook'|'trigger'|'studio';
  * Initialize the WebhookList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
- * @param channelSid - The SID of the Channel the ChannelWebhook resource belongs to
+ * @param serviceSid - The SID of the Service that the Channel Webhook resource is associated with
+ * @param channelSid - The SID of the Channel the Channel Webhook resource belongs to
  */
 declare function WebhookList(version: V2, serviceSid: string, channelSid: string): WebhookListInstance;
 
@@ -76,7 +76,7 @@ interface WebhookListInstance {
   /**
    * Constructs a webhook
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Channel Webhook resource to fetch
    */
   get(sid: string): WebhookContext;
   /**
@@ -225,9 +225,9 @@ declare class WebhookContext {
    * Initialize the WebhookContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param serviceSid - The SID of the Service with the Channel to fetch the Webhook resource from
    * @param channelSid - The SID of the Channel the resource to fetch belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Channel Webhook resource to fetch
    */
   constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
@@ -263,9 +263,9 @@ declare class WebhookInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param channelSid - The SID of the Channel the ChannelWebhook resource belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The SID of the Service that the Channel Webhook resource is associated with
+   * @param channelSid - The SID of the Channel the Channel Webhook resource belongs to
+   * @param sid - The SID of the Channel Webhook resource to fetch
    */
   constructor(version: V2, payload: WebhookPayload, serviceSid: string, channelSid: string, sid: string);
 

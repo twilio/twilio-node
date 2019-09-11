@@ -59,6 +59,7 @@ interface ConfigurationResource {
   crm_type: string;
   date_created: Date;
   date_updated: Date;
+  features_enabled: string;
   integrations: string;
   messaging_service_instance_sid: string;
   outbound_call_flows: object;
@@ -66,6 +67,7 @@ interface ConfigurationResource {
   plugin_service_enabled: boolean;
   public_attributes: object;
   runtime_domain: string;
+  serverless_service_sids: string;
   service_version: string;
   status: ConfigurationStatus;
   taskrouter_offline_activity_sid: string;
@@ -148,6 +150,7 @@ declare class ConfigurationInstance extends SerializableClass {
   crmType: string;
   dateCreated: Date;
   dateUpdated: Date;
+  featuresEnabled: string;
   /**
    * fetch a ConfigurationInstance
    *
@@ -162,6 +165,7 @@ declare class ConfigurationInstance extends SerializableClass {
   pluginServiceEnabled: boolean;
   publicAttributes: object;
   runtimeDomain: string;
+  serverlessServiceSids: string;
   serviceVersion: string;
   status: ConfigurationStatus;
   taskrouterOfflineActivitySid: string;

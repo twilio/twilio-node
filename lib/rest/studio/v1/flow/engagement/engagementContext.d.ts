@@ -14,8 +14,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the EngagementContextList
  *
  * @param version - Version of the resource
- * @param flowSid - Flow Sid.
- * @param engagementSid - Engagement Sid.
+ * @param flowSid - Flow SID
+ * @param engagementSid - Engagement SID
  */
 declare function EngagementContextList(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance;
 
@@ -56,8 +56,8 @@ declare class EngagementContextContext {
    * Initialize the EngagementContextContext
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param engagementSid - Engagement Sid.
+   * @param flowSid - Flow SID
+   * @param engagementSid - Engagement SID
    */
   constructor(version: V1, flowSid: string, engagementSid: string);
 
@@ -80,8 +80,8 @@ declare class EngagementContextInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - Flow Sid.
-   * @param engagementSid - Engagement Sid.
+   * @param flowSid - Flow SID
+   * @param engagementSid - Engagement SID
    */
   constructor(version: V1, payload: EngagementContextPayload, flowSid: string, engagementSid: string);
 

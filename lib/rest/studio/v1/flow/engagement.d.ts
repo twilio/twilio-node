@@ -21,7 +21,7 @@ type EngagementStatus = 'active'|'ended';
  * Initialize the EngagementList
  *
  * @param version - Version of the resource
- * @param flowSid - Flow Sid.
+ * @param flowSid - The SID of the Flow
  */
 declare function EngagementList(version: V1, flowSid: string): EngagementListInstance;
 
@@ -56,7 +56,7 @@ interface EngagementListInstance {
   /**
    * Constructs a engagement
    *
-   * @param sid - Engagement Sid.
+   * @param sid - The SID of the Engagement resource to fetch
    */
   get(sid: string): EngagementContext;
   /**
@@ -102,9 +102,9 @@ interface EngagementListInstance {
 /**
  * Options to pass to create
  *
- * @property from - The Twilio phone number to send messages or initiate calls from during the Flow Engagement.
- * @property parameters - JSON data that will be added to your flow's context and can accessed as variables inside your flow.
- * @property to - The Contact phone number to start a Studio Flow Engagement.
+ * @property from - The Twilio phone number to send messages or initiate calls from during the Flow Engagement
+ * @property parameters - A JSON string we will add to your flow's context and that you can access as variables inside your flow
+ * @property to - The Contact phone number to start a Studio Flow Engagement
  */
 interface EngagementListInstanceCreateOptions {
   from: string;
@@ -196,8 +196,8 @@ declare class EngagementContext {
    * Initialize the EngagementContext
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param sid - Engagement Sid.
+   * @param flowSid - Flow SID
+   * @param sid - The SID of the Engagement resource to fetch
    */
   constructor(version: V1, flowSid: string, sid: string);
 
@@ -228,8 +228,8 @@ declare class EngagementInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - Flow Sid.
-   * @param sid - Engagement Sid.
+   * @param flowSid - The SID of the Flow
+   * @param sid - The SID of the Engagement resource to fetch
    */
   constructor(version: V1, payload: EngagementPayload, flowSid: string, sid: string);
 

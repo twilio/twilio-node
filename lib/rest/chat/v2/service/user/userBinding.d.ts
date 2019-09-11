@@ -18,7 +18,7 @@ type UserBindingBindingType = 'gcm'|'apn'|'fcm';
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the resource is associated with
- * @param userSid - The SID of the User for the binding
+ * @param userSid - The SID of the User with the binding
  */
 declare function UserBindingList(version: V2, serviceSid: string, userSid: string): UserBindingListInstance;
 
@@ -46,7 +46,7 @@ interface UserBindingListInstance {
   /**
    * Constructs a user_binding
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the User Binding resource to fetch
    */
   get(sid: string): UserBindingContext;
   /**
@@ -182,8 +182,8 @@ declare class UserBindingContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param userSid - The SID of the User for the binding
-   * @param sid - The unique string that identifies the resource
+   * @param userSid - The SID of the User with the binding
+   * @param sid - The SID of the User Binding resource to fetch
    */
   constructor(version: V2, serviceSid: string, userSid: string, sid: string);
 
@@ -213,8 +213,8 @@ declare class UserBindingInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param userSid - The SID of the User for the binding
-   * @param sid - The unique string that identifies the resource
+   * @param userSid - The SID of the User with the binding
+   * @param sid - The SID of the User Binding resource to fetch
    */
   constructor(version: V2, payload: UserBindingPayload, serviceSid: string, userSid: string, sid: string);
 

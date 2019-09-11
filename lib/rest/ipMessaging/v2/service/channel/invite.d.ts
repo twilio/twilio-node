@@ -51,7 +51,7 @@ interface InviteListInstance {
   /**
    * Constructs a invite
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Invite resource to fetch
    */
   get(sid: string): InviteContext;
   /**
@@ -197,7 +197,7 @@ declare class InviteContext {
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
    * @param channelSid - The SID of the Channel the resource to fetch belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Invite resource to fetch
    */
   constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
@@ -228,7 +228,7 @@ declare class InviteInstance extends SerializableClass {
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the resource is associated with
    * @param channelSid - The SID of the Channel the new resource belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Invite resource to fetch
    */
   constructor(version: V2, payload: InvitePayload, serviceSid: string, channelSid: string, sid: string);
 

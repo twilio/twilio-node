@@ -58,7 +58,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  * @property reachabilityEnabled - Whether to enable the Reachability Indicator feature for this Service instance
  * @property readStatusEnabled - Whether to enable the Message Consumption Horizon feature
  * @property typingIndicatorTimeout - How long in seconds to wait before assuming the user is no longer typing
- * @property webhookFilters - The list of WebHook events that are enabled for this Service instance
+ * @property webhookFilters - The list of webhook events that are enabled for this Service instance
  * @property webhookMethod - The HTTP method  to use for both PRE and POST webhooks
  */
 interface ServiceInstanceUpdateOptions {
@@ -140,7 +140,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Service resource to fetch
    */
   get(sid: string): ServiceContext;
   /**
@@ -287,7 +287,7 @@ declare class ServiceContext {
    * Initialize the ServiceContext
    *
    * @param version - Version of the resource
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Service resource to fetch
    */
   constructor(version: V2, sid: string);
 
@@ -327,7 +327,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Service resource to fetch
    */
   constructor(version: V2, payload: ServicePayload, sid: string);
 

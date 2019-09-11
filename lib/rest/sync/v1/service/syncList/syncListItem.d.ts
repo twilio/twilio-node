@@ -22,18 +22,18 @@ type SyncListItemQueryResultOrder = 'asc'|'desc';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
- * @param listSid - The unique 34-character SID identifier of the List containing this Item.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
+ * @param listSid - The SID of the Sync List that contains the List Item
  */
 declare function SyncListItemList(version: V1, serviceSid: string, listSid: string): SyncListItemListInstance;
 
 /**
  * Options to pass to update
  *
- * @property collectionTtl - Time-to-live of this item's parent List in seconds, defaults to no expiration.
- * @property data - Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
- * @property itemTtl - Time-to-live of this item in seconds, defaults to no expiration.
- * @property ttl - Alias for item_ttl
+ * @property collectionTtl - How long, in seconds, before the List Item's parent Sync List expires
+ * @property data - A JSON string that represents an arbitrary, schema-less object that the List Item stores
+ * @property itemTtl - How long, in seconds, before the List Item expires
+ * @property ttl - An alias for item_ttl
  */
 interface SyncListItemInstanceUpdateOptions {
   collectionTtl?: number;
@@ -73,7 +73,7 @@ interface SyncListItemListInstance {
   /**
    * Constructs a sync_list_item
    *
-   * @param index - The index
+   * @param index - The index of the Sync List Item resource to fetch
    */
   get(index: string): SyncListItemContext;
   /**
@@ -119,10 +119,10 @@ interface SyncListItemListInstance {
 /**
  * Options to pass to create
  *
- * @property collectionTtl - Time-to-live of this item's parent List in seconds, defaults to no expiration.
- * @property data - Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
- * @property itemTtl - Time-to-live of this item in seconds, defaults to no expiration.
- * @property ttl - Alias for item_ttl
+ * @property collectionTtl - How long, in seconds, before the List Item's parent Sync List expires
+ * @property data - A JSON string that represents an arbitrary, schema-less object that the List Item stores
+ * @property itemTtl - How long, in seconds, before the List Item expires
+ * @property ttl - An alias for item_ttl
  */
 interface SyncListItemListInstanceCreateOptions {
   collectionTtl?: number;
@@ -134,17 +134,17 @@ interface SyncListItemListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property bounds - The bounds
+ * @property bounds - Whether to include the List Item referenced by the from parameter
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property from - An integer representing Item index offset.
+ * @property from - The index of the first Sync List Item resource to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - A string; asc or desc
+ * @property order - The order to return the List Items
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -165,13 +165,13 @@ interface SyncListItemListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property bounds - The bounds
- * @property from - An integer representing Item index offset.
+ * @property bounds - Whether to include the List Item referenced by the from parameter
+ * @property from - The index of the first Sync List Item resource to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - A string; asc or desc
+ * @property order - The order to return the List Items
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -190,9 +190,9 @@ interface SyncListItemListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property bounds - The bounds
- * @property from - An integer representing Item index offset.
- * @property order - A string; asc or desc
+ * @property bounds - Whether to include the List Item referenced by the from parameter
+ * @property from - The index of the first Sync List Item resource to read
+ * @property order - The order to return the List Items
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -237,9 +237,9 @@ declare class SyncListItemContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param listSid - The list_sid
-   * @param index - The index
+   * @param serviceSid - The SID of the Sync Service with the Sync List Item resource to fetch
+   * @param listSid - The SID of the Sync List with the Sync List Item resource to fetch
+   * @param index - The index of the Sync List Item resource to fetch
    */
   constructor(version: V1, serviceSid: string, listSid: string, index: number);
 
@@ -278,9 +278,9 @@ declare class SyncListItemInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
-   * @param listSid - The unique 34-character SID identifier of the List containing this Item.
-   * @param index - The index
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param listSid - The SID of the Sync List that contains the List Item
+   * @param index - The index of the Sync List Item resource to fetch
    */
   constructor(version: V1, payload: SyncListItemPayload, serviceSid: string, listSid: string, index: number);
 

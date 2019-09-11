@@ -22,18 +22,18 @@ type SyncMapItemQueryResultOrder = 'asc'|'desc';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Map object.
- * @param mapSid - The unique 34-character SID identifier of the Map containing this Item.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
+ * @param mapSid - The SID of the Sync Map that contains the Map Item
  */
 declare function SyncMapItemList(version: V1, serviceSid: string, mapSid: string): SyncMapItemListInstance;
 
 /**
  * Options to pass to update
  *
- * @property collectionTtl - Time-to-live of this item's parent Map in seconds, defaults to no expiration.
- * @property data - Contains an arbitrary JSON object to be stored in this Map Item.
- * @property itemTtl - Time-to-live of this item in seconds, defaults to no expiration.
- * @property ttl - Alias for item_ttl
+ * @property collectionTtl - How long, in seconds, before the Map Item's parent Sync Map expires and is deleted
+ * @property data - A JSON string that represents an arbitrary, schema-less object that the Map Item stores
+ * @property itemTtl - How long, in seconds, before the Map Item expires
+ * @property ttl - An alias for item_ttl
  */
 interface SyncMapItemInstanceUpdateOptions {
   collectionTtl?: number;
@@ -73,7 +73,7 @@ interface SyncMapItemListInstance {
   /**
    * Constructs a sync_map_item
    *
-   * @param key - The key
+   * @param key - The key value of the Sync Map Item resource to fetch
    */
   get(key: string): SyncMapItemContext;
   /**
@@ -119,11 +119,11 @@ interface SyncMapItemListInstance {
 /**
  * Options to pass to create
  *
- * @property collectionTtl - Time-to-live of this item's parent Map in seconds, defaults to no expiration.
- * @property data - Contains arbitrary user-defined, schema-less data that this Map Item stores, represented by a JSON object, up to 16KB.
- * @property itemTtl - Time-to-live of this item in seconds, defaults to no expiration.
- * @property key - The unique user-defined key of this Map Item.
- * @property ttl - Alias for item_ttl
+ * @property collectionTtl - How long, in seconds, before the Map Item's parent Sync Map expires and is deleted
+ * @property data - A JSON string that represents an arbitrary, schema-less object that the Map Item stores
+ * @property itemTtl - How long, in seconds, before the Map Item expires
+ * @property key - The unique, user-defined key for the Map Item
+ * @property ttl - An alias for item_ttl
  */
 interface SyncMapItemListInstanceCreateOptions {
   collectionTtl?: number;
@@ -136,17 +136,17 @@ interface SyncMapItemListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property bounds - The bounds
+ * @property bounds - Whether to include the Map Item referenced by the from parameter
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property from - The Item key offset (including the specified key).
+ * @property from - The index of the first Sync Map Item resource to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
+ * @property order - How to order the Map Items returned by their key value
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -167,13 +167,13 @@ interface SyncMapItemListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property bounds - The bounds
- * @property from - The Item key offset (including the specified key).
+ * @property bounds - Whether to include the Map Item referenced by the from parameter
+ * @property from - The index of the first Sync Map Item resource to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
+ * @property order - How to order the Map Items returned by their key value
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -192,9 +192,9 @@ interface SyncMapItemListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property bounds - The bounds
- * @property from - The Item key offset (including the specified key).
- * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
+ * @property bounds - Whether to include the Map Item referenced by the from parameter
+ * @property from - The index of the first Sync Map Item resource to read
+ * @property order - How to order the Map Items returned by their key value
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -239,9 +239,9 @@ declare class SyncMapItemContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param mapSid - The map_sid
-   * @param key - The key
+   * @param serviceSid - The SID of the Sync Service with the Sync Map Item resource to fetch
+   * @param mapSid - The SID of the Sync Map with the Sync Map Item resource to fetch
+   * @param key - The key value of the Sync Map Item resource to fetch
    */
   constructor(version: V1, serviceSid: string, mapSid: string, key: string);
 
@@ -280,9 +280,9 @@ declare class SyncMapItemInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Map object.
-   * @param mapSid - The unique 34-character SID identifier of the Map containing this Item.
-   * @param key - The key
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param mapSid - The SID of the Sync Map that contains the Map Item
+   * @param key - The key value of the Sync Map Item resource to fetch
    */
   constructor(version: V1, payload: SyncMapItemPayload, serviceSid: string, mapSid: string, key: string);
 
