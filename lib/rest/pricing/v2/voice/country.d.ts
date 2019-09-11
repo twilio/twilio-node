@@ -146,9 +146,9 @@ interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
 
 interface CountryResource {
   country: string;
-  inbound_call_prices?: string;
+  inbound_call_prices?: string[];
   iso_country: string;
-  outbound_prefix_prices?: string;
+  outbound_prefix_prices?: string[];
   price_unit?: string;
   url: string;
 }
@@ -197,9 +197,9 @@ declare class CountryInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: CountryInstance) => any): void;
-  inboundCallPrices: string;
+  inboundCallPrices: string[];
   isoCountry: string;
-  outboundPrefixPrices: string;
+  outboundPrefixPrices: string[];
   priceUnit: string;
   /**
    * Provide a user-friendly representation

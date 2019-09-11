@@ -157,7 +157,7 @@ interface AuthorizedConnectAppResource {
   connect_app_sid: string;
   date_created: Date;
   date_updated: Date;
-  permissions: string;
+  permissions: AuthorizedConnectAppPermission[];
   uri: string;
 }
 
@@ -215,7 +215,7 @@ declare class AuthorizedConnectAppInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
-  permissions: string;
+  permissions: AuthorizedConnectAppPermission[];
   /**
    * Provide a user-friendly representation
    */

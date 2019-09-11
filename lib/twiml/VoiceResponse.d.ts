@@ -251,7 +251,7 @@ declare namespace VoiceResponse {
   export interface ClientAttributes {
     method?: string;
     statusCallback?: string;
-    statusCallbackEvent?: string;
+    statusCallbackEvent?: ClientEvent[];
     statusCallbackMethod?: string;
     url?: string;
   }
@@ -286,12 +286,12 @@ declare namespace VoiceResponse {
     muted?: boolean;
     record?: ConferenceRecord;
     recordingStatusCallback?: string;
-    recordingStatusCallbackEvent?: string;
+    recordingStatusCallbackEvent?: ConferenceRecordingEvent[];
     recordingStatusCallbackMethod?: string;
     region?: ConferenceRegion;
     startConferenceOnEnter?: boolean;
     statusCallback?: string;
-    statusCallbackEvent?: string;
+    statusCallbackEvent?: ConferenceEvent[];
     statusCallbackMethod?: string;
     trim?: ConferenceTrim;
     waitMethod?: string;
@@ -335,7 +335,7 @@ declare namespace VoiceResponse {
     method?: string;
     record?: DialRecord;
     recordingStatusCallback?: string;
-    recordingStatusCallbackEvent?: string;
+    recordingStatusCallbackEvent?: DialRecordingEvent[];
     recordingStatusCallbackMethod?: string;
     ringTone?: DialRingTone;
     timeLimit?: number;
@@ -387,7 +387,7 @@ declare namespace VoiceResponse {
     debug?: boolean;
     finishOnKey?: string;
     hints?: string;
-    input?: string;
+    input?: GatherInput[];
     language?: GatherLanguage;
     maxSpeechTime?: number;
     method?: string;
@@ -413,7 +413,7 @@ declare namespace VoiceResponse {
     method?: string;
     sendDigits?: string;
     statusCallback?: string;
-    statusCallbackEvent?: string;
+    statusCallbackEvent?: NumberEvent[];
     statusCallbackMethod?: string;
     url?: string;
   }
@@ -478,7 +478,7 @@ declare namespace VoiceResponse {
     statusCallbackMethod?: PayStatusCallbackMethod;
     timeout?: number;
     tokenType?: PayTokenType;
-    validCardTypes?: string;
+    validCardTypes?: PayValidCardTypes[];
   }
 
   /**
@@ -501,9 +501,9 @@ declare namespace VoiceResponse {
    * @property for_ - Name of the payment source data element
    */
   export interface PromptAttributes {
-    attempt?: string;
-    cardType?: string;
-    errorType?: string;
+    attempt?: number[];
+    cardType?: PromptCardType[];
+    errorType?: PromptErrorType[];
     for_?: PromptFor;
   }
 
@@ -545,7 +545,7 @@ declare namespace VoiceResponse {
     method?: string;
     playBeep?: boolean;
     recordingStatusCallback?: string;
-    recordingStatusCallbackEvent?: string;
+    recordingStatusCallbackEvent?: RecordRecordingEvent[];
     recordingStatusCallbackMethod?: string;
     timeout?: number;
     transcribe?: boolean;
@@ -608,7 +608,7 @@ declare namespace VoiceResponse {
     method?: string;
     password?: string;
     statusCallback?: string;
-    statusCallbackEvent?: string;
+    statusCallbackEvent?: SipEvent[];
     statusCallbackMethod?: string;
     url?: string;
     username?: string;

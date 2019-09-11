@@ -209,7 +209,7 @@ interface TrunkPayload extends TrunkResource, Page.TwilioResponsePayload {
 interface TrunkResource {
   account_sid: string;
   auth_type: string;
-  auth_type_set: string;
+  auth_type_set: string[];
   cnam_lookup_enabled: boolean;
   date_created: Date;
   date_updated: Date;
@@ -281,7 +281,7 @@ declare class TrunkInstance extends SerializableClass {
   private _proxy: TrunkContext;
   accountSid: string;
   authType: string;
-  authTypeSet: string;
+  authTypeSet: string[];
   cnamLookupEnabled: boolean;
   /**
    * Access the credentialsLists

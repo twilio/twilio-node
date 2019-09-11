@@ -153,7 +153,7 @@ interface ChannelListInstanceEachOptions {
   done?: Function;
   limit?: number;
   pageSize?: number;
-  type?: string[];
+  type?: ChannelChannelType | ChannelChannelType[];
 }
 
 /**
@@ -174,7 +174,7 @@ interface ChannelListInstanceEachOptions {
 interface ChannelListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  type?: string[];
+  type?: ChannelChannelType | ChannelChannelType[];
 }
 
 /**
@@ -189,7 +189,7 @@ interface ChannelListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  type?: string[];
+  type?: ChannelChannelType | ChannelChannelType[];
 }
 
 interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {

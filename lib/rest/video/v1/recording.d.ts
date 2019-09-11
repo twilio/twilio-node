@@ -122,7 +122,7 @@ interface RecordingListInstanceEachOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;
-  groupingSid?: string[];
+  groupingSid?: string | string[];
   limit?: number;
   mediaType?: RecordingType;
   pageSize?: number;
@@ -153,7 +153,7 @@ interface RecordingListInstanceEachOptions {
 interface RecordingListInstanceOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  groupingSid?: string[];
+  groupingSid?: string | string[];
   limit?: number;
   mediaType?: RecordingType;
   pageSize?: number;
@@ -177,7 +177,7 @@ interface RecordingListInstanceOptions {
 interface RecordingListInstancePageOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  groupingSid?: string[];
+  groupingSid?: string | string[];
   mediaType?: RecordingType;
   pageNumber?: number;
   pageSize?: number;

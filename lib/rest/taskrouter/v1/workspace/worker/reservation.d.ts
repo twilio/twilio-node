@@ -95,13 +95,13 @@ interface ReservationInstanceUpdateOptions {
   conferenceRecordingStatusCallback?: string;
   conferenceRecordingStatusCallbackMethod?: string;
   conferenceStatusCallback?: string;
-  conferenceStatusCallbackEvent?: string[];
+  conferenceStatusCallbackEvent?: ReservationConferenceEvent | ReservationConferenceEvent[];
   conferenceStatusCallbackMethod?: string;
   conferenceTrim?: string;
   dequeueFrom?: string;
   dequeuePostWorkActivitySid?: string;
   dequeueRecord?: string;
-  dequeueStatusCallbackEvent?: string[];
+  dequeueStatusCallbackEvent?: string | string[];
   dequeueStatusCallbackUrl?: string;
   dequeueTimeout?: number;
   dequeueTo?: string;
@@ -126,7 +126,7 @@ interface ReservationInstanceUpdateOptions {
   sipAuthUsername?: string;
   startConferenceOnEnter?: boolean;
   statusCallback?: string;
-  statusCallbackEvent?: string[];
+  statusCallbackEvent?: ReservationCallStatus | ReservationCallStatus[];
   statusCallbackMethod?: string;
   timeout?: number;
   to?: string;
