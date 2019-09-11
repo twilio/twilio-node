@@ -20,18 +20,18 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Document.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
  */
 declare function DocumentList(version: V1, serviceSid: string): DocumentListInstance;
 
 /**
  * Options to pass to update
  *
- * @property data - Contains an arbitrary JSON object to be stored in this Document.
- * @property ttl - New time-to-live of this Document in seconds.
+ * @property data - A JSON string that represents an arbitrary, schema-less object that the Sync Document stores
+ * @property ttl - How long, in seconds, before the Document resource expires and is deleted
  */
 interface DocumentInstanceUpdateOptions {
-  data?: string;
+  data?: object;
   ttl?: number;
 }
 
@@ -66,7 +66,7 @@ interface DocumentListInstance {
   /**
    * Constructs a document
    *
-   * @param sid - The sid
+   * @param sid - The SID of the Document resource to fetch
    */
   get(sid: string): DocumentContext;
   /**
@@ -112,12 +112,12 @@ interface DocumentListInstance {
 /**
  * Options to pass to create
  *
- * @property data - JSON data to be stored in this document
- * @property ttl - Time-to-live of this Document in seconds, defaults to no expiration.
- * @property uniqueName - Human-readable name for this document
+ * @property data - A JSON string that represents an arbitrary, schema-less object that the Sync Document stores
+ * @property ttl - How long, in seconds, before the Sync Document expires and is deleted
+ * @property uniqueName - An application-defined string that uniquely identifies the Sync Document
  */
 interface DocumentListInstanceCreateOptions {
-  data?: string;
+  data?: object;
   ttl?: number;
   uniqueName?: string;
 }
@@ -185,7 +185,7 @@ interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
 interface DocumentResource {
   account_sid: string;
   created_by: string;
-  data: string;
+  data: object;
   date_created: Date;
   date_expires: Date;
   date_updated: Date;
@@ -210,8 +210,8 @@ declare class DocumentContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Sync Service with the Document resource to fetch
+   * @param sid - The SID of the Document resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -251,15 +251,15 @@ declare class DocumentInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Document.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param sid - The SID of the Document resource to fetch
    */
   constructor(version: V1, payload: DocumentPayload, serviceSid: string, sid: string);
 
   private _proxy: DocumentContext;
   accountSid: string;
   createdBy: string;
-  data: string;
+  data: object;
   dateCreated: Date;
   dateExpires: Date;
   dateUpdated: Date;

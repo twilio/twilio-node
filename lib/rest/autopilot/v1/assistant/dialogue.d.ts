@@ -45,7 +45,7 @@ interface DialoguePayload extends DialogueResource, Page.TwilioResponsePayload {
 interface DialogueResource {
   account_sid: string;
   assistant_sid: string;
-  data: string;
+  data: object;
   sid: string;
   url: string;
 }
@@ -100,7 +100,7 @@ declare class DialogueInstance extends SerializableClass {
   private _proxy: DialogueContext;
   accountSid: string;
   assistantSid: string;
-  data: string;
+  data: object;
   /**
    * fetch a DialogueInstance
    *

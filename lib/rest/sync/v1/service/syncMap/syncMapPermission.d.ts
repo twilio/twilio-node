@@ -18,17 +18,17 @@ import { SerializableClass } from '../../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Sync Service Instance SID.
- * @param mapSid - Sync Map SID.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
+ * @param mapSid - Sync Map SID
  */
 declare function SyncMapPermissionList(version: V1, serviceSid: string, mapSid: string): SyncMapPermissionListInstance;
 
 /**
  * Options to pass to update
  *
- * @property manage - Manage access.
- * @property read - Read access.
- * @property write - Write access.
+ * @property manage - Manage access
+ * @property read - Read access
+ * @property write - Write access
  */
 interface SyncMapPermissionInstanceUpdateOptions {
   manage: boolean;
@@ -60,7 +60,7 @@ interface SyncMapPermissionListInstance {
   /**
    * Constructs a sync_map_permission
    *
-   * @param identity - Identity of the user to whom the Sync Map Permission applies.
+   * @param identity - The application-defined string that uniquely identifies the User's Sync Map Permission resource to fetch
    */
   get(identity: string): SyncMapPermissionContext;
   /**
@@ -188,9 +188,9 @@ declare class SyncMapPermissionContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Sync Service Instance SID or unique name.
-   * @param mapSid - Sync Map SID or unique name.
-   * @param identity - Identity of the user to whom the Sync Map Permission applies.
+   * @param serviceSid - The SID of the Sync Service with the Sync Map Permission resource to fetch
+   * @param mapSid - The SID of the Sync Map with the Sync Map Permission resource to fetch
+   * @param identity - The application-defined string that uniquely identifies the User's Sync Map Permission resource to fetch
    */
   constructor(version: V1, serviceSid: string, mapSid: string, identity: string);
 
@@ -229,9 +229,9 @@ declare class SyncMapPermissionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Sync Service Instance SID.
-   * @param mapSid - Sync Map SID.
-   * @param identity - Identity of the user to whom the Sync Map Permission applies.
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param mapSid - Sync Map SID
+   * @param identity - The application-defined string that uniquely identifies the User's Sync Map Permission resource to fetch
    */
   constructor(version: V1, payload: SyncMapPermissionPayload, serviceSid: string, mapSid: string, identity: string);
 

@@ -337,9 +337,9 @@ interface ServiceResource {
   default_channel_role_sid: string;
   default_service_role_sid: string;
   friendly_name: string;
-  limits: string;
+  limits: object;
   links: string;
-  notifications: string;
+  notifications: object;
   post_webhook_url: string;
   pre_webhook_url: string;
   reachability_enabled: boolean;
@@ -349,7 +349,7 @@ interface ServiceResource {
   url: string;
   webhook_filters: string[];
   webhook_method: string;
-  webhooks: string;
+  webhooks: object;
 }
 
 interface ServiceSolution {
@@ -423,9 +423,9 @@ declare class ServiceInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   friendlyName: string;
-  limits: string;
+  limits: object;
   links: string;
-  notifications: string;
+  notifications: object;
   postWebhookUrl: string;
   preWebhookUrl: string;
   reachabilityEnabled: boolean;
@@ -460,7 +460,7 @@ declare class ServiceInstance extends SerializableClass {
   users(): UserListInstance;
   webhookFilters: string[];
   webhookMethod: string;
-  webhooks: string;
+  webhooks: object;
 }
 
 

@@ -30,7 +30,7 @@ declare function TaskActionsList(version: V1, assistantSid: string, taskSid: str
  * @property actions - The JSON string that specifies the actions that instruct the Assistant on how to perform the task
  */
 interface TaskActionsInstanceUpdateOptions {
-  actions?: string;
+  actions?: object;
 }
 
 interface TaskActionsListInstance {
@@ -54,7 +54,7 @@ interface TaskActionsPayload extends TaskActionsResource, Page.TwilioResponsePay
 interface TaskActionsResource {
   account_sid: string;
   assistant_sid: string;
-  data: string;
+  data: object;
   task_sid: string;
   url: string;
 }
@@ -117,7 +117,7 @@ declare class TaskActionsInstance extends SerializableClass {
   private _proxy: TaskActionsContext;
   accountSid: string;
   assistantSid: string;
-  data: string;
+  data: object;
   /**
    * fetch a TaskActionsInstance
    *

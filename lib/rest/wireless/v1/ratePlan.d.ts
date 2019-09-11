@@ -21,8 +21,8 @@ declare function RatePlanList(version: V1): RatePlanListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - A user-provided string that identifies this resource.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property friendlyName - A string to describe the resource
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface RatePlanInstanceUpdateOptions {
   friendlyName?: string;
@@ -60,7 +60,7 @@ interface RatePlanListInstance {
   /**
    * Constructs a rate_plan
    *
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): RatePlanContext;
   /**
@@ -106,17 +106,17 @@ interface RatePlanListInstance {
 /**
  * Options to pass to create
  *
- * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
- * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the 'home' (T-Mobile USA) network.
- * @property dataMetering - The model by which to meter data usage, in accordance with the available data metering models.
- * @property friendlyName - A user-provided string that identifies this resource.
- * @property internationalRoaming - Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity and messaging outside of the United States.
- * @property internationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of international roaming (non-US) data usage (download and upload combined) allowed during one month.
- * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
- * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on networks in the United States other than the 'home' (T-Mobile USA) network.
- * @property nationalRoamingEnabled - Defines whether SIMs can roam onto networks other than the 'home' (T-Mobile USA) network in the United States.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
- * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
+ * @property dataEnabled - Whether SIMs can use GPRS/3G/4G/LTE data connectivity
+ * @property dataLimit - The total data usage in Megabytes that the Network allows during one month on the home network
+ * @property dataMetering - The model used to meter data usage
+ * @property friendlyName - A string to describe the resource
+ * @property internationalRoaming - The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
+ * @property internationalRoamingDataLimit - The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States
+ * @property messagingEnabled - Whether SIMs can make, send, and receive SMS using Commands
+ * @property nationalRoamingDataLimit - The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
+ * @property nationalRoamingEnabled - Whether SIMs can roam on networks other than the home network in the United States
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property voiceEnabled - Whether SIMs can make and receive voice calls
  */
 interface RatePlanListInstanceCreateOptions {
   dataEnabled?: boolean;
@@ -220,7 +220,7 @@ declare class RatePlanContext {
    * Initialize the RatePlanContext
    *
    * @param version - Version of the resource
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -256,7 +256,7 @@ declare class RatePlanInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: RatePlanPayload, sid: string);
 

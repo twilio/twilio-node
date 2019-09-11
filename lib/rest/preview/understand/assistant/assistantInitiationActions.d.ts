@@ -29,7 +29,7 @@ declare function AssistantInitiationActionsList(version: Understand, assistantSi
  * @property initiationActions - The initiation_actions
  */
 interface AssistantInitiationActionsInstanceUpdateOptions {
-  initiationActions?: string;
+  initiationActions?: object;
 }
 
 interface AssistantInitiationActionsListInstance {
@@ -53,7 +53,7 @@ interface AssistantInitiationActionsPayload extends AssistantInitiationActionsRe
 interface AssistantInitiationActionsResource {
   account_sid: string;
   assistant_sid: string;
-  data: string;
+  data: object;
   url: string;
 }
 
@@ -112,7 +112,7 @@ declare class AssistantInitiationActionsInstance extends SerializableClass {
   private _proxy: AssistantInitiationActionsContext;
   accountSid: string;
   assistantSid: string;
-  data: string;
+  data: object;
   /**
    * fetch a AssistantInitiationActionsInstance
    *

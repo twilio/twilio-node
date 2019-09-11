@@ -205,7 +205,7 @@ interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
 
 interface WebhookResource {
   account_sid: string;
-  configuration: string;
+  configuration: object;
   conversation_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -276,7 +276,7 @@ declare class WebhookInstance extends SerializableClass {
 
   private _proxy: WebhookContext;
   accountSid: string;
-  configuration: string;
+  configuration: object;
   conversationSid: string;
   dateCreated: Date;
   dateUpdated: Date;

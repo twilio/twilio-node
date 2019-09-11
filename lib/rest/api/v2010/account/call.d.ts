@@ -40,6 +40,7 @@ declare function CallList(version: V2010, accountSid: string): CallListInstance;
  * @property status - The new status to update the call with.
  * @property statusCallback - The URL we should call to send status information to your application
  * @property statusCallbackMethod - HTTP Method to use to call status_callback
+ * @property twiml - TwiML instructions for the call
  * @property url - The absolute URL that returns TwiML for this call
  */
 interface CallInstanceUpdateOptions {
@@ -49,6 +50,7 @@ interface CallInstanceUpdateOptions {
   status?: CallUpdateStatus;
   statusCallback?: string;
   statusCallbackMethod?: string;
+  twiml?: string;
   url?: string;
 }
 

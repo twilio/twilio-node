@@ -34,7 +34,7 @@ declare function SyncListItemList(version: Sync, serviceSid: string, listSid: st
  * @property data - The data
  */
 interface SyncListItemInstanceUpdateOptions {
-  data: string;
+  data: object;
 }
 
 interface SyncListItemListInstance {
@@ -117,7 +117,7 @@ interface SyncListItemListInstance {
  * @property data - The data
  */
 interface SyncListItemListInstanceCreateOptions {
-  data: string;
+  data: object;
 }
 
 /**
@@ -201,7 +201,7 @@ interface SyncListItemPayload extends SyncListItemResource, Page.TwilioResponseP
 interface SyncListItemResource {
   account_sid: string;
   created_by: string;
-  data: string;
+  data: object;
   date_created: Date;
   date_updated: Date;
   index: number;
@@ -277,7 +277,7 @@ declare class SyncListItemInstance extends SerializableClass {
   private _proxy: SyncListItemContext;
   accountSid: string;
   createdBy: string;
-  data: string;
+  data: object;
   dateCreated: Date;
   dateUpdated: Date;
   /**

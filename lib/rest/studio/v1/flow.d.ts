@@ -47,7 +47,7 @@ interface FlowListInstance {
   /**
    * Constructs a flow
    *
-   * @param sid - A string that uniquely identifies this Flow.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): FlowContext;
   /**
@@ -171,7 +171,7 @@ declare class FlowContext {
    * Initialize the FlowContext
    *
    * @param version - Version of the resource
-   * @param sid - A string that uniquely identifies this Flow.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -202,7 +202,7 @@ declare class FlowInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A string that uniquely identifies this Flow.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: FlowPayload, sid: string);
 

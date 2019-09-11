@@ -16,8 +16,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the ExecutionStepList
  *
  * @param version - Version of the resource
- * @param flowSid - Flow Sid.
- * @param executionSid - Execution Sid.
+ * @param flowSid - The SID of the Flow
+ * @param executionSid - The SID of the Execution
  */
 declare function ExecutionStepList(version: V1, flowSid: string, executionSid: string): ExecutionStepListInstance;
 
@@ -45,7 +45,7 @@ interface ExecutionStepListInstance {
   /**
    * Constructs a execution_step
    *
-   * @param sid - Step Sid.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ExecutionStepContext;
   /**
@@ -150,7 +150,7 @@ interface ExecutionStepPayload extends ExecutionStepResource, Page.TwilioRespons
 
 interface ExecutionStepResource {
   account_sid: string;
-  context: string;
+  context: object;
   date_created: Date;
   date_updated: Date;
   execution_sid: string;
@@ -174,9 +174,9 @@ declare class ExecutionStepContext {
    * Initialize the ExecutionStepContext
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param executionSid - Execution Sid.
-   * @param sid - Step Sid.
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, flowSid: string, executionSid: string, sid: string);
 
@@ -200,15 +200,15 @@ declare class ExecutionStepInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - Flow Sid.
-   * @param executionSid - Execution Sid.
-   * @param sid - Step Sid.
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: ExecutionStepPayload, flowSid: string, executionSid: string, sid: string);
 
   private _proxy: ExecutionStepContext;
   accountSid: string;
-  context: string;
+  context: object;
   dateCreated: Date;
   dateUpdated: Date;
   executionSid: string;

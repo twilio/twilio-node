@@ -28,12 +28,14 @@ declare function MessageList(version: V1, conversationSid: string): MessageListI
 /**
  * Options to pass to update
  *
+ * @property attributes - A string metadata field you can use to store any data you wish.
  * @property author - The channel specific identifier of the message's author.
  * @property body - The content of the message.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  */
 interface MessageInstanceUpdateOptions {
+  attributes?: string;
   author?: string;
   body?: string;
   dateCreated?: Date;
@@ -117,12 +119,14 @@ interface MessageListInstance {
 /**
  * Options to pass to create
  *
+ * @property attributes - A string metadata field you can use to store any data you wish.
  * @property author - The channel specific identifier of the message's author.
  * @property body - The content of the message.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  */
 interface MessageListInstanceCreateOptions {
+  attributes?: string;
   author?: string;
   body?: string;
   dateCreated?: Date;
@@ -191,6 +195,7 @@ interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
 
 interface MessageResource {
   account_sid: string;
+  attributes: string;
   author: string;
   body: string;
   conversation_sid: string;
@@ -263,6 +268,7 @@ declare class MessageInstance extends SerializableClass {
 
   private _proxy: MessageContext;
   accountSid: string;
+  attributes: string;
   author: string;
   body: string;
   conversationSid: string;

@@ -61,8 +61,8 @@ interface NotificationListInstance {
  */
 interface NotificationListInstanceCreateOptions {
   action?: string;
-  alexa?: string;
-  apn?: string;
+  alexa?: object;
+  apn?: object;
   body?: string;
   data?: string;
   facebookMessenger?: string;
@@ -85,10 +85,10 @@ interface NotificationPayload extends NotificationResource, Page.TwilioResponseP
 interface NotificationResource {
   account_sid: string;
   action: string;
-  alexa: string;
-  apn: string;
+  alexa: object;
+  apn: object;
   body: string;
-  data: string;
+  data: object;
   date_created: Date;
   facebook_messenger: string;
   fcm: string;
@@ -98,7 +98,7 @@ interface NotificationResource {
   segments: string[];
   service_sid: string;
   sid: string;
-  sms: string;
+  sms: object;
   sound: string;
   tags: string[];
   title: string;
@@ -125,10 +125,10 @@ declare class NotificationInstance extends SerializableClass {
 
   accountSid: string;
   action: string;
-  alexa: string;
-  apn: string;
+  alexa: object;
+  apn: object;
   body: string;
-  data: string;
+  data: object;
   dateCreated: Date;
   facebookMessenger: string;
   fcm: string;
@@ -138,7 +138,7 @@ declare class NotificationInstance extends SerializableClass {
   segments: string[];
   serviceSid: string;
   sid: string;
-  sms: string;
+  sms: object;
   sound: string;
   tags: string[];
   title: string;

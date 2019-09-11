@@ -48,7 +48,7 @@ interface CompositionHookInstanceUpdateOptions {
   statusCallback?: string;
   statusCallbackMethod?: string;
   trim?: boolean;
-  videoLayout?: string;
+  videoLayout?: object;
 }
 
 interface CompositionHookListInstance {
@@ -149,7 +149,7 @@ interface CompositionHookListInstanceCreateOptions {
   statusCallback?: string;
   statusCallbackMethod?: string;
   trim?: boolean;
-  videoLayout?: string;
+  videoLayout?: object;
 }
 
 /**
@@ -251,7 +251,7 @@ interface CompositionHookResource {
   status_callback_method: string;
   trim: boolean;
   url: string;
-  video_layout: string;
+  video_layout: object;
 }
 
 interface CompositionHookSolution {
@@ -349,7 +349,7 @@ declare class CompositionHookInstance extends SerializableClass {
    */
   update(opts: CompositionHookInstanceUpdateOptions, callback?: (error: Error | null, items: CompositionHookInstance) => any): void;
   url: string;
-  videoLayout: string;
+  videoLayout: object;
 }
 
 

@@ -50,8 +50,8 @@ interface WorkspaceRealTimeStatisticsResource {
   activity_statistics: string[];
   longest_task_waiting_age: number;
   longest_task_waiting_sid: string;
-  tasks_by_priority: string;
-  tasks_by_status: string;
+  tasks_by_priority: object;
+  tasks_by_status: object;
   total_tasks: number;
   total_workers: number;
   url: string;
@@ -108,8 +108,8 @@ declare class WorkspaceRealTimeStatisticsInstance extends SerializableClass {
   fetch(opts?: WorkspaceRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceRealTimeStatisticsInstance) => any): void;
   longestTaskWaitingAge: number;
   longestTaskWaitingSid: string;
-  tasksByPriority: string;
-  tasksByStatus: string;
+  tasksByPriority: object;
+  tasksByStatus: object;
   /**
    * Provide a user-friendly representation
    */

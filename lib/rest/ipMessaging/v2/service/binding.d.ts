@@ -17,7 +17,7 @@ type BindingBindingType = 'gcm'|'apn'|'fcm';
  * Initialize the BindingList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param serviceSid - The SID of the Service that the Binding resource is associated with
  */
 declare function BindingList(version: V2, serviceSid: string): BindingListInstance;
 
@@ -45,7 +45,7 @@ interface BindingListInstance {
   /**
    * Constructs a binding
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the resource to fetch
    */
   get(sid: string): BindingContext;
   /**
@@ -186,7 +186,7 @@ declare class BindingContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V2, serviceSid: string, sid: string);
 
@@ -215,8 +215,8 @@ declare class BindingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The SID of the Service that the Binding resource is associated with
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V2, payload: BindingPayload, serviceSid: string, sid: string);
 

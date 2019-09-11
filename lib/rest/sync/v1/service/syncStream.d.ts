@@ -19,14 +19,14 @@ import { StreamMessageListInstance } from './syncStream/streamMessage';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Instance SID.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
  */
 declare function SyncStreamList(version: V1, serviceSid: string): SyncStreamListInstance;
 
 /**
  * Options to pass to update
  *
- * @property ttl - Stream TTL.
+ * @property ttl - How long, in seconds, before the Stream expires and is deleted
  */
 interface SyncStreamInstanceUpdateOptions {
   ttl?: number;
@@ -63,7 +63,7 @@ interface SyncStreamListInstance {
   /**
    * Constructs a sync_stream
    *
-   * @param sid - Stream SID or unique name.
+   * @param sid - The SID of the Stream resource to fetch
    */
   get(sid: string): SyncStreamContext;
   /**
@@ -109,8 +109,8 @@ interface SyncStreamListInstance {
 /**
  * Options to pass to create
  *
- * @property ttl - Stream TTL.
- * @property uniqueName - Stream unique name.
+ * @property ttl - How long, in seconds, before the Stream expires and is deleted
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface SyncStreamListInstanceCreateOptions {
   ttl?: number;
@@ -203,8 +203,8 @@ declare class SyncStreamContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Instance SID or unique name.
-   * @param sid - Stream SID or unique name.
+   * @param serviceSid - The SID of the Sync Service with the Sync Stream resource to fetch
+   * @param sid - The SID of the Stream resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -244,8 +244,8 @@ declare class SyncStreamInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Instance SID.
-   * @param sid - Stream SID or unique name.
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param sid - The SID of the Stream resource to fetch
    */
   constructor(version: V1, payload: SyncStreamPayload, serviceSid: string, sid: string);
 

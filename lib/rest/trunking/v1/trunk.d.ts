@@ -218,7 +218,7 @@ interface TrunkResource {
   domain_name: string;
   friendly_name: string;
   links: string;
-  recording: string;
+  recording: object;
   secure: boolean;
   sid: string;
   url: string;
@@ -312,7 +312,7 @@ declare class TrunkInstance extends SerializableClass {
    * Access the phoneNumbers
    */
   phoneNumbers(): PhoneNumberListInstance;
-  recording: string;
+  recording: object;
   /**
    * remove a TrunkInstance
    *

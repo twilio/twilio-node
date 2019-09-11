@@ -184,7 +184,7 @@ interface RoomRecordingResource {
   container_format: RoomRecordingFormat;
   date_created: Date;
   duration: number;
-  grouping_sids: string;
+  grouping_sids: object;
   links: string;
   offset: number;
   room_sid: string;
@@ -254,7 +254,7 @@ declare class RoomRecordingInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
-  groupingSids: string;
+  groupingSids: object;
   links: string;
   offset: number;
   /**
