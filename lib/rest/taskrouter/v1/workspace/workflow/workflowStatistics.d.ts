@@ -148,4 +148,4 @@ declare class WorkflowStatisticsPage extends Page<V1, WorkflowStatisticsPayload,
   toJSON(): any;
 }
 
-export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsListInstance, WorkflowStatisticsPage, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsSolution }
+export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsInstanceFetchOptions, WorkflowStatisticsList, WorkflowStatisticsListInstance, WorkflowStatisticsPage, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsSolution }

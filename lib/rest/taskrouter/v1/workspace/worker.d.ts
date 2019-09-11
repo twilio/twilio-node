@@ -389,4 +389,4 @@ declare class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerI
   toJSON(): any;
 }
 
-export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }
+export { WorkerContext, WorkerInstance, WorkerInstanceUpdateOptions, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }

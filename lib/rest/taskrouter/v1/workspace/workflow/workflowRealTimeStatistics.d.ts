@@ -145,4 +145,4 @@ declare class WorkflowRealTimeStatisticsPage extends Page<V1, WorkflowRealTimeSt
   toJSON(): any;
 }
 
-export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsSolution }
+export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsInstanceFetchOptions, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsSolution }

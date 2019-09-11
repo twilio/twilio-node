@@ -313,4 +313,4 @@ declare class AssetPage extends Page<V1, AssetPayload, AssetResource, AssetInsta
   toJSON(): any;
 }
 
-export { AssetContext, AssetInstance, AssetList, AssetListInstance, AssetListInstanceCreateOptions, AssetListInstanceEachOptions, AssetListInstanceOptions, AssetListInstancePageOptions, AssetPage, AssetPayload, AssetResource, AssetSolution }
+export { AssetContext, AssetInstance, AssetInstanceUpdateOptions, AssetList, AssetListInstance, AssetListInstanceCreateOptions, AssetListInstanceEachOptions, AssetListInstanceOptions, AssetListInstancePageOptions, AssetPage, AssetPayload, AssetResource, AssetSolution }

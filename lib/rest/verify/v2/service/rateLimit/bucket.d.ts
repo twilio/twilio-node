@@ -312,4 +312,4 @@ declare class BucketPage extends Page<V2, BucketPayload, BucketResource, BucketI
   toJSON(): any;
 }
 
-export { BucketContext, BucketInstance, BucketList, BucketListInstance, BucketListInstanceCreateOptions, BucketListInstanceEachOptions, BucketListInstanceOptions, BucketListInstancePageOptions, BucketPage, BucketPayload, BucketResource, BucketSolution }
+export { BucketContext, BucketInstance, BucketInstanceUpdateOptions, BucketList, BucketListInstance, BucketListInstanceCreateOptions, BucketListInstanceEachOptions, BucketListInstanceOptions, BucketListInstancePageOptions, BucketPage, BucketPayload, BucketResource, BucketSolution }

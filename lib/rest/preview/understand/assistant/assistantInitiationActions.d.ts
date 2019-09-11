@@ -160,4 +160,4 @@ declare class AssistantInitiationActionsPage extends Page<Understand, AssistantI
   toJSON(): any;
 }
 
-export { AssistantInitiationActionsContext, AssistantInitiationActionsInstance, AssistantInitiationActionsList, AssistantInitiationActionsListInstance, AssistantInitiationActionsPage, AssistantInitiationActionsPayload, AssistantInitiationActionsResource, AssistantInitiationActionsSolution }
+export { AssistantInitiationActionsContext, AssistantInitiationActionsInstance, AssistantInitiationActionsInstanceUpdateOptions, AssistantInitiationActionsList, AssistantInitiationActionsListInstance, AssistantInitiationActionsPage, AssistantInitiationActionsPayload, AssistantInitiationActionsResource, AssistantInitiationActionsSolution }

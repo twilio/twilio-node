@@ -313,4 +313,4 @@ declare class RateLimitPage extends Page<V2, RateLimitPayload, RateLimitResource
   toJSON(): any;
 }
 
-export { RateLimitContext, RateLimitInstance, RateLimitList, RateLimitListInstance, RateLimitListInstanceCreateOptions, RateLimitListInstanceEachOptions, RateLimitListInstanceOptions, RateLimitListInstancePageOptions, RateLimitPage, RateLimitPayload, RateLimitResource, RateLimitSolution }
+export { RateLimitContext, RateLimitInstance, RateLimitInstanceUpdateOptions, RateLimitList, RateLimitListInstance, RateLimitListInstanceCreateOptions, RateLimitListInstanceEachOptions, RateLimitListInstanceOptions, RateLimitListInstancePageOptions, RateLimitPage, RateLimitPayload, RateLimitResource, RateLimitSolution }

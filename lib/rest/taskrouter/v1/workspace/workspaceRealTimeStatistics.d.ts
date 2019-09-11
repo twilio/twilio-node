@@ -143,4 +143,4 @@ declare class WorkspaceRealTimeStatisticsPage extends Page<V1, WorkspaceRealTime
   toJSON(): any;
 }
 
-export { WorkspaceRealTimeStatisticsContext, WorkspaceRealTimeStatisticsInstance, WorkspaceRealTimeStatisticsList, WorkspaceRealTimeStatisticsListInstance, WorkspaceRealTimeStatisticsPage, WorkspaceRealTimeStatisticsPayload, WorkspaceRealTimeStatisticsResource, WorkspaceRealTimeStatisticsSolution }
+export { WorkspaceRealTimeStatisticsContext, WorkspaceRealTimeStatisticsInstance, WorkspaceRealTimeStatisticsInstanceFetchOptions, WorkspaceRealTimeStatisticsList, WorkspaceRealTimeStatisticsListInstance, WorkspaceRealTimeStatisticsPage, WorkspaceRealTimeStatisticsPayload, WorkspaceRealTimeStatisticsResource, WorkspaceRealTimeStatisticsSolution }

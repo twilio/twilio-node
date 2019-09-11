@@ -334,4 +334,4 @@ declare class FleetPage extends Page<DeployedDevices, FleetPayload, FleetResourc
   toJSON(): any;
 }
 
-export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetListInstanceCreateOptions, FleetListInstanceEachOptions, FleetListInstanceOptions, FleetListInstancePageOptions, FleetPage, FleetPayload, FleetResource, FleetSolution }
+export { FleetContext, FleetInstance, FleetInstanceUpdateOptions, FleetList, FleetListInstance, FleetListInstanceCreateOptions, FleetListInstanceEachOptions, FleetListInstanceOptions, FleetListInstancePageOptions, FleetPage, FleetPayload, FleetResource, FleetSolution }

@@ -160,4 +160,4 @@ declare class AssistantFallbackActionsPage extends Page<Understand, AssistantFal
   toJSON(): any;
 }
 
-export { AssistantFallbackActionsContext, AssistantFallbackActionsInstance, AssistantFallbackActionsList, AssistantFallbackActionsListInstance, AssistantFallbackActionsPage, AssistantFallbackActionsPayload, AssistantFallbackActionsResource, AssistantFallbackActionsSolution }
+export { AssistantFallbackActionsContext, AssistantFallbackActionsInstance, AssistantFallbackActionsInstanceUpdateOptions, AssistantFallbackActionsList, AssistantFallbackActionsListInstance, AssistantFallbackActionsPage, AssistantFallbackActionsPayload, AssistantFallbackActionsResource, AssistantFallbackActionsSolution }

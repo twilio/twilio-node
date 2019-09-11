@@ -266,4 +266,4 @@ declare class SigningKeyPage extends Page<V2010, SigningKeyPayload, SigningKeyRe
   toJSON(): any;
 }
 
-export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListInstance, SigningKeyListInstanceEachOptions, SigningKeyListInstanceOptions, SigningKeyListInstancePageOptions, SigningKeyPage, SigningKeyPayload, SigningKeyResource, SigningKeySolution }
+export { SigningKeyContext, SigningKeyInstance, SigningKeyInstanceUpdateOptions, SigningKeyList, SigningKeyListInstance, SigningKeyListInstanceEachOptions, SigningKeyListInstanceOptions, SigningKeyListInstancePageOptions, SigningKeyPage, SigningKeyPayload, SigningKeyResource, SigningKeySolution }

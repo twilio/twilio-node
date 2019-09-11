@@ -238,4 +238,4 @@ declare class ChallengePage extends Page<V1, ChallengePayload, ChallengeResource
   toJSON(): any;
 }
 
-export { ChallengeContext, ChallengeInstance, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
+export { ChallengeContext, ChallengeInstance, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }

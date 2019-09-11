@@ -313,4 +313,4 @@ declare class OriginationUrlPage extends Page<V1, OriginationUrlPayload, Origina
   toJSON(): any;
 }
 
-export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlListInstanceCreateOptions, OriginationUrlListInstanceEachOptions, OriginationUrlListInstanceOptions, OriginationUrlListInstancePageOptions, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource, OriginationUrlSolution }
+export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlInstanceUpdateOptions, OriginationUrlList, OriginationUrlListInstance, OriginationUrlListInstanceCreateOptions, OriginationUrlListInstanceEachOptions, OriginationUrlListInstanceOptions, OriginationUrlListInstancePageOptions, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource, OriginationUrlSolution }

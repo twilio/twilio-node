@@ -362,4 +362,4 @@ declare class DomainPage extends Page<V2010, DomainPayload, DomainResource, Doma
   toJSON(): any;
 }
 
-export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainListInstanceCreateOptions, DomainListInstanceEachOptions, DomainListInstanceOptions, DomainListInstancePageOptions, DomainPage, DomainPayload, DomainResource, DomainSolution }
+export { DomainContext, DomainInstance, DomainInstanceUpdateOptions, DomainList, DomainListInstance, DomainListInstanceCreateOptions, DomainListInstanceEachOptions, DomainListInstanceOptions, DomainListInstancePageOptions, DomainPage, DomainPayload, DomainResource, DomainSolution }

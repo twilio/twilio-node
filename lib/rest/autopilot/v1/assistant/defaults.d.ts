@@ -160,4 +160,4 @@ declare class DefaultsPage extends Page<V1, DefaultsPayload, DefaultsResource, D
   toJSON(): any;
 }
 
-export { DefaultsContext, DefaultsInstance, DefaultsList, DefaultsListInstance, DefaultsPage, DefaultsPayload, DefaultsResource, DefaultsSolution }
+export { DefaultsContext, DefaultsInstance, DefaultsInstanceUpdateOptions, DefaultsList, DefaultsListInstance, DefaultsPage, DefaultsPayload, DefaultsResource, DefaultsSolution }

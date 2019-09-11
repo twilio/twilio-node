@@ -286,4 +286,4 @@ declare class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource
   toJSON(): any;
 }
 
-export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyListInstanceCreateOptions, PublicKeyListInstanceEachOptions, PublicKeyListInstanceOptions, PublicKeyListInstancePageOptions, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }
+export { PublicKeyContext, PublicKeyInstance, PublicKeyInstanceUpdateOptions, PublicKeyList, PublicKeyListInstance, PublicKeyListInstanceCreateOptions, PublicKeyListInstanceEachOptions, PublicKeyListInstanceOptions, PublicKeyListInstancePageOptions, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }

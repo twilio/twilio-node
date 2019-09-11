@@ -322,4 +322,4 @@ declare class DocumentPage extends Page<Sync, DocumentPayload, DocumentResource,
   toJSON(): any;
 }
 
-export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }
+export { DocumentContext, DocumentInstance, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

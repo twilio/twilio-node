@@ -325,4 +325,4 @@ declare class RatePlanPage extends Page<V1, RatePlanPayload, RatePlanResource, R
   toJSON(): any;
 }
 
-export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanListInstanceCreateOptions, RatePlanListInstanceEachOptions, RatePlanListInstanceOptions, RatePlanListInstancePageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }
+export { RatePlanContext, RatePlanInstance, RatePlanInstanceUpdateOptions, RatePlanList, RatePlanListInstance, RatePlanListInstanceCreateOptions, RatePlanListInstanceEachOptions, RatePlanListInstanceOptions, RatePlanListInstancePageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

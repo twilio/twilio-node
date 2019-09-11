@@ -395,4 +395,4 @@ declare class AssistantPage extends Page<Understand, AssistantPayload, Assistant
   toJSON(): any;
 }
 
-export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantListInstanceCreateOptions, AssistantListInstanceEachOptions, AssistantListInstanceOptions, AssistantListInstancePageOptions, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }
+export { AssistantContext, AssistantInstance, AssistantInstanceUpdateOptions, AssistantList, AssistantListInstance, AssistantListInstanceCreateOptions, AssistantListInstanceEachOptions, AssistantListInstanceOptions, AssistantListInstancePageOptions, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }

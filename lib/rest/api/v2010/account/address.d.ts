@@ -360,4 +360,4 @@ declare class AddressPage extends Page<V2010, AddressPayload, AddressResource, A
   toJSON(): any;
 }
 
-export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressListInstanceCreateOptions, AddressListInstanceEachOptions, AddressListInstanceOptions, AddressListInstancePageOptions, AddressPage, AddressPayload, AddressResource, AddressSolution }
+export { AddressContext, AddressInstance, AddressInstanceUpdateOptions, AddressList, AddressListInstance, AddressListInstanceCreateOptions, AddressListInstanceEachOptions, AddressListInstanceOptions, AddressListInstancePageOptions, AddressPage, AddressPayload, AddressResource, AddressSolution }

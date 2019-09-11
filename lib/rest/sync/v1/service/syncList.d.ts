@@ -328,4 +328,4 @@ declare class SyncListPage extends Page<V1, SyncListPayload, SyncListResource, S
   toJSON(): any;
 }
 
-export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }
+export { SyncListContext, SyncListInstance, SyncListInstanceUpdateOptions, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }

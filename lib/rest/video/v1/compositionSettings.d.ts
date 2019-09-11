@@ -174,4 +174,4 @@ declare class CompositionSettingsPage extends Page<V1, CompositionSettingsPayloa
   toJSON(): any;
 }
 
-export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsSolution }
+export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsInstanceCreateOptions, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsSolution }

@@ -174,4 +174,4 @@ declare class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, R
   toJSON(): any;
 }
 
-export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }
+export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsInstanceCreateOptions, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }

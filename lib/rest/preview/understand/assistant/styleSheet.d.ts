@@ -160,4 +160,4 @@ declare class StyleSheetPage extends Page<Understand, StyleSheetPayload, StyleSh
   toJSON(): any;
 }
 
-export { StyleSheetContext, StyleSheetInstance, StyleSheetList, StyleSheetListInstance, StyleSheetPage, StyleSheetPayload, StyleSheetResource, StyleSheetSolution }
+export { StyleSheetContext, StyleSheetInstance, StyleSheetInstanceUpdateOptions, StyleSheetList, StyleSheetListInstance, StyleSheetPage, StyleSheetPayload, StyleSheetResource, StyleSheetSolution }

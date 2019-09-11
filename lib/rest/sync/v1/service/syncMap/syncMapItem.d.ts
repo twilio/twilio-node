@@ -349,4 +349,4 @@ declare class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemRe
   toJSON(): any;
 }
 
-export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }
+export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemInstanceUpdateOptions, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }

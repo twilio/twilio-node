@@ -295,4 +295,4 @@ declare class SyncMapPermissionPage extends Page<V1, SyncMapPermissionPayload, S
   toJSON(): any;
 }
 
-export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionListInstanceEachOptions, SyncMapPermissionListInstanceOptions, SyncMapPermissionListInstancePageOptions, SyncMapPermissionPage, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionSolution }
+export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionInstanceUpdateOptions, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionListInstanceEachOptions, SyncMapPermissionListInstanceOptions, SyncMapPermissionListInstancePageOptions, SyncMapPermissionPage, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionSolution }

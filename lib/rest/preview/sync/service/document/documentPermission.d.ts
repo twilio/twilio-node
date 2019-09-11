@@ -300,4 +300,4 @@ declare class DocumentPermissionPage extends Page<Sync, DocumentPermissionPayloa
   toJSON(): any;
 }
 
-export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionListInstanceEachOptions, DocumentPermissionListInstanceOptions, DocumentPermissionListInstancePageOptions, DocumentPermissionPage, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionSolution }
+export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionInstanceUpdateOptions, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionListInstanceEachOptions, DocumentPermissionListInstanceOptions, DocumentPermissionListInstancePageOptions, DocumentPermissionPage, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionSolution }

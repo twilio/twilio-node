@@ -335,4 +335,4 @@ declare class DevicePage extends Page<DeployedDevices, DevicePayload, DeviceReso
   toJSON(): any;
 }
 
-export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DeviceListInstanceCreateOptions, DeviceListInstanceEachOptions, DeviceListInstanceOptions, DeviceListInstancePageOptions, DevicePage, DevicePayload, DeviceResource, DeviceSolution }
+export { DeviceContext, DeviceInstance, DeviceInstanceUpdateOptions, DeviceList, DeviceListInstance, DeviceListInstanceCreateOptions, DeviceListInstanceEachOptions, DeviceListInstanceOptions, DeviceListInstancePageOptions, DevicePage, DevicePayload, DeviceResource, DeviceSolution }

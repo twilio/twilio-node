@@ -166,4 +166,4 @@ declare class TaskActionsPage extends Page<Understand, TaskActionsPayload, TaskA
   toJSON(): any;
 }
 
-export { TaskActionsContext, TaskActionsInstance, TaskActionsList, TaskActionsListInstance, TaskActionsPage, TaskActionsPayload, TaskActionsResource, TaskActionsSolution }
+export { TaskActionsContext, TaskActionsInstance, TaskActionsInstanceUpdateOptions, TaskActionsList, TaskActionsListInstance, TaskActionsPage, TaskActionsPayload, TaskActionsResource, TaskActionsSolution }

@@ -307,4 +307,4 @@ declare class ShortCodePage extends Page<V1, ShortCodePayload, ShortCodeResource
   toJSON(): any;
 }
 
-export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodeListInstanceCreateOptions, ShortCodeListInstanceEachOptions, ShortCodeListInstanceOptions, ShortCodeListInstancePageOptions, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }
+export { ShortCodeContext, ShortCodeInstance, ShortCodeInstanceUpdateOptions, ShortCodeList, ShortCodeListInstance, ShortCodeListInstanceCreateOptions, ShortCodeListInstanceEachOptions, ShortCodeListInstanceOptions, ShortCodeListInstancePageOptions, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }

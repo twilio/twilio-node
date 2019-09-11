@@ -133,4 +133,4 @@ declare class WorkersRealTimeStatisticsPage extends Page<V1, WorkersRealTimeStat
   toJSON(): any;
 }
 
-export { WorkersRealTimeStatisticsContext, WorkersRealTimeStatisticsInstance, WorkersRealTimeStatisticsList, WorkersRealTimeStatisticsListInstance, WorkersRealTimeStatisticsPage, WorkersRealTimeStatisticsPayload, WorkersRealTimeStatisticsResource, WorkersRealTimeStatisticsSolution }
+export { WorkersRealTimeStatisticsContext, WorkersRealTimeStatisticsInstance, WorkersRealTimeStatisticsInstanceFetchOptions, WorkersRealTimeStatisticsList, WorkersRealTimeStatisticsListInstance, WorkersRealTimeStatisticsPage, WorkersRealTimeStatisticsPayload, WorkersRealTimeStatisticsResource, WorkersRealTimeStatisticsSolution }

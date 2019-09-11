@@ -320,4 +320,4 @@ declare class CertificatePage extends Page<DeployedDevices, CertificatePayload, 
   toJSON(): any;
 }
 
-export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificateListInstanceCreateOptions, CertificateListInstanceEachOptions, CertificateListInstanceOptions, CertificateListInstancePageOptions, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }
+export { CertificateContext, CertificateInstance, CertificateInstanceUpdateOptions, CertificateList, CertificateListInstance, CertificateListInstanceCreateOptions, CertificateListInstanceEachOptions, CertificateListInstanceOptions, CertificateListInstancePageOptions, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }

@@ -369,4 +369,4 @@ declare class SimPage extends Page<Wireless, SimPayload, SimResource, SimInstanc
   toJSON(): any;
 }
 
-export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }
+export { SimContext, SimInstance, SimInstanceUpdateOptions, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

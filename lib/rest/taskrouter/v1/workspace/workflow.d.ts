@@ -343,4 +343,4 @@ declare class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, W
   toJSON(): any;
 }
 
-export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowListInstanceCreateOptions, WorkflowListInstanceEachOptions, WorkflowListInstanceOptions, WorkflowListInstancePageOptions, WorkflowPage, WorkflowPayload, WorkflowResource, WorkflowSolution }
+export { WorkflowContext, WorkflowInstance, WorkflowInstanceUpdateOptions, WorkflowList, WorkflowListInstance, WorkflowListInstanceCreateOptions, WorkflowListInstanceEachOptions, WorkflowListInstanceOptions, WorkflowListInstancePageOptions, WorkflowPage, WorkflowPayload, WorkflowResource, WorkflowSolution }

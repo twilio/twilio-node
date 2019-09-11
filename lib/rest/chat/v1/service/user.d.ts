@@ -319,4 +319,4 @@ declare class UserPage extends Page<V1, UserPayload, UserResource, UserInstance>
   toJSON(): any;
 }
 
-export { UserContext, UserInstance, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }
+export { UserContext, UserInstance, UserInstanceUpdateOptions, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }

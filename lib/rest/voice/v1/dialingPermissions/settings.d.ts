@@ -152,4 +152,4 @@ declare class SettingsPage extends Page<V1, SettingsPayload, SettingsResource, S
   toJSON(): any;
 }
 
-export { SettingsContext, SettingsInstance, SettingsList, SettingsListInstance, SettingsPage, SettingsPayload, SettingsResource, SettingsSolution }
+export { SettingsContext, SettingsInstance, SettingsInstanceUpdateOptions, SettingsList, SettingsListInstance, SettingsPage, SettingsPayload, SettingsResource, SettingsSolution }
