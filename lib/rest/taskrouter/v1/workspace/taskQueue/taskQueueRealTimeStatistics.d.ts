@@ -48,7 +48,7 @@ interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatistics
 
 interface TaskQueueRealTimeStatisticsResource {
   account_sid: string;
-  activity_statistics: string[];
+  activity_statistics: object[];
   longest_task_waiting_age: number;
   longest_task_waiting_sid: string;
   task_queue_sid: string;
@@ -104,7 +104,7 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
 
   private _proxy: TaskQueueRealTimeStatisticsContext;
   accountSid: string;
-  activityStatistics: string[];
+  activityStatistics: object[];
   /**
    * fetch a TaskQueueRealTimeStatisticsInstance
    *

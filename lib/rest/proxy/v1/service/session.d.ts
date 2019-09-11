@@ -130,7 +130,7 @@ interface SessionListInstance {
 interface SessionListInstanceCreateOptions {
   dateExpiry?: Date;
   mode?: SessionMode;
-  participants?: string | string[];
+  participants?: object | object[];
   status?: SessionStatus;
   ttl?: number;
   uniqueName?: string;

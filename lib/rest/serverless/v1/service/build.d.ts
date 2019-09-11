@@ -174,11 +174,11 @@ interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
 
 interface BuildResource {
   account_sid: string;
-  asset_versions: string[];
+  asset_versions: object[];
   date_created: Date;
   date_updated: Date;
-  dependencies: string[];
-  function_versions: string[];
+  dependencies: object[];
+  function_versions: object[];
   service_sid: string;
   sid: string;
   status: BuildStatus;
@@ -240,17 +240,17 @@ declare class BuildInstance extends SerializableClass {
 
   private _proxy: BuildContext;
   accountSid: string;
-  assetVersions: string[];
+  assetVersions: object[];
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: string[];
+  dependencies: object[];
   /**
    * fetch a BuildInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  functionVersions: string[];
+  functionVersions: object[];
   /**
    * remove a BuildInstance
    *

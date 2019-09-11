@@ -74,7 +74,7 @@ interface CallSummaryResource {
   sip_edge: object;
   start_time: Date;
   tags: string[];
-  to: string;
+  to: object;
   url: string;
 }
 
@@ -148,7 +148,7 @@ declare class CallSummaryInstance extends SerializableClass {
   sipEdge: object;
   startTime: Date;
   tags: string[];
-  to: string;
+  to: object;
   /**
    * Provide a user-friendly representation
    */

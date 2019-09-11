@@ -59,24 +59,24 @@ interface ConfigurationResource {
   crm_type: string;
   date_created: Date;
   date_updated: Date;
-  features_enabled: string;
-  integrations: string[];
+  features_enabled: string[];
+  integrations: object[];
   messaging_service_instance_sid: string;
   outbound_call_flows: object;
   plugin_service_attributes: object;
   plugin_service_enabled: boolean;
   public_attributes: object;
   runtime_domain: string;
-  serverless_service_sids: string;
+  serverless_service_sids: string[];
   service_version: string;
   status: ConfigurationStatus;
   taskrouter_offline_activity_sid: string;
-  taskrouter_skills: string[];
+  taskrouter_skills: object[];
   taskrouter_target_taskqueue_sid: string;
   taskrouter_target_workflow_sid: string;
-  taskrouter_taskqueues: string[];
-  taskrouter_worker_attributes: string;
-  taskrouter_worker_channels: string;
+  taskrouter_taskqueues: object[];
+  taskrouter_worker_attributes: object;
+  taskrouter_worker_channels: object;
   taskrouter_workspace_sid: string;
   ui_attributes: object;
   ui_language: string;
@@ -150,7 +150,7 @@ declare class ConfigurationInstance extends SerializableClass {
   crmType: string;
   dateCreated: Date;
   dateUpdated: Date;
-  featuresEnabled: string;
+  featuresEnabled: string[];
   /**
    * fetch a ConfigurationInstance
    *
@@ -158,23 +158,23 @@ declare class ConfigurationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
-  integrations: string[];
+  integrations: object[];
   messagingServiceInstanceSid: string;
   outboundCallFlows: object;
   pluginServiceAttributes: object;
   pluginServiceEnabled: boolean;
   publicAttributes: object;
   runtimeDomain: string;
-  serverlessServiceSids: string;
+  serverlessServiceSids: string[];
   serviceVersion: string;
   status: ConfigurationStatus;
   taskrouterOfflineActivitySid: string;
-  taskrouterSkills: string[];
+  taskrouterSkills: object[];
   taskrouterTargetTaskqueueSid: string;
   taskrouterTargetWorkflowSid: string;
-  taskrouterTaskqueues: string[];
-  taskrouterWorkerAttributes: string;
-  taskrouterWorkerChannels: string;
+  taskrouterTaskqueues: object[];
+  taskrouterWorkerAttributes: object;
+  taskrouterWorkerChannels: object;
   taskrouterWorkspaceSid: string;
   /**
    * Provide a user-friendly representation

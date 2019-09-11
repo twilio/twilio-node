@@ -47,7 +47,7 @@ interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsReso
 
 interface WorkersRealTimeStatisticsResource {
   account_sid: string;
-  activity_statistics: string[];
+  activity_statistics: object[];
   total_workers: number;
   url: string;
   workspace_sid: string;
@@ -93,7 +93,7 @@ declare class WorkersRealTimeStatisticsInstance extends SerializableClass {
 
   private _proxy: WorkersRealTimeStatisticsContext;
   accountSid: string;
-  activityStatistics: string[];
+  activityStatistics: object[];
   /**
    * fetch a WorkersRealTimeStatisticsInstance
    *

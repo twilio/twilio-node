@@ -47,7 +47,7 @@ interface WorkspaceRealTimeStatisticsPayload extends WorkspaceRealTimeStatistics
 
 interface WorkspaceRealTimeStatisticsResource {
   account_sid: string;
-  activity_statistics: string[];
+  activity_statistics: object[];
   longest_task_waiting_age: number;
   longest_task_waiting_sid: string;
   tasks_by_priority: object;
@@ -98,7 +98,7 @@ declare class WorkspaceRealTimeStatisticsInstance extends SerializableClass {
 
   private _proxy: WorkspaceRealTimeStatisticsContext;
   accountSid: string;
-  activityStatistics: string[];
+  activityStatistics: object[];
   /**
    * fetch a WorkspaceRealTimeStatisticsInstance
    *
