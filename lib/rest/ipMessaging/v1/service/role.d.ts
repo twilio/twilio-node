@@ -27,7 +27,7 @@ declare function RoleList(version: V1, serviceSid: string): RoleListInstance;
  * @property permission - A permission the role should have
  */
 interface RoleInstanceUpdateOptions {
-  permission: string[];
+  permission: string | string[];
 }
 
 interface RoleListInstance {
@@ -113,7 +113,7 @@ interface RoleListInstance {
  */
 interface RoleListInstanceCreateOptions {
   friendlyName: string;
-  permission: string[];
+  permission: string | string[];
   type: RoleRoleType;
 }
 
@@ -182,7 +182,7 @@ interface RoleResource {
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
-  permissions: string;
+  permissions: string[];
   service_sid: string;
   sid: string;
   type: RoleRoleType;
@@ -252,7 +252,7 @@ declare class RoleInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: RoleInstance) => any): void;
   friendlyName: string;
-  permissions: string;
+  permissions: string[];
   /**
    * remove a RoleInstance
    *

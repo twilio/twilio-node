@@ -107,9 +107,9 @@ interface BuildListInstance {
  * @property functionVersions - List of Function Version Sids.
  */
 interface BuildListInstanceCreateOptions {
-  assetVersions?: string[];
+  assetVersions?: string | string[];
   dependencies?: string;
-  functionVersions?: string[];
+  functionVersions?: string | string[];
 }
 
 /**
@@ -174,11 +174,11 @@ interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
 
 interface BuildResource {
   account_sid: string;
-  asset_versions: string;
+  asset_versions: string[];
   date_created: Date;
   date_updated: Date;
-  dependencies: string;
-  function_versions: string;
+  dependencies: string[];
+  function_versions: string[];
   service_sid: string;
   sid: string;
   status: BuildStatus;
@@ -240,17 +240,17 @@ declare class BuildInstance extends SerializableClass {
 
   private _proxy: BuildContext;
   accountSid: string;
-  assetVersions: string;
+  assetVersions: string[];
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: string;
+  dependencies: string[];
   /**
    * fetch a BuildInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
-  functionVersions: string;
+  functionVersions: string[];
   /**
    * remove a BuildInstance
    *

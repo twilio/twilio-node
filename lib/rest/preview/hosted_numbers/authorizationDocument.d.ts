@@ -39,11 +39,11 @@ declare function AuthorizationDocumentList(version: HostedNumbers): Authorizatio
  */
 interface AuthorizationDocumentInstanceUpdateOptions {
   addressSid?: string;
-  ccEmails?: string[];
+  ccEmails?: string | string[];
   contactPhoneNumber?: string;
   contactTitle?: string;
   email?: string;
-  hostedNumberOrderSids?: string[];
+  hostedNumberOrderSids?: string | string[];
   status?: AuthorizationDocumentStatus;
 }
 
@@ -134,11 +134,11 @@ interface AuthorizationDocumentListInstance {
  */
 interface AuthorizationDocumentListInstanceCreateOptions {
   addressSid: string;
-  ccEmails?: string[];
+  ccEmails?: string | string[];
   contactPhoneNumber: string;
   contactTitle: string;
   email: string;
-  hostedNumberOrderSids: string[];
+  hostedNumberOrderSids: string | string[];
 }
 
 /**
@@ -215,7 +215,7 @@ interface AuthorizationDocumentPayload extends AuthorizationDocumentResource, Pa
 
 interface AuthorizationDocumentResource {
   address_sid: string;
-  cc_emails: string;
+  cc_emails: string[];
   date_created: Date;
   date_updated: Date;
   email: string;
@@ -279,7 +279,7 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
 
   private _proxy: AuthorizationDocumentContext;
   addressSid: string;
-  ccEmails: string;
+  ccEmails: string[];
   dateCreated: Date;
   dateUpdated: Date;
   /**

@@ -109,10 +109,10 @@ interface BindingListInstance {
  *                         page size, i.e. min(limit, 1000)
  */
 interface BindingListInstanceEachOptions {
-  bindingType?: string[];
+  bindingType?: BindingBindingType | BindingBindingType[];
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  identity?: string[];
+  identity?: string | string[];
   limit?: number;
   pageSize?: number;
 }
@@ -134,8 +134,8 @@ interface BindingListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface BindingListInstanceOptions {
-  bindingType?: string[];
-  identity?: string[];
+  bindingType?: BindingBindingType | BindingBindingType[];
+  identity?: string | string[];
   limit?: number;
   pageSize?: number;
 }
@@ -150,8 +150,8 @@ interface BindingListInstanceOptions {
  * @property pageToken - PageToken provided by the API
  */
 interface BindingListInstancePageOptions {
-  bindingType?: string[];
-  identity?: string[];
+  bindingType?: BindingBindingType | BindingBindingType[];
+  identity?: string | string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -169,7 +169,7 @@ interface BindingResource {
   endpoint: string;
   identity: string;
   links: string;
-  message_types: string;
+  message_types: string[];
   service_sid: string;
   sid: string;
   url: string;
@@ -235,7 +235,7 @@ declare class BindingInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: BindingInstance) => any): void;
   identity: string;
   links: string;
-  messageTypes: string;
+  messageTypes: string[];
   /**
    * remove a BindingInstance
    *

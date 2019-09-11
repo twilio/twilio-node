@@ -39,8 +39,8 @@ declare function CompositionHookList(version: V1): CompositionHookListInstance;
  * @property videoLayout - The JSON video layout description.
  */
 interface CompositionHookInstanceUpdateOptions {
-  audioSources?: string[];
-  audioSourcesExcluded?: string[];
+  audioSources?: string | string[];
+  audioSourcesExcluded?: string | string[];
   enabled?: boolean;
   format?: CompositionHookFormat;
   friendlyName: string;
@@ -140,8 +140,8 @@ interface CompositionHookListInstance {
  * @property videoLayout - The JSON video layout description.
  */
 interface CompositionHookListInstanceCreateOptions {
-  audioSources?: string[];
-  audioSourcesExcluded?: string[];
+  audioSources?: string | string[];
+  audioSourcesExcluded?: string | string[];
   enabled?: boolean;
   format?: CompositionHookFormat;
   friendlyName: string;
@@ -238,8 +238,8 @@ interface CompositionHookPayload extends CompositionHookResource, Page.TwilioRes
 
 interface CompositionHookResource {
   account_sid: string;
-  audio_sources: string;
-  audio_sources_excluded: string;
+  audio_sources: string[];
+  audio_sources_excluded: string[];
   date_created: Date;
   date_updated: string;
   enabled: boolean;
@@ -313,8 +313,8 @@ declare class CompositionHookInstance extends SerializableClass {
 
   private _proxy: CompositionHookContext;
   accountSid: string;
-  audioSources: string;
-  audioSourcesExcluded: string;
+  audioSources: string[];
+  audioSourcesExcluded: string[];
   dateCreated: Date;
   dateUpdated: string;
   enabled: boolean;

@@ -109,7 +109,7 @@ interface UserBindingListInstance {
  *                         page size, i.e. min(limit, 1000)
  */
 interface UserBindingListInstanceEachOptions {
-  bindingType?: string[];
+  bindingType?: UserBindingBindingType | UserBindingBindingType[];
   callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -132,7 +132,7 @@ interface UserBindingListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface UserBindingListInstanceOptions {
-  bindingType?: string[];
+  bindingType?: UserBindingBindingType | UserBindingBindingType[];
   limit?: number;
   pageSize?: number;
 }
@@ -146,7 +146,7 @@ interface UserBindingListInstanceOptions {
  * @property pageToken - PageToken provided by the API
  */
 interface UserBindingListInstancePageOptions {
-  bindingType?: string[];
+  bindingType?: UserBindingBindingType | UserBindingBindingType[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -163,7 +163,7 @@ interface UserBindingResource {
   date_updated: Date;
   endpoint: string;
   identity: string;
-  message_types: string;
+  message_types: string[];
   service_sid: string;
   sid: string;
   url: string;
@@ -232,7 +232,7 @@ declare class UserBindingInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
   identity: string;
-  messageTypes: string;
+  messageTypes: string[];
   /**
    * remove a UserBindingInstance
    *

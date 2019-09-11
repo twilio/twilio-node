@@ -60,7 +60,7 @@ interface SubscribeRulesResource {
   date_updated: Date;
   participant_sid: string;
   room_sid: string;
-  rules: string;
+  rules: string[];
 }
 
 interface SubscribeRulesSolution {
@@ -87,7 +87,7 @@ declare class SubscribeRulesInstance extends SerializableClass {
   dateUpdated: Date;
   participantSid: string;
   roomSid: string;
-  rules: string;
+  rules: string[];
   /**
    * Provide a user-friendly representation
    */

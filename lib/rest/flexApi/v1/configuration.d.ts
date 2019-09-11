@@ -60,7 +60,7 @@ interface ConfigurationResource {
   date_created: Date;
   date_updated: Date;
   features_enabled: string;
-  integrations: string;
+  integrations: string[];
   messaging_service_instance_sid: string;
   outbound_call_flows: object;
   plugin_service_attributes: object;
@@ -71,12 +71,12 @@ interface ConfigurationResource {
   service_version: string;
   status: ConfigurationStatus;
   taskrouter_offline_activity_sid: string;
-  taskrouter_skills: string;
+  taskrouter_skills: string[];
   taskrouter_target_taskqueue_sid: string;
   taskrouter_target_workflow_sid: string;
-  taskrouter_taskqueues: string;
-  taskrouter_worker_attributes: object;
-  taskrouter_worker_channels: object;
+  taskrouter_taskqueues: string[];
+  taskrouter_worker_attributes: string;
+  taskrouter_worker_channels: string;
   taskrouter_workspace_sid: string;
   ui_attributes: object;
   ui_language: string;
@@ -158,7 +158,7 @@ declare class ConfigurationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
-  integrations: string;
+  integrations: string[];
   messagingServiceInstanceSid: string;
   outboundCallFlows: object;
   pluginServiceAttributes: object;
@@ -169,12 +169,12 @@ declare class ConfigurationInstance extends SerializableClass {
   serviceVersion: string;
   status: ConfigurationStatus;
   taskrouterOfflineActivitySid: string;
-  taskrouterSkills: string;
+  taskrouterSkills: string[];
   taskrouterTargetTaskqueueSid: string;
   taskrouterTargetWorkflowSid: string;
-  taskrouterTaskqueues: string;
-  taskrouterWorkerAttributes: object;
-  taskrouterWorkerChannels: object;
+  taskrouterTaskqueues: string[];
+  taskrouterWorkerAttributes: string;
+  taskrouterWorkerChannels: string;
   taskrouterWorkspaceSid: string;
   /**
    * Provide a user-friendly representation

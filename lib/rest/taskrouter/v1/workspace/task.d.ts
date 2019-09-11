@@ -159,7 +159,7 @@ interface TaskListInstanceCreateOptions {
  * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
  */
 interface TaskListInstanceEachOptions {
-  assignmentStatus?: string[];
+  assignmentStatus?: string | string[];
   callback?: (item: TaskInstance, done: (err?: Error) => void) => void;
   done?: Function;
   evaluateTaskAttributes?: string;
@@ -198,7 +198,7 @@ interface TaskListInstanceEachOptions {
  * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
  */
 interface TaskListInstanceOptions {
-  assignmentStatus?: string[];
+  assignmentStatus?: string | string[];
   evaluateTaskAttributes?: string;
   hasAddons?: boolean;
   limit?: number;
@@ -228,7 +228,7 @@ interface TaskListInstanceOptions {
  * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
  */
 interface TaskListInstancePageOptions {
-  assignmentStatus?: string[];
+  assignmentStatus?: string | string[];
   evaluateTaskAttributes?: string;
   hasAddons?: boolean;
   ordering?: string;

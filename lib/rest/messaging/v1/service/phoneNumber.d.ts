@@ -166,7 +166,7 @@ interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePay
 
 interface PhoneNumberResource {
   account_sid: string;
-  capabilities: string;
+  capabilities: string[];
   country_code: string;
   date_created: Date;
   date_updated: Date;
@@ -229,7 +229,7 @@ declare class PhoneNumberInstance extends SerializableClass {
 
   private _proxy: PhoneNumberContext;
   accountSid: string;
-  capabilities: string;
+  capabilities: string[];
   countryCode: string;
   dateCreated: Date;
   dateUpdated: Date;

@@ -127,7 +127,7 @@ interface InviteListInstanceCreateOptions {
 interface InviteListInstanceEachOptions {
   callback?: (item: InviteInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  identity?: string[];
+  identity?: string | string[];
   limit?: number;
   pageSize?: number;
 }
@@ -148,7 +148,7 @@ interface InviteListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface InviteListInstanceOptions {
-  identity?: string[];
+  identity?: string | string[];
   limit?: number;
   pageSize?: number;
 }
@@ -162,7 +162,7 @@ interface InviteListInstanceOptions {
  * @property pageToken - PageToken provided by the API
  */
 interface InviteListInstancePageOptions {
-  identity?: string[];
+  identity?: string | string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

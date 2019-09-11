@@ -48,7 +48,7 @@ interface TokenResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
-  ice_servers: string;
+  ice_servers: string[];
   password: string;
   ttl: string;
   username: string;
@@ -72,7 +72,7 @@ declare class TokenInstance extends SerializableClass {
   accountSid: string;
   dateCreated: Date;
   dateUpdated: Date;
-  iceServers: string;
+  iceServers: string[];
   password: string;
   /**
    * Provide a user-friendly representation

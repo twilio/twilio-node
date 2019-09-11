@@ -54,7 +54,7 @@ interface WorkersCumulativeStatisticsPayload extends WorkersCumulativeStatistics
 
 interface WorkersCumulativeStatisticsResource {
   account_sid: string;
-  activity_durations: string;
+  activity_durations: string[];
   end_time: Date;
   reservations_accepted: number;
   reservations_canceled: number;
@@ -107,7 +107,7 @@ declare class WorkersCumulativeStatisticsInstance extends SerializableClass {
 
   private _proxy: WorkersCumulativeStatisticsContext;
   accountSid: string;
-  activityDurations: string;
+  activityDurations: string[];
   endTime: Date;
   /**
    * fetch a WorkersCumulativeStatisticsInstance
