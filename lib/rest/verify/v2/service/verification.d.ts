@@ -79,7 +79,7 @@ interface VerificationListInstanceCreateOptions {
   customMessage?: string;
   locale?: string;
   payee?: string;
-  rateLimits?: string;
+  rateLimits?: object;
   sendDigits?: string;
   to: string;
 }
@@ -93,7 +93,7 @@ interface VerificationResource {
   channel: VerificationChannel;
   date_created: Date;
   date_updated: Date;
-  lookup: string;
+  lookup: object;
   payee: string;
   service_sid: string;
   sid: string;
@@ -167,7 +167,7 @@ declare class VerificationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: VerificationInstance) => any): void;
-  lookup: string;
+  lookup: object;
   payee: string;
   serviceSid: string;
   sid: string;

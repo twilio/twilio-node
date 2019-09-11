@@ -18,17 +18,17 @@ import { SerializableClass } from '../../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - Sync Service Instance SID.
- * @param documentSid - Sync Document SID.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
+ * @param documentSid - The Sync Document SID
  */
 declare function DocumentPermissionList(version: V1, serviceSid: string, documentSid: string): DocumentPermissionListInstance;
 
 /**
  * Options to pass to update
  *
- * @property manage - Manage access.
- * @property read - Read access.
- * @property write - Write access.
+ * @property manage - Manage access
+ * @property read - Read access
+ * @property write - Write access
  */
 interface DocumentPermissionInstanceUpdateOptions {
   manage: boolean;
@@ -60,7 +60,7 @@ interface DocumentPermissionListInstance {
   /**
    * Constructs a document_permission
    *
-   * @param identity - Identity of the user to whom the Sync Document Permission applies.
+   * @param identity - The application-defined string that uniquely identifies the User's Document Permission resource to fetch
    */
   get(identity: string): DocumentPermissionContext;
   /**
@@ -189,9 +189,9 @@ declare class DocumentPermissionContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Sync Service Instance SID or unique name.
-   * @param documentSid - Sync Document SID or unique name.
-   * @param identity - Identity of the user to whom the Sync Document Permission applies.
+   * @param serviceSid - The SID of the Sync Service with the Document Permission resource to fetch
+   * @param documentSid - The SID of the Sync Document with the Document Permission resource to fetch
+   * @param identity - The application-defined string that uniquely identifies the User's Document Permission resource to fetch
    */
   constructor(version: V1, serviceSid: string, documentSid: string, identity: string);
 
@@ -230,9 +230,9 @@ declare class DocumentPermissionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Sync Service Instance SID.
-   * @param documentSid - Sync Document SID.
-   * @param identity - Identity of the user to whom the Sync Document Permission applies.
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param documentSid - The Sync Document SID
+   * @param identity - The application-defined string that uniquely identifies the User's Document Permission resource to fetch
    */
   constructor(version: V1, payload: DocumentPermissionPayload, serviceSid: string, documentSid: string, identity: string);
 

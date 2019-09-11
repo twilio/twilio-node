@@ -145,7 +145,7 @@ interface DependentPhoneNumberResource {
   account_sid: string;
   address_requirements: DependentPhoneNumberAddressRequirement;
   api_version: string;
-  capabilities: string;
+  capabilities: object;
   date_created: Date;
   date_updated: Date;
   emergency_address_sid: string;
@@ -190,7 +190,7 @@ declare class DependentPhoneNumberInstance extends SerializableClass {
   accountSid: string;
   addressRequirements: DependentPhoneNumberAddressRequirement;
   apiVersion: string;
-  capabilities: string;
+  capabilities: object;
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;

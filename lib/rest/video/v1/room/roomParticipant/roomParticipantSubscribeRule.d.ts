@@ -49,7 +49,7 @@ interface SubscribeRulesListInstance {
  * @property rules - A JSON-encoded array of Subscribe Rules.
  */
 interface SubscribeRulesListInstanceUpdateOptions {
-  rules?: string;
+  rules?: object;
 }
 
 interface SubscribeRulesPayload extends SubscribeRulesResource, Page.TwilioResponsePayload {

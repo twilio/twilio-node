@@ -122,7 +122,7 @@ interface CompositionListInstanceCreateOptions {
   statusCallback?: string;
   statusCallbackMethod?: string;
   trim?: boolean;
-  videoLayout?: string;
+  videoLayout?: object;
 }
 
 /**
@@ -227,7 +227,7 @@ interface CompositionResource {
   status: CompositionStatus;
   trim: boolean;
   url: string;
-  video_layout: string;
+  video_layout: object;
 }
 
 interface CompositionSolution {
@@ -314,7 +314,7 @@ declare class CompositionInstance extends SerializableClass {
   toJSON(): any;
   trim: boolean;
   url: string;
-  videoLayout: string;
+  videoLayout: object;
 }
 
 

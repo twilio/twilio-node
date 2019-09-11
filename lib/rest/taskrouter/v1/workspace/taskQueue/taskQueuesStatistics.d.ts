@@ -175,8 +175,8 @@ interface TaskQueuesStatisticsPayload extends TaskQueuesStatisticsResource, Page
 
 interface TaskQueuesStatisticsResource {
   account_sid: string;
-  cumulative: string;
-  realtime: string;
+  cumulative: object;
+  realtime: object;
   task_queue_sid: string;
   workspace_sid: string;
 }
@@ -197,8 +197,8 @@ declare class TaskQueuesStatisticsInstance extends SerializableClass {
   constructor(version: V1, payload: TaskQueuesStatisticsPayload, workspaceSid: string);
 
   accountSid: string;
-  cumulative: string;
-  realtime: string;
+  cumulative: object;
+  realtime: object;
   taskQueueSid: string;
   /**
    * Provide a user-friendly representation

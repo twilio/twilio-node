@@ -58,7 +58,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  * @property reachabilityEnabled - Whether to enable the Reachability Indicator feature for this Service instance
  * @property readStatusEnabled - Whether to enable the Message Consumption Horizon feature
  * @property typingIndicatorTimeout - How long in seconds to wait before assuming the user is no longer typing
- * @property webhookFilters - The list of WebHook events that are enabled for this Service instance
+ * @property webhookFilters - The list of webhook events that are enabled for this Service instance
  * @property webhookMethod - The HTTP method  to use for both PRE and POST webhooks
  */
 interface ServiceInstanceUpdateOptions {
@@ -140,7 +140,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Service resource to fetch
    */
   get(sid: string): ServiceContext;
   /**
@@ -261,10 +261,10 @@ interface ServiceResource {
   default_channel_role_sid: string;
   default_service_role_sid: string;
   friendly_name: string;
-  limits: string;
+  limits: object;
   links: string;
-  media: string;
-  notifications: string;
+  media: object;
+  notifications: object;
   post_webhook_retry_count: number;
   post_webhook_url: string;
   pre_webhook_retry_count: number;
@@ -287,7 +287,7 @@ declare class ServiceContext {
    * Initialize the ServiceContext
    *
    * @param version - Version of the resource
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Service resource to fetch
    */
   constructor(version: V2, sid: string);
 
@@ -327,7 +327,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Service resource to fetch
    */
   constructor(version: V2, payload: ServicePayload, sid: string);
 
@@ -354,10 +354,10 @@ declare class ServiceInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   friendlyName: string;
-  limits: string;
+  limits: object;
   links: string;
-  media: string;
-  notifications: string;
+  media: object;
+  notifications: object;
   postWebhookRetryCount: number;
   postWebhookUrl: string;
   preWebhookRetryCount: number;

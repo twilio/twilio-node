@@ -52,8 +52,8 @@ interface TaskQueueRealTimeStatisticsResource {
   longest_task_waiting_age: number;
   longest_task_waiting_sid: string;
   task_queue_sid: string;
-  tasks_by_priority: string;
-  tasks_by_status: string;
+  tasks_by_priority: object;
+  tasks_by_status: object;
   total_available_workers: number;
   total_eligible_workers: number;
   total_tasks: number;
@@ -115,8 +115,8 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
   longestTaskWaitingAge: number;
   longestTaskWaitingSid: string;
   taskQueueSid: string;
-  tasksByPriority: string;
-  tasksByStatus: string;
+  tasksByPriority: object;
+  tasksByStatus: object;
   /**
    * Provide a user-friendly representation
    */

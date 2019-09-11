@@ -195,7 +195,7 @@ interface RecordingResource {
   container_format: RecordingFormat;
   date_created: Date;
   duration: number;
-  grouping_sids: string;
+  grouping_sids: object;
   links: string;
   offset: number;
   sid: string;
@@ -261,7 +261,7 @@ declare class RecordingInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RecordingInstance) => any): void;
-  groupingSids: string;
+  groupingSids: object;
   links: string;
   offset: number;
   /**

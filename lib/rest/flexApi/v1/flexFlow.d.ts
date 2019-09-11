@@ -249,7 +249,7 @@ interface FlexFlowResource {
   date_updated: Date;
   enabled: boolean;
   friendly_name: string;
-  integration: string;
+  integration: object;
   integration_type: FlexFlowIntegrationType;
   long_lived: boolean;
   sid: string;
@@ -320,7 +320,7 @@ declare class FlexFlowInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: FlexFlowInstance) => any): void;
   friendlyName: string;
-  integration: string;
+  integration: object;
   integrationType: FlexFlowIntegrationType;
   longLived: boolean;
   /**

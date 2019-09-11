@@ -40,7 +40,7 @@ declare function TaskList(version: Understand, assistantSid: string): TaskListIn
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface TaskInstanceUpdateOptions {
-  actions?: string;
+  actions?: object;
   actionsUrl?: string;
   friendlyName?: string;
   uniqueName?: string;
@@ -129,7 +129,7 @@ interface TaskListInstance {
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface TaskListInstanceCreateOptions {
-  actions?: string;
+  actions?: object;
   actionsUrl?: string;
   friendlyName?: string;
   uniqueName: string;

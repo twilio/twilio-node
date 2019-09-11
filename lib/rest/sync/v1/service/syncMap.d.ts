@@ -21,15 +21,15 @@ import { SyncMapPermissionListInstance } from './syncMap/syncMapPermission';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Map object.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
  */
 declare function SyncMapList(version: V1, serviceSid: string): SyncMapListInstance;
 
 /**
  * Options to pass to update
  *
- * @property collectionTtl - New time-to-live of this Map in seconds.
- * @property ttl - Alias for collection_ttl
+ * @property collectionTtl - How long, in seconds, before the Sync Map expires and is deleted
+ * @property ttl - An alias for collection_ttl
  */
 interface SyncMapInstanceUpdateOptions {
   collectionTtl?: number;
@@ -67,7 +67,7 @@ interface SyncMapListInstance {
   /**
    * Constructs a sync_map
    *
-   * @param sid - The sid
+   * @param sid - The SID of the Sync Map resource to fetch
    */
   get(sid: string): SyncMapContext;
   /**
@@ -113,9 +113,9 @@ interface SyncMapListInstance {
 /**
  * Options to pass to create
  *
- * @property collectionTtl - Time-to-live of this Map in seconds, defaults to no expiration.
- * @property ttl - Alias for collection_ttl
- * @property uniqueName - Human-readable name for this map
+ * @property collectionTtl - How long, in seconds, before the Sync Map expires and is deleted
+ * @property ttl - An alias for collection_ttl
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface SyncMapListInstanceCreateOptions {
   collectionTtl?: number;
@@ -210,8 +210,8 @@ declare class SyncMapContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Sync Service with the Sync Map resource to fetch
+   * @param sid - The SID of the Sync Map resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -252,8 +252,8 @@ declare class SyncMapInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Map object.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param sid - The SID of the Sync Map resource to fetch
    */
   constructor(version: V1, payload: SyncMapPayload, serviceSid: string, sid: string);
 

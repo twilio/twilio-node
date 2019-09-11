@@ -44,9 +44,9 @@ interface FormPayload extends FormResource, Page.TwilioResponsePayload {
 }
 
 interface FormResource {
-  form_meta: string;
+  form_meta: object;
   form_type: FormFormTypes;
-  forms: string;
+  forms: object;
   url: string;
 }
 
@@ -101,9 +101,9 @@ declare class FormInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FormInstance) => any): void;
-  formMeta: string;
+  formMeta: object;
   formType: FormFormTypes;
-  forms: string;
+  forms: object;
   /**
    * Provide a user-friendly representation
    */

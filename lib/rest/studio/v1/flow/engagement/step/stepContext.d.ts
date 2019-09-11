@@ -14,9 +14,9 @@ import { SerializableClass } from '../../../../../../interfaces';
  * Initialize the StepContextList
  *
  * @param version - Version of the resource
- * @param flowSid - Flow Sid.
- * @param engagementSid - Engagement Sid.
- * @param stepSid - Step Sid.
+ * @param flowSid - The SID of the Flow
+ * @param engagementSid - The SID of the Engagement
+ * @param stepSid - Step SID
  */
 declare function StepContextList(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance;
 
@@ -40,7 +40,7 @@ interface StepContextPayload extends StepContextResource, Page.TwilioResponsePay
 
 interface StepContextResource {
   account_sid: string;
-  context: string;
+  context: object;
   engagement_sid: string;
   flow_sid: string;
   step_sid: string;
@@ -59,9 +59,9 @@ declare class StepContextContext {
    * Initialize the StepContextContext
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param engagementSid - Engagement Sid.
-   * @param stepSid - Step Sid.
+   * @param flowSid - The SID of the Flow
+   * @param engagementSid - The SID of the Engagement
+   * @param stepSid - Step SID
    */
   constructor(version: V1, flowSid: string, engagementSid: string, stepSid: string);
 
@@ -84,15 +84,15 @@ declare class StepContextInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - Flow Sid.
-   * @param engagementSid - Engagement Sid.
-   * @param stepSid - Step Sid.
+   * @param flowSid - The SID of the Flow
+   * @param engagementSid - The SID of the Engagement
+   * @param stepSid - Step SID
    */
   constructor(version: V1, payload: StepContextPayload, flowSid: string, engagementSid: string, stepSid: string);
 
   private _proxy: StepContextContext;
   accountSid: string;
-  context: string;
+  context: object;
   engagementSid: string;
   /**
    * fetch a StepContextInstance

@@ -56,7 +56,7 @@ interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePay
 }
 
 interface PhoneNumberResource {
-  add_ons: string;
+  add_ons: object;
   caller_name: string;
   carrier: string;
   country_code: string;
@@ -103,7 +103,7 @@ declare class PhoneNumberInstance extends SerializableClass {
   constructor(version: V1, payload: PhoneNumberPayload, phoneNumber: string);
 
   private _proxy: PhoneNumberContext;
-  addOns: string;
+  addOns: object;
   callerName: string;
   carrier: string;
   countryCode: string;

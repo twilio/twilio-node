@@ -31,7 +31,7 @@ declare function DocumentList(version: Sync, serviceSid: string): DocumentListIn
  * @property data - The data
  */
 interface DocumentInstanceUpdateOptions {
-  data: string;
+  data: object;
 }
 
 interface DocumentListInstance {
@@ -115,7 +115,7 @@ interface DocumentListInstance {
  * @property uniqueName - The unique_name
  */
 interface DocumentListInstanceCreateOptions {
-  data?: string;
+  data?: object;
   uniqueName?: string;
 }
 
@@ -182,7 +182,7 @@ interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
 interface DocumentResource {
   account_sid: string;
   created_by: string;
-  data: string;
+  data: object;
   date_created: Date;
   date_updated: Date;
   links: string;
@@ -257,7 +257,7 @@ declare class DocumentInstance extends SerializableClass {
   private _proxy: DocumentContext;
   accountSid: string;
   createdBy: string;
-  data: string;
+  data: object;
   dateCreated: Date;
   dateUpdated: Date;
   /**

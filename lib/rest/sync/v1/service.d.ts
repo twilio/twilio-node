@@ -32,13 +32,13 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
- * @property friendlyName - Human-readable name for this service instance
- * @property reachabilityDebouncingEnabled - true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
- * @property reachabilityDebouncingWindow - Determines how long an identity must be offline before reachability webhooks fire.
- * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
- * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
- * @property webhooksFromRestEnabled - true or false - controls whether this instance fires webhooks when Sync objects are updated through REST
+ * @property aclEnabled - Whether token identities in the Service must be granted access to Sync objects by using the Permissions resource
+ * @property friendlyName - A string that you assign to describe the resource
+ * @property reachabilityDebouncingEnabled - Whether every endpoint_disconnected event occurs after a configurable delay
+ * @property reachabilityDebouncingWindow - The reachability event delay in milliseconds
+ * @property reachabilityWebhooksEnabled - Whether the service instance should call webhook_url when client endpoints connect to Sync
+ * @property webhookUrl - The URL we should call when Sync objects are manipulated
+ * @property webhooksFromRestEnabled - Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
  */
 interface ServiceInstanceUpdateOptions {
   aclEnabled?: boolean;
@@ -81,7 +81,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - A unique identifier for this service instance.
+   * @param sid - The SID of the Service resource to fetch
    */
   get(sid: string): ServiceContext;
   /**
@@ -127,13 +127,13 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
- * @property friendlyName - Human-readable name for this service instance
- * @property reachabilityDebouncingEnabled - true or false - Determines whether transient disconnections (i.e. an immediate reconnect succeeds) cause reachability webhooks.
- * @property reachabilityDebouncingWindow - Determines how long an identity must be offline before reachability webhooks fire.
- * @property reachabilityWebhooksEnabled - true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
- * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
- * @property webhooksFromRestEnabled - true or false - controls whether this instance fires webhooks when Sync objects are updated through REST
+ * @property aclEnabled - Whether token identities in the Service must be granted access to Sync objects by using the Permissions resource
+ * @property friendlyName - A string that you assign to describe the resource
+ * @property reachabilityDebouncingEnabled - Whether every endpoint_disconnected event occurs after a configurable delay
+ * @property reachabilityDebouncingWindow - The reachability event delay in milliseconds
+ * @property reachabilityWebhooksEnabled - Whether the service instance should call webhook_url when client endpoints connect to Sync
+ * @property webhookUrl - The URL we should call when Sync objects are manipulated
+ * @property webhooksFromRestEnabled - Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
  */
 interface ServiceListInstanceCreateOptions {
   aclEnabled?: boolean;
@@ -234,7 +234,7 @@ declare class ServiceContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - A unique identifier for this service instance.
+   * @param sid - The SID of the Service resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -277,7 +277,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A unique identifier for this service instance.
+   * @param sid - The SID of the Service resource to fetch
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 

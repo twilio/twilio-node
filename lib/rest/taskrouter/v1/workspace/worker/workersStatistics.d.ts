@@ -60,8 +60,8 @@ interface WorkersStatisticsPayload extends WorkersStatisticsResource, Page.Twili
 
 interface WorkersStatisticsResource {
   account_sid: string;
-  cumulative: string;
-  realtime: string;
+  cumulative: object;
+  realtime: object;
   url: string;
   workspace_sid: string;
 }
@@ -106,7 +106,7 @@ declare class WorkersStatisticsInstance extends SerializableClass {
 
   private _proxy: WorkersStatisticsContext;
   accountSid: string;
-  cumulative: string;
+  cumulative: object;
   /**
    * fetch a WorkersStatisticsInstance
    *
@@ -114,7 +114,7 @@ declare class WorkersStatisticsInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): void;
-  realtime: string;
+  realtime: object;
   /**
    * Provide a user-friendly representation
    */

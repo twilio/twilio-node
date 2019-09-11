@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import twilio = require('../../');
 import {MessageListInstanceCreateOptions} from '../../lib/rest/api/v2010/account/message';
 
@@ -114,18 +113,18 @@ promiseTrunk3.then(trunk => {
 // List messages using callbacks
 client.messages.list({}, (err, messages) => {
   console.log('Listing messages using callbacks');
-  _.each(messages, message => {
+  messages.forEach(function(message){
     console.log(message.sid);
-  });
+  });  
 });
 
 // List messages using promises
 const promiseMessage = client.messages.list();
 promiseMessage.then(messages => {
   console.log('Listing messages using promises');
-  _.each(messages, function(message) {
+  messages.forEach(function(message){
     console.log(message.sid);
-  });
+  });  
 });
 
 const twiml = new twilio.twiml.VoiceResponse();

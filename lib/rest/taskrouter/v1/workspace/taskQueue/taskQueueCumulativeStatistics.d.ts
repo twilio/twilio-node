@@ -65,7 +65,7 @@ interface TaskQueueCumulativeStatisticsResource {
   reservations_rejected: number;
   reservations_rescinded: number;
   reservations_timed_out: number;
-  split_by_wait_time: string;
+  split_by_wait_time: object;
   start_time: Date;
   task_queue_sid: string;
   tasks_canceled: number;
@@ -74,8 +74,8 @@ interface TaskQueueCumulativeStatisticsResource {
   tasks_entered: number;
   tasks_moved: number;
   url: string;
-  wait_duration_until_accepted: string;
-  wait_duration_until_canceled: string;
+  wait_duration_until_accepted: object;
+  wait_duration_until_canceled: object;
   workspace_sid: string;
 }
 
@@ -137,7 +137,7 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
   reservationsRejected: number;
   reservationsRescinded: number;
   reservationsTimedOut: number;
-  splitByWaitTime: string;
+  splitByWaitTime: object;
   startTime: Date;
   taskQueueSid: string;
   tasksCanceled: number;
@@ -150,8 +150,8 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
-  waitDurationUntilAccepted: string;
-  waitDurationUntilCanceled: string;
+  waitDurationUntilAccepted: object;
+  waitDurationUntilCanceled: object;
   workspaceSid: string;
 }
 

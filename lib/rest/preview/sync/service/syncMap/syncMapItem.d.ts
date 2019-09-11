@@ -34,7 +34,7 @@ declare function SyncMapItemList(version: Sync, serviceSid: string, mapSid: stri
  * @property data - The data
  */
 interface SyncMapItemInstanceUpdateOptions {
-  data: string;
+  data: object;
 }
 
 interface SyncMapItemListInstance {
@@ -118,7 +118,7 @@ interface SyncMapItemListInstance {
  * @property key - The key
  */
 interface SyncMapItemListInstanceCreateOptions {
-  data: string;
+  data: object;
   key: string;
 }
 
@@ -203,7 +203,7 @@ interface SyncMapItemPayload extends SyncMapItemResource, Page.TwilioResponsePay
 interface SyncMapItemResource {
   account_sid: string;
   created_by: string;
-  data: string;
+  data: object;
   date_created: Date;
   date_updated: Date;
   key: string;
@@ -279,7 +279,7 @@ declare class SyncMapItemInstance extends SerializableClass {
   private _proxy: SyncMapItemContext;
   accountSid: string;
   createdBy: string;
-  data: string;
+  data: object;
   dateCreated: Date;
   dateUpdated: Date;
   /**

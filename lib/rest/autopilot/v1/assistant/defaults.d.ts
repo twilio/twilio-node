@@ -29,7 +29,7 @@ declare function DefaultsList(version: V1, assistantSid: string): DefaultsListIn
  * @property defaults - A JSON string that describes the default task links.
  */
 interface DefaultsInstanceUpdateOptions {
-  defaults?: string;
+  defaults?: object;
 }
 
 interface DefaultsListInstance {
@@ -53,7 +53,7 @@ interface DefaultsPayload extends DefaultsResource, Page.TwilioResponsePayload {
 interface DefaultsResource {
   account_sid: string;
   assistant_sid: string;
-  data: string;
+  data: object;
   url: string;
 }
 
@@ -112,7 +112,7 @@ declare class DefaultsInstance extends SerializableClass {
   private _proxy: DefaultsContext;
   accountSid: string;
   assistantSid: string;
-  data: string;
+  data: object;
   /**
    * fetch a DefaultsInstance
    *

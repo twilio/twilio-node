@@ -65,7 +65,7 @@ interface WorkflowCumulativeStatisticsResource {
   reservations_rejected: number;
   reservations_rescinded: number;
   reservations_timed_out: number;
-  split_by_wait_time: string;
+  split_by_wait_time: object;
   start_time: Date;
   tasks_canceled: number;
   tasks_completed: number;
@@ -74,8 +74,8 @@ interface WorkflowCumulativeStatisticsResource {
   tasks_moved: number;
   tasks_timed_out_in_workflow: number;
   url: string;
-  wait_duration_until_accepted: string;
-  wait_duration_until_canceled: string;
+  wait_duration_until_accepted: object;
+  wait_duration_until_canceled: object;
   workflow_sid: string;
   workspace_sid: string;
 }
@@ -138,7 +138,7 @@ declare class WorkflowCumulativeStatisticsInstance extends SerializableClass {
   reservationsRejected: number;
   reservationsRescinded: number;
   reservationsTimedOut: number;
-  splitByWaitTime: string;
+  splitByWaitTime: object;
   startTime: Date;
   tasksCanceled: number;
   tasksCompleted: number;
@@ -151,8 +151,8 @@ declare class WorkflowCumulativeStatisticsInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
-  waitDurationUntilAccepted: string;
-  waitDurationUntilCanceled: string;
+  waitDurationUntilAccepted: object;
+  waitDurationUntilCanceled: object;
   workflowSid: string;
   workspaceSid: string;
 }

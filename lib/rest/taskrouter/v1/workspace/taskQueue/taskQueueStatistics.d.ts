@@ -57,8 +57,8 @@ interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource, Page.T
 
 interface TaskQueueStatisticsResource {
   account_sid: string;
-  cumulative: string;
-  realtime: string;
+  cumulative: object;
+  realtime: object;
   task_queue_sid: string;
   url: string;
   workspace_sid: string;
@@ -107,7 +107,7 @@ declare class TaskQueueStatisticsInstance extends SerializableClass {
 
   private _proxy: TaskQueueStatisticsContext;
   accountSid: string;
-  cumulative: string;
+  cumulative: object;
   /**
    * fetch a TaskQueueStatisticsInstance
    *
@@ -115,7 +115,7 @@ declare class TaskQueueStatisticsInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: TaskQueueStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueStatisticsInstance) => any): void;
-  realtime: string;
+  realtime: object;
   taskQueueSid: string;
   /**
    * Provide a user-friendly representation

@@ -68,7 +68,7 @@ interface UserListInstance {
   /**
    * Constructs a user
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the User resource to fetch
    */
   get(sid: string): UserContext;
   /**
@@ -214,7 +214,7 @@ declare class UserContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the User resource to fetch
    */
   constructor(version: V2, serviceSid: string, sid: string);
 
@@ -253,7 +253,7 @@ declare class UserInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the User resource to fetch
    */
   constructor(version: V2, payload: UserPayload, serviceSid: string, sid: string);
 

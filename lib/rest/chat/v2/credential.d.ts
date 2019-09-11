@@ -70,7 +70,7 @@ interface CredentialListInstance {
   /**
    * Constructs a credential
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Credential resource to fetch
    */
   get(sid: string): CredentialContext;
   /**
@@ -214,7 +214,7 @@ declare class CredentialContext {
    * Initialize the CredentialContext
    *
    * @param version - Version of the resource
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Credential resource to fetch
    */
   constructor(version: V2, sid: string);
 
@@ -250,7 +250,7 @@ declare class CredentialInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Credential resource to fetch
    */
   constructor(version: V2, payload: CredentialPayload, sid: string);
 

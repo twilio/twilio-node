@@ -21,15 +21,15 @@ import { SyncListPermissionListInstance } from './syncList/syncListPermission';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
+ * @param serviceSid - The SID of the Sync Service that the resource is associated with
  */
 declare function SyncListList(version: V1, serviceSid: string): SyncListListInstance;
 
 /**
  * Options to pass to update
  *
- * @property collectionTtl - Time-to-live of this List in seconds, defaults to no expiration.
- * @property ttl - Alias for collection_ttl
+ * @property collectionTtl - How long, in seconds, before the Sync List expires and is deleted
+ * @property ttl - An alias for collection_ttl
  */
 interface SyncListInstanceUpdateOptions {
   collectionTtl?: number;
@@ -67,7 +67,7 @@ interface SyncListListInstance {
   /**
    * Constructs a sync_list
    *
-   * @param sid - The sid
+   * @param sid - The SID of the Sync List resource to fetch
    */
   get(sid: string): SyncListContext;
   /**
@@ -113,9 +113,9 @@ interface SyncListListInstance {
 /**
  * Options to pass to create
  *
- * @property collectionTtl - Time-to-live of this List in seconds, defaults to no expiration.
+ * @property collectionTtl - How long, in seconds, before the Sync List expires and is deleted
  * @property ttl - Alias for collection_ttl
- * @property uniqueName - Human-readable name for this list
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface SyncListListInstanceCreateOptions {
   collectionTtl?: number;
@@ -210,8 +210,8 @@ declare class SyncListContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Sync Service with the Sync List resource to fetch
+   * @param sid - The SID of the Sync List resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -252,8 +252,8 @@ declare class SyncListInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Sync Service that the resource is associated with
+   * @param sid - The SID of the Sync List resource to fetch
    */
   constructor(version: V1, payload: SyncListPayload, serviceSid: string, sid: string);
 

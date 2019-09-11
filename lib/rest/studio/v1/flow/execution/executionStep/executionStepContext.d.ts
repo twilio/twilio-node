@@ -14,9 +14,9 @@ import { SerializableClass } from '../../../../../../interfaces';
  * Initialize the ExecutionStepContextList
  *
  * @param version - Version of the resource
- * @param flowSid - Flow Sid.
- * @param executionSid - Execution Sid.
- * @param stepSid - Step Sid.
+ * @param flowSid - The SID of the Flow
+ * @param executionSid - The SID of the Execution
+ * @param stepSid - Step SID
  */
 declare function ExecutionStepContextList(version: V1, flowSid: string, executionSid: string, stepSid: string): ExecutionStepContextListInstance;
 
@@ -40,7 +40,7 @@ interface ExecutionStepContextPayload extends ExecutionStepContextResource, Page
 
 interface ExecutionStepContextResource {
   account_sid: string;
-  context: string;
+  context: object;
   execution_sid: string;
   flow_sid: string;
   step_sid: string;
@@ -59,9 +59,9 @@ declare class ExecutionStepContextContext {
    * Initialize the ExecutionStepContextContext
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param executionSid - Execution Sid.
-   * @param stepSid - Step Sid.
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
+   * @param stepSid - Step SID
    */
   constructor(version: V1, flowSid: string, executionSid: string, stepSid: string);
 
@@ -84,15 +84,15 @@ declare class ExecutionStepContextInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - Flow Sid.
-   * @param executionSid - Execution Sid.
-   * @param stepSid - Step Sid.
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
+   * @param stepSid - Step SID
    */
   constructor(version: V1, payload: ExecutionStepContextPayload, flowSid: string, executionSid: string, stepSid: string);
 
   private _proxy: ExecutionStepContextContext;
   accountSid: string;
-  context: string;
+  context: object;
   executionSid: string;
   /**
    * fetch a ExecutionStepContextInstance

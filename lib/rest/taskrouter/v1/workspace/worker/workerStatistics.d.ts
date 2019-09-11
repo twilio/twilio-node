@@ -55,7 +55,7 @@ interface WorkerStatisticsPayload extends WorkerStatisticsResource, Page.TwilioR
 
 interface WorkerStatisticsResource {
   account_sid: string;
-  cumulative: string;
+  cumulative: object;
   url: string;
   worker_sid: string;
   workspace_sid: string;
@@ -104,7 +104,7 @@ declare class WorkerStatisticsInstance extends SerializableClass {
 
   private _proxy: WorkerStatisticsContext;
   accountSid: string;
-  cumulative: string;
+  cumulative: object;
   /**
    * fetch a WorkerStatisticsInstance
    *

@@ -58,23 +58,23 @@ interface CallSummaryPayload extends CallSummaryResource, Page.TwilioResponsePay
 
 interface CallSummaryResource {
   account_sid: string;
-  attributes: string;
+  attributes: object;
   call_sid: string;
   call_state: CallSummaryCallState;
   call_type: CallSummaryCallType;
-  carrier_edge: string;
-  client_edge: string;
+  carrier_edge: object;
+  client_edge: object;
   connect_duration: number;
   duration: number;
   end_time: Date;
-  from: string;
+  from: object;
   processing_state: CallSummaryProcessingState;
-  properties: string;
-  sdk_edge: string;
-  sip_edge: string;
+  properties: object;
+  sdk_edge: object;
+  sip_edge: object;
   start_time: Date;
   tags: string;
-  to: string;
+  to: object;
   url: string;
 }
 
@@ -125,12 +125,12 @@ declare class CallSummaryInstance extends SerializableClass {
 
   private _proxy: CallSummaryContext;
   accountSid: string;
-  attributes: string;
+  attributes: object;
   callSid: string;
   callState: CallSummaryCallState;
   callType: CallSummaryCallType;
-  carrierEdge: string;
-  clientEdge: string;
+  carrierEdge: object;
+  clientEdge: object;
   connectDuration: number;
   duration: number;
   endTime: Date;
@@ -141,14 +141,14 @@ declare class CallSummaryInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: CallSummaryInstanceFetchOptions, callback?: (error: Error | null, items: CallSummaryInstance) => any): void;
-  from: string;
+  from: object;
   processingState: CallSummaryProcessingState;
-  properties: string;
-  sdkEdge: string;
-  sipEdge: string;
+  properties: object;
+  sdkEdge: object;
+  sipEdge: object;
   startTime: Date;
   tags: string;
-  to: string;
+  to: object;
   /**
    * Provide a user-friendly representation
    */

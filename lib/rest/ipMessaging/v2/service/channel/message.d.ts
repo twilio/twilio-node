@@ -20,7 +20,7 @@ type MessageWebhookEnabledType = 'true'|'false';
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the resource is associated with
- * @param channelSid - The unique ID of the Channel the Message resource belongs to
+ * @param channelSid - The SID of the Channel the Message resource belongs to
  */
 declare function MessageList(version: V2, serviceSid: string, channelSid: string): MessageListInstance;
 
@@ -31,7 +31,7 @@ declare function MessageList(version: V2, serviceSid: string, channelSid: string
  * @property body - The message to send to the channel
  * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
  * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
- * @property from - The identity of the message's author
+ * @property from - The Identity of the message's author
  * @property lastUpdatedBy - The Identity of the User who last updated the Message, if applicable
  */
 interface MessageInstanceUpdateOptions {
@@ -74,7 +74,7 @@ interface MessageListInstance {
   /**
    * Constructs a message
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The SID of the Message resource to fetch
    */
   get(sid: string): MessageContext;
   /**
@@ -124,7 +124,7 @@ interface MessageListInstance {
  * @property body - The message to send to the channel
  * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
  * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
- * @property from - The identity of the new message's author
+ * @property from - The Identity of the new message's author
  * @property lastUpdatedBy - The Identity of the User who last updated the Message
  * @property mediaSid -  The Media Sid to be attached to the new Message
  */
@@ -214,7 +214,7 @@ interface MessageResource {
   from: string;
   index: number;
   last_updated_by: string;
-  media: string;
+  media: object;
   service_sid: string;
   sid: string;
   to: string;
@@ -235,8 +235,8 @@ declare class MessageContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param channelSid - The unique ID of the Channel the message to fetch belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param channelSid - The SID of the Channel the message to fetch belongs to
+   * @param sid - The SID of the Message resource to fetch
    */
   constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
@@ -273,8 +273,8 @@ declare class MessageInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param channelSid - The unique ID of the Channel the Message resource belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param channelSid - The SID of the Channel the Message resource belongs to
+   * @param sid - The SID of the Message resource to fetch
    */
   constructor(version: V2, payload: MessagePayload, serviceSid: string, channelSid: string, sid: string);
 
@@ -294,7 +294,7 @@ declare class MessageInstance extends SerializableClass {
   from: string;
   index: number;
   lastUpdatedBy: string;
-  media: string;
+  media: object;
   /**
    * remove a MessageInstance
    *

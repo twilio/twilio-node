@@ -208,7 +208,7 @@ interface QueryResource {
   language: string;
   model_build_sid: string;
   query: string;
-  results: string;
+  results: object;
   sample_sid: string;
   sid: string;
   source_channel: string;
@@ -296,7 +296,7 @@ declare class QueryInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: QueryInstance) => any): void;
-  results: string;
+  results: object;
   sampleSid: string;
   sid: string;
   sourceChannel: string;

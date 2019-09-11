@@ -33,11 +33,13 @@ declare function ConversationList(version: V1): ConversationListInstance;
 /**
  * Options to pass to update
  *
+ * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
  */
 interface ConversationInstanceUpdateOptions {
+  attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
   friendlyName?: string;
@@ -120,12 +122,14 @@ interface ConversationListInstance {
 /**
  * Options to pass to create
  *
+ * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
  * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
  */
 interface ConversationListInstanceCreateOptions {
+  attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
   friendlyName?: string;
@@ -194,6 +198,7 @@ interface ConversationPayload extends ConversationResource, Page.TwilioResponseP
 
 interface ConversationResource {
   account_sid: string;
+  attributes: string;
   chat_service_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -266,6 +271,7 @@ declare class ConversationInstance extends SerializableClass {
 
   private _proxy: ConversationContext;
   accountSid: string;
+  attributes: string;
   chatServiceSid: string;
   dateCreated: Date;
   dateUpdated: Date;

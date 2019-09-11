@@ -53,11 +53,11 @@ interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
 
 interface UsageResource {
   account_sid: string;
-  commands_costs: string;
-  commands_usage: string;
-  data_costs: string;
-  data_usage: string;
-  period: string;
+  commands_costs: object;
+  commands_usage: object;
+  data_costs: object;
+  data_usage: object;
+  period: object;
   sim_sid: string;
   sim_unique_name: string;
   url: string;
@@ -111,10 +111,10 @@ declare class UsageInstance extends SerializableClass {
 
   private _proxy: UsageContext;
   accountSid: string;
-  commandsCosts: string;
-  commandsUsage: string;
-  dataCosts: string;
-  dataUsage: string;
+  commandsCosts: object;
+  commandsUsage: object;
+  dataCosts: object;
+  dataUsage: object;
   /**
    * fetch a UsageInstance
    *
@@ -122,7 +122,7 @@ declare class UsageInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: UsageInstanceFetchOptions, callback?: (error: Error | null, items: UsageInstance) => any): void;
-  period: string;
+  period: object;
   simSid: string;
   simUniqueName: string;
   /**
