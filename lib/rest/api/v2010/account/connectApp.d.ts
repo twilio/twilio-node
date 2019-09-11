@@ -41,7 +41,7 @@ interface ConnectAppInstanceUpdateOptions {
   description?: string;
   friendlyName?: string;
   homepageUrl?: string;
-  permissions?: string[];
+  permissions?: ConnectAppPermission | ConnectAppPermission[];
 }
 
 interface ConnectAppListInstance {
@@ -180,7 +180,7 @@ interface ConnectAppResource {
   description: string;
   friendly_name: string;
   homepage_url: string;
-  permissions: string;
+  permissions: ConnectAppPermission[];
   sid: string;
   uri: string;
 }
@@ -252,7 +252,7 @@ declare class ConnectAppInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
   friendlyName: string;
   homepageUrl: string;
-  permissions: string;
+  permissions: ConnectAppPermission[];
   /**
    * remove a ConnectAppInstance
    *

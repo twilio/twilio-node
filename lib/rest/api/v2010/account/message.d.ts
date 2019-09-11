@@ -138,7 +138,7 @@ interface MessageListInstanceCreateOptions {
   forceDelivery?: boolean;
   from?: string;
   maxPrice?: number;
-  mediaUrl?: string[];
+  mediaUrl?: string | string[];
   messagingServiceSid?: string;
   provideFeedback?: boolean;
   smartEncoded?: boolean;

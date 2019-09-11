@@ -43,8 +43,8 @@ interface WebhookInstanceUpdateOptions {
   configuration?: {
     url?: string;
     method?: WebhookMethod;
-    filters?: string[];
-    triggers?: string[];
+    filters?: string | string[];
+    triggers?: string | string[];
     flowSid?: string;
     retryCount?: number;
     bufferMessages?: boolean;
@@ -144,8 +144,8 @@ interface WebhookListInstanceCreateOptions {
   configuration?: {
     url?: string;
     method?: WebhookMethod;
-    filters?: string[];
-    triggers?: string[];
+    filters?: string | string[];
+    triggers?: string | string[];
     flowSid?: string;
     retryCount?: number;
     replayAfter?: number;

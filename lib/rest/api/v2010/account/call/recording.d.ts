@@ -121,7 +121,7 @@ interface RecordingListInstance {
 interface RecordingListInstanceCreateOptions {
   recordingChannels?: string;
   recordingStatusCallback?: string;
-  recordingStatusCallbackEvent?: string[];
+  recordingStatusCallbackEvent?: string | string[];
   recordingStatusCallbackMethod?: string;
   trim?: string;
 }

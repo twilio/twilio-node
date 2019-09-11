@@ -64,18 +64,18 @@ interface NotificationListInstanceCreateOptions {
   alexa?: object;
   apn?: object;
   body?: string;
-  data?: object;
-  facebookMessenger?: object;
-  fcm?: object;
-  gcm?: object;
-  identity?: string[];
+  data?: string;
+  facebookMessenger?: string;
+  fcm?: string;
+  gcm?: string;
+  identity?: string | string[];
   priority?: NotificationPriority;
-  segment?: string[];
-  sms?: object;
+  segment?: string | string[];
+  sms?: string;
   sound?: string;
-  tag?: string[];
+  tag?: string | string[];
   title?: string;
-  toBinding?: string[];
+  toBinding?: string | string[];
   ttl?: number;
 }
 
@@ -90,17 +90,17 @@ interface NotificationResource {
   body: string;
   data: object;
   date_created: Date;
-  facebook_messenger: object;
-  fcm: object;
-  gcm: object;
-  identities: string;
+  facebook_messenger: string;
+  fcm: string;
+  gcm: string;
+  identities: string[];
   priority: NotificationPriority;
-  segments: string;
+  segments: string[];
   service_sid: string;
   sid: string;
   sms: object;
   sound: string;
-  tags: string;
+  tags: string[];
   title: string;
   ttl: number;
 }
@@ -130,17 +130,17 @@ declare class NotificationInstance extends SerializableClass {
   body: string;
   data: object;
   dateCreated: Date;
-  facebookMessenger: object;
-  fcm: object;
-  gcm: object;
-  identities: string;
+  facebookMessenger: string;
+  fcm: string;
+  gcm: string;
+  identities: string[];
   priority: NotificationPriority;
-  segments: string;
+  segments: string[];
   serviceSid: string;
   sid: string;
   sms: object;
   sound: string;
-  tags: string;
+  tags: string[];
   title: string;
   /**
    * Provide a user-friendly representation

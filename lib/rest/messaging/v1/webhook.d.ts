@@ -41,7 +41,7 @@ interface WebhookInstanceUpdateOptions {
   preWebhookRetryCount?: number;
   preWebhookUrl?: string;
   target?: WebhookTarget;
-  webhookFilters?: string[];
+  webhookFilters?: string | string[];
   webhookMethod?: string;
 }
 
@@ -72,7 +72,7 @@ interface WebhookResource {
   service_sid: string;
   target: WebhookTarget;
   url: string;
-  webhook_filters: string;
+  webhook_filters: string[];
   webhook_method: string;
 }
 
@@ -151,7 +151,7 @@ declare class WebhookInstance extends SerializableClass {
    */
   update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): void;
   url: string;
-  webhookFilters: string;
+  webhookFilters: string[];
   webhookMethod: string;
 }
 

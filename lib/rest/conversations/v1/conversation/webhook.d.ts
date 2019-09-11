@@ -40,8 +40,8 @@ interface WebhookInstanceUpdateOptions {
   configuration?: {
     url?: string;
     method?: WebhookMethod;
-    filters?: string[];
-    triggers?: string[];
+    filters?: string | string[];
+    triggers?: string | string[];
     flowSid?: string;
   };
 }
@@ -135,8 +135,8 @@ interface WebhookListInstanceCreateOptions {
   configuration?: {
     url?: string;
     method?: WebhookMethod;
-    filters?: string[];
-    triggers?: string[];
+    filters?: string | string[];
+    triggers?: string | string[];
     flowSid?: string;
     replayAfter?: number;
   };

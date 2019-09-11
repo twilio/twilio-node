@@ -42,7 +42,7 @@ declare function HostedNumberOrderList(version: HostedNumbers): HostedNumberOrde
  */
 interface HostedNumberOrderInstanceUpdateOptions {
   callDelay?: number;
-  ccEmails?: string[];
+  ccEmails?: string | string[];
   email?: string;
   extension?: string;
   friendlyName?: string;
@@ -151,7 +151,7 @@ interface HostedNumberOrderListInstance {
 interface HostedNumberOrderListInstanceCreateOptions {
   accountSid?: string;
   addressSid?: string;
-  ccEmails?: string[];
+  ccEmails?: string | string[];
   email?: string;
   friendlyName?: string;
   phoneNumber: string;
@@ -263,7 +263,7 @@ interface HostedNumberOrderResource {
   address_sid: string;
   call_delay: number;
   capabilities: string;
-  cc_emails: string;
+  cc_emails: string[];
   date_created: Date;
   date_updated: Date;
   email: string;
@@ -278,7 +278,7 @@ interface HostedNumberOrderResource {
   unique_name: string;
   url: string;
   verification_attempts: number;
-  verification_call_sids: string;
+  verification_call_sids: string[];
   verification_code: string;
   verification_document_sid: string;
   verification_type: HostedNumberOrderVerificationType;
@@ -346,7 +346,7 @@ declare class HostedNumberOrderInstance extends SerializableClass {
   addressSid: string;
   callDelay: number;
   capabilities: string;
-  ccEmails: string;
+  ccEmails: string[];
   dateCreated: Date;
   dateUpdated: Date;
   email: string;
@@ -384,7 +384,7 @@ declare class HostedNumberOrderInstance extends SerializableClass {
   update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
   url: string;
   verificationAttempts: number;
-  verificationCallSids: string;
+  verificationCallSids: string[];
   verificationCode: string;
   verificationDocumentSid: string;
   verificationType: HostedNumberOrderVerificationType;

@@ -114,8 +114,8 @@ interface CompositionListInstance {
  * @property videoLayout - The JSON video layout description.
  */
 interface CompositionListInstanceCreateOptions {
-  audioSources?: string[];
-  audioSourcesExcluded?: string[];
+  audioSources?: string | string[];
+  audioSourcesExcluded?: string | string[];
   format?: CompositionFormat;
   resolution?: string;
   roomSid: string;
@@ -211,8 +211,8 @@ interface CompositionPayload extends CompositionResource, Page.TwilioResponsePay
 
 interface CompositionResource {
   account_sid: string;
-  audio_sources: string;
-  audio_sources_excluded: string;
+  audio_sources: string[];
+  audio_sources_excluded: string[];
   bitrate: number;
   date_completed: string;
   date_created: Date;
@@ -282,8 +282,8 @@ declare class CompositionInstance extends SerializableClass {
 
   private _proxy: CompositionContext;
   accountSid: string;
-  audioSources: string;
-  audioSourcesExcluded: string;
+  audioSources: string[];
+  audioSourcesExcluded: string[];
   bitrate: number;
   dateCompleted: string;
   dateCreated: Date;

@@ -36,7 +36,7 @@ declare function WebhookList(version: V1): WebhookListInstance;
  * @property target - The routing target of the webhook.
  */
 interface WebhookInstanceUpdateOptions {
-  filters?: string[];
+  filters?: string | string[];
   method?: string;
   postWebhookUrl?: string;
   preWebhookUrl?: string;
@@ -63,7 +63,7 @@ interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
 
 interface WebhookResource {
   account_sid: string;
-  filters: string;
+  filters: string[];
   method: WebhookMethod;
   post_webhook_url: string;
   pre_webhook_url: string;
@@ -128,7 +128,7 @@ declare class WebhookInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: WebhookInstance) => any): void;
-  filters: string;
+  filters: string[];
   method: WebhookMethod;
   postWebhookUrl: string;
   preWebhookUrl: string;

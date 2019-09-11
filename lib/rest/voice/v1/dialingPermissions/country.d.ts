@@ -189,7 +189,7 @@ interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
 
 interface CountryResource {
   continent: string;
-  country_codes: string;
+  country_codes: string[];
   high_risk_special_numbers_enabled: boolean;
   high_risk_tollfraud_numbers_enabled: boolean;
   iso_code: string;
@@ -246,7 +246,7 @@ declare class CountryInstance extends SerializableClass {
 
   private _proxy: CountryContext;
   continent: string;
-  countryCodes: string;
+  countryCodes: string[];
   /**
    * fetch a CountryInstance
    *

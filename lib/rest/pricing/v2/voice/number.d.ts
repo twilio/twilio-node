@@ -52,7 +52,7 @@ interface NumberResource {
   inbound_call_price: string;
   iso_country: string;
   origination_number: string;
-  outbound_call_prices: string;
+  outbound_call_prices: string[];
   price_unit: string;
   url: string;
 }
@@ -107,7 +107,7 @@ declare class NumberInstance extends SerializableClass {
   inboundCallPrice: string;
   isoCountry: string;
   originationNumber: string;
-  outboundCallPrices: string;
+  outboundCallPrices: string[];
   priceUnit: string;
   /**
    * Provide a user-friendly representation

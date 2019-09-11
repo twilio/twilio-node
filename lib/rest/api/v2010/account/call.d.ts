@@ -174,13 +174,13 @@ interface CallListInstanceCreateOptions {
   record?: boolean;
   recordingChannels?: string;
   recordingStatusCallback?: string;
-  recordingStatusCallbackEvent?: string[];
+  recordingStatusCallbackEvent?: string | string[];
   recordingStatusCallbackMethod?: string;
   sendDigits?: string;
   sipAuthPassword?: string;
   sipAuthUsername?: string;
   statusCallback?: string;
-  statusCallbackEvent?: string[];
+  statusCallbackEvent?: string | string[];
   statusCallbackMethod?: string;
   timeout?: number;
   to: string;

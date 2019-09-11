@@ -29,10 +29,10 @@ declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
  * @property type - The type of information to return
  */
 interface PhoneNumberInstanceFetchOptions {
-  addOns?: string[];
+  addOns?: string | string[];
   addOnsData?: object;
   countryCode?: string;
-  type?: string[];
+  type?: string | string[];
 }
 
 interface PhoneNumberListInstance {

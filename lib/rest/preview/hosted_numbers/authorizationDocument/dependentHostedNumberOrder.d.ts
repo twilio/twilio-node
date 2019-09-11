@@ -180,7 +180,7 @@ interface DependentHostedNumberOrderResource {
   address_sid: string;
   call_delay: number;
   capabilities: string;
-  cc_emails: string;
+  cc_emails: string[];
   date_created: Date;
   date_updated: Date;
   email: string;
@@ -194,7 +194,7 @@ interface DependentHostedNumberOrderResource {
   status: DependentHostedNumberOrderStatus;
   unique_name: string;
   verification_attempts: number;
-  verification_call_sids: string;
+  verification_call_sids: string[];
   verification_code: string;
   verification_document_sid: string;
   verification_type: DependentHostedNumberOrderVerificationType;
@@ -223,7 +223,7 @@ declare class DependentHostedNumberOrderInstance extends SerializableClass {
   addressSid: string;
   callDelay: number;
   capabilities: string;
-  ccEmails: string;
+  ccEmails: string[];
   dateCreated: Date;
   dateUpdated: Date;
   email: string;
@@ -241,7 +241,7 @@ declare class DependentHostedNumberOrderInstance extends SerializableClass {
   toJSON(): any;
   uniqueName: string;
   verificationAttempts: number;
-  verificationCallSids: string;
+  verificationCallSids: string[];
   verificationCode: string;
   verificationDocumentSid: string;
   verificationType: DependentHostedNumberOrderVerificationType;
