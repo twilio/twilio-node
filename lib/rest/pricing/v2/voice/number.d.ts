@@ -103,7 +103,7 @@ declare class NumberInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: NumberInstanceFetchOptions, callback?: (error: Error | null, items: NumberInstance) => any): void;
+  fetch(opts?: NumberInstanceFetchOptions, callback?: (error: Error | null, items: NumberInstance) => any): Promise<NumberInstance>;
   inboundCallPrice: string;
   isoCountry: string;
   originationNumber: string;

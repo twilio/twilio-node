@@ -212,7 +212,7 @@ declare class InviteContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: InviteInstance) => any): void;
+  remove(callback?: (error: Error | null, items: InviteInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -243,14 +243,14 @@ declare class InviteInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InviteInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: InviteInstance) => any): Promise<InviteInstance>;
   identity: string;
   /**
    * remove a InviteInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: InviteInstance) => any): void;
+  remove(callback?: (error: Error | null, items: InviteInstance) => any): Promise<boolean>;
   roleSid: string;
   serviceSid: string;
   sid: string;

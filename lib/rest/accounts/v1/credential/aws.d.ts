@@ -206,7 +206,7 @@ declare class AwsContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AwsInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AwsInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -240,14 +240,14 @@ declare class AwsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AwsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance>;
   friendlyName: string;
   /**
    * remove a AwsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AwsInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AwsInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -259,7 +259,7 @@ declare class AwsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AwsInstanceUpdateOptions, callback?: (error: Error | null, items: AwsInstance) => any): void;
+  update(opts?: AwsInstanceUpdateOptions, callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance>;
   url: string;
 }
 

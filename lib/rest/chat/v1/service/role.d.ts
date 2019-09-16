@@ -215,7 +215,7 @@ declare class RoleContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RoleInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RoleInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -250,7 +250,7 @@ declare class RoleInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoleInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RoleInstance) => any): Promise<RoleInstance>;
   friendlyName: string;
   permissions: string[];
   /**
@@ -258,7 +258,7 @@ declare class RoleInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RoleInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RoleInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -272,7 +272,7 @@ declare class RoleInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any): void;
+  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any): Promise<RoleInstance>;
   url: string;
 }
 

@@ -206,7 +206,7 @@ declare class InteractionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: InteractionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: InteractionInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -239,7 +239,7 @@ declare class InteractionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InteractionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: InteractionInstance) => any): Promise<InteractionInstance>;
   inboundParticipantSid: string;
   inboundResourceSid: string;
   inboundResourceStatus: InteractionResourceStatus;
@@ -255,7 +255,7 @@ declare class InteractionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: InteractionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: InteractionInstance) => any): Promise<boolean>;
   serviceSid: string;
   sessionSid: string;
   sid: string;

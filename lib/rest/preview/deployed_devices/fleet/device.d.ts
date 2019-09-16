@@ -240,7 +240,7 @@ declare class DeviceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  remove(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -282,7 +282,7 @@ declare class DeviceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
   fleetSid: string;
   friendlyName: string;
   identity: string;
@@ -291,7 +291,7 @@ declare class DeviceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  remove(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -304,7 +304,7 @@ declare class DeviceInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
   url: string;
 }
 

@@ -166,7 +166,7 @@ declare class VerificationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: VerificationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: VerificationInstance) => any): Promise<VerificationInstance>;
   lookup: object;
   payee: string;
   serviceSid: string;
@@ -183,7 +183,7 @@ declare class VerificationInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: VerificationInstanceUpdateOptions, callback?: (error: Error | null, items: VerificationInstance) => any): void;
+  update(opts: VerificationInstanceUpdateOptions, callback?: (error: Error | null, items: VerificationInstance) => any): Promise<VerificationInstance>;
   url: string;
   valid: boolean;
 }

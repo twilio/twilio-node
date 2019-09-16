@@ -223,7 +223,7 @@ declare class FieldTypeContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -263,7 +263,7 @@ declare class FieldTypeInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
   /**
    * Access the fieldValues
    */
@@ -275,7 +275,7 @@ declare class FieldTypeInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -288,7 +288,7 @@ declare class FieldTypeInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
+  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
   url: string;
 }
 

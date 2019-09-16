@@ -252,7 +252,7 @@ declare class TrunkContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TrunkInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<boolean>;
   terminatingSipDomains: TerminatingSipDomainListInstance;
   /**
    * Provide a user-friendly representation
@@ -297,7 +297,7 @@ declare class TrunkInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TrunkInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
   friendlyName: string;
   /**
    * Access the ipAccessControlLists
@@ -318,7 +318,7 @@ declare class TrunkInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TrunkInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<boolean>;
   secure: boolean;
   sid: string;
   /**
@@ -335,7 +335,7 @@ declare class TrunkInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TrunkInstanceUpdateOptions, callback?: (error: Error | null, items: TrunkInstance) => any): void;
+  update(opts?: TrunkInstanceUpdateOptions, callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
   url: string;
 }
 

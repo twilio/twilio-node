@@ -201,7 +201,7 @@ declare class AuthRegistrationsCredentialListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -230,14 +230,14 @@ declare class AuthRegistrationsCredentialListMappingInstance extends Serializabl
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>;
   friendlyName: string;
   /**
    * remove a AuthRegistrationsCredentialListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation

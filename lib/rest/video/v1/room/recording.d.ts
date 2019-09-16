@@ -223,7 +223,7 @@ declare class RoomRecordingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RoomRecordingInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -253,7 +253,7 @@ declare class RoomRecordingInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): Promise<RoomRecordingInstance>;
   groupingSids: object;
   links: string;
   offset: number;
@@ -262,7 +262,7 @@ declare class RoomRecordingInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RoomRecordingInstance) => any): Promise<boolean>;
   roomSid: string;
   sid: string;
   size: number;

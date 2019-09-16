@@ -206,7 +206,7 @@ declare class PublicKeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -240,14 +240,14 @@ declare class PublicKeyInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
   friendlyName: string;
   /**
    * remove a PublicKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -259,7 +259,7 @@ declare class PublicKeyInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
   url: string;
 }
 

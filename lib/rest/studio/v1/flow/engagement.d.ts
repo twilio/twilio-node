@@ -213,7 +213,7 @@ declare class EngagementContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
+  remove(callback?: (error: Error | null, items: EngagementInstance) => any): Promise<boolean>;
   steps: StepListInstance;
   /**
    * Provide a user-friendly representation
@@ -249,7 +249,7 @@ declare class EngagementInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): Promise<EngagementInstance>;
   flowSid: string;
   links: string;
   /**
@@ -257,7 +257,7 @@ declare class EngagementInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
+  remove(callback?: (error: Error | null, items: EngagementInstance) => any): Promise<boolean>;
   sid: string;
   status: EngagementStatus;
   /**

@@ -242,7 +242,7 @@ declare class WorkflowContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<boolean>;
   statistics: WorkflowStatisticsListInstance;
   /**
    * Provide a user-friendly representation
@@ -286,7 +286,7 @@ declare class WorkflowInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
   friendlyName: string;
   links: string;
   /**
@@ -298,7 +298,7 @@ declare class WorkflowInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Access the statistics
@@ -315,7 +315,7 @@ declare class WorkflowInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkflowInstanceUpdateOptions, callback?: (error: Error | null, items: WorkflowInstance) => any): void;
+  update(opts?: WorkflowInstanceUpdateOptions, callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
   url: string;
   workspaceSid: string;
 }

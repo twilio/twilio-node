@@ -118,7 +118,7 @@ declare class DefaultsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DefaultsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DefaultsInstance) => any): Promise<DefaultsInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -129,7 +129,7 @@ declare class DefaultsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DefaultsInstanceUpdateOptions, callback?: (error: Error | null, items: DefaultsInstance) => any): void;
+  update(opts?: DefaultsInstanceUpdateOptions, callback?: (error: Error | null, items: DefaultsInstance) => any): Promise<DefaultsInstance>;
   url: string;
 }
 

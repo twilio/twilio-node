@@ -205,7 +205,7 @@ declare class ShortCodeContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ShortCodeInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -238,13 +238,13 @@ declare class ShortCodeInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
   /**
    * remove a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ShortCodeInstance) => any): Promise<boolean>;
   serviceSid: string;
   shortCode: string;
   sid: string;

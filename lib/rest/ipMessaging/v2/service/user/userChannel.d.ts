@@ -230,7 +230,7 @@ declare class UserChannelInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserChannelInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
   lastConsumedMessageIndex: number;
   links: string;
   memberSid: string;
@@ -248,7 +248,7 @@ declare class UserChannelInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: UserChannelInstanceUpdateOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): void;
+  update(opts: UserChannelInstanceUpdateOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
   url: string;
   userSid: string;
 }

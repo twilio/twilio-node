@@ -94,7 +94,7 @@ declare class CpsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CpsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CpsInstance) => any): Promise<CpsInstance>;
   phoneNumber: string;
   /**
    * Provide a user-friendly representation

@@ -197,7 +197,7 @@ declare class CredentialListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CredentialListInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -225,14 +225,14 @@ declare class CredentialListInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any): Promise<CredentialListInstance>;
   friendlyName: string;
   /**
    * remove a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CredentialListInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation

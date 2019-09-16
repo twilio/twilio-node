@@ -201,7 +201,7 @@ declare class AuthCallsIpAccessControlListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -230,14 +230,14 @@ declare class AuthCallsIpAccessControlListMappingInstance extends SerializableCl
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): Promise<AuthCallsIpAccessControlListMappingInstance>;
   friendlyName: string;
   /**
    * remove a AuthCallsIpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation

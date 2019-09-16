@@ -234,7 +234,7 @@ declare class SampleContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SampleInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SampleInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -275,14 +275,14 @@ declare class SampleInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SampleInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SampleInstance) => any): Promise<SampleInstance>;
   language: string;
   /**
    * remove a SampleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SampleInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SampleInstance) => any): Promise<boolean>;
   sid: string;
   sourceChannel: string;
   taggedText: string;
@@ -297,7 +297,7 @@ declare class SampleInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SampleInstanceUpdateOptions, callback?: (error: Error | null, items: SampleInstance) => any): void;
+  update(opts?: SampleInstanceUpdateOptions, callback?: (error: Error | null, items: SampleInstance) => any): Promise<SampleInstance>;
   url: string;
 }
 

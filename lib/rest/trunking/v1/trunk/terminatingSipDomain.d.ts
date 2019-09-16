@@ -209,7 +209,7 @@ declare class TerminatingSipDomainContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TerminatingSipDomainInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TerminatingSipDomainInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -240,7 +240,7 @@ declare class TerminatingSipDomainInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TerminatingSipDomainInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TerminatingSipDomainInstance) => any): Promise<TerminatingSipDomainInstance>;
   friendlyName: string;
   links: string;
   /**
@@ -248,7 +248,7 @@ declare class TerminatingSipDomainInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TerminatingSipDomainInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TerminatingSipDomainInstance) => any): Promise<boolean>;
   sid: string;
   sipRegistration: boolean;
   /**

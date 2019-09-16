@@ -207,7 +207,7 @@ declare class AlertContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AlertInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AlertInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -238,7 +238,7 @@ declare class AlertInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AlertInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AlertInstance) => any): Promise<AlertInstance>;
   logLevel: string;
   moreInfo: string;
   /**
@@ -246,7 +246,7 @@ declare class AlertInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AlertInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AlertInstance) => any): Promise<boolean>;
   requestMethod: string;
   requestUrl: string;
   requestVariables: string;

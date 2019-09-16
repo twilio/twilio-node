@@ -110,7 +110,7 @@ declare class SettingsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SettingsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SettingsInstance) => any): Promise<SettingsInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -121,7 +121,7 @@ declare class SettingsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SettingsInstanceUpdateOptions, callback?: (error: Error | null, items: SettingsInstance) => any): void;
+  update(opts?: SettingsInstanceUpdateOptions, callback?: (error: Error | null, items: SettingsInstance) => any): Promise<SettingsInstance>;
   url: string;
 }
 

@@ -118,7 +118,7 @@ declare class AssistantFallbackActionsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssistantFallbackActionsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -129,7 +129,7 @@ declare class AssistantFallbackActionsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AssistantFallbackActionsInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantFallbackActionsInstance) => any): void;
+  update(opts?: AssistantFallbackActionsInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
   url: string;
 }
 

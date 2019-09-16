@@ -228,7 +228,7 @@ declare class CertificateContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CertificateInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -268,7 +268,7 @@ declare class CertificateInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CertificateInstance) => any): Promise<CertificateInstance>;
   fleetSid: string;
   friendlyName: string;
   /**
@@ -276,7 +276,7 @@ declare class CertificateInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CertificateInstance) => any): Promise<boolean>;
   sid: string;
   thumbprint: string;
   /**
@@ -289,7 +289,7 @@ declare class CertificateInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any): Promise<CertificateInstance>;
   url: string;
 }
 

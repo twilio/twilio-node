@@ -245,7 +245,7 @@ declare class SyncMapItemContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -287,7 +287,7 @@ declare class SyncMapItemInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
   key: string;
   mapSid: string;
   /**
@@ -295,7 +295,7 @@ declare class SyncMapItemInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   /**
@@ -308,7 +308,7 @@ declare class SyncMapItemInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  update(opts: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
   url: string;
 }
 

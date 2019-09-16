@@ -218,7 +218,7 @@ declare class FunctionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FunctionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FunctionInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -257,7 +257,7 @@ declare class FunctionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FunctionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FunctionInstance) => any): Promise<FunctionInstance>;
   friendlyName: string;
   /**
    * Access the functionVersions
@@ -269,7 +269,7 @@ declare class FunctionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FunctionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FunctionInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -282,7 +282,7 @@ declare class FunctionInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FunctionInstanceUpdateOptions, callback?: (error: Error | null, items: FunctionInstance) => any): void;
+  update(opts: FunctionInstanceUpdateOptions, callback?: (error: Error | null, items: FunctionInstance) => any): Promise<FunctionInstance>;
   url: string;
 }
 

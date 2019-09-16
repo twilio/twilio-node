@@ -218,7 +218,7 @@ declare class AssetContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AssetInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AssetInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -261,7 +261,7 @@ declare class AssetInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssetInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AssetInstance) => any): Promise<AssetInstance>;
   friendlyName: string;
   links: string;
   /**
@@ -269,7 +269,7 @@ declare class AssetInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AssetInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AssetInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -282,7 +282,7 @@ declare class AssetInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: AssetInstanceUpdateOptions, callback?: (error: Error | null, items: AssetInstance) => any): void;
+  update(opts: AssetInstanceUpdateOptions, callback?: (error: Error | null, items: AssetInstance) => any): Promise<AssetInstance>;
   url: string;
 }
 

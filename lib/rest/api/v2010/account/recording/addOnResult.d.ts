@@ -192,7 +192,7 @@ declare class AddOnResultContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -224,7 +224,7 @@ declare class AddOnResultInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): Promise<AddOnResultInstance>;
   /**
    * Access the payloads
    */
@@ -235,7 +235,7 @@ declare class AddOnResultInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): Promise<boolean>;
   sid: string;
   status: AddOnResultStatus;
   subresourceUris: string;

@@ -232,7 +232,7 @@ declare class LogInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: LogInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: LogInstance) => any): Promise<LogInstance>;
   functionSid: string;
   level: LogLevel;
   message: string;

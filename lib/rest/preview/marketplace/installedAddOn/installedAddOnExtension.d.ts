@@ -231,7 +231,7 @@ declare class InstalledAddOnExtensionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): Promise<InstalledAddOnExtensionInstance>;
   friendlyName: string;
   installedAddOnSid: string;
   productName: string;
@@ -247,7 +247,7 @@ declare class InstalledAddOnExtensionInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): void;
+  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): Promise<InstalledAddOnExtensionInstance>;
   url: string;
 }
 

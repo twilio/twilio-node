@@ -212,7 +212,7 @@ declare class SyncMapContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncMapInstance) => any): Promise<boolean>;
   syncMapItems: SyncMapItemListInstance;
   syncMapPermissions: SyncMapPermissionListInstance;
   /**
@@ -247,14 +247,14 @@ declare class SyncMapInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any): Promise<SyncMapInstance>;
   links: string;
   /**
    * remove a SyncMapInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncMapInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   sid: string;

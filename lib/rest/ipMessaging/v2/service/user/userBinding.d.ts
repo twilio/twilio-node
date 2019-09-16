@@ -198,7 +198,7 @@ declare class UserBindingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: UserBindingInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -230,7 +230,7 @@ declare class UserBindingInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): Promise<UserBindingInstance>;
   identity: string;
   messageTypes: string[];
   /**
@@ -238,7 +238,7 @@ declare class UserBindingInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: UserBindingInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**

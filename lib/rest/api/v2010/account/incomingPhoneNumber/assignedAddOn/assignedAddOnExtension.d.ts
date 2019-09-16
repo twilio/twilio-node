@@ -223,7 +223,7 @@ declare class AssignedAddOnExtensionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>;
   friendlyName: string;
   productName: string;
   resourceSid: string;

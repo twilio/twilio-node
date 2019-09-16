@@ -216,7 +216,7 @@ declare class NotificationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: NotificationInstance) => any): void;
+  remove(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -247,7 +247,7 @@ declare class NotificationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: NotificationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<NotificationInstance>;
   log: string;
   messageDate: Date;
   messageText: string;
@@ -257,7 +257,7 @@ declare class NotificationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: NotificationInstance) => any): void;
+  remove(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<boolean>;
   requestMethod: string;
   requestUrl: string;
   requestVariables: string;

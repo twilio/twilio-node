@@ -278,7 +278,7 @@ declare class WorkerContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WorkerInstance) => any): Promise<boolean>;
   reservations: ReservationListInstance;
   statistics: WorkerStatisticsListInstance;
   /**
@@ -325,7 +325,7 @@ declare class WorkerInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkerInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance>;
   friendlyName: string;
   links: string;
   /**
@@ -337,7 +337,7 @@ declare class WorkerInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WorkerInstance) => any): Promise<boolean>;
   /**
    * Access the reservations
    */
@@ -357,7 +357,7 @@ declare class WorkerInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): void;
+  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance>;
   url: string;
   /**
    * Access the workerChannels

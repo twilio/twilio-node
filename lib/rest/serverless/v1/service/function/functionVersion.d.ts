@@ -221,7 +221,7 @@ declare class FunctionVersionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FunctionVersionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FunctionVersionInstance) => any): Promise<FunctionVersionInstance>;
   functionSid: string;
   path: string;
   serviceSid: string;

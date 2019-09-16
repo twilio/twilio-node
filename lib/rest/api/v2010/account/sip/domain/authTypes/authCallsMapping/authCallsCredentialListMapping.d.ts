@@ -200,7 +200,7 @@ declare class AuthCallsCredentialListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -229,14 +229,14 @@ declare class AuthCallsCredentialListMappingInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): Promise<AuthCallsCredentialListMappingInstance>;
   friendlyName: string;
   /**
    * remove a AuthCallsCredentialListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation

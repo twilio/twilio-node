@@ -258,7 +258,7 @@ declare class DomainContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DomainInstance) => any): void;
+  remove(callback?: (error: Error | null, items: DomainInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -304,7 +304,7 @@ declare class DomainInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DomainInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DomainInstance) => any): Promise<DomainInstance>;
   friendlyName: string;
   /**
    * Access the ipAccessControlListMappings
@@ -315,7 +315,7 @@ declare class DomainInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DomainInstance) => any): void;
+  remove(callback?: (error: Error | null, items: DomainInstance) => any): Promise<boolean>;
   sid: string;
   sipRegistration: boolean;
   subresourceUris: string;
@@ -329,7 +329,7 @@ declare class DomainInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any): void;
+  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any): Promise<DomainInstance>;
   uri: string;
   voiceFallbackMethod: string;
   voiceFallbackUrl: string;

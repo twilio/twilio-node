@@ -211,7 +211,7 @@ declare class ConnectAppContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -249,7 +249,7 @@ declare class ConnectAppInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
   friendlyName: string;
   homepageUrl: string;
   permissions: ConnectAppPermission[];
@@ -258,7 +258,7 @@ declare class ConnectAppInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -270,7 +270,7 @@ declare class ConnectAppInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
   uri: string;
 }
 

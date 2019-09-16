@@ -229,7 +229,7 @@ declare class MessageContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -268,7 +268,7 @@ declare class MessageInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
   from: string;
   index: number;
   /**
@@ -276,7 +276,7 @@ declare class MessageInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   to: string;
@@ -290,7 +290,7 @@ declare class MessageInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): void;
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
   url: string;
   wasEdited: boolean;
 }

@@ -294,7 +294,7 @@ declare class TaskContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TaskInstance) => any): Promise<boolean>;
   reservations: ReservationListInstance;
   /**
    * Provide a user-friendly representation
@@ -334,7 +334,7 @@ declare class TaskInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
   links: string;
   priority: number;
   reason: string;
@@ -343,7 +343,7 @@ declare class TaskInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TaskInstance) => any): Promise<boolean>;
   /**
    * Access the reservations
    */
@@ -364,7 +364,7 @@ declare class TaskInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): void;
+  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
   url: string;
   workflowFriendlyName: string;
   workflowSid: string;

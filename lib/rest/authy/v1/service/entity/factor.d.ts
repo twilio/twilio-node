@@ -236,7 +236,7 @@ declare class FactorContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FactorInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -283,7 +283,7 @@ declare class FactorInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FactorInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FactorInstance) => any): Promise<FactorInstance>;
   friendlyName: string;
   identity: string;
   links: string;
@@ -292,7 +292,7 @@ declare class FactorInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FactorInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   status: FactorFactorStatuses;
@@ -306,7 +306,7 @@ declare class FactorInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FactorInstanceUpdateOptions, callback?: (error: Error | null, items: FactorInstance) => any): void;
+  update(opts?: FactorInstanceUpdateOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<FactorInstance>;
   url: string;
 }
 

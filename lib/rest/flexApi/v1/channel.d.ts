@@ -214,7 +214,7 @@ declare class ChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -241,14 +241,14 @@ declare class ChannelInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
   flexFlowSid: string;
   /**
    * remove a ChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
   sid: string;
   taskSid: string;
   /**

@@ -237,7 +237,7 @@ declare class ParticipantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -277,7 +277,7 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   identity: string;
   messagingServiceSid: string;
   /**
@@ -285,7 +285,7 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
   serviceSid: string;
   sessionSid: string;
   sid: string;
@@ -301,7 +301,7 @@ declare class ParticipantInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   url: string;
   userAddress: string;
 }

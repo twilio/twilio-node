@@ -216,7 +216,7 @@ declare class TaskChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -252,7 +252,7 @@ declare class TaskChannelInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<TaskChannelInstance>;
   friendlyName: string;
   links: string;
   /**
@@ -260,7 +260,7 @@ declare class TaskChannelInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -273,7 +273,7 @@ declare class TaskChannelInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskChannelInstanceUpdateOptions, callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
+  update(opts?: TaskChannelInstanceUpdateOptions, callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<TaskChannelInstance>;
   url: string;
   workspaceSid: string;
 }

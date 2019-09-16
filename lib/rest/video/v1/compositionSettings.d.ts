@@ -130,7 +130,7 @@ declare class CompositionSettingsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, items: CompositionSettingsInstance) => any): void;
+  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, items: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
   encryptionEnabled: boolean;
   encryptionKeySid: string;
   /**
@@ -138,7 +138,7 @@ declare class CompositionSettingsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
   friendlyName: string;
   /**
    * Provide a user-friendly representation

@@ -142,7 +142,7 @@ declare class ConfigurationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  create(callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
+  create(callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   crmAttributes: object;
   crmCallbackUrl: string;
   crmEnabled: boolean;
@@ -157,7 +157,7 @@ declare class ConfigurationInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
+  fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   integrations: object[];
   messagingServiceInstanceSid: string;
   outboundCallFlows: object;
@@ -188,7 +188,7 @@ declare class ConfigurationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  update(callback?: (error: Error | null, items: ConfigurationInstance) => any): void;
+  update(callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   url: string;
 }
 

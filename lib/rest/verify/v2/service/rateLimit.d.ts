@@ -219,7 +219,7 @@ declare class RateLimitContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RateLimitInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RateLimitInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -262,14 +262,14 @@ declare class RateLimitInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RateLimitInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RateLimitInstance) => any): Promise<RateLimitInstance>;
   links: string;
   /**
    * remove a RateLimitInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RateLimitInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RateLimitInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -283,7 +283,7 @@ declare class RateLimitInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: RateLimitInstanceUpdateOptions, callback?: (error: Error | null, items: RateLimitInstance) => any): void;
+  update(opts?: RateLimitInstanceUpdateOptions, callback?: (error: Error | null, items: RateLimitInstance) => any): Promise<RateLimitInstance>;
   url: string;
 }
 

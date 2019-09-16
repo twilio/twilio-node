@@ -191,7 +191,7 @@ declare class PayloadContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PayloadInstance) => any): void;
+  remove(callback?: (error: Error | null, items: PayloadInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -225,7 +225,7 @@ declare class PayloadInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PayloadInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: PayloadInstance) => any): Promise<PayloadInstance>;
   label: string;
   referenceSid: string;
   /**
@@ -233,7 +233,7 @@ declare class PayloadInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PayloadInstance) => any): void;
+  remove(callback?: (error: Error | null, items: PayloadInstance) => any): Promise<boolean>;
   sid: string;
   subresourceUris: string;
   /**

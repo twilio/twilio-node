@@ -212,7 +212,7 @@ declare class SubscribedTrackInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SubscribedTrackInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance>;
   kind: SubscribedTrackKind;
   name: string;
   participantSid: string;

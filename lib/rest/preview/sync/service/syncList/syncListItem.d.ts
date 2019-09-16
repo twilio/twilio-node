@@ -243,7 +243,7 @@ declare class SyncListItemContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -285,7 +285,7 @@ declare class SyncListItemInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
   index: number;
   listSid: string;
   /**
@@ -293,7 +293,7 @@ declare class SyncListItemInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   /**
@@ -306,7 +306,7 @@ declare class SyncListItemInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
+  update(opts: SyncListItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
   url: string;
 }
 

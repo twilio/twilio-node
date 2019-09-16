@@ -214,7 +214,7 @@ declare class AuthorizedConnectAppInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>;
   permissions: AuthorizedConnectAppPermission[];
   /**
    * Provide a user-friendly representation

@@ -113,7 +113,7 @@ declare class WorkersStatisticsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): void;
+  fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
   realtime: object;
   /**
    * Provide a user-friendly representation

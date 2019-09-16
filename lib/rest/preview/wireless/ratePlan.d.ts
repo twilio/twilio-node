@@ -239,7 +239,7 @@ declare class RatePlanContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -280,7 +280,7 @@ declare class RatePlanInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
   friendlyName: string;
   internationalRoaming: string[];
   messagingEnabled: boolean;
@@ -290,7 +290,7 @@ declare class RatePlanInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -303,7 +303,7 @@ declare class RatePlanInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
   url: string;
   voiceEnabled: boolean;
 }

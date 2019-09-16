@@ -118,7 +118,7 @@ declare class StyleSheetInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: StyleSheetInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -129,7 +129,7 @@ declare class StyleSheetInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: StyleSheetInstanceUpdateOptions, callback?: (error: Error | null, items: StyleSheetInstance) => any): void;
+  update(opts?: StyleSheetInstanceUpdateOptions, callback?: (error: Error | null, items: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
   url: string;
 }
 

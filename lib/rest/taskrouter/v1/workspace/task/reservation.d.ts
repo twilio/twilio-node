@@ -346,7 +346,7 @@ declare class ReservationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ReservationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
   links: string;
   reservationStatus: ReservationStatus;
   sid: string;
@@ -361,7 +361,7 @@ declare class ReservationInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ReservationInstanceUpdateOptions, callback?: (error: Error | null, items: ReservationInstance) => any): void;
+  update(opts?: ReservationInstanceUpdateOptions, callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
   url: string;
   workerName: string;
   workerSid: string;

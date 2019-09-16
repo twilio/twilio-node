@@ -245,7 +245,7 @@ declare class MemberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MemberInstance) => any): void;
+  remove(callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -283,7 +283,7 @@ declare class MemberInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MemberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
   identity: string;
   lastConsumedMessageIndex: number;
   lastConsumptionTimestamp: Date;
@@ -292,7 +292,7 @@ declare class MemberInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MemberInstance) => any): void;
+  remove(callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
   roleSid: string;
   serviceSid: string;
   sid: string;
@@ -306,7 +306,7 @@ declare class MemberInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): void;
+  update(opts?: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
   url: string;
 }
 

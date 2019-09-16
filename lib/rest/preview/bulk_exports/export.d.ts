@@ -104,7 +104,7 @@ declare class ExportInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExportInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ExportInstance) => any): Promise<ExportInstance>;
   links: string;
   resourceType: string;
   /**

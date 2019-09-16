@@ -282,7 +282,7 @@ declare class CompositionHookContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CompositionHookInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CompositionHookInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -323,7 +323,7 @@ declare class CompositionHookInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionHookInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CompositionHookInstance) => any): Promise<CompositionHookInstance>;
   format: CompositionHookFormat;
   friendlyName: string;
   /**
@@ -331,7 +331,7 @@ declare class CompositionHookInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CompositionHookInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CompositionHookInstance) => any): Promise<boolean>;
   resolution: string;
   sid: string;
   statusCallback: string;
@@ -347,7 +347,7 @@ declare class CompositionHookInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: CompositionHookInstanceUpdateOptions, callback?: (error: Error | null, items: CompositionHookInstance) => any): void;
+  update(opts: CompositionHookInstanceUpdateOptions, callback?: (error: Error | null, items: CompositionHookInstance) => any): Promise<CompositionHookInstance>;
   url: string;
   videoLayout: object;
 }

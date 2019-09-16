@@ -218,7 +218,7 @@ declare class PhoneNumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -250,7 +250,7 @@ declare class PhoneNumberInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
   friendlyName: string;
   links: string;
   phoneNumber: string;
@@ -259,7 +259,7 @@ declare class PhoneNumberInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<boolean>;
   sid: string;
   smsApplicationSid: string;
   smsFallbackMethod: string;

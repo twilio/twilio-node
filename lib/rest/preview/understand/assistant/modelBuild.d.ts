@@ -221,7 +221,7 @@ declare class ModelBuildContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -263,13 +263,13 @@ declare class ModelBuildInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
   /**
    * remove a ModelBuildInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<boolean>;
   sid: string;
   status: ModelBuildStatus;
   /**
@@ -283,7 +283,7 @@ declare class ModelBuildInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
   url: string;
 }
 

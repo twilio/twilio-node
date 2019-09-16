@@ -223,7 +223,7 @@ declare class MemberInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MemberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
   position: number;
   queueSid: string;
   /**
@@ -236,7 +236,7 @@ declare class MemberInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): void;
+  update(opts: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
   uri: string;
   waitTime: number;
 }

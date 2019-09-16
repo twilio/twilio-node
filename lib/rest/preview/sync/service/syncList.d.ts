@@ -212,7 +212,7 @@ declare class SyncListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncListInstance) => any): Promise<boolean>;
   syncListItems: SyncListItemListInstance;
   syncListPermissions: SyncListPermissionListInstance;
   /**
@@ -247,14 +247,14 @@ declare class SyncListInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): Promise<SyncListInstance>;
   links: string;
   /**
    * remove a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncListInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   sid: string;

@@ -229,7 +229,7 @@ declare class UserContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: UserInstance) => any): void;
+  remove(callback?: (error: Error | null, items: UserInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -267,7 +267,7 @@ declare class UserInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
   friendlyName: string;
   identity: string;
   isNotifiable: boolean;
@@ -279,7 +279,7 @@ declare class UserInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: UserInstance) => any): void;
+  remove(callback?: (error: Error | null, items: UserInstance) => any): Promise<boolean>;
   roleSid: string;
   serviceSid: string;
   sid: string;
@@ -293,7 +293,7 @@ declare class UserInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): void;
+  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
   url: string;
   /**
    * Access the userBindings

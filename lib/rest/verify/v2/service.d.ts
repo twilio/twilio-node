@@ -250,7 +250,7 @@ declare class ServiceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -291,7 +291,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   friendlyName: string;
   links: string;
   lookupEnabled: boolean;
@@ -309,7 +309,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
   sid: string;
   skipSmsToLandlines: boolean;
   /**
@@ -323,7 +323,7 @@ declare class ServiceInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   url: string;
   /**
    * Access the verificationChecks

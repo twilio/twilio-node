@@ -206,7 +206,7 @@ declare class DocumentPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -244,7 +244,7 @@ declare class DocumentPermissionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
   identity: string;
   manage: boolean;
   read: boolean;
@@ -253,7 +253,7 @@ declare class DocumentPermissionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<boolean>;
   serviceSid: string;
   /**
    * Provide a user-friendly representation
@@ -265,7 +265,7 @@ declare class DocumentPermissionInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
   url: string;
   write: boolean;
 }

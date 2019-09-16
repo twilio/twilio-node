@@ -263,7 +263,7 @@ declare class TaskQueueContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<boolean>;
   statistics: TaskQueueStatisticsListInstance;
   /**
    * Provide a user-friendly representation
@@ -305,7 +305,7 @@ declare class TaskQueueInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
   friendlyName: string;
   links: string;
   maxReservedWorkers: number;
@@ -318,7 +318,7 @@ declare class TaskQueueInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<boolean>;
   reservationActivityName: string;
   reservationActivitySid: string;
   sid: string;
@@ -338,7 +338,7 @@ declare class TaskQueueInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
   url: string;
   workspaceSid: string;
 }

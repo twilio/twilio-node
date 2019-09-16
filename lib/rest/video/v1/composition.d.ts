@@ -258,7 +258,7 @@ declare class CompositionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CompositionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CompositionInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -294,7 +294,7 @@ declare class CompositionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CompositionInstance) => any): Promise<CompositionInstance>;
   format: CompositionFormat;
   links: string;
   /**
@@ -302,7 +302,7 @@ declare class CompositionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CompositionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CompositionInstance) => any): Promise<boolean>;
   resolution: string;
   roomSid: string;
   sid: string;

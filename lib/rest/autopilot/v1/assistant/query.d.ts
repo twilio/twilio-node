@@ -246,7 +246,7 @@ declare class QueryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: QueryInstance) => any): void;
+  remove(callback?: (error: Error | null, items: QueryInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -286,7 +286,7 @@ declare class QueryInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: QueryInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance>;
   language: string;
   modelBuildSid: string;
   query: string;
@@ -295,7 +295,7 @@ declare class QueryInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: QueryInstance) => any): void;
+  remove(callback?: (error: Error | null, items: QueryInstance) => any): Promise<boolean>;
   results: object;
   sampleSid: string;
   sid: string;
@@ -311,7 +311,7 @@ declare class QueryInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any): void;
+  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance>;
   url: string;
 }
 

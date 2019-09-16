@@ -282,7 +282,7 @@ declare class ApplicationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ApplicationInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -318,7 +318,7 @@ declare class ApplicationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ApplicationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
   friendlyName: string;
   messageStatusCallback: string;
   /**
@@ -326,7 +326,7 @@ declare class ApplicationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ApplicationInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<boolean>;
   sid: string;
   smsFallbackMethod: string;
   smsFallbackUrl: string;
@@ -345,7 +345,7 @@ declare class ApplicationInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ApplicationInstanceUpdateOptions, callback?: (error: Error | null, items: ApplicationInstance) => any): void;
+  update(opts?: ApplicationInstanceUpdateOptions, callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
   uri: string;
   voiceCallerIdLookup: boolean;
   voiceFallbackMethod: string;

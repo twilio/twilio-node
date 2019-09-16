@@ -209,7 +209,7 @@ declare class EntityContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EntityInstance) => any): void;
+  remove(callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -245,7 +245,7 @@ declare class EntityInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EntityInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
   identity: string;
   links: string;
   /**
@@ -253,7 +253,7 @@ declare class EntityInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EntityInstance) => any): void;
+  remove(callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**

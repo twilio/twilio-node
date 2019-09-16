@@ -133,7 +133,7 @@ declare class FeedbackInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): void;
+  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
   dateCreated: Date;
   dateUpdated: Date;
   /**
@@ -141,7 +141,7 @@ declare class FeedbackInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
   issues: FeedbackIssues[];
   qualityScore: number;
   sid: string;
@@ -155,7 +155,7 @@ declare class FeedbackInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): void;
+  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
 }
 
 
