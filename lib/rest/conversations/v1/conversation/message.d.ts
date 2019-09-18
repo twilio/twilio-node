@@ -16,9 +16,8 @@ type MessageWebhookEnabledType = 'true'|'false';
 /**
  * Initialize the MessageList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param conversationSid - The unique id of the Conversation for this message.
@@ -215,9 +214,8 @@ declare class MessageContext {
   /**
    * Initialize the MessageContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param conversationSid - The unique id of the Conversation for this message.
@@ -255,9 +253,8 @@ declare class MessageInstance extends SerializableClass {
   /**
    * Initialize the MessageContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -307,9 +304,8 @@ declare class MessagePage extends Page<V1, MessagePayload, MessageResource, Mess
   /**
    * Initialize the MessagePage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

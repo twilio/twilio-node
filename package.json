@@ -33,13 +33,13 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.138",
-    "@types/node": "^9.6.51",
+    "@types/node": "^9.6.52",
     "eslint": "^5.16.0",
     "express": "^4.17.1",
     "jasmine": "^3.4.0",
     "jsdoc": "^3.6.3",
     "jshint": "^2.10.2",
-    "node-mocks-http": "^1.7.6",
+    "node-mocks-http": "^1.8.0",
     "proxyquire": "1.8.0",
     "typescript": "^2.8.3"
   },

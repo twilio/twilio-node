@@ -42,7 +42,7 @@ interface AlertListInstance {
   /**
    * Constructs a alert
    *
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this Alert.
    */
   get(sid: string): AlertContext;
   /**
@@ -173,12 +173,14 @@ interface AlertResource {
   error_code: string;
   log_level: string;
   more_info: string;
+  request_headers?: string;
   request_method: string;
   request_url: string;
   request_variables?: string;
   resource_sid: string;
   response_body?: string;
   response_headers?: string;
+  service_sid: string;
   sid: string;
   url: string;
 }
@@ -192,7 +194,7 @@ declare class AlertContext {
    * Initialize the AlertContext
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this Alert.
    */
   constructor(version: V1, sid: string);
 
@@ -202,12 +204,6 @@ declare class AlertContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AlertInstance) => any): Promise<AlertInstance>;
-  /**
-   * remove a AlertInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AlertInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -221,7 +217,7 @@ declare class AlertInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this Alert.
    */
   constructor(version: V1, payload: AlertPayload, sid: string);
 
@@ -241,18 +237,14 @@ declare class AlertInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: AlertInstance) => any): Promise<AlertInstance>;
   logLevel: string;
   moreInfo: string;
-  /**
-   * remove a AlertInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AlertInstance) => any): Promise<boolean>;
+  requestHeaders: string;
   requestMethod: string;
   requestUrl: string;
   requestVariables: string;
   resourceSid: string;
   responseBody: string;
   responseHeaders: string;
+  serviceSid: string;
   sid: string;
   /**
    * Provide a user-friendly representation

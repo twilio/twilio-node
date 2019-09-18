@@ -68,8 +68,10 @@ describe('Alert', function() {
           'resource_sid': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'response_body': 'response_body',
           'response_headers': 'response_headers',
+          'request_headers': 'request_headers',
           'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'PNe2cd757cd5257b0217a447933a0290d2'
       });
 
       holodeck.mock(new Response(200, body));
@@ -77,42 +79,6 @@ describe('Alert', function() {
       var promise = client.monitor.v1.alerts('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
-        done();
-      }, function() {
-        throw new Error('failed');
-      }).done();
-    }
-  );
-  it('should generate valid remove request',
-    function(done) {
-      holodeck.mock(new Response(500, '{}'));
-
-      var promise = client.monitor.v1.alerts('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise.then(function() {
-        throw new Error('failed');
-      }, function(error) {
-        expect(error.constructor).toBe(RestException.prototype.constructor);
-        done();
-      }).done();
-
-      var sid = 'NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://monitor.twilio.com/v1/Alerts/${sid}`;
-
-      holodeck.assertHasRequest(new Request({
-        method: 'DELETE',
-        url: url
-      }));
-    }
-  );
-  it('should generate valid delete response',
-    function(done) {
-      var body = JSON.stringify(null);
-
-      holodeck.mock(new Response(204, body));
-
-      var promise = client.monitor.v1.alerts('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise.then(function(response) {
-        expect(response).toBe(true);
         done();
       }, function() {
         throw new Error('failed');
@@ -137,7 +103,8 @@ describe('Alert', function() {
                   'request_url': 'http://www.example.com',
                   'resource_sid': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'PNe2cd757cd5257b0217a447933a0290d2'
               }
           ],
           'meta': {
@@ -172,7 +139,8 @@ describe('Alert', function() {
                   'request_url': 'http://www.example.com',
                   'resource_sid': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'PNe2cd757cd5257b0217a447933a0290d2'
               }
           ],
           'meta': {
@@ -212,7 +180,8 @@ describe('Alert', function() {
                   'request_url': 'http://www.example.com',
                   'resource_sid': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'PNe2cd757cd5257b0217a447933a0290d2'
               }
           ],
           'meta': {
@@ -293,7 +262,8 @@ describe('Alert', function() {
                   'request_url': 'http://www.example.com',
                   'resource_sid': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'PNe2cd757cd5257b0217a447933a0290d2'
               }
           ],
           'meta': {

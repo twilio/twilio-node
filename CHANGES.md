@@ -1,6 +1,24 @@
 twilio-node changelog
 =====================
 
+[2019-09-18] Version 3.35.0
+----------------------------
+**Library**
+- [PR #479](https://github.com/twilio/twilio-node/pull/479): Correct the TS return type for various instance and context actions. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #474](https://github.com/twilio/twilio-node/pull/474): Add missing options interfaces to typescript exports. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #475](https://github.com/twilio/twilio-node/pull/475): Correct the 'object' type hint for a bunch of resource instance properties. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #476](https://github.com/twilio/twilio-node/pull/476): breaking: Use specific TS list types and allow non-array TS params. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
+**Numbers**
+- Add v2 of the Identites API
+
+**Preview**
+- Changed authentication method for SDK Trusted Comms endpoints: `/CPS`, `/CurrentCall`, and `/Devices`. Please use `Authorization: Bearer <xCNAM JWT>` **(breaking change)**
+
+**Voice**
+- Add Recordings endpoints
+
+
 [2019-09-04] Version 3.34.0
 ----------------------------
 **Library**
