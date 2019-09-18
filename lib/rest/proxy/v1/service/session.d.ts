@@ -246,7 +246,7 @@ declare class SessionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SessionInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -289,7 +289,7 @@ declare class SessionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SessionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
   /**
    * Access the interactions
    */
@@ -305,7 +305,7 @@ declare class SessionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SessionInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   status: SessionStatus;
@@ -321,7 +321,7 @@ declare class SessionInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): void;
+  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
   url: string;
 }
 

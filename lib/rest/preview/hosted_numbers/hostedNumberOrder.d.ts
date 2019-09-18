@@ -312,7 +312,7 @@ declare class HostedNumberOrderContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -357,7 +357,7 @@ declare class HostedNumberOrderInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
   friendlyName: string;
   incomingPhoneNumberSid: string;
   phoneNumber: string;
@@ -366,7 +366,7 @@ declare class HostedNumberOrderInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<boolean>;
   sid: string;
   signingDocumentSid: string;
   status: HostedNumberOrderStatus;
@@ -381,7 +381,7 @@ declare class HostedNumberOrderInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
   url: string;
   verificationAttempts: number;
   verificationCallSids: string[];

@@ -280,7 +280,7 @@ declare class FlexFlowContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FlexFlowInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FlexFlowInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -318,7 +318,7 @@ declare class FlexFlowInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FlexFlowInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FlexFlowInstance) => any): Promise<FlexFlowInstance>;
   friendlyName: string;
   integration: object;
   integrationType: FlexFlowIntegrationType;
@@ -328,7 +328,7 @@ declare class FlexFlowInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FlexFlowInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FlexFlowInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -340,7 +340,7 @@ declare class FlexFlowInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FlexFlowInstanceUpdateOptions, callback?: (error: Error | null, items: FlexFlowInstance) => any): void;
+  update(opts?: FlexFlowInstanceUpdateOptions, callback?: (error: Error | null, items: FlexFlowInstance) => any): Promise<FlexFlowInstance>;
   url: string;
 }
 

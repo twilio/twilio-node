@@ -201,7 +201,7 @@ declare class CredentialListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -230,14 +230,14 @@ declare class CredentialListMappingInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>;
   friendlyName: string;
   /**
    * remove a CredentialListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): Promise<boolean>;
   sid: string;
   subresourceUris: string;
   /**

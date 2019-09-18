@@ -192,7 +192,7 @@ declare class TranscriptionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -223,7 +223,7 @@ declare class TranscriptionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
   price: number;
   priceUnit: string;
   recordingSid: string;
@@ -232,7 +232,7 @@ declare class TranscriptionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<boolean>;
   sid: string;
   status: TranscriptionStatus;
   /**

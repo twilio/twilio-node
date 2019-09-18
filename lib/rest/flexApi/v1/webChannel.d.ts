@@ -216,7 +216,7 @@ declare class WebChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WebChannelInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WebChannelInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -250,14 +250,14 @@ declare class WebChannelInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WebChannelInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WebChannelInstance) => any): Promise<WebChannelInstance>;
   flexFlowSid: string;
   /**
    * remove a WebChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WebChannelInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WebChannelInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -269,7 +269,7 @@ declare class WebChannelInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WebChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WebChannelInstance) => any): void;
+  update(opts?: WebChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WebChannelInstance) => any): Promise<WebChannelInstance>;
   url: string;
 }
 

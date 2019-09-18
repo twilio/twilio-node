@@ -219,7 +219,7 @@ declare class SyncStreamContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<boolean>;
   streamMessages: StreamMessageListInstance;
   /**
    * Provide a user-friendly representation
@@ -260,14 +260,14 @@ declare class SyncStreamInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
   links: string;
   /**
    * remove a SyncStreamInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -285,7 +285,7 @@ declare class SyncStreamInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncStreamInstanceUpdateOptions, callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
+  update(opts?: SyncStreamInstanceUpdateOptions, callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
   url: string;
 }
 

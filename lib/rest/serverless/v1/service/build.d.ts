@@ -215,7 +215,7 @@ declare class BuildContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: BuildInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -249,14 +249,14 @@ declare class BuildInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
   functionVersions: object[];
   /**
    * remove a BuildInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): void;
+  remove(callback?: (error: Error | null, items: BuildInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   status: BuildStatus;

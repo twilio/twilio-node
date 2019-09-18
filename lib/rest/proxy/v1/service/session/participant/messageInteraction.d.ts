@@ -258,7 +258,7 @@ declare class MessageInteractionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>;
   inboundParticipantSid: string;
   inboundResourceSid: string;
   inboundResourceStatus: MessageInteractionResourceStatus;

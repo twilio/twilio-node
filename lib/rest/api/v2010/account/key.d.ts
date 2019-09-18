@@ -187,7 +187,7 @@ declare class KeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  remove(callback?: (error: Error | null, items: KeyInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -221,14 +221,14 @@ declare class KeyInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
   friendlyName: string;
   /**
    * remove a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  remove(callback?: (error: Error | null, items: KeyInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -240,7 +240,7 @@ declare class KeyInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): void;
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
 }
 
 

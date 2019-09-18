@@ -123,7 +123,7 @@ declare class TaskActionsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskActionsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
   taskSid: string;
   /**
    * Provide a user-friendly representation
@@ -135,7 +135,7 @@ declare class TaskActionsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskActionsInstanceUpdateOptions, callback?: (error: Error | null, items: TaskActionsInstance) => any): void;
+  update(opts?: TaskActionsInstanceUpdateOptions, callback?: (error: Error | null, items: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
   url: string;
 }
 

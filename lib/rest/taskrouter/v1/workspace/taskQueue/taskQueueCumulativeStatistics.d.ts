@@ -130,7 +130,7 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): void;
+  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): Promise<TaskQueueCumulativeStatisticsInstance>;
   reservationsAccepted: number;
   reservationsCanceled: number;
   reservationsCreated: number;

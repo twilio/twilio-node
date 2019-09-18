@@ -219,7 +219,7 @@ declare class IpAddressContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IpAddressInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IpAddressInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -256,7 +256,7 @@ declare class IpAddressInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IpAddressInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: IpAddressInstance) => any): Promise<IpAddressInstance>;
   friendlyName: string;
   ipAccessControlListSid: string;
   ipAddress: string;
@@ -265,7 +265,7 @@ declare class IpAddressInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IpAddressInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IpAddressInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -277,7 +277,7 @@ declare class IpAddressInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IpAddressInstanceUpdateOptions, callback?: (error: Error | null, items: IpAddressInstance) => any): void;
+  update(opts?: IpAddressInstanceUpdateOptions, callback?: (error: Error | null, items: IpAddressInstance) => any): Promise<IpAddressInstance>;
   uri: string;
 }
 

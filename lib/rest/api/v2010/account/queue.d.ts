@@ -215,7 +215,7 @@ declare class QueueContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: QueueInstance) => any): void;
+  remove(callback?: (error: Error | null, items: QueueInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -252,7 +252,7 @@ declare class QueueInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: QueueInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: QueueInstance) => any): Promise<QueueInstance>;
   friendlyName: string;
   maxSize: number;
   /**
@@ -264,7 +264,7 @@ declare class QueueInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: QueueInstance) => any): void;
+  remove(callback?: (error: Error | null, items: QueueInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -276,7 +276,7 @@ declare class QueueInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueueInstanceUpdateOptions, callback?: (error: Error | null, items: QueueInstance) => any): void;
+  update(opts?: QueueInstanceUpdateOptions, callback?: (error: Error | null, items: QueueInstance) => any): Promise<QueueInstance>;
   uri: string;
 }
 

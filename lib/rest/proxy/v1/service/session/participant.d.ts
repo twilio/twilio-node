@@ -221,7 +221,7 @@ declare class ParticipantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -254,7 +254,7 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   friendlyName: string;
   identifier: string;
   links: string;
@@ -269,7 +269,7 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
   serviceSid: string;
   sessionSid: string;
   sid: string;

@@ -223,7 +223,7 @@ declare class VariableContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: VariableInstance) => any): void;
+  remove(callback?: (error: Error | null, items: VariableInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -264,14 +264,14 @@ declare class VariableInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: VariableInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: VariableInstance) => any): Promise<VariableInstance>;
   key: string;
   /**
    * remove a VariableInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: VariableInstance) => any): void;
+  remove(callback?: (error: Error | null, items: VariableInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -284,7 +284,7 @@ declare class VariableInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: VariableInstanceUpdateOptions, callback?: (error: Error | null, items: VariableInstance) => any): void;
+  update(opts?: VariableInstanceUpdateOptions, callback?: (error: Error | null, items: VariableInstance) => any): Promise<VariableInstance>;
   url: string;
   value: string;
 }

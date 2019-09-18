@@ -106,7 +106,7 @@ declare class TaskStatisticsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskStatisticsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TaskStatisticsInstance) => any): Promise<TaskStatisticsInstance>;
   fieldsCount: number;
   samplesCount: number;
   taskSid: string;

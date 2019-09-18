@@ -106,7 +106,7 @@ declare class DialogueInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DialogueInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DialogueInstance) => any): Promise<DialogueInstance>;
   sid: string;
   /**
    * Provide a user-friendly representation

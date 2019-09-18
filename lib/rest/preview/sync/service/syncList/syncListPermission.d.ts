@@ -208,7 +208,7 @@ declare class SyncListPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -246,7 +246,7 @@ declare class SyncListPermissionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<SyncListPermissionInstance>;
   identity: string;
   listSid: string;
   manage: boolean;
@@ -256,7 +256,7 @@ declare class SyncListPermissionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<boolean>;
   serviceSid: string;
   /**
    * Provide a user-friendly representation
@@ -268,7 +268,7 @@ declare class SyncListPermissionInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
+  update(opts: SyncListPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<SyncListPermissionInstance>;
   url: string;
   write: boolean;
 }

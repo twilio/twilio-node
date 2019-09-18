@@ -266,7 +266,7 @@ declare class AssistantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<boolean>;
   styleSheet: StyleSheetListInstance;
   tasks: TaskListInstance;
   /**
@@ -318,7 +318,7 @@ declare class AssistantInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
   /**
    * Access the fieldTypes
    */
@@ -341,7 +341,7 @@ declare class AssistantInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Access the styleSheet
@@ -362,7 +362,7 @@ declare class AssistantInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
   url: string;
   /**
    * Access the webhooks

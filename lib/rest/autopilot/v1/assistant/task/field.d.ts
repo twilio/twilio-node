@@ -212,7 +212,7 @@ declare class FieldContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FieldInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -246,14 +246,14 @@ declare class FieldInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FieldInstance) => any): Promise<FieldInstance>;
   fieldType: string;
   /**
    * remove a FieldInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FieldInstance) => any): Promise<boolean>;
   sid: string;
   taskSid: string;
   /**

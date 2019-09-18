@@ -132,7 +132,7 @@ declare class WebhookInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   postWebhookRetryCount: number;
   postWebhookUrl: string;
   preWebhookRetryCount: number;
@@ -149,7 +149,7 @@ declare class WebhookInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   url: string;
   webhookFilters: string[];
   webhookMethod: string;

@@ -224,7 +224,7 @@ declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): Promise<AvailablePhoneNumberCountryInstance>;
   /**
    * Access the local
    */

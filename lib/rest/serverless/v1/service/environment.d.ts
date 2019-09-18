@@ -219,7 +219,7 @@ declare class EnvironmentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
+  remove(callback?: (error: Error | null, items: EnvironmentInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -259,7 +259,7 @@ declare class EnvironmentInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: EnvironmentInstance) => any): Promise<EnvironmentInstance>;
   links: string;
   /**
    * Access the logs
@@ -270,7 +270,7 @@ declare class EnvironmentInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EnvironmentInstance) => any): void;
+  remove(callback?: (error: Error | null, items: EnvironmentInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**

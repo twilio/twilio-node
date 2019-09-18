@@ -207,7 +207,7 @@ declare class SyncMapPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -245,7 +245,7 @@ declare class SyncMapPermissionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
   identity: string;
   manage: boolean;
   mapSid: string;
@@ -255,7 +255,7 @@ declare class SyncMapPermissionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<boolean>;
   serviceSid: string;
   /**
    * Provide a user-friendly representation
@@ -267,7 +267,7 @@ declare class SyncMapPermissionInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncMapPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
+  update(opts: SyncMapPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
   url: string;
   write: boolean;
 }

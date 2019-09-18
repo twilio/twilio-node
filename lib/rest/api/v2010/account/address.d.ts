@@ -266,7 +266,7 @@ declare class AddressContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AddressInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AddressInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -308,7 +308,7 @@ declare class AddressInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AddressInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance>;
   friendlyName: string;
   isoCountry: string;
   postalCode: string;
@@ -318,7 +318,7 @@ declare class AddressInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AddressInstance) => any): void;
+  remove(callback?: (error: Error | null, items: AddressInstance) => any): Promise<boolean>;
   sid: string;
   street: string;
   /**
@@ -331,7 +331,7 @@ declare class AddressInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AddressInstanceUpdateOptions, callback?: (error: Error | null, items: AddressInstance) => any): void;
+  update(opts?: AddressInstanceUpdateOptions, callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance>;
   uri: string;
   validated: boolean;
   verified: boolean;

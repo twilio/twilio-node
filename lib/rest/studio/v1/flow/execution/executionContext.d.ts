@@ -94,7 +94,7 @@ declare class ExecutionContextInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExecutionContextInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>;
   flowSid: string;
   /**
    * Provide a user-friendly representation

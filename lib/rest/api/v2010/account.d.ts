@@ -356,7 +356,7 @@ declare class AccountInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AccountInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AccountInstance) => any): Promise<AccountInstance>;
   friendlyName: string;
   /**
    * Access the incomingPhoneNumbers
@@ -429,7 +429,7 @@ declare class AccountInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): void;
+  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): Promise<AccountInstance>;
   uri: string;
   /**
    * Access the usage

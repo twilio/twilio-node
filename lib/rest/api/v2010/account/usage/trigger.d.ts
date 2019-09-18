@@ -255,7 +255,7 @@ declare class TriggerContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TriggerInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -295,7 +295,7 @@ declare class TriggerInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
   friendlyName: string;
   recurring: TriggerRecurring;
   /**
@@ -303,7 +303,7 @@ declare class TriggerInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TriggerInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -317,7 +317,7 @@ declare class TriggerInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
   uri: string;
   usageCategory: TriggerUsageCategory;
   usageRecordUri: string;

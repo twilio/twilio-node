@@ -225,7 +225,7 @@ declare class ExecutionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<boolean>;
   steps: ExecutionStepListInstance;
   /**
    * Provide a user-friendly representation
@@ -261,7 +261,7 @@ declare class ExecutionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<ExecutionInstance>;
   flowSid: string;
   links: string;
   /**
@@ -269,7 +269,7 @@ declare class ExecutionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<boolean>;
   sid: string;
   status: ExecutionStatus;
   /**

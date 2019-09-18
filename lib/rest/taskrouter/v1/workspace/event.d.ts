@@ -286,7 +286,7 @@ declare class EventInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EventInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: EventInstance) => any): Promise<EventInstance>;
   resourceSid: string;
   resourceType: string;
   resourceUrl: string;

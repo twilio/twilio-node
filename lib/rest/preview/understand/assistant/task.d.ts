@@ -239,7 +239,7 @@ declare class TaskContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TaskInstance) => any): Promise<boolean>;
   samples: SampleListInstance;
   statistics: TaskStatisticsListInstance;
   taskActions: TaskActionsListInstance;
@@ -283,7 +283,7 @@ declare class TaskInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
   /**
    * Access the fields
    */
@@ -295,7 +295,7 @@ declare class TaskInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  remove(callback?: (error: Error | null, items: TaskInstance) => any): Promise<boolean>;
   /**
    * Access the samples
    */
@@ -320,7 +320,7 @@ declare class TaskInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): void;
+  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
   url: string;
 }
 

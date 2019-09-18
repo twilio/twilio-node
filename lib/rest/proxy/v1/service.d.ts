@@ -255,7 +255,7 @@ declare class ServiceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
   sessions: SessionListInstance;
   shortCodes: ShortCodeListInstance;
   /**
@@ -297,7 +297,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   geoMatchLevel: ServiceGeoMatchLevel;
   interceptCallbackUrl: string;
   links: string;
@@ -312,7 +312,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
   /**
    * Access the sessions
    */
@@ -333,7 +333,7 @@ declare class ServiceInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   url: string;
 }
 

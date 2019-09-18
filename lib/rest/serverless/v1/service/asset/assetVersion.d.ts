@@ -222,7 +222,7 @@ declare class AssetVersionInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssetVersionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AssetVersionInstance) => any): Promise<AssetVersionInstance>;
   path: string;
   serviceSid: string;
   sid: string;

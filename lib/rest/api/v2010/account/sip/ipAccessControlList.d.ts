@@ -210,7 +210,7 @@ declare class IpAccessControlListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -245,7 +245,7 @@ declare class IpAccessControlListInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
   friendlyName: string;
   /**
    * Access the ipAddresses
@@ -256,7 +256,7 @@ declare class IpAccessControlListInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<boolean>;
   sid: string;
   subresourceUris: string;
   /**
@@ -269,7 +269,7 @@ declare class IpAccessControlListInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: IpAccessControlListInstanceUpdateOptions, callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  update(opts: IpAccessControlListInstanceUpdateOptions, callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
   uri: string;
 }
 

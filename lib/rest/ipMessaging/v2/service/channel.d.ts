@@ -257,7 +257,7 @@ declare class ChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -295,7 +295,7 @@ declare class ChannelInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
   friendlyName: string;
   /**
    * Access the invites
@@ -317,7 +317,7 @@ declare class ChannelInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -332,7 +332,7 @@ declare class ChannelInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
   url: string;
   /**
    * Access the webhooks

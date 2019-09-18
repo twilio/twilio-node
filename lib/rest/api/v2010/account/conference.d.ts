@@ -286,7 +286,7 @@ declare class ConferenceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): Promise<ConferenceInstance>;
   friendlyName: string;
   /**
    * Access the participants
@@ -310,7 +310,7 @@ declare class ConferenceInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any): void;
+  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any): Promise<ConferenceInstance>;
   uri: string;
 }
 

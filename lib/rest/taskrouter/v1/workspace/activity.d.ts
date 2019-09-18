@@ -222,7 +222,7 @@ declare class ActivityContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -258,14 +258,14 @@ declare class ActivityInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
   friendlyName: string;
   /**
    * remove a ActivityInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -277,7 +277,7 @@ declare class ActivityInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
   url: string;
   workspaceSid: string;
 }

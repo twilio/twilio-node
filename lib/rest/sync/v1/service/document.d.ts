@@ -227,7 +227,7 @@ declare class DocumentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -272,14 +272,14 @@ declare class DocumentInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
   links: string;
   /**
    * remove a DocumentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   sid: string;
@@ -294,7 +294,7 @@ declare class DocumentInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  update(opts?: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
   url: string;
 }
 

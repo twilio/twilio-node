@@ -298,7 +298,7 @@ declare class RoomInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoomInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
   links: string;
   maxParticipants: number;
   mediaRegion: string;
@@ -327,7 +327,7 @@ declare class RoomInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): void;
+  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
   url: string;
   videoCodecs: RoomVideoCodec[];
 }

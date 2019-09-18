@@ -242,7 +242,7 @@ declare class WebhookContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -280,13 +280,13 @@ declare class WebhookInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   /**
    * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -300,7 +300,7 @@ declare class WebhookInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   url: string;
 }
 

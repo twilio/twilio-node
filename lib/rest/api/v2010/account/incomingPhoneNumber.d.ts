@@ -353,7 +353,7 @@ declare class IncomingPhoneNumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -399,7 +399,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
   friendlyName: string;
   identitySid: string;
   origin: string;
@@ -409,7 +409,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<boolean>;
   sid: string;
   smsApplicationSid: string;
   smsFallbackMethod: string;
@@ -429,7 +429,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
   uri: string;
   voiceApplicationSid: string;
   voiceCallerIdLookup: boolean;

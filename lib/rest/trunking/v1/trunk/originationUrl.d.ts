@@ -227,7 +227,7 @@ declare class OriginationUrlContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -263,7 +263,7 @@ declare class OriginationUrlInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
   friendlyName: string;
   priority: number;
   /**
@@ -271,7 +271,7 @@ declare class OriginationUrlInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<boolean>;
   sid: string;
   sipUrl: string;
   /**
@@ -285,7 +285,7 @@ declare class OriginationUrlInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
   url: string;
   weight: number;
 }

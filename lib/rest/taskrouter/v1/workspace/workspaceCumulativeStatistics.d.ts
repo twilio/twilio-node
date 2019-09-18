@@ -126,7 +126,7 @@ declare class WorkspaceCumulativeStatisticsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkspaceCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceCumulativeStatisticsInstance) => any): void;
+  fetch(opts?: WorkspaceCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceCumulativeStatisticsInstance) => any): Promise<WorkspaceCumulativeStatisticsInstance>;
   reservationsAccepted: number;
   reservationsCanceled: number;
   reservationsCreated: number;

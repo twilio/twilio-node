@@ -130,7 +130,7 @@ declare class RecordingSettingsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, items: RecordingSettingsInstance) => any): void;
+  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, items: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
   encryptionEnabled: boolean;
   encryptionKeySid: string;
   /**
@@ -138,7 +138,7 @@ declare class RecordingSettingsInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
   friendlyName: string;
   /**
    * Provide a user-friendly representation

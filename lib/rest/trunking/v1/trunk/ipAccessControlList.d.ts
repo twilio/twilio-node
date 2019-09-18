@@ -198,7 +198,7 @@ declare class IpAccessControlListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -226,14 +226,14 @@ declare class IpAccessControlListInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
   friendlyName: string;
   /**
    * remove a IpAccessControlListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation

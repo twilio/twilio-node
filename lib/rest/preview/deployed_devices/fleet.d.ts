@@ -227,7 +227,7 @@ declare class FleetContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FleetInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FleetInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -278,7 +278,7 @@ declare class FleetInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FleetInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
   friendlyName: string;
   /**
    * Access the keys
@@ -290,7 +290,7 @@ declare class FleetInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FleetInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FleetInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -303,7 +303,7 @@ declare class FleetInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): void;
+  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
   url: string;
 }
 

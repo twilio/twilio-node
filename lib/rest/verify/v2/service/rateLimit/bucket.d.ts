@@ -221,7 +221,7 @@ declare class BucketContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BucketInstance) => any): void;
+  remove(callback?: (error: Error | null, items: BucketInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -260,7 +260,7 @@ declare class BucketInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BucketInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: BucketInstance) => any): Promise<BucketInstance>;
   interval: number;
   max: number;
   rateLimitSid: string;
@@ -269,7 +269,7 @@ declare class BucketInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BucketInstance) => any): void;
+  remove(callback?: (error: Error | null, items: BucketInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -282,7 +282,7 @@ declare class BucketInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: BucketInstanceUpdateOptions, callback?: (error: Error | null, items: BucketInstance) => any): void;
+  update(opts?: BucketInstanceUpdateOptions, callback?: (error: Error | null, items: BucketInstance) => any): Promise<BucketInstance>;
   url: string;
 }
 

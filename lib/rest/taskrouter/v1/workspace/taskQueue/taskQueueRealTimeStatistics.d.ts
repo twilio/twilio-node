@@ -111,7 +111,7 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsInstance) => any): void;
+  fetch(opts?: TaskQueueRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsInstance) => any): Promise<TaskQueueRealTimeStatisticsInstance>;
   longestTaskWaitingAge: number;
   longestTaskWaitingSid: string;
   taskQueueSid: string;

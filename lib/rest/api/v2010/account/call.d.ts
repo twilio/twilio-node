@@ -365,7 +365,7 @@ declare class CallContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CallInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CallInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -411,7 +411,7 @@ declare class CallInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CallInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
   forwardedFrom: string;
   from: string;
   fromFormatted: string;
@@ -433,7 +433,7 @@ declare class CallInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CallInstance) => any): void;
+  remove(callback?: (error: Error | null, items: CallInstance) => any): Promise<boolean>;
   sid: string;
   startTime: Date;
   status: CallStatus;
@@ -450,7 +450,7 @@ declare class CallInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): void;
+  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
   uri: string;
 }
 

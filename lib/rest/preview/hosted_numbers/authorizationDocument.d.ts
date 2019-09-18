@@ -292,7 +292,7 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
   links: string;
   sid: string;
   status: AuthorizationDocumentStatus;
@@ -306,7 +306,7 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
+  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
   url: string;
 }
 

@@ -236,7 +236,7 @@ declare class WorkerChannelInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkerChannelInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
   sid: string;
   taskChannelSid: string;
   taskChannelUniqueName: string;
@@ -250,7 +250,7 @@ declare class WorkerChannelInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerChannelInstance) => any): void;
+  update(opts?: WorkerChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
   url: string;
   workerSid: string;
   workspaceSid: string;

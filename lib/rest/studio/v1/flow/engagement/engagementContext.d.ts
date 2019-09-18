@@ -94,7 +94,7 @@ declare class EngagementContextInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): Promise<EngagementContextInstance>;
   flowSid: string;
   /**
    * Provide a user-friendly representation

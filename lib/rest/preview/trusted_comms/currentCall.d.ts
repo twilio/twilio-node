@@ -107,7 +107,7 @@ declare class CurrentCallInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CurrentCallInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
   fontColor: string;
   from: string;
   logo: string;

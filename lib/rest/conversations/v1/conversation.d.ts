@@ -239,7 +239,7 @@ declare class ConversationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ConversationInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -280,7 +280,7 @@ declare class ConversationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConversationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<ConversationInstance>;
   friendlyName: string;
   links: string;
   /**
@@ -297,7 +297,7 @@ declare class ConversationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ConversationInstance) => any): void;
+  remove(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -309,7 +309,7 @@ declare class ConversationInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConversationInstanceUpdateOptions, callback?: (error: Error | null, items: ConversationInstance) => any): void;
+  update(opts?: ConversationInstanceUpdateOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<ConversationInstance>;
   url: string;
   /**
    * Access the webhooks

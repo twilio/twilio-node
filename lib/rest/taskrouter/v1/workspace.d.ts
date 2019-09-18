@@ -266,7 +266,7 @@ declare class WorkspaceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<boolean>;
   statistics: WorkspaceStatisticsListInstance;
   taskChannels: TaskChannelListInstance;
   taskQueues: TaskQueueListInstance;
@@ -322,7 +322,7 @@ declare class WorkspaceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
   friendlyName: string;
   links: string;
   multiTaskEnabled: boolean;
@@ -336,7 +336,7 @@ declare class WorkspaceInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
+  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Access the statistics
@@ -366,7 +366,7 @@ declare class WorkspaceInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
+  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
   url: string;
   /**
    * Access the workers

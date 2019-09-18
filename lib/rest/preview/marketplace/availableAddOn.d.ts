@@ -217,7 +217,7 @@ declare class AvailableAddOnInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): Promise<AvailableAddOnInstance>;
   friendlyName: string;
   links: string;
   pricingType: string;

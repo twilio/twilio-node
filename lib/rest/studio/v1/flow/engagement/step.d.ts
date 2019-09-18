@@ -217,7 +217,7 @@ declare class StepInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: StepInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: StepInstance) => any): Promise<StepInstance>;
   flowSid: string;
   links: string;
   name: string;

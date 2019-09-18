@@ -187,7 +187,7 @@ declare class SigningKeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -221,14 +221,14 @@ declare class SigningKeyInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<SigningKeyInstance>;
   friendlyName: string;
   /**
    * remove a SigningKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
+  remove(callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -240,7 +240,7 @@ declare class SigningKeyInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SigningKeyInstanceUpdateOptions, callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
+  update(opts?: SigningKeyInstanceUpdateOptions, callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<SigningKeyInstance>;
 }
 
 

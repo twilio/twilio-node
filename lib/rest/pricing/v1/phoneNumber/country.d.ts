@@ -195,7 +195,7 @@ declare class CountryInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CountryInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CountryInstance) => any): Promise<CountryInstance>;
   isoCountry: string;
   phoneNumberPrices: string[];
   priceUnit: string;

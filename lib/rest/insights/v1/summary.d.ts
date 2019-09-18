@@ -140,7 +140,7 @@ declare class CallSummaryInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: CallSummaryInstanceFetchOptions, callback?: (error: Error | null, items: CallSummaryInstance) => any): void;
+  fetch(opts?: CallSummaryInstanceFetchOptions, callback?: (error: Error | null, items: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
   from: object;
   processingState: CallSummaryProcessingState;
   properties: object;

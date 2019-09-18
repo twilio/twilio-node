@@ -215,7 +215,7 @@ declare class MessagingConfigurationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessagingConfigurationInstance) => any): void;
+  remove(callback?: (error: Error | null, items: MessagingConfigurationInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -254,14 +254,14 @@ declare class MessagingConfigurationInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessagingConfigurationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MessagingConfigurationInstance) => any): Promise<MessagingConfigurationInstance>;
   messagingServiceSid: string;
   /**
    * remove a MessagingConfigurationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessagingConfigurationInstance) => any): void;
+  remove(callback?: (error: Error | null, items: MessagingConfigurationInstance) => any): Promise<boolean>;
   serviceSid: string;
   /**
    * Provide a user-friendly representation
@@ -273,7 +273,7 @@ declare class MessagingConfigurationInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessagingConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: MessagingConfigurationInstance) => any): void;
+  update(opts: MessagingConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: MessagingConfigurationInstance) => any): Promise<MessagingConfigurationInstance>;
   url: string;
 }
 

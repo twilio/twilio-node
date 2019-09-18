@@ -231,7 +231,7 @@ declare class RecordingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -260,7 +260,7 @@ declare class RecordingInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
   groupingSids: object;
   links: string;
   offset: number;
@@ -269,7 +269,7 @@ declare class RecordingInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  remove(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<boolean>;
   sid: string;
   size: number;
   sourceSid: string;

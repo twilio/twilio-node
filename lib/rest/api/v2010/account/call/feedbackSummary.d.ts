@@ -108,7 +108,7 @@ declare class FeedbackSummaryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -139,7 +139,7 @@ declare class FeedbackSummaryInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>;
   includeSubaccounts: boolean;
   issues: string[];
   qualityScoreAverage: number;
@@ -150,7 +150,7 @@ declare class FeedbackSummaryInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): Promise<boolean>;
   sid: string;
   startDate: Date;
   status: FeedbackSummaryStatus;

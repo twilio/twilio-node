@@ -238,7 +238,7 @@ declare class DeploymentInstance extends SerializableClass {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DeploymentInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
   serviceSid: string;
   sid: string;
   /**
