@@ -39,7 +39,7 @@ declare namespace TaskRouterCapability {
     /** Request post filter allowances */
     postFilter?: object;
     /** Allow the policy */
-    allowed?: boolean;
+    allow?: boolean;
   }
 
   export interface PolicyPayload {
