@@ -68,5 +68,12 @@ To run just one specific test file instead of the whole suite, provide a JavaScr
 npm run test -- -m .\*client.\*
 ```
 
+####Environment Variables
+ 
+* `TWILIO_ACCOUNT_SID` - TODO
+* `TWILIO_AUTH_TOKEN` - TODO
+* `TWILIO_CA_BUNDLE` - Optional, if set will use the specified path to a CA bundle. Useful for environments using SSL decryption
+
+
 [apidocs]: https://www.twilio.com/docs/api
 [libdocs]: https://twilio.github.io/twilio-node

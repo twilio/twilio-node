@@ -5,6 +5,10 @@ var Twilio = require('../lib');
 var accountSid = process.env.TWILIO_ACCOUNT_SID;
 var token = process.env.TWILIO_AUTH_TOKEN;
 
+// Uncomment the following line to specify a custom CA bundle for HTTPS requests:
+// process.env.TWILIO_CA_BUNDLE = '/path/to/cert.pem';
+// You can also set this as a regular environment variable outside of the code
+
 var twilio = new Twilio(accountSid, token);
 
 var i = 0;
