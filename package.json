@@ -39,6 +39,7 @@
     "jasmine": "^3.4.0",
     "jsdoc": "^3.6.3",
     "jshint": "^2.10.2",
+    "mock-fs": "^4.10.1",
     "node-mocks-http": "^1.8.0",
     "proxyquire": "1.8.0",
     "typescript": "^2.8.3"

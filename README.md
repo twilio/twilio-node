@@ -28,6 +28,12 @@ TypeScript is supported for TypeScript version 2.9 and above.
 
 Check out these [code examples](examples) in JavaScript and TypeScript to get up and running quickly.
 
+### Environment Variables
+
+`twilio-node` supports credential storage in environment variables. If no credentials are provided when instantiating the Twilio client (e.g., `const client = require('twilio')();`), the values in following env vars will be used: `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`.
+
+If your environment requires SSL decryption, you can set the path to CA bundle in the env var `TWILIO_CA_BUNDLE`.
+
 ## Docker Image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-node` Docker image are currently used by Twilio for testing purposes only.
