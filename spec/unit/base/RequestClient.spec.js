@@ -130,4 +130,18 @@ describe('User specified CA bundle', function() {
     expect(client.lastRequest.ca.toString()).toEqual('test ca data');
     delete process.env.TWILIO_CA_BUNDLE;
   });
+
+  it('should cache the CA after loading it for the first time', function () {
+    process.env.TWILIO_CA_BUNDLE = '/path/to/ca/test-ca.pem';
+    client.request(options);
+    mockfs({
+      '/path/to/ca': {
+        'test-ca.pem': null
+      }
+    });
+    client.request(options);
+    expect(client.lastRequest.ca.toString()).toEqual('test ca data');
+    delete process.env.TWILIO_CA_BUNDLE;
+  })
+
 });
