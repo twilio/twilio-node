@@ -20,8 +20,8 @@ type AssetVersionVisibility = 'public'|'private'|'protected';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
- * @param assetSid - Asset Sid.
+ * @param serviceSid - The SID of the Service that the AssetVersion resource is associated with
+ * @param assetSid - The SID of the Asset resource that is the parent of the asset version
  */
 declare function AssetVersionList(version: V1, serviceSid: string, assetSid: string): AssetVersionListInstance;
 
@@ -49,7 +49,7 @@ interface AssetVersionListInstance {
   /**
    * Constructs a asset_version
    *
-   * @param sid - Asset Version Sid.
+   * @param sid - The SID that identifies the AssetVersion resource to fetch
    */
   get(sid: string): AssetVersionContext;
   /**
@@ -178,9 +178,9 @@ declare class AssetVersionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param assetSid - Asset Sid.
-   * @param sid - Asset Version Sid.
+   * @param serviceSid - The SID of the Service to fetch the AssetVersion resource from
+   * @param assetSid - The SID of the Asset resource that is the parent of the AssetVersion resource to fetch
+   * @param sid - The SID that identifies the AssetVersion resource to fetch
    */
   constructor(version: V1, serviceSid: string, assetSid: string, sid: string);
 
@@ -207,9 +207,9 @@ declare class AssetVersionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param assetSid - Asset Sid.
-   * @param sid - Asset Version Sid.
+   * @param serviceSid - The SID of the Service that the AssetVersion resource is associated with
+   * @param assetSid - The SID of the Asset resource that is the parent of the asset version
+   * @param sid - The SID that identifies the AssetVersion resource to fetch
    */
   constructor(version: V1, payload: AssetVersionPayload, serviceSid: string, assetSid: string, sid: string);
 

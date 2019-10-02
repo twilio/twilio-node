@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the EventList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
+ * @param workspaceSid - The SID of the Workspace that contains the Event
  */
 declare function EventList(version: V1, workspaceSid: string): EventListInstance;
 
@@ -43,7 +43,7 @@ interface EventListInstance {
   /**
    * Constructs a event
    *
-   * @param sid - The sid
+   * @param sid - The SID of the resource to fetch
    */
   get(sid: string): EventContext;
   /**
@@ -93,27 +93,27 @@ interface EventListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property endDate - Filter events by an end date.
- * @property eventType - Filter events by those of a certain event type
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property eventType - The type of Events to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property minutes - Filter events by up to 'x' minutes in the past.
+ * @property minutes - The period of events to read in minutes
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property reservationSid - Filter events by those pertaining to a particular reservation
- * @property sid - Filter events by those pertaining to a particular event
- * @property startDate - Filter events by a start date.
- * @property taskChannel - Filter events by those pertaining to a particular task channel
- * @property taskQueueSid - Filter events by those pertaining to a particular queue
- * @property taskSid - Filter events by those pertaining to a particular task
- * @property workerSid - Filter events by those pertaining to a particular worker
- * @property workflowSid - Filter events by those pertaining to a particular workflow
+ * @property reservationSid - The SID of the Reservation with the Events to read
+ * @property sid - The unique string that identifies the resource
+ * @property startDate - Only include Events from on or after this date
+ * @property taskChannel - The TaskChannel with the Events to read
+ * @property taskQueueSid - The SID of the TaskQueue with the Events to read
+ * @property taskSid - The SID of the Task with the Events to read
+ * @property workerSid - The SID of the Worker with the Events to read
+ * @property workflowSid - The SID of the Worker with the Events to read
  */
 interface EventListInstanceEachOptions {
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
@@ -136,27 +136,27 @@ interface EventListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property endDate - Filter events by an end date.
- * @property eventType - Filter events by those of a certain event type
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property eventType - The type of Events to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property minutes - Filter events by up to 'x' minutes in the past.
+ * @property minutes - The period of events to read in minutes
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property reservationSid - Filter events by those pertaining to a particular reservation
- * @property sid - Filter events by those pertaining to a particular event
- * @property startDate - Filter events by a start date.
- * @property taskChannel - Filter events by those pertaining to a particular task channel
- * @property taskQueueSid - Filter events by those pertaining to a particular queue
- * @property taskSid - Filter events by those pertaining to a particular task
- * @property workerSid - Filter events by those pertaining to a particular worker
- * @property workflowSid - Filter events by those pertaining to a particular workflow
+ * @property reservationSid - The SID of the Reservation with the Events to read
+ * @property sid - The unique string that identifies the resource
+ * @property startDate - Only include Events from on or after this date
+ * @property taskChannel - The TaskChannel with the Events to read
+ * @property taskQueueSid - The SID of the TaskQueue with the Events to read
+ * @property taskSid - The SID of the Task with the Events to read
+ * @property workerSid - The SID of the Worker with the Events to read
+ * @property workflowSid - The SID of the Worker with the Events to read
  */
 interface EventListInstanceOptions {
   endDate?: Date;
@@ -177,20 +177,20 @@ interface EventListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property endDate - Filter events by an end date.
- * @property eventType - Filter events by those of a certain event type
- * @property minutes - Filter events by up to 'x' minutes in the past.
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property eventType - The type of Events to read
+ * @property minutes - The period of events to read in minutes
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property reservationSid - Filter events by those pertaining to a particular reservation
- * @property sid - Filter events by those pertaining to a particular event
- * @property startDate - Filter events by a start date.
- * @property taskChannel - Filter events by those pertaining to a particular task channel
- * @property taskQueueSid - Filter events by those pertaining to a particular queue
- * @property taskSid - Filter events by those pertaining to a particular task
- * @property workerSid - Filter events by those pertaining to a particular worker
- * @property workflowSid - Filter events by those pertaining to a particular workflow
+ * @property reservationSid - The SID of the Reservation with the Events to read
+ * @property sid - The unique string that identifies the resource
+ * @property startDate - Only include Events from on or after this date
+ * @property taskChannel - The TaskChannel with the Events to read
+ * @property taskQueueSid - The SID of the TaskQueue with the Events to read
+ * @property taskSid - The SID of the Task with the Events to read
+ * @property workerSid - The SID of the Worker with the Events to read
+ * @property workflowSid - The SID of the Worker with the Events to read
  */
 interface EventListInstancePageOptions {
   endDate?: Date;
@@ -242,8 +242,8 @@ declare class EventContext {
    * Initialize the EventContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace with the Event to fetch
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
@@ -266,8 +266,8 @@ declare class EventInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace that contains the Event
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, payload: EventPayload, workspaceSid: string, sid: string);
 

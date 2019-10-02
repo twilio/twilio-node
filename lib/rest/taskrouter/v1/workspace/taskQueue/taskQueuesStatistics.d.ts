@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the TaskQueuesStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
+ * @param workspaceSid - The SID of the Workspace that contains the TaskQueue
  */
 declare function TaskQueuesStatisticsList(version: V1, workspaceSid: string): TaskQueuesStatisticsListInstance;
 
@@ -84,22 +84,22 @@ interface TaskQueuesStatisticsListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property endDate - Filter cumulative statistics by an end date.
- * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
+ * @property endDate - Only calculate statistics from on or before this date
+ * @property friendlyName - The friendly_name of the TaskQueue statistics to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property minutes - Only calculate statistics since this many minutes in the past
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated list of values that describes the thresholds to calculate statistics on
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate statistics on this TaskChannel.
  */
 interface TaskQueuesStatisticsListInstanceEachOptions {
   callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void;
@@ -117,22 +117,22 @@ interface TaskQueuesStatisticsListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property endDate - Filter cumulative statistics by an end date.
- * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
+ * @property endDate - Only calculate statistics from on or before this date
+ * @property friendlyName - The friendly_name of the TaskQueue statistics to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property minutes - Only calculate statistics since this many minutes in the past
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated list of values that describes the thresholds to calculate statistics on
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate statistics on this TaskChannel.
  */
 interface TaskQueuesStatisticsListInstanceOptions {
   endDate?: Date;
@@ -148,15 +148,15 @@ interface TaskQueuesStatisticsListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property endDate - Filter cumulative statistics by an end date.
- * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property endDate - Only calculate statistics from on or before this date
+ * @property friendlyName - The friendly_name of the TaskQueue statistics to read
+ * @property minutes - Only calculate statistics since this many minutes in the past
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated list of values that describes the thresholds to calculate statistics on
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate statistics on this TaskChannel.
  */
 interface TaskQueuesStatisticsListInstancePageOptions {
   endDate?: Date;
@@ -192,7 +192,7 @@ declare class TaskQueuesStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
+   * @param workspaceSid - The SID of the Workspace that contains the TaskQueue
    */
   constructor(version: V1, payload: TaskQueuesStatisticsPayload, workspaceSid: string);
 

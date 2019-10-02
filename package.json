@@ -32,11 +32,11 @@
     "xmlbuilder": "9.0.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.138",
+    "@types/lodash": "^4.14.141",
     "@types/node": "^9.6.52",
     "eslint": "^5.16.0",
     "express": "^4.17.1",
-    "jasmine": "^3.4.0",
+    "jasmine": "^3.5.0",
     "jsdoc": "^3.6.3",
     "jshint": "^2.10.2",
     "mock-fs": "^4.10.1",

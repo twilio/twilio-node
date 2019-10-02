@@ -15,20 +15,20 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the WorkersStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The ID of the Workflow this worker is associated with
+ * @param workspaceSid - The SID of the Workspace that contains the Worker
  */
 declare function WorkersStatisticsList(version: V1, workspaceSid: string): WorkersStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property endDate - Filter cumulative statistics by a end date.
- * @property friendlyName - The friendly_name
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter cumulative statistics by TaskChannel.
- * @property taskQueueName - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
- * @property taskQueueSid - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
+ * @property endDate - Only calculate statistics from this date and time and earlier
+ * @property friendlyName - Only include Workers with `friendly_name` values that match this parameter
+ * @property minutes - Only calculate statistics since this many minutes in the past
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate statistics on this TaskChannel
+ * @property taskQueueName - The friendly_name of the TaskQueue for which to fetch Worker statistics
+ * @property taskQueueSid - The SID of the TaskQueue for which to fetch Worker statistics
  */
 interface WorkersStatisticsInstanceFetchOptions {
   endDate?: Date;
@@ -76,7 +76,7 @@ declare class WorkersStatisticsContext {
    * Initialize the WorkersStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace with the Worker to fetch
    */
   constructor(version: V1, workspaceSid: string);
 
@@ -100,7 +100,7 @@ declare class WorkersStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The ID of the Workflow this worker is associated with
+   * @param workspaceSid - The SID of the Workspace that contains the Worker
    */
   constructor(version: V1, payload: WorkersStatisticsPayload, workspaceSid: string);
 

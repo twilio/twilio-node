@@ -123,6 +123,7 @@ interface MessageListInstance {
  * @property body - The content of the message.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
+ * @property mediaSid - The Media Sid to be attached to the new Message.
  */
 interface MessageListInstanceCreateOptions {
   attributes?: string;
@@ -130,6 +131,7 @@ interface MessageListInstanceCreateOptions {
   body?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
+  mediaSid?: string;
 }
 
 /**
@@ -201,6 +203,7 @@ interface MessageResource {
   date_created: Date;
   date_updated: Date;
   index: number;
+  media: object[];
   sid: string;
   url: string;
 }
@@ -278,6 +281,7 @@ declare class MessageInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
   index: number;
+  media: object[];
   /**
    * remove a MessageInstance
    *

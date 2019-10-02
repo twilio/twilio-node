@@ -31,7 +31,7 @@ declare function RoomList(version: V1): RoomListInstance;
 /**
  * Options to pass to update
  *
- * @property status - Set to completed to end the Room.
+ * @property status - The new status of the resource
  */
 interface RoomInstanceUpdateOptions {
   status: RoomRoomStatus;
@@ -68,7 +68,7 @@ interface RoomListInstance {
   /**
    * Constructs a room
    *
-   * @param sid - The Room Sid or name that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): RoomContext;
   /**
@@ -114,15 +114,15 @@ interface RoomListInstance {
 /**
  * Options to pass to create
  *
- * @property enableTurn - Use Twilio Network Traversal for TURN service.
- * @property maxParticipants - Maximum number of Participants in the Room.
- * @property mediaRegion - Region for the media server in Group Rooms.
- * @property recordParticipantsOnConnect - Start Participant recording when connected.
- * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every room event.
- * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
- * @property type - Type of room, either peer-to-peer, group-small or group.
- * @property uniqueName - Name of the Room.
- * @property videoCodecs - An array of video codecs supported when publishing a Track in the Room.
+ * @property enableTurn - Enable Twilio's Network Traversal TURN service
+ * @property maxParticipants - The maximum number of concurrent Participants allowed in the room
+ * @property mediaRegion - The region for the media server in Group Rooms
+ * @property recordParticipantsOnConnect - Whether to start recording when Participants connect
+ * @property statusCallback - The URL to send status information to your application
+ * @property statusCallbackMethod - The HTTP method we should use to call status_callback
+ * @property type - The type of room
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property videoCodecs - An array of the video codecs that are supported when publishing a track in the room
  */
 interface RoomListInstanceCreateOptions {
   enableTurn?: boolean;
@@ -142,8 +142,8 @@ interface RoomListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
- * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
+ * @property dateCreatedAfter - Read only rooms that started on or after this date, given as YYYY-MM-DD
+ * @property dateCreatedBefore - Read only rooms that started before this date, given as YYYY-MM-DD
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -155,8 +155,8 @@ interface RoomListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
+ * @property status - Read only the rooms with this status
+ * @property uniqueName - Read only rooms with this unique_name
  */
 interface RoomListInstanceEachOptions {
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
@@ -172,8 +172,8 @@ interface RoomListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
- * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
+ * @property dateCreatedAfter - Read only rooms that started on or after this date, given as YYYY-MM-DD
+ * @property dateCreatedBefore - Read only rooms that started before this date, given as YYYY-MM-DD
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -184,8 +184,8 @@ interface RoomListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
+ * @property status - Read only the rooms with this status
+ * @property uniqueName - Read only rooms with this unique_name
  */
 interface RoomListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -199,13 +199,13 @@ interface RoomListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
- * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
+ * @property dateCreatedAfter - Read only rooms that started on or after this date, given as YYYY-MM-DD
+ * @property dateCreatedBefore - Read only rooms that started before this date, given as YYYY-MM-DD
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
+ * @property status - Read only the rooms with this status
+ * @property uniqueName - Read only rooms with this unique_name
  */
 interface RoomListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -250,7 +250,7 @@ declare class RoomContext {
    * Initialize the RoomContext
    *
    * @param version - Version of the resource
-   * @param sid - The Room Sid or name that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -282,7 +282,7 @@ declare class RoomInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The Room Sid or name that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: RoomPayload, sid: string);
 

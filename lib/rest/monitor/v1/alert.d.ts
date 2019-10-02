@@ -42,7 +42,7 @@ interface AlertListInstance {
   /**
    * Constructs a alert
    *
-   * @param sid - A 34 character string that uniquely identifies this Alert.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): AlertContext;
   /**
@@ -92,19 +92,19 @@ interface AlertListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property endDate - Only show Alerts on or before this date.
+ * @property endDate - Only include alerts that occurred on or before this date
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property logLevel - Only show alerts for this log-level.
+ * @property logLevel - Only show alerts for this log-level
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property startDate - Only show Alerts on or after this date.
+ * @property startDate - Only include alerts that occurred on or after this date
  */
 interface AlertListInstanceEachOptions {
   callback?: (item: AlertInstance, done: (err?: Error) => void) => void;
@@ -119,19 +119,19 @@ interface AlertListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property endDate - Only show Alerts on or before this date.
+ * @property endDate - Only include alerts that occurred on or before this date
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property logLevel - Only show alerts for this log-level.
+ * @property logLevel - Only show alerts for this log-level
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property startDate - Only show Alerts on or after this date.
+ * @property startDate - Only include alerts that occurred on or after this date
  */
 interface AlertListInstanceOptions {
   endDate?: Date;
@@ -144,12 +144,12 @@ interface AlertListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property endDate - Only show Alerts on or before this date.
- * @property logLevel - Only show alerts for this log-level.
+ * @property endDate - Only include alerts that occurred on or before this date
+ * @property logLevel - Only show alerts for this log-level
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property startDate - Only show Alerts on or after this date.
+ * @property startDate - Only include alerts that occurred on or after this date
  */
 interface AlertListInstancePageOptions {
   endDate?: Date;
@@ -194,7 +194,7 @@ declare class AlertContext {
    * Initialize the AlertContext
    *
    * @param version - Version of the resource
-   * @param sid - A 34 character string that uniquely identifies this Alert.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -217,7 +217,7 @@ declare class AlertInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A 34 character string that uniquely identifies this Alert.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: AlertPayload, sid: string);
 

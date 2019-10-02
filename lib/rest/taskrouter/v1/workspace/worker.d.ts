@@ -25,17 +25,17 @@ import { WorkersRealTimeStatisticsListInstance } from './worker/workersRealTimeS
  * Initialize the WorkerList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The ID of the Workflow this worker is associated with
+ * @param workspaceSid - The SID of the Workspace that contains the Worker
  */
 declare function WorkerList(version: V1, workspaceSid: string): WorkerListInstance;
 
 /**
  * Options to pass to update
  *
- * @property activitySid - The activity_sid
- * @property attributes - The attributes
- * @property friendlyName - The friendly_name
- * @property rejectPendingReservations - The reject_pending_reservations
+ * @property activitySid - The SID of the Activity that describes the Worker's initial state
+ * @property attributes - The JSON string that describes the Worker
+ * @property friendlyName - A string to describe the Worker
+ * @property rejectPendingReservations - Whether to reject pending reservations
  */
 interface WorkerInstanceUpdateOptions {
   activitySid?: string;
@@ -75,7 +75,7 @@ interface WorkerListInstance {
   /**
    * Constructs a worker
    *
-   * @param sid - The sid
+   * @param sid - The SID of the resource to fetch
    */
   get(sid: string): WorkerContext;
   /**
@@ -122,9 +122,9 @@ interface WorkerListInstance {
 /**
  * Options to pass to create
  *
- * @property activitySid - A valid Activity describing the worker's initial state.
- * @property attributes - JSON object describing this worker.
- * @property friendlyName - String representing user-friendly name for the Worker.
+ * @property activitySid - The SID of a valid Activity that describes the new Worker's initial state
+ * @property attributes - A valid JSON string that describes the new Worker
+ * @property friendlyName - A string to describe the resource
  */
 interface WorkerListInstanceCreateOptions {
   activitySid?: string;
@@ -135,14 +135,14 @@ interface WorkerListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
- * @property activitySid - Filter by workers that are in a particular Activity by SID
- * @property available - Filter by workers that are available or unavailable.
+ * @property activityName - The activity_name of the Worker resources to read
+ * @property activitySid - The activity_sid of the Worker resources to read
+ * @property available - Whether to return Worker resources that are available or unavailable
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter by a worker's friendly name
+ * @property friendlyName - The friendly_name of the Worker resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -153,9 +153,9 @@ interface WorkerListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
- * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
- * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
+ * @property targetWorkersExpression - Filter by Workers that would match an expression on a TaskQueue
+ * @property taskQueueName - The friendly_name of the TaskQueue that the Workers to read are eligible for
+ * @property taskQueueSid - The SID of the TaskQueue that the Workers to read are eligible for
  */
 interface WorkerListInstanceEachOptions {
   activityName?: string;
@@ -174,10 +174,10 @@ interface WorkerListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
- * @property activitySid - Filter by workers that are in a particular Activity by SID
- * @property available - Filter by workers that are available or unavailable.
- * @property friendlyName - Filter by a worker's friendly name
+ * @property activityName - The activity_name of the Worker resources to read
+ * @property activitySid - The activity_sid of the Worker resources to read
+ * @property available - Whether to return Worker resources that are available or unavailable
+ * @property friendlyName - The friendly_name of the Worker resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -188,9 +188,9 @@ interface WorkerListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
- * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
- * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
+ * @property targetWorkersExpression - Filter by Workers that would match an expression on a TaskQueue
+ * @property taskQueueName - The friendly_name of the TaskQueue that the Workers to read are eligible for
+ * @property taskQueueSid - The SID of the TaskQueue that the Workers to read are eligible for
  */
 interface WorkerListInstanceOptions {
   activityName?: string;
@@ -207,16 +207,16 @@ interface WorkerListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
- * @property activitySid - Filter by workers that are in a particular Activity by SID
- * @property available - Filter by workers that are available or unavailable.
- * @property friendlyName - Filter by a worker's friendly name
+ * @property activityName - The activity_name of the Worker resources to read
+ * @property activitySid - The activity_sid of the Worker resources to read
+ * @property available - Whether to return Worker resources that are available or unavailable
+ * @property friendlyName - The friendly_name of the Worker resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
- * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
- * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
+ * @property targetWorkersExpression - Filter by Workers that would match an expression on a TaskQueue
+ * @property taskQueueName - The friendly_name of the TaskQueue that the Workers to read are eligible for
+ * @property taskQueueSid - The SID of the TaskQueue that the Workers to read are eligible for
  */
 interface WorkerListInstancePageOptions {
   activityName?: string;
@@ -260,8 +260,8 @@ declare class WorkerContext {
    * Initialize the WorkerContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace with the Worker to fetch
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
@@ -302,8 +302,8 @@ declare class WorkerInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The ID of the Workflow this worker is associated with
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace that contains the Worker
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, payload: WorkerPayload, workspaceSid: string, sid: string);
 

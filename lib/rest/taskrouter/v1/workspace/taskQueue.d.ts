@@ -22,19 +22,19 @@ type TaskQueueTaskOrder = 'FIFO'|'LIFO';
  * Initialize the TaskQueueList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
+ * @param workspaceSid - The SID of the Workspace that contains the TaskQueue
  */
 declare function TaskQueueList(version: V1, workspaceSid: string): TaskQueueListInstance;
 
 /**
  * Options to pass to update
  *
- * @property assignmentActivitySid - ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
- * @property friendlyName - Human readable description of this TaskQueue
- * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
- * @property reservationActivitySid - ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
- * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
- * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
+ * @property assignmentActivitySid - The SID of the Activity to assign Workers when a task is assigned for them
+ * @property friendlyName - A string to describe the resource
+ * @property maxReservedWorkers - The maximum number of Workers to create reservations for the assignment of a task while in the queue
+ * @property reservationActivitySid - The SID of the Activity to assign Workers when a task is reserved for them
+ * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
+ * @property taskOrder - How Tasks will be assigned to Workers
  */
 interface TaskQueueInstanceUpdateOptions {
   assignmentActivitySid?: string;
@@ -76,7 +76,7 @@ interface TaskQueueListInstance {
   /**
    * Constructs a task_queue
    *
-   * @param sid - The sid
+   * @param sid - The SID of the resource to
    */
   get(sid: string): TaskQueueContext;
   /**
@@ -123,12 +123,12 @@ interface TaskQueueListInstance {
 /**
  * Options to pass to create
  *
- * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
- * @property friendlyName - Human readable description of this TaskQueue
- * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
- * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
- * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
- * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
+ * @property assignmentActivitySid - The SID of the Activity to assign Workers once a task is assigned to them
+ * @property friendlyName - A string to describe the resource
+ * @property maxReservedWorkers - The maximum number of Workers to reserve
+ * @property reservationActivitySid - The SID of the Activity to assign Workers when a task is reserved for them
+ * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
+ * @property taskOrder - How Tasks will be assigned to Workers
  */
 interface TaskQueueListInstanceCreateOptions {
   assignmentActivitySid?: string;
@@ -146,8 +146,8 @@ interface TaskQueueListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property friendlyName - Filter by a human readable description of a TaskQueue
+ * @property evaluateWorkerAttributes - The attributes of the Workers to read
+ * @property friendlyName - The friendly_name of the TaskQueue resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -158,7 +158,7 @@ interface TaskQueueListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property workerSid - The worker_sid
+ * @property workerSid - The SID of the Worker with the TaskQueue resources to read
  */
 interface TaskQueueListInstanceEachOptions {
   callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
@@ -173,8 +173,8 @@ interface TaskQueueListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property friendlyName - Filter by a human readable description of a TaskQueue
+ * @property evaluateWorkerAttributes - The attributes of the Workers to read
+ * @property friendlyName - The friendly_name of the TaskQueue resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -185,7 +185,7 @@ interface TaskQueueListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property workerSid - The worker_sid
+ * @property workerSid - The SID of the Worker with the TaskQueue resources to read
  */
 interface TaskQueueListInstanceOptions {
   evaluateWorkerAttributes?: string;
@@ -198,12 +198,12 @@ interface TaskQueueListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property friendlyName - Filter by a human readable description of a TaskQueue
+ * @property evaluateWorkerAttributes - The attributes of the Workers to read
+ * @property friendlyName - The friendly_name of the TaskQueue resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property workerSid - The worker_sid
+ * @property workerSid - The SID of the Worker with the TaskQueue resources to read
  */
 interface TaskQueueListInstancePageOptions {
   evaluateWorkerAttributes?: string;
@@ -245,8 +245,8 @@ declare class TaskQueueContext {
    * Initialize the TaskQueueContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace with the TaskQueue to fetch
+   * @param sid - The SID of the resource to
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
@@ -285,8 +285,8 @@ declare class TaskQueueInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace that contains the TaskQueue
+   * @param sid - The SID of the resource to
    */
   constructor(version: V1, payload: TaskQueuePayload, workspaceSid: string, sid: string);
 

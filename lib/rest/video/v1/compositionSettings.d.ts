@@ -25,12 +25,12 @@ declare function CompositionSettingsList(version: V1): CompositionSettingsListIn
 /**
  * Options to pass to create
  *
- * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
- * @property awsS3Url - Identity of the external location where the compositions should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
- * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
- * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
- * @property encryptionKeySid - SID of the Public Key resource CRxx
- * @property friendlyName - Friendly name of the configuration to be shown in the console
+ * @property awsCredentialsSid - The SID of the stored Credential resource
+ * @property awsS3Url - The URL of the AWS S3 bucket where the compositions should be stored
+ * @property awsStorageEnabled - Whether all compositions should be written to the aws_s3_url
+ * @property encryptionEnabled - Whether all compositions should be stored in an encrypted form
+ * @property encryptionKeySid - The SID of the Public Key resource to use for encryption
+ * @property friendlyName - A descriptive string that you create to describe the resource
  */
 interface CompositionSettingsInstanceCreateOptions {
   awsCredentialsSid?: string;

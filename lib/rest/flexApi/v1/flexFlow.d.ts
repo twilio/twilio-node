@@ -25,21 +25,21 @@ declare function FlexFlowList(version: V1): FlexFlowListInstance;
 /**
  * Options to pass to update
  *
- * @property channelType - Channel type
- * @property chatServiceSid - Service Sid.
- * @property contactIdentity - Channel contact Identity
- * @property enabled - Boolean flag for enabling or disabling the FlexFlow
- * @property friendlyName - Human readable description of this FlexFlow
- * @property integration.channel - Task Channel for a new task
- * @property integration.creationOnMessage - Flag for task creation
- * @property integration.flowSid - Flow Sid.
- * @property integration.priority - Task priority for a new task
- * @property integration.timeout - Task timeout in seconds for a new task
- * @property integration.url - External Webhook Url
- * @property integration.workflowSid - Workflow Sid for a new task
- * @property integration.workspaceSid - Workspace Sid for a new task
- * @property integrationType - Integration type
- * @property longLived - Long Lived flag for new Channel
+ * @property channelType - The channel type
+ * @property chatServiceSid - The SID of the chat service
+ * @property contactIdentity - The channel contact's Identity
+ * @property enabled - Whether the FlexFlow is enabled
+ * @property friendlyName - A string to describe the resource
+ * @property integration.channel - task channel for a new task
+ * @property integration.creationOnMessage - Whether to create a task when the first message arrives
+ * @property integration.flowSid - The SID of the Flow
+ * @property integration.priority - The task priority of a new task
+ * @property integration.timeout - The task timeout in seconds for a new task
+ * @property integration.url - The External Webhook URL
+ * @property integration.workflowSid - The Workflow SID for a new task
+ * @property integration.workspaceSid - The Workspace SID for a new task
+ * @property integrationType - The integration type
+ * @property longLived - Whether new channels created are long-lived
  */
 interface FlexFlowInstanceUpdateOptions {
   channelType?: FlexFlowChannelType;
@@ -92,7 +92,7 @@ interface FlexFlowListInstance {
   /**
    * Constructs a flex_flow
    *
-   * @param sid - The unique ID of the FlexFlow
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): FlexFlowContext;
   /**
@@ -138,21 +138,21 @@ interface FlexFlowListInstance {
 /**
  * Options to pass to create
  *
- * @property channelType - Channel type
- * @property chatServiceSid - Service Sid.
- * @property contactIdentity - Channel contact Identity
- * @property enabled - Boolean flag for enabling or disabling the FlexFlow
- * @property friendlyName - Human readable description of this FlexFlow
- * @property integration.channel - Task Channel for a new task
- * @property integration.creationOnMessage - Flag for task creation
- * @property integration.flowSid - Flow Sid.
- * @property integration.priority - Task priority for a new task
- * @property integration.timeout - Task timeout in seconds for a new task
- * @property integration.url - External Webhook Url
- * @property integration.workflowSid - Workflow Sid for a new task
- * @property integration.workspaceSid - Workspace Sid for a new task
- * @property integrationType - Integration type
- * @property longLived - Long Lived flag for new Channel
+ * @property channelType - The channel type
+ * @property chatServiceSid - The SID of the chat service
+ * @property contactIdentity - The channel contact's Identity
+ * @property enabled - Whether the new FlexFlow is enabled
+ * @property friendlyName - A string to describe the resource
+ * @property integration.channel - The task channel for a new task
+ * @property integration.creationOnMessage - Whether to create a task when the first message arrives
+ * @property integration.flowSid - The SID of the Flow
+ * @property integration.priority - The task priority of a new task
+ * @property integration.timeout - The task timeout in seconds for a new task
+ * @property integration.url - The External Webhook URL
+ * @property integration.workflowSid - The Workflow SID for a new task
+ * @property integration.workspaceSid - The Workspace SID for a new task
+ * @property integrationType - The integration type
+ * @property longLived - Whether new channels are long-lived
  */
 interface FlexFlowListInstanceCreateOptions {
   channelType: FlexFlowChannelType;
@@ -181,7 +181,7 @@ interface FlexFlowListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Human readable description of this FlexFlow
+ * @property friendlyName - The `friendly_name` of the FlexFlow resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -204,7 +204,7 @@ interface FlexFlowListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - Human readable description of this FlexFlow
+ * @property friendlyName - The `friendly_name` of the FlexFlow resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -225,7 +225,7 @@ interface FlexFlowListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - Human readable description of this FlexFlow
+ * @property friendlyName - The `friendly_name` of the FlexFlow resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -265,7 +265,7 @@ declare class FlexFlowContext {
    * Initialize the FlexFlowContext
    *
    * @param version - Version of the resource
-   * @param sid - The unique ID of the FlexFlow
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -301,7 +301,7 @@ declare class FlexFlowInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The unique ID of the FlexFlow
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: FlexFlowPayload, sid: string);
 

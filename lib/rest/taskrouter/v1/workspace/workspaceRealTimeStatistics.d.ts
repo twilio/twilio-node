@@ -14,14 +14,14 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the WorkspaceRealTimeStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
+ * @param workspaceSid - The SID of the Workspace
  */
 declare function WorkspaceRealTimeStatisticsList(version: V1, workspaceSid: string): WorkspaceRealTimeStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property taskChannel - Only calculate real-time statistics on this TaskChannel
  */
 interface WorkspaceRealTimeStatisticsInstanceFetchOptions {
   taskChannel?: string;
@@ -68,7 +68,7 @@ declare class WorkspaceRealTimeStatisticsContext {
    * Initialize the WorkspaceRealTimeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace to fetch
    */
   constructor(version: V1, workspaceSid: string);
 
@@ -92,7 +92,7 @@ declare class WorkspaceRealTimeStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace
    */
   constructor(version: V1, payload: WorkspaceRealTimeStatisticsPayload, workspaceSid: string);
 

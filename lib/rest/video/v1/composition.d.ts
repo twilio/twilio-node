@@ -57,7 +57,7 @@ interface CompositionListInstance {
   /**
    * Constructs a composition
    *
-   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): CompositionContext;
   /**
@@ -103,15 +103,15 @@ interface CompositionListInstance {
 /**
  * Options to pass to create
  *
- * @property audioSources - A list of audio sources related to this Composition.
- * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition.
- * @property format - Container format of the Composition media file. Any of the following: `mp4`, `webm`.
- * @property resolution - Pixel resolution of the composed video.
- * @property roomSid - Twilio Room SID.
- * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
- * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
- * @property trim - Boolean flag for clipping intervals that have no media.
- * @property videoLayout - The JSON video layout description.
+ * @property audioSources - An array of track names from the same group room to merge
+ * @property audioSourcesExcluded - An array of track names to exclude
+ * @property format - The container format of the composition's media files
+ * @property resolution - A string that describes the columns (width) and rows (height) of the generated composed video in pixels
+ * @property roomSid - The SID of the Group Room with the media tracks to be used as composition sources
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackMethod - The HTTP method we should use to call status_callback
+ * @property trim - Whether to clip the intervals where there is no active media in the composition
+ * @property videoLayout - An object that describes the video layout of the composition
  */
 interface CompositionListInstanceCreateOptions {
   audioSources?: string | string[];
@@ -131,8 +131,8 @@ interface CompositionListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Only show Compositions created on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Compositions created before this ISO8601 date-time with timezone.
+ * @property dateCreatedAfter - Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedBefore - Read only Composition resources created before this ISO 8601 date-time with time zone
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -144,8 +144,8 @@ interface CompositionListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property roomSid - Only show Compositions with the given Room SID.
- * @property status - Only show Compositions with the given status.
+ * @property roomSid - Read only Composition resources with this Room SID
+ * @property status - Read only Composition resources with this status
  */
 interface CompositionListInstanceEachOptions {
   callback?: (item: CompositionInstance, done: (err?: Error) => void) => void;
@@ -161,8 +161,8 @@ interface CompositionListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Only show Compositions created on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Compositions created before this ISO8601 date-time with timezone.
+ * @property dateCreatedAfter - Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedBefore - Read only Composition resources created before this ISO 8601 date-time with time zone
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -173,8 +173,8 @@ interface CompositionListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property roomSid - Only show Compositions with the given Room SID.
- * @property status - Only show Compositions with the given status.
+ * @property roomSid - Read only Composition resources with this Room SID
+ * @property status - Read only Composition resources with this status
  */
 interface CompositionListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -188,13 +188,13 @@ interface CompositionListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Only show Compositions created on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Compositions created before this ISO8601 date-time with timezone.
+ * @property dateCreatedAfter - Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedBefore - Read only Composition resources created before this ISO 8601 date-time with time zone
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property roomSid - Only show Compositions with the given Room SID.
- * @property status - Only show Compositions with the given status.
+ * @property roomSid - Read only Composition resources with this Room SID
+ * @property status - Read only Composition resources with this status
  */
 interface CompositionListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -243,7 +243,7 @@ declare class CompositionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -276,7 +276,7 @@ declare class CompositionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: CompositionPayload, sid: string);
 

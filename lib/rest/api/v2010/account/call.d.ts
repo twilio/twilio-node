@@ -195,9 +195,9 @@ interface CallListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property endTime - Only include usage that occurred on or before this date
- * @property endTimeAfter - Only include usage that occurred on or before this date
- * @property endTimeBefore - Only include usage that occurred on or before this date
+ * @property endTime - Only include calls that ended on this date
+ * @property endTimeAfter - Only include calls that ended on this date
+ * @property endTimeBefore - Only include calls that ended on this date
  * @property from - Phone number or Client identifier to filter `from` on
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -210,9 +210,9 @@ interface CallListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property parentCallSid - Parent call SID to filter on
- * @property startTime - Only include calls that started on or after this date
- * @property startTimeAfter - Only include calls that started on or after this date
- * @property startTimeBefore - Only include calls that started on or after this date
+ * @property startTime - Only include calls that started on this date
+ * @property startTimeAfter - Only include calls that started on this date
+ * @property startTimeBefore - Only include calls that started on this date
  * @property status - The status of the resources to read
  * @property to - Phone number or Client identifier of calls to include
  */
@@ -236,9 +236,9 @@ interface CallListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property endTime - Only include usage that occurred on or before this date
- * @property endTimeAfter - Only include usage that occurred on or before this date
- * @property endTimeBefore - Only include usage that occurred on or before this date
+ * @property endTime - Only include calls that ended on this date
+ * @property endTimeAfter - Only include calls that ended on this date
+ * @property endTimeBefore - Only include calls that ended on this date
  * @property from - Phone number or Client identifier to filter `from` on
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -251,9 +251,9 @@ interface CallListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property parentCallSid - Parent call SID to filter on
- * @property startTime - Only include calls that started on or after this date
- * @property startTimeAfter - Only include calls that started on or after this date
- * @property startTimeBefore - Only include calls that started on or after this date
+ * @property startTime - Only include calls that started on this date
+ * @property startTimeAfter - Only include calls that started on this date
+ * @property startTimeBefore - Only include calls that started on this date
  * @property status - The status of the resources to read
  * @property to - Phone number or Client identifier of calls to include
  */
@@ -275,17 +275,17 @@ interface CallListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property endTime - Only include usage that occurred on or before this date
- * @property endTimeAfter - Only include usage that occurred on or before this date
- * @property endTimeBefore - Only include usage that occurred on or before this date
+ * @property endTime - Only include calls that ended on this date
+ * @property endTimeAfter - Only include calls that ended on this date
+ * @property endTimeBefore - Only include calls that ended on this date
  * @property from - Phone number or Client identifier to filter `from` on
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property parentCallSid - Parent call SID to filter on
- * @property startTime - Only include calls that started on or after this date
- * @property startTimeAfter - Only include calls that started on or after this date
- * @property startTimeBefore - Only include calls that started on or after this date
+ * @property startTime - Only include calls that started on this date
+ * @property startTimeAfter - Only include calls that started on this date
+ * @property startTimeBefore - Only include calls that started on this date
  * @property status - The status of the resources to read
  * @property to - Phone number or Client identifier of calls to include
  */

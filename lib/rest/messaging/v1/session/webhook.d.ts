@@ -23,21 +23,21 @@ type WebhookTarget = 'webhook'|'trigger'|'studio';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param sessionSid - The unique id of the Session for this webhook.
+ * @param sessionSid - The SID of the Session for the webhook
  */
 declare function WebhookList(version: V1, sessionSid: string): WebhookListInstance;
 
 /**
  * Options to pass to update
  *
- * @property configuration.bufferMessages - The flag whether buffering should be applied to messages.
- * @property configuration.bufferWindow - The period of buffering messages.
- * @property configuration.filters - The list of events, firing webhook event for this Session.
- * @property configuration.flowSid - The studio flow sid, where the webhook should be sent to.
- * @property configuration.method - The HTTP method to be used when sending a webhook request.
- * @property configuration.retryCount - The number of retries in case of webhook request failures.
- * @property configuration.triggers - The list of keywords, firing webhook event for this Session.
- * @property configuration.url - The absolute url the webhook request should be sent to.
+ * @property configuration.bufferMessages - Whether buffering should be applied to messages
+ * @property configuration.bufferWindow - The period to buffer messages
+ * @property configuration.filters - The list of events that trigger a  webhook event for the Session
+ * @property configuration.flowSid - The SID of the studio flow where the webhook should be sent to
+ * @property configuration.method - The HTTP method we should use when sending a webhook request to url
+ * @property configuration.retryCount - The number of times to try the webhook request if the first attempt fails
+ * @property configuration.triggers - The list of keywords, that trigger a webhook event for the Session
+ * @property configuration.url - The absolute URL the webhook request should be sent to
  */
 interface WebhookInstanceUpdateOptions {
   configuration?: {
@@ -83,7 +83,7 @@ interface WebhookListInstance {
   /**
    * Constructs a webhook
    *
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID of the resource to fetch
    */
   get(sid: string): WebhookContext;
   /**
@@ -129,16 +129,16 @@ interface WebhookListInstance {
 /**
  * Options to pass to create
  *
- * @property configuration.bufferMessages - The flag whether buffering should be applied to messages.
- * @property configuration.bufferWindow - The period of buffering messages.
- * @property configuration.filters - The list of events, firing webhook event for this Session.
- * @property configuration.flowSid - The studio flow sid, where the webhook should be sent to.
- * @property configuration.method - The HTTP method to be used when sending a webhook request.
- * @property configuration.replayAfter - The message index for which and it's successors the webhook will be replayed.
- * @property configuration.retryCount - The number of retries in case of webhook request failures.
- * @property configuration.triggers - The list of keywords, firing webhook event for this Session.
- * @property configuration.url - The absolute url the webhook request should be sent to.
- * @property target - The target of this webhook.
+ * @property configuration.bufferMessages - Whether buffering should be applied to messages
+ * @property configuration.bufferWindow - The period to buffer messages
+ * @property configuration.filters - The list of events that trigger a webhook event for the Session
+ * @property configuration.flowSid - The SID of the studio flow where the webhook should be sent to
+ * @property configuration.method - The HTTP method we should use when sending a webhook request to url
+ * @property configuration.replayAfter - The message index for which and its successors the webhook will be replayed
+ * @property configuration.retryCount - The number of times to call the webhook request if the first attempt fails
+ * @property configuration.triggers - The list of keywords, firing webhook event for the Session
+ * @property configuration.url - The absolute URL the webhook request should be sent to
+ * @property target - The target of the webhook
  */
 interface WebhookListInstanceCreateOptions {
   configuration?: {
@@ -240,8 +240,8 @@ declare class WebhookContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sessionSid - The unique id of the Session for this webhook.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sessionSid - The SID of the Session with the Webhook resource to fetch
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, sessionSid: string, sid: string);
 
@@ -281,8 +281,8 @@ declare class WebhookInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sessionSid - The unique id of the Session for this webhook.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sessionSid - The SID of the Session for the webhook
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, payload: WebhookPayload, sessionSid: string, sid: string);
 

@@ -18,8 +18,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param roomSid - The unique Room identifier for the Subscribe Rules
- * @param participantSid - The unique Participant identifier for the Subscribe Rules.
+ * @param roomSid - The SID of the Room resource for the Subscribe Rules
+ * @param participantSid - The SID of the Participant resource for the Subscribe Rules
  */
 declare function SubscribeRulesList(version: V1, roomSid: string, participantSid: string): SubscribeRulesListInstance;
 
@@ -46,7 +46,7 @@ interface SubscribeRulesListInstance {
 /**
  * Options to pass to update
  *
- * @property rules - A JSON-encoded array of Subscribe Rules.
+ * @property rules - A JSON-encoded array of subscribe rules
  */
 interface SubscribeRulesListInstanceUpdateOptions {
   rules?: object;
@@ -78,8 +78,8 @@ declare class SubscribeRulesInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - The unique Room identifier for the Subscribe Rules
-   * @param participantSid - The unique Participant identifier for the Subscribe Rules.
+   * @param roomSid - The SID of the Room resource for the Subscribe Rules
+   * @param participantSid - The SID of the Participant resource for the Subscribe Rules
    */
   constructor(version: V1, payload: SubscribeRulesPayload, roomSid: string, participantSid: string);
 

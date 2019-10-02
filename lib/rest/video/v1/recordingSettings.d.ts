@@ -25,12 +25,12 @@ declare function RecordingSettingsList(version: V1): RecordingSettingsListInstan
 /**
  * Options to pass to create
  *
- * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
- * @property awsS3Url - Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
- * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
- * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
- * @property encryptionKeySid - SID of the Public Key resource CRxx
- * @property friendlyName - Friendly name of the configuration to be shown in the console
+ * @property awsCredentialsSid - The SID of the stored Credential resource
+ * @property awsS3Url - The URL of the AWS S3 bucket where the recordings should be stored
+ * @property awsStorageEnabled - Whether all recordings should be written to the aws_s3_url
+ * @property encryptionEnabled - Whether all recordings should be stored in an encrypted form
+ * @property encryptionKeySid - The SID of the Public Key resource to use for encryption
+ * @property friendlyName - A string to describe the resource
  */
 interface RecordingSettingsInstanceCreateOptions {
   awsCredentialsSid?: string;

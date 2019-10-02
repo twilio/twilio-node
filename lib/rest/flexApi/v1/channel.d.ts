@@ -49,7 +49,7 @@ interface ChannelListInstance {
   /**
    * Constructs a channel
    *
-   * @param sid - Flex Chat Channel Sid
+   * @param sid - The SID that identifies the Flex chat channel resource to fetch
    */
   get(sid: string): ChannelContext;
   /**
@@ -95,16 +95,16 @@ interface ChannelListInstance {
 /**
  * Options to pass to create
  *
- * @property chatFriendlyName - Chat channel friendly name
- * @property chatUniqueName - Chat channel unique name
- * @property chatUserFriendlyName - Customer friendly name
- * @property flexFlowSid - The unique ID of the FlexFlow
- * @property identity - Chat User identity
- * @property longLived - Long Lived flag
- * @property preEngagementData - Pre-engagement data
- * @property target - Target Contact Identity
- * @property taskAttributes - Task attributes to be added for the TaskRouter Task
- * @property taskSid - TaskRouter Task Sid.
+ * @property chatFriendlyName - The chat channel's friendly name
+ * @property chatUniqueName - The chat channel's unique name
+ * @property chatUserFriendlyName - The chat participant's friendly name
+ * @property flexFlowSid - The SID of the FlexFlow
+ * @property identity - The identity value that identifies the new resource's chat User
+ * @property longLived - Whether to create the channel as long-lived
+ * @property preEngagementData - The pre-engagement data
+ * @property target - The Target Contact Identity
+ * @property taskAttributes - The task attributes to be added for the TaskRouter Task
+ * @property taskSid - The SID of the TaskRouter task
  */
 interface ChannelListInstanceCreateOptions {
   chatFriendlyName: string;
@@ -199,7 +199,7 @@ declare class ChannelContext {
    * Initialize the ChannelContext
    *
    * @param version - Version of the resource
-   * @param sid - Flex Chat Channel Sid
+   * @param sid - The SID that identifies the Flex chat channel resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -228,7 +228,7 @@ declare class ChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - Flex Chat Channel Sid
+   * @param sid - The SID that identifies the Flex chat channel resource to fetch
    */
   constructor(version: V1, payload: ChannelPayload, sid: string);
 

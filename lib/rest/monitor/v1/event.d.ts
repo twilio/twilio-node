@@ -42,7 +42,7 @@ interface EventListInstance {
   /**
    * Constructs a event
    *
-   * @param sid - A 34 character string that uniquely identifies this event.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): EventContext;
   /**
@@ -88,13 +88,13 @@ interface EventListInstance {
 /**
  * Options to pass to each
  *
- * @property actorSid - Only include Events initiated by this Actor
+ * @property actorSid - Only include events initiated by this Actor
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property endDate - Only show events on or before this date
- * @property eventType - Only include Events of this EventType
+ * @property endDate - Only include events that occurred on or before this date
+ * @property eventType - Only include events of this Event Type
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -105,9 +105,9 @@ interface EventListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property resourceSid - Only include Events referring to this resource
- * @property sourceIpAddress - Only include Events that originated from this IP address
- * @property startDate - Only show events on or after this date
+ * @property resourceSid - Only include events that refer to this resource
+ * @property sourceIpAddress - Only include events that originated from this IP address
+ * @property startDate - Only include events that occurred on or after this date
  */
 interface EventListInstanceEachOptions {
   actorSid?: string;
@@ -125,9 +125,9 @@ interface EventListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property actorSid - Only include Events initiated by this Actor
- * @property endDate - Only show events on or before this date
- * @property eventType - Only include Events of this EventType
+ * @property actorSid - Only include events initiated by this Actor
+ * @property endDate - Only include events that occurred on or before this date
+ * @property eventType - Only include events of this Event Type
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -138,9 +138,9 @@ interface EventListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property resourceSid - Only include Events referring to this resource
- * @property sourceIpAddress - Only include Events that originated from this IP address
- * @property startDate - Only show events on or after this date
+ * @property resourceSid - Only include events that refer to this resource
+ * @property sourceIpAddress - Only include events that originated from this IP address
+ * @property startDate - Only include events that occurred on or after this date
  */
 interface EventListInstanceOptions {
   actorSid?: string;
@@ -156,15 +156,15 @@ interface EventListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property actorSid - Only include Events initiated by this Actor
- * @property endDate - Only show events on or before this date
- * @property eventType - Only include Events of this EventType
+ * @property actorSid - Only include events initiated by this Actor
+ * @property endDate - Only include events that occurred on or before this date
+ * @property eventType - Only include events of this Event Type
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property resourceSid - Only include Events referring to this resource
- * @property sourceIpAddress - Only include Events that originated from this IP address
- * @property startDate - Only show events on or after this date
+ * @property resourceSid - Only include events that refer to this resource
+ * @property sourceIpAddress - Only include events that originated from this IP address
+ * @property startDate - Only include events that occurred on or after this date
  */
 interface EventListInstancePageOptions {
   actorSid?: string;
@@ -207,7 +207,7 @@ declare class EventContext {
    * Initialize the EventContext
    *
    * @param version - Version of the resource
-   * @param sid - A 34 character string that uniquely identifies this event.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -230,7 +230,7 @@ declare class EventInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A 34 character string that uniquely identifies this event.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: EventPayload, sid: string);
 

@@ -21,16 +21,16 @@ type ParticipantParticipantType = 'chat'|'sms';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param sessionSid - The unique id of the Session for this participant.
+ * @param sessionSid - The SID of the Session for the participant
  */
 declare function ParticipantList(version: V1, sessionSid: string): ParticipantListInstance;
 
 /**
  * Options to pass to update
  *
- * @property attributes - An optional string metadata field you can use to store any data you wish.
- * @property dateCreated - The date that this resource was created.
- * @property dateUpdated - The date that this resource was last updated.
+ * @property attributes - A JSON string that stores application-specific data
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
  */
 interface ParticipantInstanceUpdateOptions {
   attributes?: string;
@@ -69,7 +69,7 @@ interface ParticipantListInstance {
   /**
    * Constructs a participant
    *
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): ParticipantContext;
   /**
@@ -115,12 +115,12 @@ interface ParticipantListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - An optional string metadata field you can use to store any data you wish.
- * @property dateCreated - The date that this resource was created.
- * @property dateUpdated - The date that this resource was last updated.
- * @property identity - A unique string identifier for the session participant as Chat User.
- * @property twilioAddress - The address of the Twilio phone number that the participant is in contact with.
- * @property userAddress - The address of the participant's device.
+ * @property attributes - A JSON string that stores application-specific data
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
+ * @property identity - The string that identifies the resource's User
+ * @property twilioAddress - The address of the Twilio phone number that the participant is in contact with
+ * @property userAddress - The address of the participant's device
  */
 interface ParticipantListInstanceCreateOptions {
   attributes?: string;
@@ -221,8 +221,8 @@ declare class ParticipantContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sessionSid - The unique id of the Session for this participant.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sessionSid - The SID of the Session with the participant to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sessionSid: string, sid: string);
 
@@ -262,8 +262,8 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sessionSid - The unique id of the Session for this participant.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sessionSid - The SID of the Session for the participant
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: ParticipantPayload, sessionSid: string, sid: string);
 

@@ -22,7 +22,7 @@ declare function ConfigurationList(version: V1): ConfigurationListInstance;
 /**
  * Options to pass to fetch
  *
- * @property uiVersion - Pinned UI version
+ * @property uiVersion - The Pinned UI version of the Configuration resource to fetch
  */
 interface ConfigurationInstanceFetchOptions {
   uiVersion?: string;

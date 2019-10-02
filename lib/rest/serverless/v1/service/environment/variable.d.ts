@@ -18,16 +18,16 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
- * @param environmentSid - Environment Sid.
+ * @param serviceSid - The SID of the Service that the Variable resource is associated with
+ * @param environmentSid - The SID of the environment in which the variable exists
  */
 declare function VariableList(version: V1, serviceSid: string, environmentSid: string): VariableListInstance;
 
 /**
  * Options to pass to update
  *
- * @property key - A string by which this Variable can be referenced.
- * @property value - A string that contains the actual value of this Variable.
+ * @property key - A string by which the Variable resource can be referenced
+ * @property value - A string that contains the actual value of the variable
  */
 interface VariableInstanceUpdateOptions {
   key?: string;
@@ -65,7 +65,7 @@ interface VariableListInstance {
   /**
    * Constructs a variable
    *
-   * @param sid - Variable Sid.
+   * @param sid - The SID of the Variable resource to fetch
    */
   get(sid: string): VariableContext;
   /**
@@ -111,8 +111,8 @@ interface VariableListInstance {
 /**
  * Options to pass to create
  *
- * @property key - A string by which this Variable can be referenced.
- * @property value - A string that contains the actual value of this Variable.
+ * @property key - A string by which the Variable resource can be referenced
+ * @property value - A string that contains the actual value of the variable
  */
 interface VariableListInstanceCreateOptions {
   key: string;
@@ -206,9 +206,9 @@ declare class VariableContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param environmentSid - Environment Sid.
-   * @param sid - Variable Sid.
+   * @param serviceSid - The SID of the Service to fetch the Variable resource from
+   * @param environmentSid - The SID of the environment with the Variable resource to fetch
+   * @param sid - The SID of the Variable resource to fetch
    */
   constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
 
@@ -248,9 +248,9 @@ declare class VariableInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param environmentSid - Environment Sid.
-   * @param sid - Variable Sid.
+   * @param serviceSid - The SID of the Service that the Variable resource is associated with
+   * @param environmentSid - The SID of the environment in which the variable exists
+   * @param sid - The SID of the Variable resource to fetch
    */
   constructor(version: V1, payload: VariablePayload, serviceSid: string, environmentSid: string, sid: string);
 

@@ -15,18 +15,18 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the WorkspaceStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
+ * @param workspaceSid - The SID of the Workspace
  */
 declare function WorkspaceStatisticsList(version: V1, workspaceSid: string): WorkspaceStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property endDate - Filter cumulative statistics by an end date.
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property endDate - Only calculate statistics from this date and time and earlier
+ * @property minutes - Only calculate statistics since this many minutes in the past
+ * @property splitByWaitTime - A comma separated list of values that describes the thresholds to calculate statistics on
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate statistics on this TaskChannel.
  */
 interface WorkspaceStatisticsInstanceFetchOptions {
   endDate?: Date;
@@ -72,7 +72,7 @@ declare class WorkspaceStatisticsContext {
    * Initialize the WorkspaceStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace to fetch
    */
   constructor(version: V1, workspaceSid: string);
 
@@ -96,7 +96,7 @@ declare class WorkspaceStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace
    */
   constructor(version: V1, payload: WorkspaceStatisticsPayload, workspaceSid: string);
 

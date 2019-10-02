@@ -31,11 +31,11 @@ declare function SessionList(version: V1): SessionListInstance;
 /**
  * Options to pass to update
  *
- * @property attributes - An optional string metadata field you can use to store any data you wish.
- * @property createdBy - Identity of the session's creator.
- * @property dateCreated - The date that this resource was created.
- * @property dateUpdated - The date that this resource was last updated.
- * @property friendlyName - The human-readable name of this session.
+ * @property attributes - A JSON string that stores application-specific data
+ * @property createdBy - The Identity of the session's creator
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
+ * @property friendlyName - A string to describe the resource
  */
 interface SessionInstanceUpdateOptions {
   attributes?: string;
@@ -76,7 +76,7 @@ interface SessionListInstance {
   /**
    * Constructs a session
    *
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): SessionContext;
   /**
@@ -122,12 +122,12 @@ interface SessionListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - An optional string metadata field you can use to store any data you wish.
- * @property createdBy - Identity of the session's creator.
- * @property dateCreated - The date that this resource was created.
- * @property dateUpdated - The date that this resource was last updated.
- * @property friendlyName - The human-readable name of this session.
- * @property messagingServiceSid - The unique id of the SMS Service this session belongs to.
+ * @property attributes - A JSON string that stores application-specific data
+ * @property createdBy - The Identity of the session's creator
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
+ * @property friendlyName - A string to describe the resource
+ * @property messagingServiceSid - The SID of the SMS Service the session belongs to
  */
 interface SessionListInstanceCreateOptions {
   attributes?: string;
@@ -225,7 +225,7 @@ declare class SessionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -268,7 +268,7 @@ declare class SessionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: SessionPayload, sid: string);
 

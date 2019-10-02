@@ -16,8 +16,8 @@ type SubscribedTrackKind = 'audio'|'video'|'data';
  * Initialize the SubscribedTrackList
  *
  * @param version - Version of the resource
- * @param roomSid - Unique Room identifier where this Track is published.
- * @param participantSid - Unique Participant identifier that subscribes to this Track.
+ * @param roomSid - The SID of the room where the track is published
+ * @param participantSid - The SID of the participant that subscribes to the track
  */
 declare function SubscribedTrackList(version: V1, roomSid: string, participantSid: string): SubscribedTrackListInstance;
 
@@ -45,7 +45,7 @@ interface SubscribedTrackListInstance {
   /**
    * Constructs a subscribed_track
    *
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): SubscribedTrackContext;
   /**
@@ -172,9 +172,9 @@ declare class SubscribedTrackContext {
    * Initialize the SubscribedTrackContext
    *
    * @param version - Version of the resource
-   * @param roomSid - Unique Room identifier where this Track is subscribed.
-   * @param participantSid - Unique Participant identifier that subscribes to this Track.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param roomSid - The SID of the Room where the Track resource to fetch is subscribed
+   * @param participantSid - The SID of the participant that subscribes to the Track resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, roomSid: string, participantSid: string, sid: string);
 
@@ -197,9 +197,9 @@ declare class SubscribedTrackInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - Unique Room identifier where this Track is published.
-   * @param participantSid - Unique Participant identifier that subscribes to this Track.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param roomSid - The SID of the room where the track is published
+   * @param participantSid - The SID of the participant that subscribes to the track
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: SubscribedTrackPayload, roomSid: string, participantSid: string, sid: string);
 

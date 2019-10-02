@@ -43,13 +43,13 @@ declare function WorkspaceList(version: V1): WorkspaceListInstance;
 /**
  * Options to pass to update
  *
- * @property defaultActivitySid - The ID of the Activity that will be used when new Workers are created in this Workspace.
- * @property eventCallbackUrl - The Workspace will publish events to this URL.
- * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
- * @property friendlyName - Human readable description of this workspace
- * @property multiTaskEnabled - Enable or Disable Multitasking by passing either true or False with the POST request.
- * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
- * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+ * @property defaultActivitySid - The SID of the Activity that will be used when new Workers are created in the Workspace
+ * @property eventCallbackUrl - The URL we should call when an event occurs
+ * @property eventsFilter - The list of Workspace events for which to call event_callback_url
+ * @property friendlyName - A string to describe the Workspace resource
+ * @property multiTaskEnabled - Whether multi-tasking is enabled
+ * @property prioritizeQueueOrder - The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues
+ * @property timeoutActivitySid - The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response
  */
 interface WorkspaceInstanceUpdateOptions {
   defaultActivitySid?: string;
@@ -92,7 +92,7 @@ interface WorkspaceListInstance {
   /**
    * Constructs a workspace
    *
-   * @param sid - The sid
+   * @param sid - The SID of the resource to fetch
    */
   get(sid: string): WorkspaceContext;
   /**
@@ -138,12 +138,12 @@ interface WorkspaceListInstance {
 /**
  * Options to pass to create
  *
- * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
- * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
- * @property friendlyName - Human readable description of this workspace
- * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
- * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
- * @property template - One of the available template names.
+ * @property eventCallbackUrl - The URL we should call when an event occurs
+ * @property eventsFilter - The list of Workspace events for which to call event_callback_url
+ * @property friendlyName - A string to describe the Workspace resource
+ * @property multiTaskEnabled - Whether multi-tasking is enabled
+ * @property prioritizeQueueOrder - The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues
+ * @property template - An available template name
  */
 interface WorkspaceListInstanceCreateOptions {
   eventCallbackUrl?: string;
@@ -161,7 +161,7 @@ interface WorkspaceListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter by a workspace's friendly name.
+ * @property friendlyName - The friendly_name of the Workspace resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -184,7 +184,7 @@ interface WorkspaceListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - Filter by a workspace's friendly name.
+ * @property friendlyName - The friendly_name of the Workspace resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -205,7 +205,7 @@ interface WorkspaceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - Filter by a workspace's friendly name.
+ * @property friendlyName - The friendly_name of the Workspace resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -247,7 +247,7 @@ declare class WorkspaceContext {
    * Initialize the WorkspaceContext
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -293,7 +293,7 @@ declare class WorkspaceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, payload: WorkspacePayload, sid: string);
 

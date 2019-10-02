@@ -16,8 +16,8 @@ type PublishedTrackKind = 'audio'|'video'|'data';
  * Initialize the PublishedTrackList
  *
  * @param version - Version of the resource
- * @param roomSid - Unique Room identifier where this Track is published.
- * @param participantSid - Unique Participant identifier that publishes this Track.
+ * @param roomSid - The SID of the Room resource where the track is published
+ * @param participantSid - The SID of the Participant resource with the published track
  */
 declare function PublishedTrackList(version: V1, roomSid: string, participantSid: string): PublishedTrackListInstance;
 
@@ -45,7 +45,7 @@ interface PublishedTrackListInstance {
   /**
    * Constructs a published_track
    *
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): PublishedTrackContext;
   /**
@@ -171,9 +171,9 @@ declare class PublishedTrackContext {
    * Initialize the PublishedTrackContext
    *
    * @param version - Version of the resource
-   * @param roomSid - Unique Room identifier where this Track is published.
-   * @param participantSid - Unique Participant identifier that publishes this Track.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param roomSid - The SID of the Room resource where the Track resource to fetch is published
+   * @param participantSid - The SID of the Participant resource with the published track to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, roomSid: string, participantSid: string, sid: string);
 
@@ -196,9 +196,9 @@ declare class PublishedTrackInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - Unique Room identifier where this Track is published.
-   * @param participantSid - Unique Participant identifier that publishes this Track.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param roomSid - The SID of the Room resource where the track is published
+   * @param participantSid - The SID of the Participant resource with the published track
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: PublishedTrackPayload, roomSid: string, participantSid: string, sid: string);
 

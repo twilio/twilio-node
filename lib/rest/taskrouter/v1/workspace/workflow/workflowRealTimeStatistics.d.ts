@@ -14,15 +14,15 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the WorkflowRealTimeStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
- * @param workflowSid - The workflow_sid
+ * @param workspaceSid - The SID of the Workspace that contains the Workflow.
+ * @param workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
  */
 declare function WorkflowRealTimeStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowRealTimeStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property taskChannel - Only calculate real-time statistics on this TaskChannel
  */
 interface WorkflowRealTimeStatisticsInstanceFetchOptions {
   taskChannel?: string;
@@ -69,8 +69,8 @@ declare class WorkflowRealTimeStatisticsContext {
    * Initialize the WorkflowRealTimeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workflowSid - The workflow_sid
+   * @param workspaceSid - The SID of the Workspace with the Workflow to fetch
+   * @param workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
    */
   constructor(version: V1, workspaceSid: string, workflowSid: string);
 
@@ -94,8 +94,8 @@ declare class WorkflowRealTimeStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
-   * @param workflowSid - The workflow_sid
+   * @param workspaceSid - The SID of the Workspace that contains the Workflow.
+   * @param workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
    */
   constructor(version: V1, payload: WorkflowRealTimeStatisticsPayload, workspaceSid: string, workflowSid: string);
 

@@ -23,14 +23,14 @@ type ParticipantStatus = 'connected'|'disconnected';
  * Initialize the ParticipantList
  *
  * @param version - Version of the resource
- * @param roomSid - A system-generated 34-character string that uniquely identifies.
+ * @param roomSid - The SID of the participant's room
  */
 declare function ParticipantList(version: V1, roomSid: string): ParticipantListInstance;
 
 /**
  * Options to pass to update
  *
- * @property status - Set to `disconnected` to remove participant.
+ * @property status - The new status of the resource
  */
 interface ParticipantInstanceUpdateOptions {
   status?: ParticipantStatus;
@@ -60,7 +60,7 @@ interface ParticipantListInstance {
   /**
    * Constructs a participant
    *
-   * @param sid - A system-generated 34-character string that uniquely identifies this Participant.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): ParticipantContext;
   /**
@@ -109,10 +109,10 @@ interface ParticipantListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
- * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
+ * @property dateCreatedAfter - Read only Participants that started after this date in UTC ISO 8601 format
+ * @property dateCreatedBefore - Read only Participants that started before this date in ISO 8601 format
  * @property done - Function to be called upon completion of streaming
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
+ * @property identity - Read only the Participants with this user identity value
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -123,7 +123,7 @@ interface ParticipantListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property status - Only show Participants with the given Status.
+ * @property status - Read only the participants with this status
  */
 interface ParticipantListInstanceEachOptions {
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
@@ -139,9 +139,9 @@ interface ParticipantListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
- * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
+ * @property dateCreatedAfter - Read only Participants that started after this date in UTC ISO 8601 format
+ * @property dateCreatedBefore - Read only Participants that started before this date in ISO 8601 format
+ * @property identity - Read only the Participants with this user identity value
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -152,7 +152,7 @@ interface ParticipantListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property status - Only show Participants with the given Status.
+ * @property status - Read only the participants with this status
  */
 interface ParticipantListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -166,13 +166,13 @@ interface ParticipantListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
- * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
+ * @property dateCreatedAfter - Read only Participants that started after this date in UTC ISO 8601 format
+ * @property dateCreatedBefore - Read only Participants that started before this date in ISO 8601 format
+ * @property identity - Read only the Participants with this user identity value
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property status - Only show Participants with the given Status.
+ * @property status - Read only the participants with this status
  */
 interface ParticipantListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -212,8 +212,8 @@ declare class ParticipantContext {
    * Initialize the ParticipantContext
    *
    * @param version - Version of the resource
-   * @param roomSid - A system-generated 34-character string that uniquely identifies a Room.
-   * @param sid - A system-generated 34-character string that uniquely identifies this Participant.
+   * @param roomSid - The SID of the room with the Participant resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, roomSid: string, sid: string);
 
@@ -246,8 +246,8 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - A system-generated 34-character string that uniquely identifies.
-   * @param sid - A system-generated 34-character string that uniquely identifies this Participant.
+   * @param roomSid - The SID of the participant's room
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: ParticipantPayload, roomSid: string, sid: string);
 

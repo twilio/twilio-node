@@ -20,14 +20,14 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the Service that the Asset resource is associated with
  */
 declare function AssetList(version: V1, serviceSid: string): AssetListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human-readable description of this Asset.
+ * @property friendlyName - A string to describe the Asset resource
  */
 interface AssetInstanceUpdateOptions {
   friendlyName: string;
@@ -64,7 +64,7 @@ interface AssetListInstance {
   /**
    * Constructs a asset
    *
-   * @param sid - Asset Sid.
+   * @param sid - The SID that identifies the Asset resource to fetch
    */
   get(sid: string): AssetContext;
   /**
@@ -110,7 +110,7 @@ interface AssetListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human-readable description of this Asset.
+ * @property friendlyName - A string to describe the Asset resource
  */
 interface AssetListInstanceCreateOptions {
   friendlyName: string;
@@ -201,8 +201,8 @@ declare class AssetContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Asset Sid.
+   * @param serviceSid - The SID of the Service to fetch the Asset resource from
+   * @param sid - The SID that identifies the Asset resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -243,8 +243,8 @@ declare class AssetInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Asset Sid.
+   * @param serviceSid - The SID of the Service that the Asset resource is associated with
+   * @param sid - The SID that identifies the Asset resource to fetch
    */
   constructor(version: V1, payload: AssetPayload, serviceSid: string, sid: string);
 

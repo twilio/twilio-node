@@ -15,18 +15,18 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the WorkspaceCumulativeStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
+ * @param workspaceSid - The SID of the Workspace
  */
 declare function WorkspaceCumulativeStatisticsList(version: V1, workspaceSid: string): WorkspaceCumulativeStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property endDate - Filter cumulative statistics by an end date.
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property endDate - Only include usage that occurred on or before this date
+ * @property minutes - Only calculate statistics since this many minutes in the past
+ * @property splitByWaitTime - A comma separated list of values that describes the thresholds to calculate statistics on
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate cumulative statistics on this TaskChannel
  */
 interface WorkspaceCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;
@@ -88,7 +88,7 @@ declare class WorkspaceCumulativeStatisticsContext {
    * Initialize the WorkspaceCumulativeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace to fetch
    */
   constructor(version: V1, workspaceSid: string);
 
@@ -112,7 +112,7 @@ declare class WorkspaceCumulativeStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace
    */
   constructor(version: V1, payload: WorkspaceCumulativeStatisticsPayload, workspaceSid: string);
 

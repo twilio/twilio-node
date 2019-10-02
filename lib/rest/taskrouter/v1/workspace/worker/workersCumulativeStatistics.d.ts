@@ -15,17 +15,17 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the WorkersCumulativeStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
+ * @param workspaceSid - The SID of the Workspace that contains the Workers
  */
 declare function WorkersCumulativeStatisticsList(version: V1, workspaceSid: string): WorkersCumulativeStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property endDate - Filter cumulative statistics by a end date.
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ * @property endDate - Only calculate statistics from on or before this date
+ * @property minutes - Only calculate statistics since this many minutes in the past
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate cumulative statistics on this TaskChannel
  */
 interface WorkersCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;
@@ -77,7 +77,7 @@ declare class WorkersCumulativeStatisticsContext {
    * Initialize the WorkersCumulativeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace with the resource to fetch
    */
   constructor(version: V1, workspaceSid: string);
 
@@ -101,7 +101,7 @@ declare class WorkersCumulativeStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The SID of the Workspace that contains the Workers
    */
   constructor(version: V1, payload: WorkersCumulativeStatisticsPayload, workspaceSid: string);
 

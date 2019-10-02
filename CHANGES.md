@@ -1,6 +1,19 @@
 twilio-node changelog
 =====================
 
+[2019-10-02] Version 3.35.1
+---------------------------
+**Library**
+- [PR #483](https://github.com/twilio/twilio-node/pull/483): Added the ability for users to specify a CA bundle for HTTPS requests. Thanks to [@whitebarry](https://github.com/whitebarry)!
+- [PR #482](https://github.com/twilio/twilio-node/pull/482): Typing fix for PolicyOptions. Thanks to [@kamolins3](https://github.com/kamolins3)!
+
+**Conversations**
+- Add media to Conversations Message resource
+
+**Supersim**
+- Add List endpoint to Sims resource for Super Sim Pilot
+
+
 [2019-09-18] Version 3.35.0
 ----------------------------
 **Library**

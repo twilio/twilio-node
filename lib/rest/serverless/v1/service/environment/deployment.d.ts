@@ -18,8 +18,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
- * @param environmentSid - Environment Sid.
+ * @param serviceSid - The SID of the Service that the Deployment resource is associated with
+ * @param environmentSid - The SID of the environment for the deployment
  */
 declare function DeploymentList(version: V1, serviceSid: string, environmentSid: string): DeploymentListInstance;
 
@@ -54,7 +54,7 @@ interface DeploymentListInstance {
   /**
    * Constructs a deployment
    *
-   * @param sid - Deployment Sid.
+   * @param sid - The SID that identifies the Deployment resource to fetch
    */
   get(sid: string): DeploymentContext;
   /**
@@ -100,7 +100,7 @@ interface DeploymentListInstance {
 /**
  * Options to pass to create
  *
- * @property buildSid - Build Sid.
+ * @property buildSid - The SID of the build for the deployment
  */
 interface DeploymentListInstanceCreateOptions {
   buildSid: string;
@@ -192,9 +192,9 @@ declare class DeploymentContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param environmentSid - Environment Sid.
-   * @param sid - Deployment Sid.
+   * @param serviceSid - The SID of the Service to fetch the Deployment resource from
+   * @param environmentSid - The SID of the environment used by the Deployment to fetch
+   * @param sid - The SID that identifies the Deployment resource to fetch
    */
   constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
 
@@ -221,9 +221,9 @@ declare class DeploymentInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param environmentSid - Environment Sid.
-   * @param sid - Deployment Sid.
+   * @param serviceSid - The SID of the Service that the Deployment resource is associated with
+   * @param environmentSid - The SID of the environment for the deployment
+   * @param sid - The SID that identifies the Deployment resource to fetch
    */
   constructor(version: V1, payload: DeploymentPayload, serviceSid: string, environmentSid: string, sid: string);
 

@@ -22,8 +22,8 @@ declare function WebChannelList(version: V1): WebChannelListInstance;
 /**
  * Options to pass to update
  *
- * @property chatStatus - Chat status
- * @property postEngagementData - Post-engagement data
+ * @property chatStatus - The chat status
+ * @property postEngagementData - The post-engagement data
  */
 interface WebChannelInstanceUpdateOptions {
   chatStatus?: WebChannelChatStatus;
@@ -61,7 +61,7 @@ interface WebChannelListInstance {
   /**
    * Constructs a web_channel
    *
-   * @param sid - Flex Chat Channel Sid
+   * @param sid - The SID of the WebChannel resource to fetch
    */
   get(sid: string): WebChannelContext;
   /**
@@ -107,12 +107,12 @@ interface WebChannelListInstance {
 /**
  * Options to pass to create
  *
- * @property chatFriendlyName - Chat channel friendly name
- * @property chatUniqueName - Chat channel unique name
- * @property customerFriendlyName - Customer friendly name
- * @property flexFlowSid - The unique ID of the FlexFlow
- * @property identity - Chat identity
- * @property preEngagementData - Pre-engagement data
+ * @property chatFriendlyName - The chat channel's friendly name
+ * @property chatUniqueName - The chat channel's unique name
+ * @property customerFriendlyName - The chat participant's friendly name
+ * @property flexFlowSid - The SID of the FlexFlow
+ * @property identity - The chat identity
+ * @property preEngagementData - The pre-engagement data
  */
 interface WebChannelListInstanceCreateOptions {
   chatFriendlyName: string;
@@ -201,7 +201,7 @@ declare class WebChannelContext {
    * Initialize the WebChannelContext
    *
    * @param version - Version of the resource
-   * @param sid - Flex Chat Channel Sid
+   * @param sid - The SID of the WebChannel resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -237,7 +237,7 @@ declare class WebChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - Flex Chat Channel Sid
+   * @param sid - The SID of the WebChannel resource to fetch
    */
   constructor(version: V1, payload: WebChannelPayload, sid: string);
 

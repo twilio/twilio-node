@@ -19,18 +19,18 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param sessionSid - The unique id of the Session for this message.
+ * @param sessionSid - The SID of the Session for the message
  */
 declare function MessageList(version: V1, sessionSid: string): MessageListInstance;
 
 /**
  * Options to pass to update
  *
- * @property attributes - A string metadata field you can use to store any data you wish.
- * @property author - The identity of the message's author.
- * @property body - The contents of the message.
- * @property dateCreated - The date that this resource was created.
- * @property dateUpdated - The date that this resource was last updated.
+ * @property attributes - A JSON string that stores application-specific data
+ * @property author - The identity of the message's author
+ * @property body - The message body
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
  */
 interface MessageInstanceUpdateOptions {
   attributes?: string;
@@ -71,7 +71,7 @@ interface MessageListInstance {
   /**
    * Constructs a message
    *
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): MessageContext;
   /**
@@ -117,11 +117,11 @@ interface MessageListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - A string metadata field you can use to store any data you wish.
- * @property author - The identity of the message's author.
- * @property body - The contents of the message.
- * @property dateCreated - The date that this resource was created.
- * @property dateUpdated - The date that this resource was last updated.
+ * @property attributes - A JSON string that stores application-specific data
+ * @property author - The identity of the message's author
+ * @property body - The message body
+ * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
+ * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
  */
 interface MessageListInstanceCreateOptions {
   attributes?: string;
@@ -220,8 +220,8 @@ declare class MessageContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sessionSid - The unique id of the Session for this message.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sessionSid - The SID of the Session with the message to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sessionSid: string, sid: string);
 
@@ -261,8 +261,8 @@ declare class MessageInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sessionSid - The unique id of the Session for this message.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param sessionSid - The SID of the Session for the message
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: MessagePayload, sessionSid: string, sid: string);
 

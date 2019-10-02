@@ -15,14 +15,14 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the ActivityList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The unique ID of the Workspace that this Activity belongs to.
+ * @param workspaceSid - The SID of the Workspace that contains the Activity
  */
 declare function ActivityList(version: V1, workspaceSid: string): ActivityListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human-readable name for the Activity, such as 'on-call', 'break', 'email', etc.
+ * @property friendlyName - A string to describe the Activity resource
  */
 interface ActivityInstanceUpdateOptions {
   friendlyName?: string;
@@ -59,7 +59,7 @@ interface ActivityListInstance {
   /**
    * Constructs a activity
    *
-   * @param sid - The sid
+   * @param sid - The SID of the resource to fetch
    */
   get(sid: string): ActivityContext;
   /**
@@ -105,8 +105,8 @@ interface ActivityListInstance {
 /**
  * Options to pass to create
  *
- * @property available - Boolean value indicating whether the worker should be eligible to receive a Task when they occupy this Activity.
- * @property friendlyName - A human-readable name for the Activity, such as 'On Call', 'Break', 'Email', etc.
+ * @property available - Whether the Worker should be eligible to receive a Task when it occupies the Activity
+ * @property friendlyName - A string to describe the Activity resource
  */
 interface ActivityListInstanceCreateOptions {
   available?: boolean;
@@ -116,12 +116,12 @@ interface ActivityListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property available - Filter by activities that are available or unavailable.
+ * @property available - Whether to return activities that are available or unavailable
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter by an Activity's friendly name
+ * @property friendlyName - The friendly_name of the Activity resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -145,8 +145,8 @@ interface ActivityListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property available - Filter by activities that are available or unavailable.
- * @property friendlyName - Filter by an Activity's friendly name
+ * @property available - Whether to return activities that are available or unavailable
+ * @property friendlyName - The friendly_name of the Activity resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -168,8 +168,8 @@ interface ActivityListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property available - Filter by activities that are available or unavailable.
- * @property friendlyName - Filter by an Activity's friendly name
+ * @property available - Whether to return activities that are available or unavailable
+ * @property friendlyName - The friendly_name of the Activity resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -206,8 +206,8 @@ declare class ActivityContext {
    * Initialize the ActivityContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace with the Activity resources to fetch
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
@@ -243,8 +243,8 @@ declare class ActivityInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The unique ID of the Workspace that this Activity belongs to.
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace that contains the Activity
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, payload: ActivityPayload, workspaceSid: string, sid: string);
 

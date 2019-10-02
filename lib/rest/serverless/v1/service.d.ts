@@ -33,8 +33,8 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human-readable description of this Service.
- * @property includeCredentials - Whether to inject Account credentials into a Function invocation context.
+ * @property friendlyName - A string to describe the Service resource
+ * @property includeCredentials - Whether to inject Account credentials into a function invocation context
  */
 interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
@@ -72,7 +72,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - Serverless Service Sid or unique name.
+   * @param sid - The SID of the Service resource to fetch
    */
   get(sid: string): ServiceContext;
   /**
@@ -118,9 +118,9 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human-readable description of this Service.
- * @property includeCredentials - Whether to inject Account credentials into a Function invocation context.
- * @property uniqueName - A unique, addressable name of this Service.
+ * @property friendlyName - A string to describe the Service resource
+ * @property includeCredentials - Whether to inject Account credentials into a function invocation context
+ * @property uniqueName - An application-defined string that uniquely identifies the Service resource
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;
@@ -213,7 +213,7 @@ declare class ServiceContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - Serverless Service Sid or unique name.
+   * @param sid - The SID of the Service resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -257,7 +257,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - Serverless Service Sid or unique name.
+   * @param sid - The SID of the Service resource to fetch
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 

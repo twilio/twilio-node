@@ -15,16 +15,16 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the WorkerChannelList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The unique ID of the Workspace that this WorkerChannel belongs to.
- * @param workerSid - The unique ID of the Worker that this WorkerChannel belongs to.
+ * @param workspaceSid - The SID of the Workspace that contains the WorkerChannel
+ * @param workerSid - The SID of the Worker that contains the WorkerChannel
  */
 declare function WorkerChannelList(version: V1, workspaceSid: string, workerSid: string): WorkerChannelListInstance;
 
 /**
  * Options to pass to update
  *
- * @property available - Toggle the availability of the WorkerChannel.
- * @property capacity - The total number of Tasks worker should handle for this TaskChannel type.
+ * @property available - Whether the WorkerChannel is available
+ * @property capacity - The total number of Tasks that the Worker should handle for the TaskChannel type
  */
 interface WorkerChannelInstanceUpdateOptions {
   available?: boolean;
@@ -55,7 +55,7 @@ interface WorkerChannelListInstance {
   /**
    * Constructs a worker_channel
    *
-   * @param sid - The sid
+   * @param sid - The SID of the to fetch
    */
   get(sid: string): WorkerChannelContext;
   /**
@@ -185,9 +185,9 @@ declare class WorkerChannelContext {
    * Initialize the WorkerChannelContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workerSid - The worker_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace with the WorkerChannel to fetch
+   * @param workerSid - The SID of the Worker with the WorkerChannel to fetch
+   * @param sid - The SID of the to fetch
    */
   constructor(version: V1, workspaceSid: string, workerSid: string, sid: string);
 
@@ -217,9 +217,9 @@ declare class WorkerChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The unique ID of the Workspace that this WorkerChannel belongs to.
-   * @param workerSid - The unique ID of the Worker that this WorkerChannel belongs to.
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace that contains the WorkerChannel
+   * @param workerSid - The SID of the Worker that contains the WorkerChannel
+   * @param sid - The SID of the to fetch
    */
   constructor(version: V1, payload: WorkerChannelPayload, workspaceSid: string, workerSid: string, sid: string);
 

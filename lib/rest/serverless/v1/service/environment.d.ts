@@ -24,7 +24,7 @@ import { VariableListInstance } from './environment/variable';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the Service that the Environment resource is associated with
  */
 declare function EnvironmentList(version: V1, serviceSid: string): EnvironmentListInstance;
 
@@ -59,7 +59,7 @@ interface EnvironmentListInstance {
   /**
    * Constructs a environment
    *
-   * @param sid - Environment Sid.
+   * @param sid - The SID of the Environment resource to fetch
    */
   get(sid: string): EnvironmentContext;
   /**
@@ -105,8 +105,8 @@ interface EnvironmentListInstance {
 /**
  * Options to pass to create
  *
- * @property domainSuffix - A URL-friendly name that represents this Environment.
- * @property uniqueName - A unique, addressable name of this Environment.
+ * @property domainSuffix - A URL-friendly name that represents the environment
+ * @property uniqueName - An application-defined string that uniquely identifies the Environment resource
  */
 interface EnvironmentListInstanceCreateOptions {
   domainSuffix?: string;
@@ -201,8 +201,8 @@ declare class EnvironmentContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Environment Sid.
+   * @param serviceSid - The SID of the Service to fetch the Environment resource from
+   * @param sid - The SID of the Environment resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -238,8 +238,8 @@ declare class EnvironmentInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Environment Sid.
+   * @param serviceSid - The SID of the Service that the Environment resource is associated with
+   * @param sid - The SID of the Environment resource to fetch
    */
   constructor(version: V1, payload: EnvironmentPayload, serviceSid: string, sid: string);
 

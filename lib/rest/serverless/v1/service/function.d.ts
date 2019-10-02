@@ -20,14 +20,14 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the Service that the Function resource is associated with
  */
 declare function FunctionList(version: V1, serviceSid: string): FunctionListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human-readable description of this Function.
+ * @property friendlyName - A string to describe the Function resource
  */
 interface FunctionInstanceUpdateOptions {
   friendlyName: string;
@@ -64,7 +64,7 @@ interface FunctionListInstance {
   /**
    * Constructs a function
    *
-   * @param sid - Function Sid.
+   * @param sid - The SID of the Function resource to fetch
    */
   get(sid: string): FunctionContext;
   /**
@@ -110,7 +110,7 @@ interface FunctionListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human-readable description of this Function.
+ * @property friendlyName - A string to describe the Function resource
  */
 interface FunctionListInstanceCreateOptions {
   friendlyName: string;
@@ -201,8 +201,8 @@ declare class FunctionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Function Sid.
+   * @param serviceSid - The SID of the Service to fetch the Function resource from
+   * @param sid - The SID of the Function resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -243,8 +243,8 @@ declare class FunctionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Function Sid.
+   * @param serviceSid - The SID of the Service that the Function resource is associated with
+   * @param sid - The SID of the Function resource to fetch
    */
   constructor(version: V1, payload: FunctionPayload, serviceSid: string, sid: string);
 

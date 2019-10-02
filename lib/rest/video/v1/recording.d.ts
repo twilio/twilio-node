@@ -50,7 +50,7 @@ interface RecordingListInstance {
   /**
    * Constructs a recording
    *
-   * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): RecordingContext;
   /**
@@ -99,23 +99,23 @@ interface RecordingListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Recordings that started before this ISO8601 date-time with timezone.
+ * @property dateCreatedAfter - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedBefore - Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
  * @property done - Function to be called upon completion of streaming
- * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property groupingSid - Read only recordings that have this grouping_sid
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property mediaType - Only show Recordings that have this media type.
+ * @property mediaType - Read only recordings that have this media type
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property sourceSid - Only show the Recordings with the given source Sid.
- * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Read only the recordings that have this source_sid
+ * @property status - Read only the recordings that have this status
  */
 interface RecordingListInstanceEachOptions {
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
@@ -133,22 +133,22 @@ interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Recordings that started before this ISO8601 date-time with timezone.
- * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property dateCreatedAfter - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedBefore - Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property groupingSid - Read only recordings that have this grouping_sid
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property mediaType - Only show Recordings that have this media type.
+ * @property mediaType - Read only recordings that have this media type
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property sourceSid - Only show the Recordings with the given source Sid.
- * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Read only the recordings that have this source_sid
+ * @property status - Read only the recordings that have this status
  */
 interface RecordingListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -164,15 +164,15 @@ interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Recordings that started before this ISO8601 date-time with timezone.
- * @property groupingSid - Only show Recordings that have this GroupingSid.
- * @property mediaType - Only show Recordings that have this media type.
+ * @property dateCreatedAfter - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedBefore - Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property groupingSid - Read only recordings that have this grouping_sid
+ * @property mediaType - Read only recordings that have this media type
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property sourceSid - Only show the Recordings with the given source Sid.
- * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Read only the recordings that have this source_sid
+ * @property status - Read only the recordings that have this status
  */
 interface RecordingListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -216,7 +216,7 @@ declare class RecordingContext {
    * Initialize the RecordingContext
    *
    * @param version - Version of the resource
-   * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -245,7 +245,7 @@ declare class RecordingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: RecordingPayload, sid: string);
 

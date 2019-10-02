@@ -118,7 +118,7 @@ interface FaxListInstance {
  * Options to pass to create
  *
  * @property from - The number the fax was sent from
- * @property mediaUrl - The Twilio-hosted URL of the PDF that contains the fax
+ * @property mediaUrl - The URL of the PDF that contains the fax
  * @property quality - The quality of this fax
  * @property sipAuthPassword - The password for SIP authentication
  * @property sipAuthUsername - The username for SIP authentication

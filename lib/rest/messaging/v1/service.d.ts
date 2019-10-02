@@ -32,20 +32,20 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property areaCodeGeomatch - The area_code_geomatch
- * @property fallbackMethod - The fallback_method
- * @property fallbackToLongCode - The fallback_to_long_code
- * @property fallbackUrl - The fallback_url
- * @property friendlyName - The friendly_name
- * @property inboundMethod - The inbound_method
- * @property inboundRequestUrl - The inbound_request_url
- * @property mmsConverter - The mms_converter
- * @property scanMessageContent - The scan_message_content
- * @property smartEncoding - The smart_encoding
- * @property statusCallback - The status_callback
- * @property stickySender - The sticky_sender
- * @property synchronousValidation - The synchronous_validation
- * @property validityPeriod - The validity_period
+ * @property areaCodeGeomatch - Whether to enable Area Code Geomatch on the Service Instance
+ * @property fallbackMethod - The HTTP method we should use to call fallback_url
+ * @property fallbackToLongCode - Whether to enable Fallback to Long Code for messages sent through the Service instance
+ * @property fallbackUrl - The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+ * @property friendlyName - A string to describe the resource
+ * @property inboundMethod - The HTTP method we should use to call inbound_request_url
+ * @property inboundRequestUrl - The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+ * @property mmsConverter - Whether to enable the MMS Converter for messages sent through the Service instance
+ * @property scanMessageContent - Reserved
+ * @property smartEncoding - Whether to enable Encoding for messages sent through the Service instance
+ * @property statusCallback - The URL we should call to pass status updates about message delivery
+ * @property stickySender - Whether to enable Sticky Sender on the Service instance
+ * @property synchronousValidation - Reserved
+ * @property validityPeriod - How long, in seconds, messages sent from the Service are valid
  */
 interface ServiceInstanceUpdateOptions {
   areaCodeGeomatch?: boolean;
@@ -95,7 +95,7 @@ interface ServiceListInstance {
   /**
    * Constructs a service
    *
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): ServiceContext;
   /**
@@ -141,20 +141,20 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property areaCodeGeomatch - Configuration to enable or disable Area Code Geomatch.
- * @property fallbackMethod - The HTTP method used when requesting the Fallback URL.
- * @property fallbackToLongCode - Configuration to enable or disable Fallback to Long Code.
- * @property fallbackUrl - A request is made to the Fallback URL if an error occurs with retrieving or executing the TwiML from you Inbound Request URL.
- * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters.
- * @property inboundMethod - The HTTP method used when making requests to the Inbound Request URL.
- * @property inboundRequestUrl - A webhook request is made to the Inbound Request URL when a message is received by any phone number or shortcode associated to your Messaging Service.
- * @property mmsConverter - Configuration to enable or disable MMS Converter on your Service Instance.
- * @property scanMessageContent - The scan_message_content
- * @property smartEncoding - Configuration to enable or disable Smart Encoding.
- * @property statusCallback - A webhook request is made to the Status Callback to pass status updates about your messages.
- * @property stickySender - Configuration to enable or disable Sticky Sender on your Service Instance.
- * @property synchronousValidation - The synchronous_validation
- * @property validityPeriod - Configuration to set the validity period of all messages sent from your Service, in seconds.
+ * @property areaCodeGeomatch - Whether to enable Area Code Geomatch on the Service Instance
+ * @property fallbackMethod - The HTTP method we should use to call fallback_url
+ * @property fallbackToLongCode - Whether to enable Fallback to Long Code for messages sent through the Service instance
+ * @property fallbackUrl - The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+ * @property friendlyName - A string to describe the resource
+ * @property inboundMethod - The HTTP method we should use to call inbound_request_url
+ * @property inboundRequestUrl - The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+ * @property mmsConverter - Whether to enable the MMS Converter for messages sent through the Service instance
+ * @property scanMessageContent - Reserved
+ * @property smartEncoding - Whether to enable Encoding for messages sent through the Service instance
+ * @property statusCallback - The URL we should call to pass status updates about message delivery
+ * @property stickySender - Whether to enable Sticky Sender on the Service instance
+ * @property synchronousValidation - Reserved
+ * @property validityPeriod - How long, in seconds, messages sent from the Service are valid
  */
 interface ServiceListInstanceCreateOptions {
   areaCodeGeomatch?: boolean;
@@ -268,7 +268,7 @@ declare class ServiceContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -310,7 +310,7 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: ServicePayload, sid: string);
 

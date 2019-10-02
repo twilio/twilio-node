@@ -20,8 +20,8 @@ type FunctionVersionVisibility = 'public'|'private'|'protected';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
- * @param functionSid - Function Sid.
+ * @param serviceSid - The SID of the Service that the FunctionVersion resource is associated with
+ * @param functionSid - The SID of the function that is the parent of the function version
  */
 declare function FunctionVersionList(version: V1, serviceSid: string, functionSid: string): FunctionVersionListInstance;
 
@@ -49,7 +49,7 @@ interface FunctionVersionListInstance {
   /**
    * Constructs a function_version
    *
-   * @param sid - Function Version Sid.
+   * @param sid - The SID that identifies the FunctionVersion resource to fetch
    */
   get(sid: string): FunctionVersionContext;
   /**
@@ -178,9 +178,9 @@ declare class FunctionVersionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param functionSid - Function Sid.
-   * @param sid - Function Version Sid.
+   * @param serviceSid - The SID of the Service to fetch the FunctionVersion resource from
+   * @param functionSid - The SID of the function that is the parent of the FunctionVersion resource to fetch
+   * @param sid - The SID that identifies the FunctionVersion resource to fetch
    */
   constructor(version: V1, serviceSid: string, functionSid: string, sid: string);
 
@@ -207,9 +207,9 @@ declare class FunctionVersionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param functionSid - Function Sid.
-   * @param sid - Function Version Sid.
+   * @param serviceSid - The SID of the Service that the FunctionVersion resource is associated with
+   * @param functionSid - The SID of the function that is the parent of the function version
+   * @param sid - The SID that identifies the FunctionVersion resource to fetch
    */
   constructor(version: V1, payload: FunctionVersionPayload, serviceSid: string, functionSid: string, sid: string);
 

@@ -27,13 +27,13 @@ declare function WebhookList(version: V1): WebhookListInstance;
 /**
  * Options to pass to update
  *
- * @property postWebhookRetryCount - The number of retries in case of post-event webhook request failures.
- * @property postWebhookUrl - The absolute url the post-event webhook request should be sent to.
- * @property preWebhookRetryCount - The number of retries in case of pre-event webhook request failures.
- * @property preWebhookUrl - The absolute url the pre-event webhook request should be sent to.
- * @property target - The routing target of the webhook.
- * @property webhookFilters - The list of webhook event triggers that are enabled for this Service.
- * @property webhookMethod - The HTTP method to be used when sending a webhook request.
+ * @property postWebhookRetryCount - The number of times to try the post-event webhook request if the first attempt fails
+ * @property postWebhookUrl - The absolute URL of the post-event webhook
+ * @property preWebhookRetryCount - The number of times to try the pre-event webhook request if the first attempt fails
+ * @property preWebhookUrl - The absolute URL of the pre-event webhook
+ * @property target - The routing target of the webhook
+ * @property webhookFilters - The list of webhook event triggers that are enabled for the Service
+ * @property webhookMethod - The HTTP method to use when sending a webhook request
  */
 interface WebhookInstanceUpdateOptions {
   postWebhookRetryCount?: number;

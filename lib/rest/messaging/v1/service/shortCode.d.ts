@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that this resource is associated with
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
 declare function ShortCodeList(version: V1, serviceSid: string): ShortCodeListInstance;
 
@@ -52,7 +52,7 @@ interface ShortCodeListInstance {
   /**
    * Constructs a short_code
    *
-   * @param sid - The unique string that identifies this resource
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): ShortCodeContext;
   /**
@@ -98,7 +98,7 @@ interface ShortCodeListInstance {
 /**
  * Options to pass to create
  *
- * @property shortCodeSid - SID of the ShortCode being added to the Service.
+ * @property shortCodeSid - The SID of the ShortCode being added to the Service
  */
 interface ShortCodeListInstanceCreateOptions {
   shortCodeSid: string;
@@ -190,7 +190,7 @@ declare class ShortCodeContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The unique string that identifies this resource
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -222,8 +222,8 @@ declare class ShortCodeInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that this resource is associated with
-   * @param sid - The unique string that identifies this resource
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: ShortCodePayload, serviceSid: string, sid: string);
 

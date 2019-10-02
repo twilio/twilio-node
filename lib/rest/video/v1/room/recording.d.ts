@@ -23,7 +23,7 @@ type RoomRecordingType = 'audio'|'video'|'data';
  * Initialize the RoomRecordingList
  *
  * @param version - Version of the resource
- * @param roomSid - The room_sid
+ * @param roomSid - The SID of the Room resource the recording is associated with
  */
 declare function RoomRecordingList(version: V1, roomSid: string): RoomRecordingListInstance;
 
@@ -51,7 +51,7 @@ interface RoomRecordingListInstance {
   /**
    * Constructs a room_recording
    *
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): RoomRecordingContext;
   /**
@@ -100,8 +100,8 @@ interface RoomRecordingListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
+ * @property dateCreatedAfter - Read only Recordings that started on or after this ISO 8601 datetime with time zone
+ * @property dateCreatedBefore - Read only Recordings that started before this ISO 8601 date-time with time zone
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -113,8 +113,8 @@ interface RoomRecordingListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property sourceSid - The source_sid
- * @property status - The status
+ * @property sourceSid - Read only the recordings that have this source_sid
+ * @property status - Read only the recordings with this status
  */
 interface RoomRecordingListInstanceEachOptions {
   callback?: (item: RoomRecordingInstance, done: (err?: Error) => void) => void;
@@ -130,8 +130,8 @@ interface RoomRecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
+ * @property dateCreatedAfter - Read only Recordings that started on or after this ISO 8601 datetime with time zone
+ * @property dateCreatedBefore - Read only Recordings that started before this ISO 8601 date-time with time zone
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -142,8 +142,8 @@ interface RoomRecordingListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property sourceSid - The source_sid
- * @property status - The status
+ * @property sourceSid - Read only the recordings that have this source_sid
+ * @property status - Read only the recordings with this status
  */
 interface RoomRecordingListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -157,13 +157,13 @@ interface RoomRecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
+ * @property dateCreatedAfter - Read only Recordings that started on or after this ISO 8601 datetime with time zone
+ * @property dateCreatedBefore - Read only Recordings that started before this ISO 8601 date-time with time zone
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property sourceSid - The source_sid
- * @property status - The status
+ * @property sourceSid - Read only the recordings that have this source_sid
+ * @property status - Read only the recordings with this status
  */
 interface RoomRecordingListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -207,8 +207,8 @@ declare class RoomRecordingContext {
    * Initialize the RoomRecordingContext
    *
    * @param version - Version of the resource
-   * @param roomSid - The room_sid
-   * @param sid - The sid
+   * @param roomSid - The SID of the Room resource with the recording to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, roomSid: string, sid: string);
 
@@ -237,8 +237,8 @@ declare class RoomRecordingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - The room_sid
-   * @param sid - The sid
+   * @param roomSid - The SID of the Room resource the recording is associated with
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: RoomRecordingPayload, roomSid: string, sid: string);
 

@@ -15,15 +15,15 @@ import { SerializableClass } from '../../../../interfaces';
  * Initialize the TaskChannelList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
+ * @param workspaceSid - The SID of the Workspace that contains the TaskChannel
  */
 declare function TaskChannelList(version: V1, workspaceSid: string): TaskChannelListInstance;
 
 /**
  * Options to pass to update
  *
- * @property channelOptimizedRouting - If true then prioritize longest idle workers
- * @property friendlyName - Toggle the FriendlyName for the TaskChannel
+ * @property channelOptimizedRouting - Whether the TaskChannel should prioritize Workers that have been idle
+ * @property friendlyName - A string to describe the TaskChannel resource
  */
 interface TaskChannelInstanceUpdateOptions {
   channelOptimizedRouting?: boolean;
@@ -61,7 +61,7 @@ interface TaskChannelListInstance {
   /**
    * Constructs a task_channel
    *
-   * @param sid - The unique ID for this TaskChannel.
+   * @param sid - The SID of the TaskChannel resource to fetch
    */
   get(sid: string): TaskChannelContext;
   /**
@@ -107,9 +107,9 @@ interface TaskChannelListInstance {
 /**
  * Options to pass to create
  *
- * @property channelOptimizedRouting - If true then prioritize longest idle workers
- * @property friendlyName - String representing user-friendly name for the TaskChannel
- * @property uniqueName - String representing unique name for the TaskChannel
+ * @property channelOptimizedRouting - Whether the TaskChannel should prioritize Workers that have been idle
+ * @property friendlyName - A string to describe the TaskChannel resource
+ * @property uniqueName - An application-defined string that uniquely identifies the TaskChannel
  */
 interface TaskChannelListInstanceCreateOptions {
   channelOptimizedRouting?: boolean;
@@ -200,8 +200,8 @@ declare class TaskChannelContext {
    * Initialize the TaskChannelContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
-   * @param sid - The unique ID for this TaskChannel.
+   * @param workspaceSid - The SID of the Workspace with the TaskChannel to fetch
+   * @param sid - The SID of the TaskChannel resource to fetch
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
@@ -237,8 +237,8 @@ declare class TaskChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
-   * @param sid - The unique ID for this TaskChannel.
+   * @param workspaceSid - The SID of the Workspace that contains the TaskChannel
+   * @param sid - The SID of the TaskChannel resource to fetch
    */
   constructor(version: V1, payload: TaskChannelPayload, workspaceSid: string, sid: string);
 

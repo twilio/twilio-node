@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The 34 character unique sid of the Service.
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
 declare function PhoneNumberList(version: V1, serviceSid: string): PhoneNumberListInstance;
 
@@ -52,7 +52,7 @@ interface PhoneNumberListInstance {
   /**
    * Constructs a phone_number
    *
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): PhoneNumberContext;
   /**
@@ -98,7 +98,7 @@ interface PhoneNumberListInstance {
 /**
  * Options to pass to create
  *
- * @property phoneNumberSid - Phone Number SID for the Phone Number being added to the Service.
+ * @property phoneNumberSid - The SID of the Phone Number being added to the Service
  */
 interface PhoneNumberListInstanceCreateOptions {
   phoneNumberSid: string;
@@ -189,8 +189,8 @@ declare class PhoneNumberContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service to fetch the resource from
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -222,8 +222,8 @@ declare class PhoneNumberInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The 34 character unique sid of the Service.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: PhoneNumberPayload, serviceSid: string, sid: string);
 

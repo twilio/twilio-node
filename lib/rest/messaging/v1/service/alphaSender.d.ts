@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The 34 character unique sid of the Messaging Service.
+ * @param serviceSid - The SID of the Service that the resource is associated with
  */
 declare function AlphaSenderList(version: V1, serviceSid: string): AlphaSenderListInstance;
 
@@ -52,7 +52,7 @@ interface AlphaSenderListInstance {
   /**
    * Constructs a alpha_sender
    *
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): AlphaSenderContext;
   /**
@@ -98,7 +98,7 @@ interface AlphaSenderListInstance {
 /**
  * Options to pass to create
  *
- * @property alphaSender - An Alphanumeric Sender ID string, up to 11 characters.
+ * @property alphaSender - The Alphanumeric Sender ID string
  */
 interface AlphaSenderListInstanceCreateOptions {
   alphaSender: string;
@@ -188,8 +188,8 @@ declare class AlphaSenderContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Messaging Service to fetch the resource from
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -221,8 +221,8 @@ declare class AlphaSenderInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The 34 character unique sid of the Messaging Service.
-   * @param sid - The sid
+   * @param serviceSid - The SID of the Service that the resource is associated with
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: AlphaSenderPayload, serviceSid: string, sid: string);
 

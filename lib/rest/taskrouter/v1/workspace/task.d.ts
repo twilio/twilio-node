@@ -19,18 +19,18 @@ type TaskStatus = 'pending'|'reserved'|'assigned'|'canceled'|'completed'|'wrappi
  * Initialize the TaskList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The ID of the Workspace that holds this Task
+ * @param workspaceSid - The SID of the Workspace that contains the Task
  */
 declare function TaskList(version: V1, workspaceSid: string): TaskListInstance;
 
 /**
  * Options to pass to update
  *
- * @property assignmentStatus - A 'pending' or 'reserved' Task may be canceled by posting AssignmentStatus='canceled'.
- * @property attributes - The user-defined JSON data describing the custom attributes of this task.
- * @property priority - Override priority for the Task.
- * @property reason - This is only required if the Task is canceled or completed.
- * @property taskChannel - The task_channel
+ * @property assignmentStatus - The new status of the task
+ * @property attributes - The JSON string that describes the custom attributes of the task
+ * @property priority - The Task's new priority value
+ * @property reason - The reason that the Task was canceled or complete
+ * @property taskChannel - When MultiTasking is enabled, specify the TaskChannel with the task to update
  */
 interface TaskInstanceUpdateOptions {
   assignmentStatus?: TaskStatus;
@@ -71,7 +71,7 @@ interface TaskListInstance {
   /**
    * Constructs a task
    *
-   * @param sid - The sid
+   * @param sid - The SID of the resource to fetch
    */
   get(sid: string): TaskContext;
   /**
@@ -117,11 +117,11 @@ interface TaskListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - Url-encoded JSON string describing the attributes of this task.
- * @property priority - Override priority for the Task.
- * @property taskChannel - When MultiTasking is enabled specify the type of the task by passing either TaskChannel Unique Name or Task Channel Sid.
- * @property timeout - The amount of time in seconds the task is allowed to live up to a maximum of 2 weeks.
- * @property workflowSid - The WorkflowSid for the Workflow that you would like to handle routing for this Task.
+ * @property attributes - A URL-encoded JSON string describing the attributes of the task
+ * @property priority - The priority to assign the new task and override the default
+ * @property taskChannel - When MultiTasking is enabled specify the TaskChannel by passing either its unique_name or SID
+ * @property timeout - The amount of time in seconds the task is allowed to live
+ * @property workflowSid - The SID of the Workflow that you would like to handle routing for the new Task
  */
 interface TaskListInstanceCreateOptions {
   attributes?: string;
@@ -134,29 +134,29 @@ interface TaskListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
+ * @property assignmentStatus - Returns the list of all Tasks in the Workspace with the specified assignment_status
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
- * @property hasAddons - The has_addons
+ * @property evaluateTaskAttributes - The task attributes of the Tasks to read
+ * @property hasAddons - Whether to read Tasks with addons
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property ordering - Use this parameter to control the order of the Tasks returned.
+ * @property ordering - Controls the order of the Tasks returned
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
- * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
- * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
- * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
- * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+ * @property priority - The priority value of the Tasks to read
+ * @property taskQueueName - The friendly_name of the TaskQueue with the Tasks to read
+ * @property taskQueueSid - The SID of the TaskQueue with the Tasks to read
+ * @property workflowName - The friendly name of the Workflow with the Tasks to read
+ * @property workflowSid - The SID of the Workflow with the Tasks to read
  */
 interface TaskListInstanceEachOptions {
   assignmentStatus?: string | string[];
@@ -177,25 +177,25 @@ interface TaskListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
- * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
- * @property hasAddons - The has_addons
+ * @property assignmentStatus - Returns the list of all Tasks in the Workspace with the specified assignment_status
+ * @property evaluateTaskAttributes - The task attributes of the Tasks to read
+ * @property hasAddons - Whether to read Tasks with addons
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property ordering - Use this parameter to control the order of the Tasks returned.
+ * @property ordering - Controls the order of the Tasks returned
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
- * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
- * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
- * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
- * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+ * @property priority - The priority value of the Tasks to read
+ * @property taskQueueName - The friendly_name of the TaskQueue with the Tasks to read
+ * @property taskQueueSid - The SID of the TaskQueue with the Tasks to read
+ * @property workflowName - The friendly name of the Workflow with the Tasks to read
+ * @property workflowSid - The SID of the Workflow with the Tasks to read
  */
 interface TaskListInstanceOptions {
   assignmentStatus?: string | string[];
@@ -214,18 +214,18 @@ interface TaskListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
- * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
- * @property hasAddons - The has_addons
- * @property ordering - Use this parameter to control the order of the Tasks returned.
+ * @property assignmentStatus - Returns the list of all Tasks in the Workspace with the specified assignment_status
+ * @property evaluateTaskAttributes - The task attributes of the Tasks to read
+ * @property hasAddons - Whether to read Tasks with addons
+ * @property ordering - Controls the order of the Tasks returned
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
- * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
- * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
- * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
- * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+ * @property priority - The priority value of the Tasks to read
+ * @property taskQueueName - The friendly_name of the TaskQueue with the Tasks to read
+ * @property taskQueueSid - The SID of the TaskQueue with the Tasks to read
+ * @property workflowName - The friendly name of the Workflow with the Tasks to read
+ * @property workflowSid - The SID of the Workflow with the Tasks to read
  */
 interface TaskListInstancePageOptions {
   assignmentStatus?: string | string[];
@@ -278,8 +278,8 @@ declare class TaskContext {
    * Initialize the TaskContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace with the Task to fetch
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
@@ -316,8 +316,8 @@ declare class TaskInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The ID of the Workspace that holds this Task
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace that contains the Task
+   * @param sid - The SID of the resource to fetch
    */
   constructor(version: V1, payload: TaskPayload, workspaceSid: string, sid: string);
 

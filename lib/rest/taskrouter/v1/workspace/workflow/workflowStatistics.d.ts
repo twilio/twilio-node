@@ -15,19 +15,19 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the WorkflowStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
- * @param workflowSid - The workflow_sid
+ * @param workspaceSid - The SID of the Workspace that contains the Workflow
+ * @param workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
  */
 declare function WorkflowStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property endDate - Filter cumulative statistics by an end date.
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property endDate - Only calculate statistics from this date and time and earlier
+ * @property minutes - Only calculate statistics since this many minutes in the past
+ * @property splitByWaitTime - A comma separated list of values that describes the thresholds to calculate statistics on
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate real-time statistics on this TaskChannel.
  */
 interface WorkflowStatisticsInstanceFetchOptions {
   endDate?: Date;
@@ -75,8 +75,8 @@ declare class WorkflowStatisticsContext {
    * Initialize the WorkflowStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workflowSid - The workflow_sid
+   * @param workspaceSid - The SID of the Workspace with the Workflow to fetch
+   * @param workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
    */
   constructor(version: V1, workspaceSid: string, workflowSid: string);
 
@@ -100,8 +100,8 @@ declare class WorkflowStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
-   * @param workflowSid - The workflow_sid
+   * @param workspaceSid - The SID of the Workspace that contains the Workflow
+   * @param workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
    */
   constructor(version: V1, payload: WorkflowStatisticsPayload, workspaceSid: string, workflowSid: string);
 

@@ -15,19 +15,19 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the TaskQueueCumulativeStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
- * @param taskQueueSid - The task_queue_sid
+ * @param workspaceSid - The SID of the Workspace that contains the TaskQueue
+ * @param taskQueueSid - The SID of the TaskQueue from which these statistics were calculated
  */
 declare function TaskQueueCumulativeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueCumulativeStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property endDate - Filter cumulative statistics by an end date.
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property endDate - Only calculate statistics from on or before this date
+ * @property minutes - Only calculate statistics since this many minutes in the past
+ * @property splitByWaitTime - A comma separated list of values that describes the thresholds to calculate statistics on
+ * @property startDate - Only calculate statistics from on or after this date
+ * @property taskChannel - Only calculate cumulative statistics on this TaskChannel
  */
 interface TaskQueueCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;
@@ -90,8 +90,8 @@ declare class TaskQueueCumulativeStatisticsContext {
    * Initialize the TaskQueueCumulativeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param taskQueueSid - The task_queue_sid
+   * @param workspaceSid - The SID of the Workspace with the TaskQueue to fetch
+   * @param taskQueueSid - The SID of the TaskQueue for which to fetch statistics
    */
   constructor(version: V1, workspaceSid: string, taskQueueSid: string);
 
@@ -115,8 +115,8 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
-   * @param taskQueueSid - The task_queue_sid
+   * @param workspaceSid - The SID of the Workspace that contains the TaskQueue
+   * @param taskQueueSid - The SID of the TaskQueue from which these statistics were calculated
    */
   constructor(version: V1, payload: TaskQueueCumulativeStatisticsPayload, workspaceSid: string, taskQueueSid: string);
 

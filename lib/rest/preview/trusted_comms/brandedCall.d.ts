@@ -38,7 +38,7 @@ interface BrandedCallListInstance {
 /**
  * Options to pass to create
  *
- * @property callSid - The call_sid
+ * @property callSid - The Call sid this Branded Call should link to
  * @property from - Twilio number from which to brand the call
  * @property reason - The business reason for this phone call
  * @property to - The terminating Phone Number

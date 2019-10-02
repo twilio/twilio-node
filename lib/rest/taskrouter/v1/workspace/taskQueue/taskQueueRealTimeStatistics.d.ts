@@ -14,15 +14,15 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the TaskQueueRealTimeStatisticsList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
- * @param taskQueueSid - The task_queue_sid
+ * @param workspaceSid - The SID of the Workspace that contains the TaskQueue
+ * @param taskQueueSid - The SID of the TaskQueue from which these statistics were calculated
  */
 declare function TaskQueueRealTimeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueRealTimeStatisticsListInstance;
 
 /**
  * Options to pass to fetch
  *
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property taskChannel - The TaskChannel for which to fetch statistics
  */
 interface TaskQueueRealTimeStatisticsInstanceFetchOptions {
   taskChannel?: string;
@@ -72,8 +72,8 @@ declare class TaskQueueRealTimeStatisticsContext {
    * Initialize the TaskQueueRealTimeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param taskQueueSid - The task_queue_sid
+   * @param workspaceSid - The SID of the Workspace with the TaskQueue to fetch
+   * @param taskQueueSid - The SID of the TaskQueue for which to fetch statistics
    */
   constructor(version: V1, workspaceSid: string, taskQueueSid: string);
 
@@ -97,8 +97,8 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
-   * @param taskQueueSid - The task_queue_sid
+   * @param workspaceSid - The SID of the Workspace that contains the TaskQueue
+   * @param taskQueueSid - The SID of the TaskQueue from which these statistics were calculated
    */
   constructor(version: V1, payload: TaskQueueRealTimeStatisticsPayload, workspaceSid: string, taskQueueSid: string);
 

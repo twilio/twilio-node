@@ -93,9 +93,9 @@ interface MediaListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
- * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
- * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreated - Only include media that was created on this date
+ * @property dateCreatedAfter - Only include media that was created on this date
+ * @property dateCreatedBefore - Only include media that was created on this date
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -121,9 +121,9 @@ interface MediaListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
- * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
- * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreated - Only include media that was created on this date
+ * @property dateCreatedAfter - Only include media that was created on this date
+ * @property dateCreatedBefore - Only include media that was created on this date
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -146,9 +146,9 @@ interface MediaListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreated - The `YYYY-MM-DD` value of the resources to read
- * @property dateCreatedAfter - The `YYYY-MM-DD` value of the resources to read
- * @property dateCreatedBefore - The `YYYY-MM-DD` value of the resources to read
+ * @property dateCreated - Only include media that was created on this date
+ * @property dateCreatedAfter - Only include media that was created on this date
+ * @property dateCreatedBefore - Only include media that was created on this date
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API

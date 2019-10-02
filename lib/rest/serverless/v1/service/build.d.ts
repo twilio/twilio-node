@@ -21,7 +21,7 @@ type BuildStatus = 'building'|'completed'|'failed';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
+ * @param serviceSid - The SID of the Service that the Build resource is associated with
  */
 declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
 
@@ -56,7 +56,7 @@ interface BuildListInstance {
   /**
    * Constructs a build
    *
-   * @param sid - Build Sid.
+   * @param sid - The SID of the Build resource to fetch
    */
   get(sid: string): BuildContext;
   /**
@@ -102,9 +102,9 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - List of Asset Version Sids.
- * @property dependencies - List of Dependencies.
- * @property functionVersions - List of Function Version Sids.
+ * @property assetVersions - The list of AssetVersion resource SIDs to include in the build
+ * @property dependencies - A list of objects that describe the Dependencies included in the build
+ * @property functionVersions - The list of the Variable resource SIDs to include in the build
  */
 interface BuildListInstanceCreateOptions {
   assetVersions?: string | string[];
@@ -199,8 +199,8 @@ declare class BuildContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param serviceSid - The SID of the Service to fetch the Build resource from
+   * @param sid - The SID of the Build resource to fetch
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -233,8 +233,8 @@ declare class BuildInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param sid - Build Sid.
+   * @param serviceSid - The SID of the Service that the Build resource is associated with
+   * @param sid - The SID of the Build resource to fetch
    */
   constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
 

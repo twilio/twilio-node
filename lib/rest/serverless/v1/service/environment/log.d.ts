@@ -20,8 +20,8 @@ type LogLevel = 'info'|'warn'|'error';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
- * @param environmentSid - Environment Sid.
+ * @param serviceSid - The SID of the Service that the Log resource is associated with
+ * @param environmentSid - The SID of the environment in which the log occurred
  */
 declare function LogList(version: V1, serviceSid: string, environmentSid: string): LogListInstance;
 
@@ -49,7 +49,7 @@ interface LogListInstance {
   /**
    * Constructs a log
    *
-   * @param sid - Log Sid.
+   * @param sid - The SID that identifies the Log resource to fetch
    */
   get(sid: string): LogContext;
   /**
@@ -99,7 +99,7 @@ interface LogListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property functionSid - Function Sid.
+ * @property functionSid - The SID of the function whose invocation produced the Log resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -122,7 +122,7 @@ interface LogListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property functionSid - Function Sid.
+ * @property functionSid - The SID of the function whose invocation produced the Log resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -143,7 +143,7 @@ interface LogListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property functionSid - Function Sid.
+ * @property functionSid - The SID of the function whose invocation produced the Log resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -187,9 +187,9 @@ declare class LogContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param environmentSid - Environment Sid.
-   * @param sid - Log Sid.
+   * @param serviceSid - The SID of the Service to fetch the Log resource from
+   * @param environmentSid - The SID of the environment with the Log resource to fetch
+   * @param sid - The SID that identifies the Log resource to fetch
    */
   constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
 
@@ -216,9 +216,9 @@ declare class LogInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param environmentSid - Environment Sid.
-   * @param sid - Log Sid.
+   * @param serviceSid - The SID of the Service that the Log resource is associated with
+   * @param environmentSid - The SID of the environment in which the log occurred
+   * @param sid - The SID that identifies the Log resource to fetch
    */
   constructor(version: V1, payload: LogPayload, serviceSid: string, environmentSid: string, sid: string);
 

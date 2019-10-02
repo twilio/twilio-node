@@ -27,16 +27,16 @@ declare function CompositionHookList(version: V1): CompositionHookListInstance;
 /**
  * Options to pass to update
  *
- * @property audioSources - A list of audio sources related to this Composition Hook.
- * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition Hook.
- * @property enabled - Boolean flag indicating if the Composition Hook is active.
- * @property format - Container format of the Composition Hook media file. Any of the following: `mp4`, `webm`.
- * @property friendlyName - Friendly name of the Composition Hook to be shown in the console.
- * @property resolution - Pixel resolution of the composed video.
- * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
- * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
- * @property trim - Boolean flag for clipping intervals that have no media.
- * @property videoLayout - The JSON video layout description.
+ * @property audioSources - An array of track names from the same group room to merge
+ * @property audioSourcesExcluded - An array of track names to exclude
+ * @property enabled - Whether the composition hook is active
+ * @property format - The container format of the media files used by the compositions created by the composition hook
+ * @property friendlyName - A unique string to describe the resource
+ * @property resolution - A string that describes the columns (width) and rows (height) of the generated composed video in pixels
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackMethod - The HTTP method we should use to call status_callback
+ * @property trim - Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook
+ * @property videoLayout - A JSON object that describes the video layout of the composition hook
  */
 interface CompositionHookInstanceUpdateOptions {
   audioSources?: string | string[];
@@ -82,7 +82,7 @@ interface CompositionHookListInstance {
   /**
    * Constructs a composition_hook
    *
-   * @param sid - The Composition Hook Sid that uniquely identifies the Composition Hook to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): CompositionHookContext;
   /**
@@ -128,16 +128,16 @@ interface CompositionHookListInstance {
 /**
  * Options to pass to create
  *
- * @property audioSources - A list of audio sources related to this Composition Hook.
- * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition Hook.
- * @property enabled - Boolean flag indicating if the Composition Hook is active.
- * @property format - Container format of the Composition Hook media file. Any of the following: `mp4`, `webm`.
- * @property friendlyName - Friendly name of the Composition Hook to be shown in the console.
- * @property resolution - Pixel resolution of the composed video.
- * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
- * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
- * @property trim - Boolean flag for clipping intervals that have no media.
- * @property videoLayout - The JSON video layout description.
+ * @property audioSources - An array of track names from the same group room to merge
+ * @property audioSourcesExcluded - An array of track names to exclude
+ * @property enabled - Whether the composition hook is active
+ * @property format - The container format of the media files used by the compositions created by the composition hook
+ * @property friendlyName - A unique string to describe the resource
+ * @property resolution - A string that describes the rows (width) and columns (height) of the generated composed video in pixels
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackMethod - The HTTP method we should use to call status_callback
+ * @property trim - Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook
+ * @property videoLayout - An object that describes the video layout of the composition hook
  */
 interface CompositionHookListInstanceCreateOptions {
   audioSources?: string | string[];
@@ -158,11 +158,11 @@ interface CompositionHookListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
+ * @property dateCreatedAfter - Read only CompositionHook resources created on or after this ISO 8601 datetime with time zone
+ * @property dateCreatedBefore - Read only CompositionHook resources created before this ISO 8601 datetime with time zone
  * @property done - Function to be called upon completion of streaming
- * @property enabled - Only show Composition Hooks enabled or disabled.
- * @property friendlyName - Only show Composition Hooks with friendly name that match this name.
+ * @property enabled - Read only CompositionHook resources with an enabled value that matches this parameter
+ * @property friendlyName - Read only CompositionHook resources with friendly names that match this string
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -188,10 +188,10 @@ interface CompositionHookListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
- * @property enabled - Only show Composition Hooks enabled or disabled.
- * @property friendlyName - Only show Composition Hooks with friendly name that match this name.
+ * @property dateCreatedAfter - Read only CompositionHook resources created on or after this ISO 8601 datetime with time zone
+ * @property dateCreatedBefore - Read only CompositionHook resources created before this ISO 8601 datetime with time zone
+ * @property enabled - Read only CompositionHook resources with an enabled value that matches this parameter
+ * @property friendlyName - Read only CompositionHook resources with friendly names that match this string
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -215,10 +215,10 @@ interface CompositionHookListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Only show Composition Hooks created on or after this ISO8601 date-time with timezone.
- * @property dateCreatedBefore - Only show Composition Hooks created before this ISO8601 date-time with timezone.
- * @property enabled - Only show Composition Hooks enabled or disabled.
- * @property friendlyName - Only show Composition Hooks with friendly name that match this name.
+ * @property dateCreatedAfter - Read only CompositionHook resources created on or after this ISO 8601 datetime with time zone
+ * @property dateCreatedBefore - Read only CompositionHook resources created before this ISO 8601 datetime with time zone
+ * @property enabled - Read only CompositionHook resources with an enabled value that matches this parameter
+ * @property friendlyName - Read only CompositionHook resources with friendly names that match this string
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -267,7 +267,7 @@ declare class CompositionHookContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The Composition Hook Sid that uniquely identifies the Composition Hook to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -307,7 +307,7 @@ declare class CompositionHookInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The Composition Hook Sid that uniquely identifies the Composition Hook to fetch.
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: CompositionHookPayload, sid: string);
 
