@@ -241,7 +241,7 @@ interface CompositionHookResource {
   audio_sources: string[];
   audio_sources_excluded: string[];
   date_created: Date;
-  date_updated: string;
+  date_updated: Date;
   enabled: boolean;
   format: CompositionHookFormat;
   friendly_name: string;
@@ -316,7 +316,7 @@ declare class CompositionHookInstance extends SerializableClass {
   audioSources: string[];
   audioSourcesExcluded: string[];
   dateCreated: Date;
-  dateUpdated: string;
+  dateUpdated: Date;
   enabled: boolean;
   /**
    * fetch a CompositionHookInstance

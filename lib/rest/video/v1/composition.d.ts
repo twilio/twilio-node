@@ -214,9 +214,9 @@ interface CompositionResource {
   audio_sources: string[];
   audio_sources_excluded: string[];
   bitrate: number;
-  date_completed: string;
+  date_completed: Date;
   date_created: Date;
-  date_deleted: string;
+  date_deleted: Date;
   duration: number;
   format: CompositionFormat;
   links: string;
@@ -285,9 +285,9 @@ declare class CompositionInstance extends SerializableClass {
   audioSources: string[];
   audioSourcesExcluded: string[];
   bitrate: number;
-  dateCompleted: string;
+  dateCompleted: Date;
   dateCreated: Date;
-  dateDeleted: string;
+  dateDeleted: Date;
   duration: number;
   /**
    * fetch a CompositionInstance
