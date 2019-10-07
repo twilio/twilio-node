@@ -15,6 +15,7 @@ declare namespace Request {
     params?: string;
     data?: TData | '*';
     headers?: object | '*';
+    ca?: string;
   }
 }
 
