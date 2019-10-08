@@ -1,23 +1,31 @@
 language: node_js
 node_js:
-    - "node"
-    - "lts/*"
-    - "8"
-    - "6"
+- "node"
+- "lts/*""
+- "8"
+- "6"
 services:
-  - docker
+- docker
 script: npm run ci
 notifications:
   slack:
     on_success: change
     on_failure: change
     rooms:
-      - secure: WDSJTf0kyen9YY7PH4PPc6LftE5w+YH825dX0qUF/3C+U4/qKW9D7U2z+bsbqi0Ir3cGObN6iK73O18E7N4L3vV1eyCj3ds7eyU9/YBroegz8+4KXw89n4lUVGo4jjIp9tzPgqmRdk5S0Flr/wc1HM9+VlnHFN5gE0P7Vui8bbc=
-      - secure: IlvaufTODSJPN3aIeQV4k/9c0YVRReCK4GAkBUj6Q9rMEJ9XQaSC3x5O0i1CM2cODWqfQsqVkII92LJy/Q8bbvIVW6ZYLy5aYi+EIiHAZMZkPb+kyIS97uDeYGL4Oo9OteGftNCIQTIpqu5WwWDx9cu9IoX9Qb19lO6chkCBo2I=
+    - secure: WDSJTf0kyen9YY7PH4PPc6LftE5w+YH825dX0qUF/3C+U4/qKW9D7U2z+bsbqi0Ir3cGObN6iK73O18E7N4L3vV1eyCj3ds7eyU9/YBroegz8+4KXw89n4lUVGo4jjIp9tzPgqmRdk5S0Flr/wc1HM9+VlnHFN5gE0P7Vui8bbc=
+    - secure: IlvaufTODSJPN3aIeQV4k/9c0YVRReCK4GAkBUj6Q9rMEJ9XQaSC3x5O0i1CM2cODWqfQsqVkII92LJy/Q8bbvIVW6ZYLy5aYi+EIiHAZMZkPb+kyIS97uDeYGL4Oo9OteGftNCIQTIpqu5WwWDx9cu9IoX9Qb19lO6chkCBo2I=
 deploy:
-  provider: script
-  script: make docker-build && make docker-push
-  skip_cleanup: true
-  on:
-    tags: true
-    node: "8"
+  - provider: script
+    script: make docker-build && make docker-push
+    skip_cleanup: true
+    on:
+      tags: true
+      node: "8"
+  - provider: npm
+    email: twilio-ci@twilio.com
+    api_key:
+      secure: aseNt4M8/qLU5+Wh5f8Bqy8QEl6BT4id4qaq0fhRiVSrAOyb3em2nevjRRdZCVkLQvlV/v4uceo1h3kebXlj/4q9bHu0UnyNVnC9t+bZrSCRXfxWcvsq5XPKOwtXmLuVgNOhp6Zhd3Gaex4gyCummhMelXclLYhwOkp++SE0prY=
+    on:
+      repo: twilio/twilio-node
+      tags: true
+      node: "8"
