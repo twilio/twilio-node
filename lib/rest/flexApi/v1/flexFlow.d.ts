@@ -39,6 +39,7 @@ declare function FlexFlowList(version: V1): FlexFlowListInstance;
  * @property integration.workflowSid - The Workflow SID for a new task
  * @property integration.workspaceSid - The Workspace SID for a new task
  * @property integrationType - The integration type
+ * @property janitorEnabled - Boolean flag for enabling or disabling the Janitor
  * @property longLived - Whether new channels created are long-lived
  */
 interface FlexFlowInstanceUpdateOptions {
@@ -58,6 +59,7 @@ interface FlexFlowInstanceUpdateOptions {
     creationOnMessage?: boolean;
   };
   integrationType?: FlexFlowIntegrationType;
+  janitorEnabled?: boolean;
   longLived?: boolean;
 }
 
@@ -152,6 +154,7 @@ interface FlexFlowListInstance {
  * @property integration.workflowSid - The Workflow SID for a new task
  * @property integration.workspaceSid - The Workspace SID for a new task
  * @property integrationType - The integration type
+ * @property janitorEnabled - Boolean flag for enabling or disabling the Janitor
  * @property longLived - Whether new channels are long-lived
  */
 interface FlexFlowListInstanceCreateOptions {
@@ -171,6 +174,7 @@ interface FlexFlowListInstanceCreateOptions {
     creationOnMessage?: boolean;
   };
   integrationType?: FlexFlowIntegrationType;
+  janitorEnabled?: boolean;
   longLived?: boolean;
 }
 
@@ -251,6 +255,7 @@ interface FlexFlowResource {
   friendly_name: string;
   integration: object;
   integration_type: FlexFlowIntegrationType;
+  janitor_enabled: boolean;
   long_lived: boolean;
   sid: string;
   url: string;
@@ -322,6 +327,7 @@ declare class FlexFlowInstance extends SerializableClass {
   friendlyName: string;
   integration: object;
   integrationType: FlexFlowIntegrationType;
+  janitorEnabled: boolean;
   longLived: boolean;
   /**
    * remove a FlexFlowInstance

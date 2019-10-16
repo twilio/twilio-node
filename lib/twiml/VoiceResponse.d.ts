@@ -260,6 +260,7 @@ declare namespace VoiceResponse {
    * Options to pass to conference
    *
    * @property beep - Play beep when joining
+   * @property coach - Call coach
    * @property endConferenceOnExit - End the conferenceon exit
    * @property eventCallbackUrl - Event callback URL
    * @property maxParticipants - Maximum number of participants
@@ -276,10 +277,10 @@ declare namespace VoiceResponse {
    * @property trim - Trim the conference recording
    * @property waitMethod - Wait URL method
    * @property waitUrl - Wait URL
-   * @property whisper - Call whisper
    */
   export interface ConferenceAttributes {
     beep?: ConferenceBeep;
+    coach?: string;
     endConferenceOnExit?: boolean;
     eventCallbackUrl?: string;
     maxParticipants?: number;
@@ -296,7 +297,6 @@ declare namespace VoiceResponse {
     trim?: ConferenceTrim;
     waitMethod?: string;
     waitUrl?: string;
-    whisper?: string;
   }
 
   /**

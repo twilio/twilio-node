@@ -59,7 +59,6 @@ interface ConfigurationResource {
   crm_type: string;
   date_created: Date;
   date_updated: Date;
-  features_enabled: string[];
   integrations: object[];
   messaging_service_instance_sid: string;
   outbound_call_flows: object;
@@ -150,7 +149,6 @@ declare class ConfigurationInstance extends SerializableClass {
   crmType: string;
   dateCreated: Date;
   dateUpdated: Date;
-  featuresEnabled: string[];
   /**
    * fetch a ConfigurationInstance
    *
