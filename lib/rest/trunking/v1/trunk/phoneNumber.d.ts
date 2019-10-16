@@ -168,7 +168,7 @@ interface PhoneNumberResource {
   address_requirements: PhoneNumberAddressRequirement;
   api_version: string;
   beta: boolean;
-  capabilities: string;
+  capabilities: object;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
@@ -242,7 +242,7 @@ declare class PhoneNumberInstance extends SerializableClass {
   addressRequirements: PhoneNumberAddressRequirement;
   apiVersion: string;
   beta: boolean;
-  capabilities: string;
+  capabilities: object;
   dateCreated: Date;
   dateUpdated: Date;
   /**
