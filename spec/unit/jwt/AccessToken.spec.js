@@ -28,6 +28,11 @@ describe('AccessToken', function() {
     it('should require secret', function() {
       expect(initWithoutIndex(2)).toThrow(new Error('secret is required'));
     });
+    it('should convert identity from integer to string', function () {
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret', { identity: 4444 });
+      var decoded = jwt.decode(token.toJwt());
+      expect(decoded.grants.identity).toEqual('4444');
+    });
   });
 
   describe('generate', function() {

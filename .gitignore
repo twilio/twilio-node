@@ -22,3 +22,6 @@ config.js
 
 ### jsdoc dir ###
 docs
+
+### ide / editors ###
+.vscode
