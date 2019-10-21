@@ -75,6 +75,61 @@ describe('Request validation', () => {
 
         expect(isValid).toBeFalsy();
     });
+
+    it('should validate https urls with ports by stripping them', () => {
+        const requestUrlWithPort = requestUrl.replace('.com', '.com:1234');
+        const isValid = validateRequest(token, defaultSignature, requestUrlWithPort, defaultParams);
+
+        expect(isValid).toBeTruthy();
+    });
+
+    it('should validate http urls with ports', () => {
+        let requestUrlWithPort = requestUrl.replace('.com', '.com:1234');
+        requestUrlWithPort = requestUrlWithPort.replace('https', 'http');
+        const signature =  'Zmvh+3yNM1Phv2jhDCwEM3q5ebU='; // hash of http url with port 1234
+        const isValid = validateRequest(token, signature, requestUrlWithPort, defaultParams);
+
+        expect(isValid).toBeTruthy();
+    });
+
+    it('should validate https urls without ports by adding standard port 443', () => {
+        const signature =  'kvajT1Ptam85bY51eRf/AJRuM3w=';  // hash of https url with port 443
+        const isValid = validateRequest(token, signature, requestUrl, defaultParams);
+
+        expect(isValid).toBeTruthy();
+    });
+
+    it('should validate http urls without ports by adding standard port 80', () => {
+        const requestUrlHttp = requestUrl.replace('https', 'http');
+        const signature =  '0ZXoZLH/DfblKGATFgpif+LLRf4=';  // hash of http url with port 80
+        const isValid = validateRequest(token, signature, requestUrlHttp, defaultParams);
+
+        expect(isValid).toBeTruthy();
+    });
+
+    it('should validate urls with credentials', () => {
+        const urlWithCreds = 'https://user:pass@mycompany.com/myapp.php?foo=1&bar=2';
+        const signature = 'CukzLTc1tT5dXEDIHm/tKBanW10='; // hash of this url
+        const isValid = validateRequest(token, signature, urlWithCreds, defaultParams);
+
+        expect(isValid).toBeTruthy();
+    });
+
+    it('should validate urls with just username', () => {
+        const urlWithCreds = 'https://user@mycompany.com/myapp.php?foo=1&bar=2';
+        const signature = '2YRLlVAflCqxaNicjMpJcSTgzSs='; // hash of this url
+        const isValid = validateRequest(token, signature, urlWithCreds, defaultParams);
+
+        expect(isValid).toBeTruthy();
+    });
+
+    it('should validate urls with credentials by adding port', () => {
+        const urlWithCreds = 'https://user:pass@mycompany.com/myapp.php?foo=1&bar=2';
+        const signature = 'ZQFR1PTIZXF2MXB8ZnKCvnnA+rI='; // hash of this url with port 443
+        const isValid = validateRequest(token, signature, urlWithCreds, defaultParams);
+
+        expect(isValid).toBeTruthy();
+    });
 });
 
 describe('Request validation middleware', () => {
