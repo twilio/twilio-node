@@ -28,25 +28,27 @@ declare function SimList(version: V1): SimListInstance;
 /**
  * Options to pass to update
  *
- * @property callbackMethod - The HTTP method we use to call callback_url
- * @property callbackUrl - The URL we call when the SIM has finished updating
- * @property commandsCallbackMethod - The HTTP method we use to call commands_callback_url
- * @property commandsCallbackUrl - he URL we call when the SIM originates a Command
- * @property friendlyName - A string to describe the resource
- * @property ratePlan - The sid or unique_name of the RatePlan resource that this SIM should use
+ * @property accountSid - The SID of the Account to which the Sim resource should belong
+ * @property callbackMethod - The HTTP method we should use to call callback_url
+ * @property callbackUrl - The URL we should call when the Sim resource has finished updating
+ * @property commandsCallbackMethod - The HTTP method we should use to call commands_callback_url
+ * @property commandsCallbackUrl - The URL we should call when the SIM sends a Command
+ * @property friendlyName - A string to describe the Sim resource
+ * @property ratePlan - The SID or unique name of the RatePlan resource to which the Sim resource should be assigned
  * @property resetStatus - Initiate a connectivity reset on a SIM
- * @property smsFallbackMethod - The HTTP method we use to call sms_fallback_url
- * @property smsFallbackUrl - The URL we call when an error occurs while retrieving or executing the TwiML requested from sms_url
- * @property smsMethod - The HTTP method we use to call sms_url
- * @property smsUrl - The URL we call when the SIM-connected device sends an SMS message that is not a Command
- * @property status - The new status of the resource
+ * @property smsFallbackMethod - The HTTP method we should use to call sms_fallback_url
+ * @property smsFallbackUrl - The URL we should call when an error occurs while retrieving or executing the TwiML requested from sms_url
+ * @property smsMethod - The HTTP method we should use to call sms_url
+ * @property smsUrl - The URL we should call when the SIM-connected device sends an SMS message that is not a Command
+ * @property status - The new status of the Sim resource
  * @property uniqueName - An application-defined string that uniquely identifies the resource
- * @property voiceFallbackMethod - The HTTP method we use to call voice_fallback_url
- * @property voiceFallbackUrl - The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
- * @property voiceMethod - The HTTP method we use when we call voice_url
- * @property voiceUrl - The URL we call when the SIM-connected device makes a voice call
+ * @property voiceFallbackMethod - The HTTP method we should use to call voice_fallback_url
+ * @property voiceFallbackUrl - The URL we should call when an error occurs while retrieving or executing the TwiML requested from voice_url
+ * @property voiceMethod - The HTTP method we should use when we call voice_url
+ * @property voiceUrl - The URL we should call when the SIM-connected device makes a voice call
  */
 interface SimInstanceUpdateOptions {
+  accountSid?: string;
   callbackMethod?: string;
   callbackUrl?: string;
   commandsCallbackMethod?: string;
@@ -90,7 +92,7 @@ interface SimListInstance {
   /**
    * Constructs a sim
    *
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The SID of the Sim resource to fetch
    */
   get(sid: string): SimContext;
   /**
@@ -152,7 +154,7 @@ interface SimListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property ratePlan - Only return Sim resources with this Rate Plan
+ * @property ratePlan - Only return Sim resources assigned to this RatePlan resource
  * @property simRegistrationCode - Only return Sim resources with this registration code
  * @property status - Only return Sim resources with this status
  */
@@ -183,7 +185,7 @@ interface SimListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property ratePlan - Only return Sim resources with this Rate Plan
+ * @property ratePlan - Only return Sim resources assigned to this RatePlan resource
  * @property simRegistrationCode - Only return Sim resources with this registration code
  * @property status - Only return Sim resources with this status
  */
@@ -205,7 +207,7 @@ interface SimListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property ratePlan - Only return Sim resources with this Rate Plan
+ * @property ratePlan - Only return Sim resources assigned to this RatePlan resource
  * @property simRegistrationCode - Only return Sim resources with this registration code
  * @property status - Only return Sim resources with this status
  */
@@ -259,7 +261,7 @@ declare class SimContext {
    * Initialize the SimContext
    *
    * @param version - Version of the resource
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The SID of the Sim resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -297,7 +299,7 @@ declare class SimInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The SID of the Sim resource to fetch
    */
   constructor(version: V1, payload: SimPayload, sid: string);
 

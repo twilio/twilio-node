@@ -52,8 +52,8 @@ describe('Cps', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = JSON.stringify({
-          'phone_number': '+1500123',
           'cps_url': 'https://preview.twilio.com/TrustedComms/CurrentCall',
+          'phone_number': '+1500123',
           'url': 'https://preview.twilio.com/TrustedComms/CPS'
       });
 

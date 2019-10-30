@@ -10,6 +10,8 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import { DayList } from './export/day';
 import { DayListInstance } from './export/day';
+import { ExportCustomJobList } from './export/exportCustomJob';
+import { ExportCustomJobListInstance } from './export/exportCustomJob';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -34,6 +36,7 @@ interface ExportListInstance {
    * @param resourceType - The resource_type
    */
   get(resourceType: string): ExportContext;
+  jobs?: object;
   /**
    * Provide a user-friendly representation
    */
@@ -67,6 +70,7 @@ declare class ExportContext {
   constructor(version: BulkExports, resourceType: string);
 
   days: DayListInstance;
+  exportCustomJobs: ExportCustomJobListInstance;
   /**
    * fetch a ExportInstance
    *
@@ -99,6 +103,10 @@ declare class ExportInstance extends SerializableClass {
    * Access the days
    */
   days(): DayListInstance;
+  /**
+   * Access the exportCustomJobs
+   */
+  exportCustomJobs(): ExportCustomJobListInstance;
   /**
    * fetch a ExportInstance
    *

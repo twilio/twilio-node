@@ -25,7 +25,7 @@ declare function SettingsList(version: V1): SettingsListInstance;
 /**
  * Options to pass to update
  *
- * @property dialingPermissionsInheritance - `true` for this sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
+ * @property dialingPermissionsInheritance - `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`
  */
 interface SettingsInstanceUpdateOptions {
   dialingPermissionsInheritance?: boolean;

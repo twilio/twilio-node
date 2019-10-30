@@ -119,6 +119,7 @@ interface ParticipantListInstance {
  * @property dateUpdated - The date that this resource was last updated.
  * @property identity - A unique string identifier for the conversation participant as Chat User.
  * @property messagingBinding.address - The address of the participant's device.
+ * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
  */
 interface ParticipantListInstanceCreateOptions {
@@ -129,6 +130,7 @@ interface ParticipantListInstanceCreateOptions {
   messagingBinding?: {
     address?: string;
     proxyAddress?: string;
+    projectedAddress?: string;
   };
 }
 

@@ -107,6 +107,35 @@ describe('Participant', function() {
       }).done();
     }
   );
+  it('should generate valid create_gmms response',
+    function(done) {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identity': 'IDENTITY',
+          'attributes': '{ \'role\': \'driver\' }',
+          'messaging_binding': {
+              'type': 'sms',
+              'projected_address': '+15017122661'
+          },
+          'date_created': '2015-12-16T22:18:37Z',
+          'date_updated': '2015-12-16T22:18:38Z',
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .participants.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, '{}'));

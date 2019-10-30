@@ -219,9 +219,9 @@ declare namespace VoiceResponse {
 
   type RejectReason = 'rejected'|'busy';
 
-  type SayLanguage = 'da-DK'|'de-DE'|'en-AU'|'en-CA'|'en-GB'|'en-IN'|'en-US'|'ca-ES'|'es-ES'|'es-MX'|'fi-FI'|'fr-CA'|'fr-FR'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ru-RU'|'sv-SE'|'zh-CN'|'zh-HK'|'zh-TW';
+  type SayLanguage = 'arb'|'ca-ES'|'cy-GB'|'da-DK'|'de-DE'|'en-AU'|'en-CA'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-US'|'es-ES'|'es-MX'|'es-US'|'fi-FI'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR'|'zh-CN'|'zh-HK'|'zh-TW';
 
-  type SayVoice = 'man'|'woman'|'alice'|'Polly.Geraint'|'Polly.Gwyneth'|'Polly.Mads'|'Polly.Naja'|'Polly.Hans'|'Polly.Marlene'|'Polly.Nicole'|'Polly.Russell'|'Polly.Amy'|'Polly.Brian'|'Polly.Emma'|'Polly.Raveena'|'Polly.Ivy'|'Polly.Joanna'|'Polly.Joey'|'Polly.Justin'|'Polly.Kendra'|'Polly.Kimberly'|'Polly.Matthew'|'Polly.Salli'|'Polly.Conchita'|'Polly.Enrique'|'Polly.Miguel'|'Polly.Penelope'|'Polly.Chantal'|'Polly.Celine'|'Polly.Mathieu'|'Polly.Dora'|'Polly.Karl'|'Polly.Carla'|'Polly.Giorgio'|'Polly.Mizuki'|'Polly.Liv'|'Polly.Lotte'|'Polly.Ruben'|'Polly.Ewa'|'Polly.Jacek'|'Polly.Jan'|'Polly.Maja'|'Polly.Ricardo'|'Polly.Vitoria'|'Polly.Cristiano'|'Polly.Ines'|'Polly.Carmen'|'Polly.Maxim'|'Polly.Tatyana'|'Polly.Astrid'|'Polly.Filiz'|'Polly.Vicki'|'Polly.Takumi'|'Polly.Seoyeon'|'Polly.Aditi';
+  type SayVoice = 'man'|'woman'|'alice'|'Polly.Aditi'|'Polly.Amy'|'Polly.Astrid'|'Polly.Bianca'|'Polly.Brian'|'Polly.Carla'|'Polly.Carmen'|'Polly.Celine'|'Polly.Chantal'|'Polly.Conchita'|'Polly.Cristiano'|'Polly.Dora'|'Polly.Emma'|'Polly.Enrique'|'Polly.Ewa'|'Polly.Filiz'|'Polly.Geraint'|'Polly.Giorgio'|'Polly.Gwyneth'|'Polly.Hans'|'Polly.Ines'|'Polly.Ivy'|'Polly.Jacek'|'Polly.Jan'|'Polly.Joanna'|'Polly.Joey'|'Polly.Justin'|'Polly.Karl'|'Polly.Kendra'|'Polly.Kimberly'|'Polly.Lea'|'Polly.Liv'|'Polly.Lotte'|'Polly.Lucia'|'Polly.Mads'|'Polly.Maja'|'Polly.Marlene'|'Polly.Mathieu'|'Polly.Matthew'|'Polly.Maxim'|'Polly.Mia'|'Polly.Miguel'|'Polly.Mizuki'|'Polly.Naja'|'Polly.Nicole'|'Polly.Penelope'|'Polly.Raveena'|'Polly.Ricardo'|'Polly.Ruben'|'Polly.Russell'|'Polly.Salli'|'Polly.Seoyeon'|'Polly.Takumi'|'Polly.Tatyana'|'Polly.Vicki'|'Polly.Vitoria'|'Polly.Zeina'|'Polly.Zhiyu';
 
   type SipEvent = 'initiated'|'ringing'|'answered'|'completed';
 

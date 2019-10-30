@@ -86,7 +86,7 @@ interface CallListInstance {
   /**
    * Constructs a call
    *
-   * @param sid - The unique string that identifies this resource
+   * @param sid - The SID of the Call resource to fetch
    */
   get(sid: string): CallContext;
   /**
@@ -143,7 +143,7 @@ interface CallListInstance {
  * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
  * @property machineDetectionTimeout - Number of seconds to wait for machine detection
  * @property method - HTTP method to use to fetch TwiML
- * @property record - Whether or not to record the call
+ * @property record - Whether to record the call
  * @property recordingChannels - The number of channels in the final recording
  * @property recordingStatusCallback - The URL that we call when the recording is available to be accessed
  * @property recordingStatusCallbackEvent - The recording status events that will trigger calls to the URL specified in `recording_status_callback`
@@ -347,7 +347,7 @@ declare class CallContext {
    *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created the resource(s) to fetch
-   * @param sid - The unique string that identifies this resource
+   * @param sid - The SID of the Call resource to fetch
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -387,7 +387,7 @@ declare class CallInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The SID of the Account that created this resource
-   * @param sid - The unique string that identifies this resource
+   * @param sid - The SID of the Call resource to fetch
    */
   constructor(version: V2010, payload: CallPayload, accountSid: string, sid: string);
 

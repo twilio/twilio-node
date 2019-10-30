@@ -21,65 +21,65 @@ type ReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'r
  * Initialize the ReservationList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
- * @param workerSid - The worker_sid
+ * @param workspaceSid - The SID of the Workspace that this worker is contained within.
+ * @param workerSid - The SID of the reserved Worker resource
  */
 declare function ReservationList(version: V1, workspaceSid: string, workerSid: string): ReservationListInstance;
 
 /**
  * Options to pass to update
  *
- * @property beep - The beep
- * @property beepOnCustomerEntrance - The beep_on_customer_entrance
- * @property callAccept - No
- * @property callFrom - Yes
- * @property callRecord - The call_record
- * @property callStatusCallbackUrl - No
- * @property callTimeout - The call_timeout
- * @property callTo - The call_to
- * @property callUrl - Yes
- * @property conferenceRecord - The conference_record
- * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
- * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
- * @property conferenceStatusCallback - The conference_status_callback
- * @property conferenceStatusCallbackEvent - The conference_status_callback_event
- * @property conferenceStatusCallbackMethod - The conference_status_callback_method
- * @property conferenceTrim - The conference_trim
- * @property dequeueFrom - Yes
- * @property dequeuePostWorkActivitySid - No
- * @property dequeueRecord - The dequeue_record
- * @property dequeueStatusCallbackEvent - The dequeue_status_callback_event
- * @property dequeueStatusCallbackUrl - The dequeue_status_callback_url
- * @property dequeueTimeout - The dequeue_timeout
- * @property dequeueTo - The dequeue_to
- * @property earlyMedia - The early_media
- * @property endConferenceOnCustomerExit - The end_conference_on_customer_exit
- * @property endConferenceOnExit - The end_conference_on_exit
- * @property from - The from
- * @property instruction - Yes
- * @property maxParticipants - The max_participants
- * @property muted - The muted
- * @property postWorkActivitySid - The post_work_activity_sid
- * @property record - The record
- * @property recordingChannels - The recording_channels
- * @property recordingStatusCallback - The recording_status_callback
- * @property recordingStatusCallbackMethod - The recording_status_callback_method
- * @property redirectAccept - The redirect_accept
- * @property redirectCallSid - The redirect_call_sid
- * @property redirectUrl - The redirect_url
- * @property region - The region
- * @property reservationStatus - Yes
- * @property sipAuthPassword - The sip_auth_password
- * @property sipAuthUsername - The sip_auth_username
- * @property startConferenceOnEnter - The start_conference_on_enter
- * @property statusCallback - The status_callback
- * @property statusCallbackEvent - The status_callback_event
- * @property statusCallbackMethod - The status_callback_method
- * @property timeout - The timeout
- * @property to - The to
- * @property waitMethod - The wait_method
- * @property waitUrl - The wait_url
- * @property workerActivitySid - No
+ * @property beep - Whether to play a notification beep when the participant joins
+ * @property beepOnCustomerEntrance - Whether to play a notification beep when the customer joins
+ * @property callAccept - Whether to accept a reservation when executing a Call instruction
+ * @property callFrom - The Caller ID of the outbound call when executing a Call instruction
+ * @property callRecord - Whether to record both legs of a call when executing a Call instruction
+ * @property callStatusCallbackUrl - The URL to call for the completed call event when executing a Call instruction
+ * @property callTimeout - The timeout for a call when executing a Call instruction
+ * @property callTo - The contact URI of the worker when executing a Call instruction
+ * @property callUrl - TwiML URI executed on answering the worker's leg as a result of the Call instruction
+ * @property conferenceRecord - Whether to record the conference the participant is joining
+ * @property conferenceRecordingStatusCallback - The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available
+ * @property conferenceRecordingStatusCallbackMethod - The HTTP method we should use to call `conference_recording_status_callback`
+ * @property conferenceStatusCallback - The callback URL for conference events
+ * @property conferenceStatusCallbackEvent - The conference status events that we will send to conference_status_callback
+ * @property conferenceStatusCallbackMethod - HTTP method for requesting `conference_status_callback` URL
+ * @property conferenceTrim - Whether to trim leading and trailing silence from your recorded conference audio files
+ * @property dequeueFrom - The caller ID of the call to the worker when executing a Dequeue instruction
+ * @property dequeuePostWorkActivitySid - The SID of the Activity resource to start after executing a Dequeue instruction
+ * @property dequeueRecord - Whether to record both legs of a call when executing a Dequeue instruction
+ * @property dequeueStatusCallbackEvent - The call progress events sent via webhooks as a result of a Dequeue instruction
+ * @property dequeueStatusCallbackUrl - The callback URL for completed call event when executing a Dequeue instruction
+ * @property dequeueTimeout - The timeout for call when executing a Dequeue instruction
+ * @property dequeueTo - The contact URI of the worker when executing a Dequeue instruction
+ * @property earlyMedia - Whether agents can hear the state of the outbound call
+ * @property endConferenceOnCustomerExit - Whether to end the conference when the customer leaves
+ * @property endConferenceOnExit - Whether to end the conference when the agent leaves
+ * @property from - The caller ID of the call to the worker when executing a Conference instruction
+ * @property instruction - The assignment instruction for the reservation
+ * @property maxParticipants - The maximum number of agent conference participants
+ * @property muted - Whether to mute the agent
+ * @property postWorkActivitySid - The new worker activity SID after executing a Conference instruction
+ * @property record - Whether to record the participant and their conferences
+ * @property recordingChannels - Specify `mono` or `dual` recording channels
+ * @property recordingStatusCallback - The URL that we should call using the `recording_status_callback_method` when the recording status changes
+ * @property recordingStatusCallbackMethod - The HTTP method we should use when we call `recording_status_callback`
+ * @property redirectAccept - Whether the reservation should be accepted when executing a Redirect instruction
+ * @property redirectCallSid - The Call SID of the call parked in the queue when executing a Redirect instruction
+ * @property redirectUrl - TwiML URI to redirect the call to when executing the Redirect instruction
+ * @property region - The region where we should mix the conference audio
+ * @property reservationStatus - The new status of the reservation
+ * @property sipAuthPassword - The SIP password for authentication
+ * @property sipAuthUsername - The SIP username used for authentication
+ * @property startConferenceOnEnter - Whether the conference starts when the participant joins the conference
+ * @property statusCallback - The URL we should call to send status information to your application
+ * @property statusCallbackEvent - The call progress events that we will send to status_callback
+ * @property statusCallbackMethod - The HTTP method we should use to call status_callback
+ * @property timeout - The timeout for a call when executing a Conference instruction
+ * @property to - The Contact URI of the worker when executing a Conference instruction
+ * @property waitMethod - The HTTP method we should use to call `wait_url`
+ * @property waitUrl - URL that hosts pre-conference hold music
+ * @property workerActivitySid - The new worker activity SID if rejecting a reservation
  */
 interface ReservationInstanceUpdateOptions {
   beep?: string;
@@ -159,7 +159,7 @@ interface ReservationListInstance {
   /**
    * Constructs a reservation
    *
-   * @param sid - The sid
+   * @param sid - The SID of the WorkerReservation resource to fetch
    */
   get(sid: string): ReservationContext;
   /**
@@ -219,7 +219,7 @@ interface ReservationListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property reservationStatus - Filter by a worker's reservation status
+ * @property reservationStatus - Returns the list of reservations for a worker with a specified ReservationStatus
  */
 interface ReservationListInstanceEachOptions {
   callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
@@ -242,7 +242,7 @@ interface ReservationListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property reservationStatus - Filter by a worker's reservation status
+ * @property reservationStatus - Returns the list of reservations for a worker with a specified ReservationStatus
  */
 interface ReservationListInstanceOptions {
   limit?: number;
@@ -256,7 +256,7 @@ interface ReservationListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property reservationStatus - Filter by a worker's reservation status
+ * @property reservationStatus - Returns the list of reservations for a worker with a specified ReservationStatus
  */
 interface ReservationListInstancePageOptions {
   pageNumber?: number;
@@ -293,9 +293,9 @@ declare class ReservationContext {
    * Initialize the ReservationContext
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workerSid - The worker_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace with the WorkerReservation resource to fetch
+   * @param workerSid - The SID of the reserved Worker resource with the WorkerReservation resource to fetch
+   * @param sid - The SID of the WorkerReservation resource to fetch
    */
   constructor(version: V1, workspaceSid: string, workerSid: string, sid: string);
 
@@ -325,9 +325,9 @@ declare class ReservationInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
-   * @param workerSid - The worker_sid
-   * @param sid - The sid
+   * @param workspaceSid - The SID of the Workspace that this worker is contained within.
+   * @param workerSid - The SID of the reserved Worker resource
+   * @param sid - The SID of the WorkerReservation resource to fetch
    */
   constructor(version: V1, payload: ReservationPayload, workspaceSid: string, workerSid: string, sid: string);
 

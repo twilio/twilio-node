@@ -56,11 +56,16 @@ interface BrandedCallPayload extends BrandedCallResource, Page.TwilioResponsePay
 interface BrandedCallResource {
   account_sid: string;
   bg_color: string;
+  brand_sid: string;
+  branded_channel_sid: string;
+  business_sid: string;
+  call_sid: string;
   caller: string;
   created_at: Date;
   font_color: string;
   from: string;
   logo: string;
+  phone_number_sid: string;
   reason: string;
   sid: string;
   status: string;
@@ -88,11 +93,16 @@ declare class BrandedCallInstance extends SerializableClass {
 
   accountSid: string;
   bgColor: string;
+  brandSid: string;
+  brandedChannelSid: string;
+  businessSid: string;
+  callSid: string;
   caller: string;
   createdAt: Date;
   fontColor: string;
   from: string;
   logo: string;
+  phoneNumberSid: string;
   reason: string;
   sid: string;
   status: string;
