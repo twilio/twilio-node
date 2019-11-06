@@ -25,16 +25,36 @@ type ParticipantWebhookEnabledType = 'true'|'false';
 declare function ParticipantList(version: V1, conversationSid: string): ParticipantListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ */
+interface ParticipantInstanceDeleteOptions {
+  xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
+}
+
+/**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ */
+interface ParticipantInstanceRemoveOptions {
+  xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
+}
+
+/**
  * Options to pass to update
  *
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
  */
 interface ParticipantInstanceUpdateOptions {
   attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
+  xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
 }
 
 interface ParticipantListInstance {
@@ -121,6 +141,7 @@ interface ParticipantListInstance {
  * @property messagingBinding.address - The address of the participant's device.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
  */
 interface ParticipantListInstanceCreateOptions {
   attributes?: string;
@@ -132,6 +153,7 @@ interface ParticipantListInstanceCreateOptions {
     proxyAddress?: string;
     projectedAddress?: string;
   };
+  xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
 }
 
 /**
@@ -233,9 +255,10 @@ declare class ParticipantContext {
   /**
    * remove a ParticipantInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
+  remove(opts?: ParticipantInstanceDeleteOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -281,9 +304,10 @@ declare class ParticipantInstance extends SerializableClass {
   /**
    * remove a ParticipantInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
+  remove(opts?: ParticipantInstanceDeleteOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -325,4 +349,4 @@ declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantRe
   toJSON(): any;
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantInstanceUpdateOptions, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantInstanceDeleteOptions, ParticipantInstanceRemoveOptions, ParticipantInstanceUpdateOptions, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

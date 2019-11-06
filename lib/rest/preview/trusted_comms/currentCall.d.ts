@@ -21,6 +21,19 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CurrentCallList(version: TrustedComms): CurrentCallListInstance;
 
+/**
+ * Options to pass to fetch
+ *
+ * @property twilioSandboxMode - Optional header to mock all voice dependencies
+ * @property xXcnamSensitivePhoneNumberFrom - The originating Phone Number
+ * @property xXcnamSensitivePhoneNumberTo - The terminating Phone Number
+ */
+interface CurrentCallInstanceFetchOptions {
+  twilioSandboxMode?: string;
+  xXcnamSensitivePhoneNumberFrom?: string;
+  xXcnamSensitivePhoneNumberTo?: string;
+}
+
 interface CurrentCallListInstance {
   /**
    * @param sid - sid of instance
@@ -75,9 +88,10 @@ declare class CurrentCallContext {
   /**
    * fetch a CurrentCallInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  fetch(opts?: CurrentCallInstanceFetchOptions, callback?: (error: Error | null, items: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -105,9 +119,10 @@ declare class CurrentCallInstance extends SerializableClass {
   /**
    * fetch a CurrentCallInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  fetch(opts?: CurrentCallInstanceFetchOptions, callback?: (error: Error | null, items: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
   fontColor: string;
   from: string;
   logo: string;
@@ -152,4 +167,4 @@ declare class CurrentCallPage extends Page<TrustedComms, CurrentCallPayload, Cur
   toJSON(): any;
 }
 
-export { CurrentCallContext, CurrentCallInstance, CurrentCallList, CurrentCallListInstance, CurrentCallPage, CurrentCallPayload, CurrentCallResource, CurrentCallSolution }
+export { CurrentCallContext, CurrentCallInstance, CurrentCallInstanceFetchOptions, CurrentCallList, CurrentCallListInstance, CurrentCallPage, CurrentCallPayload, CurrentCallResource, CurrentCallSolution }

@@ -23,6 +23,24 @@ type MemberWebhookEnabledType = 'true'|'false';
 declare function MemberList(version: V2, serviceSid: string, channelSid: string): MemberListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ */
+interface MemberInstanceDeleteOptions {
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
+}
+
+/**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ */
+interface MemberInstanceRemoveOptions {
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
+}
+
+/**
  * Options to pass to update
  *
  * @property attributes - A valid JSON string that contains application-specific data
@@ -31,6 +49,7 @@ declare function MemberList(version: V2, serviceSid: string, channelSid: string)
  * @property lastConsumedMessageIndex - The index of the last consumed Message for the Channel for the Member
  * @property lastConsumptionTimestamp - The ISO 8601 based timestamp string representing the datetime of the last Message read event for the Member within the Channel
  * @property roleSid - The SID of the Role to assign to the member
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
  */
 interface MemberInstanceUpdateOptions {
   attributes?: string;
@@ -39,6 +58,7 @@ interface MemberInstanceUpdateOptions {
   lastConsumedMessageIndex?: number;
   lastConsumptionTimestamp?: Date;
   roleSid?: string;
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
 }
 
 interface MemberListInstance {
@@ -125,6 +145,7 @@ interface MemberListInstance {
  * @property lastConsumedMessageIndex - The index of the last Message in the Channel the Member has read
  * @property lastConsumptionTimestamp - The ISO 8601 based timestamp string representing the datetime of the last Message read event for the member within the Channel
  * @property roleSid - The SID of the Role to assign to the member
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
  */
 interface MemberListInstanceCreateOptions {
   attributes?: string;
@@ -134,6 +155,7 @@ interface MemberListInstanceCreateOptions {
   lastConsumedMessageIndex?: number;
   lastConsumptionTimestamp?: Date;
   roleSid?: string;
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
 }
 
 /**
@@ -243,9 +265,10 @@ declare class MemberContext {
   /**
    * remove a MemberInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
+  remove(opts?: MemberInstanceDeleteOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -290,9 +313,10 @@ declare class MemberInstance extends SerializableClass {
   /**
    * remove a MemberInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
+  remove(opts?: MemberInstanceDeleteOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
   roleSid: string;
   serviceSid: string;
   sid: string;
@@ -333,4 +357,4 @@ declare class MemberPage extends Page<V2, MemberPayload, MemberResource, MemberI
   toJSON(): any;
 }
 
-export { MemberContext, MemberInstance, MemberInstanceUpdateOptions, MemberList, MemberListInstance, MemberListInstanceCreateOptions, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }
+export { MemberContext, MemberInstance, MemberInstanceDeleteOptions, MemberInstanceRemoveOptions, MemberInstanceUpdateOptions, MemberList, MemberListInstance, MemberListInstanceCreateOptions, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }

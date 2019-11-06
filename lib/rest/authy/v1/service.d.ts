@@ -24,12 +24,41 @@ import { SerializableClass } from '../../../interfaces';
 declare function ServiceList(version: V1): ServiceListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ */
+interface ServiceInstanceDeleteOptions {
+  twilioAuthySandboxMode?: string;
+}
+
+/**
+ * Options to pass to fetch
+ *
+ * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ */
+interface ServiceInstanceFetchOptions {
+  twilioAuthySandboxMode?: string;
+}
+
+/**
+ * Options to pass to remove
+ *
+ * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ */
+interface ServiceInstanceRemoveOptions {
+  twilioAuthySandboxMode?: string;
+}
+
+/**
  * Options to pass to update
  *
  * @property friendlyName - A human readable description of this resource.
+ * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
  */
 interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
+  twilioAuthySandboxMode?: string;
 }
 
 interface ServiceListInstance {
@@ -110,9 +139,11 @@ interface ServiceListInstance {
  * Options to pass to create
  *
  * @property friendlyName - A human readable description of this resource.
+ * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;
+  twilioAuthySandboxMode?: string;
 }
 
 /**
@@ -132,12 +163,14 @@ interface ServiceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
  */
 interface ServiceListInstanceEachOptions {
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
+  twilioAuthySandboxMode?: string;
 }
 
 /**
@@ -153,10 +186,12 @@ interface ServiceListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
  */
 interface ServiceListInstanceOptions {
   limit?: number;
   pageSize?: number;
+  twilioAuthySandboxMode?: string;
 }
 
 /**
@@ -165,11 +200,13 @@ interface ServiceListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
  */
 interface ServiceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  twilioAuthySandboxMode?: string;
 }
 
 interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
@@ -206,15 +243,17 @@ declare class ServiceContext {
   /**
    * fetch a ServiceInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  fetch(opts?: ServiceInstanceFetchOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * remove a ServiceInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
+  remove(opts?: ServiceInstanceDeleteOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -254,17 +293,19 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * fetch a ServiceInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  fetch(opts?: ServiceInstanceFetchOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   friendlyName: string;
   links: string;
   /**
    * remove a ServiceInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
+  remove(opts?: ServiceInstanceDeleteOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -307,4 +348,4 @@ declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, Serv
   toJSON(): any;
 }
 
-export { ServiceContext, ServiceInstance, ServiceInstanceUpdateOptions, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceInstanceDeleteOptions, ServiceInstanceFetchOptions, ServiceInstanceRemoveOptions, ServiceInstanceUpdateOptions, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

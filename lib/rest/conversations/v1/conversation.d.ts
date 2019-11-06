@@ -30,18 +30,38 @@ type ConversationWebhookEnabledType = 'true'|'false';
 declare function ConversationList(version: V1): ConversationListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ */
+interface ConversationInstanceDeleteOptions {
+  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
+}
+
+/**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ */
+interface ConversationInstanceRemoveOptions {
+  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
+}
+
+/**
  * Options to pass to update
  *
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
  */
 interface ConversationInstanceUpdateOptions {
   attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
   friendlyName?: string;
+  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
 interface ConversationListInstance {
@@ -126,6 +146,7 @@ interface ConversationListInstance {
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
  * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
+ * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
  */
 interface ConversationListInstanceCreateOptions {
   attributes?: string;
@@ -133,6 +154,7 @@ interface ConversationListInstanceCreateOptions {
   dateUpdated?: Date;
   friendlyName?: string;
   messagingServiceSid?: string;
+  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
 /**
@@ -235,9 +257,10 @@ declare class ConversationContext {
   /**
    * remove a ConversationInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
+  remove(opts?: ConversationInstanceDeleteOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -292,9 +315,10 @@ declare class ConversationInstance extends SerializableClass {
   /**
    * remove a ConversationInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
+  remove(opts?: ConversationInstanceDeleteOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -340,4 +364,4 @@ declare class ConversationPage extends Page<V1, ConversationPayload, Conversatio
   toJSON(): any;
 }
 
-export { ConversationContext, ConversationInstance, ConversationInstanceUpdateOptions, ConversationList, ConversationListInstance, ConversationListInstanceCreateOptions, ConversationListInstanceEachOptions, ConversationListInstanceOptions, ConversationListInstancePageOptions, ConversationPage, ConversationPayload, ConversationResource, ConversationSolution }
+export { ConversationContext, ConversationInstance, ConversationInstanceDeleteOptions, ConversationInstanceRemoveOptions, ConversationInstanceUpdateOptions, ConversationList, ConversationListInstance, ConversationListInstanceCreateOptions, ConversationListInstanceEachOptions, ConversationListInstanceOptions, ConversationListInstancePageOptions, ConversationPage, ConversationPayload, ConversationResource, ConversationSolution }
