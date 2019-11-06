@@ -42,12 +42,14 @@ interface BrandedCallListInstance {
  * @property from - Twilio number from which to brand the call
  * @property reason - The business reason for this phone call
  * @property to - The terminating Phone Number
+ * @property twilioSandboxMode - Optional header to mock all voice dependencies
  */
 interface BrandedCallListInstanceCreateOptions {
   callSid?: string;
   from: string;
   reason: string;
   to: string;
+  twilioSandboxMode?: string;
 }
 
 interface BrandedCallPayload extends BrandedCallResource, Page.TwilioResponsePayload {

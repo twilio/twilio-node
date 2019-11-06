@@ -25,13 +25,33 @@ import { SerializableClass } from '../../../../interfaces';
 declare function DocumentList(version: V1, serviceSid: string): DocumentListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property ifMatch - The if_match
+ */
+interface DocumentInstanceDeleteOptions {
+  ifMatch?: string;
+}
+
+/**
+ * Options to pass to remove
+ *
+ * @property ifMatch - The if_match
+ */
+interface DocumentInstanceRemoveOptions {
+  ifMatch?: string;
+}
+
+/**
  * Options to pass to update
  *
  * @property data - A JSON string that represents an arbitrary, schema-less object that the Sync Document stores
+ * @property ifMatch - The if_match
  * @property ttl - How long, in seconds, before the Document resource expires and is deleted
  */
 interface DocumentInstanceUpdateOptions {
   data?: object;
+  ifMatch?: string;
   ttl?: number;
 }
 
@@ -225,9 +245,10 @@ declare class DocumentContext {
   /**
    * remove a DocumentInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
+  remove(opts?: DocumentInstanceDeleteOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -277,9 +298,10 @@ declare class DocumentInstance extends SerializableClass {
   /**
    * remove a DocumentInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
+  remove(opts?: DocumentInstanceDeleteOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   sid: string;
@@ -324,4 +346,4 @@ declare class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, D
   toJSON(): any;
 }
 
-export { DocumentContext, DocumentInstance, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }
+export { DocumentContext, DocumentInstance, DocumentInstanceDeleteOptions, DocumentInstanceRemoveOptions, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

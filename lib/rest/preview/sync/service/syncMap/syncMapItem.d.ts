@@ -29,12 +29,32 @@ type SyncMapItemQueryResultOrder = 'asc'|'desc';
 declare function SyncMapItemList(version: Sync, serviceSid: string, mapSid: string): SyncMapItemListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property ifMatch - The if_match
+ */
+interface SyncMapItemInstanceDeleteOptions {
+  ifMatch?: string;
+}
+
+/**
+ * Options to pass to remove
+ *
+ * @property ifMatch - The if_match
+ */
+interface SyncMapItemInstanceRemoveOptions {
+  ifMatch?: string;
+}
+
+/**
  * Options to pass to update
  *
  * @property data - The data
+ * @property ifMatch - The if_match
  */
 interface SyncMapItemInstanceUpdateOptions {
   data: object;
+  ifMatch?: string;
 }
 
 interface SyncMapItemListInstance {
@@ -243,9 +263,10 @@ declare class SyncMapItemContext {
   /**
    * remove a SyncMapItemInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<boolean>;
+  remove(opts?: SyncMapItemInstanceDeleteOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -293,9 +314,10 @@ declare class SyncMapItemInstance extends SerializableClass {
   /**
    * remove a SyncMapItemInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<boolean>;
+  remove(opts?: SyncMapItemInstanceDeleteOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   /**
@@ -339,4 +361,4 @@ declare class SyncMapItemPage extends Page<Sync, SyncMapItemPayload, SyncMapItem
   toJSON(): any;
 }
 
-export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemInstanceUpdateOptions, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }
+export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemInstanceDeleteOptions, SyncMapItemInstanceRemoveOptions, SyncMapItemInstanceUpdateOptions, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }

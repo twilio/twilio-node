@@ -40,10 +40,12 @@ interface DeviceListInstance {
  *
  * @property phoneNumber - The end user Phone Number
  * @property pushToken - The Push Token for this Phone Number
+ * @property twilioSandboxMode - Optional header to mock all voice dependencies
  */
 interface DeviceListInstanceCreateOptions {
   phoneNumber: string;
   pushToken: string;
+  twilioSandboxMode?: string;
 }
 
 interface DevicePayload extends DeviceResource, Page.TwilioResponsePayload {
