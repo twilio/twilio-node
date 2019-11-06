@@ -165,6 +165,13 @@ describe('create voice response TwiML', function() {
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial timeout="5"><Number>+11234567890</Number></Dial><Reject/><Redirect>www.twilio.com</Redirect><Pause length="5"/></Response>');
   });
 
+  it('should serialize array attributes as space delimited', function() {
+    var actual = new VoiceResponse();
+    actual.dial().number({ statusCallbackEvents: ["initiated", "ringing"] }, '+11234567890')
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number statusCallbackEvents="initiated ringing">+11234567890</Number></Dial></Response>');
+  });
+
   it('should allow adding arbitrary text to leaf nodes', function() {
     var actual = new VoiceResponse();
     actual.hangup().addText('extra text');
