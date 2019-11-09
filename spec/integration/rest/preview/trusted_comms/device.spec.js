@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -33,7 +36,11 @@ describe('Device', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {phoneNumber: 'phone_number', pushToken: 'push_token'};
+      var opts = {
+        phoneNumber: 'phone_number',
+        pushToken: 'push_token',
+        twilioSandboxMode: 'twilio_sandbox_mode'
+      };
       var promise = client.preview.trusted_comms.devices.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -49,6 +56,25 @@ describe('Device', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {
+        'Twilio-Sandbox-Mode': 'twilio_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );

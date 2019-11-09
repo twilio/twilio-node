@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -33,7 +36,11 @@ describe('Cps', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.trusted_comms.cps().fetch();
+      var opts = {
+        twilioSandboxMode: 'twilio_sandbox_mode',
+        xXcnamSensitivePhoneNumber: 'x_xcnam_sensitive_phone_number'
+      };
+      var promise = client.preview.trusted_comms.cps().fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -43,9 +50,21 @@ describe('Cps', function() {
 
       var url = 'https://preview.twilio.com/TrustedComms/CPS';
 
+      var headers = {
+        'Twilio-Sandbox-Mode': 'twilio_sandbox_mode',
+        'X-Xcnam-Sensitive-Phone-Number': 'x_xcnam_sensitive_phone_number',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
