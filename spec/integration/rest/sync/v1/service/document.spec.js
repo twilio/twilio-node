@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -87,8 +90,9 @@ describe('Document', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                  .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                  .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -100,9 +104,16 @@ describe('Document', function() {
       var sid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Documents/${sid}`;
 
+      var headers = {'If-Match': 'if_match', 'Accept': 'application/json', 'Accept-Charset': 'utf-8'};
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -385,8 +396,9 @@ describe('Document', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                  .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+                                  .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -398,9 +410,19 @@ describe('Document', function() {
       var sid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Documents/${sid}`;
 
+      var headers = {'If-Match': 'if_match', 'Accept': 'application/json', 'Accept-Charset': 'utf-8'};
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

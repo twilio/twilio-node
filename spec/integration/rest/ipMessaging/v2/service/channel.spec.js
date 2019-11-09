@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -93,8 +96,9 @@ describe('Channel', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -106,9 +110,20 @@ describe('Channel', function() {
       var sid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${sid}`;
 
+      var headers = {
+        'X-Twilio-Webhook-Enabled': 'true',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -132,8 +147,9 @@ describe('Channel', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                         .channels.create();
+                                         .channels.create(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -144,9 +160,23 @@ describe('Channel', function() {
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels`;
 
+      var headers = {
+        'X-Twilio-Webhook-Enabled': 'true',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -421,8 +451,9 @@ describe('Channel', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -434,9 +465,23 @@ describe('Channel', function() {
       var sid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${sid}`;
 
+      var headers = {
+        'X-Twilio-Webhook-Enabled': 'true',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

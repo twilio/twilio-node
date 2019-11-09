@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -33,10 +36,11 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities('identity')
                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .challenges.create();
+                                   .challenges.create(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -49,9 +53,23 @@ describe('Challenge', function() {
       var factorSid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -95,10 +113,11 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities('identity')
                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .challenges('sid').remove();
+                                   .challenges('sid').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -112,9 +131,20 @@ describe('Challenge', function() {
       var sid = 'sid';
       var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges/${sid}`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -140,10 +170,11 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities('identity')
                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .challenges('sid').fetch();
+                                   .challenges('sid').fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -157,9 +188,20 @@ describe('Challenge', function() {
       var sid = 'sid';
       var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges/${sid}`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -239,10 +281,11 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities('identity')
                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .challenges('sid').update();
+                                   .challenges('sid').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -256,9 +299,23 @@ describe('Challenge', function() {
       var sid = 'sid';
       var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges/${sid}`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

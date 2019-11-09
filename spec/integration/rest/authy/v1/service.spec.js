@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -33,7 +36,7 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {friendlyName: 'friendly_name', twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -49,6 +52,25 @@ describe('Service', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -82,7 +104,8 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -93,9 +116,20 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -118,7 +152,8 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -129,9 +164,20 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -259,7 +305,8 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.authy.v1.services.list();
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services.list(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -269,9 +316,20 @@ describe('Service', function() {
 
       var url = 'https://authy.twilio.com/v1/Services';
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -343,7 +401,8 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -354,9 +413,23 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

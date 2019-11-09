@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -33,7 +36,7 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {identity: 'identity'};
+      var opts = {identity: 'identity', twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities.create(opts);
       promise.then(function() {
@@ -51,6 +54,25 @@ describe('Entity', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -86,8 +108,9 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .entities('identity').remove();
+                                   .entities('identity').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -99,9 +122,20 @@ describe('Entity', function() {
       var identity = 'identity';
       var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -125,8 +159,9 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .entities('identity').fetch();
+                                   .entities('identity').fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -138,9 +173,20 @@ describe('Entity', function() {
       var identity = 'identity';
       var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -276,8 +322,9 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .entities.list();
+                                   .entities.list(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -288,9 +335,20 @@ describe('Entity', function() {
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities`;
 
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

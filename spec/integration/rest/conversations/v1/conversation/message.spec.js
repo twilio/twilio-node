@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -33,8 +36,9 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                           .messages.create();
+                                           .messages.create(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -45,9 +49,23 @@ describe('Message', function() {
       var conversationSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Conversations/${conversationSid}/Messages`;
 
+      var headers = {
+        'X-Twilio-Webhook-Enabled': 'true',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -118,8 +136,9 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                           .messages('IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+                                           .messages('IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -131,9 +150,23 @@ describe('Message', function() {
       var sid = 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Conversations/${conversationSid}/Messages/${sid}`;
 
+      var headers = {
+        'X-Twilio-Webhook-Enabled': 'true',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
+      if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -169,8 +202,9 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                           .messages('IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                           .messages('IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -182,9 +216,20 @@ describe('Message', function() {
       var sid = 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Conversations/${conversationSid}/Messages/${sid}`;
 
+      var headers = {
+        'X-Twilio-Webhook-Enabled': 'true',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

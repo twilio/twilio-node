@@ -9,6 +9,7 @@
  */
 /* jshint ignore:end */
 
+var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -17,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+var moduleInfo = require(
+    '../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -33,7 +36,12 @@ describe('CurrentCall', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.trusted_comms.currentCalls().fetch();
+      var opts = {
+        twilioSandboxMode: 'twilio_sandbox_mode',
+        xXcnamSensitivePhoneNumberFrom: 'x_xcnam_sensitive_phone_number_from',
+        xXcnamSensitivePhoneNumberTo: 'x_xcnam_sensitive_phone_number_to'
+      };
+      var promise = client.preview.trusted_comms.currentCalls().fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -43,9 +51,22 @@ describe('CurrentCall', function() {
 
       var url = 'https://preview.twilio.com/TrustedComms/CurrentCall';
 
+      var headers = {
+        'Twilio-Sandbox-Mode': 'twilio_sandbox_mode',
+        'X-Xcnam-Sensitive-Phone-Number-From': 'x_xcnam_sensitive_phone_number_from',
+        'X-Xcnam-Sensitive-Phone-Number-To': 'x_xcnam_sensitive_phone_number_to',
+        'Accept': 'application/json',
+        'Accept-Charset': 'utf-8'
+      };
+      headers['User-Agent'] = util.format(
+        'twilio-node/%s (node.js %s)',
+        moduleInfo.version,
+        process.version
+      );
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
