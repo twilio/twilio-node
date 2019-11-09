@@ -34,7 +34,7 @@ declare function ChannelList(version: V2, serviceSid: string): ChannelListInstan
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ChannelInstanceDeleteOptions {
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
@@ -43,7 +43,7 @@ interface ChannelInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ChannelInstanceRemoveOptions {
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
@@ -58,7 +58,7 @@ interface ChannelInstanceRemoveOptions {
  * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
  * @property friendlyName - A string to describe the resource
  * @property uniqueName - An application-defined string that uniquely identifies the resource
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ChannelInstanceUpdateOptions {
   attributes?: string;
@@ -154,7 +154,7 @@ interface ChannelListInstance {
  * @property friendlyName - A string to describe the new resource
  * @property type - The visibility of the channel
  * @property uniqueName - An application-defined string that uniquely identifies the Channel resource
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ChannelListInstanceCreateOptions {
   attributes?: string;

@@ -27,7 +27,7 @@ declare function MessageList(version: V1, conversationSid: string): MessageListI
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageInstanceDeleteOptions {
   xTwilioWebhookEnabled?: MessageWebhookEnabledType;
@@ -36,7 +36,7 @@ interface MessageInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageInstanceRemoveOptions {
   xTwilioWebhookEnabled?: MessageWebhookEnabledType;
@@ -50,7 +50,7 @@ interface MessageInstanceRemoveOptions {
  * @property body - The content of the message.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageInstanceUpdateOptions {
   attributes?: string;
@@ -144,7 +144,7 @@ interface MessageListInstance {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property mediaSid - The Media Sid to be attached to the new Message.
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageListInstanceCreateOptions {
   attributes?: string;

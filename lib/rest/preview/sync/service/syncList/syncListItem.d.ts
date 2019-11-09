@@ -31,7 +31,7 @@ declare function SyncListItemList(version: Sync, serviceSid: string, listSid: st
 /**
  * Options to pass to remove
  *
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface SyncListItemInstanceDeleteOptions {
   ifMatch?: string;
@@ -40,7 +40,7 @@ interface SyncListItemInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface SyncListItemInstanceRemoveOptions {
   ifMatch?: string;
@@ -50,7 +50,7 @@ interface SyncListItemInstanceRemoveOptions {
  * Options to pass to update
  *
  * @property data - The data
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface SyncListItemInstanceUpdateOptions {
   data: object;

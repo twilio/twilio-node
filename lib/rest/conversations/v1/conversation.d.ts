@@ -32,7 +32,7 @@ declare function ConversationList(version: V1): ConversationListInstance;
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationInstanceDeleteOptions {
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
@@ -41,7 +41,7 @@ interface ConversationInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationInstanceRemoveOptions {
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
@@ -54,7 +54,7 @@ interface ConversationInstanceRemoveOptions {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationInstanceUpdateOptions {
   attributes?: string;
@@ -146,7 +146,7 @@ interface ConversationListInstance {
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
  * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationListInstanceCreateOptions {
   attributes?: string;
