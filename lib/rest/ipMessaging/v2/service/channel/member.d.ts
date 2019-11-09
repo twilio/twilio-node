@@ -25,7 +25,7 @@ declare function MemberList(version: V2, serviceSid: string, channelSid: string)
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MemberInstanceDeleteOptions {
   xTwilioWebhookEnabled?: MemberWebhookEnabledType;
@@ -34,7 +34,7 @@ interface MemberInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MemberInstanceRemoveOptions {
   xTwilioWebhookEnabled?: MemberWebhookEnabledType;
@@ -49,7 +49,7 @@ interface MemberInstanceRemoveOptions {
  * @property lastConsumedMessageIndex - The index of the last consumed Message for the Channel for the Member
  * @property lastConsumptionTimestamp - The ISO 8601 based timestamp string representing the datetime of the last Message read event for the Member within the Channel
  * @property roleSid - The SID of the Role to assign to the member
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MemberInstanceUpdateOptions {
   attributes?: string;
@@ -145,7 +145,7 @@ interface MemberListInstance {
  * @property lastConsumedMessageIndex - The index of the last Message in the Channel the Member has read
  * @property lastConsumptionTimestamp - The ISO 8601 based timestamp string representing the datetime of the last Message read event for the member within the Channel
  * @property roleSid - The SID of the Role to assign to the member
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MemberListInstanceCreateOptions {
   attributes?: string;

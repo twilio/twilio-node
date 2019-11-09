@@ -30,7 +30,7 @@ declare function UserList(version: V2, serviceSid: string): UserListInstance;
  * @property attributes - A valid JSON string that contains application-specific data
  * @property friendlyName - A string to describe the resource
  * @property roleSid - The SID id of the Role assigned to this user
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface UserInstanceUpdateOptions {
   attributes?: string;
@@ -120,7 +120,7 @@ interface UserListInstance {
  * @property friendlyName - A string to describe the new resource
  * @property identity - The `identity` value that identifies the new resource's User
  * @property roleSid - The SID of the Role assigned to this user
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface UserListInstanceCreateOptions {
   attributes?: string;

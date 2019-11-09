@@ -34,7 +34,7 @@ declare function FactorList(version: V1, serviceSid: string, identity: string): 
 /**
  * Options to pass to remove
  *
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceDeleteOptions {
   twilioAuthySandboxMode?: string;
@@ -43,7 +43,7 @@ interface FactorInstanceDeleteOptions {
 /**
  * Options to pass to fetch
  *
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceFetchOptions {
   twilioAuthySandboxMode?: string;
@@ -52,7 +52,7 @@ interface FactorInstanceFetchOptions {
 /**
  * Options to pass to remove
  *
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceRemoveOptions {
   twilioAuthySandboxMode?: string;
@@ -62,7 +62,7 @@ interface FactorInstanceRemoveOptions {
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Factor for the first time
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceUpdateOptions {
   authPayload?: string;
@@ -149,7 +149,7 @@ interface FactorListInstance {
  * @property binding - A unique binding for this Factor
  * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceCreateOptions {
   binding: string;
@@ -175,7 +175,7 @@ interface FactorListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceEachOptions {
   callback?: (item: FactorInstance, done: (err?: Error) => void) => void;
@@ -198,7 +198,7 @@ interface FactorListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceOptions {
   limit?: number;
@@ -212,7 +212,7 @@ interface FactorListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorListInstancePageOptions {
   pageNumber?: number;

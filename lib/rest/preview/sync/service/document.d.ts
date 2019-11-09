@@ -28,7 +28,7 @@ declare function DocumentList(version: Sync, serviceSid: string): DocumentListIn
 /**
  * Options to pass to remove
  *
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface DocumentInstanceDeleteOptions {
   ifMatch?: string;
@@ -37,7 +37,7 @@ interface DocumentInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface DocumentInstanceRemoveOptions {
   ifMatch?: string;
@@ -47,7 +47,7 @@ interface DocumentInstanceRemoveOptions {
  * Options to pass to update
  *
  * @property data - The data
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface DocumentInstanceUpdateOptions {
   data: object;

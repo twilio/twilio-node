@@ -27,7 +27,7 @@ declare function ParticipantList(version: V1, conversationSid: string): Particip
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantInstanceDeleteOptions {
   xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
@@ -36,7 +36,7 @@ interface ParticipantInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantInstanceRemoveOptions {
   xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
@@ -48,7 +48,7 @@ interface ParticipantInstanceRemoveOptions {
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantInstanceUpdateOptions {
   attributes?: string;
@@ -141,7 +141,7 @@ interface ParticipantListInstance {
  * @property messagingBinding.address - The address of the participant's device.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
- * @property xTwilioWebhookEnabled - The x_twilio_webhook_enabled
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantListInstanceCreateOptions {
   attributes?: string;

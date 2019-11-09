@@ -36,7 +36,7 @@ declare function ChallengeList(version: V1, serviceSid: string, identity: string
 /**
  * Options to pass to remove
  *
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceDeleteOptions {
   twilioAuthySandboxMode?: string;
@@ -45,7 +45,7 @@ interface ChallengeInstanceDeleteOptions {
 /**
  * Options to pass to fetch
  *
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceFetchOptions {
   twilioAuthySandboxMode?: string;
@@ -54,7 +54,7 @@ interface ChallengeInstanceFetchOptions {
 /**
  * Options to pass to remove
  *
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceRemoveOptions {
   twilioAuthySandboxMode?: string;
@@ -64,7 +64,7 @@ interface ChallengeInstanceRemoveOptions {
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Challenge
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceUpdateOptions {
   authPayload?: string;
@@ -101,7 +101,7 @@ interface ChallengeListInstance {
  * @property details - Public details provided to contextualize the Challenge
  * @property expirationDate - The future date in which this Challenge will expire
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
- * @property twilioAuthySandboxMode - The twilio_authy_sandbox_mode
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceCreateOptions {
   details?: string;

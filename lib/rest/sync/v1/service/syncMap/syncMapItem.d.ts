@@ -30,7 +30,7 @@ declare function SyncMapItemList(version: V1, serviceSid: string, mapSid: string
 /**
  * Options to pass to remove
  *
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface SyncMapItemInstanceDeleteOptions {
   ifMatch?: string;
@@ -39,7 +39,7 @@ interface SyncMapItemInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface SyncMapItemInstanceRemoveOptions {
   ifMatch?: string;
@@ -50,7 +50,7 @@ interface SyncMapItemInstanceRemoveOptions {
  *
  * @property collectionTtl - How long, in seconds, before the Map Item's parent Sync Map expires and is deleted
  * @property data - A JSON string that represents an arbitrary, schema-less object that the Map Item stores
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  * @property itemTtl - How long, in seconds, before the Map Item expires
  * @property ttl - An alias for item_ttl
  */

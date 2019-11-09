@@ -30,7 +30,7 @@ declare function SyncListItemList(version: V1, serviceSid: string, listSid: stri
 /**
  * Options to pass to remove
  *
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface SyncListItemInstanceDeleteOptions {
   ifMatch?: string;
@@ -39,7 +39,7 @@ interface SyncListItemInstanceDeleteOptions {
 /**
  * Options to pass to remove
  *
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  */
 interface SyncListItemInstanceRemoveOptions {
   ifMatch?: string;
@@ -50,7 +50,7 @@ interface SyncListItemInstanceRemoveOptions {
  *
  * @property collectionTtl - How long, in seconds, before the List Item's parent Sync List expires
  * @property data - A JSON string that represents an arbitrary, schema-less object that the List Item stores
- * @property ifMatch - The if_match
+ * @property ifMatch - The If-Match HTTP request header
  * @property itemTtl - How long, in seconds, before the List Item expires
  * @property ttl - An alias for item_ttl
  */
