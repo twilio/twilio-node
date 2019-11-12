@@ -409,4 +409,4 @@ declare class ParticipantPage extends Page<V2010, ParticipantPayload, Participan
   toJSON(): any;
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantInstanceUpdateOptions, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantInstanceUpdateOptions, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution, ParticipantStatus }

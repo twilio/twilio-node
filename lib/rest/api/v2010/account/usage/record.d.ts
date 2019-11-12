@@ -247,4 +247,4 @@ declare class RecordPage extends Page<V2010, RecordPayload, RecordResource, Reco
   toJSON(): any;
 }
 
-export { RecordInstance, RecordList, RecordListInstance, RecordListInstanceEachOptions, RecordListInstanceOptions, RecordListInstancePageOptions, RecordPage, RecordPayload, RecordResource, RecordSolution }
+export { RecordCategory, RecordInstance, RecordList, RecordListInstance, RecordListInstanceEachOptions, RecordListInstanceOptions, RecordListInstancePageOptions, RecordPage, RecordPayload, RecordResource, RecordSolution }

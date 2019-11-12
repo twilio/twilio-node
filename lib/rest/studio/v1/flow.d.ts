@@ -265,4 +265,4 @@ declare class FlowPage extends Page<V1, FlowPayload, FlowResource, FlowInstance>
   toJSON(): any;
 }
 
-export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowListInstanceEachOptions, FlowListInstanceOptions, FlowListInstancePageOptions, FlowPage, FlowPayload, FlowResource, FlowSolution }
+export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowListInstanceEachOptions, FlowListInstanceOptions, FlowListInstancePageOptions, FlowPage, FlowPayload, FlowResource, FlowSolution, FlowStatus }

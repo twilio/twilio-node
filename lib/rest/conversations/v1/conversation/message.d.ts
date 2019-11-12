@@ -29,15 +29,6 @@ declare function MessageList(version: V1, conversationSid: string): MessageListI
  *
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
-interface MessageInstanceDeleteOptions {
-  xTwilioWebhookEnabled?: MessageWebhookEnabledType;
-}
-
-/**
- * Options to pass to remove
- *
- * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
- */
 interface MessageInstanceRemoveOptions {
   xTwilioWebhookEnabled?: MessageWebhookEnabledType;
 }
@@ -260,7 +251,7 @@ declare class MessageContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: MessageInstanceDeleteOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
+  remove(opts?: MessageInstanceRemoveOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -311,7 +302,7 @@ declare class MessageInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: MessageInstanceDeleteOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
+  remove(opts?: MessageInstanceRemoveOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -353,4 +344,4 @@ declare class MessagePage extends Page<V1, MessagePayload, MessageResource, Mess
   toJSON(): any;
 }
 
-export { MessageContext, MessageInstance, MessageInstanceDeleteOptions, MessageInstanceRemoveOptions, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }
+export { MessageContext, MessageInstance, MessageInstanceRemoveOptions, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution, MessageWebhookEnabledType }

@@ -362,4 +362,4 @@ declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInsta
   toJSON(): any;
 }
 
-export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution }
+export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkRecordingSetting, TrunkResource, TrunkSolution }

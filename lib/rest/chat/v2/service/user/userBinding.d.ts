@@ -272,4 +272,4 @@ declare class UserBindingPage extends Page<V2, UserBindingPayload, UserBindingRe
   toJSON(): any;
 }
 
-export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingListInstanceEachOptions, UserBindingListInstanceOptions, UserBindingListInstancePageOptions, UserBindingPage, UserBindingPayload, UserBindingResource, UserBindingSolution }
+export { UserBindingBindingType, UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingListInstanceEachOptions, UserBindingListInstanceOptions, UserBindingListInstancePageOptions, UserBindingPage, UserBindingPayload, UserBindingResource, UserBindingSolution }

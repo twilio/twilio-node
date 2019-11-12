@@ -267,4 +267,4 @@ declare class TranscriptionPage extends Page<V2010, TranscriptionPayload, Transc
   toJSON(): any;
 }
 
-export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionListInstanceEachOptions, TranscriptionListInstanceOptions, TranscriptionListInstancePageOptions, TranscriptionPage, TranscriptionPayload, TranscriptionResource, TranscriptionSolution }
+export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionListInstanceEachOptions, TranscriptionListInstanceOptions, TranscriptionListInstancePageOptions, TranscriptionPage, TranscriptionPayload, TranscriptionResource, TranscriptionSolution, TranscriptionStatus }

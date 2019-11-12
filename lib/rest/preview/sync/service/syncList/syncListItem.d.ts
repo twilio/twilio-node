@@ -33,15 +33,6 @@ declare function SyncListItemList(version: Sync, serviceSid: string, listSid: st
  *
  * @property ifMatch - The If-Match HTTP request header
  */
-interface SyncListItemInstanceDeleteOptions {
-  ifMatch?: string;
-}
-
-/**
- * Options to pass to remove
- *
- * @property ifMatch - The If-Match HTTP request header
- */
 interface SyncListItemInstanceRemoveOptions {
   ifMatch?: string;
 }
@@ -264,7 +255,7 @@ declare class SyncListItemContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: SyncListItemInstanceDeleteOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
+  remove(opts?: SyncListItemInstanceRemoveOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -315,7 +306,7 @@ declare class SyncListItemInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: SyncListItemInstanceDeleteOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
+  remove(opts?: SyncListItemInstanceRemoveOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   /**
@@ -359,4 +350,4 @@ declare class SyncListItemPage extends Page<Sync, SyncListItemPayload, SyncListI
   toJSON(): any;
 }
 
-export { SyncListItemContext, SyncListItemInstance, SyncListItemInstanceDeleteOptions, SyncListItemInstanceRemoveOptions, SyncListItemInstanceUpdateOptions, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }
+export { SyncListItemContext, SyncListItemInstance, SyncListItemInstanceRemoveOptions, SyncListItemInstanceUpdateOptions, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemQueryFromBoundType, SyncListItemQueryResultOrder, SyncListItemResource, SyncListItemSolution }

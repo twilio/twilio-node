@@ -25,15 +25,6 @@ import { SerializableClass } from '../../../../interfaces';
 declare function EntityList(version: V1, serviceSid: string): EntityListInstance;
 
 /**
- * Options to pass to remove
- *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
- */
-interface EntityInstanceDeleteOptions {
-  twilioAuthySandboxMode?: string;
-}
-
-/**
  * Options to pass to fetch
  *
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
@@ -246,7 +237,7 @@ declare class EntityContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: EntityInstanceDeleteOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
+  remove(opts?: EntityInstanceRemoveOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -292,7 +283,7 @@ declare class EntityInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: EntityInstanceDeleteOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
+  remove(opts?: EntityInstanceRemoveOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -329,4 +320,4 @@ declare class EntityPage extends Page<V1, EntityPayload, EntityResource, EntityI
   toJSON(): any;
 }
 
-export { EntityContext, EntityInstance, EntityInstanceDeleteOptions, EntityInstanceFetchOptions, EntityInstanceRemoveOptions, EntityList, EntityListInstance, EntityListInstanceCreateOptions, EntityListInstanceEachOptions, EntityListInstanceOptions, EntityListInstancePageOptions, EntityPage, EntityPayload, EntityResource, EntitySolution }
+export { EntityContext, EntityInstance, EntityInstanceFetchOptions, EntityInstanceRemoveOptions, EntityList, EntityListInstance, EntityListInstanceCreateOptions, EntityListInstanceEachOptions, EntityListInstanceOptions, EntityListInstancePageOptions, EntityPage, EntityPayload, EntityResource, EntitySolution }

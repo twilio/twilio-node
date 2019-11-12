@@ -239,4 +239,4 @@ declare class DailyPage extends Page<V2010, DailyPayload, DailyResource, DailyIn
   toJSON(): any;
 }
 
-export { DailyInstance, DailyList, DailyListInstance, DailyListInstanceEachOptions, DailyListInstanceOptions, DailyListInstancePageOptions, DailyPage, DailyPayload, DailyResource, DailySolution }
+export { DailyCategory, DailyInstance, DailyList, DailyListInstance, DailyListInstanceEachOptions, DailyListInstanceOptions, DailyListInstancePageOptions, DailyPage, DailyPayload, DailyResource, DailySolution }

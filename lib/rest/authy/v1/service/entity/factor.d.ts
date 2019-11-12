@@ -32,15 +32,6 @@ type FactorFactorTypes = 'app-push'|'sms'|'totp';
 declare function FactorList(version: V1, serviceSid: string, identity: string): FactorListInstance;
 
 /**
- * Options to pass to remove
- *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
- */
-interface FactorInstanceDeleteOptions {
-  twilioAuthySandboxMode?: string;
-}
-
-/**
  * Options to pass to fetch
  *
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
@@ -275,7 +266,7 @@ declare class FactorContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: FactorInstanceDeleteOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
+  remove(opts?: FactorInstanceRemoveOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -333,7 +324,7 @@ declare class FactorInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: FactorInstanceDeleteOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
+  remove(opts?: FactorInstanceRemoveOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   status: FactorFactorStatuses;
@@ -378,4 +369,4 @@ declare class FactorPage extends Page<V1, FactorPayload, FactorResource, FactorI
   toJSON(): any;
 }
 
-export { FactorContext, FactorInstance, FactorInstanceDeleteOptions, FactorInstanceFetchOptions, FactorInstanceRemoveOptions, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorPage, FactorPayload, FactorResource, FactorSolution }
+export { FactorContext, FactorFactorStatuses, FactorFactorStrengths, FactorFactorTypes, FactorInstance, FactorInstanceFetchOptions, FactorInstanceRemoveOptions, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorPage, FactorPayload, FactorResource, FactorSolution }

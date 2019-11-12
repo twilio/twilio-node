@@ -27,15 +27,6 @@ declare function MemberList(version: V2, serviceSid: string, channelSid: string)
  *
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
-interface MemberInstanceDeleteOptions {
-  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
-}
-
-/**
- * Options to pass to remove
- *
- * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
- */
 interface MemberInstanceRemoveOptions {
   xTwilioWebhookEnabled?: MemberWebhookEnabledType;
 }
@@ -268,7 +259,7 @@ declare class MemberContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: MemberInstanceDeleteOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
+  remove(opts?: MemberInstanceRemoveOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -316,7 +307,7 @@ declare class MemberInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: MemberInstanceDeleteOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
+  remove(opts?: MemberInstanceRemoveOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<boolean>;
   roleSid: string;
   serviceSid: string;
   sid: string;
@@ -357,4 +348,4 @@ declare class MemberPage extends Page<V2, MemberPayload, MemberResource, MemberI
   toJSON(): any;
 }
 
-export { MemberContext, MemberInstance, MemberInstanceDeleteOptions, MemberInstanceRemoveOptions, MemberInstanceUpdateOptions, MemberList, MemberListInstance, MemberListInstanceCreateOptions, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }
+export { MemberContext, MemberInstance, MemberInstanceRemoveOptions, MemberInstanceUpdateOptions, MemberList, MemberListInstance, MemberListInstanceCreateOptions, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution, MemberWebhookEnabledType }

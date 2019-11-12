@@ -268,4 +268,4 @@ declare class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResul
   toJSON(): any;
 }
 
-export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultListInstanceEachOptions, AddOnResultListInstanceOptions, AddOnResultListInstancePageOptions, AddOnResultPage, AddOnResultPayload, AddOnResultResource, AddOnResultSolution }
+export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultListInstanceEachOptions, AddOnResultListInstanceOptions, AddOnResultListInstancePageOptions, AddOnResultPage, AddOnResultPayload, AddOnResultResource, AddOnResultSolution, AddOnResultStatus }

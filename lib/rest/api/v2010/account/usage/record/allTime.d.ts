@@ -239,4 +239,4 @@ declare class AllTimePage extends Page<V2010, AllTimePayload, AllTimeResource, A
   toJSON(): any;
 }
 
-export { AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimeListInstanceEachOptions, AllTimeListInstanceOptions, AllTimeListInstancePageOptions, AllTimePage, AllTimePayload, AllTimeResource, AllTimeSolution }
+export { AllTimeCategory, AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimeListInstanceEachOptions, AllTimeListInstanceOptions, AllTimeListInstancePageOptions, AllTimePage, AllTimePayload, AllTimeResource, AllTimeSolution }

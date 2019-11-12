@@ -344,4 +344,4 @@ declare class CompositionPage extends Page<V1, CompositionPayload, CompositionRe
   toJSON(): any;
 }
 
-export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionListInstanceCreateOptions, CompositionListInstanceEachOptions, CompositionListInstanceOptions, CompositionListInstancePageOptions, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution }
+export { CompositionContext, CompositionFormat, CompositionInstance, CompositionList, CompositionListInstance, CompositionListInstanceCreateOptions, CompositionListInstanceEachOptions, CompositionListInstanceOptions, CompositionListInstancePageOptions, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution, CompositionStatus }

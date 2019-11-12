@@ -261,4 +261,4 @@ declare class FunctionVersionPage extends Page<V1, FunctionVersionPayload, Funct
   toJSON(): any;
 }
 
-export { FunctionVersionContext, FunctionVersionInstance, FunctionVersionList, FunctionVersionListInstance, FunctionVersionListInstanceEachOptions, FunctionVersionListInstanceOptions, FunctionVersionListInstancePageOptions, FunctionVersionPage, FunctionVersionPayload, FunctionVersionResource, FunctionVersionSolution }
+export { FunctionVersionContext, FunctionVersionInstance, FunctionVersionList, FunctionVersionListInstance, FunctionVersionListInstanceEachOptions, FunctionVersionListInstanceOptions, FunctionVersionListInstancePageOptions, FunctionVersionPage, FunctionVersionPayload, FunctionVersionResource, FunctionVersionSolution, FunctionVersionVisibility }
