@@ -315,4 +315,4 @@ declare class LocalPage extends Page<V2010, LocalPayload, LocalResource, LocalIn
   toJSON(): any;
 }
 
-export { LocalInstance, LocalList, LocalListInstance, LocalListInstanceCreateOptions, LocalListInstanceEachOptions, LocalListInstanceOptions, LocalListInstancePageOptions, LocalPage, LocalPayload, LocalResource, LocalSolution }
+export { LocalAddressRequirement, LocalInstance, LocalList, LocalListInstance, LocalListInstanceCreateOptions, LocalListInstanceEachOptions, LocalListInstanceOptions, LocalListInstancePageOptions, LocalPage, LocalPayload, LocalResource, LocalSolution }

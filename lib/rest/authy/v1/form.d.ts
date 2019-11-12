@@ -138,4 +138,4 @@ declare class FormPage extends Page<V1, FormPayload, FormResource, FormInstance>
   toJSON(): any;
 }
 
-export { FormContext, FormInstance, FormList, FormListInstance, FormPage, FormPayload, FormResource, FormSolution }
+export { FormContext, FormFormTypes, FormInstance, FormList, FormListInstance, FormPage, FormPayload, FormResource, FormSolution }

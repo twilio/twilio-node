@@ -314,4 +314,4 @@ declare class ModelBuildPage extends Page<Understand, ModelBuildPayload, ModelBu
   toJSON(): any;
 }
 
-export { ModelBuildContext, ModelBuildInstance, ModelBuildInstanceUpdateOptions, ModelBuildList, ModelBuildListInstance, ModelBuildListInstanceCreateOptions, ModelBuildListInstanceEachOptions, ModelBuildListInstanceOptions, ModelBuildListInstancePageOptions, ModelBuildPage, ModelBuildPayload, ModelBuildResource, ModelBuildSolution }
+export { ModelBuildContext, ModelBuildInstance, ModelBuildInstanceUpdateOptions, ModelBuildList, ModelBuildListInstance, ModelBuildListInstanceCreateOptions, ModelBuildListInstanceEachOptions, ModelBuildListInstanceOptions, ModelBuildListInstancePageOptions, ModelBuildPage, ModelBuildPayload, ModelBuildResource, ModelBuildSolution, ModelBuildStatus }

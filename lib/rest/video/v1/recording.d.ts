@@ -306,4 +306,4 @@ declare class RecordingPage extends Page<V1, RecordingPayload, RecordingResource
   toJSON(): any;
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }
+export { RecordingCodec, RecordingContext, RecordingFormat, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution, RecordingStatus, RecordingType }

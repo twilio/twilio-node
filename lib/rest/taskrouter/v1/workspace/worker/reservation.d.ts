@@ -385,4 +385,4 @@ declare class ReservationPage extends Page<V1, ReservationPayload, ReservationRe
   toJSON(): any;
 }
 
-export { ReservationContext, ReservationInstance, ReservationInstanceUpdateOptions, ReservationList, ReservationListInstance, ReservationListInstanceEachOptions, ReservationListInstanceOptions, ReservationListInstancePageOptions, ReservationPage, ReservationPayload, ReservationResource, ReservationSolution }
+export { ReservationCallStatus, ReservationConferenceEvent, ReservationContext, ReservationInstance, ReservationInstanceUpdateOptions, ReservationList, ReservationListInstance, ReservationListInstanceEachOptions, ReservationListInstanceOptions, ReservationListInstancePageOptions, ReservationPage, ReservationPayload, ReservationResource, ReservationSolution, ReservationStatus }

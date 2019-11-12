@@ -247,4 +247,4 @@ declare class PublishedTrackPage extends Page<V1, PublishedTrackPayload, Publish
   toJSON(): any;
 }
 
-export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackListInstanceEachOptions, PublishedTrackListInstanceOptions, PublishedTrackListInstancePageOptions, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource, PublishedTrackSolution }
+export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackKind, PublishedTrackList, PublishedTrackListInstance, PublishedTrackListInstanceEachOptions, PublishedTrackListInstanceOptions, PublishedTrackListInstancePageOptions, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource, PublishedTrackSolution }

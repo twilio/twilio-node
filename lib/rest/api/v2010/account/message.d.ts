@@ -391,4 +391,4 @@ declare class MessagePage extends Page<V2010, MessagePayload, MessageResource, M
   toJSON(): any;
 }
 
-export { MessageContext, MessageInstance, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }
+export { MessageAddressRetention, MessageContentRetention, MessageContext, MessageDirection, MessageInstance, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution, MessageStatus, MessageTrafficType }

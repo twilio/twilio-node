@@ -127,4 +127,4 @@ declare class VerificationPage extends Page<AccSecurity, VerificationPayload, Ve
   toJSON(): any;
 }
 
-export { VerificationInstance, VerificationList, VerificationListInstance, VerificationListInstanceCreateOptions, VerificationPage, VerificationPayload, VerificationResource, VerificationSolution }
+export { VerificationChannel, VerificationInstance, VerificationList, VerificationListInstance, VerificationListInstanceCreateOptions, VerificationPage, VerificationPayload, VerificationResource, VerificationSolution }

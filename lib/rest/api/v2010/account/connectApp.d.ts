@@ -297,4 +297,4 @@ declare class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppRe
   toJSON(): any;
 }
 
-export { ConnectAppContext, ConnectAppInstance, ConnectAppInstanceUpdateOptions, ConnectAppList, ConnectAppListInstance, ConnectAppListInstanceEachOptions, ConnectAppListInstanceOptions, ConnectAppListInstancePageOptions, ConnectAppPage, ConnectAppPayload, ConnectAppResource, ConnectAppSolution }
+export { ConnectAppContext, ConnectAppInstance, ConnectAppInstanceUpdateOptions, ConnectAppList, ConnectAppListInstance, ConnectAppListInstanceEachOptions, ConnectAppListInstanceOptions, ConnectAppListInstancePageOptions, ConnectAppPage, ConnectAppPayload, ConnectAppPermission, ConnectAppResource, ConnectAppSolution }

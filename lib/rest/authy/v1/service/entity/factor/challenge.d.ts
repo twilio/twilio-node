@@ -34,15 +34,6 @@ type ChallengeFactorTypes = 'app-push'|'sms'|'totp';
 declare function ChallengeList(version: V1, serviceSid: string, identity: string, factorSid: string): ChallengeListInstance;
 
 /**
- * Options to pass to remove
- *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
- */
-interface ChallengeInstanceDeleteOptions {
-  twilioAuthySandboxMode?: string;
-}
-
-/**
  * Options to pass to fetch
  *
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
@@ -169,7 +160,7 @@ declare class ChallengeContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ChallengeInstanceDeleteOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
+  remove(opts?: ChallengeInstanceRemoveOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -227,7 +218,7 @@ declare class ChallengeInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ChallengeInstanceDeleteOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
+  remove(opts?: ChallengeInstanceRemoveOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
   respondedReason: ChallengeChallengeReasons;
   serviceSid: string;
   sid: string;
@@ -273,4 +264,4 @@ declare class ChallengePage extends Page<V1, ChallengePayload, ChallengeResource
   toJSON(): any;
 }
 
-export { ChallengeContext, ChallengeInstance, ChallengeInstanceDeleteOptions, ChallengeInstanceFetchOptions, ChallengeInstanceRemoveOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
+export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorStrengths, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceFetchOptions, ChallengeInstanceRemoveOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }

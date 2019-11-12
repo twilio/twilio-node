@@ -146,4 +146,4 @@ declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberRe
   toJSON(): any;
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberInstanceFetchOptions, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberInstanceFetchOptions, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution, PhoneNumberType }

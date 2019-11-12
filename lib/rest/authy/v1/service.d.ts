@@ -24,15 +24,6 @@ import { SerializableClass } from '../../../interfaces';
 declare function ServiceList(version: V1): ServiceListInstance;
 
 /**
- * Options to pass to remove
- *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
- */
-interface ServiceInstanceDeleteOptions {
-  twilioAuthySandboxMode?: string;
-}
-
-/**
  * Options to pass to fetch
  *
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
@@ -253,7 +244,7 @@ declare class ServiceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ServiceInstanceDeleteOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
+  remove(opts?: ServiceInstanceRemoveOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -305,7 +296,7 @@ declare class ServiceInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ServiceInstanceDeleteOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
+  remove(opts?: ServiceInstanceRemoveOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -348,4 +339,4 @@ declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, Serv
   toJSON(): any;
 }
 
-export { ServiceContext, ServiceInstance, ServiceInstanceDeleteOptions, ServiceInstanceFetchOptions, ServiceInstanceRemoveOptions, ServiceInstanceUpdateOptions, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceInstanceFetchOptions, ServiceInstanceRemoveOptions, ServiceInstanceUpdateOptions, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

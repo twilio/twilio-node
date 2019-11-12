@@ -355,4 +355,4 @@ declare class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance>
   toJSON(): any;
 }
 
-export { RoomContext, RoomInstance, RoomInstanceUpdateOptions, RoomList, RoomListInstance, RoomListInstanceCreateOptions, RoomListInstanceEachOptions, RoomListInstanceOptions, RoomListInstancePageOptions, RoomPage, RoomPayload, RoomResource, RoomSolution }
+export { RoomContext, RoomInstance, RoomInstanceUpdateOptions, RoomList, RoomListInstance, RoomListInstanceCreateOptions, RoomListInstanceEachOptions, RoomListInstanceOptions, RoomListInstancePageOptions, RoomPage, RoomPayload, RoomResource, RoomRoomStatus, RoomRoomType, RoomSolution, RoomVideoCodec }

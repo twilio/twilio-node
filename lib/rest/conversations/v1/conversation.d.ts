@@ -34,15 +34,6 @@ declare function ConversationList(version: V1): ConversationListInstance;
  *
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
-interface ConversationInstanceDeleteOptions {
-  xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
-}
-
-/**
- * Options to pass to remove
- *
- * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
- */
 interface ConversationInstanceRemoveOptions {
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
@@ -260,7 +251,7 @@ declare class ConversationContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ConversationInstanceDeleteOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
+  remove(opts?: ConversationInstanceRemoveOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -318,7 +309,7 @@ declare class ConversationInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ConversationInstanceDeleteOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
+  remove(opts?: ConversationInstanceRemoveOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -364,4 +355,4 @@ declare class ConversationPage extends Page<V1, ConversationPayload, Conversatio
   toJSON(): any;
 }
 
-export { ConversationContext, ConversationInstance, ConversationInstanceDeleteOptions, ConversationInstanceRemoveOptions, ConversationInstanceUpdateOptions, ConversationList, ConversationListInstance, ConversationListInstanceCreateOptions, ConversationListInstanceEachOptions, ConversationListInstanceOptions, ConversationListInstancePageOptions, ConversationPage, ConversationPayload, ConversationResource, ConversationSolution }
+export { ConversationContext, ConversationInstance, ConversationInstanceRemoveOptions, ConversationInstanceUpdateOptions, ConversationList, ConversationListInstance, ConversationListInstanceCreateOptions, ConversationListInstanceEachOptions, ConversationListInstanceOptions, ConversationListInstancePageOptions, ConversationPage, ConversationPayload, ConversationResource, ConversationSolution, ConversationWebhookEnabledType }

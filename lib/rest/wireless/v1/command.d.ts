@@ -316,4 +316,4 @@ declare class CommandPage extends Page<V1, CommandPayload, CommandResource, Comm
   toJSON(): any;
 }
 
-export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandListInstanceCreateOptions, CommandListInstanceEachOptions, CommandListInstanceOptions, CommandListInstancePageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution }
+export { CommandCommandMode, CommandContext, CommandDirection, CommandInstance, CommandList, CommandListInstance, CommandListInstanceCreateOptions, CommandListInstanceEachOptions, CommandListInstanceOptions, CommandListInstancePageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution, CommandStatus, CommandTransport }

@@ -132,4 +132,4 @@ declare class VerificationCheckPage extends Page<V2, VerificationCheckPayload, V
   toJSON(): any;
 }
 
-export { VerificationCheckInstance, VerificationCheckList, VerificationCheckListInstance, VerificationCheckListInstanceCreateOptions, VerificationCheckPage, VerificationCheckPayload, VerificationCheckResource, VerificationCheckSolution }
+export { VerificationCheckChannel, VerificationCheckInstance, VerificationCheckList, VerificationCheckListInstance, VerificationCheckListInstanceCreateOptions, VerificationCheckPage, VerificationCheckPayload, VerificationCheckResource, VerificationCheckSolution }

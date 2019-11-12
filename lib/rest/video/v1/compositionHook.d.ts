@@ -379,4 +379,4 @@ declare class CompositionHookPage extends Page<V1, CompositionHookPayload, Compo
   toJSON(): any;
 }
 
-export { CompositionHookContext, CompositionHookInstance, CompositionHookInstanceUpdateOptions, CompositionHookList, CompositionHookListInstance, CompositionHookListInstanceCreateOptions, CompositionHookListInstanceEachOptions, CompositionHookListInstanceOptions, CompositionHookListInstancePageOptions, CompositionHookPage, CompositionHookPayload, CompositionHookResource, CompositionHookSolution }
+export { CompositionHookContext, CompositionHookFormat, CompositionHookInstance, CompositionHookInstanceUpdateOptions, CompositionHookList, CompositionHookListInstance, CompositionHookListInstanceCreateOptions, CompositionHookListInstanceEachOptions, CompositionHookListInstanceOptions, CompositionHookListInstancePageOptions, CompositionHookPage, CompositionHookPayload, CompositionHookResource, CompositionHookSolution }

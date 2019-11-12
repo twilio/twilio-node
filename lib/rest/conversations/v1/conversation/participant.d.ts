@@ -29,15 +29,6 @@ declare function ParticipantList(version: V1, conversationSid: string): Particip
  *
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
-interface ParticipantInstanceDeleteOptions {
-  xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
-}
-
-/**
- * Options to pass to remove
- *
- * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
- */
 interface ParticipantInstanceRemoveOptions {
   xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
 }
@@ -258,7 +249,7 @@ declare class ParticipantContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ParticipantInstanceDeleteOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
+  remove(opts?: ParticipantInstanceRemoveOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -307,7 +298,7 @@ declare class ParticipantInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ParticipantInstanceDeleteOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
+  remove(opts?: ParticipantInstanceRemoveOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -349,4 +340,4 @@ declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantRe
   toJSON(): any;
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantInstanceDeleteOptions, ParticipantInstanceRemoveOptions, ParticipantInstanceUpdateOptions, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantInstanceRemoveOptions, ParticipantInstanceUpdateOptions, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution, ParticipantWebhookEnabledType }

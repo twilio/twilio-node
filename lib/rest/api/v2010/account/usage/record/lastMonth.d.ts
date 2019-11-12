@@ -239,4 +239,4 @@ declare class LastMonthPage extends Page<V2010, LastMonthPayload, LastMonthResou
   toJSON(): any;
 }
 
-export { LastMonthInstance, LastMonthList, LastMonthListInstance, LastMonthListInstanceEachOptions, LastMonthListInstanceOptions, LastMonthListInstancePageOptions, LastMonthPage, LastMonthPayload, LastMonthResource, LastMonthSolution }
+export { LastMonthCategory, LastMonthInstance, LastMonthList, LastMonthListInstance, LastMonthListInstanceEachOptions, LastMonthListInstanceOptions, LastMonthListInstancePageOptions, LastMonthPage, LastMonthPayload, LastMonthResource, LastMonthSolution }

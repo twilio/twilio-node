@@ -36,15 +36,6 @@ declare function ChannelList(version: V2, serviceSid: string): ChannelListInstan
  *
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
-interface ChannelInstanceDeleteOptions {
-  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
-}
-
-/**
- * Options to pass to remove
- *
- * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
- */
 interface ChannelInstanceRemoveOptions {
   xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
 }
@@ -280,7 +271,7 @@ declare class ChannelContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ChannelInstanceDeleteOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
+  remove(opts?: ChannelInstanceRemoveOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -341,7 +332,7 @@ declare class ChannelInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(opts?: ChannelInstanceDeleteOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
+  remove(opts?: ChannelInstanceRemoveOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -387,4 +378,4 @@ declare class ChannelPage extends Page<V2, ChannelPayload, ChannelResource, Chan
   toJSON(): any;
 }
 
-export { ChannelContext, ChannelInstance, ChannelInstanceDeleteOptions, ChannelInstanceRemoveOptions, ChannelInstanceUpdateOptions, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }
+export { ChannelChannelType, ChannelContext, ChannelInstance, ChannelInstanceRemoveOptions, ChannelInstanceUpdateOptions, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution, ChannelWebhookEnabledType }

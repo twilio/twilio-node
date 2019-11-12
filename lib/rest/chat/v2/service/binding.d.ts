@@ -274,4 +274,4 @@ declare class BindingPage extends Page<V2, BindingPayload, BindingResource, Bind
   toJSON(): any;
 }
 
-export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingListInstanceEachOptions, BindingListInstanceOptions, BindingListInstancePageOptions, BindingPage, BindingPayload, BindingResource, BindingSolution }
+export { BindingBindingType, BindingContext, BindingInstance, BindingList, BindingListInstance, BindingListInstanceEachOptions, BindingListInstanceOptions, BindingListInstancePageOptions, BindingPage, BindingPayload, BindingResource, BindingSolution }

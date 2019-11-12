@@ -175,4 +175,4 @@ declare class NotificationPage extends Page<V1, NotificationPayload, Notificatio
   toJSON(): any;
 }
 
-export { NotificationInstance, NotificationList, NotificationListInstance, NotificationListInstanceCreateOptions, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }
+export { NotificationInstance, NotificationList, NotificationListInstance, NotificationListInstanceCreateOptions, NotificationPage, NotificationPayload, NotificationPriority, NotificationResource, NotificationSolution }

@@ -249,4 +249,4 @@ declare class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, Subsc
   toJSON(): any;
 }
 
-export { SubscribedTrackContext, SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackListInstanceEachOptions, SubscribedTrackListInstanceOptions, SubscribedTrackListInstancePageOptions, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }
+export { SubscribedTrackContext, SubscribedTrackInstance, SubscribedTrackKind, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackListInstanceEachOptions, SubscribedTrackListInstanceOptions, SubscribedTrackListInstancePageOptions, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }

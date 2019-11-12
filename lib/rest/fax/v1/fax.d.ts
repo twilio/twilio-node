@@ -374,4 +374,4 @@ declare class FaxPage extends Page<V1, FaxPayload, FaxResource, FaxInstance> {
   toJSON(): any;
 }
 
-export { FaxContext, FaxInstance, FaxInstanceUpdateOptions, FaxList, FaxListInstance, FaxListInstanceCreateOptions, FaxListInstanceEachOptions, FaxListInstanceOptions, FaxListInstancePageOptions, FaxPage, FaxPayload, FaxResource, FaxSolution }
+export { FaxContext, FaxDirection, FaxInstance, FaxInstanceUpdateOptions, FaxList, FaxListInstance, FaxListInstanceCreateOptions, FaxListInstanceEachOptions, FaxListInstanceOptions, FaxListInstancePageOptions, FaxPage, FaxPayload, FaxQuality, FaxResource, FaxSolution, FaxStatus, FaxUpdateStatus }
