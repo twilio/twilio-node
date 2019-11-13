@@ -19,14 +19,14 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param installedAddOnSid - The installed_add_on_sid
+ * @param installedAddOnSid - The SID of the InstalledAddOn resource to which this extension applies
  */
 declare function InstalledAddOnExtensionList(version: Marketplace, installedAddOnSid: string): InstalledAddOnExtensionListInstance;
 
 /**
  * Options to pass to update
  *
- * @property enabled - A Boolean indicating if the Extension will be invoked
+ * @property enabled - Whether the Extension should be invoked
  */
 interface InstalledAddOnExtensionInstanceUpdateOptions {
   enabled: boolean;
@@ -56,7 +56,7 @@ interface InstalledAddOnExtensionListInstance {
   /**
    * Constructs a installed_add_on_extension
    *
-   * @param sid - The unique Extension Sid
+   * @param sid - The SID of the InstalledAddOn Extension resource to fetch
    */
   get(sid: string): InstalledAddOnExtensionContext;
   /**
@@ -184,8 +184,8 @@ declare class InstalledAddOnExtensionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param installedAddOnSid - The installed_add_on_sid
-   * @param sid - The unique Extension Sid
+   * @param installedAddOnSid - The SID of the InstalledAddOn resource with the extension to fetch
+   * @param sid - The SID of the InstalledAddOn Extension resource to fetch
    */
   constructor(version: Marketplace, installedAddOnSid: string, sid: string);
 
@@ -219,8 +219,8 @@ declare class InstalledAddOnExtensionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param installedAddOnSid - The installed_add_on_sid
-   * @param sid - The unique Extension Sid
+   * @param installedAddOnSid - The SID of the InstalledAddOn resource to which this extension applies
+   * @param sid - The SID of the InstalledAddOn Extension resource to fetch
    */
   constructor(version: Marketplace, payload: InstalledAddOnExtensionPayload, installedAddOnSid: string, sid: string);
 

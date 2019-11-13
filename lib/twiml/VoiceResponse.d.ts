@@ -114,6 +114,12 @@ declare class VoiceResponse {
    */
   redirect(attributes: VoiceResponse.RedirectAttributes, url: string): void;
   /**
+   * <Refer> TwiML Verb
+   *
+   * @param attributes - TwiML attributes
+   */
+  refer(attributes?: VoiceResponse.ReferAttributes): VoiceResponse.Refer;
+  /**
    * <Reject> TwiML Verb
    *
    * @param attributes - TwiML attributes
@@ -563,6 +569,17 @@ declare namespace VoiceResponse {
   }
 
   /**
+   * Options to pass to refer
+   *
+   * @property action - Action URL
+   * @property method - Action URL method
+   */
+  export interface ReferAttributes {
+    action?: string;
+    method?: string;
+  }
+
+  /**
    * Options to pass to reject
    *
    * @property reason - Rejection reason
@@ -994,6 +1011,24 @@ declare namespace VoiceResponse {
      * @param message - Message to say
      */
     say(attributes: VoiceResponse.SayAttributes, message: string): VoiceResponse.Say;
+  }
+
+
+  class Refer {
+
+    /**
+     * <Sip> TwiML Noun used in <Refer>
+     *
+     * @param sipUrl - SIP URL
+     */
+    referSip(sipUrl: string): void;
+    /**
+     * <Sip> TwiML Noun used in <Refer>
+     *
+     * @param attributes - TwiML attributes
+     * @param sipUrl - SIP URL
+     */
+    referSip(attributes: object, sipUrl: string): void;
   }
 
 

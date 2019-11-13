@@ -93,6 +93,45 @@ describe('Verification', function() {
       }).done();
     }
   );
+  it('should generate valid create_verification_email response',
+    function(done) {
+      var body = JSON.stringify({
+          'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'to': 'mail@email.com',
+          'channel': 'email',
+          'status': 'pending',
+          'valid': false,
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'lookup': {
+              'carrier': {
+                  'error_code': null,
+                  'name': null,
+                  'mobile_country_code': null,
+                  'mobile_network_code': null,
+                  'type': null
+              }
+          },
+          'amount': null,
+          'payee': null,
+          'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {to: 'to', channel: 'channel'};
+      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .verifications.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid create_verification_with_rate_limits response',
     function(done) {
       var body = JSON.stringify({

@@ -28,7 +28,7 @@ declare function InstalledAddOnList(version: Marketplace): InstalledAddOnListIns
  * Options to pass to update
  *
  * @property configuration - The JSON object representing the configuration
- * @property uniqueName - The string that uniquely identifies this Add-on installation
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface InstalledAddOnInstanceUpdateOptions {
   configuration?: object;
@@ -66,7 +66,7 @@ interface InstalledAddOnListInstance {
   /**
    * Constructs a installed_add_on
    *
-   * @param sid - The unique Installed Add-on Sid
+   * @param sid - The SID of the InstalledAddOn resource to fetch
    */
   get(sid: string): InstalledAddOnContext;
   /**
@@ -112,10 +112,10 @@ interface InstalledAddOnListInstance {
 /**
  * Options to pass to create
  *
- * @property acceptTermsOfService - A boolean reflecting your acceptance of the Terms of Service
- * @property availableAddOnSid - A string that uniquely identifies the Add-on to install
+ * @property acceptTermsOfService - Whether the Terms of Service were accepted
+ * @property availableAddOnSid - The SID of the AvaliableAddOn to install
  * @property configuration - The JSON object representing the configuration
- * @property uniqueName - The string that uniquely identifies this Add-on installation
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface InstalledAddOnListInstanceCreateOptions {
   acceptTermsOfService: boolean;
@@ -210,7 +210,7 @@ declare class InstalledAddOnContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The unique Installed Add-on Sid
+   * @param sid - The SID of the InstalledAddOn resource to fetch
    */
   constructor(version: Marketplace, sid: string);
 
@@ -251,7 +251,7 @@ declare class InstalledAddOnInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The unique Installed Add-on Sid
+   * @param sid - The SID of the InstalledAddOn resource to fetch
    */
   constructor(version: Marketplace, payload: InstalledAddOnPayload, sid: string);
 

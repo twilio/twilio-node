@@ -5,31 +5,30 @@
  *       /       /
  */
 
-import Marketplace = require('../Marketplace');
-import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import { AvailableAddOnExtensionList } from './availableAddOn/availableAddOnExtension';
-import { AvailableAddOnExtensionListInstance } from './availableAddOn/availableAddOnExtension';
-import { SerializableClass } from '../../../interfaces';
+import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
+import V1 = require('../../V1');
+import { SerializableClass } from '../../../../interfaces';
+
+type MetricStreamDirection = 'unknown'|'inbound'|'outbound'|'both';
+
+type MetricTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
 
 /**
- * Initialize the AvailableAddOnList
+ * Initialize the MetricList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
+ * @param callSid - The call_sid
  */
-declare function AvailableAddOnList(version: Marketplace): AvailableAddOnListInstance;
+declare function MetricList(version: V1, callSid: string): MetricListInstance;
 
-interface AvailableAddOnListInstance {
+interface MetricListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): AvailableAddOnContext;
-  /**
-   * Streams AvailableAddOnInstance records from the API.
+   * Streams MetricInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -43,15 +42,9 @@ interface AvailableAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AvailableAddOnListInstanceEachOptions, callback?: (item: AvailableAddOnInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: MetricListInstanceEachOptions, callback?: (item: MetricInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a available_add_on
-   *
-   * @param sid - The SID of the AvailableAddOn resource to fetch
-   */
-  get(sid: string): AvailableAddOnContext;
-  /**
-   * Retrieve a single target page of AvailableAddOnInstance records from the API.
+   * Retrieve a single target page of MetricInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -61,9 +54,9 @@ interface AvailableAddOnListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AvailableAddOnPage) => any): Promise<AvailableAddOnPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MetricPage) => any): Promise<MetricPage>;
   /**
-   * Lists AvailableAddOnInstance records from the API as a list.
+   * Lists MetricInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -71,9 +64,9 @@ interface AvailableAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AvailableAddOnListInstanceOptions, callback?: (error: Error | null, items: AvailableAddOnInstance[]) => any): Promise<AvailableAddOnInstance[]>;
+  list(opts?: MetricListInstanceOptions, callback?: (error: Error | null, items: MetricInstance[]) => any): Promise<MetricInstance[]>;
   /**
-   * Retrieve a single page of AvailableAddOnInstance records from the API.
+   * Retrieve a single page of MetricInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -83,7 +76,7 @@ interface AvailableAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AvailableAddOnListInstancePageOptions, callback?: (error: Error | null, items: AvailableAddOnPage) => any): Promise<AvailableAddOnPage>;
+  page(opts?: MetricListInstancePageOptions, callback?: (error: Error | null, items: MetricPage) => any): Promise<MetricPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -96,7 +89,9 @@ interface AvailableAddOnListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
+ * @property direction - The direction
  * @property done - Function to be called upon completion of streaming
+ * @property edge - The edge
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -108,9 +103,11 @@ interface AvailableAddOnListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface AvailableAddOnListInstanceEachOptions {
-  callback?: (item: AvailableAddOnInstance, done: (err?: Error) => void) => void;
+interface MetricListInstanceEachOptions {
+  callback?: (item: MetricInstance, done: (err?: Error) => void) => void;
+  direction?: MetricStreamDirection;
   done?: Function;
+  edge?: MetricTwilioEdge;
   limit?: number;
   pageSize?: number;
 }
@@ -118,6 +115,8 @@ interface AvailableAddOnListInstanceEachOptions {
 /**
  * Options to pass to list
  *
+ * @property direction - The direction
+ * @property edge - The edge
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -129,7 +128,9 @@ interface AvailableAddOnListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface AvailableAddOnListInstanceOptions {
+interface MetricListInstanceOptions {
+  direction?: MetricStreamDirection;
+  edge?: MetricTwilioEdge;
   limit?: number;
   pageSize?: number;
 }
@@ -137,63 +138,45 @@ interface AvailableAddOnListInstanceOptions {
 /**
  * Options to pass to page
  *
+ * @property direction - The direction
+ * @property edge - The edge
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface AvailableAddOnListInstancePageOptions {
+interface MetricListInstancePageOptions {
+  direction?: MetricStreamDirection;
+  edge?: MetricTwilioEdge;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface AvailableAddOnPayload extends AvailableAddOnResource, Page.TwilioResponsePayload {
+interface MetricPayload extends MetricResource, Page.TwilioResponsePayload {
 }
 
-interface AvailableAddOnResource {
-  configuration_schema: object;
-  description: string;
-  friendly_name: string;
-  links: string;
-  pricing_type: string;
-  sid: string;
-  url: string;
+interface MetricResource {
+  account_sid: string;
+  call_sid: string;
+  carrier_edge: object;
+  client: object;
+  client_edge: object;
+  direction: MetricStreamDirection;
+  edge: MetricTwilioEdge;
+  gateway: object;
+  sdk_edge: object;
+  sip_edge: object;
+  timestamp: string;
 }
 
-interface AvailableAddOnSolution {
-}
-
-
-declare class AvailableAddOnContext {
-  /**
-   * Initialize the AvailableAddOnContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
-   *
-   * @param version - Version of the resource
-   * @param sid - The SID of the AvailableAddOn resource to fetch
-   */
-  constructor(version: Marketplace, sid: string);
-
-  extensions: AvailableAddOnExtensionListInstance;
-  /**
-   * fetch a AvailableAddOnInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): Promise<AvailableAddOnInstance>;
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
+interface MetricSolution {
+  callSid?: string;
 }
 
 
-declare class AvailableAddOnInstance extends SerializableClass {
+declare class MetricInstance extends SerializableClass {
   /**
-   * Initialize the AvailableAddOnContext
+   * Initialize the MetricContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -201,38 +184,31 @@ declare class AvailableAddOnInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The SID of the AvailableAddOn resource to fetch
+   * @param callSid - The call_sid
    */
-  constructor(version: Marketplace, payload: AvailableAddOnPayload, sid: string);
+  constructor(version: V1, payload: MetricPayload, callSid: string);
 
-  private _proxy: AvailableAddOnContext;
-  configurationSchema: object;
-  description: string;
-  /**
-   * Access the extensions
-   */
-  extensions(): AvailableAddOnExtensionListInstance;
-  /**
-   * fetch a AvailableAddOnInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): Promise<AvailableAddOnInstance>;
-  friendlyName: string;
-  links: string;
-  pricingType: string;
-  sid: string;
+  accountSid: string;
+  callSid: string;
+  carrierEdge: object;
+  client: object;
+  clientEdge: object;
+  direction: MetricStreamDirection;
+  edge: MetricTwilioEdge;
+  gateway: object;
+  sdkEdge: object;
+  sipEdge: object;
+  timestamp: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  url: string;
 }
 
 
-declare class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnInstance> {
+declare class MetricPage extends Page<V1, MetricPayload, MetricResource, MetricInstance> {
   /**
-   * Initialize the AvailableAddOnPage
+   * Initialize the MetricPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -242,18 +218,18 @@ declare class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Marketplace, response: Response<string>, solution: AvailableAddOnSolution);
+  constructor(version: V1, response: Response<string>, solution: MetricSolution);
 
   /**
-   * Build an instance of AvailableAddOnInstance
+   * Build an instance of MetricInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AvailableAddOnPayload): AvailableAddOnInstance;
+  getInstance(payload: MetricPayload): MetricInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnListInstanceEachOptions, AvailableAddOnListInstanceOptions, AvailableAddOnListInstancePageOptions, AvailableAddOnPage, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnSolution }
+export { MetricInstance, MetricList, MetricListInstance, MetricListInstanceEachOptions, MetricListInstanceOptions, MetricListInstancePageOptions, MetricPage, MetricPayload, MetricResource, MetricSolution }

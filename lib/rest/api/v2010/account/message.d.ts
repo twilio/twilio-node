@@ -126,6 +126,7 @@ interface MessageListInstance {
  * @property maxPrice - The total maximum price up to 4 decimal places in US dollars acceptable for the message to be delivered.
  * @property mediaUrl - The URL of the media to send with the message
  * @property messagingServiceSid - The SID of the Messaging Service you want to associate with the message.
+ * @property persistentAction - Rich actions for Channels Messages.
  * @property provideFeedback - Whether to confirm delivery of the message
  * @property smartEncoded - Whether to detect Unicode characters that have a similar GSM-7 character and replace them
  * @property statusCallback - The URL we should call to send status information to your application
@@ -140,6 +141,7 @@ interface MessageListInstanceCreateOptions {
   maxPrice?: number;
   mediaUrl?: string | string[];
   messagingServiceSid?: string;
+  persistentAction?: string | string[];
   provideFeedback?: boolean;
   smartEncoded?: boolean;
   statusCallback?: string;

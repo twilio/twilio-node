@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param availableAddOnSid - The available_add_on_sid
+ * @param availableAddOnSid - The SID of the AvailableAddOn resource to which this extension applies
  */
 declare function AvailableAddOnExtensionList(version: Marketplace, availableAddOnSid: string): AvailableAddOnExtensionListInstance;
 
@@ -46,7 +46,7 @@ interface AvailableAddOnExtensionListInstance {
   /**
    * Constructs a available_add_on_extension
    *
-   * @param sid - The unique Extension Sid
+   * @param sid - The SID of the AvailableAddOn Extension resource to fetch
    */
   get(sid: string): AvailableAddOnExtensionContext;
   /**
@@ -173,8 +173,8 @@ declare class AvailableAddOnExtensionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param availableAddOnSid - The available_add_on_sid
-   * @param sid - The unique Extension Sid
+   * @param availableAddOnSid - The SID of the AvailableAddOn resource with the extension to fetch
+   * @param sid - The SID of the AvailableAddOn Extension resource to fetch
    */
   constructor(version: Marketplace, availableAddOnSid: string, sid: string);
 
@@ -201,8 +201,8 @@ declare class AvailableAddOnExtensionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param availableAddOnSid - The available_add_on_sid
-   * @param sid - The unique Extension Sid
+   * @param availableAddOnSid - The SID of the AvailableAddOn resource to which this extension applies
+   * @param sid - The SID of the AvailableAddOn Extension resource to fetch
    */
   constructor(version: Marketplace, payload: AvailableAddOnExtensionPayload, availableAddOnSid: string, sid: string);
 

@@ -11,7 +11,7 @@ import V2 = require('../../V2');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
-type VerificationChannel = 'sms'|'call';
+type VerificationChannel = 'sms'|'call'|'email';
 
 type VerificationStatus = 'canceled'|'approved';
 
@@ -64,17 +64,19 @@ interface VerificationListInstance {
  *
  * @property amount - The amount of the associated PSD2 compliant transaction.
  * @property channel - The verification method to use
+ * @property channelConfiguration - Channel specific configuration in json format.
  * @property customCode - A pre-generated code
  * @property customMessage - The text of a custom message to use for the verification
  * @property locale - The locale to use for the verification SMS or call
  * @property payee - The payee of the associated PSD2 compliant transaction
  * @property rateLimits - The custom key-value pairs of Programmable Rate Limits.
  * @property sendDigits - The digits to send after a phone call is answered
- * @property to - The phone number to verify
+ * @property to - The phone number or email to verify
  */
 interface VerificationListInstanceCreateOptions {
   amount?: string;
   channel: string;
+  channelConfiguration?: object;
   customCode?: string;
   customMessage?: string;
   locale?: string;

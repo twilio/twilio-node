@@ -5,10 +5,10 @@
  *       /       /
  */
 
-import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { SerializableClass } from '../../../interfaces';
+import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
+import V1 = require('../../V1');
+import { SerializableClass } from '../../../../interfaces';
 
 type CallSummaryCallState = 'ringing'|'completed'|'busy'|'fail'|'noanswer'|'canceled'|'answered'|'undialed';
 
@@ -24,8 +24,9 @@ type CallSummaryProcessingState = 'complete'|'partial';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
+ * @param callSid - The call_sid
  */
-declare function CallSummaryList(version: V1): CallSummaryListInstance;
+declare function CallSummaryList(version: V1, callSid: string): CallSummaryListInstance;
 
 /**
  * Options to pass to fetch
@@ -43,10 +44,8 @@ interface CallSummaryListInstance {
   (sid: string): CallSummaryContext;
   /**
    * Constructs a call_summary
-   *
-   * @param callSid - The call_sid
    */
-  get(callSid: string): CallSummaryContext;
+  get(): CallSummaryContext;
   /**
    * Provide a user-friendly representation
    */
@@ -79,6 +78,7 @@ interface CallSummaryResource {
 }
 
 interface CallSummarySolution {
+  callSid?: string;
 }
 
 

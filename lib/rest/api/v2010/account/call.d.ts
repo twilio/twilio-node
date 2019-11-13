@@ -157,6 +157,7 @@ interface CallListInstance {
  * @property timeout - Number of seconds to wait for an answer
  * @property to - Phone number, SIP address, or client identifier to call
  * @property trim - Set this parameter to control trimming of silence on the recording.
+ * @property twiml - TwiML instructions for the call
  * @property url - The absolute URL that returns TwiML for this call
  */
 interface CallListInstanceCreateOptions {
@@ -185,6 +186,7 @@ interface CallListInstanceCreateOptions {
   timeout?: number;
   to: string;
   trim?: string;
+  twiml?: string;
   url?: string;
 }
 
@@ -325,7 +327,7 @@ interface CallResource {
   group_sid: string;
   parent_call_sid: string;
   phone_number_sid: string;
-  price: number;
+  price: string;
   price_unit: string;
   sid: string;
   start_time: Date;
@@ -422,7 +424,7 @@ declare class CallInstance extends SerializableClass {
   notifications(): NotificationListInstance;
   parentCallSid: string;
   phoneNumberSid: string;
-  price: number;
+  price: string;
   priceUnit: string;
   /**
    * Access the recordings

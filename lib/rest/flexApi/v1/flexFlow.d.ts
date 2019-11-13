@@ -34,6 +34,7 @@ declare function FlexFlowList(version: V1): FlexFlowListInstance;
  * @property integration.creationOnMessage - Whether to create a task when the first message arrives
  * @property integration.flowSid - The SID of the Flow
  * @property integration.priority - The task priority of a new task
+ * @property integration.retryCount - The number of times to retry the webhook if the first attempt fails
  * @property integration.timeout - The task timeout in seconds for a new task
  * @property integration.url - The External Webhook URL
  * @property integration.workflowSid - The Workflow SID for a new task
@@ -57,6 +58,7 @@ interface FlexFlowInstanceUpdateOptions {
     timeout?: number;
     priority?: number;
     creationOnMessage?: boolean;
+    retryCount?: number;
   };
   integrationType?: FlexFlowIntegrationType;
   janitorEnabled?: boolean;
@@ -149,6 +151,7 @@ interface FlexFlowListInstance {
  * @property integration.creationOnMessage - Whether to create a task when the first message arrives
  * @property integration.flowSid - The SID of the Flow
  * @property integration.priority - The task priority of a new task
+ * @property integration.retryCount - The number of times to retry the webhook if the first attempt fails
  * @property integration.timeout - The task timeout in seconds for a new task
  * @property integration.url - The External Webhook URL
  * @property integration.workflowSid - The Workflow SID for a new task
@@ -172,6 +175,7 @@ interface FlexFlowListInstanceCreateOptions {
     timeout?: number;
     priority?: number;
     creationOnMessage?: boolean;
+    retryCount?: number;
   };
   integrationType?: FlexFlowIntegrationType;
   janitorEnabled?: boolean;

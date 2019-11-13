@@ -1,6 +1,40 @@
 twilio-node changelog
 =====================
 
+[2019-11-13] Version 3.37.1
+---------------------------
+**Library**
+- [PR #498](https://github.com/twilio/twilio-node/pull/498): fix: Stringify TwiML array attributes as space delimited. Thanks to [@mpeltonen](https://github.com/mpeltonen)!
+
+**Api**
+- Make `persistent_action` parameter public
+- Add `twiml` optional private parameter for call create
+
+**Autopilot**
+- Add Export resource to Autopilot Assistant.
+
+**Flex**
+- Added Integration.RetryCount attribute to Flex Flow
+- Updating a Flex Flow `channel_type` options documentation
+
+**Insights**
+- Added edges to events and metrics
+- Added new endpoint definitions for Events and Metrics
+
+**Messaging**
+- **create** support for sender registration
+- **fetch** support for fetching a sender
+- **update** support for sender verification
+
+**Supersim**
+- Add `Direction` filter parameter to list commands endpoint
+- Allow filtering commands list by Sim Unique Name
+- Add `Iccid` filter parameter to list sims endpoint
+
+**Twiml**
+- Add support for `<Refer>` verb
+
+
 [2019-10-30] Version 3.37.0
 ---------------------------
 **Library**

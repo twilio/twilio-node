@@ -9,14 +9,14 @@
  */
 /* jshint ignore:end */
 
-var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
+var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
-    '../../../../../lib/http/request');  /* jshint ignore:line */
+    '../../../../../../lib/http/request');  /* jshint ignore:line */
 var Response = require(
-    '../../../../../lib/http/response');  /* jshint ignore:line */
+    '../../../../../../lib/http/response');  /* jshint ignore:line */
 var RestException = require(
-    '../../../../../lib/base/RestException');  /* jshint ignore:line */
-var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+    '../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -33,7 +33,8 @@ describe('CallSummary', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.insights.v1.summary('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.insights.v1.calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .summary().fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -78,7 +79,8 @@ describe('CallSummary', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.insights.v1.summary('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.insights.v1.calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .summary().fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
