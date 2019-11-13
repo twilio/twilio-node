@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -18,8 +17,6 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
-var moduleInfo = require(
-    '../../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -152,19 +149,7 @@ describe('User', function() {
           data: values
       }));
 
-      var headers = {
-        'X-Twilio-Webhook-Enabled': 'true',
-        'Accept': 'application/json',
-        'Accept-Charset': 'utf-8'
-      };
-      headers['User-Agent'] = util.format(
-        'twilio-node/%s (node.js %s)',
-        moduleInfo.version,
-        process.version
-      );
-      if (!headers['Content-Type']) {
-        headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      }
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
@@ -443,19 +428,7 @@ describe('User', function() {
       var sid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${sid}`;
 
-      var headers = {
-        'X-Twilio-Webhook-Enabled': 'true',
-        'Accept': 'application/json',
-        'Accept-Charset': 'utf-8'
-      };
-      headers['User-Agent'] = util.format(
-        'twilio-node/%s (node.js %s)',
-        moduleInfo.version,
-        process.version
-      );
-      if (!headers['Content-Type']) {
-        headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      }
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,

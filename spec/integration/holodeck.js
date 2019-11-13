@@ -1,8 +1,10 @@
 'use strict';
 var _ = require('lodash');
 var Q = require('q');
+var util = require('util');
 var Request = require('../../lib/http/request');
 var RequestClient = require('../../lib/base/RequestClient');
+var moduleInfo = require('../../package.json');
 
 function Hologram(request, response) {
   this.request = request;
@@ -21,9 +23,27 @@ Holodeck.prototype.mock = function(response, request) {
   this.holograms.push(new Hologram(request, response));
 };
 
+Holodeck.prototype.addStandardHeaders = function(request) {
+  var standardHeaders = {
+    'Accept': 'application/json',
+    'Accept-Charset': 'utf-8',
+    'User-Agent': util.format(
+      'twilio-node/%s (node.js %s)',
+      moduleInfo.version,
+      process.version
+    )
+  };
+  if (request.method === 'POST') {
+    standardHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+  }
+  _.assign(request.headers, standardHeaders);
+  return request;
+};
+
 Holodeck.prototype.assertHasRequest = function(request) {
+  var requestWithHeaders = this.addStandardHeaders(request);
   var matchedRequest = _.find(this.requests, function(req) {
-    return req.isEqual(request);
+    return req.isEqual(request) || req.isEqual(requestWithHeaders);
   });
 
   if (!_.isUndefined(matchedRequest)) {
