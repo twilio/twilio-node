@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../lib/http/request');  /* jshint ignore:line */
@@ -18,8 +17,6 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
-var moduleInfo = require(
-    '../../../../../package.json');  /* jshint ignore:line */
 
 
 var client;
@@ -52,15 +49,8 @@ describe('Cps', function() {
 
       var headers = {
         'Twilio-Sandbox-Mode': 'twilio_sandbox_mode',
-        'X-Xcnam-Sensitive-Phone-Number': 'x_xcnam_sensitive_phone_number',
-        'Accept': 'application/json',
-        'Accept-Charset': 'utf-8'
+        'X-Xcnam-Sensitive-Phone-Number': 'x_xcnam_sensitive_phone_number'
       };
-      headers['User-Agent'] = util.format(
-        'twilio-node/%s (node.js %s)',
-        moduleInfo.version,
-        process.version
-      );
       holodeck.assertHasRequest(new Request({
         method: 'GET',
         url: url,

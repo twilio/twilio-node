@@ -9,7 +9,6 @@
  */
 /* jshint ignore:end */
 
-var util = require('util');  /* jshint ignore:line */
 var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
     '../../../../../../../lib/http/request');  /* jshint ignore:line */
@@ -18,8 +17,6 @@ var Response = require(
 var RestException = require(
     '../../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
-var moduleInfo = require(
-    '../../../../../../../package.json');  /* jshint ignore:line */
 var serialize = require(
     '../../../../../../../lib/base/serialize');  /* jshint ignore:line */
 
@@ -108,12 +105,7 @@ describe('SyncMapItem', function() {
       var key = 'key';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
-      var headers = {'If-Match': 'if_match', 'Accept': 'application/json', 'Accept-Charset': 'utf-8'};
-      headers['User-Agent'] = util.format(
-        'twilio-node/%s (node.js %s)',
-        moduleInfo.version,
-        process.version
-      );
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
         url: url,
@@ -416,15 +408,7 @@ describe('SyncMapItem', function() {
       var key = 'key';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
-      var headers = {'If-Match': 'if_match', 'Accept': 'application/json', 'Accept-Charset': 'utf-8'};
-      headers['User-Agent'] = util.format(
-        'twilio-node/%s (node.js %s)',
-        moduleInfo.version,
-        process.version
-      );
-      if (!headers['Content-Type']) {
-        headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      }
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
