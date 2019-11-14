@@ -232,4 +232,4 @@ declare class MetricPage extends Page<V1, MetricPayload, MetricResource, MetricI
   toJSON(): any;
 }
 
-export { MetricInstance, MetricList, MetricListInstance, MetricListInstanceEachOptions, MetricListInstanceOptions, MetricListInstancePageOptions, MetricPage, MetricPayload, MetricResource, MetricSolution }
+export { MetricInstance, MetricList, MetricListInstance, MetricListInstanceEachOptions, MetricListInstanceOptions, MetricListInstancePageOptions, MetricPage, MetricPayload, MetricResource, MetricSolution, MetricStreamDirection, MetricTwilioEdge }

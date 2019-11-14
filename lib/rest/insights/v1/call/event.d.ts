@@ -230,4 +230,4 @@ declare class EventPage extends Page<V1, EventPayload, EventResource, EventInsta
   toJSON(): any;
 }
 
-export { EventInstance, EventList, EventListInstance, EventListInstanceEachOptions, EventListInstanceOptions, EventListInstancePageOptions, EventPage, EventPayload, EventResource, EventSolution }
+export { EventInstance, EventLevel, EventList, EventListInstance, EventListInstanceEachOptions, EventListInstanceOptions, EventListInstancePageOptions, EventPage, EventPayload, EventResource, EventSolution, EventTwilioEdge }
