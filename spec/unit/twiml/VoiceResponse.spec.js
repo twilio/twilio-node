@@ -167,9 +167,16 @@ describe('create voice response TwiML', function() {
 
   it('should serialize array attributes as space delimited', function() {
     var actual = new VoiceResponse();
-    actual.dial().number({ statusCallbackEvents: ["initiated", "ringing"] }, '+11234567890')
+    actual.dial().number({ statusCallbackEvents: ['initiated', 'ringing'] }, '+11234567890');
 
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number statusCallbackEvents="initiated ringing">+11234567890</Number></Dial></Response>');
+  });
+
+  it('should escape special characters', function() {
+    var actual = new VoiceResponse();
+    actual.dial().number({ statusCallback: 'https://example.com?action=getTwiml&param=dial' }, '+11234567890');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial><Number statusCallback="https://example.com?action=getTwiml&amp;param=dial">+11234567890</Number></Dial></Response>');
   });
 
   it('should allow adding arbitrary text to leaf nodes', function() {
