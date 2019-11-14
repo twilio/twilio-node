@@ -342,4 +342,4 @@ declare class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, Chan
   toJSON(): any;
 }
 
-export { ChannelContext, ChannelInstance, ChannelInstanceUpdateOptions, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }
+export { ChannelChannelType, ChannelContext, ChannelInstance, ChannelInstanceUpdateOptions, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }

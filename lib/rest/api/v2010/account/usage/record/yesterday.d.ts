@@ -239,4 +239,4 @@ declare class YesterdayPage extends Page<V2010, YesterdayPayload, YesterdayResou
   toJSON(): any;
 }
 
-export { YesterdayInstance, YesterdayList, YesterdayListInstance, YesterdayListInstanceEachOptions, YesterdayListInstanceOptions, YesterdayListInstancePageOptions, YesterdayPage, YesterdayPayload, YesterdayResource, YesterdaySolution }
+export { YesterdayCategory, YesterdayInstance, YesterdayList, YesterdayListInstance, YesterdayListInstanceEachOptions, YesterdayListInstanceOptions, YesterdayListInstancePageOptions, YesterdayPage, YesterdayPayload, YesterdayResource, YesterdaySolution }

@@ -401,4 +401,4 @@ declare class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource
   toJSON(): any;
 }
 
-export { WorkspaceContext, WorkspaceInstance, WorkspaceInstanceUpdateOptions, WorkspaceList, WorkspaceListInstance, WorkspaceListInstanceCreateOptions, WorkspaceListInstanceEachOptions, WorkspaceListInstanceOptions, WorkspaceListInstancePageOptions, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }
+export { WorkspaceContext, WorkspaceInstance, WorkspaceInstanceUpdateOptions, WorkspaceList, WorkspaceListInstance, WorkspaceListInstanceCreateOptions, WorkspaceListInstanceEachOptions, WorkspaceListInstanceOptions, WorkspaceListInstancePageOptions, WorkspacePage, WorkspacePayload, WorkspaceQueueOrder, WorkspaceResource, WorkspaceSolution }

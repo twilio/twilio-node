@@ -28,16 +28,27 @@ type SyncListItemQueryResultOrder = 'asc'|'desc';
 declare function SyncListItemList(version: V1, serviceSid: string, listSid: string): SyncListItemListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property ifMatch - The If-Match HTTP request header
+ */
+interface SyncListItemInstanceRemoveOptions {
+  ifMatch?: string;
+}
+
+/**
  * Options to pass to update
  *
  * @property collectionTtl - How long, in seconds, before the List Item's parent Sync List expires
  * @property data - A JSON string that represents an arbitrary, schema-less object that the List Item stores
+ * @property ifMatch - The If-Match HTTP request header
  * @property itemTtl - How long, in seconds, before the List Item expires
  * @property ttl - An alias for item_ttl
  */
 interface SyncListItemInstanceUpdateOptions {
   collectionTtl?: number;
   data?: object;
+  ifMatch?: string;
   itemTtl?: number;
   ttl?: number;
 }
@@ -252,9 +263,10 @@ declare class SyncListItemContext {
   /**
    * remove a SyncListItemInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
+  remove(opts?: SyncListItemInstanceRemoveOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -302,9 +314,10 @@ declare class SyncListItemInstance extends SerializableClass {
   /**
    * remove a SyncListItemInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
+  remove(opts?: SyncListItemInstanceRemoveOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   /**
@@ -347,4 +360,4 @@ declare class SyncListItemPage extends Page<V1, SyncListItemPayload, SyncListIte
   toJSON(): any;
 }
 
-export { SyncListItemContext, SyncListItemInstance, SyncListItemInstanceUpdateOptions, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }
+export { SyncListItemContext, SyncListItemInstance, SyncListItemInstanceRemoveOptions, SyncListItemInstanceUpdateOptions, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemQueryFromBoundType, SyncListItemQueryResultOrder, SyncListItemResource, SyncListItemSolution }

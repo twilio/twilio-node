@@ -33,7 +33,12 @@ describe('CurrentCall', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.trusted_comms.currentCalls().fetch();
+      var opts = {
+        twilioSandboxMode: 'twilio_sandbox_mode',
+        xXcnamSensitivePhoneNumberFrom: 'x_xcnam_sensitive_phone_number_from',
+        xXcnamSensitivePhoneNumberTo: 'x_xcnam_sensitive_phone_number_to'
+      };
+      var promise = client.preview.trusted_comms.currentCalls().fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -43,9 +48,15 @@ describe('CurrentCall', function() {
 
       var url = 'https://preview.twilio.com/TrustedComms/CurrentCall';
 
+      var headers = {
+        'Twilio-Sandbox-Mode': 'twilio_sandbox_mode',
+        'X-Xcnam-Sensitive-Phone-Number-From': 'x_xcnam_sensitive_phone_number_from',
+        'X-Xcnam-Sensitive-Phone-Number-To': 'x_xcnam_sensitive_phone_number_to'
+      };
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

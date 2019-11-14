@@ -144,4 +144,4 @@ declare class ExportAssistantPage extends Page<V1, ExportAssistantPayload, Expor
   toJSON(): any;
 }
 
-export { ExportAssistantContext, ExportAssistantInstance, ExportAssistantList, ExportAssistantListInstance, ExportAssistantPage, ExportAssistantPayload, ExportAssistantResource, ExportAssistantSolution }
+export { ExportAssistantContext, ExportAssistantInstance, ExportAssistantList, ExportAssistantListInstance, ExportAssistantPage, ExportAssistantPayload, ExportAssistantResource, ExportAssistantSolution, ExportAssistantStatus }

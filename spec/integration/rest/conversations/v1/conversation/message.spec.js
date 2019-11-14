@@ -33,8 +33,9 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                           .messages.create();
+                                           .messages.create(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -45,9 +46,11 @@ describe('Message', function() {
       var conversationSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Conversations/${conversationSid}/Messages`;
 
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -118,8 +121,9 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                           .messages('IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+                                           .messages('IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -131,9 +135,11 @@ describe('Message', function() {
       var sid = 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Conversations/${conversationSid}/Messages/${sid}`;
 
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -169,8 +175,9 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                           .messages('IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                           .messages('IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -182,9 +189,11 @@ describe('Message', function() {
       var sid = 'IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Conversations/${conversationSid}/Messages/${sid}`;
 
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

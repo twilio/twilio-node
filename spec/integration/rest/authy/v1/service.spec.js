@@ -33,7 +33,7 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {friendlyName: 'friendly_name', twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -49,6 +49,13 @@ describe('Service', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -82,7 +89,8 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -93,9 +101,11 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
+      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -118,7 +128,8 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -129,9 +140,11 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
+      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -259,7 +272,8 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.authy.v1.services.list();
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services.list(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -269,9 +283,11 @@ describe('Service', function() {
 
       var url = 'https://authy.twilio.com/v1/Services';
 
+      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -343,7 +359,8 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -354,9 +371,11 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
+      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

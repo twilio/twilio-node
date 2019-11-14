@@ -89,9 +89,10 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                  .syncMapItems('key').remove();
+                                  .syncMapItems('key').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -104,9 +105,11 @@ describe('SyncMapItem', function() {
       var key = 'key';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -389,9 +392,10 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                  .syncMapItems('key').update();
+                                  .syncMapItems('key').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -404,9 +408,11 @@ describe('SyncMapItem', function() {
       var key = 'key';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

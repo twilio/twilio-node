@@ -108,4 +108,4 @@ declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource
   toJSON(): any;
 }
 
-export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackListInstanceCreateOptions, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }
+export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackListInstanceCreateOptions, FeedbackOutcome, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

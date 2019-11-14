@@ -366,4 +366,4 @@ declare class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource
   toJSON(): any;
 }
 
-export { TaskQueueContext, TaskQueueInstance, TaskQueueInstanceUpdateOptions, TaskQueueList, TaskQueueListInstance, TaskQueueListInstanceCreateOptions, TaskQueueListInstanceEachOptions, TaskQueueListInstanceOptions, TaskQueueListInstancePageOptions, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution }
+export { TaskQueueContext, TaskQueueInstance, TaskQueueInstanceUpdateOptions, TaskQueueList, TaskQueueListInstance, TaskQueueListInstanceCreateOptions, TaskQueueListInstanceEachOptions, TaskQueueListInstanceOptions, TaskQueueListInstancePageOptions, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution, TaskQueueTaskOrder }

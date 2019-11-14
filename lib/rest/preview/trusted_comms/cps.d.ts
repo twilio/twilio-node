@@ -21,6 +21,17 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CpsList(version: TrustedComms): CpsListInstance;
 
+/**
+ * Options to pass to fetch
+ *
+ * @property twilioSandboxMode - Optional header to mock all voice dependencies.
+ * @property xXcnamSensitivePhoneNumber - Phone number to retrieve CPS.
+ */
+interface CpsInstanceFetchOptions {
+  twilioSandboxMode?: string;
+  xXcnamSensitivePhoneNumber?: string;
+}
+
 interface CpsListInstance {
   /**
    * @param sid - sid of instance
@@ -64,9 +75,10 @@ declare class CpsContext {
   /**
    * fetch a CpsInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CpsInstance) => any): Promise<CpsInstance>;
+  fetch(opts?: CpsInstanceFetchOptions, callback?: (error: Error | null, items: CpsInstance) => any): Promise<CpsInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -92,9 +104,10 @@ declare class CpsInstance extends SerializableClass {
   /**
    * fetch a CpsInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CpsInstance) => any): Promise<CpsInstance>;
+  fetch(opts?: CpsInstanceFetchOptions, callback?: (error: Error | null, items: CpsInstance) => any): Promise<CpsInstance>;
   phoneNumber: string;
   /**
    * Provide a user-friendly representation
@@ -130,4 +143,4 @@ declare class CpsPage extends Page<TrustedComms, CpsPayload, CpsResource, CpsIns
   toJSON(): any;
 }
 
-export { CpsContext, CpsInstance, CpsList, CpsListInstance, CpsPage, CpsPayload, CpsResource, CpsSolution }
+export { CpsContext, CpsInstance, CpsInstanceFetchOptions, CpsList, CpsListInstance, CpsPage, CpsPayload, CpsResource, CpsSolution }

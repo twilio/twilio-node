@@ -293,4 +293,4 @@ declare class InteractionPage extends Page<V1, InteractionPayload, InteractionRe
   toJSON(): any;
 }
 
-export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionListInstanceEachOptions, InteractionListInstanceOptions, InteractionListInstancePageOptions, InteractionPage, InteractionPayload, InteractionResource, InteractionSolution }
+export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionListInstanceEachOptions, InteractionListInstanceOptions, InteractionListInstancePageOptions, InteractionPage, InteractionPayload, InteractionResource, InteractionResourceStatus, InteractionSolution, InteractionType }

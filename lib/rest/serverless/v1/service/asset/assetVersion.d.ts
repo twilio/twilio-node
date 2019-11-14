@@ -261,4 +261,4 @@ declare class AssetVersionPage extends Page<V1, AssetVersionPayload, AssetVersio
   toJSON(): any;
 }
 
-export { AssetVersionContext, AssetVersionInstance, AssetVersionList, AssetVersionListInstance, AssetVersionListInstanceEachOptions, AssetVersionListInstanceOptions, AssetVersionListInstancePageOptions, AssetVersionPage, AssetVersionPayload, AssetVersionResource, AssetVersionSolution }
+export { AssetVersionContext, AssetVersionInstance, AssetVersionList, AssetVersionListInstance, AssetVersionListInstanceEachOptions, AssetVersionListInstanceOptions, AssetVersionListInstancePageOptions, AssetVersionPage, AssetVersionPayload, AssetVersionResource, AssetVersionSolution, AssetVersionVisibility }

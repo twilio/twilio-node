@@ -32,6 +32,15 @@ type ChannelWebhookEnabledType = 'true'|'false';
 declare function ChannelList(version: V2, serviceSid: string): ChannelListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
+ */
+interface ChannelInstanceRemoveOptions {
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
+}
+
+/**
  * Options to pass to update
  *
  * @property attributes - A valid JSON string that contains application-specific data
@@ -40,6 +49,7 @@ declare function ChannelList(version: V2, serviceSid: string): ChannelListInstan
  * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
  * @property friendlyName - A string to describe the resource
  * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ChannelInstanceUpdateOptions {
   attributes?: string;
@@ -48,6 +58,7 @@ interface ChannelInstanceUpdateOptions {
   dateUpdated?: Date;
   friendlyName?: string;
   uniqueName?: string;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
 }
 
 interface ChannelListInstance {
@@ -134,6 +145,7 @@ interface ChannelListInstance {
  * @property friendlyName - A string to describe the new resource
  * @property type - The visibility of the channel
  * @property uniqueName - An application-defined string that uniquely identifies the Channel resource
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ChannelListInstanceCreateOptions {
   attributes?: string;
@@ -143,6 +155,7 @@ interface ChannelListInstanceCreateOptions {
   friendlyName?: string;
   type?: ChannelChannelType;
   uniqueName?: string;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
 }
 
 /**
@@ -255,9 +268,10 @@ declare class ChannelContext {
   /**
    * remove a ChannelInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
+  remove(opts?: ChannelInstanceRemoveOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -315,9 +329,10 @@ declare class ChannelInstance extends SerializableClass {
   /**
    * remove a ChannelInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
+  remove(opts?: ChannelInstanceRemoveOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -363,4 +378,4 @@ declare class ChannelPage extends Page<V2, ChannelPayload, ChannelResource, Chan
   toJSON(): any;
 }
 
-export { ChannelContext, ChannelInstance, ChannelInstanceUpdateOptions, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }
+export { ChannelChannelType, ChannelContext, ChannelInstance, ChannelInstanceRemoveOptions, ChannelInstanceUpdateOptions, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution, ChannelWebhookEnabledType }

@@ -34,12 +34,32 @@ type ChallengeFactorTypes = 'app-push'|'sms'|'totp';
 declare function ChallengeList(version: V1, serviceSid: string, identity: string, factorSid: string): ChallengeListInstance;
 
 /**
+ * Options to pass to fetch
+ *
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ */
+interface ChallengeInstanceFetchOptions {
+  twilioAuthySandboxMode?: string;
+}
+
+/**
+ * Options to pass to remove
+ *
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ */
+interface ChallengeInstanceRemoveOptions {
+  twilioAuthySandboxMode?: string;
+}
+
+/**
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Challenge
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceUpdateOptions {
   authPayload?: string;
+  twilioAuthySandboxMode?: string;
 }
 
 interface ChallengeListInstance {
@@ -72,11 +92,13 @@ interface ChallengeListInstance {
  * @property details - Public details provided to contextualize the Challenge
  * @property expirationDate - The future date in which this Challenge will expire
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceCreateOptions {
   details?: string;
   expirationDate?: Date;
   hiddenDetails?: string;
+  twilioAuthySandboxMode?: string;
 }
 
 interface ChallengePayload extends ChallengeResource, Page.TwilioResponsePayload {
@@ -128,15 +150,17 @@ declare class ChallengeContext {
   /**
    * fetch a ChallengeInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   /**
    * remove a ChallengeInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
+  remove(opts?: ChallengeInstanceRemoveOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -182,17 +206,19 @@ declare class ChallengeInstance extends SerializableClass {
   /**
    * fetch a ChallengeInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   hiddenDetails: string;
   identity: string;
   /**
    * remove a ChallengeInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
+  remove(opts?: ChallengeInstanceRemoveOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
   respondedReason: ChallengeChallengeReasons;
   serviceSid: string;
   sid: string;
@@ -238,4 +264,4 @@ declare class ChallengePage extends Page<V1, ChallengePayload, ChallengeResource
   toJSON(): any;
 }
 
-export { ChallengeContext, ChallengeInstance, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
+export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorStrengths, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceFetchOptions, ChallengeInstanceRemoveOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }

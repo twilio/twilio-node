@@ -299,4 +299,4 @@ declare class RolePage extends Page<V2, RolePayload, RoleResource, RoleInstance>
   toJSON(): any;
 }
 
-export { RoleContext, RoleInstance, RoleInstanceUpdateOptions, RoleList, RoleListInstance, RoleListInstanceCreateOptions, RoleListInstanceEachOptions, RoleListInstanceOptions, RoleListInstancePageOptions, RolePage, RolePayload, RoleResource, RoleSolution }
+export { RoleContext, RoleInstance, RoleInstanceUpdateOptions, RoleList, RoleListInstance, RoleListInstanceCreateOptions, RoleListInstanceEachOptions, RoleListInstanceOptions, RoleListInstancePageOptions, RolePage, RolePayload, RoleResource, RoleRoleType, RoleSolution }

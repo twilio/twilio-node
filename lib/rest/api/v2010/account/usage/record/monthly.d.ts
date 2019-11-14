@@ -239,4 +239,4 @@ declare class MonthlyPage extends Page<V2010, MonthlyPayload, MonthlyResource, M
   toJSON(): any;
 }
 
-export { MonthlyInstance, MonthlyList, MonthlyListInstance, MonthlyListInstanceEachOptions, MonthlyListInstanceOptions, MonthlyListInstancePageOptions, MonthlyPage, MonthlyPayload, MonthlyResource, MonthlySolution }
+export { MonthlyCategory, MonthlyInstance, MonthlyList, MonthlyListInstance, MonthlyListInstanceEachOptions, MonthlyListInstanceOptions, MonthlyListInstancePageOptions, MonthlyPage, MonthlyPayload, MonthlyResource, MonthlySolution }

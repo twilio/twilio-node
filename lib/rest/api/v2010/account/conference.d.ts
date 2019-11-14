@@ -337,4 +337,4 @@ declare class ConferencePage extends Page<V2010, ConferencePayload, ConferenceRe
   toJSON(): any;
 }
 
-export { ConferenceContext, ConferenceInstance, ConferenceInstanceUpdateOptions, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution }
+export { ConferenceContext, ConferenceInstance, ConferenceInstanceUpdateOptions, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution, ConferenceStatus, ConferenceUpdateStatus }

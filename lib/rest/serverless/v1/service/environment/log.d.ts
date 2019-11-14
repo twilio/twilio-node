@@ -273,4 +273,4 @@ declare class LogPage extends Page<V1, LogPayload, LogResource, LogInstance> {
   toJSON(): any;
 }
 
-export { LogContext, LogInstance, LogList, LogListInstance, LogListInstanceEachOptions, LogListInstanceOptions, LogListInstancePageOptions, LogPage, LogPayload, LogResource, LogSolution }
+export { LogContext, LogInstance, LogLevel, LogList, LogListInstance, LogListInstanceEachOptions, LogListInstanceOptions, LogListInstancePageOptions, LogPage, LogPayload, LogResource, LogSolution }

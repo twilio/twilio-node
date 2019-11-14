@@ -88,9 +88,10 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                       .syncMapItems('key').remove();
+                                       .syncMapItems('key').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -103,9 +104,11 @@ describe('SyncMapItem', function() {
       var key = 'key';
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -383,7 +386,7 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {data: {}};
+      var opts = {data: {}, ifMatch: 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMapItems('key').update(opts);
@@ -404,6 +407,13 @@ describe('SyncMapItem', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {'If-Match': 'if_match'};
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );

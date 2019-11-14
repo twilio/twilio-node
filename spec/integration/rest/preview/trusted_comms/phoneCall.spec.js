@@ -33,7 +33,7 @@ describe('PhoneCall', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {from: 'from', to: 'to'};
+      var opts = {from: 'from', to: 'to', twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.preview.trusted_comms.phoneCalls.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -49,6 +49,13 @@ describe('PhoneCall', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );

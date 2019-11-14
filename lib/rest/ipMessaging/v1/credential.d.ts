@@ -311,4 +311,4 @@ declare class CredentialPage extends Page<V1, CredentialPayload, CredentialResou
   toJSON(): any;
 }
 
-export { CredentialContext, CredentialInstance, CredentialInstanceUpdateOptions, CredentialList, CredentialListInstance, CredentialListInstanceCreateOptions, CredentialListInstanceEachOptions, CredentialListInstanceOptions, CredentialListInstancePageOptions, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }
+export { CredentialContext, CredentialInstance, CredentialInstanceUpdateOptions, CredentialList, CredentialListInstance, CredentialListInstanceCreateOptions, CredentialListInstanceEachOptions, CredentialListInstanceOptions, CredentialListInstancePageOptions, CredentialPage, CredentialPayload, CredentialPushService, CredentialResource, CredentialSolution }

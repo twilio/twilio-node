@@ -346,4 +346,4 @@ declare class TriggerPage extends Page<V2010, TriggerPayload, TriggerResource, T
   toJSON(): any;
 }
 
-export { TriggerContext, TriggerInstance, TriggerInstanceUpdateOptions, TriggerList, TriggerListInstance, TriggerListInstanceCreateOptions, TriggerListInstanceEachOptions, TriggerListInstanceOptions, TriggerListInstancePageOptions, TriggerPage, TriggerPayload, TriggerResource, TriggerSolution }
+export { TriggerContext, TriggerInstance, TriggerInstanceUpdateOptions, TriggerList, TriggerListInstance, TriggerListInstanceCreateOptions, TriggerListInstanceEachOptions, TriggerListInstanceOptions, TriggerListInstancePageOptions, TriggerPage, TriggerPayload, TriggerRecurring, TriggerResource, TriggerSolution, TriggerTriggerField, TriggerUsageCategory }

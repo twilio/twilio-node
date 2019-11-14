@@ -296,4 +296,4 @@ declare class WebChannelPage extends Page<V1, WebChannelPayload, WebChannelResou
   toJSON(): any;
 }
 
-export { WebChannelContext, WebChannelInstance, WebChannelInstanceUpdateOptions, WebChannelList, WebChannelListInstance, WebChannelListInstanceCreateOptions, WebChannelListInstanceEachOptions, WebChannelListInstanceOptions, WebChannelListInstancePageOptions, WebChannelPage, WebChannelPayload, WebChannelResource, WebChannelSolution }
+export { WebChannelChatStatus, WebChannelContext, WebChannelInstance, WebChannelInstanceUpdateOptions, WebChannelList, WebChannelListInstance, WebChannelListInstanceCreateOptions, WebChannelListInstanceEachOptions, WebChannelListInstanceOptions, WebChannelListInstancePageOptions, WebChannelPage, WebChannelPayload, WebChannelResource, WebChannelSolution }

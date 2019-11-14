@@ -239,4 +239,4 @@ declare class YearlyPage extends Page<V2010, YearlyPayload, YearlyResource, Year
   toJSON(): any;
 }
 
-export { YearlyInstance, YearlyList, YearlyListInstance, YearlyListInstanceEachOptions, YearlyListInstanceOptions, YearlyListInstancePageOptions, YearlyPage, YearlyPayload, YearlyResource, YearlySolution }
+export { YearlyCategory, YearlyInstance, YearlyList, YearlyListInstance, YearlyListInstanceEachOptions, YearlyListInstanceOptions, YearlyListInstancePageOptions, YearlyPage, YearlyPayload, YearlyResource, YearlySolution }

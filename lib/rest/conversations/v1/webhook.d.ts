@@ -170,4 +170,4 @@ declare class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, Webh
   toJSON(): any;
 }
 
-export { WebhookContext, WebhookInstance, WebhookInstanceUpdateOptions, WebhookList, WebhookListInstance, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }
+export { WebhookContext, WebhookInstance, WebhookInstanceUpdateOptions, WebhookList, WebhookListInstance, WebhookMethod, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution, WebhookTarget }

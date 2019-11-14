@@ -33,7 +33,11 @@ describe('Cps', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.trusted_comms.cps().fetch();
+      var opts = {
+        twilioSandboxMode: 'twilio_sandbox_mode',
+        xXcnamSensitivePhoneNumber: 'x_xcnam_sensitive_phone_number'
+      };
+      var promise = client.preview.trusted_comms.cps().fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -43,9 +47,14 @@ describe('Cps', function() {
 
       var url = 'https://preview.twilio.com/TrustedComms/CPS';
 
+      var headers = {
+        'Twilio-Sandbox-Mode': 'twilio_sandbox_mode',
+        'X-Xcnam-Sensitive-Phone-Number': 'x_xcnam_sensitive_phone_number'
+      };
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

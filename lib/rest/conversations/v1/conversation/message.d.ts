@@ -25,6 +25,15 @@ type MessageWebhookEnabledType = 'true'|'false';
 declare function MessageList(version: V1, conversationSid: string): MessageListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
+ */
+interface MessageInstanceRemoveOptions {
+  xTwilioWebhookEnabled?: MessageWebhookEnabledType;
+}
+
+/**
  * Options to pass to update
  *
  * @property attributes - A string metadata field you can use to store any data you wish.
@@ -32,6 +41,7 @@ declare function MessageList(version: V1, conversationSid: string): MessageListI
  * @property body - The content of the message.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageInstanceUpdateOptions {
   attributes?: string;
@@ -39,6 +49,7 @@ interface MessageInstanceUpdateOptions {
   body?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
+  xTwilioWebhookEnabled?: MessageWebhookEnabledType;
 }
 
 interface MessageListInstance {
@@ -124,6 +135,7 @@ interface MessageListInstance {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property mediaSid - The Media Sid to be attached to the new Message.
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageListInstanceCreateOptions {
   attributes?: string;
@@ -132,6 +144,7 @@ interface MessageListInstanceCreateOptions {
   dateCreated?: Date;
   dateUpdated?: Date;
   mediaSid?: string;
+  xTwilioWebhookEnabled?: MessageWebhookEnabledType;
 }
 
 /**
@@ -235,9 +248,10 @@ declare class MessageContext {
   /**
    * remove a MessageInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
+  remove(opts?: MessageInstanceRemoveOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -285,9 +299,10 @@ declare class MessageInstance extends SerializableClass {
   /**
    * remove a MessageInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
+  remove(opts?: MessageInstanceRemoveOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -329,4 +344,4 @@ declare class MessagePage extends Page<V1, MessagePayload, MessageResource, Mess
   toJSON(): any;
 }
 
-export { MessageContext, MessageInstance, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }
+export { MessageContext, MessageInstance, MessageInstanceRemoveOptions, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution, MessageWebhookEnabledType }

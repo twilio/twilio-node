@@ -276,4 +276,4 @@ declare class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelRe
   toJSON(): any;
 }
 
-export { UserChannelContext, UserChannelInstance, UserChannelInstanceUpdateOptions, UserChannelList, UserChannelListInstance, UserChannelListInstanceEachOptions, UserChannelListInstanceOptions, UserChannelListInstancePageOptions, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution }
+export { UserChannelChannelStatus, UserChannelContext, UserChannelInstance, UserChannelInstanceUpdateOptions, UserChannelList, UserChannelListInstance, UserChannelListInstanceEachOptions, UserChannelListInstanceOptions, UserChannelListInstancePageOptions, UserChannelNotificationLevel, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution }

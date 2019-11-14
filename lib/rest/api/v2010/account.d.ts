@@ -464,4 +464,4 @@ declare class AccountPage extends Page<V2010, AccountPayload, AccountResource, A
   toJSON(): any;
 }
 
-export { AccountContext, AccountInstance, AccountInstanceUpdateOptions, AccountList, AccountListInstance, AccountListInstanceCreateOptions, AccountListInstanceEachOptions, AccountListInstanceOptions, AccountListInstancePageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution }
+export { AccountContext, AccountInstance, AccountInstanceUpdateOptions, AccountList, AccountListInstance, AccountListInstanceCreateOptions, AccountListInstanceEachOptions, AccountListInstanceOptions, AccountListInstancePageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution, AccountStatus, AccountType }

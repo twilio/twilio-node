@@ -24,6 +24,24 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function EntityList(version: V1, serviceSid: string): EntityListInstance;
 
+/**
+ * Options to pass to fetch
+ *
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ */
+interface EntityInstanceFetchOptions {
+  twilioAuthySandboxMode?: string;
+}
+
+/**
+ * Options to pass to remove
+ *
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ */
+interface EntityInstanceRemoveOptions {
+  twilioAuthySandboxMode?: string;
+}
+
 interface EntityListInstance {
   /**
    * @param sid - sid of instance
@@ -102,9 +120,11 @@ interface EntityListInstance {
  * Options to pass to create
  *
  * @property identity - Unique identity of the Entity
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface EntityListInstanceCreateOptions {
   identity: string;
+  twilioAuthySandboxMode?: string;
 }
 
 /**
@@ -124,12 +144,14 @@ interface EntityListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface EntityListInstanceEachOptions {
   callback?: (item: EntityInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
+  twilioAuthySandboxMode?: string;
 }
 
 /**
@@ -145,10 +167,12 @@ interface EntityListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface EntityListInstanceOptions {
   limit?: number;
   pageSize?: number;
+  twilioAuthySandboxMode?: string;
 }
 
 /**
@@ -157,11 +181,13 @@ interface EntityListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface EntityListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  twilioAuthySandboxMode?: string;
 }
 
 interface EntityPayload extends EntityResource, Page.TwilioResponsePayload {
@@ -201,15 +227,17 @@ declare class EntityContext {
   /**
    * fetch a EntityInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
+  fetch(opts?: EntityInstanceFetchOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
   /**
    * remove a EntityInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
+  remove(opts?: EntityInstanceRemoveOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -243,17 +271,19 @@ declare class EntityInstance extends SerializableClass {
   /**
    * fetch a EntityInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
+  fetch(opts?: EntityInstanceFetchOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
   identity: string;
   links: string;
   /**
    * remove a EntityInstance
    *
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
+  remove(opts?: EntityInstanceRemoveOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   /**
@@ -290,4 +320,4 @@ declare class EntityPage extends Page<V1, EntityPayload, EntityResource, EntityI
   toJSON(): any;
 }
 
-export { EntityContext, EntityInstance, EntityList, EntityListInstance, EntityListInstanceCreateOptions, EntityListInstanceEachOptions, EntityListInstanceOptions, EntityListInstancePageOptions, EntityPage, EntityPayload, EntityResource, EntitySolution }
+export { EntityContext, EntityInstance, EntityInstanceFetchOptions, EntityInstanceRemoveOptions, EntityList, EntityListInstance, EntityListInstanceCreateOptions, EntityListInstanceEachOptions, EntityListInstanceOptions, EntityListInstancePageOptions, EntityPage, EntityPayload, EntityResource, EntitySolution }

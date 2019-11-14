@@ -88,8 +88,9 @@ describe('Document', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                       .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                       .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -101,9 +102,11 @@ describe('Document', function() {
       var sid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents/${sid}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -381,7 +384,7 @@ describe('Document', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {data: {}};
+      var opts = {data: {}, ifMatch: 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -400,6 +403,13 @@ describe('Document', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {'If-Match': 'if_match'};
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );

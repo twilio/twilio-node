@@ -239,4 +239,4 @@ declare class TodayPage extends Page<V2010, TodayPayload, TodayResource, TodayIn
   toJSON(): any;
 }
 
-export { TodayInstance, TodayList, TodayListInstance, TodayListInstanceEachOptions, TodayListInstanceOptions, TodayListInstancePageOptions, TodayPage, TodayPayload, TodayResource, TodaySolution }
+export { TodayCategory, TodayInstance, TodayList, TodayListInstance, TodayListInstanceEachOptions, TodayListInstanceOptions, TodayListInstancePageOptions, TodayPage, TodayPayload, TodayResource, TodaySolution }

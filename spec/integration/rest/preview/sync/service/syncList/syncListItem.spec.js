@@ -88,9 +88,10 @@ describe('SyncListItem', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                       .syncListItems(1).remove();
+                                       .syncListItems(1).remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -103,9 +104,11 @@ describe('SyncListItem', function() {
       var index = 1;
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Lists/${listSid}/Items/${index}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -383,7 +386,7 @@ describe('SyncListItem', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {data: {}};
+      var opts = {data: {}, ifMatch: 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems(1).update(opts);
@@ -404,6 +407,13 @@ describe('SyncListItem', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {'If-Match': 'if_match'};
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );

@@ -88,7 +88,7 @@ describe('Member', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {identity: 'identity'};
+      var opts = {identity: 'identity', xTwilioWebhookEnabled: 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .members.create(opts);
@@ -108,6 +108,13 @@ describe('Member', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -351,9 +358,10 @@ describe('Member', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                         .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                         .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -366,9 +374,11 @@ describe('Member', function() {
       var sid = 'MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Members/${sid}`;
 
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -393,9 +403,10 @@ describe('Member', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                         .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+                                         .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -408,9 +419,11 @@ describe('Member', function() {
       var sid = 'MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Members/${sid}`;
 
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

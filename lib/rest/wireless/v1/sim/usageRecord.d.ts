@@ -213,4 +213,4 @@ declare class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordRe
   toJSON(): any;
 }
 
-export { UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordListInstanceEachOptions, UsageRecordListInstanceOptions, UsageRecordListInstancePageOptions, UsageRecordPage, UsageRecordPayload, UsageRecordResource, UsageRecordSolution }
+export { UsageRecordGranularity, UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordListInstanceEachOptions, UsageRecordListInstanceOptions, UsageRecordListInstancePageOptions, UsageRecordPage, UsageRecordPayload, UsageRecordResource, UsageRecordSolution }

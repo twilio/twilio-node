@@ -239,4 +239,4 @@ declare class ThisMonthPage extends Page<V2010, ThisMonthPayload, ThisMonthResou
   toJSON(): any;
 }
 
-export { ThisMonthInstance, ThisMonthList, ThisMonthListInstance, ThisMonthListInstanceEachOptions, ThisMonthListInstanceOptions, ThisMonthListInstancePageOptions, ThisMonthPage, ThisMonthPayload, ThisMonthResource, ThisMonthSolution }
+export { ThisMonthCategory, ThisMonthInstance, ThisMonthList, ThisMonthListInstance, ThisMonthListInstanceEachOptions, ThisMonthListInstanceOptions, ThisMonthListInstancePageOptions, ThisMonthPage, ThisMonthPayload, ThisMonthResource, ThisMonthSolution }

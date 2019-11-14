@@ -377,4 +377,4 @@ declare class FlexFlowPage extends Page<V1, FlexFlowPayload, FlexFlowResource, F
   toJSON(): any;
 }
 
-export { FlexFlowContext, FlexFlowInstance, FlexFlowInstanceUpdateOptions, FlexFlowList, FlexFlowListInstance, FlexFlowListInstanceCreateOptions, FlexFlowListInstanceEachOptions, FlexFlowListInstanceOptions, FlexFlowListInstancePageOptions, FlexFlowPage, FlexFlowPayload, FlexFlowResource, FlexFlowSolution }
+export { FlexFlowChannelType, FlexFlowContext, FlexFlowInstance, FlexFlowInstanceUpdateOptions, FlexFlowIntegrationType, FlexFlowList, FlexFlowListInstance, FlexFlowListInstanceCreateOptions, FlexFlowListInstanceEachOptions, FlexFlowListInstanceOptions, FlexFlowListInstancePageOptions, FlexFlowPage, FlexFlowPayload, FlexFlowResource, FlexFlowSolution }

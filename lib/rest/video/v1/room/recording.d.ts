@@ -300,4 +300,4 @@ declare class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecor
   toJSON(): any;
 }
 
-export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingListInstanceEachOptions, RoomRecordingListInstanceOptions, RoomRecordingListInstancePageOptions, RoomRecordingPage, RoomRecordingPayload, RoomRecordingResource, RoomRecordingSolution }
+export { RoomRecordingCodec, RoomRecordingContext, RoomRecordingFormat, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingListInstanceEachOptions, RoomRecordingListInstanceOptions, RoomRecordingListInstancePageOptions, RoomRecordingPage, RoomRecordingPayload, RoomRecordingResource, RoomRecordingSolution, RoomRecordingStatus, RoomRecordingType }
