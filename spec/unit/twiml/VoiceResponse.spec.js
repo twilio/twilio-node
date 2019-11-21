@@ -1,5 +1,7 @@
 'use strict';
 
+process.noDeprecation = true;
+
 var VoiceResponse = require('../../../lib/twiml/VoiceResponse');
 
 describe('create voice response TwiML', function() {
