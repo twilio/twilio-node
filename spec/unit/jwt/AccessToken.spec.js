@@ -1,8 +1,7 @@
 var twilio = require('../../../index');
 var jwt = require('jsonwebtoken');
-var deprecate = require('deprecate');
 
-deprecate.silence = true;
+process.noDeprecation = true;
 
 describe('AccessToken', function() {
   var accountSid = 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
