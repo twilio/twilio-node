@@ -671,41 +671,12 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlBreak
-   *
-   * @property strength - Set a pause based on strength
-   * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
-   */
-  export interface SsmlBreakAttributes {
-    strength?: SsmlBreakStrength;
-    time?: string;
-  }
-
-  /**
-   * Options to pass to ssmlEmphasis
-   *
-   * @property level - Specify the degree of emphasis
-   */
-  export interface SsmlEmphasisAttributes {
-    level?: SsmlEmphasisLevel;
-  }
-
-  /**
    * Options to pass to emphasis
    *
    * @property level - Specify the degree of emphasis
    */
   export interface SsmlEmphasisAttributes {
     level?: SsmlEmphasisLevel;
-  }
-
-  /**
-   * Options to pass to ssmlLang
-   *
-   * @property xml:lang - Specify the language
-   */
-  export interface SsmlLangAttributes {
-    "xml:lang"?: SsmlLangXmlLang;
   }
 
   /**
@@ -729,17 +700,6 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlPhoneme
-   *
-   * @property alphabet - Specify the phonetic alphabet
-   * @property ph - Specifiy the phonetic symbols for pronunciation
-   */
-  export interface SsmlPhonemeAttributes {
-    alphabet?: SsmlPhonemeAlphabet;
-    ph?: string;
-  }
-
-  /**
    * Options to pass to prosody
    *
    * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
@@ -750,30 +710,6 @@ declare namespace VoiceResponse {
     pitch?: string;
     rate?: string;
     volume?: string;
-  }
-
-  /**
-   * Options to pass to ssmlProsody
-   *
-   * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
-   */
-  export interface SsmlProsodyAttributes {
-    pitch?: string;
-    rate?: string;
-    volume?: string;
-  }
-
-  /**
-   * Options to pass to ssmlSayAs
-   *
-   * @property interpret-as - Specify the type of words are spoken
-   * @property role - Specify the format of the date when interpret-as is set to date
-   */
-  export interface SsmlSayAsAttributes {
-    "interpret-as"?: SsmlSayAsInterpretAs;
-    role?: SsmlSayAsRole;
   }
 
   /**
@@ -788,15 +724,6 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlSub
-   *
-   * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
-   */
-  export interface SsmlSubAttributes {
-    alias?: string;
-  }
-
-  /**
    * Options to pass to sub
    *
    * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
@@ -807,15 +734,6 @@ declare namespace VoiceResponse {
 
   /**
    * Options to pass to w
-   *
-   * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
-   */
-  export interface SsmlWAttributes {
-    role?: string;
-  }
-
-  /**
-   * Options to pass to ssmlW
    *
    * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
    */
