@@ -1,5 +1,7 @@
 'use strict';
 
+process.noDeprecation = true;
+
 var MessagingResponse = require('../../../lib/twiml/MessagingResponse');
 
 describe('create messaging response TwiML', function() {

@@ -660,7 +660,7 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlBreak
+   * Options to pass to break_
    *
    * @property strength - Set a pause based on strength
    * @property time - Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
@@ -671,7 +671,7 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlEmphasis
+   * Options to pass to emphasis
    *
    * @property level - Specify the degree of emphasis
    */
@@ -680,7 +680,7 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlLang
+   * Options to pass to lang
    *
    * @property xml:lang - Specify the language
    */
@@ -689,7 +689,7 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlPhoneme
+   * Options to pass to phoneme
    *
    * @property alphabet - Specify the phonetic alphabet
    * @property ph - Specifiy the phonetic symbols for pronunciation
@@ -700,7 +700,7 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlProsody
+   * Options to pass to prosody
    *
    * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
    * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
@@ -713,7 +713,7 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlSayAs
+   * Options to pass to sayAs
    *
    * @property interpret-as - Specify the type of words are spoken
    * @property role - Specify the format of the date when interpret-as is set to date
@@ -724,7 +724,7 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlSub
+   * Options to pass to sub
    *
    * @property alias - Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
    */
@@ -733,7 +733,7 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to ssmlW
+   * Options to pass to w
    *
    * @property role - Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
    */
@@ -1029,11 +1029,121 @@ declare namespace VoiceResponse {
      * @param sipUrl - SIP URL
      */
     referSip(attributes: object, sipUrl: string): void;
+    /**
+     * <Sip> TwiML Noun used in <Refer>
+     *
+     * @param sipUrl - SIP URL
+     */
+    sip(sipUrl: string): void;
+    /**
+     * <Sip> TwiML Noun used in <Refer>
+     *
+     * @param attributes - TwiML attributes
+     * @param sipUrl - SIP URL
+     */
+    sip(attributes: object, sipUrl: string): void;
   }
 
 
   class Say {
 
+    /**
+     * Adding a Pause in <Say>
+     *
+     * @param attributes - TwiML attributes
+     */
+    break_(attributes?: VoiceResponse.SsmlBreakAttributes): void;
+    /**
+     * Emphasizing Words in <Say>
+     *
+     * @param words - Words to emphasize
+     */
+    emphasis(words: string): void;
+    /**
+     * Emphasizing Words in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to emphasize
+     */
+    emphasis(attributes: VoiceResponse.SsmlEmphasisAttributes, words: string): void;
+    /**
+     * Specifying Another Language for Specific Words in <Say>
+     *
+     * @param words - Words to speak
+     */
+    lang(words: string): void;
+    /**
+     * Specifying Another Language for Specific Words in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to speak
+     */
+    lang(attributes: VoiceResponse.SsmlLangAttributes, words: string): void;
+    /**
+     * Adding a Pause Between Paragraphs in <Say>
+     *
+     * @param words - Words to speak
+     */
+    p(words: string): void;
+    /**
+     * Adding a Pause Between Paragraphs in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to speak
+     */
+    p(attributes: object, words: string): void;
+    /**
+     * Using Phonetic Pronunciation in <Say>
+     *
+     * @param words - Words to speak
+     */
+    phoneme(words: string): void;
+    /**
+     * Using Phonetic Pronunciation in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to speak
+     */
+    phoneme(attributes: VoiceResponse.SsmlPhonemeAttributes, words: string): void;
+    /**
+     * Controling Volume, Speaking Rate, and Pitch in <Say>
+     *
+     * @param words - Words to speak
+     */
+    prosody(words: string): void;
+    /**
+     * Controling Volume, Speaking Rate, and Pitch in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to speak
+     */
+    prosody(attributes: VoiceResponse.SsmlProsodyAttributes, words: string): void;
+    /**
+     * Adding A Pause Between Sentences in <Say>
+     *
+     * @param words - Words to speak
+     */
+    s(words: string): void;
+    /**
+     * Adding A Pause Between Sentences in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to speak
+     */
+    s(attributes: object, words: string): void;
+    /**
+     * Controlling How Special Types of Words Are Spoken in <Say>
+     *
+     * @param words - Words to be interpreted
+     */
+    sayAs(words: string): void;
+    /**
+     * Controlling How Special Types of Words Are Spoken in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to be interpreted
+     */
+    sayAs(attributes: VoiceResponse.SsmlSayAsAttributes, words: string): void;
     /**
      * Adding a Pause in <Say>
      *
@@ -1157,6 +1267,32 @@ declare namespace VoiceResponse {
      * @param words - Words to speak
      */
     ssmlW(attributes: VoiceResponse.SsmlWAttributes, words: string): void;
+    /**
+     * Pronouncing Acronyms and Abbreviations in <Say>
+     *
+     * @param words - Words to be substituted
+     */
+    sub(words: string): void;
+    /**
+     * Pronouncing Acronyms and Abbreviations in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to be substituted
+     */
+    sub(attributes: VoiceResponse.SsmlSubAttributes, words: string): void;
+    /**
+     * Improving Pronunciation by Specifying Parts of Speech in <Say>
+     *
+     * @param words - Words to speak
+     */
+    w(words: string): void;
+    /**
+     * Improving Pronunciation by Specifying Parts of Speech in <Say>
+     *
+     * @param attributes - TwiML attributes
+     * @param words - Words to speak
+     */
+    w(attributes: VoiceResponse.SsmlWAttributes, words: string): void;
   }
 
 
