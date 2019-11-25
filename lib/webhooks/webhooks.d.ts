@@ -35,6 +35,10 @@ export interface WebhookOptions {
    */
   includeHelpers?: boolean;
   /**
+   * The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
+   */
+  url?: string;
+  /**
    * Manually specify the host name used by Twilio in a number's webhook config
    */
   host?: string;
