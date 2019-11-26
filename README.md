@@ -11,18 +11,19 @@ The documentation for the Twilio API can be found [here][apidocs].
 
 The Node library documentation can be found [here][libdocs].
 
-## Unreleased Features
-
-Some Twilio features that are exposed in this library are in Beta or Developer
-Preview, and are not available to most accounts. Such products are explicitly
-documented as Beta/Developer Preview both in the Twilio docs and console, as well
-as through in-line code documentation here in the library.
-
 ## Versions
 
 `twilio-node` uses a modified version of [Semantic Versioning](https://semver.org) for all changes. [See this document](VERSIONS.md) for details.
 
-This library works with node versions 6, 8 and above.
+### Supported Node.js Versions
+
+This library supports the following Node.js implementations:
+
+* Node.js 6
+* Node.js 8
+* Node.js 10
+* Node.js 12
+* Node.js 13
 
 TypeScript is supported for TypeScript version 2.9 and above.
 
