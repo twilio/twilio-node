@@ -1,4 +1,3 @@
-var dayjs = require('dayjs');
 var deserialize = require('../../../lib/base/deserialize');
 
 describe('deserialize date tests', function() {
