@@ -1,4 +1,3 @@
-var moment = require('moment');
 var deserialize = require('../../../lib/base/deserialize');
 
 describe('deserialize date tests', function() {

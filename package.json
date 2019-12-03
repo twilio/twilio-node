@@ -21,9 +21,9 @@
   },
   "dependencies": {
     "@types/express": "^4.17.2",
+    "dayjs": "^1.8.17",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
     "q": "2.0.x",
     "request": "^2.88.0",
     "rootpath": "^0.1.2",
