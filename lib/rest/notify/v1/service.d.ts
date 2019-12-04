@@ -34,6 +34,8 @@ declare function ServiceList(version: V1): ServiceListInstance;
  * @property defaultApnNotificationProtocolVersion - The protocol version to use for sending APNS notifications
  * @property defaultFcmNotificationProtocolVersion - The protocol version to use for sending FCM notifications
  * @property defaultGcmNotificationProtocolVersion - The protocol version to use for sending GCM notifications
+ * @property deliveryCallbackEnabled - Enable delivery callbacks
+ * @property deliveryCallbackUrl - Webhook URL
  * @property facebookMessengerPageId - Deprecated
  * @property fcmCredentialSid - The SID of the Credential to use for FCM Bindings
  * @property friendlyName - A string to describe the resource
@@ -48,6 +50,8 @@ interface ServiceInstanceUpdateOptions {
   defaultApnNotificationProtocolVersion?: string;
   defaultFcmNotificationProtocolVersion?: string;
   defaultGcmNotificationProtocolVersion?: string;
+  deliveryCallbackEnabled?: boolean;
+  deliveryCallbackUrl?: string;
   facebookMessengerPageId?: string;
   fcmCredentialSid?: string;
   friendlyName?: string;

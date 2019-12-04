@@ -45,6 +45,7 @@ interface ConversationInstanceRemoveOptions {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
+ * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationInstanceUpdateOptions {
@@ -52,6 +53,7 @@ interface ConversationInstanceUpdateOptions {
   dateCreated?: Date;
   dateUpdated?: Date;
   friendlyName?: string;
+  messagingServiceSid?: string;
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 

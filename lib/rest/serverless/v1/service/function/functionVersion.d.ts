@@ -20,7 +20,7 @@ type FunctionVersionVisibility = 'public'|'private'|'protected';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the FunctionVersion resource is associated with
+ * @param serviceSid - The SID of the Service that the Function Version resource is associated with
  * @param functionSid - The SID of the function that is the parent of the function version
  */
 declare function FunctionVersionList(version: V1, serviceSid: string, functionSid: string): FunctionVersionListInstance;
@@ -49,7 +49,7 @@ interface FunctionVersionListInstance {
   /**
    * Constructs a function_version
    *
-   * @param sid - The SID that identifies the FunctionVersion resource to fetch
+   * @param sid - The SID that identifies the Function Version resource to fetch
    */
   get(sid: string): FunctionVersionContext;
   /**
@@ -178,9 +178,9 @@ declare class FunctionVersionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the FunctionVersion resource from
-   * @param functionSid - The SID of the function that is the parent of the FunctionVersion resource to fetch
-   * @param sid - The SID that identifies the FunctionVersion resource to fetch
+   * @param serviceSid - The SID of the Service to fetch the Function Version resource from
+   * @param functionSid - The SID of the function that is the parent of the Function Version resource to fetch
+   * @param sid - The SID that identifies the Function Version resource to fetch
    */
   constructor(version: V1, serviceSid: string, functionSid: string, sid: string);
 
@@ -207,9 +207,9 @@ declare class FunctionVersionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the FunctionVersion resource is associated with
+   * @param serviceSid - The SID of the Service that the Function Version resource is associated with
    * @param functionSid - The SID of the function that is the parent of the function version
-   * @param sid - The SID that identifies the FunctionVersion resource to fetch
+   * @param sid - The SID that identifies the Function Version resource to fetch
    */
   constructor(version: V1, payload: FunctionVersionPayload, serviceSid: string, functionSid: string, sid: string);
 

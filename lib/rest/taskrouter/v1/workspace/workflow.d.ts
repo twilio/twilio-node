@@ -31,6 +31,7 @@ declare function WorkflowList(version: V1, workspaceSid: string): WorkflowListIn
  * @property configuration - A JSON string that contains the rules to apply to the Workflow
  * @property fallbackAssignmentCallbackUrl - The URL that we should call when a call to the `assignment_callback_url` fails
  * @property friendlyName -  descriptive string that you create to describe the Workflow resource
+ * @property reEvaluateTasks - Whether or not to re-evaluate Tasks
  * @property taskReservationTimeout - How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
  */
 interface WorkflowInstanceUpdateOptions {
@@ -38,6 +39,7 @@ interface WorkflowInstanceUpdateOptions {
   configuration?: string;
   fallbackAssignmentCallbackUrl?: string;
   friendlyName?: string;
+  reEvaluateTasks?: string;
   taskReservationTimeout?: number;
 }
 

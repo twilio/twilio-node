@@ -243,7 +243,7 @@ declare namespace VoiceResponse {
 
   type SsmlSayAsRole = 'mdy'|'dmy'|'ymd'|'md'|'dm'|'ym'|'my'|'d'|'m'|'y'|'yyyymmdd';
 
-  type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks'|'mixed_track';
+  type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
   /**
    * Options to pass to client

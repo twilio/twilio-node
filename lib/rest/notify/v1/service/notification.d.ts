@@ -46,6 +46,7 @@ interface NotificationListInstance {
  * @property apn - The APNS-specific payload that overrides corresponding attributes in a generic payload for APNS Bindings
  * @property body - The notification body text
  * @property data - The custom key-value pairs of the notification's payload
+ * @property deliveryCallbackUrl - URL to send webhooks
  * @property facebookMessenger - Deprecated
  * @property fcm - The FCM-specific payload that overrides corresponding attributes in generic payload for FCM Bindings
  * @property gcm - The GCM-specific payload that overrides corresponding attributes in generic payload for GCM Bindings
@@ -65,6 +66,7 @@ interface NotificationListInstanceCreateOptions {
   apn?: object;
   body?: string;
   data?: object;
+  deliveryCallbackUrl?: string;
   facebookMessenger?: object;
   fcm?: object;
   gcm?: object;

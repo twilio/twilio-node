@@ -1,6 +1,36 @@
 twilio-node changelog
 =====================
 
+[2019-12-04] Version 3.38.0
+---------------------------
+**Library**
+- [PR #515](https://github.com/twilio/twilio-node/pull/515): fix: replace moment with dayjs. Thanks to [@cktang88](https://github.com/cktang88)!
+- [PR #512](https://github.com/twilio/twilio-node/pull/512): docs: add supported language versions to README. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #501](https://github.com/twilio/twilio-node/pull/501): fix: escape special characters in TwiML attribute values. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #510](https://github.com/twilio/twilio-node/pull/510): fix: Add optional 'url' property to the webhook request validator type definition. Thanks to [@hoshinokanade](https://github.com/hoshinokanade)!
+- [PR #508](https://github.com/twilio/twilio-node/pull/508): fix: Rename child TwiML methods to be based on tag name and deprecate old methods. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #509](https://github.com/twilio/twilio-node/pull/509): fix: Improve function deprecation and remove unnecessary dependency. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #507](https://github.com/twilio/twilio-node/pull/507): chore: upgrade older dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #502](https://github.com/twilio/twilio-node/pull/502): fix: add opts check for remove calls. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #499](https://github.com/twilio/twilio-node/pull/499): BREAKING feat: add support for custom HTTP headers in API requests. Thanks to [@eshanholtz](https://github.com/eshanholtz)! **(breaking change)**
+
+**Api**
+- Add optional `twiml` parameter for call create
+
+**Chat**
+- Added `delete` method in UserChannel resource
+
+**Conversations**
+- Allow Messaging Service update
+
+**Taskrouter**
+- Support ReEvaluateTasks parameter on Workflow update
+
+**Twiml**
+- Remove unsupported `mixed_track` value from `<Stream>` **(breaking change)**
+- Add missing fax `<Receive>` optional attributes
+
+
 [2019-11-13] Version 3.37.1
 ---------------------------
 **Library**

@@ -102,7 +102,7 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - The list of AssetVersion resource SIDs to include in the build
+ * @property assetVersions - The list of Asset Version resource SIDs to include in the build
  * @property dependencies - A list of objects that describe the Dependencies included in the build
  * @property functionVersions - The list of the Variable resource SIDs to include in the build
  */

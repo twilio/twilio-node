@@ -197,6 +197,12 @@ declare class UserChannelContext {
    */
   fetch(callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
   /**
+   * remove a UserChannelInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<boolean>;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -235,6 +241,12 @@ declare class UserChannelInstance extends SerializableClass {
   links: string;
   memberSid: string;
   notificationLevel: UserChannelNotificationLevel;
+  /**
+   * remove a UserChannelInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<boolean>;
   serviceSid: string;
   status: UserChannelChannelStatus;
   /**
