@@ -33,6 +33,7 @@ declare function IncomingPhoneNumberList(version: V2010, accountSid: string): In
  * @property accountSid - The SID of the Account that created the resource to update
  * @property addressSid - The SID of the Address resource associated with the phone number
  * @property apiVersion - The API version to use for incoming calls made to the phone number
+ * @property bundleSid - The SID of the Bundle resource associated with number
  * @property emergencyAddressSid - The emergency address configuration to use for emergency calling
  * @property emergencyStatus - Whether the phone number is enabled for emergency calling
  * @property friendlyName - A string to describe the resource
@@ -57,6 +58,7 @@ interface IncomingPhoneNumberInstanceUpdateOptions {
   accountSid?: string;
   addressSid?: string;
   apiVersion?: string;
+  bundleSid?: string;
   emergencyAddressSid?: string;
   emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
   friendlyName?: string;
@@ -162,6 +164,7 @@ interface IncomingPhoneNumberListInstance {
  * @property addressSid - The SID of the Address resource associated with the phone number
  * @property apiVersion - The API version to use for incoming calls made to the new phone number
  * @property areaCode - The desired area code for the new phone number
+ * @property bundleSid - The SID of the Bundle resource associated with number
  * @property emergencyAddressSid - The emergency address configuration to use for emergency calling
  * @property emergencyStatus - Status determining whether the new phone number is enabled for emergency calling
  * @property friendlyName - A string to describe the new phone number
@@ -187,6 +190,7 @@ interface IncomingPhoneNumberListInstanceCreateOptions {
   addressSid?: string;
   apiVersion?: string;
   areaCode?: string;
+  bundleSid?: string;
   emergencyAddressSid?: string;
   emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
   friendlyName?: string;
@@ -299,6 +303,7 @@ interface IncomingPhoneNumberResource {
   address_sid: string;
   api_version: string;
   beta: boolean;
+  bundle_sid: string;
   capabilities: string;
   date_created: Date;
   date_updated: Date;
@@ -389,6 +394,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
    */
   assignedAddOns(): AssignedAddOnListInstance;
   beta: boolean;
+  bundleSid: string;
   capabilities: string;
   dateCreated: Date;
   dateUpdated: Date;

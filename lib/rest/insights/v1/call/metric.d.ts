@@ -159,11 +159,9 @@ interface MetricResource {
   account_sid: string;
   call_sid: string;
   carrier_edge: object;
-  client: object;
   client_edge: object;
   direction: MetricStreamDirection;
   edge: MetricTwilioEdge;
-  gateway: object;
   sdk_edge: object;
   sip_edge: object;
   timestamp: string;
@@ -191,11 +189,9 @@ declare class MetricInstance extends SerializableClass {
   accountSid: string;
   callSid: string;
   carrierEdge: object;
-  client: object;
   clientEdge: object;
   direction: MetricStreamDirection;
   edge: MetricTwilioEdge;
-  gateway: object;
   sdkEdge: object;
   sipEdge: object;
   timestamp: string;

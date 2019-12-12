@@ -345,10 +345,9 @@ describe('UserChannel', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {notificationLevel: 'default'};
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -361,15 +360,13 @@ describe('UserChannel', function() {
       var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Channels/${channelSid}`;
 
-      var values = {NotificationLevel: 'default', };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
-  it('should generate valid update response',
+  it('should generate valid update_notification_level response',
     function(done) {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -390,10 +387,41 @@ describe('UserChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {notificationLevel: 'default'};
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid update_last_consumed_message_index response',
+    function(done) {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'user_sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'member_sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'joined',
+          'last_consumed_message_index': 10,
+          'unread_messages_count': 5,
+          'notification_level': 'muted',
+          'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'channel': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              'member': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

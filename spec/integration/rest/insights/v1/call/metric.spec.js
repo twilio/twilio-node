@@ -78,9 +78,7 @@ describe('Metric', function() {
                   },
                   'client_edge': null,
                   'carrier_edge': null,
-                  'sip_edge': null,
-                  'gateway': null,
-                  'client': null
+                  'sip_edge': null
               }
           ]
       });
@@ -138,9 +136,7 @@ describe('Metric', function() {
                   },
                   'client_edge': null,
                   'carrier_edge': null,
-                  'sip_edge': null,
-                  'gateway': null,
-                  'client': null
+                  'sip_edge': null
               }
           ]
       });
@@ -203,9 +199,7 @@ describe('Metric', function() {
                   },
                   'client_edge': null,
                   'carrier_edge': null,
-                  'sip_edge': null,
-                  'gateway': null,
-                  'client': null
+                  'sip_edge': null
               }
           ]
       });
@@ -285,9 +279,7 @@ describe('Metric', function() {
                   },
                   'client_edge': null,
                   'carrier_edge': null,
-                  'sip_edge': null,
-                  'gateway': null,
-                  'client': null
+                  'sip_edge': null
               }
           ]
       });
@@ -353,9 +345,7 @@ describe('Metric', function() {
                   },
                   'client_edge': null,
                   'carrier_edge': null,
-                  'sip_edge': null,
-                  'gateway': null,
-                  'client': null
+                  'sip_edge': null
               }
           ]
       });

@@ -153,10 +153,8 @@ interface EventResource {
   account_sid: string;
   call_sid: string;
   carrier_edge: object;
-  client: object;
   client_edge: object;
   edge: EventTwilioEdge;
-  gateway: object;
   group: string;
   level: EventLevel;
   name: string;
@@ -187,10 +185,8 @@ declare class EventInstance extends SerializableClass {
   accountSid: string;
   callSid: string;
   carrierEdge: object;
-  client: object;
   clientEdge: object;
   edge: EventTwilioEdge;
-  gateway: object;
   group: string;
   level: EventLevel;
   name: string;

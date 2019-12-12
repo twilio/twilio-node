@@ -13,6 +13,10 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type TollFreeAddressRequirement = 'none'|'any'|'local'|'foreign';
 
+type TollFreeEmergencyStatus = 'Active'|'Inactive';
+
+type TollFreeVoiceReceiveMode = 'voice'|'fax';
+
 /**
  * Initialize the TollFreeList
  *
@@ -90,6 +94,9 @@ interface TollFreeListInstance {
  *
  * @property addressSid - The SID of the Address resource associated with the phone number
  * @property apiVersion - The API version to use for incoming calls made to the new phone number
+ * @property bundleSid - The SID of the Bundle resource associated with number
+ * @property emergencyAddressSid - The emergency address configuration to use for emergency calling
+ * @property emergencyStatus - Status determining whether the new phone number is enabled for emergency calling
  * @property friendlyName - A string to describe the new phone number
  * @property identitySid - The SID of the Identity resource to associate with the new phone number
  * @property phoneNumber - The phone number to purchase in E.164 format
@@ -100,16 +107,21 @@ interface TollFreeListInstance {
  * @property smsUrl - The URL we should call when the new phone number receives an incoming SMS message
  * @property statusCallback - The URL to send status information to your application
  * @property statusCallbackMethod - The HTTP method we should use to call status_callback
+ * @property trunkSid - SID of the trunk to handle calls to the new phone number
  * @property voiceApplicationSid - The SID of the application to handle the new phone number
  * @property voiceCallerIdLookup - Whether to lookup the caller's name
  * @property voiceFallbackMethod - The HTTP method used with voice_fallback_url
  * @property voiceFallbackUrl - The URL we will call when an error occurs in TwiML
  * @property voiceMethod - The HTTP method used with the voice_url
+ * @property voiceReceiveMode - Incoming call type: fax or voice
  * @property voiceUrl - The URL we should call when the phone number receives a call
  */
 interface TollFreeListInstanceCreateOptions {
   addressSid?: string;
   apiVersion?: string;
+  bundleSid?: string;
+  emergencyAddressSid?: string;
+  emergencyStatus?: TollFreeEmergencyStatus;
   friendlyName?: string;
   identitySid?: string;
   phoneNumber: string;
@@ -120,11 +132,13 @@ interface TollFreeListInstanceCreateOptions {
   smsUrl?: string;
   statusCallback?: string;
   statusCallbackMethod?: string;
+  trunkSid?: string;
   voiceApplicationSid?: string;
   voiceCallerIdLookup?: boolean;
   voiceFallbackMethod?: string;
   voiceFallbackUrl?: string;
   voiceMethod?: string;
+  voiceReceiveMode?: TollFreeVoiceReceiveMode;
   voiceUrl?: string;
 }
 
@@ -218,9 +232,12 @@ interface TollFreeResource {
   address_sid: string;
   api_version: string;
   beta: boolean;
+  bundle_sid: string;
   capabilities: string;
   date_created: Date;
   date_updated: Date;
+  emergency_address_sid: string;
+  emergency_status: TollFreeEmergencyStatus;
   friendly_name: string;
   identity_sid: string;
   origin: string;
@@ -263,9 +280,12 @@ declare class TollFreeInstance extends SerializableClass {
   addressSid: string;
   apiVersion: string;
   beta: boolean;
+  bundleSid: string;
   capabilities: string;
   dateCreated: Date;
   dateUpdated: Date;
+  emergencyAddressSid: string;
+  emergencyStatus: TollFreeEmergencyStatus;
   friendlyName: string;
   identitySid: string;
   origin: string;
@@ -315,4 +335,4 @@ declare class TollFreePage extends Page<V2010, TollFreePayload, TollFreeResource
   toJSON(): any;
 }
 
-export { TollFreeAddressRequirement, TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreeListInstanceCreateOptions, TollFreeListInstanceEachOptions, TollFreeListInstanceOptions, TollFreeListInstancePageOptions, TollFreePage, TollFreePayload, TollFreeResource, TollFreeSolution }
+export { TollFreeAddressRequirement, TollFreeEmergencyStatus, TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreeListInstanceCreateOptions, TollFreeListInstanceEachOptions, TollFreeListInstanceOptions, TollFreeListInstancePageOptions, TollFreePage, TollFreePayload, TollFreeResource, TollFreeSolution, TollFreeVoiceReceiveMode }

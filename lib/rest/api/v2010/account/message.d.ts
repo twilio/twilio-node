@@ -15,9 +15,9 @@ import { MediaList } from './message/media';
 import { MediaListInstance } from './message/media';
 import { SerializableClass } from '../../../../interfaces';
 
-type MessageAddressRetention = 'retain'|'discard';
+type MessageAddressRetention = 'retain';
 
-type MessageContentRetention = 'retain'|'discard';
+type MessageContentRetention = 'retain';
 
 type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
 

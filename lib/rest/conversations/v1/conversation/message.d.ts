@@ -217,6 +217,7 @@ interface MessageResource {
   date_updated: Date;
   index: number;
   media: object[];
+  participant_sid: string;
   sid: string;
   url: string;
 }
@@ -296,6 +297,7 @@ declare class MessageInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
   index: number;
   media: object[];
+  participantSid: string;
   /**
    * remove a MessageInstance
    *

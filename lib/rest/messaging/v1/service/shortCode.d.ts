@@ -166,7 +166,7 @@ interface ShortCodePayload extends ShortCodeResource, Page.TwilioResponsePayload
 
 interface ShortCodeResource {
   account_sid: string;
-  capabilities: object[];
+  capabilities: string[];
   country_code: string;
   date_created: Date;
   date_updated: Date;
@@ -229,7 +229,7 @@ declare class ShortCodeInstance extends SerializableClass {
 
   private _proxy: ShortCodeContext;
   accountSid: string;
-  capabilities: object[];
+  capabilities: string[];
   countryCode: string;
   dateCreated: Date;
   dateUpdated: Date;

@@ -8,6 +8,7 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2 = require('../../../V2');
+import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
@@ -26,10 +27,14 @@ declare function UserChannelList(version: V2, serviceSid: string, userSid: strin
 /**
  * Options to pass to update
  *
+ * @property lastConsumedMessageIndex - The index of the last Message that the Member has read within the Channel
+ * @property lastConsumptionTimestamp - The ISO 8601 based timestamp string that represents the datetime of the last Message read event for the Member within the Channel
  * @property notificationLevel - The push notification level to assign to the User Channel
  */
 interface UserChannelInstanceUpdateOptions {
-  notificationLevel: UserChannelNotificationLevel;
+  lastConsumedMessageIndex?: number;
+  lastConsumptionTimestamp?: Date;
+  notificationLevel?: UserChannelNotificationLevel;
 }
 
 interface UserChannelListInstance {
@@ -212,7 +217,7 @@ declare class UserChannelContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: UserChannelInstanceUpdateOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
+  update(opts?: UserChannelInstanceUpdateOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
 }
 
 
@@ -260,7 +265,7 @@ declare class UserChannelInstance extends SerializableClass {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: UserChannelInstanceUpdateOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
+  update(opts?: UserChannelInstanceUpdateOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
   url: string;
   userSid: string;
 }
