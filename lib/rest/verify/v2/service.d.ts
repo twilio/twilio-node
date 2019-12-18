@@ -22,9 +22,6 @@ import { VerificationListInstance } from './service/verification';
 /**
  * Initialize the ServiceList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function ServiceList(version: V2): ServiceListInstance;
@@ -229,9 +226,6 @@ declare class ServiceContext {
   /**
    * Initialize the ServiceContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param sid - The unique string that identifies the resource
    */
@@ -270,9 +264,6 @@ declare class ServiceContext {
 declare class ServiceInstance extends SerializableClass {
   /**
    * Initialize the ServiceContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -339,9 +330,6 @@ declare class ServiceInstance extends SerializableClass {
 declare class ServicePage extends Page<V2, ServicePayload, ServiceResource, ServiceInstance> {
   /**
    * Initialize the ServicePage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

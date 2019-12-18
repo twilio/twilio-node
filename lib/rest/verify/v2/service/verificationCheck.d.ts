@@ -15,9 +15,6 @@ type VerificationCheckChannel = 'sms'|'call'|'email';
 /**
  * Initialize the VerificationCheckList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the resource is associated with
  */
@@ -43,7 +40,7 @@ interface VerificationCheckListInstance {
  * @property amount - The amount of the associated PSD2 compliant transaction.
  * @property code - The verification string
  * @property payee - The payee of the associated PSD2 compliant transaction
- * @property to - The phone number to verify
+ * @property to - The phone number or email to verify
  * @property verificationSid - A SID that uniquely identifies the Verification Check
  */
 interface VerificationCheckListInstanceCreateOptions {
@@ -80,9 +77,6 @@ declare class VerificationCheckInstance extends SerializableClass {
   /**
    * Initialize the VerificationCheckContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the resource is associated with
@@ -110,9 +104,6 @@ declare class VerificationCheckInstance extends SerializableClass {
 declare class VerificationCheckPage extends Page<V2, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {
   /**
    * Initialize the VerificationCheckPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

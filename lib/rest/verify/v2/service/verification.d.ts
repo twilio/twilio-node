@@ -18,9 +18,6 @@ type VerificationStatus = 'canceled'|'approved';
 /**
  * Initialize the VerificationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the resource is associated with
  */
@@ -114,9 +111,6 @@ declare class VerificationContext {
   /**
    * Initialize the VerificationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the verification Service to fetch the resource from
    * @param sid - The unique string that identifies the resource
@@ -146,9 +140,6 @@ declare class VerificationContext {
 declare class VerificationInstance extends SerializableClass {
   /**
    * Initialize the VerificationContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -194,9 +185,6 @@ declare class VerificationInstance extends SerializableClass {
 declare class VerificationPage extends Page<V2, VerificationPayload, VerificationResource, VerificationInstance> {
   /**
    * Initialize the VerificationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

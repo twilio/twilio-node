@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the MessagingConfigurationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the resource is associated with
  */
@@ -195,9 +192,6 @@ declare class MessagingConfigurationContext {
   /**
    * Initialize the MessagingConfigurationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service that the resource is associated with
    * @param country - The ISO-3166-1 country code of the country or `all`.
@@ -233,9 +227,6 @@ declare class MessagingConfigurationContext {
 declare class MessagingConfigurationInstance extends SerializableClass {
   /**
    * Initialize the MessagingConfigurationContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -281,9 +272,6 @@ declare class MessagingConfigurationInstance extends SerializableClass {
 declare class MessagingConfigurationPage extends Page<V2, MessagingConfigurationPayload, MessagingConfigurationResource, MessagingConfigurationInstance> {
   /**
    * Initialize the MessagingConfigurationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

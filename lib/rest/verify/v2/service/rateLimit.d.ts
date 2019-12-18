@@ -15,9 +15,6 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the RateLimitList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the resource is associated with
  */
@@ -198,9 +195,6 @@ declare class RateLimitContext {
   /**
    * Initialize the RateLimitContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service that the resource is associated with
    * @param sid - The unique string that identifies the resource
@@ -237,9 +231,6 @@ declare class RateLimitContext {
 declare class RateLimitInstance extends SerializableClass {
   /**
    * Initialize the RateLimitContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -291,9 +282,6 @@ declare class RateLimitInstance extends SerializableClass {
 declare class RateLimitPage extends Page<V2, RateLimitPayload, RateLimitResource, RateLimitInstance> {
   /**
    * Initialize the RateLimitPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

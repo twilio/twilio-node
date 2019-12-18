@@ -11,6 +11,8 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
+type RatePlanDataLimitStrategy = 'block'|'throttle';
+
 /**
  * Initialize the RatePlanList
  *
@@ -325,4 +327,4 @@ declare class RatePlanPage extends Page<V1, RatePlanPayload, RatePlanResource, R
   toJSON(): any;
 }
 
-export { RatePlanContext, RatePlanInstance, RatePlanInstanceUpdateOptions, RatePlanList, RatePlanListInstance, RatePlanListInstanceCreateOptions, RatePlanListInstanceEachOptions, RatePlanListInstanceOptions, RatePlanListInstancePageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }
+export { RatePlanContext, RatePlanDataLimitStrategy, RatePlanInstance, RatePlanInstanceUpdateOptions, RatePlanList, RatePlanListInstance, RatePlanListInstanceCreateOptions, RatePlanListInstanceEachOptions, RatePlanListInstanceOptions, RatePlanListInstancePageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

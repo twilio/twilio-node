@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the BucketList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the resource is associated with
  * @param rateLimitSid - Rate Limit Sid.
@@ -200,9 +197,6 @@ declare class BucketContext {
   /**
    * Initialize the BucketContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service that the resource is associated with
    * @param rateLimitSid - Rate Limit Sid.
@@ -239,9 +233,6 @@ declare class BucketContext {
 declare class BucketInstance extends SerializableClass {
   /**
    * Initialize the BucketContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -290,9 +281,6 @@ declare class BucketInstance extends SerializableClass {
 declare class BucketPage extends Page<V2, BucketPayload, BucketResource, BucketInstance> {
   /**
    * Initialize the BucketPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
