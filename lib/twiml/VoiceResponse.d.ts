@@ -243,8 +243,9 @@ declare namespace VoiceResponse {
 
   type SsmlSayAsRole = 'mdy'|'dmy'|'ymd'|'md'|'dm'|'ym'|'my'|'d'|'m'|'y'|'yyyymmdd';
 
-  type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
+	type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
+	type GatherSpeechModel = 'default'|'numbers_and_commands'|'phone_call';
   /**
    * Options to pass to client
    *
@@ -385,6 +386,7 @@ declare namespace VoiceResponse {
    * @property profanityFilter - Profanity Filter on speech
    * @property speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer.
    * @property timeout - Time to wait to gather input
+	 * @property speechModel - Speech model to use with gather speech input
    */
   export interface GatherAttributes {
     action?: string;
@@ -402,7 +404,8 @@ declare namespace VoiceResponse {
     partialResultCallbackMethod?: string;
     profanityFilter?: boolean;
     speechTimeout?: string;
-    timeout?: number;
+		timeout?: number;
+		speechModel?: GatherSpeechModel;
   }
 
   /**
