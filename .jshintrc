@@ -16,6 +16,9 @@
   // Allow ES6.
   "esnext": true,
 
+  // Allow tests.
+  "jasmine": true,
+
   /*
    * ENFORCING OPTIONS
    * =================

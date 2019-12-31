@@ -1,4 +1,7 @@
 {
+  "env": {
+    "es6": true
+  },
   "rules": {
     "space-before-function-paren": [
       2,
@@ -99,12 +102,6 @@
     "keyword-spacing": [
       2,
       {}
-    ],
-    "lines-around-comment": [
-      2,
-      {
-        "beforeLineComment": true
-      }
     ],
     "semi": [
       2,
