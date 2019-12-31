@@ -129,6 +129,14 @@ describe('Request validation', () => {
 
     expect(isValid).toBeTruthy();
   });
+
+  it('should validate urls with special characters', () => {
+    const specialRequestUrl = requestUrl + '&Body=It\'s+amazing';
+    const signature = 'dsq4Ehbj6cs+KdTkpF5sSSplOWw=';
+    const isValid = validateRequest(token, signature, specialRequestUrl, defaultParams);
+
+    expect(isValid).toBeTruthy();
+  });
 });
 
 describe('Request validation middleware', () => {
