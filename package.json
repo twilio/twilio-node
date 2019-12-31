@@ -28,6 +28,7 @@
     "request": "^2.88.0",
     "rootpath": "^0.1.2",
     "scmp": "^2.0.0",
+    "url-parse": "^1.4.7",
     "xmlbuilder": "^13.0.2"
   },
   "devDependencies": {
