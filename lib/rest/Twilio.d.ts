@@ -19,6 +19,7 @@ import Lookups = require('./Lookups');
 import Messaging = require('./Messaging');
 import Monitor = require('./Monitor');
 import Notify = require('./Notify');
+import Numbers = require('./Numbers');
 import Preview = require('./Preview');
 import Pricing = require('./Pricing');
 import Proxy = require('./Proxy');
@@ -71,6 +72,7 @@ declare class Twilio {
   newSigningKeys: (typeof Api.prototype.account.newSigningKeys);
   notifications: (typeof Api.prototype.account.notifications);
   notify: Notify;
+  numbers: Numbers;
   outgoingCallerIds: (typeof Api.prototype.account.outgoingCallerIds);
   preview: Preview;
   pricing: Pricing;

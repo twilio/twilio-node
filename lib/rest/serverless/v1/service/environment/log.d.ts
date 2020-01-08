@@ -8,6 +8,7 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
+import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 type LogLevel = 'info'|'warn'|'error';
@@ -99,6 +100,7 @@ interface LogListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
+ * @property endDate - The date and time before which the Log resource must have been created.
  * @property functionSid - The SID of the function whose invocation produced the Log resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -110,18 +112,22 @@ interface LogListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property startDate - The date and time after which the Log resources must have been created.
  */
 interface LogListInstanceEachOptions {
   callback?: (item: LogInstance, done: (err?: Error) => void) => void;
   done?: Function;
+  endDate?: Date;
   functionSid?: string;
   limit?: number;
   pageSize?: number;
+  startDate?: Date;
 }
 
 /**
  * Options to pass to list
  *
+ * @property endDate - The date and time before which the Log resource must have been created.
  * @property functionSid - The SID of the function whose invocation produced the Log resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -133,26 +139,33 @@ interface LogListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property startDate - The date and time after which the Log resources must have been created.
  */
 interface LogListInstanceOptions {
+  endDate?: Date;
   functionSid?: string;
   limit?: number;
   pageSize?: number;
+  startDate?: Date;
 }
 
 /**
  * Options to pass to page
  *
+ * @property endDate - The date and time before which the Log resource must have been created.
  * @property functionSid - The SID of the function whose invocation produced the Log resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property startDate - The date and time after which the Log resources must have been created.
  */
 interface LogListInstancePageOptions {
+  endDate?: Date;
   functionSid?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  startDate?: Date;
 }
 
 interface LogPayload extends LogResource, Page.TwilioResponsePayload {

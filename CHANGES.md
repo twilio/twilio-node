@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2020-01-08] Version 3.39.2
+---------------------------
+**Library - Fix**
+- [PR #519](https://github.com/twilio/twilio-node/pull/519): switch to a URL parsing lib that does not add percent-encoding. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Numbers**
+- Add Regulatory Compliance CRUD APIs
+
+**Studio**
+- Add parameter validation for Studio v2 Flows API
+
+**Twiml**
+- Add support for `speech_model` to `Gather` verb
+
+
 [2019-12-18] Version 3.39.1
 ---------------------------
 **Preview**
