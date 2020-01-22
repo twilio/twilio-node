@@ -233,6 +233,8 @@ declare namespace VoiceResponse {
 
   type SipEvent = 'initiated'|'ringing'|'answered'|'completed';
 
+  type SiprecTrack = 'inbound_track'|'outbound_track'|'both_tracks';
+
   type SsmlBreakStrength = 'none'|'x-weak'|'weak'|'medium'|'strong'|'x-strong';
 
   type SsmlEmphasisLevel = 'strong'|'moderate'|'reduced';
@@ -412,6 +414,7 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to number
    *
+   * @property byoc - BYOC trunk SID (Beta)
    * @property method - TwiML URL method
    * @property sendDigits - DTMF tones to play when the call is answered
    * @property statusCallback - Status callback URL
@@ -420,6 +423,7 @@ declare namespace VoiceResponse {
    * @property url - TwiML URL
    */
   export interface NumberAttributes {
+    byoc?: string;
     method?: string;
     sendDigits?: string;
     statusCallback?: string;
@@ -640,10 +644,12 @@ declare namespace VoiceResponse {
    *
    * @property connectorName - Unique name for Connector
    * @property name - Friendly name given to SIPREC
+   * @property track - Track to be streamed to remote service
    */
   export interface SiprecAttributes {
     connectorName?: string;
     name?: string;
+    track?: SiprecTrack;
   }
 
   /**

@@ -17,6 +17,8 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+var serialize = require(
+    '../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
@@ -33,7 +35,7 @@ describe('Flow', function() {
     function(done) {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {friendlyName: 'friendly_name', status: 'draft', definition: 'definition'};
+      var opts = {friendlyName: 'friendly_name', status: 'draft', definition: {}};
       var promise = client.studio.v2.flows.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +46,7 @@ describe('Flow', function() {
 
       var url = 'https://studio.twilio.com/v2/Flows';
 
-      var values = {FriendlyName: 'friendly_name', Status: 'draft', Definition: 'definition', };
+      var values = {FriendlyName: 'friendly_name', Status: 'draft', Definition: serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -76,7 +78,7 @@ describe('Flow', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', status: 'draft', definition: 'definition'};
+      var opts = {friendlyName: 'friendly_name', status: 'draft', definition: {}};
       var promise = client.studio.v2.flows.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

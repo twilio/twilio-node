@@ -215,12 +215,6 @@ declare class NotificationContext {
    */
   fetch(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<NotificationInstance>;
   /**
-   * remove a NotificationInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<boolean>;
-  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -256,12 +250,6 @@ declare class NotificationInstance extends SerializableClass {
   messageDate: Date;
   messageText: string;
   moreInfo: string;
-  /**
-   * remove a NotificationInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<boolean>;
   requestMethod: string;
   requestUrl: string;
   requestVariables: string;

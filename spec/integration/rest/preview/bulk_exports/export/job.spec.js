@@ -60,6 +60,9 @@ describe('Job', function() {
           'friendly_name': 'friendly_name',
           'end_day': 'end_day',
           'details': {},
+          'webhook_url': 'webhook_url',
+          'webhook_method': 'webhook_method',
+          'email': 'email',
           'resource_type': 'resource_type'
       });
 

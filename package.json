@@ -38,7 +38,7 @@
     "express": "^4.17.1",
     "jasmine": "^3.5.0",
     "jsdoc": "^3.6.3",
-    "jshint": "^2.10.3",
+    "jshint": "^2.11.0",
     "mock-fs": "^4.10.4",
     "node-mocks-http": "^1.8.1",
     "proxyquire": "^2.1.3",

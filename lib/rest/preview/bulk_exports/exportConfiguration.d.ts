@@ -25,9 +25,9 @@ declare function ExportConfigurationList(version: BulkExports): ExportConfigurat
 /**
  * Options to pass to update
  *
- * @property enabled - The enabled
- * @property webhookMethod - The webhook_method
- * @property webhookUrl - The webhook_url
+ * @property enabled - Whether files are automatically generated
+ * @property webhookMethod - Whether to GET or POST to the webhook url
+ * @property webhookUrl - URL targeted at export
  */
 interface ExportConfigurationInstanceUpdateOptions {
   enabled?: boolean;
@@ -43,7 +43,7 @@ interface ExportConfigurationListInstance {
   /**
    * Constructs a export_configuration
    *
-   * @param resourceType - The resource_type
+   * @param resourceType - The type of communication – Messages, Calls
    */
   get(resourceType: string): ExportConfigurationContext;
   /**
@@ -76,7 +76,7 @@ declare class ExportConfigurationContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param resourceType - The resource_type
+   * @param resourceType - The type of communication – Messages, Calls
    */
   constructor(version: BulkExports, resourceType: string);
 
@@ -110,7 +110,7 @@ declare class ExportConfigurationInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param resourceType - The resource_type
+   * @param resourceType - The type of communication – Messages, Calls
    */
   constructor(version: BulkExports, payload: ExportConfigurationPayload, resourceType: string);
 

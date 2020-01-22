@@ -8,6 +8,7 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
+import serialize = require('../../../base/serialize');
 import { FlowRevisionList } from './flow/flowRevision';
 import { FlowRevisionListInstance } from './flow/flowRevision';
 import { SerializableClass } from '../../../interfaces';
@@ -34,7 +35,7 @@ declare function FlowList(version: V2): FlowListInstance;
  */
 interface FlowInstanceUpdateOptions {
   commitMessage?: string;
-  definition?: string;
+  definition?: object;
   friendlyName?: string;
   status: FlowStatus;
 }
@@ -123,7 +124,7 @@ interface FlowListInstance {
  */
 interface FlowListInstanceCreateOptions {
   commitMessage?: string;
-  definition: string;
+  definition: object;
   friendlyName: string;
   status: FlowStatus;
 }

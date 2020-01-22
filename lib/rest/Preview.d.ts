@@ -5,7 +5,6 @@
  *       /       /
  */
 
-import AccSecurity = require('./preview/AccSecurity');
 import BulkExports = require('./preview/BulkExports');
 import DeployedDevices = require('./preview/DeployedDevices');
 import Domain = require('../base/Domain');
@@ -44,7 +43,6 @@ declare class Preview extends Domain {
    */
   constructor(twilio: Twilio);
 
-  readonly acc_security: AccSecurity;
   readonly assistants: AssistantListInstance;
   readonly authorizationDocuments: AuthorizationDocumentListInstance;
   readonly availableAddOns: AvailableAddOnListInstance;

@@ -13,6 +13,8 @@ import { FeedbackList } from './call/feedback';
 import { FeedbackListInstance } from './call/feedback';
 import { NotificationList } from './call/notification';
 import { NotificationListInstance } from './call/notification';
+import { PaymentList } from './call/payment';
+import { PaymentListInstance } from './call/payment';
 import { RecordingList } from './call/recording';
 import { RecordingListInstance } from './call/recording';
 import { SerializableClass } from '../../../../interfaces';
@@ -133,6 +135,7 @@ interface CallListInstance {
  * Options to pass to create
  *
  * @property applicationSid - The SID of the Application resource that will handle the call
+ * @property byoc - BYOC trunk SID (Beta)
  * @property callerId - The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
  * @property fallbackMethod - HTTP Method to use with fallback_url
  * @property fallbackUrl - Fallback URL in case of error
@@ -162,6 +165,7 @@ interface CallListInstance {
  */
 interface CallListInstanceCreateOptions {
   applicationSid?: string;
+  byoc?: string;
   callerId?: string;
   fallbackMethod?: string;
   fallbackUrl?: string;
@@ -361,6 +365,7 @@ declare class CallContext {
    */
   fetch(callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
   notifications: NotificationListInstance;
+  payments: PaymentListInstance;
   recordings: RecordingListInstance;
   /**
    * remove a CallInstance
@@ -423,6 +428,10 @@ declare class CallInstance extends SerializableClass {
    */
   notifications(): NotificationListInstance;
   parentCallSid: string;
+  /**
+   * Access the payments
+   */
+  payments(): PaymentListInstance;
   phoneNumberSid: string;
   price: string;
   priceUnit: string;

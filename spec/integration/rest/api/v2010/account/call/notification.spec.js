@@ -73,7 +73,7 @@ describe('Notification', function() {
           'response_body': '',
           'response_headers': '',
           'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
       holodeck.mock(new Response(200, body));
@@ -89,55 +89,9 @@ describe('Notification', function() {
       }).done();
     }
   );
-  it('should generate valid remove request',
-    function(done) {
-      holodeck.mock(new Response(500, '{}'));
-
-      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .notifications('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise.then(function() {
-        throw new Error('failed');
-      }, function(error) {
-        expect(error.constructor).toBe(RestException.prototype.constructor);
-        done();
-      }).done();
-
-      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var sid = 'NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Notifications/${sid}.json`;
-
-      holodeck.assertHasRequest(new Request({
-        method: 'DELETE',
-        url: url
-      }));
-    }
-  );
-  it('should generate valid delete response',
-    function(done) {
-      var body = JSON.stringify(null);
-
-      holodeck.mock(new Response(204, body));
-
-      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .notifications('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
-      promise.then(function(response) {
-        expect(response).toBe(true);
-        done();
-      }, function() {
-        throw new Error('failed');
-      }).done();
-    }
-  );
   it('should treat the first each arg as a callback',
     function(done) {
       var body = JSON.stringify({
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'next_page_uri': null,
           'notifications': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -153,15 +107,16 @@ describe('Notification', function() {
                   'request_method': null,
                   'request_url': '',
                   'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0',
+          'next_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json'
       });
       holodeck.mock(new Response(200, body));
@@ -173,10 +128,6 @@ describe('Notification', function() {
   it('should treat the second arg as a callback',
     function(done) {
       var body = JSON.stringify({
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'next_page_uri': null,
           'notifications': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -192,15 +143,16 @@ describe('Notification', function() {
                   'request_method': null,
                   'request_url': '',
                   'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0',
+          'next_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json'
       });
       holodeck.mock(new Response(200, body));
@@ -217,10 +169,6 @@ describe('Notification', function() {
   it('should find the callback in the opts object',
     function(done) {
       var body = JSON.stringify({
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'next_page_uri': null,
           'notifications': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -236,15 +184,16 @@ describe('Notification', function() {
                   'request_method': null,
                   'request_url': '',
                   'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0',
+          'next_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json'
       });
       holodeck.mock(new Response(200, body));
@@ -280,10 +229,6 @@ describe('Notification', function() {
   it('should generate valid read_full response',
     function(done) {
       var body = JSON.stringify({
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'next_page_uri': null,
           'notifications': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -299,15 +244,16 @@ describe('Notification', function() {
                   'request_method': null,
                   'request_url': '',
                   'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0',
+          'next_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json'
       });
 
@@ -327,17 +273,14 @@ describe('Notification', function() {
   it('should generate valid read_empty response',
     function(done) {
       var body = JSON.stringify({
-          'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=50&Page=0',
-          'next_page_uri': null,
           'notifications': [],
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json?PageSize=1&Page=0',
+          'next_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json'
       });
 

@@ -83,4 +83,33 @@ describe('VerificationCheck', function() {
       }).done();
     }
   );
+  it('should generate valid email_verification_checks response',
+    function(done) {
+      var body = JSON.stringify({
+          'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'to': 'recipient@foo.com',
+          'channel': 'email',
+          'status': 'approved',
+          'valid': true,
+          'amount': null,
+          'payee': null,
+          'date_created': '2020-01-30T20:00:00Z',
+          'date_updated': '2020-01-30T20:00:00Z'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {code: 'code'};
+      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .verificationChecks.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
 });

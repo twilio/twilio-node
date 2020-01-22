@@ -30,6 +30,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  * Options to pass to update
  *
  * @property codeLength - The length of the verification code to generate
+ * @property doNotShareWarningEnabled - Whether to add a privacy warning at the end of an SMS.
  * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
  * @property friendlyName - A string to describe the verification service
  * @property lookupEnabled - Whether to perform a lookup with each verification
@@ -39,6 +40,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  */
 interface ServiceInstanceUpdateOptions {
   codeLength?: number;
+  doNotShareWarningEnabled?: boolean;
   dtmfInputRequired?: boolean;
   friendlyName?: string;
   lookupEnabled?: boolean;
@@ -125,6 +127,7 @@ interface ServiceListInstance {
  * Options to pass to create
  *
  * @property codeLength - The length of the verification code to generate
+ * @property doNotShareWarningEnabled - Whether to add a privacy warning at the end of an SMS.
  * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
  * @property friendlyName - A string to describe the verification service
  * @property lookupEnabled - Whether to perform a lookup with each verification
@@ -134,6 +137,7 @@ interface ServiceListInstance {
  */
 interface ServiceListInstanceCreateOptions {
   codeLength?: number;
+  doNotShareWarningEnabled?: boolean;
   dtmfInputRequired?: boolean;
   friendlyName: string;
   lookupEnabled?: boolean;
@@ -207,6 +211,7 @@ interface ServiceResource {
   code_length: number;
   date_created: Date;
   date_updated: Date;
+  do_not_share_warning_enabled: boolean;
   dtmf_input_required: boolean;
   friendly_name: string;
   links: string;
@@ -276,6 +281,7 @@ declare class ServiceInstance extends SerializableClass {
   codeLength: number;
   dateCreated: Date;
   dateUpdated: Date;
+  doNotShareWarningEnabled: boolean;
   dtmfInputRequired: boolean;
   /**
    * fetch a ServiceInstance

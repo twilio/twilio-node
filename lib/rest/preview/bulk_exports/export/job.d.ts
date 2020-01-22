@@ -43,12 +43,15 @@ interface JobPayload extends JobResource, Page.TwilioResponsePayload {
 
 interface JobResource {
   details: object;
+  email: string;
   end_day: string;
   friendly_name: string;
   job_sid: string;
   resource_type: string;
   start_day: string;
   url: string;
+  webhook_method: string;
+  webhook_url: string;
 }
 
 interface JobSolution {
@@ -103,6 +106,7 @@ declare class JobInstance extends SerializableClass {
 
   private _proxy: JobContext;
   details: object;
+  email: string;
   endDay: string;
   /**
    * fetch a JobInstance
@@ -125,6 +129,8 @@ declare class JobInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
+  webhookMethod: string;
+  webhookUrl: string;
 }
 
 
