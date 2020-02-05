@@ -205,6 +205,7 @@ interface QueryResource {
   assistant_sid: string;
   date_created: Date;
   date_updated: Date;
+  dialogue_sid: string;
   language: string;
   model_build_sid: string;
   query: string;
@@ -281,6 +282,7 @@ declare class QueryInstance extends SerializableClass {
   assistantSid: string;
   dateCreated: Date;
   dateUpdated: Date;
+  dialogueSid: string;
   /**
    * fetch a QueryInstance
    *

@@ -21,7 +21,7 @@ type MessageContentRetention = 'retain';
 
 type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
 
-type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read';
+type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read'|'partially_delivered';
 
 type MessageTrafficType = 'free';
 
@@ -119,8 +119,10 @@ interface MessageListInstance {
 /**
  * Options to pass to create
  *
+ * @property addressRetention - Determines if the address can be stored or obfuscated based on privacy settings
  * @property applicationSid - The application to use for callbacks
  * @property body - The text of the message you want to send. Can be up to 1,600 characters in length.
+ * @property contentRetention - Determines if the message content can be stored or redacted based on privacy settings
  * @property forceDelivery - Reserved
  * @property from - The phone number that initiated the message
  * @property maxPrice - The total maximum price up to 4 decimal places in US dollars acceptable for the message to be delivered.
@@ -134,8 +136,10 @@ interface MessageListInstance {
  * @property validityPeriod - The number of seconds that the message can remain in our outgoing queue.
  */
 interface MessageListInstanceCreateOptions {
+  addressRetention?: MessageAddressRetention;
   applicationSid?: string;
   body?: string;
+  contentRetention?: MessageContentRetention;
   forceDelivery?: boolean;
   from?: string;
   maxPrice?: number;

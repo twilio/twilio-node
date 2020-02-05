@@ -16,7 +16,7 @@ type FactorFactorStatuses = 'unverified'|'verified';
 
 type FactorFactorStrengths = 'unknown'|'very_low'|'low'|'medium'|'high'|'very_high';
 
-type FactorFactorTypes = 'app-push'|'sms'|'totp';
+type FactorFactorTypes = 'app-push'|'sms'|'totp'|'push';
 
 /**
  * Initialize the FactorList
@@ -137,7 +137,7 @@ interface FactorListInstance {
 /**
  * Options to pass to create
  *
- * @property binding - A unique binding for this Factor
+ * @property binding - A unique binding for this Factor as a json string
  * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header

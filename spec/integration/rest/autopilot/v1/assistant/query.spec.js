@@ -76,7 +76,8 @@ describe('Query', function() {
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'source_channel': 'voice'
+          'source_channel': 'voice',
+          'dialogue_sid': 'UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
@@ -117,7 +118,8 @@ describe('Query', function() {
                   'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'source_channel': null
+                  'source_channel': null,
+                  'dialogue_sid': 'UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'meta': {
@@ -161,7 +163,8 @@ describe('Query', function() {
                   'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'source_channel': null
+                  'source_channel': null,
+                  'dialogue_sid': 'UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'meta': {
@@ -210,7 +213,8 @@ describe('Query', function() {
                   'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'source_channel': null
+                  'source_channel': null,
+                  'dialogue_sid': 'UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'meta': {
@@ -303,7 +307,8 @@ describe('Query', function() {
                   'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'source_channel': null
+                  'source_channel': null,
+                  'dialogue_sid': 'UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'meta': {
@@ -378,7 +383,8 @@ describe('Query', function() {
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'source_channel': 'voice'
+          'source_channel': 'voice',
+          'dialogue_sid': null
       });
 
       holodeck.mock(new Response(201, body));
@@ -441,7 +447,8 @@ describe('Query', function() {
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'source_channel': 'sms'
+          'source_channel': 'sms',
+          'dialogue_sid': 'UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
