@@ -60,7 +60,7 @@ interface VerificationListInstance {
  * Options to pass to create
  *
  * @property amount - The amount of the associated PSD2 compliant transaction.
- * @property appHash - App Hash to be included at the end of an SMS.
+ * @property appHash - Your App Hash to be appended at the end of an SMS.
  * @property channel - The verification method to use
  * @property channelConfiguration - Channel specific configuration in json format.
  * @property customCode - A pre-generated code

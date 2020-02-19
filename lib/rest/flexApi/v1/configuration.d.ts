@@ -78,6 +78,7 @@ interface ConfigurationResource {
   taskrouter_worker_channels: object;
   taskrouter_workspace_sid: string;
   ui_attributes: object;
+  ui_dependencies: object;
   ui_language: string;
   ui_version: string;
   url: string;
@@ -179,6 +180,7 @@ declare class ConfigurationInstance extends SerializableClass {
    */
   toJSON(): any;
   uiAttributes: object;
+  uiDependencies: object;
   uiLanguage: string;
   uiVersion: string;
   /**

@@ -17,7 +17,7 @@ type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
 
 type ChallengeFactorStrengths = 'unknown'|'very_low'|'low'|'medium'|'high'|'very_high';
 
-type ChallengeFactorTypes = 'app-push'|'sms'|'totp';
+type ChallengeFactorTypes = 'app-push'|'sms'|'totp'|'push';
 
 /**
  * Initialize the ChallengeList

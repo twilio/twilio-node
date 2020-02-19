@@ -79,6 +79,12 @@ describe('TaskQueueCumulativeStatistics', function() {
               'max': 0,
               'total': 0
           },
+          'wait_duration_in_queue_until_accepted': {
+              'avg': 0,
+              'min': 0,
+              'max': 0,
+              'total': 0
+          },
           'split_by_wait_time': {
               '5': {
                   'above': {

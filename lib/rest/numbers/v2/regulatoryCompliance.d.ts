@@ -19,6 +19,7 @@ interface RegulatoryComplianceListInstance {
   bundles?: object;
   endUserTypes?: object;
   endUsers?: object;
+  regulations?: object;
   supportingDocumentTypes?: object;
   supportingDocuments?: object;
   /**

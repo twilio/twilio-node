@@ -259,6 +259,7 @@ interface TaskResource {
   sid: string;
   task_channel_sid: string;
   task_channel_unique_name: string;
+  task_queue_entered_date: Date;
   task_queue_friendly_name: string;
   task_queue_sid: string;
   timeout: number;
@@ -351,6 +352,7 @@ declare class TaskInstance extends SerializableClass {
   sid: string;
   taskChannelSid: string;
   taskChannelUniqueName: string;
+  taskQueueEnteredDate: Date;
   taskQueueFriendlyName: string;
   taskQueueSid: string;
   timeout: number;

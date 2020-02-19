@@ -127,7 +127,7 @@ interface ServiceListInstance {
  * Options to pass to create
  *
  * @property codeLength - The length of the verification code to generate
- * @property doNotShareWarningEnabled - Whether to add a privacy warning at the end of an SMS.
+ * @property doNotShareWarningEnabled - Whether to add a security warning at the end of an SMS.
  * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
  * @property friendlyName - A string to describe the verification service
  * @property lookupEnabled - Whether to perform a lookup with each verification

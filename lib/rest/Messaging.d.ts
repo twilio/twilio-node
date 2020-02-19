@@ -9,8 +9,6 @@ import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./messaging/V1');
 import { ServiceListInstance } from './messaging/v1/service';
-import { SessionListInstance } from './messaging/v1/session';
-import { WebhookListInstance } from './messaging/v1/webhook';
 
 
 declare class Messaging extends Domain {
@@ -22,9 +20,7 @@ declare class Messaging extends Domain {
   constructor(twilio: Twilio);
 
   readonly services: ServiceListInstance;
-  readonly sessions: SessionListInstance;
   readonly v1: V1;
-  readonly webhooks: WebhookListInstance;
 }
 
 export = Messaging;

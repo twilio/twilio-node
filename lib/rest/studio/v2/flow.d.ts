@@ -9,8 +9,12 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
 import serialize = require('../../../base/serialize');
+import { ExecutionList } from './flow/execution';
+import { ExecutionListInstance } from './flow/execution';
 import { FlowRevisionList } from './flow/flowRevision';
 import { FlowRevisionListInstance } from './flow/flowRevision';
+import { FlowTestUserList } from './flow/testUser';
+import { FlowTestUserListInstance } from './flow/testUser';
 import { SerializableClass } from '../../../interfaces';
 
 type FlowStatus = 'draft'|'published';
@@ -203,6 +207,7 @@ interface FlowResource {
   status: FlowStatus;
   url: string;
   valid: boolean;
+  webhook_url: string;
 }
 
 interface FlowSolution {
@@ -221,6 +226,7 @@ declare class FlowContext {
    */
   constructor(version: V2, sid: string);
 
+  executions: ExecutionListInstance;
   /**
    * fetch a FlowInstance
    *
@@ -234,6 +240,7 @@ declare class FlowContext {
    */
   remove(callback?: (error: Error | null, items: FlowInstance) => any): Promise<boolean>;
   revisions: FlowRevisionListInstance;
+  testUsers: FlowTestUserListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -269,6 +276,10 @@ declare class FlowInstance extends SerializableClass {
   definition: object;
   errors: object[];
   /**
+   * Access the executions
+   */
+  executions(): ExecutionListInstance;
+  /**
    * fetch a FlowInstance
    *
    * @param callback - Callback to handle processed record
@@ -290,6 +301,10 @@ declare class FlowInstance extends SerializableClass {
   sid: string;
   status: FlowStatus;
   /**
+   * Access the testUsers
+   */
+  testUsers(): FlowTestUserListInstance;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -302,6 +317,7 @@ declare class FlowInstance extends SerializableClass {
   update(opts: FlowInstanceUpdateOptions, callback?: (error: Error | null, items: FlowInstance) => any): Promise<FlowInstance>;
   url: string;
   valid: boolean;
+  webhookUrl: string;
 }
 
 

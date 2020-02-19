@@ -25,7 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "q": "2.0.x",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "rootpath": "^0.1.2",
     "scmp": "^2.1.0",
     "url-parse": "^1.4.7",

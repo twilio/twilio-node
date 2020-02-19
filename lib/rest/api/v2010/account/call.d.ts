@@ -135,6 +135,9 @@ interface CallListInstance {
  * Options to pass to create
  *
  * @property applicationSid - The SID of the Application resource that will handle the call
+ * @property asyncAmd - Enable asynchronous AMD
+ * @property asyncAmdStatusCallback - The URL we should call to send amd status information to your application
+ * @property asyncAmdStatusCallbackMethod - HTTP Method to use with async_amd_status_callback
  * @property byoc - BYOC trunk SID (Beta)
  * @property callerId - The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
  * @property fallbackMethod - HTTP Method to use with fallback_url
@@ -165,6 +168,9 @@ interface CallListInstance {
  */
 interface CallListInstanceCreateOptions {
   applicationSid?: string;
+  asyncAmd?: string;
+  asyncAmdStatusCallback?: string;
+  asyncAmdStatusCallbackMethod?: string;
   byoc?: string;
   callerId?: string;
   fallbackMethod?: string;
@@ -333,12 +339,14 @@ interface CallResource {
   phone_number_sid: string;
   price: string;
   price_unit: string;
+  queue_time: string;
   sid: string;
   start_time: Date;
   status: CallStatus;
   subresource_uris: string;
   to: string;
   to_formatted: string;
+  trunk_sid: string;
   uri: string;
 }
 
@@ -435,6 +443,7 @@ declare class CallInstance extends SerializableClass {
   phoneNumberSid: string;
   price: string;
   priceUnit: string;
+  queueTime: string;
   /**
    * Access the recordings
    */
@@ -455,6 +464,7 @@ declare class CallInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  trunkSid: string;
   /**
    * update a CallInstance
    *

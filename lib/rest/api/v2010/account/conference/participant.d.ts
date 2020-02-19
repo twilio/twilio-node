@@ -131,6 +131,7 @@ interface ParticipantListInstance {
  * Options to pass to create
  *
  * @property beep - Whether to play a notification beep to the conference when the participant joins
+ * @property byoc - BYOC trunk SID (Beta)
  * @property callSidToCoach - The SID of the participant who is being `coached`
  * @property coaching - Indicates if the participant changed to coach
  * @property conferenceRecord - Whether to record the conference the participant is joining
@@ -165,6 +166,7 @@ interface ParticipantListInstance {
  */
 interface ParticipantListInstanceCreateOptions {
   beep?: string;
+  byoc?: string;
   callSidToCoach?: string;
   coaching?: boolean;
   conferenceRecord?: string;

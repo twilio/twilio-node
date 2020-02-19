@@ -74,6 +74,7 @@ interface TaskQueueCumulativeStatisticsResource {
   tasks_entered: number;
   tasks_moved: number;
   url: string;
+  wait_duration_in_queue_until_accepted: object;
   wait_duration_until_accepted: object;
   wait_duration_until_canceled: object;
   workspace_sid: string;
@@ -150,6 +151,7 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
+  waitDurationInQueueUntilAccepted: object;
   waitDurationUntilAccepted: object;
   waitDurationUntilCanceled: object;
   workspaceSid: string;

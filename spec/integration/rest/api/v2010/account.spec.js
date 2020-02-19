@@ -494,4 +494,51 @@ describe('Account', function() {
       }).done();
     }
   );
+  it('should generate valid update_with_numeric_status response',
+    function(done) {
+      var body = JSON.stringify({
+          'auth_token': 'auth_token',
+          'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'friendly_name': 'friendly_name',
+          'owner_account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'active',
+          'subresource_uris': {
+              'available_phone_numbers': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json',
+              'calls': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json',
+              'conferences': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json',
+              'incoming_phone_numbers': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json',
+              'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
+              'outgoing_caller_ids': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json',
+              'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json',
+              'transcriptions': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions.json',
+              'addresses': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json',
+              'signing_keys': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SigningKeys.json',
+              'connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json',
+              'sip': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP.json',
+              'authorized_connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AuthorizedConnectApps.json',
+              'usage': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage.json',
+              'keys': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys.json',
+              'applications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json',
+              'short_codes': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/ShortCodes.json',
+              'queues': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json',
+              'messages': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json',
+              'balance': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Balance.json'
+          },
+          'type': 'Full',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
 });
