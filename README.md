@@ -37,6 +37,18 @@ Check out these [code examples](examples) in JavaScript and TypeScript to get up
 
 If your environment requires SSL decryption, you can set the path to CA bundle in the env var `TWILIO_CA_BUNDLE`.
 
+### Lazy Loading
+
+`twilio-node` supports lazy loading required modules for faster loading time. Lazy loading is disabled by default. To enable lazy loading, simply instantiate the Twilio client with the `lazyLoading` flag set to `true`:
+```javascript
+var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
+var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+
+const client = require('twilio')(accountSid, authToken, { 
+    lazyLoading: true 
+});
+```
+
 ## Docker Image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-node` Docker image are currently used by Twilio for testing purposes only.
