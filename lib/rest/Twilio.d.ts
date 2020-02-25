@@ -60,6 +60,7 @@ declare class Twilio {
   conversations: Conversations;
   fax: Fax;
   flexApi: FlexApi;
+  httpClient?: RequestClient;
   incomingPhoneNumbers: (typeof Api.prototype.account.incomingPhoneNumbers);
   insights: Insights;
   ipMessaging: IpMessaging;
@@ -143,15 +144,15 @@ declare namespace Twilio {
    * @property accountSid - The default accountSid. This is set to username if not provided
    * @property env - The environment object. Defaults to process.env
    * @property httpClient - The client used for http requests. Defaults to RequestClient
+   * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled
    * @property region - Twilio region to use. Defaults to none
-   * @property lazyLoading - Enable lazy loading or not, loading time will decrease in enabled
    */
   export interface TwilioClientOptions {
     accountSid?: string;
     env?: object;
     httpClient?: RequestClient;
+    lazyLoading?: boolean;
     region?: string;
-    lazyLoading?: boolean
   }
 }
 
