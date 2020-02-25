@@ -97,7 +97,7 @@ describe('Settings', function() {
           'url': 'https://voice.twilio.com/v1/Settings'
       });
 
-      holodeck.mock(new Response(202, body));
+      holodeck.mock(new Response(200, body));
 
       var promise = client.voice.v1.dialingPermissions
                                    .settings().update();

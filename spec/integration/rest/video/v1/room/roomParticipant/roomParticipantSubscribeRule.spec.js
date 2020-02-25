@@ -128,7 +128,7 @@ describe('SubscribeRules', function() {
           ]
       });
 
-      holodeck.mock(new Response(202, body));
+      holodeck.mock(new Response(200, body));
 
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
