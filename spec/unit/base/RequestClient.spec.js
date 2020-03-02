@@ -5,7 +5,7 @@ describe('lastResponse and lastRequest defined', function() {
   var client;
   beforeEach(function() {
     RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
-      request: function(options, callback) {
+      got: function(options, callback) {
         callback(null, {statusCode: 200, body: 'voltron'});
       },
     });
@@ -49,7 +49,7 @@ describe('lastRequest defined, lastResponse undefined', function() {
   var client;
   beforeEach(function() {
     RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
-      request: function(options, callback) {
+      got: function(options, callback) {
         callback('failed', null);
       },
     });
@@ -91,7 +91,7 @@ describe('User specified CA bundle', function() {
   var client;
   beforeEach(function() {
     RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
-      request: function (options, callback) {
+      got: function (options, callback) {
         callback('failed', null);
       },
     });
@@ -142,6 +142,6 @@ describe('User specified CA bundle', function() {
     client.request(options);
     expect(client.lastRequest.ca.toString()).toEqual('test ca data');
     delete process.env.TWILIO_CA_BUNDLE;
-  })
+  });
 
 });
