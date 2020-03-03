@@ -3,8 +3,6 @@ node_js:
   - "node"
   - "lts/*"
   - "10"
-  - "8"
-  - "6"
 services:
   - docker
 script: npm run ci
@@ -21,11 +19,11 @@ deploy:
     skip_cleanup: true
     on:
       tags: true
-      node: "8"
+      node: "10"
   - provider: npm
     email: twilio-ci@twilio.com
     api_key:
       secure: aseNt4M8/qLU5+Wh5f8Bqy8QEl6BT4id4qaq0fhRiVSrAOyb3em2nevjRRdZCVkLQvlV/v4uceo1h3kebXlj/4q9bHu0UnyNVnC9t+bZrSCRXfxWcvsq5XPKOwtXmLuVgNOhp6Zhd3Gaex4gyCummhMelXclLYhwOkp++SE0prY=
     on:
       tags: true
-      node: "8"
+      node: "10"
