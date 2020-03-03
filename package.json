@@ -25,12 +25,12 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "q": "2.0.x",
+    "query-string": "^6.11.1",
     "got": "^10.6.0",
     "rootpath": "^0.1.2",
     "scmp": "^2.1.0",
     "url-parse": "^1.4.7",
-    "xmlbuilder": "^13.0.2",
-    "query-string": "^6.11.1"
+    "xmlbuilder": "^13.0.2"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.149",
