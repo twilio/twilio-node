@@ -5,30 +5,40 @@
  *       /       /
  */
 
-import BulkExports = require('../../BulkExports');
-import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import { SerializableClass } from '../../../../interfaces';
+import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
+import V1 = require('../V1');
+import { SerializableClass } from '../../../interfaces';
+
+type CommandDirection = 'to_sim'|'from_sim';
+
+type CommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
 
 /**
- * Initialize the DayList
+ * Initialize the CommandList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param resourceType - The type of communication – Messages, Calls
  */
-declare function DayList(version: BulkExports, resourceType: string): DayListInstance;
+declare function CommandList(version: V1): CommandListInstance;
 
-interface DayListInstance {
+interface CommandListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): DayContext;
+  (sid: string): CommandContext;
   /**
-   * Streams DayInstance records from the API.
+   * create a CommandInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  create(opts: CommandListInstanceCreateOptions, callback?: (error: Error | null, item: CommandInstance) => any): Promise<CommandInstance>;
+  /**
+   * Streams CommandInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -42,15 +52,15 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DayListInstanceEachOptions, callback?: (item: DayInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: CommandListInstanceEachOptions, callback?: (item: CommandInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a day
+   * Constructs a command
    *
-   * @param day - The date of the data in the file
+   * @param sid - The SID that identifies the resource to fetch
    */
-  get(day: string): DayContext;
+  get(sid: string): CommandContext;
   /**
-   * Retrieve a single target page of DayInstance records from the API.
+   * Retrieve a single target page of CommandInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -60,9 +70,9 @@ interface DayListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
   /**
-   * Lists DayInstance records from the API as a list.
+   * Lists CommandInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -70,9 +80,9 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DayListInstanceOptions, callback?: (error: Error | null, items: DayInstance[]) => any): Promise<DayInstance[]>;
+  list(opts?: CommandListInstanceOptions, callback?: (error: Error | null, items: CommandInstance[]) => any): Promise<CommandInstance[]>;
   /**
-   * Retrieve a single page of DayInstance records from the API.
+   * Retrieve a single page of CommandInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -82,11 +92,26 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DayListInstancePageOptions, callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  page(opts?: CommandListInstancePageOptions, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property callbackMethod - The HTTP method we should use to call callback_url
+ * @property callbackUrl - The URL we should call after we have sent the command
+ * @property command - The message body of the command
+ * @property sim - The sid or unique_name of the SIM to send the Command to
+ */
+interface CommandListInstanceCreateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  command: string;
+  sim: string;
 }
 
 /**
@@ -95,106 +120,113 @@ interface DayListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
+ * @property direction - The direction of the Command
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property nextToken - The next_token
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property previousToken - The previous_token
+ * @property sim - The SID or unique name of the Sim that Command was sent to or from.
+ * @property status - The status of the Command
  */
-interface DayListInstanceEachOptions {
-  callback?: (item: DayInstance, done: (err?: Error) => void) => void;
+interface CommandListInstanceEachOptions {
+  callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
+  direction?: CommandDirection;
   done?: Function;
   limit?: number;
-  nextToken?: string;
   pageSize?: number;
-  previousToken?: string;
+  sim?: string;
+  status?: CommandStatus;
 }
 
 /**
  * Options to pass to list
  *
+ * @property direction - The direction of the Command
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property nextToken - The next_token
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property previousToken - The previous_token
+ * @property sim - The SID or unique name of the Sim that Command was sent to or from.
+ * @property status - The status of the Command
  */
-interface DayListInstanceOptions {
+interface CommandListInstanceOptions {
+  direction?: CommandDirection;
   limit?: number;
-  nextToken?: string;
   pageSize?: number;
-  previousToken?: string;
+  sim?: string;
+  status?: CommandStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property nextToken - The next_token
+ * @property direction - The direction of the Command
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property previousToken - The previous_token
+ * @property sim - The SID or unique name of the Sim that Command was sent to or from.
+ * @property status - The status of the Command
  */
-interface DayListInstancePageOptions {
-  nextToken?: string;
+interface CommandListInstancePageOptions {
+  direction?: CommandDirection;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  previousToken?: string;
+  sim?: string;
+  status?: CommandStatus;
 }
 
-interface DayPayload extends DayResource, Page.TwilioResponsePayload {
+interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
 }
 
-interface DayResource {
-  create_date?: string;
-  day?: string;
-  friendly_name?: string;
-  redirect_to?: string;
-  resource_type?: string;
-  size?: number;
+interface CommandResource {
+  account_sid: string;
+  command: string;
+  date_created: Date;
+  date_updated: Date;
+  direction: CommandDirection;
+  sid: string;
+  sim_sid: string;
+  status: CommandStatus;
+  url: string;
 }
 
-interface DaySolution {
-  resourceType?: string;
+interface CommandSolution {
 }
 
 
-declare class DayContext {
+declare class CommandContext {
   /**
-   * Initialize the DayContext
+   * Initialize the CommandContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param resourceType - The type of communication – Messages, Calls
-   * @param day - The date of the data in the file
+   * @param sid - The SID that identifies the resource to fetch
    */
-  constructor(version: BulkExports, resourceType: string, day: string);
+  constructor(version: V1, sid: string);
 
   /**
-   * fetch a DayInstance
+   * fetch a CommandInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DayInstance) => any): Promise<DayInstance>;
+  fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -202,9 +234,9 @@ declare class DayContext {
 }
 
 
-declare class DayInstance extends SerializableClass {
+declare class CommandInstance extends SerializableClass {
   /**
-   * Initialize the DayContext
+   * Initialize the CommandContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -212,34 +244,36 @@ declare class DayInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param resourceType - The type of communication – Messages, Calls
-   * @param day - The date of the data in the file
+   * @param sid - The SID that identifies the resource to fetch
    */
-  constructor(version: BulkExports, payload: DayPayload, resourceType: string, day: string);
+  constructor(version: V1, payload: CommandPayload, sid: string);
 
-  private _proxy: DayContext;
-  createDate: string;
-  day: string;
+  private _proxy: CommandContext;
+  accountSid: string;
+  command: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  direction: CommandDirection;
   /**
-   * fetch a DayInstance
+   * fetch a CommandInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DayInstance) => any): Promise<DayInstance>;
-  friendlyName: string;
-  redirectTo: string;
-  resourceType: string;
-  size: number;
+  fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
+  sid: string;
+  simSid: string;
+  status: CommandStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  url: string;
 }
 
 
-declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInstance> {
+declare class CommandPage extends Page<V1, CommandPayload, CommandResource, CommandInstance> {
   /**
-   * Initialize the DayPage
+   * Initialize the CommandPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -249,18 +283,18 @@ declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInst
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: BulkExports, response: Response<string>, solution: DaySolution);
+  constructor(version: V1, response: Response<string>, solution: CommandSolution);
 
   /**
-   * Build an instance of DayInstance
+   * Build an instance of CommandInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DayPayload): DayInstance;
+  getInstance(payload: CommandPayload): CommandInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { DayContext, DayInstance, DayList, DayListInstance, DayListInstanceEachOptions, DayListInstanceOptions, DayListInstancePageOptions, DayPage, DayPayload, DayResource, DaySolution }
+export { CommandContext, CommandDirection, CommandInstance, CommandList, CommandListInstance, CommandListInstanceCreateOptions, CommandListInstanceEachOptions, CommandListInstanceOptions, CommandListInstancePageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution, CommandStatus }

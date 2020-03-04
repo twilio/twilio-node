@@ -14,8 +14,6 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type FactorFactorStatuses = 'unverified'|'verified';
 
-type FactorFactorStrengths = 'unknown'|'very_low'|'low'|'medium'|'high'|'very_high';
-
 type FactorFactorTypes = 'app-push'|'sms'|'totp'|'push';
 
 /**
@@ -220,7 +218,6 @@ interface FactorResource {
   date_created: Date;
   date_updated: Date;
   entity_sid: string;
-  factor_strength: FactorFactorStrengths;
   factor_type: FactorFactorTypes;
   friendly_name: string;
   identity: string;
@@ -306,7 +303,6 @@ declare class FactorInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   entitySid: string;
-  factorStrength: FactorFactorStrengths;
   factorType: FactorFactorTypes;
   /**
    * fetch a FactorInstance
@@ -369,4 +365,4 @@ declare class FactorPage extends Page<V1, FactorPayload, FactorResource, FactorI
   toJSON(): any;
 }
 
-export { FactorContext, FactorFactorStatuses, FactorFactorStrengths, FactorFactorTypes, FactorInstance, FactorInstanceFetchOptions, FactorInstanceRemoveOptions, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorPage, FactorPayload, FactorResource, FactorSolution }
+export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceFetchOptions, FactorInstanceRemoveOptions, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorPage, FactorPayload, FactorResource, FactorSolution }

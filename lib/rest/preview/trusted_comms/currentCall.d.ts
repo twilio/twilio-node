@@ -24,12 +24,10 @@ declare function CurrentCallList(version: TrustedComms): CurrentCallListInstance
 /**
  * Options to pass to fetch
  *
- * @property twilioSandboxMode - Optional header to mock all voice dependencies
  * @property xXcnamSensitivePhoneNumberFrom - The originating Phone Number
  * @property xXcnamSensitivePhoneNumberTo - The terminating Phone Number
  */
 interface CurrentCallInstanceFetchOptions {
-  twilioSandboxMode?: string;
   xXcnamSensitivePhoneNumberFrom?: string;
   xXcnamSensitivePhoneNumberTo?: string;
 }

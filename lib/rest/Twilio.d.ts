@@ -26,6 +26,7 @@ import Proxy = require('./Proxy');
 import RequestClient = require('../base/RequestClient');
 import Serverless = require('./Serverless');
 import Studio = require('./Studio');
+import Supersim = require('./Supersim');
 import Sync = require('./Sync');
 import Taskrouter = require('./Taskrouter');
 import Trunking = require('./Trunking');
@@ -92,6 +93,7 @@ declare class Twilio {
   signingKeys: (typeof Api.prototype.account.signingKeys);
   sip: (typeof Api.prototype.account.sip);
   studio: Studio;
+  supersim: Supersim;
   sync: Sync;
   taskrouter: Taskrouter;
   tokens: (typeof Api.prototype.account.tokens);

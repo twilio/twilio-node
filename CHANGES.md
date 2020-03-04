@@ -1,6 +1,44 @@
 twilio-node changelog
 =====================
 
+[2020-03-04] Version 3.40.0
+---------------------------
+**Library - Docs**
+- [PR #541](https://github.com/twilio/twilio-node/pull/541): add url parameter documentation in twilio.webhook(). Thanks to [@fungiboletus](https://github.com/fungiboletus)!
+- [PR #532](https://github.com/twilio/twilio-node/pull/532): guide for enabling lazy loading. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Fix**
+- [PR #534](https://github.com/twilio/twilio-node/pull/534): proper indentation. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Feature**
+- [PR #526](https://github.com/twilio/twilio-node/pull/526): Faster requiring using optional lazy loading. Thanks to [@wolfenrain](https://github.com/wolfenrain)!
+
+**Authy**
+- Added the `configuration` property to services to return the service level configurations
+- Added optional parameter `Push` when creating a service to send the service level push factor configuration
+- Remove FactorStrength support for Factors and Challenges **(breaking change)**
+
+**Messaging**
+- Correct the alpha sender capabilities property type **(breaking change)**
+
+**Preview**
+- Removed `/Devices` register Branded Calls endpoint, as per iOS sample app deprecation **(breaking change)**
+- Removed `Twilio-Sandbox-Mode` request header from the Branded Calls endpoints, as not officially supported **(breaking change)**
+- Removed `Verify` version from `preview` subdomain in favor to `verify` subdomain. **(breaking change)**
+
+**Serverless**
+- Add UI-Editable field to Services
+
+**Supersim**
+- Add `inactive` status for Super SIM which is an alias for `deactivated`
+
+**Taskrouter**
+- Adding value range to `priority` in task endpoint
+
+**Verify**
+- Fix `SendCodeAttempts` type. It's an array of objects instead of a unique object. **(breaking change)**
+
+
 [2020-02-19] Version 3.39.5
 ---------------------------
 **Api**

@@ -96,7 +96,7 @@ interface VerificationResource {
   date_updated: Date;
   lookup: object;
   payee: string;
-  send_code_attempts: object;
+  send_code_attempts: object[];
   service_sid: string;
   sid: string;
   status: string;
@@ -165,7 +165,7 @@ declare class VerificationInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: VerificationInstance) => any): Promise<VerificationInstance>;
   lookup: object;
   payee: string;
-  sendCodeAttempts: object;
+  sendCodeAttempts: object[];
   serviceSid: string;
   sid: string;
   status: string;

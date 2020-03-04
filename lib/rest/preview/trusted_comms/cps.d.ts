@@ -24,11 +24,9 @@ declare function CpsList(version: TrustedComms): CpsListInstance;
 /**
  * Options to pass to fetch
  *
- * @property twilioSandboxMode - Optional header to mock all voice dependencies.
  * @property xXcnamSensitivePhoneNumber - Phone number to retrieve CPS.
  */
 interface CpsInstanceFetchOptions {
-  twilioSandboxMode?: string;
   xXcnamSensitivePhoneNumber?: string;
 }
 

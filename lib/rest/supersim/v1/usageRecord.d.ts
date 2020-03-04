@@ -5,30 +5,34 @@
  *       /       /
  */
 
-import BulkExports = require('../../BulkExports');
-import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import { SerializableClass } from '../../../../interfaces';
+import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
+import V1 = require('../V1');
+import serialize = require('../../../base/serialize');
+import { SerializableClass } from '../../../interfaces';
+
+type UsageRecordGranularity = 'hour'|'day'|'all';
+
+type UsageRecordGroup = 'sim';
+
+type UsageRecordSortBy = 'time';
+
+type UsageRecordSortOrder = 'desc'|'asc';
 
 /**
- * Initialize the DayList
+ * Initialize the UsageRecordList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param resourceType - The type of communication – Messages, Calls
  */
-declare function DayList(version: BulkExports, resourceType: string): DayListInstance;
+declare function UsageRecordList(version: V1): UsageRecordListInstance;
 
-interface DayListInstance {
+interface UsageRecordListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): DayContext;
-  /**
-   * Streams DayInstance records from the API.
+   * Streams UsageRecordInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -42,15 +46,9 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DayListInstanceEachOptions, callback?: (item: DayInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: UsageRecordListInstanceEachOptions, callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a day
-   *
-   * @param day - The date of the data in the file
-   */
-  get(day: string): DayContext;
-  /**
-   * Retrieve a single target page of DayInstance records from the API.
+   * Retrieve a single target page of UsageRecordInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -60,9 +58,9 @@ interface DayListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
   /**
-   * Lists DayInstance records from the API as a list.
+   * Lists UsageRecordInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -70,9 +68,9 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DayListInstanceOptions, callback?: (error: Error | null, items: DayInstance[]) => any): Promise<DayInstance[]>;
+  list(opts?: UsageRecordListInstanceOptions, callback?: (error: Error | null, items: UsageRecordInstance[]) => any): Promise<UsageRecordInstance[]>;
   /**
-   * Retrieve a single page of DayInstance records from the API.
+   * Retrieve a single page of UsageRecordInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -82,7 +80,7 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DayListInstancePageOptions, callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  page(opts?: UsageRecordListInstancePageOptions, callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -96,115 +94,99 @@ interface DayListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
+ * @property endTime - Only include usage that occurred before this time.
+ * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property nextToken - The next_token
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property previousToken - The previous_token
+ * @property sim - SID of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+ * @property startTime - Only include usage that occurred at or after this time.
  */
-interface DayListInstanceEachOptions {
-  callback?: (item: DayInstance, done: (err?: Error) => void) => void;
+interface UsageRecordListInstanceEachOptions {
+  callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
   done?: Function;
+  endTime?: Date;
+  granularity?: UsageRecordGranularity;
   limit?: number;
-  nextToken?: string;
   pageSize?: number;
-  previousToken?: string;
+  sim?: string;
+  startTime?: Date;
 }
 
 /**
  * Options to pass to list
  *
+ * @property endTime - Only include usage that occurred before this time.
+ * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property nextToken - The next_token
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property previousToken - The previous_token
+ * @property sim - SID of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+ * @property startTime - Only include usage that occurred at or after this time.
  */
-interface DayListInstanceOptions {
+interface UsageRecordListInstanceOptions {
+  endTime?: Date;
+  granularity?: UsageRecordGranularity;
   limit?: number;
-  nextToken?: string;
   pageSize?: number;
-  previousToken?: string;
+  sim?: string;
+  startTime?: Date;
 }
 
 /**
  * Options to pass to page
  *
- * @property nextToken - The next_token
+ * @property endTime - Only include usage that occurred before this time.
+ * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property previousToken - The previous_token
+ * @property sim - SID of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+ * @property startTime - Only include usage that occurred at or after this time.
  */
-interface DayListInstancePageOptions {
-  nextToken?: string;
+interface UsageRecordListInstancePageOptions {
+  endTime?: Date;
+  granularity?: UsageRecordGranularity;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  previousToken?: string;
+  sim?: string;
+  startTime?: Date;
 }
 
-interface DayPayload extends DayResource, Page.TwilioResponsePayload {
+interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePayload {
 }
 
-interface DayResource {
-  create_date?: string;
-  day?: string;
-  friendly_name?: string;
-  redirect_to?: string;
-  resource_type?: string;
-  size?: number;
+interface UsageRecordResource {
+  account_sid: string;
+  data_download: number;
+  data_total: number;
+  data_upload: number;
+  period: object;
+  sim_sid: string;
 }
 
-interface DaySolution {
-  resourceType?: string;
+interface UsageRecordSolution {
 }
 
 
-declare class DayContext {
+declare class UsageRecordInstance extends SerializableClass {
   /**
-   * Initialize the DayContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
-   *
-   * @param version - Version of the resource
-   * @param resourceType - The type of communication – Messages, Calls
-   * @param day - The date of the data in the file
-   */
-  constructor(version: BulkExports, resourceType: string, day: string);
-
-  /**
-   * fetch a DayInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: DayInstance) => any): Promise<DayInstance>;
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-}
-
-
-declare class DayInstance extends SerializableClass {
-  /**
-   * Initialize the DayContext
+   * Initialize the UsageRecordContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -212,24 +194,15 @@ declare class DayInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param resourceType - The type of communication – Messages, Calls
-   * @param day - The date of the data in the file
    */
-  constructor(version: BulkExports, payload: DayPayload, resourceType: string, day: string);
+  constructor(version: V1, payload: UsageRecordPayload);
 
-  private _proxy: DayContext;
-  createDate: string;
-  day: string;
-  /**
-   * fetch a DayInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: DayInstance) => any): Promise<DayInstance>;
-  friendlyName: string;
-  redirectTo: string;
-  resourceType: string;
-  size: number;
+  accountSid: string;
+  dataDownload: number;
+  dataTotal: number;
+  dataUpload: number;
+  period: object;
+  simSid: string;
   /**
    * Provide a user-friendly representation
    */
@@ -237,9 +210,9 @@ declare class DayInstance extends SerializableClass {
 }
 
 
-declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInstance> {
+declare class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
   /**
-   * Initialize the DayPage
+   * Initialize the UsageRecordPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -249,18 +222,18 @@ declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInst
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: BulkExports, response: Response<string>, solution: DaySolution);
+  constructor(version: V1, response: Response<string>, solution: UsageRecordSolution);
 
   /**
-   * Build an instance of DayInstance
+   * Build an instance of UsageRecordInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DayPayload): DayInstance;
+  getInstance(payload: UsageRecordPayload): UsageRecordInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { DayContext, DayInstance, DayList, DayListInstance, DayListInstanceEachOptions, DayListInstanceOptions, DayListInstancePageOptions, DayPage, DayPayload, DayResource, DaySolution }
+export { UsageRecordGranularity, UsageRecordGroup, UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordListInstanceEachOptions, UsageRecordListInstanceOptions, UsageRecordListInstancePageOptions, UsageRecordPage, UsageRecordPayload, UsageRecordResource, UsageRecordSolution, UsageRecordSortBy, UsageRecordSortOrder }

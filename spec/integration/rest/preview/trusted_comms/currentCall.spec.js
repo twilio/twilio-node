@@ -34,7 +34,6 @@ describe('CurrentCall', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        twilioSandboxMode: 'twilio_sandbox_mode',
         xXcnamSensitivePhoneNumberFrom: 'x_xcnam_sensitive_phone_number_from',
         xXcnamSensitivePhoneNumberTo: 'x_xcnam_sensitive_phone_number_to'
       };
@@ -49,7 +48,6 @@ describe('CurrentCall', function() {
       var url = 'https://preview.twilio.com/TrustedComms/CurrentCall';
 
       var headers = {
-        'Twilio-Sandbox-Mode': 'twilio_sandbox_mode',
         'X-Xcnam-Sensitive-Phone-Number-From': 'x_xcnam_sensitive_phone_number_from',
         'X-Xcnam-Sensitive-Phone-Number-To': 'x_xcnam_sensitive_phone_number_to'
       };

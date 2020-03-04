@@ -23,7 +23,6 @@ import { BusinessListInstance } from './preview/trusted_comms/business';
 import { CommandListInstance } from './preview/wireless/command';
 import { CpsListInstance } from './preview/trusted_comms/cps';
 import { CurrentCallListInstance } from './preview/trusted_comms/currentCall';
-import { DeviceListInstance } from './preview/trusted_comms/device';
 import { ExportConfigurationListInstance } from './preview/bulk_exports/exportConfiguration';
 import { ExportListInstance } from './preview/bulk_exports/export';
 import { FleetListInstance } from './preview/deployed_devices/fleet';
@@ -53,7 +52,6 @@ declare class Preview extends Domain {
   readonly cps: CpsListInstance;
   readonly currentCalls: CurrentCallListInstance;
   readonly deployed_devices: DeployedDevices;
-  readonly devices: DeviceListInstance;
   readonly exportConfiguration: ExportConfigurationListInstance;
   readonly exports: ExportListInstance;
   readonly fleets: FleetListInstance;

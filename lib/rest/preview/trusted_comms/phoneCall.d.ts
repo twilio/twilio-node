@@ -65,7 +65,6 @@ interface PhoneCallListInstance {
  * @property timeout - Refers to the Voice API Initiate Call parameter
  * @property to - The terminating Phone Number
  * @property trim - Refers to the Voice API Initiate Call parameter
- * @property twilioSandboxMode - Optional header to mock all voice dependencies
  * @property url - Refers to the Voice API Initiate Call parameter
  */
 interface PhoneCallListInstanceCreateOptions {
@@ -95,7 +94,6 @@ interface PhoneCallListInstanceCreateOptions {
   timeout?: number;
   to: string;
   trim?: string;
-  twilioSandboxMode?: string;
   url?: string;
 }
 

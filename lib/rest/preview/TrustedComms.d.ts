@@ -15,8 +15,6 @@ import { CpsList } from './trusted_comms/cps';
 import { CpsListInstance } from './trusted_comms/cps';
 import { CurrentCallList } from './trusted_comms/currentCall';
 import { CurrentCallListInstance } from './trusted_comms/currentCall';
-import { DeviceList } from './trusted_comms/device';
-import { DeviceListInstance } from './trusted_comms/device';
 import { PhoneCallList } from './trusted_comms/phoneCall';
 import { PhoneCallListInstance } from './trusted_comms/phoneCall';
 
@@ -33,7 +31,6 @@ declare class TrustedComms extends Version {
   readonly businesses: BusinessListInstance;
   readonly cps: CpsListInstance;
   readonly currentCalls: CurrentCallListInstance;
-  readonly devices: DeviceListInstance;
   readonly phoneCalls: PhoneCallListInstance;
 }
 

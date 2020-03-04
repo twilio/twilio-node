@@ -8,19 +8,14 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
-import { AssetList } from './service/asset';
-import { AssetListInstance } from './service/asset';
-import { BuildList } from './service/build';
-import { BuildListInstance } from './service/build';
-import { EnvironmentList } from './service/environment';
-import { EnvironmentListInstance } from './service/environment';
-import { FunctionList } from './service/function';
-import { FunctionListInstance } from './service/function';
 import { SerializableClass } from '../../../interfaces';
 
+type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'inactive'|'canceled'|'scheduled';
+
+type SimStatusUpdate = 'active'|'suspended'|'deactivated'|'inactive';
+
 /**
- * Initialize the ServiceList
+ * Initialize the SimList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
@@ -28,35 +23,28 @@ import { SerializableClass } from '../../../interfaces';
  *
  * @param version - Version of the resource
  */
-declare function ServiceList(version: V1): ServiceListInstance;
+declare function SimList(version: V1): SimListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - A string to describe the Service resource
- * @property includeCredentials - Whether to inject Account credentials into a function invocation context
- * @property uiEditable - Whether the Service's properties and subresources can be edited via the UI
+ * @property fleet - The SID or unique name of the Fleet to which the SIM resource should be assigned
+ * @property status - The new status of the Super SIM
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
-interface ServiceInstanceUpdateOptions {
-  friendlyName?: string;
-  includeCredentials?: boolean;
-  uiEditable?: boolean;
+interface SimInstanceUpdateOptions {
+  fleet?: string;
+  status?: SimStatusUpdate;
+  uniqueName?: string;
 }
 
-interface ServiceListInstance {
+interface SimListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): ServiceContext;
+  (sid: string): SimContext;
   /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item: ServiceInstance) => any): Promise<ServiceInstance>;
-  /**
-   * Streams ServiceInstance records from the API.
+   * Streams SimInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -70,15 +58,15 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: SimListInstanceEachOptions, callback?: (item: SimInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a service
+   * Constructs a sim
    *
-   * @param sid - The SID of the Service resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  get(sid: string): ServiceContext;
+  get(sid: string): SimContext;
   /**
-   * Retrieve a single target page of ServiceInstance records from the API.
+   * Retrieve a single target page of SimInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -88,9 +76,9 @@ interface ServiceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
   /**
-   * Lists ServiceInstance records from the API as a list.
+   * Lists SimInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -98,9 +86,9 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(opts?: SimListInstanceOptions, callback?: (error: Error | null, items: SimInstance[]) => any): Promise<SimInstance[]>;
   /**
-   * Retrieve a single page of ServiceInstance records from the API.
+   * Retrieve a single page of SimInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -110,26 +98,11 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(opts?: SimListInstancePageOptions, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-}
-
-/**
- * Options to pass to create
- *
- * @property friendlyName - A string to describe the Service resource
- * @property includeCredentials - Whether to inject Account credentials into a function invocation context
- * @property uiEditable - Whether the Service's properties and subresources can be edited via the UI
- * @property uniqueName - An application-defined string that uniquely identifies the Service resource
- */
-interface ServiceListInstanceCreateOptions {
-  friendlyName: string;
-  includeCredentials?: boolean;
-  uiEditable?: boolean;
-  uniqueName: string;
 }
 
 /**
@@ -139,6 +112,8 @@ interface ServiceListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
+ * @property fleet - The SID or unique name of the Fleet to which a list of Sims are assigned
+ * @property iccid - The ICCID associated with a Super SIM to filter the list by
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -149,17 +124,23 @@ interface ServiceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property status - The status of the Sim resources to read
  */
-interface ServiceListInstanceEachOptions {
-  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+interface SimListInstanceEachOptions {
+  callback?: (item: SimInstance, done: (err?: Error) => void) => void;
   done?: Function;
+  fleet?: string;
+  iccid?: string;
   limit?: number;
   pageSize?: number;
+  status?: SimStatus;
 }
 
 /**
  * Options to pass to list
  *
+ * @property fleet - The SID or unique name of the Fleet to which a list of Sims are assigned
+ * @property iccid - The ICCID associated with a Super SIM to filter the list by
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -170,91 +151,90 @@ interface ServiceListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - The status of the Sim resources to read
  */
-interface ServiceListInstanceOptions {
+interface SimListInstanceOptions {
+  fleet?: string;
+  iccid?: string;
   limit?: number;
   pageSize?: number;
+  status?: SimStatus;
 }
 
 /**
  * Options to pass to page
  *
+ * @property fleet - The SID or unique name of the Fleet to which a list of Sims are assigned
+ * @property iccid - The ICCID associated with a Super SIM to filter the list by
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property status - The status of the Sim resources to read
  */
-interface ServiceListInstancePageOptions {
+interface SimListInstancePageOptions {
+  fleet?: string;
+  iccid?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  status?: SimStatus;
 }
 
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+interface SimPayload extends SimResource, Page.TwilioResponsePayload {
 }
 
-interface ServiceResource {
+interface SimResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
-  friendly_name: string;
-  include_credentials: boolean;
-  links: string;
+  fleet_sid: string;
+  iccid: string;
   sid: string;
-  ui_editable: boolean;
+  status: SimStatus;
   unique_name: string;
   url: string;
 }
 
-interface ServiceSolution {
+interface SimSolution {
 }
 
 
-declare class ServiceContext {
+declare class SimContext {
   /**
-   * Initialize the ServiceContext
+   * Initialize the SimContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The SID of the Service resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
-  assets: AssetListInstance;
-  builds: BuildListInstance;
-  environments: EnvironmentListInstance;
   /**
-   * fetch a ServiceInstance
+   * fetch a SimInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  functions: FunctionListInstance;
-  /**
-   * remove a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
+  fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
-   * update a ServiceInstance
+   * update a SimInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
 }
 
 
-declare class ServiceInstance extends SerializableClass {
+declare class SimInstance extends SerializableClass {
   /**
-   * Initialize the ServiceContext
+   * Initialize the SimContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -262,66 +242,43 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The SID of the Service resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  constructor(version: V1, payload: ServicePayload, sid: string);
+  constructor(version: V1, payload: SimPayload, sid: string);
 
-  private _proxy: ServiceContext;
+  private _proxy: SimContext;
   accountSid: string;
-  /**
-   * Access the assets
-   */
-  assets(): AssetListInstance;
-  /**
-   * Access the builds
-   */
-  builds(): BuildListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   /**
-   * Access the environments
-   */
-  environments(): EnvironmentListInstance;
-  /**
-   * fetch a ServiceInstance
+   * fetch a SimInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  friendlyName: string;
-  /**
-   * Access the functions
-   */
-  functions(): FunctionListInstance;
-  includeCredentials: boolean;
-  links: string;
-  /**
-   * remove a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
+  fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  fleetSid: string;
+  iccid: string;
   sid: string;
+  status: SimStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  uiEditable: boolean;
   uniqueName: string;
   /**
-   * update a ServiceInstance
+   * update a SimInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
   url: string;
 }
 
 
-declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
+declare class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
   /**
-   * Initialize the ServicePage
+   * Initialize the SimPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -331,18 +288,18 @@ declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, Serv
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
+  constructor(version: V1, response: Response<string>, solution: SimSolution);
 
   /**
-   * Build an instance of ServiceInstance
+   * Build an instance of SimInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: SimPayload): SimInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { ServiceContext, ServiceInstance, ServiceInstanceUpdateOptions, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { SimContext, SimInstance, SimInstanceUpdateOptions, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution, SimStatus, SimStatusUpdate }

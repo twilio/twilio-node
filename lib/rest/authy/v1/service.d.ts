@@ -130,10 +130,12 @@ interface ServiceListInstance {
  * Options to pass to create
  *
  * @property friendlyName - A human readable description of this resource.
+ * @property push - Optional service level push factors configuration
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;
+  push?: string;
   twilioAuthySandboxMode?: string;
 }
 
@@ -205,6 +207,7 @@ interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
 
 interface ServiceResource {
   account_sid: string;
+  configuration: object;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
@@ -275,6 +278,7 @@ declare class ServiceInstance extends SerializableClass {
 
   private _proxy: ServiceContext;
   accountSid: string;
+  configuration: object;
   dateCreated: Date;
   dateUpdated: Date;
   /**

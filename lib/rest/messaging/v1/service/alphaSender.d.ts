@@ -167,7 +167,7 @@ interface AlphaSenderPayload extends AlphaSenderResource, Page.TwilioResponsePay
 interface AlphaSenderResource {
   account_sid: string;
   alpha_sender: string;
-  capabilities: object[];
+  capabilities: string[];
   date_created: Date;
   date_updated: Date;
   service_sid: string;
@@ -229,7 +229,7 @@ declare class AlphaSenderInstance extends SerializableClass {
   private _proxy: AlphaSenderContext;
   accountSid: string;
   alphaSender: string;
-  capabilities: object[];
+  capabilities: string[];
   dateCreated: Date;
   dateUpdated: Date;
   /**

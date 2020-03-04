@@ -9,18 +9,12 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
-import { AssetList } from './service/asset';
-import { AssetListInstance } from './service/asset';
-import { BuildList } from './service/build';
-import { BuildListInstance } from './service/build';
-import { EnvironmentList } from './service/environment';
-import { EnvironmentListInstance } from './service/environment';
-import { FunctionList } from './service/function';
-import { FunctionListInstance } from './service/function';
 import { SerializableClass } from '../../../interfaces';
 
+type FleetDataMetering = 'payg';
+
 /**
- * Initialize the ServiceList
+ * Initialize the FleetList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
@@ -28,35 +22,31 @@ import { SerializableClass } from '../../../interfaces';
  *
  * @param version - Version of the resource
  */
-declare function ServiceList(version: V1): ServiceListInstance;
+declare function FleetList(version: V1): FleetListInstance;
 
 /**
  * Options to pass to update
  *
- * @property friendlyName - A string to describe the Service resource
- * @property includeCredentials - Whether to inject Account credentials into a function invocation context
- * @property uiEditable - Whether the Service's properties and subresources can be edited via the UI
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
-interface ServiceInstanceUpdateOptions {
-  friendlyName?: string;
-  includeCredentials?: boolean;
-  uiEditable?: boolean;
+interface FleetInstanceUpdateOptions {
+  uniqueName?: string;
 }
 
-interface ServiceListInstance {
+interface FleetListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): ServiceContext;
+  (sid: string): FleetContext;
   /**
-   * create a ServiceInstance
+   * create a FleetInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item: ServiceInstance) => any): Promise<ServiceInstance>;
+  create(opts?: FleetListInstanceCreateOptions, callback?: (error: Error | null, item: FleetInstance) => any): Promise<FleetInstance>;
   /**
-   * Streams ServiceInstance records from the API.
+   * Streams FleetInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -70,15 +60,15 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: FleetListInstanceEachOptions, callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a service
+   * Constructs a fleet
    *
-   * @param sid - The SID of the Service resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  get(sid: string): ServiceContext;
+  get(sid: string): FleetContext;
   /**
-   * Retrieve a single target page of ServiceInstance records from the API.
+   * Retrieve a single target page of FleetInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -88,9 +78,9 @@ interface ServiceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
   /**
-   * Lists ServiceInstance records from the API as a list.
+   * Lists FleetInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -98,9 +88,9 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(opts?: FleetListInstanceOptions, callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
   /**
-   * Retrieve a single page of ServiceInstance records from the API.
+   * Retrieve a single page of FleetInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -110,7 +100,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(opts?: FleetListInstancePageOptions, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -120,16 +110,18 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A string to describe the Service resource
- * @property includeCredentials - Whether to inject Account credentials into a function invocation context
- * @property uiEditable - Whether the Service's properties and subresources can be edited via the UI
- * @property uniqueName - An application-defined string that uniquely identifies the Service resource
+ * @property commandsEnabled - Defines whether SIMs in the Fleet are capable of sending and receiving Commands via SMS
+ * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
+ * @property commandsUrl - The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine Command
+ * @property dataEnabled - Defines whether SIMs in the Fleet are capable of using data connectivity
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
-interface ServiceListInstanceCreateOptions {
-  friendlyName: string;
-  includeCredentials?: boolean;
-  uiEditable?: boolean;
-  uniqueName: string;
+interface FleetListInstanceCreateOptions {
+  commandsEnabled?: boolean;
+  commandsMethod?: string;
+  commandsUrl?: string;
+  dataEnabled?: boolean;
+  uniqueName?: string;
 }
 
 /**
@@ -150,8 +142,8 @@ interface ServiceListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface ServiceListInstanceEachOptions {
-  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+interface FleetListInstanceEachOptions {
+  callback?: (item: FleetInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -171,7 +163,7 @@ interface ServiceListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface ServiceListInstanceOptions {
+interface FleetListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -183,78 +175,69 @@ interface ServiceListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface ServiceListInstancePageOptions {
+interface FleetListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+interface FleetPayload extends FleetResource, Page.TwilioResponsePayload {
 }
 
-interface ServiceResource {
+interface FleetResource {
   account_sid: string;
+  commands_enabled: boolean;
+  commands_method: string;
+  commands_url: string;
+  data_enabled: boolean;
+  data_metering: FleetDataMetering;
   date_created: Date;
   date_updated: Date;
-  friendly_name: string;
-  include_credentials: boolean;
-  links: string;
   sid: string;
-  ui_editable: boolean;
   unique_name: string;
   url: string;
 }
 
-interface ServiceSolution {
+interface FleetSolution {
 }
 
 
-declare class ServiceContext {
+declare class FleetContext {
   /**
-   * Initialize the ServiceContext
+   * Initialize the FleetContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The SID of the Service resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
-  assets: AssetListInstance;
-  builds: BuildListInstance;
-  environments: EnvironmentListInstance;
   /**
-   * fetch a ServiceInstance
+   * fetch a FleetInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  functions: FunctionListInstance;
-  /**
-   * remove a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
+  fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
-   * update a ServiceInstance
+   * update a FleetInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
 }
 
 
-declare class ServiceInstance extends SerializableClass {
+declare class FleetInstance extends SerializableClass {
   /**
-   * Initialize the ServiceContext
+   * Initialize the FleetContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -262,66 +245,45 @@ declare class ServiceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The SID of the Service resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  constructor(version: V1, payload: ServicePayload, sid: string);
+  constructor(version: V1, payload: FleetPayload, sid: string);
 
-  private _proxy: ServiceContext;
+  private _proxy: FleetContext;
   accountSid: string;
-  /**
-   * Access the assets
-   */
-  assets(): AssetListInstance;
-  /**
-   * Access the builds
-   */
-  builds(): BuildListInstance;
+  commandsEnabled: boolean;
+  commandsMethod: string;
+  commandsUrl: string;
+  dataEnabled: boolean;
+  dataMetering: FleetDataMetering;
   dateCreated: Date;
   dateUpdated: Date;
   /**
-   * Access the environments
-   */
-  environments(): EnvironmentListInstance;
-  /**
-   * fetch a ServiceInstance
+   * fetch a FleetInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  friendlyName: string;
-  /**
-   * Access the functions
-   */
-  functions(): FunctionListInstance;
-  includeCredentials: boolean;
-  links: string;
-  /**
-   * remove a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<boolean>;
+  fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
   sid: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  uiEditable: boolean;
   uniqueName: string;
   /**
-   * update a ServiceInstance
+   * update a FleetInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
   url: string;
 }
 
 
-declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
+declare class FleetPage extends Page<V1, FleetPayload, FleetResource, FleetInstance> {
   /**
-   * Initialize the ServicePage
+   * Initialize the FleetPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -331,18 +293,18 @@ declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, Serv
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
+  constructor(version: V1, response: Response<string>, solution: FleetSolution);
 
   /**
-   * Build an instance of ServiceInstance
+   * Build an instance of FleetInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: FleetPayload): FleetInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { ServiceContext, ServiceInstance, ServiceInstanceUpdateOptions, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { FleetContext, FleetDataMetering, FleetInstance, FleetInstanceUpdateOptions, FleetList, FleetListInstance, FleetListInstanceCreateOptions, FleetListInstanceEachOptions, FleetListInstanceOptions, FleetListInstancePageOptions, FleetPage, FleetPayload, FleetResource, FleetSolution }
