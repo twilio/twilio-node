@@ -33,7 +33,7 @@ describe('AuthorizationDocument', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -54,7 +54,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'address_sid': 'AD11111111111111111111111111111111',
           'cc_emails': [
               'aaa@twilio.com',
@@ -69,7 +69,7 @@ describe('AuthorizationDocument', function() {
           'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'signing',
           'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -84,7 +84,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -105,7 +105,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'cc_emails': [
               'test1@twilio.com',
@@ -120,7 +120,7 @@ describe('AuthorizationDocument', function() {
           'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'signing',
           'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -135,7 +135,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0',
               'key': 'items',
@@ -163,14 +163,14 @@ describe('AuthorizationDocument', function() {
                   'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.authorizationDocuments.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0',
               'key': 'items',
@@ -198,7 +198,7 @@ describe('AuthorizationDocument', function() {
                   'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.authorizationDocuments.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -210,7 +210,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0',
               'key': 'items',
@@ -238,14 +238,14 @@ describe('AuthorizationDocument', function() {
                   'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.authorizationDocuments.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments.list();
       promise.then(function() {
@@ -265,7 +265,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?Status=signed&Email=test%2Bhosted%40twilio.com&PageSize=50&Page=0',
               'key': 'items',
@@ -276,7 +276,7 @@ describe('AuthorizationDocument', function() {
               'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?Status=signed&Email=test%2Bhosted%40twilio.com&PageSize=50&Page=0'
           },
           'items': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -291,7 +291,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0',
               'key': 'items',
@@ -319,7 +319,7 @@ describe('AuthorizationDocument', function() {
                   'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -334,7 +334,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {
         hostedNumberOrderSids: ['hosted_number_order_sids'],
@@ -369,7 +369,7 @@ describe('AuthorizationDocument', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'cc_emails': [
               'test1@twilio.com',
@@ -384,7 +384,7 @@ describe('AuthorizationDocument', function() {
           'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'signing',
           'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

@@ -31,7 +31,7 @@ describe('NewKey', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .newKeys.create();
@@ -53,13 +53,13 @@ describe('NewKey', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'foo',
           'date_created': 'Mon, 13 Jun 2016 22:50:08 +0000',
           'date_updated': 'Mon, 13 Jun 2016 22:50:08 +0000',
           'secret': 'foobar'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

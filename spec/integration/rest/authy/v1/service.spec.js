@@ -31,7 +31,7 @@ describe('Service', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name', twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services.create(opts);
@@ -61,7 +61,7 @@ describe('Service', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -72,7 +72,7 @@ describe('Service', function() {
           'links': {
               'entities': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -88,7 +88,7 @@ describe('Service', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
@@ -112,7 +112,7 @@ describe('Service', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -127,7 +127,7 @@ describe('Service', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch(opts);
@@ -151,7 +151,7 @@ describe('Service', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -162,7 +162,7 @@ describe('Service', function() {
           'links': {
               'entities': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -177,7 +177,7 @@ describe('Service', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'services': [
               {
                   'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -201,14 +201,14 @@ describe('Service', function() {
               'next_page_url': null,
               'key': 'services'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.authy.v1.services.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'services': [
               {
                   'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -232,7 +232,7 @@ describe('Service', function() {
               'next_page_url': null,
               'key': 'services'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.authy.v1.services.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -244,7 +244,7 @@ describe('Service', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'services': [
               {
                   'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -268,14 +268,14 @@ describe('Service', function() {
               'next_page_url': null,
               'key': 'services'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.authy.v1.services.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services.list(opts);
@@ -298,7 +298,7 @@ describe('Service', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'services': [],
           'meta': {
               'page': 0,
@@ -309,7 +309,7 @@ describe('Service', function() {
               'next_page_url': null,
               'key': 'services'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -324,7 +324,7 @@ describe('Service', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'services': [
               {
                   'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -348,7 +348,7 @@ describe('Service', function() {
               'next_page_url': null,
               'key': 'services'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -363,7 +363,7 @@ describe('Service', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -387,7 +387,7 @@ describe('Service', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -398,7 +398,7 @@ describe('Service', function() {
           'links': {
               'entities': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

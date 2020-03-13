@@ -31,7 +31,7 @@ describe('Field', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('Field', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
@@ -66,7 +66,7 @@ describe('Field', function() {
           'date_created': '2015-07-30T20:00:00Z',
           'sid': 'UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'field_type': 'field_type'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -83,7 +83,7 @@ describe('Field', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fields': [
               {
                   'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -106,7 +106,7 @@ describe('Field', function() {
               'previous_page_url': null,
               'page_size': 50
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -115,7 +115,7 @@ describe('Field', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fields': [
               {
                   'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -138,7 +138,7 @@ describe('Field', function() {
               'previous_page_url': null,
               'page_size': 50
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -152,7 +152,7 @@ describe('Field', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fields': [
               {
                   'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -175,7 +175,7 @@ describe('Field', function() {
               'previous_page_url': null,
               'page_size': 50
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -184,7 +184,7 @@ describe('Field', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -208,7 +208,7 @@ describe('Field', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fields': [],
           'meta': {
               'page': 0,
@@ -219,7 +219,7 @@ describe('Field', function() {
               'previous_page_url': null,
               'page_size': 50
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -236,7 +236,7 @@ describe('Field', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fields': [
               {
                   'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -259,7 +259,7 @@ describe('Field', function() {
               'previous_page_url': null,
               'page_size': 50
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -276,7 +276,7 @@ describe('Field', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {fieldType: 'field_type', uniqueName: 'unique_name'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -303,7 +303,7 @@ describe('Field', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
@@ -313,7 +313,7 @@ describe('Field', function() {
           'date_created': '2015-07-30T20:00:00Z',
           'sid': 'UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'field_type': 'field_type'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -331,7 +331,7 @@ describe('Field', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -356,7 +356,7 @@ describe('Field', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

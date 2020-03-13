@@ -31,7 +31,7 @@ describe('Cps', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {xXcnamSensitivePhoneNumber: 'x_xcnam_sensitive_phone_number'};
       var promise = client.preview.trusted_comms.cps().fetch(opts);
@@ -54,11 +54,11 @@ describe('Cps', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'cps_url': 'https://preview.twilio.com/TrustedComms/CurrentCall',
           'phone_number': '+1500123',
           'url': 'https://preview.twilio.com/TrustedComms/CPS'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

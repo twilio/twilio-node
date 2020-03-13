@@ -31,7 +31,7 @@ describe('FaxMedia', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('FaxMedia', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'content_type': 'application/pdf',
           'date_created': '2015-07-30T20:00:00Z',
@@ -62,7 +62,7 @@ describe('FaxMedia', function() {
           'fax_sid': 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media/MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -78,7 +78,7 @@ describe('FaxMedia', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'media': [
               {
                   'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -99,7 +99,7 @@ describe('FaxMedia', function() {
               'previous_page_url': null,
               'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                    .media.each(() => done());
@@ -107,7 +107,7 @@ describe('FaxMedia', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'media': [
               {
                   'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -128,7 +128,7 @@ describe('FaxMedia', function() {
               'previous_page_url': null,
               'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                    .media.each({pageSize: 20}, () => done());
@@ -141,7 +141,7 @@ describe('FaxMedia', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'media': [
               {
                   'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -162,7 +162,7 @@ describe('FaxMedia', function() {
               'previous_page_url': null,
               'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                    .media.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -170,7 +170,7 @@ describe('FaxMedia', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media.list();
@@ -192,7 +192,7 @@ describe('FaxMedia', function() {
   );
   it('should generate valid read response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'media': [
               {
                   'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -213,7 +213,7 @@ describe('FaxMedia', function() {
               'previous_page_url': null,
               'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -229,7 +229,7 @@ describe('FaxMedia', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -252,7 +252,7 @@ describe('FaxMedia', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

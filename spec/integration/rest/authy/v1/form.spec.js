@@ -31,7 +31,7 @@ describe('Form', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.authy.v1.forms('form-app-push').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Form', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'form_type': 'form-sms',
           'forms': {
               'create_factor': {},
@@ -61,7 +61,7 @@ describe('Form', function() {
           },
           'form_meta': {},
           'url': 'https://authy.twilio.com/v1/Forms/form-sms'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

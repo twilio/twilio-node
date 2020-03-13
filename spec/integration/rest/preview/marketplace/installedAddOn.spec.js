@@ -33,7 +33,7 @@ describe('InstalledAddOn', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {availableAddOnSid: 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', acceptTermsOfService: true};
       var promise = client.preview.marketplace.installedAddOns.create(opts);
@@ -59,7 +59,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'VoiceBase High Accuracy Transcription',
@@ -75,7 +75,7 @@ describe('InstalledAddOn', function() {
               'extensions': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions',
               'available_add_on': 'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -91,7 +91,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -112,7 +112,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -127,7 +127,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -148,7 +148,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'VoiceBase High Accuracy Transcription',
@@ -164,7 +164,7 @@ describe('InstalledAddOn', function() {
               'extensions': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions',
               'available_add_on': 'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -179,7 +179,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -200,7 +200,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'VoiceBase High Accuracy Transcription',
@@ -216,7 +216,7 @@ describe('InstalledAddOn', function() {
               'extensions': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions',
               'available_add_on': 'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -231,7 +231,7 @@ describe('InstalledAddOn', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'installed_add_ons': [
               {
                   'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -260,14 +260,14 @@ describe('InstalledAddOn', function() {
               'next_page_url': null,
               'key': 'installed_add_ons'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.marketplace.installedAddOns.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'installed_add_ons': [
               {
                   'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -296,7 +296,7 @@ describe('InstalledAddOn', function() {
               'next_page_url': null,
               'key': 'installed_add_ons'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.marketplace.installedAddOns.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -308,7 +308,7 @@ describe('InstalledAddOn', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'installed_add_ons': [
               {
                   'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -337,14 +337,14 @@ describe('InstalledAddOn', function() {
               'next_page_url': null,
               'key': 'installed_add_ons'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.marketplace.installedAddOns.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.marketplace.installedAddOns.list();
       promise.then(function() {
@@ -364,7 +364,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'installed_add_ons': [
               {
                   'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -393,7 +393,7 @@ describe('InstalledAddOn', function() {
               'next_page_url': null,
               'key': 'installed_add_ons'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -408,7 +408,7 @@ describe('InstalledAddOn', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'installed_add_ons': [],
           'meta': {
               'page': 0,
@@ -419,7 +419,7 @@ describe('InstalledAddOn', function() {
               'next_page_url': null,
               'key': 'installed_add_ons'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

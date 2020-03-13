@@ -31,7 +31,7 @@ describe('Configuration', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.configuration().fetch();
       promise.then(function() {
@@ -51,7 +51,7 @@ describe('Configuration', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
           'date_updated': '2016-08-01T22:10:40Z',
@@ -170,7 +170,7 @@ describe('Configuration', function() {
               'ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
           ],
           'url': 'https://flex-api.twilio.com/v1/Configuration'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -185,7 +185,7 @@ describe('Configuration', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.configuration().create();
       promise.then(function() {
@@ -205,7 +205,7 @@ describe('Configuration', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
           'date_updated': '2016-08-01T22:10:40Z',
@@ -324,7 +324,7 @@ describe('Configuration', function() {
               'ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
           ],
           'url': 'https://flex-api.twilio.com/v1/Configuration'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -339,7 +339,7 @@ describe('Configuration', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.configuration().update();
       promise.then(function() {
@@ -359,7 +359,7 @@ describe('Configuration', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
           'date_updated': '2016-08-01T22:10:40Z',
@@ -478,7 +478,7 @@ describe('Configuration', function() {
               'ZSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
           ],
           'url': 'https://flex-api.twilio.com/v1/Configuration'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

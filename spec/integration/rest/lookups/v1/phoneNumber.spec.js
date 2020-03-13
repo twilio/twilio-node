@@ -31,7 +31,7 @@ describe('PhoneNumber', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'caller_name': null,
           'carrier': null,
           'fraud': null,
@@ -61,7 +61,7 @@ describe('PhoneNumber', function() {
           'national_format': '(510) 867-5310',
           'phone_number': '+15108675310',
           'url': 'https://lookups.twilio.com/v1/PhoneNumbers/+15108675310'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -76,7 +76,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch_carrier response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'caller_name': null,
           'carrier': {
               'error_code': null,
@@ -91,7 +91,7 @@ describe('PhoneNumber', function() {
           'fraud': null,
           'add_ons': null,
           'url': 'https://lookups.twilio.com/v1/PhoneNumbers/+15108675310?Type=carrier'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -106,7 +106,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch_carrier_international response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'caller_name': null,
           'carrier': {
               'error_code': null,
@@ -121,7 +121,7 @@ describe('PhoneNumber', function() {
           'fraud': null,
           'add_ons': null,
           'url': 'https://lookups.twilio.com/v1/PhoneNumbers/+4402077651182?Type=carrier'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -136,7 +136,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch_caller_name response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'caller_name': {
               'caller_name': 'Delicious Cheese Cake',
               'caller_type': 'CONSUMER',
@@ -149,7 +149,7 @@ describe('PhoneNumber', function() {
           'phone_number': '+15108675310',
           'add_ons': null,
           'url': 'https://lookups.twilio.com/v1/PhoneNumbers/+15108675310?Type=caller-name'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -164,7 +164,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch_carrier_and_caller_name response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'caller_name': {
               'caller_name': 'Delicious Cheese Cake',
               'caller_type': 'CONSUMER',
@@ -188,7 +188,7 @@ describe('PhoneNumber', function() {
               'results': {}
           },
           'url': 'https://lookups.twilio.com/v1/PhoneNumbers/+15108675310?Type=carrier&Type=caller-name'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -203,7 +203,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch_addons_whitepages_pro response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'caller_name': {
               'caller_name': 'EMPIRE STATE BUILDING',
               'caller_type': 'BUSINESS',
@@ -265,7 +265,7 @@ describe('PhoneNumber', function() {
               }
           },
           'url': 'https://lookups.twilio.com/v1/PhoneNumbers/+12127363100?Type=caller-name'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -280,7 +280,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch_addons_nomorobo response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'caller_name': null,
           'country_code': 'US',
           'phone_number': '+19892008374',
@@ -312,7 +312,7 @@ describe('PhoneNumber', function() {
               }
           },
           'url': 'https://lookups.twilio.com/v1/PhoneNumbers/+19892008374?Type=carrier'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -327,7 +327,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch_addons_payfone response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'caller_name': null,
           'country_code': 'US',
           'phone_number': '+16502530000',
@@ -364,7 +364,7 @@ describe('PhoneNumber', function() {
               }
           },
           'url': 'https://lookups.twilio.com/v1/PhoneNumbers/+16502530000?Type=carrier'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

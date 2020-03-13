@@ -31,7 +31,7 @@ describe('Dialogue', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .dialogues('UKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,13 +54,13 @@ describe('Dialogue', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UKkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
           'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Dialogues/UKkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
           'data': {}
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

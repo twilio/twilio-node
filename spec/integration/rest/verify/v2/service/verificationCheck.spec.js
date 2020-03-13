@@ -31,7 +31,7 @@ describe('VerificationCheck', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {code: 'code'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('VerificationCheck', function() {
   );
   it('should generate valid verification_checks response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -68,7 +68,7 @@ describe('VerificationCheck', function() {
           'payee': null,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -85,7 +85,7 @@ describe('VerificationCheck', function() {
   );
   it('should generate valid email_verification_checks response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -97,7 +97,7 @@ describe('VerificationCheck', function() {
           'payee': null,
           'date_created': '2020-01-30T20:00:00Z',
           'date_updated': '2020-01-30T20:00:00Z'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

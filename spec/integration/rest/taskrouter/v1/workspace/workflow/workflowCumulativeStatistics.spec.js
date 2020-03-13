@@ -31,7 +31,7 @@ describe('WorkflowCumulativeStatistics', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,7 +55,7 @@ describe('WorkflowCumulativeStatistics', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'avg_task_acceptance_time': 100,
           'tasks_canceled': 100,
           'start_time': '2015-07-30T20:00:00Z',
@@ -109,7 +109,7 @@ describe('WorkflowCumulativeStatistics', function() {
           'tasks_timed_out_in_workflow': 100,
           'tasks_completed': 100,
           'reservations_timed_out': 100
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

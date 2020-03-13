@@ -31,7 +31,7 @@ describe('Webhook', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.conversations.v1.webhooks().fetch();
       promise.then(function() {
@@ -51,7 +51,7 @@ describe('Webhook', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'pre_webhook_url': 'https://example.com/pre',
           'post_webhook_url': 'https://example.com/post',
@@ -62,7 +62,7 @@ describe('Webhook', function() {
           ],
           'target': 'webhook',
           'url': 'https://conversations.twilio.com/v1/Conversations/Webhooks'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -77,7 +77,7 @@ describe('Webhook', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.conversations.v1.webhooks().update();
       promise.then(function() {
@@ -97,7 +97,7 @@ describe('Webhook', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'pre_webhook_url': 'https://example.com/pre',
           'post_webhook_url': 'http://example.com/post',
@@ -107,7 +107,7 @@ describe('Webhook', function() {
           ],
           'target': 'webhook',
           'url': 'https://conversations.twilio.com/v1/Conversations/Webhooks'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

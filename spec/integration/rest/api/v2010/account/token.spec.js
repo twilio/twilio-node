@@ -31,7 +31,7 @@ describe('Token', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .tokens.create();
@@ -53,7 +53,7 @@ describe('Token', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Fri, 24 Jul 2015 18:43:58 +0000',
           'date_updated': 'Fri, 24 Jul 2015 18:43:58 +0000',
@@ -72,7 +72,7 @@ describe('Token', function() {
           'password': '5SR2x8mZK1lTFJW3NVgLGw6UM9C0dja4jI/Hdw3xr+w=',
           'ttl': '86400',
           'username': 'cda92e5006c7810494639fc466ecc80182cef8183fdf400f84c4126f3b59d0bb'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

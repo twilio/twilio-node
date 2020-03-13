@@ -31,7 +31,7 @@ describe('Fleet', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Fleet', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'friendly_name': 'friendly_name',
@@ -67,7 +67,7 @@ describe('Fleet', function() {
               'certificates': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates',
               'keys': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -82,7 +82,7 @@ describe('Fleet', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -103,7 +103,7 @@ describe('Fleet', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -118,7 +118,7 @@ describe('Fleet', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.deployed_devices.fleets.create();
       promise.then(function() {
@@ -138,7 +138,7 @@ describe('Fleet', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'friendly_name': 'friendly_name',
@@ -153,7 +153,7 @@ describe('Fleet', function() {
               'certificates': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates',
               'keys': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -168,7 +168,7 @@ describe('Fleet', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fleets': [
               {
                   'sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -196,14 +196,14 @@ describe('Fleet', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/DeployedDevices/Fleets?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.deployed_devices.fleets.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fleets': [
               {
                   'sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -231,7 +231,7 @@ describe('Fleet', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/DeployedDevices/Fleets?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.deployed_devices.fleets.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -243,7 +243,7 @@ describe('Fleet', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fleets': [
               {
                   'sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -271,14 +271,14 @@ describe('Fleet', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/DeployedDevices/Fleets?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.deployed_devices.fleets.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.deployed_devices.fleets.list();
       promise.then(function() {
@@ -298,7 +298,7 @@ describe('Fleet', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fleets': [],
           'meta': {
               'first_page_url': 'https://preview.twilio.com/DeployedDevices/Fleets?PageSize=50&Page=0',
@@ -309,7 +309,7 @@ describe('Fleet', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/DeployedDevices/Fleets?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -324,7 +324,7 @@ describe('Fleet', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fleets': [
               {
                   'sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -352,7 +352,7 @@ describe('Fleet', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/DeployedDevices/Fleets?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -367,7 +367,7 @@ describe('Fleet', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -388,7 +388,7 @@ describe('Fleet', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'friendly_name': 'friendly_name',
@@ -403,7 +403,7 @@ describe('Fleet', function() {
               'certificates': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificates',
               'keys': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

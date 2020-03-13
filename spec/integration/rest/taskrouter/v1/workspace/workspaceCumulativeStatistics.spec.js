@@ -31,7 +31,7 @@ describe('WorkspaceCumulativeStatistics', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .cumulativeStatistics().fetch();
@@ -53,7 +53,7 @@ describe('WorkspaceCumulativeStatistics', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'reservations_accepted': 100,
           'tasks_completed': 100,
           'start_time': '2015-07-30T20:00:00Z',
@@ -106,7 +106,7 @@ describe('WorkspaceCumulativeStatistics', function() {
           'reservations_rejected': 100,
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

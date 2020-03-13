@@ -31,7 +31,7 @@ describe('BrandedCall', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {from: 'from', to: 'to', reason: 'reason'};
       var promise = client.preview.trusted_comms.brandedCalls.create(opts);
@@ -54,7 +54,7 @@ describe('BrandedCall', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'bg_color': '#fff',
           'brand_sid': 'BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -73,7 +73,7 @@ describe('BrandedCall', function() {
           'to': '+573000000000',
           'use_case': 'conversational',
           'url': 'https://preview.twilio.com/TrustedComms/Business/BrandedCalls'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

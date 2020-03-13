@@ -33,7 +33,7 @@ describe('AuthCallsCredentialListMapping', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -63,13 +63,13 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
           'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
           'friendly_name': 'friendly_name',
           'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -90,7 +90,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Calls/CredentialListMappings.json?PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
@@ -108,7 +108,7 @@ describe('AuthCallsCredentialListMapping', function() {
           'start': 0,
           'next_page_uri': null,
           'page': 0
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
@@ -120,7 +120,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Calls/CredentialListMappings.json?PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
@@ -138,7 +138,7 @@ describe('AuthCallsCredentialListMapping', function() {
           'start': 0,
           'next_page_uri': null,
           'page': 0
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
@@ -155,7 +155,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Calls/CredentialListMappings.json?PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
@@ -173,7 +173,7 @@ describe('AuthCallsCredentialListMapping', function() {
           'start': 0,
           'next_page_uri': null,
           'page': 0
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
@@ -185,7 +185,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
@@ -212,7 +212,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Calls/CredentialListMappings.json?PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
@@ -222,7 +222,7 @@ describe('AuthCallsCredentialListMapping', function() {
           'start': 0,
           'next_page_uri': null,
           'page': 0
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -242,7 +242,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Calls/CredentialListMappings.json?PageSize=50&Page=0',
           'end': 0,
           'previous_page_uri': null,
@@ -260,7 +260,7 @@ describe('AuthCallsCredentialListMapping', function() {
           'start': 0,
           'next_page_uri': null,
           'page': 0
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -280,7 +280,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
@@ -308,13 +308,13 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
           'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
           'friendly_name': 'friendly_name',
           'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -334,7 +334,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
@@ -362,7 +362,7 @@ describe('AuthCallsCredentialListMapping', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

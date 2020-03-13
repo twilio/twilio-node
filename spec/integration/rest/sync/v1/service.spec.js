@@ -31,7 +31,7 @@ describe('Service', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Service', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -72,7 +72,7 @@ describe('Service', function() {
           'acl_enabled': false,
           'reachability_debouncing_enabled': false,
           'reachability_debouncing_window': 5000
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -87,7 +87,7 @@ describe('Service', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -108,7 +108,7 @@ describe('Service', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -123,7 +123,7 @@ describe('Service', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.sync.v1.services.create();
       promise.then(function() {
@@ -143,7 +143,7 @@ describe('Service', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -163,7 +163,7 @@ describe('Service', function() {
           'acl_enabled': true,
           'reachability_debouncing_enabled': false,
           'reachability_debouncing_window': 5000
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -178,7 +178,7 @@ describe('Service', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0',
               'key': 'services',
@@ -211,14 +211,14 @@ describe('Service', function() {
                   'reachability_debouncing_window': 5000
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.sync.v1.services.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0',
               'key': 'services',
@@ -251,7 +251,7 @@ describe('Service', function() {
                   'reachability_debouncing_window': 5000
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.sync.v1.services.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -263,7 +263,7 @@ describe('Service', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0',
               'key': 'services',
@@ -296,14 +296,14 @@ describe('Service', function() {
                   'reachability_debouncing_window': 5000
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.sync.v1.services.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.sync.v1.services.list();
       promise.then(function() {
@@ -323,7 +323,7 @@ describe('Service', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0',
               'key': 'services',
@@ -334,7 +334,7 @@ describe('Service', function() {
               'url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0'
           },
           'services': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -349,7 +349,7 @@ describe('Service', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0',
               'key': 'services',
@@ -382,7 +382,7 @@ describe('Service', function() {
                   'reachability_debouncing_window': 5000
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -397,7 +397,7 @@ describe('Service', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -418,7 +418,7 @@ describe('Service', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -438,7 +438,7 @@ describe('Service', function() {
           'acl_enabled': true,
           'reachability_debouncing_enabled': false,
           'reachability_debouncing_window': 5000
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

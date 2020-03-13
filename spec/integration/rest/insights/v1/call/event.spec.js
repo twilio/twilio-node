@@ -31,7 +31,7 @@ describe('Event', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -87,7 +87,7 @@ describe('Event', function() {
                   'sip_edge': null
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.insights.v1.calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .events.each(() => done());
@@ -95,7 +95,7 @@ describe('Event', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -151,7 +151,7 @@ describe('Event', function() {
                   'sip_edge': null
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.insights.v1.calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .events.each({pageSize: 20}, () => done());
@@ -164,7 +164,7 @@ describe('Event', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -220,7 +220,7 @@ describe('Event', function() {
                   'sip_edge': null
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.insights.v1.calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .events.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -228,7 +228,7 @@ describe('Event', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.insights.v1.calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .events.list();
@@ -250,7 +250,7 @@ describe('Event', function() {
   );
   it('should generate valid read response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -306,7 +306,7 @@ describe('Event', function() {
                   'sip_edge': null
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -322,7 +322,7 @@ describe('Event', function() {
   );
   it('should generate valid read_deep response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 10,
               'page_size': 5,
@@ -378,7 +378,7 @@ describe('Event', function() {
                   'sip_edge': null
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

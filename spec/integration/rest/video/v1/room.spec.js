@@ -31,7 +31,7 @@ describe('Room', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Room', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -76,7 +76,7 @@ describe('Room', function() {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
               'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -91,7 +91,7 @@ describe('Room', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.rooms.create();
       promise.then(function() {
@@ -111,7 +111,7 @@ describe('Room', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -135,7 +135,7 @@ describe('Room', function() {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
               'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -150,7 +150,7 @@ describe('Room', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'rooms': [
               {
                   'sid': 'RM4070b618362c1682b2385b1f9982833c',
@@ -187,14 +187,14 @@ describe('Room', function() {
               'next_page_url': null,
               'key': 'rooms'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.rooms.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'rooms': [
               {
                   'sid': 'RM4070b618362c1682b2385b1f9982833c',
@@ -231,7 +231,7 @@ describe('Room', function() {
               'next_page_url': null,
               'key': 'rooms'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.rooms.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -243,7 +243,7 @@ describe('Room', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'rooms': [
               {
                   'sid': 'RM4070b618362c1682b2385b1f9982833c',
@@ -280,14 +280,14 @@ describe('Room', function() {
               'next_page_url': null,
               'key': 'rooms'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.rooms.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.rooms.list();
       promise.then(function() {
@@ -307,7 +307,7 @@ describe('Room', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'rooms': [],
           'meta': {
               'page': 0,
@@ -318,7 +318,7 @@ describe('Room', function() {
               'next_page_url': null,
               'key': 'rooms'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -333,7 +333,7 @@ describe('Room', function() {
   );
   it('should generate valid read_with_status response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'rooms': [
               {
                   'sid': 'RM4070b618362c1682b2385b1f9982833c',
@@ -370,7 +370,7 @@ describe('Room', function() {
               'next_page_url': null,
               'key': 'rooms'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -385,7 +385,7 @@ describe('Room', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {status: 'in-progress'};
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -409,7 +409,7 @@ describe('Room', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -433,7 +433,7 @@ describe('Room', function() {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
               'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

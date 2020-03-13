@@ -31,7 +31,7 @@ describe('Composition', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.compositions('CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Composition', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'completed',
           'date_created': '2015-07-30T20:00:00Z',
@@ -113,7 +113,7 @@ describe('Composition', function() {
           'links': {
               'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -128,7 +128,7 @@ describe('Composition', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'compositions': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -198,14 +198,14 @@ describe('Composition', function() {
               'next_page_url': null,
               'key': 'compositions'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.compositions.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'compositions': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -275,7 +275,7 @@ describe('Composition', function() {
               'next_page_url': null,
               'key': 'compositions'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.compositions.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -287,7 +287,7 @@ describe('Composition', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'compositions': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -357,14 +357,14 @@ describe('Composition', function() {
               'next_page_url': null,
               'key': 'compositions'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.compositions.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.compositions.list();
       promise.then(function() {
@@ -384,7 +384,7 @@ describe('Composition', function() {
   );
   it('should generate valid read_enqueued response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'compositions': [],
           'meta': {
               'page': 0,
@@ -395,7 +395,7 @@ describe('Composition', function() {
               'next_page_url': null,
               'key': 'compositions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -410,7 +410,7 @@ describe('Composition', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'compositions': [],
           'meta': {
               'page': 0,
@@ -421,7 +421,7 @@ describe('Composition', function() {
               'next_page_url': null,
               'key': 'compositions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -436,7 +436,7 @@ describe('Composition', function() {
   );
   it('should generate valid read_results response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'compositions': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -506,7 +506,7 @@ describe('Composition', function() {
               'next_page_url': null,
               'key': 'compositions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -521,7 +521,7 @@ describe('Composition', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.compositions('CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -542,7 +542,7 @@ describe('Composition', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -557,7 +557,7 @@ describe('Composition', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.video.v1.compositions.create(opts);
@@ -580,7 +580,7 @@ describe('Composition', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'processing',
           'date_created': '2015-07-30T20:00:00Z',
@@ -629,7 +629,7 @@ describe('Composition', function() {
           'links': {
               'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

@@ -31,7 +31,7 @@ describe('Balance', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .balance.fetch();
@@ -53,11 +53,11 @@ describe('Balance', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'balance': '0.05',
           'currency': 'USD'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

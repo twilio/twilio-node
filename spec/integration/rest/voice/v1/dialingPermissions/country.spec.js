@@ -31,7 +31,7 @@ describe('Country', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.voice.v1.dialingPermissions
                                    .countries('US').fetch();
@@ -53,7 +53,7 @@ describe('Country', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'iso_code': 'US',
           'name': 'United States/Canada',
           'country_codes': [
@@ -67,7 +67,7 @@ describe('Country', function() {
           'links': {
               'highrisk_special_prefixes': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -83,7 +83,7 @@ describe('Country', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'content': [
               {
                   'iso_code': 'US',
@@ -110,7 +110,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.voice.v1.dialingPermissions
                      .countries.each(() => done());
@@ -118,7 +118,7 @@ describe('Country', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'content': [
               {
                   'iso_code': 'US',
@@ -145,7 +145,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.voice.v1.dialingPermissions
                      .countries.each({pageSize: 20}, () => done());
@@ -158,7 +158,7 @@ describe('Country', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'content': [
               {
                   'iso_code': 'US',
@@ -185,7 +185,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.voice.v1.dialingPermissions
                      .countries.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -193,7 +193,7 @@ describe('Country', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.voice.v1.dialingPermissions
                                    .countries.list();
@@ -214,7 +214,7 @@ describe('Country', function() {
   );
   it('should generate valid read_us response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'content': [
               {
                   'iso_code': 'US',
@@ -241,7 +241,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

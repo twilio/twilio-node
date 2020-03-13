@@ -33,7 +33,7 @@ describe('FlowValidate', function() {
   });
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name', status: 'draft', definition: {}};
       var promise = client.studio.v2.flowValid.update(opts);
@@ -56,9 +56,9 @@ describe('FlowValidate', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'valid': true
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

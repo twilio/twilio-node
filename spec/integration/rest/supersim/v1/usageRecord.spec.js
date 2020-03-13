@@ -31,7 +31,7 @@ describe('UsageRecord', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'period': {
@@ -54,14 +54,14 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.usageRecords.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'period': {
@@ -84,7 +84,7 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.usageRecords.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -96,7 +96,7 @@ describe('UsageRecord', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'period': {
@@ -119,14 +119,14 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.usageRecords.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.supersim.v1.usageRecords.list();
       promise.then(function() {
@@ -146,7 +146,7 @@ describe('UsageRecord', function() {
   );
   it('should generate valid read_all response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'period': {
@@ -169,7 +169,7 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -184,7 +184,7 @@ describe('UsageRecord', function() {
   );
   it('should generate valid read_all_day response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'period': {
@@ -218,7 +218,7 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/UsageRecords?Granularity=day&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -233,7 +233,7 @@ describe('UsageRecord', function() {
   );
   it('should generate valid read_all_hour response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'period': {
@@ -267,7 +267,7 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/UsageRecords?Granularity=hour&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -282,7 +282,7 @@ describe('UsageRecord', function() {
   );
   it('should generate valid read_day_sim_filter response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'period': {
@@ -316,7 +316,7 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/UsageRecords?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

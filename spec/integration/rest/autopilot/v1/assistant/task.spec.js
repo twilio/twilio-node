@@ -31,7 +31,7 @@ describe('Task', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('Task', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'unique_name': 'unique_name',
           'links': {
               'fields': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields',
@@ -70,7 +70,7 @@ describe('Task', function() {
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'actions_url': 'https://example.com/actions_url'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -86,7 +86,7 @@ describe('Task', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'tasks',
               'page_size': 50,
@@ -115,7 +115,7 @@ describe('Task', function() {
                   'actions_url': 'https://example.com/actions_url'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .tasks.each(() => done());
@@ -123,7 +123,7 @@ describe('Task', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'tasks',
               'page_size': 50,
@@ -152,7 +152,7 @@ describe('Task', function() {
                   'actions_url': 'https://example.com/actions_url'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .tasks.each({pageSize: 20}, () => done());
@@ -165,7 +165,7 @@ describe('Task', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'tasks',
               'page_size': 50,
@@ -194,7 +194,7 @@ describe('Task', function() {
                   'actions_url': 'https://example.com/actions_url'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .tasks.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -202,7 +202,7 @@ describe('Task', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks.list();
@@ -224,7 +224,7 @@ describe('Task', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'tasks',
               'page_size': 50,
@@ -235,7 +235,7 @@ describe('Task', function() {
               'previous_page_url': null
           },
           'tasks': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -251,7 +251,7 @@ describe('Task', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'tasks',
               'page_size': 50,
@@ -280,7 +280,7 @@ describe('Task', function() {
                   'actions_url': 'https://example.com/actions_url'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -296,7 +296,7 @@ describe('Task', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {uniqueName: 'unique_name'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -321,7 +321,7 @@ describe('Task', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'unique_name': 'unique_name',
           'links': {
               'fields': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields',
@@ -337,7 +337,7 @@ describe('Task', function() {
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'actions_url': 'https://example.com/actions_url'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -354,7 +354,7 @@ describe('Task', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -377,7 +377,7 @@ describe('Task', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'unique_name': 'unique_name',
           'links': {
               'fields': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields',
@@ -393,7 +393,7 @@ describe('Task', function() {
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'actions_url': 'https://example.com/actions_url'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -409,7 +409,7 @@ describe('Task', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -432,7 +432,7 @@ describe('Task', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

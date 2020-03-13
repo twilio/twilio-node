@@ -31,7 +31,7 @@ describe('TaskActions', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,13 +55,13 @@ describe('TaskActions', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_sid': 'UDdddddddddddddddddddddddddddddddd',
           'data': {},
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDdddddddddddddddddddddddddddddddd/Actions'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -78,7 +78,7 @@ describe('TaskActions', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -102,13 +102,13 @@ describe('TaskActions', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_sid': 'UDdddddddddddddddddddddddddddddddd',
           'data': {},
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDdddddddddddddddddddddddddddddddd/Actions'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

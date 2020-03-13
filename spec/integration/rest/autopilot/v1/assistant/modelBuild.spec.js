@@ -31,7 +31,7 @@ describe('ModelBuild', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -65,7 +65,7 @@ describe('ModelBuild', function() {
           'unique_name': 'unique_name',
           'build_duration': null,
           'error_code': null
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -81,7 +81,7 @@ describe('ModelBuild', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'key': 'model_builds',
@@ -105,7 +105,7 @@ describe('ModelBuild', function() {
                   'error_code': 23001
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .modelBuilds.each(() => done());
@@ -113,7 +113,7 @@ describe('ModelBuild', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'key': 'model_builds',
@@ -137,7 +137,7 @@ describe('ModelBuild', function() {
                   'error_code': 23001
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .modelBuilds.each({pageSize: 20}, () => done());
@@ -150,7 +150,7 @@ describe('ModelBuild', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'key': 'model_builds',
@@ -174,7 +174,7 @@ describe('ModelBuild', function() {
                   'error_code': 23001
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .modelBuilds.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -182,7 +182,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .modelBuilds.list();
@@ -204,7 +204,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'key': 'model_builds',
@@ -215,7 +215,7 @@ describe('ModelBuild', function() {
               'page_size': 50
           },
           'model_builds': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -231,7 +231,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'key': 'model_builds',
@@ -255,7 +255,7 @@ describe('ModelBuild', function() {
                   'error_code': 23001
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -271,7 +271,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .modelBuilds.create();
@@ -293,7 +293,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -304,7 +304,7 @@ describe('ModelBuild', function() {
           'unique_name': 'unique_name',
           'build_duration': null,
           'error_code': null
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -320,7 +320,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -343,7 +343,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -354,7 +354,7 @@ describe('ModelBuild', function() {
           'unique_name': 'unique_name',
           'build_duration': 100,
           'error_code': null
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -370,7 +370,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -393,7 +393,7 @@ describe('ModelBuild', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

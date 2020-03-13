@@ -31,7 +31,7 @@ describe('SupportingDocumentType', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'supporting_document_types': [
               {
                   'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -56,7 +56,7 @@ describe('SupportingDocumentType', function() {
               'next_page_url': null,
               'key': 'supporting_document_types'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .supportingDocumentTypes.each(() => done());
@@ -64,7 +64,7 @@ describe('SupportingDocumentType', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'supporting_document_types': [
               {
                   'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -89,7 +89,7 @@ describe('SupportingDocumentType', function() {
               'next_page_url': null,
               'key': 'supporting_document_types'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .supportingDocumentTypes.each({pageSize: 20}, () => done());
@@ -102,7 +102,7 @@ describe('SupportingDocumentType', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'supporting_document_types': [
               {
                   'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -127,7 +127,7 @@ describe('SupportingDocumentType', function() {
               'next_page_url': null,
               'key': 'supporting_document_types'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .supportingDocumentTypes.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -135,7 +135,7 @@ describe('SupportingDocumentType', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .supportingDocumentTypes.list();
@@ -156,7 +156,7 @@ describe('SupportingDocumentType', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'supporting_document_types': [],
           'meta': {
               'page': 0,
@@ -167,7 +167,7 @@ describe('SupportingDocumentType', function() {
               'next_page_url': null,
               'key': 'supporting_document_types'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -183,7 +183,7 @@ describe('SupportingDocumentType', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'supporting_document_types': [
               {
                   'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -208,7 +208,7 @@ describe('SupportingDocumentType', function() {
               'next_page_url': null,
               'key': 'supporting_document_types'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -224,7 +224,7 @@ describe('SupportingDocumentType', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .supportingDocumentTypes('OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -246,7 +246,7 @@ describe('SupportingDocumentType', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'Passport',
           'machine_name': 'passport',
@@ -258,7 +258,7 @@ describe('SupportingDocumentType', function() {
               }
           ],
           'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocumentTypes/OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

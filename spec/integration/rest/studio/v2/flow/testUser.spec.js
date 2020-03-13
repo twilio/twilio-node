@@ -33,7 +33,7 @@ describe('FlowTestUser', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .testUsers().fetch();
@@ -55,14 +55,14 @@ describe('FlowTestUser', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'test_users': [
               'user1',
               'user2'
           ],
           'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TestUsers'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -78,7 +78,7 @@ describe('FlowTestUser', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {testUsers: ['test_users']};
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -103,14 +103,14 @@ describe('FlowTestUser', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'test_users': [
               'user1',
               'user2'
           ],
           'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TestUsers'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

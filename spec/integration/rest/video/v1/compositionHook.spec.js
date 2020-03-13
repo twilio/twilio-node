@@ -31,7 +31,7 @@ describe('CompositionHook', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'My composition hook',
           'enabled': true,
@@ -105,7 +105,7 @@ describe('CompositionHook', function() {
           'status_callback': 'http://www.example.com',
           'status_callback_method': 'POST',
           'url': 'https://video.twilio.com/v1/CompositionHooks/HKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -120,7 +120,7 @@ describe('CompositionHook', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'composition_hooks': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -184,14 +184,14 @@ describe('CompositionHook', function() {
               'next_page_url': null,
               'key': 'composition_hooks'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.compositionHooks.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'composition_hooks': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -255,7 +255,7 @@ describe('CompositionHook', function() {
               'next_page_url': null,
               'key': 'composition_hooks'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.compositionHooks.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -267,7 +267,7 @@ describe('CompositionHook', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'composition_hooks': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -331,14 +331,14 @@ describe('CompositionHook', function() {
               'next_page_url': null,
               'key': 'composition_hooks'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.compositionHooks.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.compositionHooks.list();
       promise.then(function() {
@@ -358,7 +358,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'composition_hooks': [],
           'meta': {
               'page': 0,
@@ -369,7 +369,7 @@ describe('CompositionHook', function() {
               'next_page_url': null,
               'key': 'composition_hooks'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -384,7 +384,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid read_results response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'composition_hooks': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -448,7 +448,7 @@ describe('CompositionHook', function() {
               'next_page_url': null,
               'key': 'composition_hooks'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -463,7 +463,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -484,7 +484,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -499,7 +499,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.compositionHooks.create(opts);
@@ -522,7 +522,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'friendly_name': 'My composition hook',
           'enabled': false,
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -564,7 +564,7 @@ describe('CompositionHook', function() {
           'status_callback': 'http://www.example.com',
           'status_callback_method': 'POST',
           'url': 'https://video.twilio.com/v1/CompositionHooks/HKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -580,7 +580,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -604,7 +604,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid update_all_fields response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'friendly_name': 'My composition hook',
           'enabled': true,
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -646,7 +646,7 @@ describe('CompositionHook', function() {
           'status_callback': 'http://www.example.com',
           'status_callback_method': 'POST',
           'url': 'https://video.twilio.com/v1/CompositionHooks/HKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -662,7 +662,7 @@ describe('CompositionHook', function() {
   );
   it('should generate valid update_with_defaults response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'friendly_name': 'My composition hook',
           'enabled': true,
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -683,7 +683,7 @@ describe('CompositionHook', function() {
           'status_callback': null,
           'status_callback_method': 'POST',
           'url': 'https://video.twilio.com/v1/CompositionHooks/HKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

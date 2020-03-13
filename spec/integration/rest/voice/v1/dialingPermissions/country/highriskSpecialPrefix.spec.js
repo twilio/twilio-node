@@ -31,7 +31,7 @@ describe('HighriskSpecialPrefix', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'content': [
               {
                   'prefix': '+37181'
@@ -49,7 +49,7 @@ describe('HighriskSpecialPrefix', function() {
               'previous_page_url': null,
               'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.voice.v1.dialingPermissions
                      .countries('US')
@@ -58,7 +58,7 @@ describe('HighriskSpecialPrefix', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'content': [
               {
                   'prefix': '+37181'
@@ -76,7 +76,7 @@ describe('HighriskSpecialPrefix', function() {
               'previous_page_url': null,
               'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.voice.v1.dialingPermissions
                      .countries('US')
@@ -90,7 +90,7 @@ describe('HighriskSpecialPrefix', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'content': [
               {
                   'prefix': '+37181'
@@ -108,7 +108,7 @@ describe('HighriskSpecialPrefix', function() {
               'previous_page_url': null,
               'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.voice.v1.dialingPermissions
                      .countries('US')
@@ -117,7 +117,7 @@ describe('HighriskSpecialPrefix', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.voice.v1.dialingPermissions
                                    .countries('US')
@@ -140,7 +140,7 @@ describe('HighriskSpecialPrefix', function() {
   );
   it('should generate valid read_lv response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'content': [
               {
                   'prefix': '+37181'
@@ -158,7 +158,7 @@ describe('HighriskSpecialPrefix', function() {
               'previous_page_url': null,
               'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

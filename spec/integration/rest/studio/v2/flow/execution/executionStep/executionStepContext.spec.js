@@ -31,7 +31,7 @@ describe('ExecutionStepContext', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .executions('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -57,7 +57,7 @@ describe('ExecutionStepContext', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'context': {
               'foo': 'bar'
@@ -66,7 +66,7 @@ describe('ExecutionStepContext', function() {
           'execution_sid': 'FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'step_sid': 'FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps/FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

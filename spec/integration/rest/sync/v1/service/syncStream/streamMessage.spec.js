@@ -33,7 +33,7 @@ describe('StreamMessage', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {data: {}};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -60,10 +60,10 @@ describe('StreamMessage', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'TZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'data': {}
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

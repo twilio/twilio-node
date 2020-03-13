@@ -31,7 +31,7 @@ describe('SubscribeRules', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,7 +55,7 @@ describe('SubscribeRules', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'participant_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': null,
@@ -70,7 +70,7 @@ describe('SubscribeRules', function() {
                   'priority': null
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -87,7 +87,7 @@ describe('SubscribeRules', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -111,7 +111,7 @@ describe('SubscribeRules', function() {
   );
   it('should generate valid update_filters response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'participant_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': null,
@@ -126,7 +126,7 @@ describe('SubscribeRules', function() {
                   'priority': null
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

@@ -31,7 +31,7 @@ describe('Event', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .events('EVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('Event', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'actor_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'actor_type': 'workspace',
@@ -82,7 +82,7 @@ describe('Event', function() {
           'source_ip_address': '1.2.3.4',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events/EVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -98,7 +98,7 @@ describe('Event', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -139,7 +139,7 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events?TaskQueueSid=WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-03T00%3A00%3A00Z&WorkerSid=WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EventType=reservation.created&TaskSid=WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&WorkflowSid=WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&ReservationSid=WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .events.each(() => done());
@@ -147,7 +147,7 @@ describe('Event', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -188,7 +188,7 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events?TaskQueueSid=WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-03T00%3A00%3A00Z&WorkerSid=WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EventType=reservation.created&TaskSid=WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&WorkflowSid=WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&ReservationSid=WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .events.each({pageSize: 20}, () => done());
@@ -201,7 +201,7 @@ describe('Event', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -242,7 +242,7 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events?TaskQueueSid=WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-03T00%3A00%3A00Z&WorkerSid=WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EventType=reservation.created&TaskSid=WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&WorkflowSid=WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&ReservationSid=WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .events.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -250,7 +250,7 @@ describe('Event', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .events.list();
@@ -272,7 +272,7 @@ describe('Event', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -313,7 +313,7 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events?TaskQueueSid=WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-03T00%3A00%3A00Z&WorkerSid=WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EventType=reservation.created&TaskSid=WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&WorkflowSid=WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&ReservationSid=WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -329,7 +329,7 @@ describe('Event', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [],
           'meta': {
               'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events?TaskQueueSid=WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-03T00%3A00%3A00Z&WorkerSid=WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EventType=reservation.created&TaskSid=WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&WorkflowSid=WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&ReservationSid=WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
@@ -340,7 +340,7 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Events?TaskQueueSid=WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-03T00%3A00%3A00Z&WorkerSid=WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EventType=reservation.created&TaskSid=WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&WorkflowSid=WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&ReservationSid=WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

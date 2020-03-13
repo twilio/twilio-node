@@ -31,7 +31,7 @@ describe('Country', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [
               {
                   'country': 'country',
@@ -48,7 +48,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.pricing.v1.messaging
                        .countries.each(() => done());
@@ -56,7 +56,7 @@ describe('Country', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [
               {
                   'country': 'country',
@@ -73,7 +73,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.pricing.v1.messaging
                        .countries.each({pageSize: 20}, () => done());
@@ -86,7 +86,7 @@ describe('Country', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [
               {
                   'country': 'country',
@@ -103,7 +103,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.pricing.v1.messaging
                        .countries.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -111,7 +111,7 @@ describe('Country', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.pricing.v1.messaging
                                      .countries.list();
@@ -132,7 +132,7 @@ describe('Country', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [],
           'meta': {
               'first_page_url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0',
@@ -143,7 +143,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -159,7 +159,7 @@ describe('Country', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [
               {
                   'country': 'country',
@@ -176,7 +176,7 @@ describe('Country', function() {
               'previous_page_url': null,
               'url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -192,7 +192,7 @@ describe('Country', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.pricing.v1.messaging
                                      .countries('US').fetch();
@@ -214,7 +214,7 @@ describe('Country', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'country': 'country',
           'inbound_sms_prices': [
               {
@@ -240,7 +240,7 @@ describe('Country', function() {
           ],
           'price_unit': 'USD',
           'url': 'https://pricing.twilio.com/v1/Messaging/Countries/US'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

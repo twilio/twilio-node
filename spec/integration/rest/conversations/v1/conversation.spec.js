@@ -31,7 +31,7 @@ describe('Conversation', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations.create(opts);
@@ -54,7 +54,7 @@ describe('Conversation', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'chat_service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -69,7 +69,7 @@ describe('Conversation', function() {
               'messages': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
               'webhooks': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -84,7 +84,7 @@ describe('Conversation', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -108,7 +108,7 @@ describe('Conversation', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'chat_service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -123,7 +123,7 @@ describe('Conversation', function() {
               'messages': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
               'webhooks': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -138,7 +138,7 @@ describe('Conversation', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
@@ -162,7 +162,7 @@ describe('Conversation', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -177,7 +177,7 @@ describe('Conversation', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -198,7 +198,7 @@ describe('Conversation', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'chat_service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -213,7 +213,7 @@ describe('Conversation', function() {
               'messages': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
               'webhooks': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -228,7 +228,7 @@ describe('Conversation', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'conversations': [
               {
                   'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -256,14 +256,14 @@ describe('Conversation', function() {
               'next_page_url': null,
               'key': 'conversations'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.conversations.v1.conversations.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'conversations': [
               {
                   'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -291,7 +291,7 @@ describe('Conversation', function() {
               'next_page_url': null,
               'key': 'conversations'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.conversations.v1.conversations.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -303,7 +303,7 @@ describe('Conversation', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'conversations': [
               {
                   'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -331,14 +331,14 @@ describe('Conversation', function() {
               'next_page_url': null,
               'key': 'conversations'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.conversations.v1.conversations.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.conversations.v1.conversations.list();
       promise.then(function() {
@@ -358,7 +358,7 @@ describe('Conversation', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'conversations': [
               {
                   'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -386,7 +386,7 @@ describe('Conversation', function() {
               'next_page_url': null,
               'key': 'conversations'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

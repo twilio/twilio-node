@@ -31,7 +31,7 @@ describe('Command', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.wireless.commands('DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Command', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'command',
           'command_mode': 'command_mode',
@@ -64,7 +64,7 @@ describe('Command', function() {
           'sid': 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'status',
           'url': 'https://preview.twilio.com/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -79,7 +79,7 @@ describe('Command', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -104,14 +104,14 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/wireless/Commands?Device=device&Status=status&Direction=direction&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.wireless.commands.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -136,7 +136,7 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/wireless/Commands?Device=device&Status=status&Direction=direction&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.wireless.commands.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -148,7 +148,7 @@ describe('Command', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -173,14 +173,14 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/wireless/Commands?Device=device&Status=status&Direction=direction&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.wireless.commands.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.wireless.commands.list();
       promise.then(function() {
@@ -200,7 +200,7 @@ describe('Command', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [],
           'meta': {
               'first_page_url': 'https://preview.twilio.com/wireless/Commands?Device=device&Status=status&Direction=direction&Sim=sim&PageSize=50&Page=0',
@@ -211,7 +211,7 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/wireless/Commands?Device=device&Status=status&Direction=direction&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -226,7 +226,7 @@ describe('Command', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -251,7 +251,7 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/wireless/Commands?Device=device&Status=status&Direction=direction&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -266,7 +266,7 @@ describe('Command', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {command: 'command'};
       var promise = client.preview.wireless.commands.create(opts);
@@ -289,7 +289,7 @@ describe('Command', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'command',
           'command_mode': 'command_mode',
@@ -301,7 +301,7 @@ describe('Command', function() {
           'sid': 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'status',
           'url': 'https://preview.twilio.com/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

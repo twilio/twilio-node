@@ -31,7 +31,7 @@ describe('Settings', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.voice.v1.dialingPermissions
                                    .settings().fetch();
@@ -52,10 +52,10 @@ describe('Settings', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'dialing_permissions_inheritance': true,
           'url': 'https://voice.twilio.com/v1/Settings'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -71,7 +71,7 @@ describe('Settings', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.voice.v1.dialingPermissions
                                    .settings().update();
@@ -92,10 +92,10 @@ describe('Settings', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'dialing_permissions_inheritance': true,
           'url': 'https://voice.twilio.com/v1/Settings'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

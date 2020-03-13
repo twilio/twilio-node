@@ -31,7 +31,7 @@ describe('ExportConfiguration', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exportConfiguration('resource_type').fetch();
       promise.then(function() {
@@ -52,13 +52,13 @@ describe('ExportConfiguration', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://preview.twilio.com/BulkExports/Exports/Calls/Configuration',
           'enabled': true,
           'webhook_url': '',
           'webhook_method': '',
           'resource_type': 'Calls'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -73,7 +73,7 @@ describe('ExportConfiguration', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exportConfiguration('resource_type').update();
       promise.then(function() {
@@ -94,13 +94,13 @@ describe('ExportConfiguration', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://preview.twilio.com/BulkExports/Exports/Calls/Configuration',
           'enabled': true,
           'webhook_url': '',
           'resource_type': 'Calls',
           'webhook_method': ''
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

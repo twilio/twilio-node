@@ -31,7 +31,7 @@ describe('CurrentCall', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {
         xXcnamSensitivePhoneNumberFrom: 'x_xcnam_sensitive_phone_number_from',
@@ -60,7 +60,7 @@ describe('CurrentCall', function() {
   );
   it('should generate valid read_found response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'bg_color': '#fff',
           'caller': 'Owl Bank',
           'created_at': '2019-05-01T20:00:00Z',
@@ -75,7 +75,7 @@ describe('CurrentCall', function() {
           'to': '+1500456',
           'url': 'https://preview.twilio.com/TrustedComms/CurrentCall',
           'use_case': 'conversational'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

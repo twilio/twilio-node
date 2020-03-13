@@ -31,7 +31,7 @@ describe('Assistant', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Assistant', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2017-07-04T08:34:00Z',
           'date_updated': '2017-07-04T08:34:00Z',
@@ -74,7 +74,7 @@ describe('Assistant', function() {
           'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'callback_url': 'https://example.com/callback_url',
           'callback_events': 'model_build_completed model_build_failed'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -89,7 +89,7 @@ describe('Assistant', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'assistants': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -124,14 +124,14 @@ describe('Assistant', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'assistants': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -166,7 +166,7 @@ describe('Assistant', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -178,7 +178,7 @@ describe('Assistant', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'assistants': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -213,14 +213,14 @@ describe('Assistant', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants.list();
       promise.then(function() {
@@ -240,7 +240,7 @@ describe('Assistant', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'assistants': [],
           'meta': {
               'first_page_url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0',
@@ -251,7 +251,7 @@ describe('Assistant', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -266,7 +266,7 @@ describe('Assistant', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'assistants': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -301,7 +301,7 @@ describe('Assistant', function() {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -316,7 +316,7 @@ describe('Assistant', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants.create();
       promise.then(function() {
@@ -336,7 +336,7 @@ describe('Assistant', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2017-07-04T08:34:00Z',
           'date_updated': '2017-07-04T08:34:00Z',
@@ -358,7 +358,7 @@ describe('Assistant', function() {
           'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'callback_url': 'https://example.com/callback_url',
           'callback_events': 'model_build_completed model_build_failed'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -373,7 +373,7 @@ describe('Assistant', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -394,7 +394,7 @@ describe('Assistant', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2017-07-04T08:34:00Z',
           'date_updated': '2017-07-04T08:34:00Z',
@@ -416,7 +416,7 @@ describe('Assistant', function() {
           'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'callback_url': 'https://example.com/callback_url',
           'callback_events': 'model_build_completed model_build_failed'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -431,7 +431,7 @@ describe('Assistant', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -452,7 +452,7 @@ describe('Assistant', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

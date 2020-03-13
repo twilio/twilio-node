@@ -31,7 +31,7 @@ describe('Application', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .applications.create();
@@ -53,7 +53,7 @@ describe('Application', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'date_created': 'Mon, 22 Aug 2011 20:59:45 +0000',
@@ -74,7 +74,7 @@ describe('Application', function() {
           'voice_fallback_url': 'http://www.example.com/voice-callback',
           'voice_method': 'GET',
           'voice_url': 'http://example.com'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -90,7 +90,7 @@ describe('Application', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .applications('APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -113,7 +113,7 @@ describe('Application', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -129,7 +129,7 @@ describe('Application', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .applications('APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -152,7 +152,7 @@ describe('Application', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'date_created': 'Mon, 22 Aug 2011 20:59:45 +0000',
@@ -173,7 +173,7 @@ describe('Application', function() {
           'voice_fallback_url': 'http://www.example.com/voice-callback',
           'voice_method': 'GET',
           'voice_url': 'http://example.com'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -189,7 +189,7 @@ describe('Application', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'applications': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -222,7 +222,7 @@ describe('Application', function() {
           'page': 0,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .applications.each(() => done());
@@ -230,7 +230,7 @@ describe('Application', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'applications': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -263,7 +263,7 @@ describe('Application', function() {
           'page': 0,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .applications.each({pageSize: 20}, () => done());
@@ -276,7 +276,7 @@ describe('Application', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'applications': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -309,7 +309,7 @@ describe('Application', function() {
           'page': 0,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .applications.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -317,7 +317,7 @@ describe('Application', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .applications.list();
@@ -339,7 +339,7 @@ describe('Application', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'applications': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -372,7 +372,7 @@ describe('Application', function() {
           'page': 0,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -388,7 +388,7 @@ describe('Application', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'applications': [],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0',
@@ -398,7 +398,7 @@ describe('Application', function() {
           'next_page_uri': null,
           'page': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -414,7 +414,7 @@ describe('Application', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .applications('APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -437,7 +437,7 @@ describe('Application', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'date_created': 'Mon, 22 Aug 2011 20:59:45 +0000',
@@ -458,7 +458,7 @@ describe('Application', function() {
           'voice_fallback_url': 'http://www.example.com/voice-callback',
           'voice_method': 'GET',
           'voice_url': 'http://example.com'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

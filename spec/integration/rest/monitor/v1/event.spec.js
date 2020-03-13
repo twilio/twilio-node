@@ -31,7 +31,7 @@ describe('Event', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.monitor.v1.events('AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Event', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'actor_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'actor_type': 'account',
@@ -75,7 +75,7 @@ describe('Event', function() {
           'source': 'api',
           'source_ip_address': '10.86.6.250',
           'url': 'https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -90,7 +90,7 @@ describe('Event', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -126,14 +126,14 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.monitor.v1.events.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -169,7 +169,7 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.monitor.v1.events.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -181,7 +181,7 @@ describe('Event', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -217,14 +217,14 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.monitor.v1.events.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.monitor.v1.events.list();
       promise.then(function() {
@@ -244,7 +244,7 @@ describe('Event', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -280,7 +280,7 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -295,7 +295,7 @@ describe('Event', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'events': [],
           'meta': {
               'first_page_url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0',
@@ -306,7 +306,7 @@ describe('Event', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

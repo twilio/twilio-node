@@ -31,7 +31,7 @@ describe('TaskQueuesStatistics', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics?FriendlyName=friendly_name&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-02T00%3A00%3A00Z&Minutes=1&PageSize=50&Page=0',
               'key': 'task_queues_statistics',
@@ -108,7 +108,7 @@ describe('TaskQueuesStatistics', function() {
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .taskQueues
@@ -117,7 +117,7 @@ describe('TaskQueuesStatistics', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics?FriendlyName=friendly_name&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-02T00%3A00%3A00Z&Minutes=1&PageSize=50&Page=0',
               'key': 'task_queues_statistics',
@@ -194,7 +194,7 @@ describe('TaskQueuesStatistics', function() {
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .taskQueues
@@ -208,7 +208,7 @@ describe('TaskQueuesStatistics', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics?FriendlyName=friendly_name&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-02T00%3A00%3A00Z&Minutes=1&PageSize=50&Page=0',
               'key': 'task_queues_statistics',
@@ -285,7 +285,7 @@ describe('TaskQueuesStatistics', function() {
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .taskQueues
@@ -294,7 +294,7 @@ describe('TaskQueuesStatistics', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskQueues
@@ -317,7 +317,7 @@ describe('TaskQueuesStatistics', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics?FriendlyName=friendly_name&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-02T00%3A00%3A00Z&Minutes=1&PageSize=50&Page=0',
               'key': 'task_queues_statistics',
@@ -394,7 +394,7 @@ describe('TaskQueuesStatistics', function() {
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -411,7 +411,7 @@ describe('TaskQueuesStatistics', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics?FriendlyName=friendly_name&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-02T00%3A00%3A00Z&Minutes=1&PageSize=50&Page=0',
               'key': 'task_queues_statistics',
@@ -422,7 +422,7 @@ describe('TaskQueuesStatistics', function() {
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics?FriendlyName=friendly_name&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-02T00%3A00%3A00Z&Minutes=1&PageSize=50&Page=0'
           },
           'task_queues_statistics': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

@@ -31,7 +31,7 @@ describe('WorkspaceRealTimeStatistics', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .realTimeStatistics().fetch();
@@ -53,7 +53,7 @@ describe('WorkspaceRealTimeStatistics', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RealTimeStatistics',
           'tasks_by_priority': {},
           'activity_statistics': [
@@ -85,7 +85,7 @@ describe('WorkspaceRealTimeStatistics', function() {
           'total_tasks': 100,
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'tasks_by_status': {}
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

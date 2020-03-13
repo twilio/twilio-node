@@ -31,7 +31,7 @@ describe('AvailablePhoneNumberCountry', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [
               {
                   'beta': false,
@@ -54,7 +54,7 @@ describe('AvailablePhoneNumberCountry', function() {
           'start': 0,
           'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .availablePhoneNumbers.each(() => done());
@@ -62,7 +62,7 @@ describe('AvailablePhoneNumberCountry', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [
               {
                   'beta': false,
@@ -85,7 +85,7 @@ describe('AvailablePhoneNumberCountry', function() {
           'start': 0,
           'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .availablePhoneNumbers.each({pageSize: 20}, () => done());
@@ -98,7 +98,7 @@ describe('AvailablePhoneNumberCountry', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [
               {
                   'beta': false,
@@ -121,7 +121,7 @@ describe('AvailablePhoneNumberCountry', function() {
           'start': 0,
           'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .availablePhoneNumbers.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -129,7 +129,7 @@ describe('AvailablePhoneNumberCountry', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers.list();
@@ -151,7 +151,7 @@ describe('AvailablePhoneNumberCountry', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [
               {
                   'beta': false,
@@ -174,7 +174,7 @@ describe('AvailablePhoneNumberCountry', function() {
           'start': 0,
           'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -190,7 +190,7 @@ describe('AvailablePhoneNumberCountry', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'countries': [],
           'end': 1,
           'first_page_uri': null,
@@ -203,7 +203,7 @@ describe('AvailablePhoneNumberCountry', function() {
           'start': 0,
           'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -219,7 +219,7 @@ describe('AvailablePhoneNumberCountry', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US').fetch();
@@ -242,7 +242,7 @@ describe('AvailablePhoneNumberCountry', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'beta': null,
           'country': 'United States',
           'country_code': 'US',
@@ -251,7 +251,7 @@ describe('AvailablePhoneNumberCountry', function() {
               'toll_free': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/TollFree.json'
           },
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
