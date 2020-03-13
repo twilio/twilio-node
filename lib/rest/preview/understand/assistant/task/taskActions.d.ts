@@ -92,6 +92,12 @@ declare class TaskActionsContext {
   /**
    * update a TaskActionsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
+  /**
+   * update a TaskActionsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -129,6 +135,12 @@ declare class TaskActionsInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a TaskActionsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
   /**
    * update a TaskActionsInstance
    *

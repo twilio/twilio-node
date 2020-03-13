@@ -22,6 +22,12 @@ interface TokenListInstance {
   /**
    * create a TokenInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: TokenInstance) => any): Promise<TokenInstance>;
+  /**
+   * create a TokenInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */

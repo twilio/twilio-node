@@ -41,10 +41,31 @@ interface RatePlanListInstance {
   /**
    * create a RatePlanInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: RatePlanInstance) => any): Promise<RatePlanInstance>;
+  /**
+   * create a RatePlanInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: RatePlanListInstanceCreateOptions, callback?: (error: Error | null, item: RatePlanInstance) => any): Promise<RatePlanInstance>;
+  /**
+   * Streams RatePlanInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams RatePlanInstance records from the API.
    *
@@ -75,6 +96,17 @@ interface RatePlanListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
+  /**
+   * Retrieve a single target page of RatePlanInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -85,10 +117,30 @@ interface RatePlanListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: RatePlanInstance[]) => any): Promise<RatePlanInstance[]>;
+  /**
+   * Lists RatePlanInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: RatePlanListInstanceOptions, callback?: (error: Error | null, items: RatePlanInstance[]) => any): Promise<RatePlanInstance[]>;
+  /**
+   * Retrieve a single page of RatePlanInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
    *
@@ -247,6 +299,12 @@ declare class RatePlanContext {
   /**
    * update a RatePlanInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
+  /**
+   * update a RatePlanInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -297,6 +355,12 @@ declare class RatePlanInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a RatePlanInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
   /**
    * update a RatePlanInstance
    *

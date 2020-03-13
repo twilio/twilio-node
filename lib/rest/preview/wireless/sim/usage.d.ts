@@ -84,6 +84,12 @@ declare class UsageContext {
   /**
    * fetch a UsageInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: UsageInstance) => any): Promise<UsageInstance>;
+  /**
+   * fetch a UsageInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -115,6 +121,12 @@ declare class UsageInstance extends SerializableClass {
   commandsUsage: object;
   dataCosts: object;
   dataUsage: object;
+  /**
+   * fetch a UsageInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: UsageInstance) => any): Promise<UsageInstance>;
   /**
    * fetch a UsageInstance
    *

@@ -34,10 +34,36 @@ interface ThisMonthListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ThisMonthInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: ThisMonthListInstanceEachOptions, callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Retrieve a single target page of ThisMonthInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ThisMonthPage) => any): Promise<ThisMonthPage>;
   /**
    * Retrieve a single target page of ThisMonthInstance records from the API.
    *
@@ -56,10 +82,30 @@ interface ThisMonthListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ThisMonthInstance[]) => any): Promise<ThisMonthInstance[]>;
+  /**
+   * Lists ThisMonthInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: ThisMonthListInstanceOptions, callback?: (error: Error | null, items: ThisMonthInstance[]) => any): Promise<ThisMonthInstance[]>;
+  /**
+   * Retrieve a single page of ThisMonthInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ThisMonthPage) => any): Promise<ThisMonthPage>;
   /**
    * Retrieve a single page of ThisMonthInstance records from the API.
    *

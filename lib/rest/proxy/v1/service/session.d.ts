@@ -51,10 +51,31 @@ interface SessionListInstance {
   /**
    * create a SessionInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: SessionInstance) => any): Promise<SessionInstance>;
+  /**
+   * create a SessionInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: SessionListInstanceCreateOptions, callback?: (error: Error | null, item: SessionInstance) => any): Promise<SessionInstance>;
+  /**
+   * Streams SessionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams SessionInstance records from the API.
    *
@@ -85,6 +106,17 @@ interface SessionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
+  /**
+   * Retrieve a single target page of SessionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -95,10 +127,30 @@ interface SessionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
+  /**
+   * Lists SessionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: SessionListInstanceOptions, callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
+  /**
+   * Retrieve a single page of SessionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
    *
@@ -254,6 +306,12 @@ declare class SessionContext {
   /**
    * update a SessionInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
+  /**
+   * update a SessionInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -315,6 +373,12 @@ declare class SessionInstance extends SerializableClass {
   toJSON(): any;
   ttl: number;
   uniqueName: string;
+  /**
+   * update a SessionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
   /**
    * update a SessionInstance
    *

@@ -98,6 +98,12 @@ declare class WebhookContext {
   /**
    * update a WebhookInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
+  /**
+   * update a WebhookInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -134,6 +140,12 @@ declare class WebhookInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a WebhookInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   /**
    * update a WebhookInstance
    *

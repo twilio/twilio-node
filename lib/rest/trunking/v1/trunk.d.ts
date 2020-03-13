@@ -59,10 +59,31 @@ interface TrunkListInstance {
   /**
    * create a TrunkInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: TrunkInstance) => any): Promise<TrunkInstance>;
+  /**
+   * create a TrunkInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: TrunkListInstanceCreateOptions, callback?: (error: Error | null, item: TrunkInstance) => any): Promise<TrunkInstance>;
+  /**
+   * Streams TrunkInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams TrunkInstance records from the API.
    *
@@ -93,6 +114,17 @@ interface TrunkListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
+  /**
+   * Retrieve a single target page of TrunkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -103,10 +135,30 @@ interface TrunkListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
+  /**
+   * Lists TrunkInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: TrunkListInstanceOptions, callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
+  /**
+   * Retrieve a single page of TrunkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
   /**
    * Retrieve a single page of TrunkInstance records from the API.
    *
@@ -261,6 +313,12 @@ declare class TrunkContext {
   /**
    * update a TrunkInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
+  /**
+   * update a TrunkInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -329,6 +387,12 @@ declare class TrunkInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a TrunkInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
   /**
    * update a TrunkInstance
    *

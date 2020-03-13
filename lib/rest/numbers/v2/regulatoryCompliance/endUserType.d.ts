@@ -34,6 +34,21 @@ interface EndUserTypeListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: EndUserTypeInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams EndUserTypeInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -52,6 +67,17 @@ interface EndUserTypeListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: EndUserTypePage) => any): Promise<EndUserTypePage>;
+  /**
+   * Retrieve a single target page of EndUserTypeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -62,10 +88,30 @@ interface EndUserTypeListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: EndUserTypeInstance[]) => any): Promise<EndUserTypeInstance[]>;
+  /**
+   * Lists EndUserTypeInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: EndUserTypeListInstanceOptions, callback?: (error: Error | null, items: EndUserTypeInstance[]) => any): Promise<EndUserTypeInstance[]>;
+  /**
+   * Retrieve a single page of EndUserTypeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: EndUserTypePage) => any): Promise<EndUserTypePage>;
   /**
    * Retrieve a single page of EndUserTypeInstance records from the API.
    *

@@ -45,10 +45,36 @@ interface MobileListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: MobileInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams MobileInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: MobileListInstanceEachOptions, callback?: (item: MobileInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Retrieve a single target page of MobileInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage>;
   /**
    * Retrieve a single target page of MobileInstance records from the API.
    *
@@ -67,10 +93,30 @@ interface MobileListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: MobileInstance[]) => any): Promise<MobileInstance[]>;
+  /**
+   * Lists MobileInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: MobileListInstanceOptions, callback?: (error: Error | null, items: MobileInstance[]) => any): Promise<MobileInstance[]>;
+  /**
+   * Retrieve a single page of MobileInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage>;
   /**
    * Retrieve a single page of MobileInstance records from the API.
    *

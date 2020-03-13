@@ -40,6 +40,21 @@ interface AssignedAddOnExtensionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: AssignedAddOnExtensionInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams AssignedAddOnExtensionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -59,6 +74,18 @@ interface AssignedAddOnExtensionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any): Promise<AssignedAddOnExtensionPage>;
+  /**
+   * Retrieve a single target page of AssignedAddOnExtensionInstance records from the
+   * API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -69,10 +96,30 @@ interface AssignedAddOnExtensionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance[]) => any): Promise<AssignedAddOnExtensionInstance[]>;
+  /**
+   * Lists AssignedAddOnExtensionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: AssignedAddOnExtensionListInstanceOptions, callback?: (error: Error | null, items: AssignedAddOnExtensionInstance[]) => any): Promise<AssignedAddOnExtensionInstance[]>;
+  /**
+   * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any): Promise<AssignedAddOnExtensionPage>;
   /**
    * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
    *

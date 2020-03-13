@@ -98,6 +98,12 @@ declare class CallSummaryContext {
   /**
    * fetch a CallSummaryInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
+  /**
+   * fetch a CallSummaryInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -134,6 +140,12 @@ declare class CallSummaryInstance extends SerializableClass {
   connectDuration: number;
   duration: number;
   endTime: Date;
+  /**
+   * fetch a CallSummaryInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
   /**
    * fetch a CallSummaryInstance
    *

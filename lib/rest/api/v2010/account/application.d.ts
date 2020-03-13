@@ -64,10 +64,31 @@ interface ApplicationListInstance {
   /**
    * create a ApplicationInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  /**
+   * create a ApplicationInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: ApplicationListInstanceCreateOptions, callback?: (error: Error | null, item: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  /**
+   * Streams ApplicationInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ApplicationInstance records from the API.
    *
@@ -98,6 +119,17 @@ interface ApplicationListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
+  /**
+   * Retrieve a single target page of ApplicationInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -108,10 +140,30 @@ interface ApplicationListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ApplicationInstance[]) => any): Promise<ApplicationInstance[]>;
+  /**
+   * Lists ApplicationInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: ApplicationListInstanceOptions, callback?: (error: Error | null, items: ApplicationInstance[]) => any): Promise<ApplicationInstance[]>;
+  /**
+   * Retrieve a single page of ApplicationInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
    *
@@ -290,6 +342,12 @@ declare class ApplicationContext {
   /**
    * update a ApplicationInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  /**
+   * update a ApplicationInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -339,6 +397,12 @@ declare class ApplicationInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ApplicationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
   /**
    * update a ApplicationInstance
    *

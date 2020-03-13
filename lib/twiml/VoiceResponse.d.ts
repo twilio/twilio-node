@@ -21,6 +21,12 @@ declare class VoiceResponse {
   /**
    * <Dial> TwiML Verb
    *
+   * @param number - Phone number to dial
+   */
+  dial(number?: string): VoiceResponse.Dial;
+  /**
+   * <Dial> TwiML Verb
+   *
    * @param attributes - TwiML attributes
    * @param number - Phone number to dial
    */
@@ -31,6 +37,12 @@ declare class VoiceResponse {
    * @param attributes - TwiML attributes
    */
   echo(attributes?: object): void;
+  /**
+   * <Enqueue> TwiML Noun
+   *
+   * @param name - Friendly name
+   */
+  enqueue(name?: string): VoiceResponse.Enqueue;
   /**
    * <Enqueue> TwiML Noun
    *
@@ -71,16 +83,16 @@ declare class VoiceResponse {
   /**
    * <Play> TwiML Verb
    *
+   * @param url - Media URL
+   */
+  play(url?: string): void;
+  /**
+   * <Play> TwiML Verb
+   *
    * @param attributes - TwiML attributes
    * @param url - Media URL
    */
   play(attributes?: VoiceResponse.PlayAttributes, url?: string): void;
-  /**
-   * <Play> TwiML Verb
-   *
-   * @param url - Media URL
-   */
-  play(url?: string): void;
   /**
    * <Prompt> Twiml Verb
    *
@@ -861,6 +873,12 @@ declare namespace VoiceResponse {
     /**
      * <Client> TwiML Noun
      *
+     * @param identity - Client identity
+     */
+    client(identity?: string): VoiceResponse.Client;
+    /**
+     * <Client> TwiML Noun
+     *
      * @param attributes - TwiML attributes
      * @param identity - Client identity
      */
@@ -962,6 +980,12 @@ declare namespace VoiceResponse {
     /**
      * <Play> TwiML Verb
      *
+     * @param url - Media URL
+     */
+    play(url?: string): void;
+    /**
+     * <Play> TwiML Verb
+     *
      * @param attributes - TwiML attributes
      * @param url - Media URL
      */
@@ -1007,6 +1031,12 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     pause(attributes?: VoiceResponse.PauseAttributes): void;
+    /**
+     * <Play> TwiML Verb
+     *
+     * @param url - Media URL
+     */
+    play(url?: string): void;
     /**
      * <Play> TwiML Verb
      *

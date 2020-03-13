@@ -57,6 +57,21 @@ interface FunctionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: FunctionInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams FunctionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -75,6 +90,17 @@ interface FunctionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
+  /**
+   * Retrieve a single target page of FunctionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -85,10 +111,30 @@ interface FunctionListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: FunctionInstance[]) => any): Promise<FunctionInstance[]>;
+  /**
+   * Lists FunctionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: FunctionListInstanceOptions, callback?: (error: Error | null, items: FunctionInstance[]) => any): Promise<FunctionInstance[]>;
+  /**
+   * Retrieve a single page of FunctionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
   /**
    * Retrieve a single page of FunctionInstance records from the API.
    *

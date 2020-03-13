@@ -33,10 +33,36 @@ interface NationalListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: NationalInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams NationalInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: NationalListInstanceEachOptions, callback?: (item: NationalInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Retrieve a single target page of NationalInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
   /**
    * Retrieve a single target page of NationalInstance records from the API.
    *
@@ -55,10 +81,30 @@ interface NationalListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: NationalInstance[]) => any): Promise<NationalInstance[]>;
+  /**
+   * Lists NationalInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: NationalListInstanceOptions, callback?: (error: Error | null, items: NationalInstance[]) => any): Promise<NationalInstance[]>;
+  /**
+   * Retrieve a single page of NationalInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
   /**
    * Retrieve a single page of NationalInstance records from the API.
    *

@@ -105,6 +105,12 @@ declare class ConfigurationContext {
   /**
    * fetch a ConfigurationInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  /**
+   * fetch a ConfigurationInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -150,6 +156,12 @@ declare class ConfigurationInstance extends SerializableClass {
   crmType: string;
   dateCreated: Date;
   dateUpdated: Date;
+  /**
+   * fetch a ConfigurationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * fetch a ConfigurationInstance
    *

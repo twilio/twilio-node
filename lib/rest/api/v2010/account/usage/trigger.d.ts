@@ -61,6 +61,21 @@ interface TriggerListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: TriggerInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams TriggerInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -79,6 +94,17 @@ interface TriggerListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: TriggerPage) => any): Promise<TriggerPage>;
+  /**
+   * Retrieve a single target page of TriggerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -89,10 +115,30 @@ interface TriggerListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: TriggerInstance[]) => any): Promise<TriggerInstance[]>;
+  /**
+   * Lists TriggerInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: TriggerListInstanceOptions, callback?: (error: Error | null, items: TriggerInstance[]) => any): Promise<TriggerInstance[]>;
+  /**
+   * Retrieve a single page of TriggerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: TriggerPage) => any): Promise<TriggerPage>;
   /**
    * Retrieve a single page of TriggerInstance records from the API.
    *
@@ -263,6 +309,12 @@ declare class TriggerContext {
   /**
    * update a TriggerInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
+  /**
+   * update a TriggerInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -311,6 +363,12 @@ declare class TriggerInstance extends SerializableClass {
   toJSON(): any;
   triggerBy: TriggerTriggerField;
   triggerValue: string;
+  /**
+   * update a TriggerInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
   /**
    * update a TriggerInstance
    *

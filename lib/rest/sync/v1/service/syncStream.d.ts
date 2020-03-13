@@ -40,10 +40,31 @@ interface SyncStreamListInstance {
   /**
    * create a SyncStreamInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
+  /**
+   * create a SyncStreamInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: SyncStreamListInstanceCreateOptions, callback?: (error: Error | null, item: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
+  /**
+   * Streams SyncStreamInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams SyncStreamInstance records from the API.
    *
@@ -74,6 +95,17 @@ interface SyncStreamListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: SyncStreamPage) => any): Promise<SyncStreamPage>;
+  /**
+   * Retrieve a single target page of SyncStreamInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -84,10 +116,30 @@ interface SyncStreamListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: SyncStreamInstance[]) => any): Promise<SyncStreamInstance[]>;
+  /**
+   * Lists SyncStreamInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: SyncStreamListInstanceOptions, callback?: (error: Error | null, items: SyncStreamInstance[]) => any): Promise<SyncStreamInstance[]>;
+  /**
+   * Retrieve a single page of SyncStreamInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: SyncStreamPage) => any): Promise<SyncStreamPage>;
   /**
    * Retrieve a single page of SyncStreamInstance records from the API.
    *
@@ -228,6 +280,12 @@ declare class SyncStreamContext {
   /**
    * update a SyncStreamInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
+  /**
+   * update a SyncStreamInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -279,6 +337,12 @@ declare class SyncStreamInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a SyncStreamInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
   /**
    * update a SyncStreamInstance
    *

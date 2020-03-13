@@ -34,10 +34,31 @@ interface SyncMapListInstance {
   /**
    * create a SyncMapInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: SyncMapInstance) => any): Promise<SyncMapInstance>;
+  /**
+   * create a SyncMapInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: SyncMapListInstanceCreateOptions, callback?: (error: Error | null, item: SyncMapInstance) => any): Promise<SyncMapInstance>;
+  /**
+   * Streams SyncMapInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams SyncMapInstance records from the API.
    *
@@ -68,6 +89,17 @@ interface SyncMapListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
+  /**
+   * Retrieve a single target page of SyncMapInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -78,10 +110,30 @@ interface SyncMapListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: SyncMapInstance[]) => any): Promise<SyncMapInstance[]>;
+  /**
+   * Lists SyncMapInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: SyncMapListInstanceOptions, callback?: (error: Error | null, items: SyncMapInstance[]) => any): Promise<SyncMapInstance[]>;
+  /**
+   * Retrieve a single page of SyncMapInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
   /**
    * Retrieve a single page of SyncMapInstance records from the API.
    *

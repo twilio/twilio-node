@@ -22,6 +22,12 @@ interface NewSigningKeyListInstance {
   /**
    * create a NewSigningKeyInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: NewSigningKeyInstance) => any): Promise<NewSigningKeyInstance>;
+  /**
+   * create a NewSigningKeyInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */

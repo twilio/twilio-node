@@ -56,10 +56,31 @@ interface ParticipantListInstance {
   /**
    * create a ParticipantInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  /**
+   * create a ParticipantInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  /**
+   * Streams ParticipantInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ParticipantInstance records from the API.
    *
@@ -90,6 +111,17 @@ interface ParticipantListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single target page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -100,10 +132,30 @@ interface ParticipantListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  /**
+   * Lists ParticipantInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  /**
+   * Retrieve a single page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    *
@@ -246,6 +298,12 @@ declare class ParticipantContext {
   /**
    * remove a ParticipantInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
+  /**
+   * remove a ParticipantInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -254,6 +312,12 @@ declare class ParticipantContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ParticipantInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   /**
    * update a ParticipantInstance
    *
@@ -295,6 +359,12 @@ declare class ParticipantInstance extends SerializableClass {
   /**
    * remove a ParticipantInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
+  /**
+   * remove a ParticipantInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -304,6 +374,12 @@ declare class ParticipantInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ParticipantInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   /**
    * update a ParticipantInstance
    *

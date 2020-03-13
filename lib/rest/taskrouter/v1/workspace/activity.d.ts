@@ -52,6 +52,21 @@ interface ActivityListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: ActivityInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ActivityInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -70,6 +85,17 @@ interface ActivityListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage>;
+  /**
+   * Retrieve a single target page of ActivityInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -80,10 +106,30 @@ interface ActivityListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ActivityInstance[]) => any): Promise<ActivityInstance[]>;
+  /**
+   * Lists ActivityInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: ActivityListInstanceOptions, callback?: (error: Error | null, items: ActivityInstance[]) => any): Promise<ActivityInstance[]>;
+  /**
+   * Retrieve a single page of ActivityInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage>;
   /**
    * Retrieve a single page of ActivityInstance records from the API.
    *
@@ -230,6 +276,12 @@ declare class ActivityContext {
   /**
    * update a ActivityInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
+  /**
+   * update a ActivityInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -271,6 +323,12 @@ declare class ActivityInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ActivityInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
   /**
    * update a ActivityInstance
    *

@@ -70,6 +70,12 @@ declare class WorkersRealTimeStatisticsContext {
   /**
    * fetch a WorkersRealTimeStatisticsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
+  /**
+   * fetch a WorkersRealTimeStatisticsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -94,6 +100,12 @@ declare class WorkersRealTimeStatisticsInstance extends SerializableClass {
   private _proxy: WorkersRealTimeStatisticsContext;
   accountSid: string;
   activityStatistics: object[];
+  /**
+   * fetch a WorkersRealTimeStatisticsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
   /**
    * fetch a WorkersRealTimeStatisticsInstance
    *

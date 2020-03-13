@@ -37,6 +37,12 @@ interface SubscribeRulesListInstance {
   /**
    * update a SubscribeRulesInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SubscribeRulesListInstance) => any): Promise<SubscribeRulesInstance>;
+  /**
+   * update a SubscribeRulesInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */

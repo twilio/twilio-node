@@ -95,6 +95,12 @@ declare class SuccessRateContext {
   /**
    * fetch a SuccessRateInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: SuccessRateInstance) => any): Promise<SuccessRateInstance>;
+  /**
+   * fetch a SuccessRateInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -124,6 +130,12 @@ declare class SuccessRateInstance extends SerializableClass {
   accountSid: string;
   businessSid: string;
   end: Date;
+  /**
+   * fetch a SuccessRateInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: SuccessRateInstance) => any): Promise<SuccessRateInstance>;
   /**
    * fetch a SuccessRateInstance
    *

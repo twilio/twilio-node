@@ -68,6 +68,12 @@ interface ChallengeListInstance {
   /**
    * create a ChallengeInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  /**
+   * create a ChallengeInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -147,10 +153,22 @@ declare class ChallengeContext {
   /**
    * fetch a ChallengeInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  /**
+   * fetch a ChallengeInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  /**
+   * remove a ChallengeInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
   /**
    * remove a ChallengeInstance
    *
@@ -162,6 +180,12 @@ declare class ChallengeContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ChallengeInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   /**
    * update a ChallengeInstance
    *
@@ -202,12 +226,24 @@ declare class ChallengeInstance extends SerializableClass {
   /**
    * fetch a ChallengeInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  /**
+   * fetch a ChallengeInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   hiddenDetails: string;
   identity: string;
+  /**
+   * remove a ChallengeInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
   /**
    * remove a ChallengeInstance
    *
@@ -223,6 +259,12 @@ declare class ChallengeInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ChallengeInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   /**
    * update a ChallengeInstance
    *

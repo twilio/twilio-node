@@ -67,6 +67,21 @@ interface WorkflowListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams WorkflowInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -85,6 +100,17 @@ interface WorkflowListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
+  /**
+   * Retrieve a single target page of WorkflowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -95,10 +121,30 @@ interface WorkflowListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: WorkflowInstance[]) => any): Promise<WorkflowInstance[]>;
+  /**
+   * Lists WorkflowInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: WorkflowListInstanceOptions, callback?: (error: Error | null, items: WorkflowInstance[]) => any): Promise<WorkflowInstance[]>;
+  /**
+   * Retrieve a single page of WorkflowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
   /**
    * Retrieve a single page of WorkflowInstance records from the API.
    *
@@ -253,6 +299,12 @@ declare class WorkflowContext {
   /**
    * update a WorkflowInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
+  /**
+   * update a WorkflowInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -311,6 +363,12 @@ declare class WorkflowInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a WorkflowInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
   /**
    * update a WorkflowInstance
    *

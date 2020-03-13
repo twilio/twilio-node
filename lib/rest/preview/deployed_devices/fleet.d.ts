@@ -48,10 +48,31 @@ interface FleetListInstance {
   /**
    * create a FleetInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: FleetInstance) => any): Promise<FleetInstance>;
+  /**
+   * create a FleetInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: FleetListInstanceCreateOptions, callback?: (error: Error | null, item: FleetInstance) => any): Promise<FleetInstance>;
+  /**
+   * Streams FleetInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams FleetInstance records from the API.
    *
@@ -82,6 +103,17 @@ interface FleetListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
+  /**
+   * Retrieve a single target page of FleetInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -92,10 +124,30 @@ interface FleetListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
+  /**
+   * Lists FleetInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: FleetListInstanceOptions, callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
+  /**
+   * Retrieve a single page of FleetInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
    *
@@ -235,6 +287,12 @@ declare class FleetContext {
   /**
    * update a FleetInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  /**
+   * update a FleetInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -297,6 +355,12 @@ declare class FleetInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a FleetInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
   /**
    * update a FleetInstance
    *

@@ -86,6 +86,12 @@ declare class CurrentCallContext {
   /**
    * fetch a CurrentCallInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  /**
+   * fetch a CurrentCallInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -114,6 +120,12 @@ declare class CurrentCallInstance extends SerializableClass {
   bgColor: string;
   caller: string;
   createdAt: Date;
+  /**
+   * fetch a CurrentCallInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
   /**
    * fetch a CurrentCallInstance
    *

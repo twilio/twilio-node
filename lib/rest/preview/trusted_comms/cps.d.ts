@@ -73,6 +73,12 @@ declare class CpsContext {
   /**
    * fetch a CpsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: CpsInstance) => any): Promise<CpsInstance>;
+  /**
+   * fetch a CpsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -99,6 +105,12 @@ declare class CpsInstance extends SerializableClass {
 
   private _proxy: CpsContext;
   cpsUrl: string;
+  /**
+   * fetch a CpsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: CpsInstance) => any): Promise<CpsInstance>;
   /**
    * fetch a CpsInstance
    *

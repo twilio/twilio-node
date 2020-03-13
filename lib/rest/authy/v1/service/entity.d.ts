@@ -66,6 +66,21 @@ interface EntityListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: EntityInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams EntityInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -84,6 +99,17 @@ interface EntityListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: EntityPage) => any): Promise<EntityPage>;
+  /**
+   * Retrieve a single target page of EntityInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -94,10 +120,30 @@ interface EntityListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: EntityInstance[]) => any): Promise<EntityInstance[]>;
+  /**
+   * Lists EntityInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: EntityListInstanceOptions, callback?: (error: Error | null, items: EntityInstance[]) => any): Promise<EntityInstance[]>;
+  /**
+   * Retrieve a single page of EntityInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: EntityPage) => any): Promise<EntityPage>;
   /**
    * Retrieve a single page of EntityInstance records from the API.
    *
@@ -227,10 +273,22 @@ declare class EntityContext {
   /**
    * fetch a EntityInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
+  /**
+   * fetch a EntityInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: EntityInstanceFetchOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
+  /**
+   * remove a EntityInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
   /**
    * remove a EntityInstance
    *
@@ -271,12 +329,24 @@ declare class EntityInstance extends SerializableClass {
   /**
    * fetch a EntityInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
+  /**
+   * fetch a EntityInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: EntityInstanceFetchOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
   identity: string;
   links: string;
+  /**
+   * remove a EntityInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
   /**
    * remove a EntityInstance
    *

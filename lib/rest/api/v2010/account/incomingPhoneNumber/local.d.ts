@@ -45,10 +45,36 @@ interface LocalListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: LocalInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams LocalInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: LocalListInstanceEachOptions, callback?: (item: LocalInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Retrieve a single target page of LocalInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
   /**
    * Retrieve a single target page of LocalInstance records from the API.
    *
@@ -67,10 +93,30 @@ interface LocalListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: LocalInstance[]) => any): Promise<LocalInstance[]>;
+  /**
+   * Lists LocalInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: LocalListInstanceOptions, callback?: (error: Error | null, items: LocalInstance[]) => any): Promise<LocalInstance[]>;
+  /**
+   * Retrieve a single page of LocalInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
   /**
    * Retrieve a single page of LocalInstance records from the API.
    *

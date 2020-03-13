@@ -81,6 +81,12 @@ declare class PhoneNumberContext {
   /**
    * fetch a PhoneNumberInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  /**
+   * fetch a PhoneNumberInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -107,6 +113,12 @@ declare class PhoneNumberInstance extends SerializableClass {
   callerName: object;
   carrier: object;
   countryCode: string;
+  /**
+   * fetch a PhoneNumberInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
   /**
    * fetch a PhoneNumberInstance
    *

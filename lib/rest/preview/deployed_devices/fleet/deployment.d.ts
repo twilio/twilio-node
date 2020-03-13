@@ -41,10 +41,31 @@ interface DeploymentListInstance {
   /**
    * create a DeploymentInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: DeploymentInstance) => any): Promise<DeploymentInstance>;
+  /**
+   * create a DeploymentInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: DeploymentListInstanceCreateOptions, callback?: (error: Error | null, item: DeploymentInstance) => any): Promise<DeploymentInstance>;
+  /**
+   * Streams DeploymentInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams DeploymentInstance records from the API.
    *
@@ -75,6 +96,17 @@ interface DeploymentListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: DeploymentPage) => any): Promise<DeploymentPage>;
+  /**
+   * Retrieve a single target page of DeploymentInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -85,10 +117,30 @@ interface DeploymentListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: DeploymentInstance[]) => any): Promise<DeploymentInstance[]>;
+  /**
+   * Lists DeploymentInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: DeploymentListInstanceOptions, callback?: (error: Error | null, items: DeploymentInstance[]) => any): Promise<DeploymentInstance[]>;
+  /**
+   * Retrieve a single page of DeploymentInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: DeploymentPage) => any): Promise<DeploymentPage>;
   /**
    * Retrieve a single page of DeploymentInstance records from the API.
    *
@@ -227,6 +279,12 @@ declare class DeploymentContext {
   /**
    * update a DeploymentInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
+  /**
+   * update a DeploymentInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -273,6 +331,12 @@ declare class DeploymentInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a DeploymentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
   /**
    * update a DeploymentInstance
    *

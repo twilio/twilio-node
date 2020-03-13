@@ -73,6 +73,12 @@ declare class NumberContext {
   /**
    * fetch a NumberInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: NumberInstance) => any): Promise<NumberInstance>;
+  /**
+   * fetch a NumberInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -97,6 +103,12 @@ declare class NumberInstance extends SerializableClass {
   private _proxy: NumberContext;
   country: string;
   destinationNumber: string;
+  /**
+   * fetch a NumberInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: NumberInstance) => any): Promise<NumberInstance>;
   /**
    * fetch a NumberInstance
    *

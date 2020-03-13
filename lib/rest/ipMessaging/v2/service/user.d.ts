@@ -63,6 +63,21 @@ interface UserListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: UserInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams UserInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -81,6 +96,17 @@ interface UserListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
+  /**
+   * Retrieve a single target page of UserInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -91,10 +117,30 @@ interface UserListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: UserInstance[]) => any): Promise<UserInstance[]>;
+  /**
+   * Lists UserInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: UserListInstanceOptions, callback?: (error: Error | null, items: UserInstance[]) => any): Promise<UserInstance[]>;
+  /**
+   * Retrieve a single page of UserInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
   /**
    * Retrieve a single page of UserInstance records from the API.
    *
@@ -241,6 +287,12 @@ declare class UserContext {
   /**
    * update a UserInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
+  /**
+   * update a UserInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -291,6 +343,12 @@ declare class UserInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a UserInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
   /**
    * update a UserInstance
    *

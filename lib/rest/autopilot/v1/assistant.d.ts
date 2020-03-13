@@ -71,10 +71,31 @@ interface AssistantListInstance {
   /**
    * create a AssistantInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: AssistantInstance) => any): Promise<AssistantInstance>;
+  /**
+   * create a AssistantInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: AssistantListInstanceCreateOptions, callback?: (error: Error | null, item: AssistantInstance) => any): Promise<AssistantInstance>;
+  /**
+   * Streams AssistantInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: AssistantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams AssistantInstance records from the API.
    *
@@ -105,6 +126,17 @@ interface AssistantListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
+  /**
+   * Retrieve a single target page of AssistantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -115,10 +147,30 @@ interface AssistantListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: AssistantInstance[]) => any): Promise<AssistantInstance[]>;
+  /**
+   * Lists AssistantInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: AssistantListInstanceOptions, callback?: (error: Error | null, items: AssistantInstance[]) => any): Promise<AssistantInstance[]>;
+  /**
+   * Retrieve a single page of AssistantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
   /**
    * Retrieve a single page of AssistantInstance records from the API.
    *
@@ -279,6 +331,12 @@ declare class AssistantContext {
   /**
    * update a AssistantInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
+  /**
+   * update a AssistantInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -363,6 +421,12 @@ declare class AssistantInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a AssistantInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
   /**
    * update a AssistantInstance
    *

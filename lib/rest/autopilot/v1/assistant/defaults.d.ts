@@ -88,6 +88,12 @@ declare class DefaultsContext {
   /**
    * update a DefaultsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: DefaultsInstance) => any): Promise<DefaultsInstance>;
+  /**
+   * update a DefaultsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -123,6 +129,12 @@ declare class DefaultsInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a DefaultsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: DefaultsInstance) => any): Promise<DefaultsInstance>;
   /**
    * update a DefaultsInstance
    *
