@@ -129,3 +129,4 @@ promiseMessage.then(messages => {
 
 const twiml = new twilio.twiml.VoiceResponse();
 twiml.dial({}, '+12345678901');
+twiml.play('https://demo.twilio.com/docs/classic.mp3');
