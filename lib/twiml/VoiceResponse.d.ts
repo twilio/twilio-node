@@ -76,6 +76,12 @@ declare class VoiceResponse {
    */
   play(attributes?: VoiceResponse.PlayAttributes, url?: string): void;
   /**
+   * <Play> TwiML Verb
+   *
+   * @param url - Media URL
+   */
+  play(url?: string): void;
+  /**
    * <Prompt> Twiml Verb
    *
    * @param attributes - TwiML attributes
