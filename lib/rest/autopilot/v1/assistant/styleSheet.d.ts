@@ -88,6 +88,12 @@ declare class StyleSheetContext {
   /**
    * update a StyleSheetInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
+  /**
+   * update a StyleSheetInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -123,6 +129,12 @@ declare class StyleSheetInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a StyleSheetInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
   /**
    * update a StyleSheetInstance
    *

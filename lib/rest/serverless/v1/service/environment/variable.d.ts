@@ -58,6 +58,21 @@ interface VariableListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: VariableInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams VariableInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -76,6 +91,17 @@ interface VariableListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: VariablePage) => any): Promise<VariablePage>;
+  /**
+   * Retrieve a single target page of VariableInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -86,10 +112,30 @@ interface VariableListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: VariableInstance[]) => any): Promise<VariableInstance[]>;
+  /**
+   * Lists VariableInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: VariableListInstanceOptions, callback?: (error: Error | null, items: VariableInstance[]) => any): Promise<VariableInstance[]>;
+  /**
+   * Retrieve a single page of VariableInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: VariablePage) => any): Promise<VariablePage>;
   /**
    * Retrieve a single page of VariableInstance records from the API.
    *
@@ -231,6 +277,12 @@ declare class VariableContext {
   /**
    * update a VariableInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: VariableInstance) => any): Promise<VariableInstance>;
+  /**
+   * update a VariableInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -278,6 +330,12 @@ declare class VariableInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a VariableInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: VariableInstance) => any): Promise<VariableInstance>;
   /**
    * update a VariableInstance
    *

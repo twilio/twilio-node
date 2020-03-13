@@ -79,6 +79,21 @@ interface SimListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: SimInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams SimInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -97,6 +112,17 @@ interface SimListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
+  /**
+   * Retrieve a single target page of SimInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -107,10 +133,30 @@ interface SimListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: SimInstance[]) => any): Promise<SimInstance[]>;
+  /**
+   * Lists SimInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: SimListInstanceOptions, callback?: (error: Error | null, items: SimInstance[]) => any): Promise<SimInstance[]>;
+  /**
+   * Retrieve a single page of SimInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
   /**
    * Retrieve a single page of SimInstance records from the API.
    *
@@ -274,6 +320,12 @@ declare class SimContext {
   /**
    * update a SimInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  /**
+   * update a SimInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -324,6 +376,12 @@ declare class SimInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a SimInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
   /**
    * update a SimInstance
    *

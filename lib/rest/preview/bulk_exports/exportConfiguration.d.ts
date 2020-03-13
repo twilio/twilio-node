@@ -93,6 +93,12 @@ declare class ExportConfigurationContext {
   /**
    * update a ExportConfigurationInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  /**
+   * update a ExportConfigurationInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -127,6 +133,12 @@ declare class ExportConfigurationInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ExportConfigurationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
   /**
    * update a ExportConfigurationInstance
    *

@@ -83,6 +83,12 @@ declare class TaskQueueStatisticsContext {
   /**
    * fetch a TaskQueueStatisticsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
+  /**
+   * fetch a TaskQueueStatisticsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -108,6 +114,12 @@ declare class TaskQueueStatisticsInstance extends SerializableClass {
   private _proxy: TaskQueueStatisticsContext;
   accountSid: string;
   cumulative: object;
+  /**
+   * fetch a TaskQueueStatisticsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
   /**
    * fetch a TaskQueueStatisticsInstance
    *

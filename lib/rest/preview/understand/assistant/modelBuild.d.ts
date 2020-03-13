@@ -41,10 +41,31 @@ interface ModelBuildListInstance {
   /**
    * create a ModelBuildInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
+  /**
+   * create a ModelBuildInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: ModelBuildListInstanceCreateOptions, callback?: (error: Error | null, item: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
+  /**
+   * Streams ModelBuildInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ModelBuildInstance records from the API.
    *
@@ -75,6 +96,17 @@ interface ModelBuildListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ModelBuildPage) => any): Promise<ModelBuildPage>;
+  /**
+   * Retrieve a single target page of ModelBuildInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -85,10 +117,30 @@ interface ModelBuildListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ModelBuildInstance[]) => any): Promise<ModelBuildInstance[]>;
+  /**
+   * Lists ModelBuildInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: ModelBuildListInstanceOptions, callback?: (error: Error | null, items: ModelBuildInstance[]) => any): Promise<ModelBuildInstance[]>;
+  /**
+   * Retrieve a single page of ModelBuildInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ModelBuildPage) => any): Promise<ModelBuildPage>;
   /**
    * Retrieve a single page of ModelBuildInstance records from the API.
    *
@@ -229,6 +281,12 @@ declare class ModelBuildContext {
   /**
    * update a ModelBuildInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
+  /**
+   * update a ModelBuildInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -277,6 +335,12 @@ declare class ModelBuildInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a ModelBuildInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
   /**
    * update a ModelBuildInstance
    *

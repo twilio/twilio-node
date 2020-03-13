@@ -77,6 +77,21 @@ interface ServiceListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ServiceInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -95,6 +110,17 @@ interface ServiceListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  /**
+   * Retrieve a single target page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -105,10 +131,30 @@ interface ServiceListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  /**
+   * Lists ServiceInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  /**
+   * Retrieve a single page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    *
@@ -265,6 +311,12 @@ declare class ServiceContext {
   /**
    * update a ServiceInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  /**
+   * update a ServiceInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -327,6 +379,12 @@ declare class ServiceInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a ServiceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * update a ServiceInstance
    *

@@ -45,10 +45,31 @@ interface RoomListInstance {
   /**
    * create a RoomInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: RoomInstance) => any): Promise<RoomInstance>;
+  /**
+   * create a RoomInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: RoomListInstanceCreateOptions, callback?: (error: Error | null, item: RoomInstance) => any): Promise<RoomInstance>;
+  /**
+   * Streams RoomInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: RoomInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams RoomInstance records from the API.
    *
@@ -79,6 +100,17 @@ interface RoomListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
+  /**
+   * Retrieve a single target page of RoomInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -89,10 +121,30 @@ interface RoomListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: RoomInstance[]) => any): Promise<RoomInstance[]>;
+  /**
+   * Lists RoomInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: RoomListInstanceOptions, callback?: (error: Error | null, items: RoomInstance[]) => any): Promise<RoomInstance[]>;
+  /**
+   * Retrieve a single page of RoomInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
    *

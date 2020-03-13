@@ -34,10 +34,36 @@ interface AllTimeListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams AllTimeInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
   each(opts?: AllTimeListInstanceEachOptions, callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Retrieve a single target page of AllTimeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: AllTimePage) => any): Promise<AllTimePage>;
   /**
    * Retrieve a single target page of AllTimeInstance records from the API.
    *
@@ -56,10 +82,30 @@ interface AllTimeListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: AllTimeInstance[]) => any): Promise<AllTimeInstance[]>;
+  /**
+   * Lists AllTimeInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: AllTimeListInstanceOptions, callback?: (error: Error | null, items: AllTimeInstance[]) => any): Promise<AllTimeInstance[]>;
+  /**
+   * Retrieve a single page of AllTimeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: AllTimePage) => any): Promise<AllTimePage>;
   /**
    * Retrieve a single page of AllTimeInstance records from the API.
    *

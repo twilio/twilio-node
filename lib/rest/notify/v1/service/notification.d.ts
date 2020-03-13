@@ -28,6 +28,12 @@ interface NotificationListInstance {
   /**
    * create a NotificationInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: NotificationInstance) => any): Promise<NotificationInstance>;
+  /**
+   * create a NotificationInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */

@@ -79,6 +79,12 @@ declare class WorkspaceStatisticsContext {
   /**
    * fetch a WorkspaceStatisticsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
+  /**
+   * fetch a WorkspaceStatisticsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -103,6 +109,12 @@ declare class WorkspaceStatisticsInstance extends SerializableClass {
   private _proxy: WorkspaceStatisticsContext;
   accountSid: string;
   cumulative: object;
+  /**
+   * fetch a WorkspaceStatisticsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
   /**
    * fetch a WorkspaceStatisticsInstance
    *

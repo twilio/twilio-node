@@ -88,10 +88,31 @@ interface IncomingPhoneNumberListInstance {
   /**
    * create a IncomingPhoneNumberInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  /**
+   * create a IncomingPhoneNumberInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: IncomingPhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, item: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  /**
+   * Streams IncomingPhoneNumberInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams IncomingPhoneNumberInstance records from the API.
    *
@@ -123,10 +144,31 @@ interface IncomingPhoneNumberListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  /**
+   * Retrieve a single target page of IncomingPhoneNumberInstance records from the
+   * API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
   getPage(targetUrl?: string, callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  /**
+   * Lists IncomingPhoneNumberInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
   /**
    * Lists IncomingPhoneNumberInstance records from the API as a list.
    *
@@ -139,6 +181,17 @@ interface IncomingPhoneNumberListInstance {
   list(opts?: IncomingPhoneNumberListInstanceOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
   local?: object;
   mobile?: object;
+  /**
+   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
   /**
    * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
    *
@@ -366,6 +419,12 @@ declare class IncomingPhoneNumberContext {
   /**
    * update a IncomingPhoneNumberInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  /**
+   * update a IncomingPhoneNumberInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -429,6 +488,12 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
    */
   toJSON(): any;
   trunkSid: string;
+  /**
+   * update a IncomingPhoneNumberInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
   /**
    * update a IncomingPhoneNumberInstance
    *

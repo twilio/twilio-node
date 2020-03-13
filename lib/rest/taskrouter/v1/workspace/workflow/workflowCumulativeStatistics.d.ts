@@ -99,6 +99,12 @@ declare class WorkflowCumulativeStatisticsContext {
   /**
    * fetch a WorkflowCumulativeStatisticsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
+  /**
+   * fetch a WorkflowCumulativeStatisticsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -125,6 +131,12 @@ declare class WorkflowCumulativeStatisticsInstance extends SerializableClass {
   accountSid: string;
   avgTaskAcceptanceTime: number;
   endTime: Date;
+  /**
+   * fetch a WorkflowCumulativeStatisticsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
   /**
    * fetch a WorkflowCumulativeStatisticsInstance
    *

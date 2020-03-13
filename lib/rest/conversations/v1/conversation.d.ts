@@ -65,10 +65,31 @@ interface ConversationListInstance {
   /**
    * create a ConversationInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: ConversationInstance) => any): Promise<ConversationInstance>;
+  /**
+   * create a ConversationInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: ConversationListInstanceCreateOptions, callback?: (error: Error | null, item: ConversationInstance) => any): Promise<ConversationInstance>;
+  /**
+   * Streams ConversationInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: ConversationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ConversationInstance records from the API.
    *
@@ -99,6 +120,17 @@ interface ConversationListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ConversationPage) => any): Promise<ConversationPage>;
+  /**
+   * Retrieve a single target page of ConversationInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -109,10 +141,30 @@ interface ConversationListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ConversationInstance[]) => any): Promise<ConversationInstance[]>;
+  /**
+   * Lists ConversationInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: ConversationListInstanceOptions, callback?: (error: Error | null, items: ConversationInstance[]) => any): Promise<ConversationInstance[]>;
+  /**
+   * Retrieve a single page of ConversationInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ConversationPage) => any): Promise<ConversationPage>;
   /**
    * Retrieve a single page of ConversationInstance records from the API.
    *
@@ -250,6 +302,12 @@ declare class ConversationContext {
   /**
    * remove a ConversationInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
+  /**
+   * remove a ConversationInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -258,6 +316,12 @@ declare class ConversationContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ConversationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<ConversationInstance>;
   /**
    * update a ConversationInstance
    *
@@ -308,6 +372,12 @@ declare class ConversationInstance extends SerializableClass {
   /**
    * remove a ConversationInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
+  /**
+   * remove a ConversationInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -317,6 +387,12 @@ declare class ConversationInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ConversationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: ConversationInstance) => any): Promise<ConversationInstance>;
   /**
    * update a ConversationInstance
    *

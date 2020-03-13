@@ -88,6 +88,12 @@ declare class AssistantFallbackActionsContext {
   /**
    * update a AssistantFallbackActionsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
+  /**
+   * update a AssistantFallbackActionsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -123,6 +129,12 @@ declare class AssistantFallbackActionsInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a AssistantFallbackActionsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
   /**
    * update a AssistantFallbackActionsInstance
    *

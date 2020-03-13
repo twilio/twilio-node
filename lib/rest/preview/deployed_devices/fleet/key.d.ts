@@ -41,10 +41,31 @@ interface KeyListInstance {
   /**
    * create a KeyInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: KeyInstance) => any): Promise<KeyInstance>;
+  /**
+   * create a KeyInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: KeyListInstanceCreateOptions, callback?: (error: Error | null, item: KeyInstance) => any): Promise<KeyInstance>;
+  /**
+   * Streams KeyInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: KeyInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams KeyInstance records from the API.
    *
@@ -75,6 +96,17 @@ interface KeyListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  /**
+   * Retrieve a single target page of KeyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -85,10 +117,30 @@ interface KeyListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
+  /**
+   * Lists KeyInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: KeyListInstanceOptions, callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
+  /**
+   * Retrieve a single page of KeyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
   /**
    * Retrieve a single page of KeyInstance records from the API.
    *
@@ -234,6 +286,12 @@ declare class KeyContext {
   /**
    * update a KeyInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
+  /**
+   * update a KeyInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -281,6 +339,12 @@ declare class KeyInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a KeyInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
   /**
    * update a KeyInstance
    *

@@ -88,6 +88,12 @@ declare class AssistantInitiationActionsContext {
   /**
    * update a AssistantInitiationActionsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: AssistantInitiationActionsInstance) => any): Promise<AssistantInitiationActionsInstance>;
+  /**
+   * update a AssistantInitiationActionsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -123,6 +129,12 @@ declare class AssistantInitiationActionsInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a AssistantInitiationActionsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: AssistantInitiationActionsInstance) => any): Promise<AssistantInitiationActionsInstance>;
   /**
    * update a AssistantInitiationActionsInstance
    *

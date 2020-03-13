@@ -60,6 +60,21 @@ interface OriginationUrlListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams OriginationUrlInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
@@ -78,6 +93,17 @@ interface OriginationUrlListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: OriginationUrlPage) => any): Promise<OriginationUrlPage>;
+  /**
+   * Retrieve a single target page of OriginationUrlInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -88,10 +114,30 @@ interface OriginationUrlListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: OriginationUrlInstance[]) => any): Promise<OriginationUrlInstance[]>;
+  /**
+   * Lists OriginationUrlInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: OriginationUrlListInstanceOptions, callback?: (error: Error | null, items: OriginationUrlInstance[]) => any): Promise<OriginationUrlInstance[]>;
+  /**
+   * Retrieve a single page of OriginationUrlInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: OriginationUrlPage) => any): Promise<OriginationUrlPage>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
    *
@@ -235,6 +281,12 @@ declare class OriginationUrlContext {
   /**
    * update a OriginationUrlInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
+  /**
+   * update a OriginationUrlInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -279,6 +331,12 @@ declare class OriginationUrlInstance extends SerializableClass {
    */
   toJSON(): any;
   trunkSid: string;
+  /**
+   * update a OriginationUrlInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
   /**
    * update a OriginationUrlInstance
    *

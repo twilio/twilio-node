@@ -99,6 +99,12 @@ declare class TaskQueueCumulativeStatisticsContext {
   /**
    * fetch a TaskQueueCumulativeStatisticsInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): Promise<TaskQueueCumulativeStatisticsInstance>;
+  /**
+   * fetch a TaskQueueCumulativeStatisticsInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -125,6 +131,12 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
   accountSid: string;
   avgTaskAcceptanceTime: number;
   endTime: Date;
+  /**
+   * fetch a TaskQueueCumulativeStatisticsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): Promise<TaskQueueCumulativeStatisticsInstance>;
   /**
    * fetch a TaskQueueCumulativeStatisticsInstance
    *

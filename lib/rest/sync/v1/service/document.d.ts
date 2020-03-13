@@ -54,10 +54,31 @@ interface DocumentListInstance {
   /**
    * create a DocumentInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: DocumentInstance) => any): Promise<DocumentInstance>;
+  /**
+   * create a DocumentInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
   create(opts?: DocumentListInstanceCreateOptions, callback?: (error: Error | null, item: DocumentInstance) => any): Promise<DocumentInstance>;
+  /**
+   * Streams DocumentInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams DocumentInstance records from the API.
    *
@@ -88,6 +109,17 @@ interface DocumentListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
+  /**
+   * Retrieve a single target page of DocumentInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -98,10 +130,30 @@ interface DocumentListInstance {
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
+  /**
+   * Lists DocumentInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
   list(opts?: DocumentListInstanceOptions, callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
+  /**
+   * Retrieve a single page of DocumentInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
   /**
    * Retrieve a single page of DocumentInstance records from the API.
    *
@@ -236,6 +288,12 @@ declare class DocumentContext {
   /**
    * remove a DocumentInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
+  /**
+   * remove a DocumentInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -244,6 +302,12 @@ declare class DocumentContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a DocumentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
   /**
    * update a DocumentInstance
    *
@@ -289,6 +353,12 @@ declare class DocumentInstance extends SerializableClass {
   /**
    * remove a DocumentInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
+  /**
+   * remove a DocumentInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
@@ -301,6 +371,12 @@ declare class DocumentInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a DocumentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
   /**
    * update a DocumentInstance
    *

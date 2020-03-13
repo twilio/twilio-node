@@ -22,6 +22,12 @@ interface NewKeyListInstance {
   /**
    * create a NewKeyInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: NewKeyInstance) => any): Promise<NewKeyInstance>;
+  /**
+   * create a NewKeyInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
