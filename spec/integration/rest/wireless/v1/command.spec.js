@@ -31,7 +31,7 @@ describe('Command', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.commands('DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Command', function() {
   );
   it('should generate valid fetch_command_sms response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'command',
           'command_mode': 'text',
@@ -65,7 +65,7 @@ describe('Command', function() {
           'status': 'queued',
           'transport': 'sms',
           'url': 'https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -80,7 +80,7 @@ describe('Command', function() {
   );
   it('should generate valid fetch_command_ip response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'command',
           'command_mode': 'text',
@@ -93,7 +93,7 @@ describe('Command', function() {
           'status': 'queued',
           'transport': 'ip',
           'url': 'https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -108,7 +108,7 @@ describe('Command', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -134,14 +134,14 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/Commands?Status=queued&Direction=from_sim&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.commands.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -167,7 +167,7 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/Commands?Status=queued&Direction=from_sim&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.commands.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -179,7 +179,7 @@ describe('Command', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -205,14 +205,14 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/Commands?Status=queued&Direction=from_sim&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.commands.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.commands.list();
       promise.then(function() {
@@ -232,7 +232,7 @@ describe('Command', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [],
           'meta': {
               'first_page_url': 'https://wireless.twilio.com/v1/Commands?Status=queued&Direction=from_sim&Sim=sim&PageSize=50&Page=0',
@@ -243,7 +243,7 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/Commands?Status=queued&Direction=from_sim&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -258,7 +258,7 @@ describe('Command', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -284,7 +284,7 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/Commands?Status=queued&Direction=from_sim&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -299,7 +299,7 @@ describe('Command', function() {
   );
   it('should generate valid read_ip response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -325,7 +325,7 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/Commands?Status=queued&Direction=to_sim&Transport=ip&Sim=sim&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -340,7 +340,7 @@ describe('Command', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {command: 'command'};
       var promise = client.wireless.v1.commands.create(opts);
@@ -363,7 +363,7 @@ describe('Command', function() {
   );
   it('should generate valid create_command_sms response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'command',
           'command_mode': 'text',
@@ -376,7 +376,7 @@ describe('Command', function() {
           'status': 'queued',
           'transport': 'sms',
           'url': 'https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -392,7 +392,7 @@ describe('Command', function() {
   );
   it('should generate valid create_command_ip response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'command',
           'command_mode': 'binary',
@@ -405,7 +405,7 @@ describe('Command', function() {
           'status': 'queued',
           'transport': 'ip',
           'url': 'https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -421,7 +421,7 @@ describe('Command', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.commands('DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -442,7 +442,7 @@ describe('Command', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

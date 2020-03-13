@@ -31,7 +31,7 @@ describe('Trunk', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Trunk', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'domain_name': 'test.pstn.twilio.com',
@@ -78,7 +78,7 @@ describe('Trunk', function() {
               'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
               'terminating_sip_domains': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -93,7 +93,7 @@ describe('Trunk', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -114,7 +114,7 @@ describe('Trunk', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -129,7 +129,7 @@ describe('Trunk', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks.create();
       promise.then(function() {
@@ -149,7 +149,7 @@ describe('Trunk', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'domain_name': 'test.pstn.twilio.com',
@@ -175,7 +175,7 @@ describe('Trunk', function() {
               'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
               'terminating_sip_domains': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -190,7 +190,7 @@ describe('Trunk', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
               'url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
@@ -229,14 +229,14 @@ describe('Trunk', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
               'url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
@@ -275,7 +275,7 @@ describe('Trunk', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -287,7 +287,7 @@ describe('Trunk', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
               'url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
@@ -326,14 +326,14 @@ describe('Trunk', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks.list();
       promise.then(function() {
@@ -353,7 +353,7 @@ describe('Trunk', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
               'url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
@@ -392,7 +392,7 @@ describe('Trunk', function() {
                   }
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -407,7 +407,7 @@ describe('Trunk', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
               'url': 'https://trunking.twilio.com/v1/Trunks?PageSize=50&Page=0',
@@ -418,7 +418,7 @@ describe('Trunk', function() {
               'previous_page_url': null
           },
           'trunks': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -433,7 +433,7 @@ describe('Trunk', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -454,7 +454,7 @@ describe('Trunk', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'domain_name': 'test.pstn.twilio.com',
@@ -480,7 +480,7 @@ describe('Trunk', function() {
               'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
               'terminating_sip_domains': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -495,7 +495,7 @@ describe('Trunk', function() {
   );
   it('should generate valid update_set_from_domain response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'domain_name': 'test.pstn.twilio.com',
@@ -521,7 +521,7 @@ describe('Trunk', function() {
               'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
               'terminating_sip_domains': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -536,7 +536,7 @@ describe('Trunk', function() {
   );
   it('should generate valid update_clear_from_domain response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'domain_name': 'test.pstn.twilio.com',
@@ -562,7 +562,7 @@ describe('Trunk', function() {
               'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
               'terminating_sip_domains': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

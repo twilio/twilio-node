@@ -31,7 +31,7 @@ describe('ThisMonth', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=68&PageSize=1',
@@ -71,7 +71,7 @@ describe('ThisMonth', function() {
                   'usage_unit': 'messages'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .usage
@@ -81,7 +81,7 @@ describe('ThisMonth', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=68&PageSize=1',
@@ -121,7 +121,7 @@ describe('ThisMonth', function() {
                   'usage_unit': 'messages'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .usage
@@ -136,7 +136,7 @@ describe('ThisMonth', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=68&PageSize=1',
@@ -176,7 +176,7 @@ describe('ThisMonth', function() {
                   'usage_unit': 'messages'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .usage
@@ -186,7 +186,7 @@ describe('ThisMonth', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .usage
@@ -210,7 +210,7 @@ describe('ThisMonth', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=68&PageSize=1',
@@ -250,7 +250,7 @@ describe('ThisMonth', function() {
                   'usage_unit': 'messages'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -268,7 +268,7 @@ describe('ThisMonth', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth?Page=68&PageSize=1',
@@ -281,7 +281,7 @@ describe('ThisMonth', function() {
           'total': 69,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records/ThisMonth',
           'usage_records': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

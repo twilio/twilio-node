@@ -31,7 +31,7 @@ describe('Function', function() {
   });
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions.list();
@@ -53,7 +53,7 @@ describe('Function', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'functions': [],
           'meta': {
               'first_page_url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions?PageSize=50&Page=0',
@@ -64,7 +64,7 @@ describe('Function', function() {
               'previous_page_url': null,
               'url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -80,7 +80,7 @@ describe('Function', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -103,7 +103,7 @@ describe('Function', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ZH00000000000000000000000000000000',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ZS00000000000000000000000000000000',
@@ -114,7 +114,7 @@ describe('Function', function() {
           'links': {
               'function_versions': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -130,7 +130,7 @@ describe('Function', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .functions('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -153,7 +153,7 @@ describe('Function', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -169,7 +169,7 @@ describe('Function', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -194,7 +194,7 @@ describe('Function', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ZH00000000000000000000000000000000',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ZS00000000000000000000000000000000',
@@ -205,7 +205,7 @@ describe('Function', function() {
           'links': {
               'function_versions': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -222,7 +222,7 @@ describe('Function', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -248,7 +248,7 @@ describe('Function', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ZH00000000000000000000000000000000',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ZS00000000000000000000000000000000',
@@ -259,7 +259,7 @@ describe('Function', function() {
           'links': {
               'function_versions': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

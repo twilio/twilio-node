@@ -31,7 +31,7 @@ describe('Webhook', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .webhooks('UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('Webhook', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/UMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -65,7 +65,7 @@ describe('Webhook', function() {
           'events': 'ondialogueend',
           'webhook_url': 'https://example.com/url',
           'webhook_method': 'POST'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -81,7 +81,7 @@ describe('Webhook', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'webhooks',
               'page_size': 50,
@@ -105,7 +105,7 @@ describe('Webhook', function() {
                   'webhook_method': 'POST'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .webhooks.each(() => done());
@@ -113,7 +113,7 @@ describe('Webhook', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'webhooks',
               'page_size': 50,
@@ -137,7 +137,7 @@ describe('Webhook', function() {
                   'webhook_method': 'POST'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .webhooks.each({pageSize: 20}, () => done());
@@ -150,7 +150,7 @@ describe('Webhook', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'webhooks',
               'page_size': 50,
@@ -174,7 +174,7 @@ describe('Webhook', function() {
                   'webhook_method': 'POST'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .webhooks.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -182,7 +182,7 @@ describe('Webhook', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .webhooks.list();
@@ -204,7 +204,7 @@ describe('Webhook', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'webhooks',
               'page_size': 50,
@@ -215,7 +215,7 @@ describe('Webhook', function() {
               'previous_page_url': null
           },
           'webhooks': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -231,7 +231,7 @@ describe('Webhook', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'key': 'webhooks',
               'page_size': 50,
@@ -255,7 +255,7 @@ describe('Webhook', function() {
                   'webhook_method': 'POST'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -271,7 +271,7 @@ describe('Webhook', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {uniqueName: 'unique_name', events: 'events', webhookUrl: 'https://example.com'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -296,7 +296,7 @@ describe('Webhook', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/UMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -307,7 +307,7 @@ describe('Webhook', function() {
           'events': 'ondialogueend',
           'webhook_url': 'https://example.com/url',
           'webhook_method': 'POST'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -324,7 +324,7 @@ describe('Webhook', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .webhooks('UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -347,7 +347,7 @@ describe('Webhook', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/UMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -358,7 +358,7 @@ describe('Webhook', function() {
           'events': 'ondialogueend',
           'webhook_url': 'https://example.com/url',
           'webhook_method': 'POST'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -374,7 +374,7 @@ describe('Webhook', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .webhooks('UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -397,7 +397,7 @@ describe('Webhook', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

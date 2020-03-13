@@ -31,7 +31,7 @@ describe('Alert', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.monitor.v1.alerts('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Alert', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'alert_text': 'alert_text',
           'api_version': '2010-04-01',
@@ -72,7 +72,7 @@ describe('Alert', function() {
           'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'PNe2cd757cd5257b0217a447933a0290d2'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -87,7 +87,7 @@ describe('Alert', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'alerts': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -116,14 +116,14 @@ describe('Alert', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.monitor.v1.alerts.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'alerts': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -152,7 +152,7 @@ describe('Alert', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.monitor.v1.alerts.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -164,7 +164,7 @@ describe('Alert', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'alerts': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -193,14 +193,14 @@ describe('Alert', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.monitor.v1.alerts.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.monitor.v1.alerts.list();
       promise.then(function() {
@@ -220,7 +220,7 @@ describe('Alert', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'alerts': [],
           'meta': {
               'first_page_url': 'https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0',
@@ -231,7 +231,7 @@ describe('Alert', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -246,7 +246,7 @@ describe('Alert', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'alerts': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -275,7 +275,7 @@ describe('Alert', function() {
               'previous_page_url': null,
               'url': 'https://monitor.twilio.com/v1/Alerts?LogLevel=log_level&StartDate=2016-01-01&EndDate=2016-01-01&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

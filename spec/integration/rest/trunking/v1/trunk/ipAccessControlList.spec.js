@@ -31,7 +31,7 @@ describe('IpAccessControlList', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .ipAccessControlLists('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('IpAccessControlList', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2018-05-02T17:29:34Z',
           'date_updated': '2018-05-02T17:29:34Z',
@@ -62,7 +62,7 @@ describe('IpAccessControlList', function() {
           'sid': 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -78,7 +78,7 @@ describe('IpAccessControlList', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .ipAccessControlLists('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -101,7 +101,7 @@ describe('IpAccessControlList', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -117,7 +117,7 @@ describe('IpAccessControlList', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {ipAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -142,7 +142,7 @@ describe('IpAccessControlList', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2018-04-30T20:59:06Z',
           'date_updated': '2018-04-30T20:59:06Z',
@@ -150,7 +150,7 @@ describe('IpAccessControlList', function() {
           'sid': 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -167,7 +167,7 @@ describe('IpAccessControlList', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'ip_access_control_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -188,7 +188,7 @@ describe('IpAccessControlList', function() {
               'previous_page_url': null,
               'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .ipAccessControlLists.each(() => done());
@@ -196,7 +196,7 @@ describe('IpAccessControlList', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'ip_access_control_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -217,7 +217,7 @@ describe('IpAccessControlList', function() {
               'previous_page_url': null,
               'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .ipAccessControlLists.each({pageSize: 20}, () => done());
@@ -230,7 +230,7 @@ describe('IpAccessControlList', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'ip_access_control_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -251,7 +251,7 @@ describe('IpAccessControlList', function() {
               'previous_page_url': null,
               'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .ipAccessControlLists.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -259,7 +259,7 @@ describe('IpAccessControlList', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .ipAccessControlLists.list();
@@ -281,7 +281,7 @@ describe('IpAccessControlList', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'ip_access_control_lists': [],
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0',
@@ -292,7 +292,7 @@ describe('IpAccessControlList', function() {
               'previous_page_url': null,
               'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -308,7 +308,7 @@ describe('IpAccessControlList', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'ip_access_control_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -329,7 +329,7 @@ describe('IpAccessControlList', function() {
               'previous_page_url': null,
               'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

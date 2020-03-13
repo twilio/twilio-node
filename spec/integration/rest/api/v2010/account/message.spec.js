@@ -31,7 +31,7 @@ describe('Message', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {to: '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('Message', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'body': 'Hello! \ud83d\udc4d',
@@ -79,7 +79,7 @@ describe('Message', function() {
           },
           'to': '+14155552345',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -96,7 +96,7 @@ describe('Message', function() {
   );
   it('should generate valid create_wo_service response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'body': 'Hello! \ud83d\udc4d',
@@ -119,7 +119,7 @@ describe('Message', function() {
           },
           'to': '+14155552345',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -136,7 +136,7 @@ describe('Message', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -159,7 +159,7 @@ describe('Message', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -175,7 +175,7 @@ describe('Message', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -198,7 +198,7 @@ describe('Message', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'body': 'testing',
@@ -222,7 +222,7 @@ describe('Message', function() {
           },
           'to': '+18182008801',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -238,7 +238,7 @@ describe('Message', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 1,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0',
           'next_page_uri': null,
@@ -299,7 +299,7 @@ describe('Message', function() {
           ],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .messages.each(() => done());
@@ -307,7 +307,7 @@ describe('Message', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 1,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0',
           'next_page_uri': null,
@@ -368,7 +368,7 @@ describe('Message', function() {
           ],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .messages.each({pageSize: 20}, () => done());
@@ -381,7 +381,7 @@ describe('Message', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 1,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0',
           'next_page_uri': null,
@@ -442,7 +442,7 @@ describe('Message', function() {
           ],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .messages.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -450,7 +450,7 @@ describe('Message', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.list();
@@ -472,7 +472,7 @@ describe('Message', function() {
   );
   it('should generate valid read_full_page1 response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 1,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0',
           'next_page_uri': null,
@@ -533,7 +533,7 @@ describe('Message', function() {
           ],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -549,7 +549,7 @@ describe('Message', function() {
   );
   it('should generate valid read_empty_sentdate_less response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3C=2008-01-02&PageSize=25&Page=0',
           'next_page_uri': null,
@@ -559,7 +559,7 @@ describe('Message', function() {
           'messages': [],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3C=2008-01-02&PageSize=25&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -575,7 +575,7 @@ describe('Message', function() {
   );
   it('should generate valid read_empty_sentdate_equals response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent=2008-01-02&PageSize=25&Page=0',
           'next_page_uri': null,
@@ -585,7 +585,7 @@ describe('Message', function() {
           'messages': [],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent=2008-01-02&PageSize=25&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -601,7 +601,7 @@ describe('Message', function() {
   );
   it('should generate valid read_empty_sentdate_greater response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=25&Page=0',
           'next_page_uri': null,
@@ -611,7 +611,7 @@ describe('Message', function() {
           'messages': [],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=25&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -627,7 +627,7 @@ describe('Message', function() {
   );
   it('should generate valid read_empty_sentdate_greater_format1 response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=06%2F11%2F2019+22%3A05%3A25+MST&PageSize=25&Page=0',
           'next_page_uri': null,
@@ -637,7 +637,7 @@ describe('Message', function() {
           'messages': [],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=06%2F11%2F2019+22%3A05%3A25+MST&PageSize=25&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -653,7 +653,7 @@ describe('Message', function() {
   );
   it('should generate valid read_empty_sentdate_greater_format2 response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2019-06-11+22%3A05%3A25.000&PageSize=25&Page=0',
           'next_page_uri': null,
@@ -663,7 +663,7 @@ describe('Message', function() {
           'messages': [],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2019-06-11+22%3A05%3A25.000&PageSize=25&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -679,7 +679,7 @@ describe('Message', function() {
   );
   it('should generate valid read_empty_sentdate_greater_format3 response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=Wed%2C+19+Jun+2019+22%3A04%3A00+-0000&PageSize=25&Page=0',
           'next_page_uri': null,
@@ -689,7 +689,7 @@ describe('Message', function() {
           'messages': [],
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=Wed%2C+19+Jun+2019+22%3A04%3A00+-0000&PageSize=25&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -705,7 +705,7 @@ describe('Message', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {body: 'body'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -731,7 +731,7 @@ describe('Message', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'body': 'Hello, this is trash Benson cut and pasted and probably does not do anything useful! \ud83d\udc4d',
@@ -754,7 +754,7 @@ describe('Message', function() {
           },
           'to': '+14155552345',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

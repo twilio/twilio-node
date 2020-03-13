@@ -31,7 +31,7 @@ describe('Service', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Service', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'consumption_report_interval': 100,
           'date_created': '2015-07-30T20:00:00Z',
@@ -80,7 +80,7 @@ describe('Service', function() {
           ],
           'webhook_method': 'webhook_method',
           'webhooks': {}
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -95,7 +95,7 @@ describe('Service', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -116,7 +116,7 @@ describe('Service', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -131,7 +131,7 @@ describe('Service', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name'};
       var promise = client.chat.v1.services.create(opts);
@@ -154,7 +154,7 @@ describe('Service', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'consumption_report_interval': 100,
           'date_created': '2015-07-30T20:00:00Z',
@@ -182,7 +182,7 @@ describe('Service', function() {
           ],
           'webhook_method': 'webhook_method',
           'webhooks': {}
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -198,7 +198,7 @@ describe('Service', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
@@ -239,14 +239,14 @@ describe('Service', function() {
                   'webhooks': {}
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.chat.v1.services.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
@@ -287,7 +287,7 @@ describe('Service', function() {
                   'webhooks': {}
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.chat.v1.services.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -299,7 +299,7 @@ describe('Service', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
@@ -340,14 +340,14 @@ describe('Service', function() {
                   'webhooks': {}
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.chat.v1.services.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.chat.v1.services.list();
       promise.then(function() {
@@ -367,7 +367,7 @@ describe('Service', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
@@ -378,7 +378,7 @@ describe('Service', function() {
               'url': 'https://chat.twilio.com/v1/Services'
           },
           'services': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -393,7 +393,7 @@ describe('Service', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
@@ -434,7 +434,7 @@ describe('Service', function() {
                   'webhooks': {}
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -449,7 +449,7 @@ describe('Service', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -470,7 +470,7 @@ describe('Service', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'consumption_report_interval': 100,
           'date_created': '2015-07-30T20:00:00Z',
@@ -498,7 +498,7 @@ describe('Service', function() {
           ],
           'webhook_method': 'webhook_method',
           'webhooks': {}
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

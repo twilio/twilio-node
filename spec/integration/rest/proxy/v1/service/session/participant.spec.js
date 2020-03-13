@@ -31,7 +31,7 @@ describe('Participant', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('Participant', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -72,7 +72,7 @@ describe('Participant', function() {
           'links': {
               'message_interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -89,7 +89,7 @@ describe('Participant', function() {
   );
   it('should generate valid fetch_channel response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -105,7 +105,7 @@ describe('Participant', function() {
           'links': {
               'message_interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -122,7 +122,7 @@ describe('Participant', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -146,7 +146,7 @@ describe('Participant', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'next_page_url': null,
@@ -157,7 +157,7 @@ describe('Participant', function() {
               'key': 'participants'
           },
           'participants': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -174,7 +174,7 @@ describe('Participant', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {identifier: 'identifier'};
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -201,7 +201,7 @@ describe('Participant', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -217,7 +217,7 @@ describe('Participant', function() {
           'links': {
               'message_interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -235,7 +235,7 @@ describe('Participant', function() {
   );
   it('should generate valid create_channel response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -251,7 +251,7 @@ describe('Participant', function() {
           'links': {
               'message_interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -269,7 +269,7 @@ describe('Participant', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -294,7 +294,7 @@ describe('Participant', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

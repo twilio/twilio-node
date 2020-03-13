@@ -31,7 +31,7 @@ describe('Credential', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [
               {
                   'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -53,14 +53,14 @@ describe('Credential', function() {
               'next_page_url': null,
               'key': 'credentials'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.chat.v2.credentials.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [
               {
                   'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -82,7 +82,7 @@ describe('Credential', function() {
               'next_page_url': null,
               'key': 'credentials'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.chat.v2.credentials.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -94,7 +94,7 @@ describe('Credential', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [
               {
                   'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -116,14 +116,14 @@ describe('Credential', function() {
               'next_page_url': null,
               'key': 'credentials'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.chat.v2.credentials.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.chat.v2.credentials.list();
       promise.then(function() {
@@ -143,7 +143,7 @@ describe('Credential', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [
               {
                   'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -165,7 +165,7 @@ describe('Credential', function() {
               'next_page_url': null,
               'key': 'credentials'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -180,7 +180,7 @@ describe('Credential', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [],
           'meta': {
               'page': 0,
@@ -191,7 +191,7 @@ describe('Credential', function() {
               'next_page_url': null,
               'key': 'credentials'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -206,7 +206,7 @@ describe('Credential', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {type: 'gcm'};
       var promise = client.chat.v2.credentials.create(opts);
@@ -229,7 +229,7 @@ describe('Credential', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'Test slow create',
@@ -238,7 +238,7 @@ describe('Credential', function() {
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
           'url': 'https://chat.twilio.com/v2/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -254,7 +254,7 @@ describe('Credential', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.chat.v2.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -275,7 +275,7 @@ describe('Credential', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'Test slow create',
@@ -284,7 +284,7 @@ describe('Credential', function() {
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
           'url': 'https://chat.twilio.com/v2/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -299,7 +299,7 @@ describe('Credential', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.chat.v2.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -320,7 +320,7 @@ describe('Credential', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'Test slow create',
@@ -329,7 +329,7 @@ describe('Credential', function() {
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
           'url': 'https://chat.twilio.com/v2/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -344,7 +344,7 @@ describe('Credential', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.chat.v2.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -365,7 +365,7 @@ describe('Credential', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

@@ -31,7 +31,7 @@ describe('Regulation', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [
               {
                   'sid': 'RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -81,7 +81,7 @@ describe('Regulation', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .regulations.each(() => done());
@@ -89,7 +89,7 @@ describe('Regulation', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [
               {
                   'sid': 'RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -139,7 +139,7 @@ describe('Regulation', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .regulations.each({pageSize: 20}, () => done());
@@ -152,7 +152,7 @@ describe('Regulation', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [
               {
                   'sid': 'RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -202,7 +202,7 @@ describe('Regulation', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .regulations.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -210,7 +210,7 @@ describe('Regulation', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .regulations.list();
@@ -231,7 +231,7 @@ describe('Regulation', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [],
           'meta': {
               'page': 0,
@@ -242,7 +242,7 @@ describe('Regulation', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -258,7 +258,7 @@ describe('Regulation', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [
               {
                   'sid': 'RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -308,7 +308,7 @@ describe('Regulation', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -324,7 +324,7 @@ describe('Regulation', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .regulations('RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -346,7 +346,7 @@ describe('Regulation', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'Australia: Local - Individual',
           'iso_country': 'AU',
@@ -383,7 +383,7 @@ describe('Regulation', function() {
               ]
           },
           'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Regulations/RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

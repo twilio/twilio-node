@@ -31,7 +31,7 @@ describe('Verification', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {to: 'to', channel: 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('Verification', function() {
   );
   it('should generate valid create_verification response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -85,7 +85,7 @@ describe('Verification', function() {
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -102,7 +102,7 @@ describe('Verification', function() {
   );
   it('should generate valid create_verification_email response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -131,7 +131,7 @@ describe('Verification', function() {
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -148,7 +148,7 @@ describe('Verification', function() {
   );
   it('should generate valid create_verification_with_rate_limits response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -177,7 +177,7 @@ describe('Verification', function() {
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -194,7 +194,7 @@ describe('Verification', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {status: 'canceled'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -220,7 +220,7 @@ describe('Verification', function() {
   );
   it('should generate valid update_verification response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -249,7 +249,7 @@ describe('Verification', function() {
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -266,7 +266,7 @@ describe('Verification', function() {
   );
   it('should generate valid approve_verification_with_pn response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -295,7 +295,7 @@ describe('Verification', function() {
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -312,7 +312,7 @@ describe('Verification', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications('sid').fetch();
@@ -335,7 +335,7 @@ describe('Verification', function() {
   );
   it('should generate valid fetch_verification response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -364,7 +364,7 @@ describe('Verification', function() {
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

@@ -31,7 +31,7 @@ describe('Job', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exports
                                                .jobs('JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -53,7 +53,7 @@ describe('Job', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'start_day': 'start_day',
           'job_sid': 'JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://preview.twilio.com/BulkExports/Exports/Jobs/JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -64,7 +64,7 @@ describe('Job', function() {
           'webhook_method': 'webhook_method',
           'email': 'email',
           'resource_type': 'resource_type'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -80,7 +80,7 @@ describe('Job', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exports
                                                .jobs('JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -102,7 +102,7 @@ describe('Job', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

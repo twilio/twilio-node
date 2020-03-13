@@ -31,7 +31,7 @@ describe('Bundle', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name', email: 'email'};
       var promise = client.numbers.v2.regulatoryCompliance
@@ -55,7 +55,7 @@ describe('Bundle', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'regulation_sid': 'RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -69,7 +69,7 @@ describe('Bundle', function() {
           'links': {
               'item_assignments': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ItemAssignments'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -86,7 +86,7 @@ describe('Bundle', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [
               {
                   'sid': 'BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -113,7 +113,7 @@ describe('Bundle', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .bundles.each(() => done());
@@ -121,7 +121,7 @@ describe('Bundle', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [
               {
                   'sid': 'BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -148,7 +148,7 @@ describe('Bundle', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .bundles.each({pageSize: 20}, () => done());
@@ -161,7 +161,7 @@ describe('Bundle', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [
               {
                   'sid': 'BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -188,7 +188,7 @@ describe('Bundle', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .bundles.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -196,7 +196,7 @@ describe('Bundle', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles.list();
@@ -217,7 +217,7 @@ describe('Bundle', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [],
           'meta': {
               'page': 0,
@@ -228,7 +228,7 @@ describe('Bundle', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -244,7 +244,7 @@ describe('Bundle', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'results': [
               {
                   'sid': 'BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -271,7 +271,7 @@ describe('Bundle', function() {
               'next_page_url': null,
               'key': 'results'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -287,7 +287,7 @@ describe('Bundle', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -309,7 +309,7 @@ describe('Bundle', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'regulation_sid': 'RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -323,7 +323,7 @@ describe('Bundle', function() {
           'links': {
               'item_assignments': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ItemAssignments'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -339,7 +339,7 @@ describe('Bundle', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -361,7 +361,7 @@ describe('Bundle', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'regulation_sid': 'RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -375,7 +375,7 @@ describe('Bundle', function() {
           'links': {
               'item_assignments': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ItemAssignments'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

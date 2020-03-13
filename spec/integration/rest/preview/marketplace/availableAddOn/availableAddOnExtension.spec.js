@@ -31,7 +31,7 @@ describe('AvailableAddOnExtension', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,14 +54,14 @@ describe('AvailableAddOnExtension', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'available_add_on_sid': 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'Incoming Voice Call',
           'product_name': 'Programmable Voice',
           'unique_name': 'voice-incoming',
           'url': 'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions/XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -77,7 +77,7 @@ describe('AvailableAddOnExtension', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'extensions': [
               {
                   'sid': 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -97,7 +97,7 @@ describe('AvailableAddOnExtension', function() {
               'next_page_url': null,
               'key': 'extensions'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                 .extensions.each(() => done());
@@ -105,7 +105,7 @@ describe('AvailableAddOnExtension', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'extensions': [
               {
                   'sid': 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -125,7 +125,7 @@ describe('AvailableAddOnExtension', function() {
               'next_page_url': null,
               'key': 'extensions'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                 .extensions.each({pageSize: 20}, () => done());
@@ -138,7 +138,7 @@ describe('AvailableAddOnExtension', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'extensions': [
               {
                   'sid': 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -158,7 +158,7 @@ describe('AvailableAddOnExtension', function() {
               'next_page_url': null,
               'key': 'extensions'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                 .extensions.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -166,7 +166,7 @@ describe('AvailableAddOnExtension', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
@@ -188,7 +188,7 @@ describe('AvailableAddOnExtension', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'extensions': [
               {
                   'sid': 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -208,7 +208,7 @@ describe('AvailableAddOnExtension', function() {
               'next_page_url': null,
               'key': 'extensions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -224,7 +224,7 @@ describe('AvailableAddOnExtension', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'extensions': [],
           'meta': {
               'page': 0,
@@ -235,7 +235,7 @@ describe('AvailableAddOnExtension', function() {
               'next_page_url': null,
               'key': 'extensions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

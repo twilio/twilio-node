@@ -31,7 +31,7 @@ describe('Session', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('Session', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'open',
           'unique_name': 'Order #1234',
@@ -74,7 +74,7 @@ describe('Session', function() {
               'interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Interactions',
               'participants': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -90,7 +90,7 @@ describe('Session', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions.list();
@@ -112,7 +112,7 @@ describe('Session', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sessions': [],
           'meta': {
               'previous_page_url': null,
@@ -123,7 +123,7 @@ describe('Session', function() {
               'page_size': 50,
               'key': 'sessions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -139,7 +139,7 @@ describe('Session', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions.create();
@@ -161,7 +161,7 @@ describe('Session', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'open',
           'unique_name': 'Order #1234',
@@ -181,7 +181,7 @@ describe('Session', function() {
               'interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Interactions',
               'participants': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -197,7 +197,7 @@ describe('Session', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -220,7 +220,7 @@ describe('Session', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -236,7 +236,7 @@ describe('Session', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -259,7 +259,7 @@ describe('Session', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'in-progress',
           'unique_name': 'Order #1234',
@@ -279,7 +279,7 @@ describe('Session', function() {
               'interactions': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Interactions',
               'participants': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

@@ -31,7 +31,7 @@ describe('ExportAssistant', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .exportAssistant().fetch();
@@ -53,7 +53,7 @@ describe('ExportAssistant', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Export',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -61,7 +61,7 @@ describe('ExportAssistant', function() {
           'status': 'building',
           'error_code': null,
           'schema': {}
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

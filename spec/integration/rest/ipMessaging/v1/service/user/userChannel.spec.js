@@ -31,7 +31,7 @@ describe('UserChannel', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -56,7 +56,7 @@ describe('UserChannel', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                            .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -65,7 +65,7 @@ describe('UserChannel', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -90,7 +90,7 @@ describe('UserChannel', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                            .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -104,7 +104,7 @@ describe('UserChannel', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -129,7 +129,7 @@ describe('UserChannel', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                            .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -138,7 +138,7 @@ describe('UserChannel', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -162,7 +162,7 @@ describe('UserChannel', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -187,7 +187,7 @@ describe('UserChannel', function() {
                   }
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -204,7 +204,7 @@ describe('UserChannel', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -215,7 +215,7 @@ describe('UserChannel', function() {
               'key': 'channels'
           },
           'channels': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

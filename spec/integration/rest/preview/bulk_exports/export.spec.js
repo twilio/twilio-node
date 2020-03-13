@@ -31,7 +31,7 @@ describe('Export', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exports('resource_type').fetch();
       promise.then(function() {
@@ -52,13 +52,13 @@ describe('Export', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'resource_type': 'Calls',
           'url': 'https://preview.twilio.com/BulkExports/Exports/Calls',
           'links': {
               'days': 'https://preview.twilio.com/BulkExports/Exports/Calls/Days'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

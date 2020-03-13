@@ -31,7 +31,7 @@ describe('Usage', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.wireless.sims('DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .usage().fetch();
@@ -53,7 +53,7 @@ describe('Usage', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'commands_costs': {},
           'commands_usage': {},
@@ -63,7 +63,7 @@ describe('Usage', function() {
           'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'period': {},
           'url': 'https://preview.twilio.com/wireless/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

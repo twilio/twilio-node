@@ -31,7 +31,7 @@ describe('MessageInteraction', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -57,7 +57,7 @@ describe('MessageInteraction', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'data': '{\'body\':\'some message\'}',
           'date_created': '2015-07-30T20:00:00Z',
@@ -78,7 +78,7 @@ describe('MessageInteraction', function() {
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions/KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -96,7 +96,7 @@ describe('MessageInteraction', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -123,7 +123,7 @@ describe('MessageInteraction', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'data': '{\'body\':\'some message\'}',
           'date_created': '2015-07-30T20:00:00Z',
@@ -144,7 +144,7 @@ describe('MessageInteraction', function() {
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions/KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -162,7 +162,7 @@ describe('MessageInteraction', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -188,7 +188,7 @@ describe('MessageInteraction', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'interactions': [],
           'meta': {
               'previous_page_url': null,
@@ -199,7 +199,7 @@ describe('MessageInteraction', function() {
               'page_size': 50,
               'key': 'interactions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

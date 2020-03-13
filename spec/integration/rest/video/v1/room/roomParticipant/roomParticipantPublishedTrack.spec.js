@@ -31,7 +31,7 @@ describe('PublishedTrack', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('PublishedTrack', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -66,7 +66,7 @@ describe('PublishedTrack', function() {
           'kind': 'data',
           'enabled': true,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PublishedTracks/MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -83,7 +83,7 @@ describe('PublishedTrack', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -107,7 +107,7 @@ describe('PublishedTrack', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'published_tracks': [],
           'meta': {
               'page': 0,
@@ -118,7 +118,7 @@ describe('PublishedTrack', function() {
               'next_page_url': null,
               'key': 'published_tracks'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

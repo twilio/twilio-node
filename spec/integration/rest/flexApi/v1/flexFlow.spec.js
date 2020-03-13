@@ -31,7 +31,7 @@ describe('FlexFlow', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -62,14 +62,14 @@ describe('FlexFlow', function() {
                   'url': 'https://flex-api.twilio.com/v1/FlexFlows/FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.flexApi.v1.flexFlow.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -100,7 +100,7 @@ describe('FlexFlow', function() {
                   'url': 'https://flex-api.twilio.com/v1/FlexFlows/FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.flexApi.v1.flexFlow.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -112,7 +112,7 @@ describe('FlexFlow', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -143,14 +143,14 @@ describe('FlexFlow', function() {
                   'url': 'https://flex-api.twilio.com/v1/FlexFlows/FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.flexApi.v1.flexFlow.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.flexFlow.list();
       promise.then(function() {
@@ -170,7 +170,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -201,7 +201,7 @@ describe('FlexFlow', function() {
                   'url': 'https://flex-api.twilio.com/v1/FlexFlows/FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -216,7 +216,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -227,7 +227,7 @@ describe('FlexFlow', function() {
               'key': 'flex_flows'
           },
           'flex_flows': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -242,7 +242,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.flexFlow('FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -263,7 +263,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
@@ -281,7 +281,7 @@ describe('FlexFlow', function() {
           'long_lived': true,
           'janitor_enabled': true,
           'url': 'https://flex-api.twilio.com/v1/FlexFlows/FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -296,7 +296,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {
         friendlyName: 'friendly_name',
@@ -327,7 +327,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
@@ -345,7 +345,7 @@ describe('FlexFlow', function() {
           'long_lived': true,
           'janitor_enabled': true,
           'url': 'https://flex-api.twilio.com/v1/FlexFlows/FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -365,7 +365,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.flexFlow('FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -386,7 +386,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
@@ -404,7 +404,7 @@ describe('FlexFlow', function() {
           'long_lived': true,
           'janitor_enabled': true,
           'url': 'https://flex-api.twilio.com/v1/FlexFlows/FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -419,7 +419,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.flexFlow('FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -440,7 +440,7 @@ describe('FlexFlow', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

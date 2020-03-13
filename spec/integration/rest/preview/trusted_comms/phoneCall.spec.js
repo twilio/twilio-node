@@ -31,7 +31,7 @@ describe('PhoneCall', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {from: 'from', to: 'to'};
       var promise = client.preview.trusted_comms.phoneCalls.create(opts);
@@ -54,7 +54,7 @@ describe('PhoneCall', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'bg_color': '#fff',
           'brand_sid': 'BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -73,7 +73,7 @@ describe('PhoneCall', function() {
           'to': '+573000000000',
           'url': 'https://preview.twilio.com/TrustedComms/Business/PhoneCalls',
           'use_case': 'conversational'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

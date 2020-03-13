@@ -31,7 +31,7 @@ describe('PhoneNumber', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers.create();
@@ -53,7 +53,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -69,7 +69,7 @@ describe('PhoneNumber', function() {
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'is_reserved': false,
           'in_use': 0
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -85,7 +85,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -108,7 +108,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -124,7 +124,7 @@ describe('PhoneNumber', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -153,7 +153,7 @@ describe('PhoneNumber', function() {
                   'in_use': 0
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                      .phoneNumbers.each(() => done());
@@ -161,7 +161,7 @@ describe('PhoneNumber', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -190,7 +190,7 @@ describe('PhoneNumber', function() {
                   'in_use': 0
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                      .phoneNumbers.each({pageSize: 20}, () => done());
@@ -203,7 +203,7 @@ describe('PhoneNumber', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -232,7 +232,7 @@ describe('PhoneNumber', function() {
                   'in_use': 0
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                      .phoneNumbers.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -240,7 +240,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers.list();
@@ -262,7 +262,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -291,7 +291,7 @@ describe('PhoneNumber', function() {
                   'in_use': 0
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -307,7 +307,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -330,7 +330,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -346,7 +346,7 @@ describe('PhoneNumber', function() {
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'is_reserved': false,
           'in_use': 0
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -362,7 +362,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -385,7 +385,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -401,7 +401,7 @@ describe('PhoneNumber', function() {
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'is_reserved': true,
           'in_use': 0
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

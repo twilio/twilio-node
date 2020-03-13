@@ -31,7 +31,7 @@ describe('Interaction', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('Interaction', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'data': '{\'body\':\'some message\'}',
           'date_created': '2015-07-30T20:00:00Z',
@@ -76,7 +76,7 @@ describe('Interaction', function() {
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Interactions/KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -93,7 +93,7 @@ describe('Interaction', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -117,7 +117,7 @@ describe('Interaction', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'interactions': [],
           'meta': {
               'previous_page_url': null,
@@ -128,7 +128,7 @@ describe('Interaction', function() {
               'page_size': 50,
               'key': 'interactions'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -145,7 +145,7 @@ describe('Interaction', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -170,7 +170,7 @@ describe('Interaction', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

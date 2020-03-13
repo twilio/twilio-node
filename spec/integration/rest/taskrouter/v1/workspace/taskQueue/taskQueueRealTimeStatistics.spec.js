@@ -31,7 +31,7 @@ describe('TaskQueueRealTimeStatistics', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskQueues('WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,7 +55,7 @@ describe('TaskQueueRealTimeStatistics', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'longest_task_waiting_age': 100,
           'longest_task_waiting_sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'longest_relative_task_age_in_queue': 100,
@@ -96,7 +96,7 @@ describe('TaskQueueRealTimeStatistics', function() {
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'total_available_workers': 100,
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RealTimeStatistics'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

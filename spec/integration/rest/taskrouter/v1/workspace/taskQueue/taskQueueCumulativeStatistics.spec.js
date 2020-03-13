@@ -31,7 +31,7 @@ describe('TaskQueueCumulativeStatistics', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskQueues('WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,7 +55,7 @@ describe('TaskQueueCumulativeStatistics', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'reservations_created': 100,
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'reservations_rejected': 100,
@@ -114,7 +114,7 @@ describe('TaskQueueCumulativeStatistics', function() {
           'tasks_deleted': 100,
           'reservations_rescinded': 100,
           'avg_task_acceptance_time': 100
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

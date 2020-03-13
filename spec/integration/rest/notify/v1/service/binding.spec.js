@@ -31,7 +31,7 @@ describe('Binding', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('Binding', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address': 'a7c658f4111ec4ff5a1a647f9d0edd819025b9f20522d2fae897049f32873e73',
           'binding_type': 'apn',
@@ -73,7 +73,7 @@ describe('Binding', function() {
               'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/24987039'
           },
           'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -89,7 +89,7 @@ describe('Binding', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -112,7 +112,7 @@ describe('Binding', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -128,7 +128,7 @@ describe('Binding', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {identity: 'identity', bindingType: 'apn', address: 'address'};
       var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -153,7 +153,7 @@ describe('Binding', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address': 'a7c658f4111ec4ff5a1a647f9d0edd819025b9f20522d2fae897049f32873e73',
           'binding_type': 'apn',
@@ -172,7 +172,7 @@ describe('Binding', function() {
               'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/24987039'
           },
           'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -189,7 +189,7 @@ describe('Binding', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'bindings': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -221,7 +221,7 @@ describe('Binding', function() {
               'previous_page_url': null,
               'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?Tag=tag&Identity=identity&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .bindings.each(() => done());
@@ -229,7 +229,7 @@ describe('Binding', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'bindings': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -261,7 +261,7 @@ describe('Binding', function() {
               'previous_page_url': null,
               'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?Tag=tag&Identity=identity&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .bindings.each({pageSize: 20}, () => done());
@@ -274,7 +274,7 @@ describe('Binding', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'bindings': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -306,7 +306,7 @@ describe('Binding', function() {
               'previous_page_url': null,
               'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?Tag=tag&Identity=identity&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .bindings.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -314,7 +314,7 @@ describe('Binding', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.list();
@@ -336,7 +336,7 @@ describe('Binding', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'bindings': [],
           'meta': {
               'first_page_url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?Tag=tag&Identity=identity&PageSize=50&Page=0',
@@ -347,7 +347,7 @@ describe('Binding', function() {
               'previous_page_url': null,
               'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?Tag=tag&Identity=identity&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -363,7 +363,7 @@ describe('Binding', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'bindings': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -395,7 +395,7 @@ describe('Binding', function() {
               'previous_page_url': null,
               'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?Tag=tag&Identity=identity&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

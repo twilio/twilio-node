@@ -31,7 +31,7 @@ describe('ExecutionStep', function() {
   });
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .executions('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,7 +55,7 @@ describe('ExecutionStep', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'next_page_url': null,
@@ -66,7 +66,7 @@ describe('ExecutionStep', function() {
               'key': 'steps'
           },
           'steps': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -83,7 +83,7 @@ describe('ExecutionStep', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .executions('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -108,7 +108,7 @@ describe('ExecutionStep', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'flow_sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -123,7 +123,7 @@ describe('ExecutionStep', function() {
           'links': {
               'step_context': 'https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps/FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

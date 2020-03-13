@@ -31,7 +31,7 @@ describe('Day', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exports('resource_type')
                                                .days('day').fetch();
@@ -54,9 +54,9 @@ describe('Day', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'redirect_to': 'https://com.twilio.dev-us1.exports.s3.amazonaws.com/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -72,7 +72,7 @@ describe('Day', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'days': [
               {
                   'day': '2017-04-01',
@@ -91,7 +91,7 @@ describe('Day', function() {
               'next_page_url': null,
               'key': 'days'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.bulk_exports.exports('resource_type')
                                  .days.each(() => done());
@@ -99,7 +99,7 @@ describe('Day', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'days': [
               {
                   'day': '2017-04-01',
@@ -118,7 +118,7 @@ describe('Day', function() {
               'next_page_url': null,
               'key': 'days'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.bulk_exports.exports('resource_type')
                                  .days.each({pageSize: 20}, () => done());
@@ -131,7 +131,7 @@ describe('Day', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'days': [
               {
                   'day': '2017-04-01',
@@ -150,7 +150,7 @@ describe('Day', function() {
               'next_page_url': null,
               'key': 'days'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.bulk_exports.exports('resource_type')
                                  .days.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -158,7 +158,7 @@ describe('Day', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exports('resource_type')
                                                .days.list();
@@ -180,7 +180,7 @@ describe('Day', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'days': [],
           'meta': {
               'page': 0,
@@ -191,7 +191,7 @@ describe('Day', function() {
               'next_page_url': null,
               'key': 'days'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -207,7 +207,7 @@ describe('Day', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'days': [
               {
                   'day': '2017-04-01',
@@ -226,7 +226,7 @@ describe('Day', function() {
               'next_page_url': null,
               'key': 'days'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

@@ -31,7 +31,7 @@ describe('BulkCountryUpdate', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {updateRequest: 'update_request'};
       var promise = client.voice.v1.dialingPermissions
@@ -55,10 +55,10 @@ describe('BulkCountryUpdate', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'update_count': 1,
           'update_request': 'accepted'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

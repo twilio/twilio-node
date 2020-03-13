@@ -31,7 +31,7 @@ describe('Variable', function() {
   });
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments('ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,7 +55,7 @@ describe('Variable', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'variables': [],
           'meta': {
               'first_page_url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables?PageSize=50&Page=0',
@@ -66,7 +66,7 @@ describe('Variable', function() {
               'previous_page_url': null,
               'url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -83,7 +83,7 @@ describe('Variable', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments('ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -108,7 +108,7 @@ describe('Variable', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ZV00000000000000000000000000000000',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ZS00000000000000000000000000000000',
@@ -118,7 +118,7 @@ describe('Variable', function() {
           'date_created': '2018-11-10T20:00:00Z',
           'date_updated': '2018-11-10T20:00:00Z',
           'url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables/ZV00000000000000000000000000000000'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -135,7 +135,7 @@ describe('Variable', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {key: 'key', value: 'value'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -162,7 +162,7 @@ describe('Variable', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ZV00000000000000000000000000000000',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ZS00000000000000000000000000000000',
@@ -172,7 +172,7 @@ describe('Variable', function() {
           'date_created': '2018-11-10T20:00:00Z',
           'date_updated': '2018-11-10T20:00:00Z',
           'url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables/ZV00000000000000000000000000000000'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -190,7 +190,7 @@ describe('Variable', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments('ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -215,7 +215,7 @@ describe('Variable', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'ZV00000000000000000000000000000000',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ZS00000000000000000000000000000000',
@@ -225,7 +225,7 @@ describe('Variable', function() {
           'date_created': '2018-11-10T20:00:00Z',
           'date_updated': '2018-11-11T20:00:00Z',
           'url': 'https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables/ZV00000000000000000000000000000000'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -242,7 +242,7 @@ describe('Variable', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments('ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -267,7 +267,7 @@ describe('Variable', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

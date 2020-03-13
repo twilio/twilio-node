@@ -31,7 +31,7 @@ describe('Bucket', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {max: 1, interval: 1};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -58,7 +58,7 @@ describe('Bucket', function() {
   );
   it('should generate valid create_bucket response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'rate_limit_sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -68,7 +68,7 @@ describe('Bucket', function() {
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets/BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -86,7 +86,7 @@ describe('Bucket', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -111,7 +111,7 @@ describe('Bucket', function() {
   );
   it('should generate valid update_bucket response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'rate_limit_sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -121,7 +121,7 @@ describe('Bucket', function() {
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets/BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -138,7 +138,7 @@ describe('Bucket', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -163,7 +163,7 @@ describe('Bucket', function() {
   );
   it('should generate valid fetch_bucket response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'rate_limit_sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -173,7 +173,7 @@ describe('Bucket', function() {
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets/BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -190,7 +190,7 @@ describe('Bucket', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'buckets': [
               {
                   'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -213,7 +213,7 @@ describe('Bucket', function() {
               'next_page_url': null,
               'key': 'buckets'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -222,7 +222,7 @@ describe('Bucket', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'buckets': [
               {
                   'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -245,7 +245,7 @@ describe('Bucket', function() {
               'next_page_url': null,
               'key': 'buckets'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -259,7 +259,7 @@ describe('Bucket', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'buckets': [
               {
                   'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -282,7 +282,7 @@ describe('Bucket', function() {
               'next_page_url': null,
               'key': 'buckets'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -291,7 +291,7 @@ describe('Bucket', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -315,7 +315,7 @@ describe('Bucket', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'buckets': [],
           'meta': {
               'page': 0,
@@ -326,7 +326,7 @@ describe('Bucket', function() {
               'next_page_url': null,
               'key': 'buckets'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -343,7 +343,7 @@ describe('Bucket', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'buckets': [
               {
                   'sid': 'BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -366,7 +366,7 @@ describe('Bucket', function() {
               'next_page_url': null,
               'key': 'buckets'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -383,7 +383,7 @@ describe('Bucket', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -408,7 +408,7 @@ describe('Bucket', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

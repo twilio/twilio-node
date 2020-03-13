@@ -31,7 +31,7 @@ describe('WorkersStatistics', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workers
@@ -54,7 +54,7 @@ describe('WorkersStatistics', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'cumulative': {
               'reservations_created': 0,
               'reservations_accepted': 0,
@@ -127,7 +127,7 @@ describe('WorkersStatistics', function() {
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/Statistics'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

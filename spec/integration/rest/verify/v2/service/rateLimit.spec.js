@@ -31,7 +31,7 @@ describe('RateLimit', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {uniqueName: 'unique_name'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid create_rate_limit response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -68,7 +68,7 @@ describe('RateLimit', function() {
           'links': {
               'buckets': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -85,7 +85,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -108,7 +108,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid update_rate_limit response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -120,7 +120,7 @@ describe('RateLimit', function() {
           'links': {
               'buckets': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -136,7 +136,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -159,7 +159,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid fetch_rate_limit response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -171,7 +171,7 @@ describe('RateLimit', function() {
           'links': {
               'buckets': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -187,7 +187,7 @@ describe('RateLimit', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -212,7 +212,7 @@ describe('RateLimit', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .rateLimits.each(() => done());
@@ -220,7 +220,7 @@ describe('RateLimit', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -245,7 +245,7 @@ describe('RateLimit', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .rateLimits.each({pageSize: 20}, () => done());
@@ -258,7 +258,7 @@ describe('RateLimit', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -283,7 +283,7 @@ describe('RateLimit', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .rateLimits.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -291,7 +291,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits.list();
@@ -313,7 +313,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid read_all response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -338,7 +338,7 @@ describe('RateLimit', function() {
                   }
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -354,7 +354,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -377,7 +377,7 @@ describe('RateLimit', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

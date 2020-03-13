@@ -31,7 +31,7 @@ describe('Record', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=68&PageSize=1',
@@ -71,7 +71,7 @@ describe('Record', function() {
                   'usage_unit': 'usd'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .usage
@@ -80,7 +80,7 @@ describe('Record', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=68&PageSize=1',
@@ -120,7 +120,7 @@ describe('Record', function() {
                   'usage_unit': 'usd'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .usage
@@ -134,7 +134,7 @@ describe('Record', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=68&PageSize=1',
@@ -174,7 +174,7 @@ describe('Record', function() {
                   'usage_unit': 'usd'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .usage
@@ -183,7 +183,7 @@ describe('Record', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .usage
@@ -206,7 +206,7 @@ describe('Record', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=68&PageSize=1',
@@ -246,7 +246,7 @@ describe('Record', function() {
                   'usage_unit': 'usd'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -263,7 +263,7 @@ describe('Record', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=0&PageSize=1',
           'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Page=68&PageSize=1',
@@ -276,7 +276,7 @@ describe('Record', function() {
           'total': 69,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records',
           'usage_records': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

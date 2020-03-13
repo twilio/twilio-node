@@ -31,7 +31,7 @@ describe('DependentHostedNumberOrder', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0',
               'key': 'items',
@@ -76,7 +76,7 @@ describe('DependentHostedNumberOrder', function() {
                   'verification_type': 'phone-call'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .dependentHostedNumberOrders.each(() => done());
@@ -84,7 +84,7 @@ describe('DependentHostedNumberOrder', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0',
               'key': 'items',
@@ -129,7 +129,7 @@ describe('DependentHostedNumberOrder', function() {
                   'verification_type': 'phone-call'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .dependentHostedNumberOrders.each({pageSize: 20}, () => done());
@@ -142,7 +142,7 @@ describe('DependentHostedNumberOrder', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0',
               'key': 'items',
@@ -187,7 +187,7 @@ describe('DependentHostedNumberOrder', function() {
                   'verification_type': 'phone-call'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .dependentHostedNumberOrders.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -195,7 +195,7 @@ describe('DependentHostedNumberOrder', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                  .dependentHostedNumberOrders.list();
@@ -217,7 +217,7 @@ describe('DependentHostedNumberOrder', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'items',
@@ -228,7 +228,7 @@ describe('DependentHostedNumberOrder', function() {
               'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           },
           'items': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -244,7 +244,7 @@ describe('DependentHostedNumberOrder', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0',
               'key': 'items',
@@ -289,7 +289,7 @@ describe('DependentHostedNumberOrder', function() {
                   'verification_type': 'phone-call'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

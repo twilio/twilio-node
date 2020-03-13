@@ -31,7 +31,7 @@ describe('ExportCustomJob', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/BulkExports/Exports/Messages/Jobs?PageSize=50&Page=0',
@@ -54,7 +54,7 @@ describe('ExportCustomJob', function() {
                   'resource_type': 'resource_type'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.bulk_exports.exports('resource_type')
                                  .exportCustomJobs.each(() => done());
@@ -62,7 +62,7 @@ describe('ExportCustomJob', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/BulkExports/Exports/Messages/Jobs?PageSize=50&Page=0',
@@ -85,7 +85,7 @@ describe('ExportCustomJob', function() {
                   'resource_type': 'resource_type'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.bulk_exports.exports('resource_type')
                                  .exportCustomJobs.each({pageSize: 20}, () => done());
@@ -98,7 +98,7 @@ describe('ExportCustomJob', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/BulkExports/Exports/Messages/Jobs?PageSize=50&Page=0',
@@ -121,7 +121,7 @@ describe('ExportCustomJob', function() {
                   'resource_type': 'resource_type'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.bulk_exports.exports('resource_type')
                                  .exportCustomJobs.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -129,7 +129,7 @@ describe('ExportCustomJob', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exports('resource_type')
                                                .exportCustomJobs.list();
@@ -151,7 +151,7 @@ describe('ExportCustomJob', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/BulkExports/Exports/Messages/Jobs?PageSize=50&Page=0',
@@ -162,7 +162,7 @@ describe('ExportCustomJob', function() {
               'page': 0
           },
           'jobs': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -178,7 +178,7 @@ describe('ExportCustomJob', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'url': 'https://preview.twilio.com/BulkExports/Exports/Messages/Jobs?PageSize=50&Page=0',
@@ -201,7 +201,7 @@ describe('ExportCustomJob', function() {
                   'resource_type': 'resource_type'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -217,7 +217,7 @@ describe('ExportCustomJob', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.bulk_exports.exports('resource_type')
                                                .exportCustomJobs.create();
@@ -239,7 +239,7 @@ describe('ExportCustomJob', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'start_day': 'start_day',
           'job_sid': 'JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
@@ -249,7 +249,7 @@ describe('ExportCustomJob', function() {
           'webhook_url': 'webhook_url',
           'email': 'email',
           'resource_type': 'resource_type'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

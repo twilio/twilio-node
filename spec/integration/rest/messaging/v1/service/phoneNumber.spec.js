@@ -31,7 +31,7 @@ describe('PhoneNumber', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {phoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -66,7 +66,7 @@ describe('PhoneNumber', function() {
           'country_code': 'US',
           'capabilities': [],
           'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -83,7 +83,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid create_with_capabilities response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -97,7 +97,7 @@ describe('PhoneNumber', function() {
               'Voice'
           ],
           'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -114,7 +114,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -137,7 +137,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -153,7 +153,7 @@ describe('PhoneNumber', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -176,7 +176,7 @@ describe('PhoneNumber', function() {
                   'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .phoneNumbers.each(() => done());
@@ -184,7 +184,7 @@ describe('PhoneNumber', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -207,7 +207,7 @@ describe('PhoneNumber', function() {
                   'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .phoneNumbers.each({pageSize: 20}, () => done());
@@ -220,7 +220,7 @@ describe('PhoneNumber', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -243,7 +243,7 @@ describe('PhoneNumber', function() {
                   'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .phoneNumbers.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -251,7 +251,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .phoneNumbers.list();
@@ -273,7 +273,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -296,7 +296,7 @@ describe('PhoneNumber', function() {
                   'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -312,7 +312,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -335,7 +335,7 @@ describe('PhoneNumber', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -345,7 +345,7 @@ describe('PhoneNumber', function() {
           'country_code': 'US',
           'capabilities': [],
           'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

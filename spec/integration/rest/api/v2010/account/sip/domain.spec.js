@@ -31,7 +31,7 @@ describe('Domain', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'domains': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -65,7 +65,7 @@ describe('Domain', function() {
           'page_size': 50,
           'previous_page_uri': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains.json?PageSize=50&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
@@ -74,7 +74,7 @@ describe('Domain', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'domains': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -108,7 +108,7 @@ describe('Domain', function() {
           'page_size': 50,
           'previous_page_uri': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains.json?PageSize=50&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
@@ -122,7 +122,7 @@ describe('Domain', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'domains': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -156,7 +156,7 @@ describe('Domain', function() {
           'page_size': 50,
           'previous_page_uri': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains.json?PageSize=50&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
@@ -165,7 +165,7 @@ describe('Domain', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
@@ -188,7 +188,7 @@ describe('Domain', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'domains': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -222,7 +222,7 @@ describe('Domain', function() {
           'page_size': 50,
           'previous_page_uri': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains.json?PageSize=50&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -239,7 +239,7 @@ describe('Domain', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'domains': [],
           'start': 0,
           'end': 0,
@@ -249,7 +249,7 @@ describe('Domain', function() {
           'page_size': 50,
           'previous_page_uri': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains.json?PageSize=50&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -266,7 +266,7 @@ describe('Domain', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {domainName: 'domain_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -292,7 +292,7 @@ describe('Domain', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'auth_type': 'IP_ACL',
@@ -314,7 +314,7 @@ describe('Domain', function() {
           'voice_status_callback_url': null,
           'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
           'trunk_sid': null
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -332,7 +332,7 @@ describe('Domain', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
@@ -356,7 +356,7 @@ describe('Domain', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'auth_type': 'IP_ACL',
@@ -378,7 +378,7 @@ describe('Domain', function() {
           'voice_status_callback_url': null,
           'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -395,7 +395,7 @@ describe('Domain', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
@@ -419,7 +419,7 @@ describe('Domain', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'auth_type': 'IP_ACL',
@@ -441,7 +441,7 @@ describe('Domain', function() {
           'voice_status_callback_url': null,
           'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -458,7 +458,7 @@ describe('Domain', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
@@ -482,7 +482,7 @@ describe('Domain', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

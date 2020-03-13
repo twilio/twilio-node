@@ -31,7 +31,7 @@ describe('Call', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {to: '+15558675310', from: '+15017122661'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -56,7 +56,7 @@ describe('Call', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'annotation': null,
           'answered_by': null,
@@ -90,7 +90,7 @@ describe('Call', function() {
           'trunk_sid': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
           'queue_time': '1000'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -107,7 +107,7 @@ describe('Call', function() {
   );
   it('should generate valid create_with_twiml response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'annotation': null,
           'answered_by': null,
@@ -141,7 +141,7 @@ describe('Call', function() {
           'trunk_sid': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
           'queue_time': '1000'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -158,7 +158,7 @@ describe('Call', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -181,7 +181,7 @@ describe('Call', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -197,7 +197,7 @@ describe('Call', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -220,7 +220,7 @@ describe('Call', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'annotation': 'billingreferencetag',
           'answered_by': 'machine_start',
@@ -254,7 +254,7 @@ describe('Call', function() {
           'trunk_sid': 'TRdeadbeefdeadbeefdeadbeefdeadbeef',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
           'queue_time': '1000'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -270,7 +270,7 @@ describe('Call', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'calls': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -351,7 +351,7 @@ describe('Call', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?Status=completed&To=%2B123456789&From=%2B987654321&StartTime=2008-01-02&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EndTime=2009-01-02&PageSize=2&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .calls.each(() => done());
@@ -359,7 +359,7 @@ describe('Call', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'calls': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -440,7 +440,7 @@ describe('Call', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?Status=completed&To=%2B123456789&From=%2B987654321&StartTime=2008-01-02&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EndTime=2009-01-02&PageSize=2&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .calls.each({pageSize: 20}, () => done());
@@ -453,7 +453,7 @@ describe('Call', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'calls': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -534,7 +534,7 @@ describe('Call', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?Status=completed&To=%2B123456789&From=%2B987654321&StartTime=2008-01-02&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EndTime=2009-01-02&PageSize=2&Page=0'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .calls.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -542,7 +542,7 @@ describe('Call', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls.list();
@@ -564,7 +564,7 @@ describe('Call', function() {
   );
   it('should generate valid read_full_page1 response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'calls': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -645,7 +645,7 @@ describe('Call', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?Status=completed&To=%2B123456789&From=%2B987654321&StartTime=2008-01-02&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&EndTime=2009-01-02&PageSize=2&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -661,7 +661,7 @@ describe('Call', function() {
   );
   it('should generate valid read_full_page2 response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'calls': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -742,7 +742,7 @@ describe('Call', function() {
           'previous_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?Status=completed&From=%2B987654321&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&To=%2B123456789&StartTime=2008-01-02&EndTime=2009-01-02&PageSize=2&Page=0&PageToken=PBCAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'start': 2,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?Status=completed&From=%2B987654321&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&To=%2B123456789&StartTime=2008-01-02&EndTime=2009-01-02&PageSize=2&Page=1&PageToken=PACAdeadbeefdeadbeefdeadbeefdeadbeef'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -758,7 +758,7 @@ describe('Call', function() {
   );
   it('should generate valid read_empty_dates_greater response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'calls': [],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?Status=completed&To=%2B123456789&EndTime%3E=2009-01-02&From=%2B987654321&StartTime%3E=2008-01-02&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=2&Page=0',
@@ -768,7 +768,7 @@ describe('Call', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?Status=completed&To=%2B123456789&EndTime%3E=2009-01-02&From=%2B987654321&StartTime%3E=2008-01-02&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=2&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -784,7 +784,7 @@ describe('Call', function() {
   );
   it('should generate valid read_empty_dates_less response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'calls': [],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?EndTime%3C=2009-01-02&Status=completed&From=%2B987654321&To=%2B123456789&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartTime%3C=2008-01-02&PageSize=2&Page=0',
@@ -794,7 +794,7 @@ describe('Call', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?EndTime%3C=2009-01-02&Status=completed&From=%2B987654321&To=%2B123456789&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartTime%3C=2008-01-02&PageSize=2&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -810,7 +810,7 @@ describe('Call', function() {
   );
   it('should generate valid read_empty_date_fun_date_formats response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'calls': [],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?EndTime%3C=2019-06-11+22%3A05%3A25.000&Status=completed&From=%2B987654321&To=%2B123456789&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartTime%3C=06%2F11%2F2019+22%3A05%3A25+MST&PageSize=2&Page=0',
@@ -820,7 +820,7 @@ describe('Call', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?EndTime%3C=2019-06-11+22%3A05%3A25.000&Status=completed&From=%2B987654321&To=%2B123456789&ParentCallSid=CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&StartTime%3C=06%2F11%2F2019+22%3A05%3A25+MST&PageSize=2&Page=0'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -836,7 +836,7 @@ describe('Call', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -859,7 +859,7 @@ describe('Call', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'annotation': null,
           'answered_by': null,
@@ -893,7 +893,7 @@ describe('Call', function() {
           'trunk_sid': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
           'queue_time': '1000'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -909,7 +909,7 @@ describe('Call', function() {
   );
   it('should generate valid cancel response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'annotation': null,
           'answered_by': null,
@@ -943,7 +943,7 @@ describe('Call', function() {
           'trunk_sid': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
           'queue_time': '1000'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -959,7 +959,7 @@ describe('Call', function() {
   );
   it('should generate valid posttwiml response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'annotation': null,
           'answered_by': null,
@@ -993,7 +993,7 @@ describe('Call', function() {
           'trunk_sid': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
           'queue_time': '1000'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

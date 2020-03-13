@@ -31,7 +31,7 @@ describe('EndUserType', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end_user_types': [
               {
                   'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -61,7 +61,7 @@ describe('EndUserType', function() {
               'next_page_url': null,
               'key': 'end_user_types'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .endUserTypes.each(() => done());
@@ -69,7 +69,7 @@ describe('EndUserType', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end_user_types': [
               {
                   'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -99,7 +99,7 @@ describe('EndUserType', function() {
               'next_page_url': null,
               'key': 'end_user_types'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .endUserTypes.each({pageSize: 20}, () => done());
@@ -112,7 +112,7 @@ describe('EndUserType', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end_user_types': [
               {
                   'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -142,7 +142,7 @@ describe('EndUserType', function() {
               'next_page_url': null,
               'key': 'end_user_types'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.numbers.v2.regulatoryCompliance
                        .endUserTypes.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -150,7 +150,7 @@ describe('EndUserType', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .endUserTypes.list();
@@ -171,7 +171,7 @@ describe('EndUserType', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end_user_types': [],
           'meta': {
               'page': 0,
@@ -182,7 +182,7 @@ describe('EndUserType', function() {
               'next_page_url': null,
               'key': 'end_user_types'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -198,7 +198,7 @@ describe('EndUserType', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end_user_types': [
               {
                   'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -228,7 +228,7 @@ describe('EndUserType', function() {
               'next_page_url': null,
               'key': 'end_user_types'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -244,7 +244,7 @@ describe('EndUserType', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.numbers.v2.regulatoryCompliance
                                      .endUserTypes('OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -266,7 +266,7 @@ describe('EndUserType', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
           'machine_name': 'machine_name',
@@ -283,7 +283,7 @@ describe('EndUserType', function() {
               }
           ],
           'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/EndUserTypes/OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

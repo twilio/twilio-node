@@ -33,7 +33,7 @@ describe('HostedNumberOrder', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -54,7 +54,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': 'AD11111111111111111111111111111111',
           'call_delay': 15,
@@ -87,7 +87,7 @@ describe('HostedNumberOrder', function() {
           'verification_code': '8794',
           'verification_document_sid': null,
           'verification_type': 'phone-call'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -102,7 +102,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -123,7 +123,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -138,7 +138,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -159,7 +159,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': 'AD11111111111111111111111111111111',
           'call_delay': 15,
@@ -192,7 +192,7 @@ describe('HostedNumberOrder', function() {
           'verification_code': '8794',
           'verification_document_sid': null,
           'verification_type': 'phone-call'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -207,7 +207,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders?PageSize=50&Page=0',
               'key': 'items',
@@ -253,14 +253,14 @@ describe('HostedNumberOrder', function() {
                   'verification_type': 'phone-call'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.hostedNumberOrders.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders?PageSize=50&Page=0',
               'key': 'items',
@@ -306,7 +306,7 @@ describe('HostedNumberOrder', function() {
                   'verification_type': 'phone-call'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.hostedNumberOrders.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -318,7 +318,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders?PageSize=50&Page=0',
               'key': 'items',
@@ -364,14 +364,14 @@ describe('HostedNumberOrder', function() {
                   'verification_type': 'phone-call'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.hostedNumberOrders.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.hosted_numbers.hostedNumberOrders.list();
       promise.then(function() {
@@ -391,7 +391,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz&PageSize=50&Page=0',
               'key': 'items',
@@ -402,7 +402,7 @@ describe('HostedNumberOrder', function() {
               'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz&PageSize=50&Page=0'
           },
           'items': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -417,7 +417,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders?PageSize=50&Page=0',
               'key': 'items',
@@ -463,7 +463,7 @@ describe('HostedNumberOrder', function() {
                   'verification_type': 'phone-call'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -478,7 +478,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {phoneNumber: '+15017122661', smsCapability: true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
@@ -501,7 +501,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': 'AD11111111111111111111111111111111',
           'call_delay': 0,
@@ -528,7 +528,7 @@ describe('HostedNumberOrder', function() {
           'verification_code': null,
           'verification_document_sid': null,
           'verification_type': 'phone-call'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -544,7 +544,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid create_without_optional_loa_fields response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': null,
           'call_delay': 0,
@@ -571,7 +571,7 @@ describe('HostedNumberOrder', function() {
           'verification_code': null,
           'verification_document_sid': null,
           'verification_type': 'phone-call'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -587,7 +587,7 @@ describe('HostedNumberOrder', function() {
   );
   it('should generate valid create_with_phone_bill_verification response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_sid': null,
           'call_delay': 0,
@@ -614,7 +614,7 @@ describe('HostedNumberOrder', function() {
           'verification_code': null,
           'verification_document_sid': 'RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'verification_type': 'phone-bill'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

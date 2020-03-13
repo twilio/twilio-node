@@ -31,7 +31,7 @@ describe('EngagementContext', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .engagements('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,7 +55,7 @@ describe('EngagementContext', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'context': {
               'foo': 'bar'
@@ -63,7 +63,7 @@ describe('EngagementContext', function() {
           'flow_sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'engagement_sid': 'FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

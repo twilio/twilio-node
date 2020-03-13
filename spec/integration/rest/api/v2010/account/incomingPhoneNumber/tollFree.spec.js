@@ -31,7 +31,7 @@ describe('TollFree', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1&Page=0',
           'incoming_phone_numbers': [
@@ -82,7 +82,7 @@ describe('TollFree', function() {
           'start': 0,
           'total': 3,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .incomingPhoneNumbers
@@ -91,7 +91,7 @@ describe('TollFree', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1&Page=0',
           'incoming_phone_numbers': [
@@ -142,7 +142,7 @@ describe('TollFree', function() {
           'start': 0,
           'total': 3,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .incomingPhoneNumbers
@@ -156,7 +156,7 @@ describe('TollFree', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1&Page=0',
           'incoming_phone_numbers': [
@@ -207,7 +207,7 @@ describe('TollFree', function() {
           'start': 0,
           'total': 3,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .incomingPhoneNumbers
@@ -216,7 +216,7 @@ describe('TollFree', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .incomingPhoneNumbers
@@ -239,7 +239,7 @@ describe('TollFree', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1&Page=0',
           'incoming_phone_numbers': [
@@ -290,7 +290,7 @@ describe('TollFree', function() {
           'start': 0,
           'total': 3,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -307,7 +307,7 @@ describe('TollFree', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1&Page=0',
           'incoming_phone_numbers': [],
@@ -320,7 +320,7 @@ describe('TollFree', function() {
           'start': 0,
           'total': 3,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json?PageSize=1'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -337,7 +337,7 @@ describe('TollFree', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {phoneNumber: '+15017122661'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -363,7 +363,7 @@ describe('TollFree', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'address_requirements': 'none',
           'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -399,7 +399,7 @@ describe('TollFree', function() {
           'emergency_status': 'Active',
           'emergency_address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'bundle_sid': 'BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

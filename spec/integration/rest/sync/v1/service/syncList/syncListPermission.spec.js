@@ -33,7 +33,7 @@ describe('SyncListPermission', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -58,7 +58,7 @@ describe('SyncListPermission', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'list_sid': 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -67,7 +67,7 @@ describe('SyncListPermission', function() {
           'write': true,
           'manage': true,
           'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -84,7 +84,7 @@ describe('SyncListPermission', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -109,7 +109,7 @@ describe('SyncListPermission', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -126,7 +126,7 @@ describe('SyncListPermission', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'permissions': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -148,7 +148,7 @@ describe('SyncListPermission', function() {
               'previous_page_url': null,
               'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/sidOrUniqueName/Permissions?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                     .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -157,7 +157,7 @@ describe('SyncListPermission', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'permissions': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -179,7 +179,7 @@ describe('SyncListPermission', function() {
               'previous_page_url': null,
               'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/sidOrUniqueName/Permissions?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                     .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -193,7 +193,7 @@ describe('SyncListPermission', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'permissions': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -215,7 +215,7 @@ describe('SyncListPermission', function() {
               'previous_page_url': null,
               'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/sidOrUniqueName/Permissions?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                     .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -224,7 +224,7 @@ describe('SyncListPermission', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -248,7 +248,7 @@ describe('SyncListPermission', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'permissions': [],
           'meta': {
               'first_page_url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/sidOrUniqueName/Permissions?PageSize=50&Page=0',
@@ -259,7 +259,7 @@ describe('SyncListPermission', function() {
               'previous_page_url': null,
               'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/sidOrUniqueName/Permissions?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -276,7 +276,7 @@ describe('SyncListPermission', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'permissions': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -298,7 +298,7 @@ describe('SyncListPermission', function() {
               'previous_page_url': null,
               'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/sidOrUniqueName/Permissions?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -315,7 +315,7 @@ describe('SyncListPermission', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {read: true, write: true, manage: true};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -347,7 +347,7 @@ describe('SyncListPermission', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'list_sid': 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -356,7 +356,7 @@ describe('SyncListPermission', function() {
           'write': true,
           'manage': true,
           'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

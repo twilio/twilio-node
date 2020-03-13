@@ -31,7 +31,7 @@ describe('CredentialList', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .credentialsLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('CredentialList', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2018-04-28T00:10:23Z',
@@ -62,7 +62,7 @@ describe('CredentialList', function() {
           'friendly_name': 'friendly_name',
           'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -78,7 +78,7 @@ describe('CredentialList', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .credentialsLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -101,7 +101,7 @@ describe('CredentialList', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -117,7 +117,7 @@ describe('CredentialList', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -142,7 +142,7 @@ describe('CredentialList', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2018-05-02T17:29:30Z',
@@ -150,7 +150,7 @@ describe('CredentialList', function() {
           'friendly_name': 'friendly_name',
           'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -167,7 +167,7 @@ describe('CredentialList', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credential_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -188,7 +188,7 @@ describe('CredentialList', function() {
               'next_page_url': null,
               'key': 'credential_lists'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .credentialsLists.each(() => done());
@@ -196,7 +196,7 @@ describe('CredentialList', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credential_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -217,7 +217,7 @@ describe('CredentialList', function() {
               'next_page_url': null,
               'key': 'credential_lists'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .credentialsLists.each({pageSize: 20}, () => done());
@@ -230,7 +230,7 @@ describe('CredentialList', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credential_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -251,7 +251,7 @@ describe('CredentialList', function() {
               'next_page_url': null,
               'key': 'credential_lists'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .credentialsLists.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -259,7 +259,7 @@ describe('CredentialList', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .credentialsLists.list();
@@ -281,7 +281,7 @@ describe('CredentialList', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credential_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -302,7 +302,7 @@ describe('CredentialList', function() {
               'next_page_url': null,
               'key': 'credential_lists'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -318,7 +318,7 @@ describe('CredentialList', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credential_lists': [],
           'meta': {
               'page': 0,
@@ -329,7 +329,7 @@ describe('CredentialList', function() {
               'next_page_url': null,
               'key': 'credential_lists'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

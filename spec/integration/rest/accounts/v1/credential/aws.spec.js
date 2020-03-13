@@ -31,7 +31,7 @@ describe('Aws', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -51,7 +51,7 @@ describe('Aws', function() {
               'previous_page_url': null,
               'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.accounts.v1.credentials
                         .aws.each(() => done());
@@ -59,7 +59,7 @@ describe('Aws', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -79,7 +79,7 @@ describe('Aws', function() {
               'previous_page_url': null,
               'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.accounts.v1.credentials
                         .aws.each({pageSize: 20}, () => done());
@@ -92,7 +92,7 @@ describe('Aws', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -112,7 +112,7 @@ describe('Aws', function() {
               'previous_page_url': null,
               'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.accounts.v1.credentials
                         .aws.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -120,7 +120,7 @@ describe('Aws', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.accounts.v1.credentials
                                       .aws.list();
@@ -141,7 +141,7 @@ describe('Aws', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [],
           'meta': {
               'first_page_url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0',
@@ -152,7 +152,7 @@ describe('Aws', function() {
               'previous_page_url': null,
               'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -168,7 +168,7 @@ describe('Aws', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'credentials': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -188,7 +188,7 @@ describe('Aws', function() {
               'previous_page_url': null,
               'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -204,7 +204,7 @@ describe('Aws', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {credentials: 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'};
       var promise = client.accounts.v1.credentials
@@ -228,14 +228,14 @@ describe('Aws', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-31T04:00:00Z',
           'date_updated': '2015-07-31T04:00:00Z',
           'friendly_name': 'friendly_name',
           'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -252,7 +252,7 @@ describe('Aws', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.accounts.v1.credentials
                                       .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -274,14 +274,14 @@ describe('Aws', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-31T04:00:00Z',
           'date_updated': '2015-07-31T04:00:00Z',
           'friendly_name': 'friendly_name',
           'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -297,7 +297,7 @@ describe('Aws', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.accounts.v1.credentials
                                       .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -319,14 +319,14 @@ describe('Aws', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-31T04:00:00Z',
           'date_updated': '2015-07-31T04:00:00Z',
           'friendly_name': 'friendly_name',
           'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -342,7 +342,7 @@ describe('Aws', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.accounts.v1.credentials
                                       .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -364,7 +364,7 @@ describe('Aws', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

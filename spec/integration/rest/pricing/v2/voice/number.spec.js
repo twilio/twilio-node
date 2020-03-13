@@ -31,7 +31,7 @@ describe('Number', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.pricing.v2.voice
                                      .numbers('+15017122661').fetch();
@@ -53,7 +53,7 @@ describe('Number', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'country': 'United States',
           'destination_number': '+18001234567',
           'inbound_call_price': {
@@ -74,7 +74,7 @@ describe('Number', function() {
           ],
           'price_unit': 'USD',
           'url': 'https://pricing.twilio.com/v2/Voice/Numbers/+18001234567'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

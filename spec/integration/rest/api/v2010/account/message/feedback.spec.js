@@ -31,7 +31,7 @@ describe('Feedback', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,14 +55,14 @@ describe('Feedback', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
           'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
           'message_sid': 'MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'outcome': 'confirmed',
           'uri': 'uri'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

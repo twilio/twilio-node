@@ -31,7 +31,7 @@ describe('Command', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {sim: 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', command: 'command'};
       var promise = client.supersim.v1.commands.create(opts);
@@ -54,7 +54,7 @@ describe('Command', function() {
   );
   it('should generate valid create_command_minimal response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'command',
           'date_created': '2015-07-30T20:00:00Z',
@@ -64,7 +64,7 @@ describe('Command', function() {
           'status': 'queued',
           'direction': 'to_sim',
           'url': 'https://supersim.twilio.com/v1/Commands/HCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -80,7 +80,7 @@ describe('Command', function() {
   );
   it('should generate valid create_command_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'command',
           'date_created': '2015-07-30T20:00:00Z',
@@ -90,7 +90,7 @@ describe('Command', function() {
           'status': 'queued',
           'direction': 'to_sim',
           'url': 'https://supersim.twilio.com/v1/Commands/HCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -106,7 +106,7 @@ describe('Command', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.supersim.v1.commands('HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -127,7 +127,7 @@ describe('Command', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'HCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'command': 'content of the command',
@@ -137,7 +137,7 @@ describe('Command', function() {
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://supersim.twilio.com/v1/Commands/HCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -152,7 +152,7 @@ describe('Command', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Commands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'commands',
@@ -175,14 +175,14 @@ describe('Command', function() {
                   'url': 'https://supersim.twilio.com/v1/Commands/HCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.commands.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Commands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'commands',
@@ -205,7 +205,7 @@ describe('Command', function() {
                   'url': 'https://supersim.twilio.com/v1/Commands/HCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.commands.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -217,7 +217,7 @@ describe('Command', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Commands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'commands',
@@ -240,14 +240,14 @@ describe('Command', function() {
                   'url': 'https://supersim.twilio.com/v1/Commands/HCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.commands.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.supersim.v1.commands.list();
       promise.then(function() {
@@ -267,7 +267,7 @@ describe('Command', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'commands': [],
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Commands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
@@ -278,7 +278,7 @@ describe('Command', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/Commands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -293,7 +293,7 @@ describe('Command', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Commands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'commands',
@@ -316,7 +316,7 @@ describe('Command', function() {
                   'url': 'https://supersim.twilio.com/v1/Commands/HCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

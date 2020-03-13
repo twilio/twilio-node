@@ -31,7 +31,7 @@ describe('Feedback', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {qualityScore: 1};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -58,7 +58,7 @@ describe('Feedback', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 20 Aug 2015 21:45:46 +0000',
           'date_updated': 'Thu, 20 Aug 2015 21:45:46 +0000',
@@ -68,7 +68,7 @@ describe('Feedback', function() {
           ],
           'quality_score': 5,
           'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -86,7 +86,7 @@ describe('Feedback', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -110,7 +110,7 @@ describe('Feedback', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 20 Aug 2015 21:45:46 +0000',
           'date_updated': 'Thu, 20 Aug 2015 21:45:46 +0000',
@@ -120,7 +120,7 @@ describe('Feedback', function() {
           ],
           'quality_score': 5,
           'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -137,7 +137,7 @@ describe('Feedback', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {qualityScore: 1};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -164,7 +164,7 @@ describe('Feedback', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': 'Thu, 20 Aug 2015 21:45:46 +0000',
           'date_updated': 'Thu, 20 Aug 2015 21:45:46 +0000',
@@ -174,7 +174,7 @@ describe('Feedback', function() {
           ],
           'quality_score': 5,
           'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

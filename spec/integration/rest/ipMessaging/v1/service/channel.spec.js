@@ -31,7 +31,7 @@ describe('Channel', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('Channel', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -74,7 +74,7 @@ describe('Channel', function() {
               'invites': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites',
               'last_message': null
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -90,7 +90,7 @@ describe('Channel', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -113,7 +113,7 @@ describe('Channel', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -129,7 +129,7 @@ describe('Channel', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels.create();
@@ -151,7 +151,7 @@ describe('Channel', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -171,7 +171,7 @@ describe('Channel', function() {
               'invites': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites',
               'last_message': null
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -187,7 +187,7 @@ describe('Channel', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [
               {
                   'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -220,7 +220,7 @@ describe('Channel', function() {
               'next_page_url': null,
               'key': 'channels'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                            .channels.each(() => done());
@@ -228,7 +228,7 @@ describe('Channel', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [
               {
                   'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -261,7 +261,7 @@ describe('Channel', function() {
               'next_page_url': null,
               'key': 'channels'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                            .channels.each({pageSize: 20}, () => done());
@@ -274,7 +274,7 @@ describe('Channel', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [
               {
                   'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -307,7 +307,7 @@ describe('Channel', function() {
               'next_page_url': null,
               'key': 'channels'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                            .channels.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -315,7 +315,7 @@ describe('Channel', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels.list();
@@ -337,7 +337,7 @@ describe('Channel', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [
               {
                   'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -370,7 +370,7 @@ describe('Channel', function() {
               'next_page_url': null,
               'key': 'channels'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -386,7 +386,7 @@ describe('Channel', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [],
           'meta': {
               'page': 0,
@@ -397,7 +397,7 @@ describe('Channel', function() {
               'next_page_url': null,
               'key': 'channels'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -413,7 +413,7 @@ describe('Channel', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -436,7 +436,7 @@ describe('Channel', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -456,7 +456,7 @@ describe('Channel', function() {
               'invites': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites',
               'last_message': null
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

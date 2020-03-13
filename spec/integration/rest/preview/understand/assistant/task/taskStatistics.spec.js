@@ -31,7 +31,7 @@ describe('TaskStatistics', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -55,14 +55,14 @@ describe('TaskStatistics', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'samples_count': 0,
           'fields_count': 0
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

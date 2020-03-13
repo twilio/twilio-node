@@ -31,7 +31,7 @@ describe('Recording', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -52,7 +52,7 @@ describe('Recording', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'processing',
           'date_created': '2015-07-30T20:00:00Z',
@@ -76,7 +76,7 @@ describe('Recording', function() {
           'links': {
               'media': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -91,7 +91,7 @@ describe('Recording', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'recordings': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -129,14 +129,14 @@ describe('Recording', function() {
               'next_page_url': null,
               'key': 'recordings'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.recordings.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'recordings': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -174,7 +174,7 @@ describe('Recording', function() {
               'next_page_url': null,
               'key': 'recordings'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.recordings.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -186,7 +186,7 @@ describe('Recording', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'recordings': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -224,14 +224,14 @@ describe('Recording', function() {
               'next_page_url': null,
               'key': 'recordings'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.video.v1.recordings.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.recordings.list();
       promise.then(function() {
@@ -251,7 +251,7 @@ describe('Recording', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'recordings': [],
           'meta': {
               'page': 0,
@@ -262,7 +262,7 @@ describe('Recording', function() {
               'next_page_url': null,
               'key': 'recordings'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -277,7 +277,7 @@ describe('Recording', function() {
   );
   it('should generate valid read_results response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'recordings': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -315,7 +315,7 @@ describe('Recording', function() {
               'next_page_url': null,
               'key': 'recordings'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -330,7 +330,7 @@ describe('Recording', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.video.v1.recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -351,7 +351,7 @@ describe('Recording', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

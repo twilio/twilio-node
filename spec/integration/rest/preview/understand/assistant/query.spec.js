@@ -31,7 +31,7 @@ describe('Query', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('Query', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'language': 'language',
           'date_created': '2015-07-30T20:00:00Z',
           'model_build_sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -81,7 +81,7 @@ describe('Query', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'source_channel': 'voice'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -97,7 +97,7 @@ describe('Query', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'queries': [
               {
                   'language': 'language',
@@ -137,7 +137,7 @@ describe('Query', function() {
               'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0',
               'page_size': 50
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                .queries.each(() => done());
@@ -145,7 +145,7 @@ describe('Query', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'queries': [
               {
                   'language': 'language',
@@ -185,7 +185,7 @@ describe('Query', function() {
               'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0',
               'page_size': 50
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                .queries.each({pageSize: 20}, () => done());
@@ -198,7 +198,7 @@ describe('Query', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'queries': [
               {
                   'language': 'language',
@@ -238,7 +238,7 @@ describe('Query', function() {
               'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0',
               'page_size': 50
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                .queries.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -246,7 +246,7 @@ describe('Query', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries.list();
@@ -268,7 +268,7 @@ describe('Query', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'queries': [],
           'meta': {
               'previous_page_url': null,
@@ -279,7 +279,7 @@ describe('Query', function() {
               'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0',
               'page_size': 50
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -295,7 +295,7 @@ describe('Query', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'queries': [
               {
                   'language': 'language',
@@ -335,7 +335,7 @@ describe('Query', function() {
               'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0',
               'page_size': 50
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -351,7 +351,7 @@ describe('Query', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {language: 'language', query: 'query'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -376,7 +376,7 @@ describe('Query', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'language': 'language',
           'date_created': '2015-07-30T20:00:00Z',
           'model_build_sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -403,7 +403,7 @@ describe('Query', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'source_channel': 'voice'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -420,7 +420,7 @@ describe('Query', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -443,7 +443,7 @@ describe('Query', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'language': 'language',
           'date_created': '2015-07-30T20:00:00Z',
           'model_build_sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -470,7 +470,7 @@ describe('Query', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'source_channel': 'sms'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -486,7 +486,7 @@ describe('Query', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -509,7 +509,7 @@ describe('Query', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

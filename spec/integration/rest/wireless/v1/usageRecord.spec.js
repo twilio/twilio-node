@@ -31,7 +31,7 @@ describe('UsageRecord', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -103,14 +103,14 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/UsageRecords?Start=2015-07-30T20%3A00%3A00Z&End=2015-07-30T20%3A00%3A00Z&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.usageRecords.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -182,7 +182,7 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/UsageRecords?Start=2015-07-30T20%3A00%3A00Z&End=2015-07-30T20%3A00%3A00Z&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.usageRecords.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -194,7 +194,7 @@ describe('UsageRecord', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -266,14 +266,14 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/UsageRecords?Start=2015-07-30T20%3A00%3A00Z&End=2015-07-30T20%3A00%3A00Z&PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.usageRecords.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.usageRecords.list();
       promise.then(function() {
@@ -293,7 +293,7 @@ describe('UsageRecord', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'usage_records': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -365,7 +365,7 @@ describe('UsageRecord', function() {
               'previous_page_url': null,
               'url': 'https://wireless.twilio.com/v1/UsageRecords?Start=2015-07-30T20%3A00%3A00Z&End=2015-07-30T20%3A00%3A00Z&PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

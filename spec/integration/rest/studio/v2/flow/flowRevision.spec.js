@@ -31,7 +31,7 @@ describe('FlowRevision', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'next_page_url': null,
@@ -57,7 +57,7 @@ describe('FlowRevision', function() {
                   'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Revisions/1'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .revisions.each(() => done());
@@ -65,7 +65,7 @@ describe('FlowRevision', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'next_page_url': null,
@@ -91,7 +91,7 @@ describe('FlowRevision', function() {
                   'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Revisions/1'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .revisions.each({pageSize: 20}, () => done());
@@ -104,7 +104,7 @@ describe('FlowRevision', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'next_page_url': null,
@@ -130,7 +130,7 @@ describe('FlowRevision', function() {
                   'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Revisions/1'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .revisions.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -138,7 +138,7 @@ describe('FlowRevision', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .revisions.list();
@@ -160,7 +160,7 @@ describe('FlowRevision', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'previous_page_url': null,
               'next_page_url': null,
@@ -186,7 +186,7 @@ describe('FlowRevision', function() {
                   'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Revisions/1'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -202,7 +202,7 @@ describe('FlowRevision', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .revisions('revision').fetch();
@@ -225,7 +225,7 @@ describe('FlowRevision', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'definition': {
@@ -240,7 +240,7 @@ describe('FlowRevision', function() {
           'date_created': '2017-11-06T12:00:00Z',
           'date_updated': null,
           'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Revisions/1'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

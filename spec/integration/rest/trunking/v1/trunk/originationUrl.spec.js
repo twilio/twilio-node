@@ -33,7 +33,7 @@ describe('OriginationUrl', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -56,7 +56,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'weight': 1,
           'date_updated': '2018-05-07T20:20:46Z',
           'enabled': false,
@@ -68,7 +68,7 @@ describe('OriginationUrl', function() {
           'date_created': '2018-05-07T20:20:46Z',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -84,7 +84,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -107,7 +107,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -123,7 +123,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {
         weight: 1,
@@ -160,7 +160,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'weight': 1,
           'date_updated': '2018-05-07T20:50:58Z',
           'enabled': true,
@@ -172,7 +172,7 @@ describe('OriginationUrl', function() {
           'date_created': '2018-05-07T20:50:58Z',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -195,7 +195,7 @@ describe('OriginationUrl', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
@@ -220,7 +220,7 @@ describe('OriginationUrl', function() {
                   'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .originationUrls.each(() => done());
@@ -228,7 +228,7 @@ describe('OriginationUrl', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
@@ -253,7 +253,7 @@ describe('OriginationUrl', function() {
                   'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .originationUrls.each({pageSize: 20}, () => done());
@@ -266,7 +266,7 @@ describe('OriginationUrl', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
@@ -291,7 +291,7 @@ describe('OriginationUrl', function() {
                   'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .originationUrls.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -299,7 +299,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
@@ -321,7 +321,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
@@ -346,7 +346,7 @@ describe('OriginationUrl', function() {
                   'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -362,7 +362,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
@@ -373,7 +373,7 @@ describe('OriginationUrl', function() {
               'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
           },
           'origination_urls': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -389,7 +389,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -412,7 +412,7 @@ describe('OriginationUrl', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'weight': 2,
           'date_updated': '2018-05-07T20:50:58Z',
           'enabled': false,
@@ -424,7 +424,7 @@ describe('OriginationUrl', function() {
           'date_created': '2018-05-07T20:50:58Z',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

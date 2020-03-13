@@ -31,7 +31,7 @@ describe('RatePlan', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0',
               'key': 'rate_plans',
@@ -68,14 +68,14 @@ describe('RatePlan', function() {
                   'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.ratePlans.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0',
               'key': 'rate_plans',
@@ -112,7 +112,7 @@ describe('RatePlan', function() {
                   'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.ratePlans.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -124,7 +124,7 @@ describe('RatePlan', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0',
               'key': 'rate_plans',
@@ -161,14 +161,14 @@ describe('RatePlan', function() {
                   'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.wireless.v1.ratePlans.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.ratePlans.list();
       promise.then(function() {
@@ -188,7 +188,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0',
               'key': 'rate_plans',
@@ -199,7 +199,7 @@ describe('RatePlan', function() {
               'url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0'
           },
           'rate_plans': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -214,7 +214,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0',
               'key': 'rate_plans',
@@ -251,7 +251,7 @@ describe('RatePlan', function() {
                   'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -266,7 +266,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -287,7 +287,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'data_enabled': true,
@@ -311,7 +311,7 @@ describe('RatePlan', function() {
           'usage_notification_url': 'https://callback.com',
           'data_limit_strategy': 'block',
           'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -326,7 +326,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.ratePlans.create();
       promise.then(function() {
@@ -346,7 +346,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'data_enabled': true,
@@ -370,7 +370,7 @@ describe('RatePlan', function() {
           'usage_notification_method': 'POST',
           'usage_notification_url': 'https://callback.com',
           'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -385,7 +385,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -406,7 +406,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'data_enabled': true,
@@ -430,7 +430,7 @@ describe('RatePlan', function() {
           'usage_notification_url': 'https://callback.com',
           'data_limit_strategy': 'block',
           'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -445,7 +445,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -466,7 +466,7 @@ describe('RatePlan', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

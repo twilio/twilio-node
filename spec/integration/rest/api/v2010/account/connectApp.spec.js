@@ -31,7 +31,7 @@ describe('ConnectApp', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .connectApps('CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('ConnectApp', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'authorize_redirect_url': 'http://example.com/redirect',
           'company_name': 'Twilio',
@@ -66,7 +66,7 @@ describe('ConnectApp', function() {
           'permissions': [],
           'sid': 'CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps/CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -82,7 +82,7 @@ describe('ConnectApp', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .connectApps('CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -105,7 +105,7 @@ describe('ConnectApp', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'authorize_redirect_url': 'http://example.com/redirect',
           'company_name': 'Twilio',
@@ -117,7 +117,7 @@ describe('ConnectApp', function() {
           'permissions': [],
           'sid': 'CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps/CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -133,7 +133,7 @@ describe('ConnectApp', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'connect_apps': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -157,7 +157,7 @@ describe('ConnectApp', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .connectApps.each(() => done());
@@ -165,7 +165,7 @@ describe('ConnectApp', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'connect_apps': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -189,7 +189,7 @@ describe('ConnectApp', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .connectApps.each({pageSize: 20}, () => done());
@@ -202,7 +202,7 @@ describe('ConnectApp', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'connect_apps': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -226,7 +226,7 @@ describe('ConnectApp', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .connectApps.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -234,7 +234,7 @@ describe('ConnectApp', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .connectApps.list();
@@ -256,7 +256,7 @@ describe('ConnectApp', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'connect_apps': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -280,7 +280,7 @@ describe('ConnectApp', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -296,7 +296,7 @@ describe('ConnectApp', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'connect_apps': [],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
@@ -306,7 +306,7 @@ describe('ConnectApp', function() {
           'previous_page_uri': null,
           'start': 0,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -322,7 +322,7 @@ describe('ConnectApp', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .connectApps('CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -345,7 +345,7 @@ describe('ConnectApp', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

@@ -31,7 +31,7 @@ describe('SuccessRate', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.preview.trusted_comms.businesses('BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                 .insights
@@ -54,7 +54,7 @@ describe('SuccessRate', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'business_sid': 'BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'start': '2015-07-30T20:00:00Z',
@@ -69,7 +69,7 @@ describe('SuccessRate', function() {
               }
           },
           'url': 'https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Insights/SuccessRate'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

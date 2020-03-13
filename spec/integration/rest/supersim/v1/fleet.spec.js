@@ -31,7 +31,7 @@ describe('Fleet', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.supersim.v1.fleets.create();
       promise.then(function() {
@@ -51,7 +51,7 @@ describe('Fleet', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'data_enabled': true,
@@ -63,7 +63,7 @@ describe('Fleet', function() {
           'commands_url': 'https://google.com',
           'sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -78,7 +78,7 @@ describe('Fleet', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.supersim.v1.fleets('HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -99,7 +99,7 @@ describe('Fleet', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'data_enabled': true,
@@ -111,7 +111,7 @@ describe('Fleet', function() {
           'commands_url': null,
           'sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -126,7 +126,7 @@ describe('Fleet', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Fleets?PageSize=50&Page=0',
               'key': 'fleets',
@@ -151,14 +151,14 @@ describe('Fleet', function() {
                   'url': 'https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.fleets.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Fleets?PageSize=50&Page=0',
               'key': 'fleets',
@@ -183,7 +183,7 @@ describe('Fleet', function() {
                   'url': 'https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.fleets.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -195,7 +195,7 @@ describe('Fleet', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Fleets?PageSize=50&Page=0',
               'key': 'fleets',
@@ -220,14 +220,14 @@ describe('Fleet', function() {
                   'url': 'https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.supersim.v1.fleets.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.supersim.v1.fleets.list();
       promise.then(function() {
@@ -247,7 +247,7 @@ describe('Fleet', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'fleets': [],
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Fleets?PageSize=50&Page=0',
@@ -258,7 +258,7 @@ describe('Fleet', function() {
               'previous_page_url': null,
               'url': 'https://supersim.twilio.com/v1/Fleets?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -273,7 +273,7 @@ describe('Fleet', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://supersim.twilio.com/v1/Fleets?PageSize=50&Page=0',
               'key': 'fleets',
@@ -298,7 +298,7 @@ describe('Fleet', function() {
                   'url': 'https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -313,7 +313,7 @@ describe('Fleet', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.supersim.v1.fleets('HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -334,7 +334,7 @@ describe('Fleet', function() {
   );
   it('should generate valid update_unique_name response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'data_enabled': true,
@@ -346,7 +346,7 @@ describe('Fleet', function() {
           'commands_url': null,
           'sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

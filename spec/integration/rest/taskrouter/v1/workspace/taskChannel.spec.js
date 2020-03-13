@@ -31,7 +31,7 @@ describe('TaskChannel', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid fetch_sid response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-04-14T17:35:54Z',
           'date_updated': '2016-04-14T17:35:54Z',
@@ -67,7 +67,7 @@ describe('TaskChannel', function() {
           'links': {
               'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -83,7 +83,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid fetch_unique_name response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-04-14T17:35:54Z',
           'date_updated': '2016-04-14T17:35:54Z',
@@ -96,7 +96,7 @@ describe('TaskChannel', function() {
           'links': {
               'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -112,7 +112,7 @@ describe('TaskChannel', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -138,7 +138,7 @@ describe('TaskChannel', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .taskChannels.each(() => done());
@@ -146,7 +146,7 @@ describe('TaskChannel', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -172,7 +172,7 @@ describe('TaskChannel', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .taskChannels.each({pageSize: 20}, () => done());
@@ -185,7 +185,7 @@ describe('TaskChannel', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -211,7 +211,7 @@ describe('TaskChannel', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0'
           }
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                           .taskChannels.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -219,7 +219,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.list();
@@ -241,7 +241,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -267,7 +267,7 @@ describe('TaskChannel', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -283,7 +283,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'channels': [],
           'meta': {
               'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0',
@@ -294,7 +294,7 @@ describe('TaskChannel', function() {
               'previous_page_url': null,
               'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels?PageSize=50&Page=0'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -310,7 +310,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
@@ -333,7 +333,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid update_sid response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -346,7 +346,7 @@ describe('TaskChannel', function() {
           'links': {
               'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -362,7 +362,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid update_unique_name response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -375,7 +375,7 @@ describe('TaskChannel', function() {
           'links': {
               'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -391,7 +391,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -414,7 +414,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid delete_sid response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -430,7 +430,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid delete_unique_name response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -446,7 +446,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name', uniqueName: 'unique_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -471,7 +471,7 @@ describe('TaskChannel', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -484,7 +484,7 @@ describe('TaskChannel', function() {
           'links': {
               'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

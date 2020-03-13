@@ -31,7 +31,7 @@ describe('WebChannel', function() {
   });
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -51,14 +51,14 @@ describe('WebChannel', function() {
                   'url': 'https://flex-api.twilio.com/v1/WebChannels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.flexApi.v1.webChannel.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -78,7 +78,7 @@ describe('WebChannel', function() {
                   'url': 'https://flex-api.twilio.com/v1/WebChannels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.flexApi.v1.webChannel.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
@@ -90,7 +90,7 @@ describe('WebChannel', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -110,14 +110,14 @@ describe('WebChannel', function() {
                   'url': 'https://flex-api.twilio.com/v1/WebChannels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.flexApi.v1.webChannel.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.webChannel.list();
       promise.then(function() {
@@ -137,7 +137,7 @@ describe('WebChannel', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -157,7 +157,7 @@ describe('WebChannel', function() {
                   'url': 'https://flex-api.twilio.com/v1/WebChannels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -172,7 +172,7 @@ describe('WebChannel', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'page': 0,
               'page_size': 50,
@@ -183,7 +183,7 @@ describe('WebChannel', function() {
               'key': 'flex_chat_channels'
           },
           'flex_chat_channels': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -198,7 +198,7 @@ describe('WebChannel', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.webChannel('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
@@ -219,14 +219,14 @@ describe('WebChannel', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'flex_flow_sid': 'FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
           'date_updated': '2016-08-01T22:10:40Z',
           'url': 'https://flex-api.twilio.com/v1/WebChannels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -241,7 +241,7 @@ describe('WebChannel', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {
         flexFlowSid: 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -274,14 +274,14 @@ describe('WebChannel', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'flex_flow_sid': 'FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
           'date_updated': '2016-08-01T22:10:40Z',
           'url': 'https://flex-api.twilio.com/v1/WebChannels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -302,7 +302,7 @@ describe('WebChannel', function() {
   );
   it('should generate valid update request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.webChannel('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
@@ -323,14 +323,14 @@ describe('WebChannel', function() {
   );
   it('should generate valid update response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'flex_flow_sid': 'FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2016-08-01T22:10:40Z',
           'date_updated': '2016-08-01T22:10:40Z',
           'url': 'https://flex-api.twilio.com/v1/WebChannels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -345,7 +345,7 @@ describe('WebChannel', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.flexApi.v1.webChannel('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
@@ -366,7 +366,7 @@ describe('WebChannel', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 

@@ -31,7 +31,7 @@ describe('TerminatingSipDomain', function() {
   });
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .terminatingSipDomains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
@@ -54,7 +54,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'auth_type': 'IP_ACL',
@@ -75,7 +75,7 @@ describe('TerminatingSipDomain', function() {
           'links': {
               'sip_domain': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -91,7 +91,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .terminatingSipDomains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
@@ -114,7 +114,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
@@ -130,7 +130,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {sipDomainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -155,7 +155,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'auth_type': 'IP_ACL',
@@ -176,7 +176,7 @@ describe('TerminatingSipDomain', function() {
           'links': {
               'sip_domain': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -193,7 +193,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should treat the first each arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains?PageSize=50&Page=0',
               'key': 'sip_domains',
@@ -227,7 +227,7 @@ describe('TerminatingSipDomain', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .terminatingSipDomains.each(() => done());
@@ -235,7 +235,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should treat the second arg as a callback',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains?PageSize=50&Page=0',
               'key': 'sip_domains',
@@ -269,7 +269,7 @@ describe('TerminatingSipDomain', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .terminatingSipDomains.each({pageSize: 20}, () => done());
@@ -282,7 +282,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should find the callback in the opts object',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains?PageSize=50&Page=0',
               'key': 'sip_domains',
@@ -316,7 +316,7 @@ describe('TerminatingSipDomain', function() {
                   }
               }
           ]
-      });
+      };
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .terminatingSipDomains.each({callback: () => done()}, () => fail('wrong callback!'));
@@ -324,7 +324,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should generate valid list request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .terminatingSipDomains.list();
@@ -346,7 +346,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should generate valid read_full response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains?PageSize=50&Page=0',
               'key': 'sip_domains',
@@ -380,7 +380,7 @@ describe('TerminatingSipDomain', function() {
                   }
               }
           ]
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -396,7 +396,7 @@ describe('TerminatingSipDomain', function() {
   );
   it('should generate valid read_empty response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'meta': {
               'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains?PageSize=50&Page=0',
               'key': 'sip_domains',
@@ -407,7 +407,7 @@ describe('TerminatingSipDomain', function() {
               'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains?PageSize=50&Page=0'
           },
           'sip_domains': []
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 

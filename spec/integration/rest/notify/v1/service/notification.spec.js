@@ -31,7 +31,7 @@ describe('Notification', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .notifications.create();
@@ -53,7 +53,7 @@ describe('Notification', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'NOb8021351170b4e1286adaac3fdd6d082',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'IS699b53e02da45a1ba9d13b7d7d2766af',
@@ -76,7 +76,7 @@ describe('Notification', function() {
           'sms': null,
           'facebook_messenger': null,
           'alexa': null
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -92,7 +92,7 @@ describe('Notification', function() {
   );
   it('should generate valid create_direct_notification response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'sid': 'NOb8021351170b4e1286adaac3fdd6d082',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'IS699b53e02da45a1ba9d13b7d7d2766af',
@@ -113,7 +113,7 @@ describe('Notification', function() {
           'sms': null,
           'facebook_messenger': null,
           'alexa': null
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 

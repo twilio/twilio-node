@@ -33,7 +33,7 @@ describe('FeedbackSummary', function() {
   });
   it('should generate valid create request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var opts = {startDate: new Date(Date.UTC(2008, 0, 2)), endDate: new Date(Date.UTC(2008, 0, 2))};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -62,7 +62,7 @@ describe('FeedbackSummary', function() {
   );
   it('should generate valid create response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_count': 10200,
           'call_feedback_count': 729,
@@ -83,7 +83,7 @@ describe('FeedbackSummary', function() {
           'status': 'completed',
           'date_created': 'Tue, 31 Aug 2010 20:36:28 +0000',
           'date_updated': 'Tue, 31 Aug 2010 20:36:44 +0000'
-      });
+      };
 
       holodeck.mock(new Response(201, body));
 
@@ -101,7 +101,7 @@ describe('FeedbackSummary', function() {
   );
   it('should generate valid fetch request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls
@@ -125,7 +125,7 @@ describe('FeedbackSummary', function() {
   );
   it('should generate valid fetch response',
     function(done) {
-      var body = JSON.stringify({
+      var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_count': 10200,
           'call_feedback_count': 729,
@@ -146,7 +146,7 @@ describe('FeedbackSummary', function() {
           'status': 'completed',
           'date_created': 'Tue, 31 Aug 2010 20:36:28 +0000',
           'date_updated': 'Tue, 31 Aug 2010 20:36:44 +0000'
-      });
+      };
 
       holodeck.mock(new Response(200, body));
 
@@ -163,7 +163,7 @@ describe('FeedbackSummary', function() {
   );
   it('should generate valid remove request',
     function(done) {
-      holodeck.mock(new Response(500, '{}'));
+      holodeck.mock(new Response(500, {}));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls
@@ -187,7 +187,7 @@ describe('FeedbackSummary', function() {
   );
   it('should generate valid delete response',
     function(done) {
-      var body = JSON.stringify(null);
+      var body = null;
 
       holodeck.mock(new Response(204, body));
 
