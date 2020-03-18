@@ -185,6 +185,7 @@ interface CallListInstance {
  * @property asyncAmdStatusCallback - The URL we should call to send amd status information to your application
  * @property asyncAmdStatusCallbackMethod - HTTP Method to use with async_amd_status_callback
  * @property byoc - BYOC trunk SID (Beta)
+ * @property callReason - Reason for the call (Beta)
  * @property callerId - The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
  * @property fallbackMethod - HTTP Method to use with fallback_url
  * @property fallbackUrl - Fallback URL in case of error
@@ -218,6 +219,7 @@ interface CallListInstanceCreateOptions {
   asyncAmdStatusCallback?: string;
   asyncAmdStatusCallbackMethod?: string;
   byoc?: string;
+  callReason?: string;
   callerId?: string;
   fallbackMethod?: string;
   fallbackUrl?: string;

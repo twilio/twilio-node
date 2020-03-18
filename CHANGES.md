@@ -1,6 +1,29 @@
 twilio-node changelog
 =====================
 
+[2020-03-18] Version 3.41.0
+---------------------------
+**Library - Fix**
+- [PR #546](https://github.com/twilio/twilio-node/pull/546): Page JSON parsing and integration tests. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #545](https://github.com/twilio/twilio-node/pull/545): add overloaded TS definitions for non-required params. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #544](https://github.com/twilio/twilio-node/pull/544): Add method overload to VoiceResponse.prototype.play. Thanks to [@DCtheTall](https://github.com/DCtheTall)!
+- [PR #543](https://github.com/twilio/twilio-node/pull/543): don't re-parse parsed JSON. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Feature**
+- [PR #542](https://github.com/twilio/twilio-node/pull/542): migrate from deprecated request module to axios. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional `emergency_calling_enabled` parameter to SIP Domain
+- Add optional property `call_reason` in the call create request
+
+**Authy**
+- Added `friendly_name` and `config` as optional params to Factor update
+- Added `config` param to Factor creation **(breaking change)**
+
+**Preview**
+- Renamed `SuccessRate` endpoint to `ImpressionsRate` for Branded Calls (fka. Verified by Twilio) **(breaking change)**
+
+
 [2020-03-04] Version 3.40.0
 ---------------------------
 **Library - Docs**

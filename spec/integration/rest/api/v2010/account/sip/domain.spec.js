@@ -54,7 +54,7 @@ describe('Domain', function() {
                   'voice_status_callback_method': 'POST',
                   'voice_status_callback_url': null,
                   'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
-                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'emergency_calling_enabled': true
               }
           ],
           'start': 0,
@@ -97,7 +97,7 @@ describe('Domain', function() {
                   'voice_status_callback_method': 'POST',
                   'voice_status_callback_url': null,
                   'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
-                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'emergency_calling_enabled': true
               }
           ],
           'start': 0,
@@ -145,7 +145,7 @@ describe('Domain', function() {
                   'voice_status_callback_method': 'POST',
                   'voice_status_callback_url': null,
                   'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
-                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'emergency_calling_enabled': true
               }
           ],
           'start': 0,
@@ -211,7 +211,7 @@ describe('Domain', function() {
                   'voice_status_callback_method': 'POST',
                   'voice_status_callback_url': null,
                   'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
-                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'emergency_calling_enabled': true
               }
           ],
           'start': 0,
@@ -313,7 +313,7 @@ describe('Domain', function() {
           'voice_status_callback_method': 'POST',
           'voice_status_callback_url': null,
           'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
-          'trunk_sid': null
+          'emergency_calling_enabled': true
       };
 
       holodeck.mock(new Response(201, body));
@@ -377,7 +377,7 @@ describe('Domain', function() {
           'voice_status_callback_method': 'POST',
           'voice_status_callback_url': null,
           'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
-          'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'emergency_calling_enabled': true
       };
 
       holodeck.mock(new Response(200, body));
@@ -440,7 +440,7 @@ describe('Domain', function() {
           'voice_status_callback_method': 'POST',
           'voice_status_callback_url': null,
           'voice_url': 'https://dundermifflin.example.com/twilio/app.php',
-          'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'emergency_calling_enabled': true
       };
 
       holodeck.mock(new Response(200, body));

@@ -21,7 +21,7 @@ import TrustedComms = require('../../TrustedComms');
 declare function InsightsList(version: TrustedComms, businessSid: string): InsightsListInstance;
 
 interface InsightsListInstance {
-  successRate?: object;
+  impressionsRate?: object;
   /**
    * Provide a user-friendly representation
    */

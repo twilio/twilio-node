@@ -51,10 +51,14 @@ interface FactorInstanceRemoveOptions {
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Factor for the first time
+ * @property config - The config for this Factor as a json string
+ * @property friendlyName - The friendly name of this Factor
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceUpdateOptions {
   authPayload?: string;
+  config?: string;
+  friendlyName?: string;
   twilioAuthySandboxMode?: string;
 }
 
@@ -181,13 +185,17 @@ interface FactorListInstance {
 /**
  * Options to pass to create
  *
+ * @property authorization - The Authorization HTTP request header
  * @property binding - A unique binding for this Factor as a json string
+ * @property config - The config for this Factor as a json string
  * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceCreateOptions {
+  authorization?: string;
   binding: string;
+  config: string;
   factorType: FactorFactorTypes;
   friendlyName: string;
   twilioAuthySandboxMode?: string;
@@ -261,6 +269,7 @@ interface FactorPayload extends FactorResource, Page.TwilioResponsePayload {
 
 interface FactorResource {
   account_sid: string;
+  config: object;
   date_created: Date;
   date_updated: Date;
   entity_sid: string;
@@ -364,6 +373,7 @@ declare class FactorInstance extends SerializableClass {
    * Access the challenges
    */
   challenges(): ChallengeListInstance;
+  config: object;
   dateCreated: Date;
   dateUpdated: Date;
   entitySid: string;

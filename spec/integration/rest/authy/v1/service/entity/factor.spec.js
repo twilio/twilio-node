@@ -37,7 +37,9 @@ describe('Factor', function() {
         binding: 'binding',
         friendlyName: 'friendly_name',
         factorType: 'app-push',
-        twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'
+        config: 'config',
+        twilioAuthySandboxMode: 'twilio_authy_sandbox_mode',
+        authorization: 'authorization'
       };
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities('identity')
@@ -53,14 +55,22 @@ describe('Factor', function() {
       var identity = 'identity';
       var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-      var values = {Binding: 'binding', FriendlyName: 'friendly_name', FactorType: 'app-push', };
+      var values = {
+        Binding: 'binding',
+        FriendlyName: 'friendly_name',
+        FactorType: 'app-push',
+        Config: 'config',
+      };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
           data: values
       }));
 
-      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
+      var headers = {
+        'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode',
+        'Authorization': 'authorization'
+      };
       holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
@@ -80,7 +90,13 @@ describe('Factor', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'friendly_name': 'friendly_name',
           'status': 'unverified',
-          'factor_type': 'sms',
+          'factor_type': 'push',
+          'config': {
+              'sdk_version': '1.0',
+              'app_id': 'com.authy.authy',
+              'notification_platform': 'fcm',
+              'notification_token': 'test_token'
+          },
           'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'challenges': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges'
@@ -89,7 +105,12 @@ describe('Factor', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {binding: 'binding', friendlyName: 'friendly_name', factorType: 'app-push'};
+      var opts = {
+        binding: 'binding',
+        friendlyName: 'friendly_name',
+        factorType: 'app-push',
+        config: 'config'
+      };
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities('identity')
                                    .factors.create(opts);
@@ -186,7 +207,13 @@ describe('Factor', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'friendly_name': 'friendly_name',
           'status': 'unverified',
-          'factor_type': 'sms',
+          'factor_type': 'push',
+          'config': {
+              'sdk_version': '1.0',
+              'app_id': 'com.authy.authy',
+              'notification_platform': 'fcm',
+              'notification_token': 'test_token'
+          },
           'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'challenges': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges'
@@ -220,7 +247,13 @@ describe('Factor', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'friendly_name': 'friendly_name',
                   'status': 'unverified',
-                  'factor_type': 'sms',
+                  'factor_type': 'push',
+                  'config': {
+                      'sdk_version': '1.0',
+                      'app_id': 'com.authy.authy',
+                      'notification_platform': 'fcm',
+                      'notification_token': 'test_token'
+                  },
                   'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'challenges': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges'
@@ -257,7 +290,13 @@ describe('Factor', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'friendly_name': 'friendly_name',
                   'status': 'unverified',
-                  'factor_type': 'sms',
+                  'factor_type': 'push',
+                  'config': {
+                      'sdk_version': '1.0',
+                      'app_id': 'com.authy.authy',
+                      'notification_platform': 'fcm',
+                      'notification_token': 'test_token'
+                  },
                   'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'challenges': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges'
@@ -299,7 +338,13 @@ describe('Factor', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'friendly_name': 'friendly_name',
                   'status': 'unverified',
-                  'factor_type': 'sms',
+                  'factor_type': 'push',
+                  'config': {
+                      'sdk_version': '1.0',
+                      'app_id': 'com.authy.authy',
+                      'notification_platform': 'fcm',
+                      'notification_token': 'test_token'
+                  },
                   'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'challenges': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges'
@@ -391,7 +436,13 @@ describe('Factor', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'friendly_name': 'friendly_name',
                   'status': 'unverified',
-                  'factor_type': 'sms',
+                  'factor_type': 'push',
+                  'config': {
+                      'sdk_version': '1.0',
+                      'app_id': 'com.authy.authy',
+                      'notification_platform': 'fcm',
+                      'notification_token': 'test_token'
+                  },
                   'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'challenges': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges'
@@ -462,7 +513,13 @@ describe('Factor', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'friendly_name': 'friendly_name',
           'status': 'verified',
-          'factor_type': 'sms',
+          'factor_type': 'push',
+          'config': {
+              'sdk_version': '1.0',
+              'app_id': 'com.authy.authy',
+              'notification_platform': 'fcm',
+              'notification_token': 'test_token'
+          },
           'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'challenges': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges'

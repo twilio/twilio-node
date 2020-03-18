@@ -18,8 +18,6 @@ import { OriginationUrlListInstance } from './trunk/originationUrl';
 import { PhoneNumberList } from './trunk/phoneNumber';
 import { PhoneNumberListInstance } from './trunk/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
-import { TerminatingSipDomainList } from './trunk/terminatingSipDomain';
-import { TerminatingSipDomainListInstance } from './trunk/terminatingSipDomain';
 
 type TrunkRecordingSetting = 'do-not-record'|'record-from-ringing'|'record-from-answer';
 
@@ -305,7 +303,6 @@ declare class TrunkContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<boolean>;
-  terminatingSipDomains: TerminatingSipDomainListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -379,10 +376,6 @@ declare class TrunkInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<boolean>;
   secure: boolean;
   sid: string;
-  /**
-   * Access the terminatingSipDomains
-   */
-  terminatingSipDomains(): TerminatingSipDomainListInstance;
   /**
    * Provide a user-friendly representation
    */

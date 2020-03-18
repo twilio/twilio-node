@@ -29,6 +29,7 @@ declare function DomainList(version: V2010, accountSid: string): DomainListInsta
  * Options to pass to update
  *
  * @property domainName - The unique address on Twilio to route SIP traffic
+ * @property emergencyCallingEnabled - Whether emergency calling is enabled for the domain.
  * @property friendlyName - A string to describe the resource
  * @property sipRegistration - Whether SIP registration is allowed
  * @property voiceFallbackMethod - The HTTP method used with voice_fallback_url
@@ -40,6 +41,7 @@ declare function DomainList(version: V2010, accountSid: string): DomainListInsta
  */
 interface DomainInstanceUpdateOptions {
   domainName?: string;
+  emergencyCallingEnabled?: boolean;
   friendlyName?: string;
   sipRegistration?: boolean;
   voiceFallbackMethod?: string;
@@ -174,6 +176,7 @@ interface DomainListInstance {
  * Options to pass to create
  *
  * @property domainName - The unique address on Twilio to route SIP traffic
+ * @property emergencyCallingEnabled - Whether emergency calling is enabled for the domain.
  * @property friendlyName - A string to describe the resource
  * @property sipRegistration - Whether SIP registration is allowed
  * @property voiceFallbackMethod - The HTTP method to use with voice_fallback_url
@@ -185,6 +188,7 @@ interface DomainListInstance {
  */
 interface DomainListInstanceCreateOptions {
   domainName: string;
+  emergencyCallingEnabled?: boolean;
   friendlyName?: string;
   sipRegistration?: boolean;
   voiceFallbackMethod?: string;
@@ -262,6 +266,7 @@ interface DomainResource {
   date_created: Date;
   date_updated: Date;
   domain_name: string;
+  emergency_calling_enabled: boolean;
   friendly_name: string;
   sid: string;
   sip_registration: boolean;
@@ -351,6 +356,7 @@ declare class DomainInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   domainName: string;
+  emergencyCallingEnabled: boolean;
   /**
    * fetch a DomainInstance
    *

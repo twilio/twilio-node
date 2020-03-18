@@ -11,10 +11,10 @@ import TrustedComms = require('../../../TrustedComms');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
-type SuccessRateIntervals = 'minute'|'hour'|'day'|'week'|'month';
+type ImpressionsRateIntervals = 'minute'|'hour'|'day'|'week'|'month';
 
 /**
- * Initialize the SuccessRateList
+ * Initialize the ImpressionsRateList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
@@ -23,7 +23,7 @@ type SuccessRateIntervals = 'minute'|'hour'|'day'|'week'|'month';
  * @param version - Version of the resource
  * @param businessSid - A string that uniquely identifies this Business.
  */
-declare function SuccessRateList(version: TrustedComms, businessSid: string): SuccessRateListInstance;
+declare function ImpressionsRateList(version: TrustedComms, businessSid: string): ImpressionsRateListInstance;
 
 /**
  * Options to pass to fetch
@@ -31,57 +31,57 @@ declare function SuccessRateList(version: TrustedComms, businessSid: string): Su
  * @property brandSid - Brand Sid.
  * @property brandedChannelSid - Branded Channel Sid.
  * @property country - Country 2-letter ISO 3166 code.
- * @property end - The end date that for this Success Rate.
- * @property interval - The Interval of this Success Rate.
+ * @property end - The end date that for this Impressions Rate.
+ * @property interval - The Interval of this Impressions Rate.
  * @property phoneNumberSid - Phone Number Sid.
- * @property start - The start date that for this Success Rate.
+ * @property start - The start date that for this Impressions Rate.
  */
-interface SuccessRateInstanceFetchOptions {
+interface ImpressionsRateInstanceFetchOptions {
   brandSid?: string;
   brandedChannelSid?: string;
   country?: string;
   end?: Date;
-  interval?: SuccessRateIntervals;
+  interval?: ImpressionsRateIntervals;
   phoneNumberSid?: string;
   start?: Date;
 }
 
-interface SuccessRateListInstance {
+interface ImpressionsRateListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): SuccessRateContext;
+  (sid: string): ImpressionsRateContext;
   /**
-   * Constructs a success_rate
+   * Constructs a impressions_rate
    */
-  get(): SuccessRateContext;
+  get(): ImpressionsRateContext;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-interface SuccessRatePayload extends SuccessRateResource, Page.TwilioResponsePayload {
+interface ImpressionsRatePayload extends ImpressionsRateResource, Page.TwilioResponsePayload {
 }
 
-interface SuccessRateResource {
+interface ImpressionsRateResource {
   account_sid: string;
   business_sid: string;
   end: Date;
-  interval: SuccessRateIntervals;
+  interval: ImpressionsRateIntervals;
   reports: object;
   start: Date;
   url: string;
 }
 
-interface SuccessRateSolution {
+interface ImpressionsRateSolution {
   businessSid?: string;
 }
 
 
-declare class SuccessRateContext {
+declare class ImpressionsRateContext {
   /**
-   * Initialize the SuccessRateContext
+   * Initialize the ImpressionsRateContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -93,18 +93,18 @@ declare class SuccessRateContext {
   constructor(version: TrustedComms, businessSid: string);
 
   /**
-   * fetch a SuccessRateInstance
+   * fetch a ImpressionsRateInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SuccessRateInstance) => any): Promise<SuccessRateInstance>;
+  fetch(callback?: (error: Error | null, items: ImpressionsRateInstance) => any): Promise<ImpressionsRateInstance>;
   /**
-   * fetch a SuccessRateInstance
+   * fetch a ImpressionsRateInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: SuccessRateInstanceFetchOptions, callback?: (error: Error | null, items: SuccessRateInstance) => any): Promise<SuccessRateInstance>;
+  fetch(opts?: ImpressionsRateInstanceFetchOptions, callback?: (error: Error | null, items: ImpressionsRateInstance) => any): Promise<ImpressionsRateInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -112,9 +112,9 @@ declare class SuccessRateContext {
 }
 
 
-declare class SuccessRateInstance extends SerializableClass {
+declare class ImpressionsRateInstance extends SerializableClass {
   /**
-   * Initialize the SuccessRateContext
+   * Initialize the ImpressionsRateContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -124,26 +124,26 @@ declare class SuccessRateInstance extends SerializableClass {
    * @param payload - The instance payload
    * @param businessSid - A string that uniquely identifies this Business.
    */
-  constructor(version: TrustedComms, payload: SuccessRatePayload, businessSid: string);
+  constructor(version: TrustedComms, payload: ImpressionsRatePayload, businessSid: string);
 
-  private _proxy: SuccessRateContext;
+  private _proxy: ImpressionsRateContext;
   accountSid: string;
   businessSid: string;
   end: Date;
   /**
-   * fetch a SuccessRateInstance
+   * fetch a ImpressionsRateInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SuccessRateInstance) => any): Promise<SuccessRateInstance>;
+  fetch(callback?: (error: Error | null, items: ImpressionsRateInstance) => any): Promise<ImpressionsRateInstance>;
   /**
-   * fetch a SuccessRateInstance
+   * fetch a ImpressionsRateInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: SuccessRateInstanceFetchOptions, callback?: (error: Error | null, items: SuccessRateInstance) => any): Promise<SuccessRateInstance>;
-  interval: SuccessRateIntervals;
+  fetch(opts?: ImpressionsRateInstanceFetchOptions, callback?: (error: Error | null, items: ImpressionsRateInstance) => any): Promise<ImpressionsRateInstance>;
+  interval: ImpressionsRateIntervals;
   reports: object;
   start: Date;
   /**
@@ -154,9 +154,9 @@ declare class SuccessRateInstance extends SerializableClass {
 }
 
 
-declare class SuccessRatePage extends Page<TrustedComms, SuccessRatePayload, SuccessRateResource, SuccessRateInstance> {
+declare class ImpressionsRatePage extends Page<TrustedComms, ImpressionsRatePayload, ImpressionsRateResource, ImpressionsRateInstance> {
   /**
-   * Initialize the SuccessRatePage
+   * Initialize the ImpressionsRatePage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -166,18 +166,18 @@ declare class SuccessRatePage extends Page<TrustedComms, SuccessRatePayload, Suc
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: TrustedComms, response: Response<string>, solution: SuccessRateSolution);
+  constructor(version: TrustedComms, response: Response<string>, solution: ImpressionsRateSolution);
 
   /**
-   * Build an instance of SuccessRateInstance
+   * Build an instance of ImpressionsRateInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SuccessRatePayload): SuccessRateInstance;
+  getInstance(payload: ImpressionsRatePayload): ImpressionsRateInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { SuccessRateContext, SuccessRateInstance, SuccessRateInstanceFetchOptions, SuccessRateIntervals, SuccessRateList, SuccessRateListInstance, SuccessRatePage, SuccessRatePayload, SuccessRateResource, SuccessRateSolution }
+export { ImpressionsRateContext, ImpressionsRateInstance, ImpressionsRateInstanceFetchOptions, ImpressionsRateIntervals, ImpressionsRateList, ImpressionsRateListInstance, ImpressionsRatePage, ImpressionsRatePayload, ImpressionsRateResource, ImpressionsRateSolution }
