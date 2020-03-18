@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2020-03-18] Version 3.41.1
+---------------------------
+**Library - Fix**
+- [PR #547](https://github.com/twilio/twilio-node/pull/547): add status validator to request options so non-2XXs can be wrapped in a 'RestException'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2020-03-18] Version 3.41.0
 ---------------------------
 **Library - Fix**
