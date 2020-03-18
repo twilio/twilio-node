@@ -5,6 +5,7 @@ test-install:
 
 install:
 	@node --version || (echo "Node is not installed, please install Node >= 0.12"; exit 1);
+	rm -f package-lock.json
 	npm install
 
 test:

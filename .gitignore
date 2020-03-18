@@ -25,3 +25,7 @@ docs
 
 ### ide / editors ###
 .vscode
+
+### Libraries don't need locks files ###
+yarn.lock
+package-lock.json
