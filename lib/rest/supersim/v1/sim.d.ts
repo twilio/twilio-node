@@ -10,9 +10,9 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
-type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'inactive'|'canceled'|'scheduled';
+type SimStatus = 'new'|'ready'|'active'|'inactive'|'scheduled';
 
-type SimStatusUpdate = 'active'|'suspended'|'deactivated'|'inactive';
+type SimStatusUpdate = 'active'|'inactive';
 
 /**
  * Initialize the SimList

@@ -31,6 +31,7 @@ declare function DomainList(version: V2010, accountSid: string): DomainListInsta
  * @property domainName - The unique address on Twilio to route SIP traffic
  * @property emergencyCallingEnabled - Whether emergency calling is enabled for the domain.
  * @property friendlyName - A string to describe the resource
+ * @property secure - Whether secure SIP is enabled for the domain
  * @property sipRegistration - Whether SIP registration is allowed
  * @property voiceFallbackMethod - The HTTP method used with voice_fallback_url
  * @property voiceFallbackUrl - The URL we should call when an error occurs in executing TwiML
@@ -43,6 +44,7 @@ interface DomainInstanceUpdateOptions {
   domainName?: string;
   emergencyCallingEnabled?: boolean;
   friendlyName?: string;
+  secure?: boolean;
   sipRegistration?: boolean;
   voiceFallbackMethod?: string;
   voiceFallbackUrl?: string;
@@ -178,6 +180,7 @@ interface DomainListInstance {
  * @property domainName - The unique address on Twilio to route SIP traffic
  * @property emergencyCallingEnabled - Whether emergency calling is enabled for the domain.
  * @property friendlyName - A string to describe the resource
+ * @property secure - Whether secure SIP is enabled for the domain
  * @property sipRegistration - Whether SIP registration is allowed
  * @property voiceFallbackMethod - The HTTP method to use with voice_fallback_url
  * @property voiceFallbackUrl - The URL we should call when an error occurs in executing TwiML
@@ -190,6 +193,7 @@ interface DomainListInstanceCreateOptions {
   domainName: string;
   emergencyCallingEnabled?: boolean;
   friendlyName?: string;
+  secure?: boolean;
   sipRegistration?: boolean;
   voiceFallbackMethod?: string;
   voiceFallbackUrl?: string;
@@ -268,6 +272,7 @@ interface DomainResource {
   domain_name: string;
   emergency_calling_enabled: boolean;
   friendly_name: string;
+  secure: boolean;
   sid: string;
   sip_registration: boolean;
   subresource_uris: string;
@@ -374,6 +379,7 @@ declare class DomainInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: DomainInstance) => any): Promise<boolean>;
+  secure: boolean;
   sid: string;
   sipRegistration: boolean;
   subresourceUris: string;

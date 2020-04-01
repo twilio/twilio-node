@@ -241,6 +241,237 @@ describe('Challenge', function() {
       }).done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = {
+          'challenges': [
+              {
+                  'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'ff483d1ff591898a9942916050d2ca3f',
+                  'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_responded': '2015-07-30T20:00:00Z',
+                  'expiration_date': '2015-07-30T20:00:00Z',
+                  'status': 'pending',
+                  'responded_reason': 'none',
+                  'details': 'details',
+                  'hidden_details': 'hidden_details',
+                  'factor_type': 'sms',
+                  'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'challenges'
+          }
+      };
+      holodeck.mock(new Response(200, body));
+      client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .entities('identity')
+                     .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .challenges.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = {
+          'challenges': [
+              {
+                  'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'ff483d1ff591898a9942916050d2ca3f',
+                  'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_responded': '2015-07-30T20:00:00Z',
+                  'expiration_date': '2015-07-30T20:00:00Z',
+                  'status': 'pending',
+                  'responded_reason': 'none',
+                  'details': 'details',
+                  'hidden_details': 'hidden_details',
+                  'factor_type': 'sms',
+                  'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'challenges'
+          }
+      };
+      holodeck.mock(new Response(200, body));
+      client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .entities('identity')
+                     .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .challenges.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = {
+          'challenges': [
+              {
+                  'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'ff483d1ff591898a9942916050d2ca3f',
+                  'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_responded': '2015-07-30T20:00:00Z',
+                  'expiration_date': '2015-07-30T20:00:00Z',
+                  'status': 'pending',
+                  'responded_reason': 'none',
+                  'details': 'details',
+                  'hidden_details': 'hidden_details',
+                  'factor_type': 'sms',
+                  'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'challenges'
+          }
+      };
+      holodeck.mock(new Response(200, body));
+      client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .entities('identity')
+                     .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .challenges.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
+  it('should generate valid list request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .entities('identity')
+                                   .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .challenges.list(opts);
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var identity = 'identity';
+      var factorSid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://authy.twilio.com/v1/Services/${serviceSid}/Entities/${identity}/Factors/${factorSid}/Challenges`;
+
+      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
+      holodeck.assertHasRequest(new Request({
+        method: 'GET',
+        url: url,
+        headers: headers
+      }));
+    }
+  );
+  it('should generate valid read_empty response',
+    function(done) {
+      var body = {
+          'challenges': [],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'challenges'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .entities('identity')
+                                   .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .challenges.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid read_full response',
+    function(done) {
+      var body = {
+          'challenges': [
+              {
+                  'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'ff483d1ff591898a9942916050d2ca3f',
+                  'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_responded': '2015-07-30T20:00:00Z',
+                  'expiration_date': '2015-07-30T20:00:00Z',
+                  'status': 'pending',
+                  'responded_reason': 'none',
+                  'details': 'details',
+                  'hidden_details': 'hidden_details',
+                  'factor_type': 'sms',
+                  'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'challenges'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .entities('identity')
+                                   .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .challenges.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, {}));

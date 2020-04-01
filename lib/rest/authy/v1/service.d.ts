@@ -45,10 +45,12 @@ interface ServiceInstanceRemoveOptions {
  * Options to pass to update
  *
  * @property friendlyName - A human readable description of this resource.
+ * @property push - Optional service level push factors configuration
  * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
  */
 interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
+  push?: string;
   twilioAuthySandboxMode?: string;
 }
 

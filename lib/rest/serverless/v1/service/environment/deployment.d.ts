@@ -31,10 +31,16 @@ interface DeploymentListInstance {
   /**
    * create a DeploymentInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: DeploymentInstance) => any): Promise<DeploymentInstance>;
+  /**
+   * create a DeploymentInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: DeploymentListInstanceCreateOptions, callback?: (error: Error | null, item: DeploymentInstance) => any): Promise<DeploymentInstance>;
+  create(opts?: DeploymentListInstanceCreateOptions, callback?: (error: Error | null, item: DeploymentInstance) => any): Promise<DeploymentInstance>;
   /**
    * Streams DeploymentInstance records from the API.
    *
@@ -149,7 +155,7 @@ interface DeploymentListInstance {
  * @property buildSid - The SID of the build for the deployment
  */
 interface DeploymentListInstanceCreateOptions {
-  buildSid: string;
+  buildSid?: string;
 }
 
 /**

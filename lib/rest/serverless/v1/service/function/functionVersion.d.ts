@@ -8,6 +8,8 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
+import { FunctionVersionContentList } from './functionVersion/functionVersionContent';
+import { FunctionVersionContentListInstance } from './functionVersion/functionVersionContent';
 import { SerializableClass } from '../../../../../interfaces';
 
 type FunctionVersionVisibility = 'public'|'private'|'protected';
@@ -202,6 +204,7 @@ interface FunctionVersionResource {
   account_sid: string;
   date_created: Date;
   function_sid: string;
+  links: string;
   path: string;
   service_sid: string;
   sid: string;
@@ -236,6 +239,7 @@ declare class FunctionVersionContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FunctionVersionInstance) => any): Promise<FunctionVersionInstance>;
+  functionVersionContent: FunctionVersionContentListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -269,6 +273,11 @@ declare class FunctionVersionInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: FunctionVersionInstance) => any): Promise<FunctionVersionInstance>;
   functionSid: string;
+  /**
+   * Access the functionVersionContent
+   */
+  functionVersionContent(): FunctionVersionContentListInstance;
+  links: string;
   path: string;
   serviceSid: string;
   sid: string;

@@ -79,11 +79,107 @@ interface ChallengeListInstance {
    */
   create(opts?: ChallengeListInstanceCreateOptions, callback?: (error: Error | null, item: ChallengeInstance) => any): Promise<ChallengeInstance>;
   /**
+   * Streams ChallengeInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ChallengeInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param opts - Options for request
+   * @param callback - Function to process each record
+   */
+  each(opts?: ChallengeListInstanceEachOptions, callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void): void;
+  /**
    * Constructs a challenge
    *
    * @param sid - A string that uniquely identifies this Challenge, or `latest`.
    */
   get(sid: string): ChallengeContext;
+  /**
+   * Retrieve a single target page of ChallengeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ChallengePage) => any): Promise<ChallengePage>;
+  /**
+   * Retrieve a single target page of ChallengeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ChallengePage) => any): Promise<ChallengePage>;
+  /**
+   * Lists ChallengeInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ChallengeInstance[]) => any): Promise<ChallengeInstance[]>;
+  /**
+   * Lists ChallengeInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle list of records
+   */
+  list(opts?: ChallengeListInstanceOptions, callback?: (error: Error | null, items: ChallengeInstance[]) => any): Promise<ChallengeInstance[]>;
+  /**
+   * Retrieve a single page of ChallengeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ChallengePage) => any): Promise<ChallengePage>;
+  /**
+   * Retrieve a single page of ChallengeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle list of records
+   */
+  page(opts?: ChallengeListInstancePageOptions, callback?: (error: Error | null, items: ChallengePage) => any): Promise<ChallengePage>;
   /**
    * Provide a user-friendly representation
    */
@@ -102,6 +198,75 @@ interface ChallengeListInstanceCreateOptions {
   details?: string;
   expirationDate?: Date;
   hiddenDetails?: string;
+  twilioAuthySandboxMode?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property status - The Status of theChallenges to fetch
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ */
+interface ChallengeListInstanceEachOptions {
+  callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  status?: ChallengeChallengeStatuses;
+  twilioAuthySandboxMode?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - The Status of theChallenges to fetch
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ */
+interface ChallengeListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+  status?: ChallengeChallengeStatuses;
+  twilioAuthySandboxMode?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property status - The Status of theChallenges to fetch
+ * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ */
+interface ChallengeListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  status?: ChallengeChallengeStatuses;
   twilioAuthySandboxMode?: string;
 }
 
@@ -302,4 +467,4 @@ declare class ChallengePage extends Page<V1, ChallengePayload, ChallengeResource
   toJSON(): any;
 }
 
-export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceFetchOptions, ChallengeInstanceRemoveOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
+export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceFetchOptions, ChallengeInstanceRemoveOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }

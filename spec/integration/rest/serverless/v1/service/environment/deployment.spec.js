@@ -136,10 +136,9 @@ describe('Deployment', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {buildSid: 'ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments('ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                        .deployments.create(opts);
+                                        .deployments.create();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -151,11 +150,9 @@ describe('Deployment', function() {
       var environmentSid = 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Environments/${environmentSid}/Deployments`;
 
-      var values = {BuildSid: 'ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -174,10 +171,9 @@ describe('Deployment', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {buildSid: 'ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments('ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                        .deployments.create(opts);
+                                        .deployments.create();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

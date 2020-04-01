@@ -65,6 +65,7 @@ interface ConfigurationResource {
   plugin_service_attributes: object;
   plugin_service_enabled: boolean;
   public_attributes: object;
+  queue_stats_configuration: object;
   runtime_domain: string;
   serverless_service_sids: string[];
   service_version: string;
@@ -82,6 +83,7 @@ interface ConfigurationResource {
   ui_language: string;
   ui_version: string;
   url: string;
+  wfm_integrations: object[];
 }
 
 interface ConfigurationSolution {
@@ -175,6 +177,7 @@ declare class ConfigurationInstance extends SerializableClass {
   pluginServiceAttributes: object;
   pluginServiceEnabled: boolean;
   publicAttributes: object;
+  queueStatsConfiguration: object;
   runtimeDomain: string;
   serverlessServiceSids: string[];
   serviceVersion: string;
@@ -202,6 +205,7 @@ declare class ConfigurationInstance extends SerializableClass {
    */
   update(callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   url: string;
+  wfmIntegrations: object[];
 }
 
 
