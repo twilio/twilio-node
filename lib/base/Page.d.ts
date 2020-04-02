@@ -16,7 +16,7 @@ declare class Page<TVersion extends Version, TPayload extends Page.TwilioRespons
    * @param response - The http response
    * @param solution - path solution
    */
-  constructor(version: TVersion, response: Response<string>, solution: Solution);
+  constructor(version: TVersion, response: Response<string | object>, solution: Solution);
 
   /**
    * Get the url of the previous page of records
@@ -56,7 +56,7 @@ declare class Page<TVersion extends Version, TPayload extends Page.TwilioRespons
    * @param  response API response
    * @return json parsed response
    */
-  processResponse(response: Response<string>): TPayload;
+  processResponse(response: Response<string | object>): TPayload;
   /**
    * Load a page of records
    * @throws {Error} If records cannot be deserialized
