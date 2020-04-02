@@ -55,7 +55,7 @@ describe('Day', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = {
-          'redirect_to': 'https://api.bulkexports.s3.amazonaws.com/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'redirect_to': 'https://www.twilio.com'
       };
 
       holodeck.mock(new Response(200, body));
