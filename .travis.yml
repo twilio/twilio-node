@@ -8,13 +8,7 @@ node_js:
 services:
   - docker
 script: npm run ci
-notifications:
-  slack:
-    on_success: change
-    on_failure: change
-    rooms:
-      - secure: WDSJTf0kyen9YY7PH4PPc6LftE5w+YH825dX0qUF/3C+U4/qKW9D7U2z+bsbqi0Ir3cGObN6iK73O18E7N4L3vV1eyCj3ds7eyU9/YBroegz8+4KXw89n4lUVGo4jjIp9tzPgqmRdk5S0Flr/wc1HM9+VlnHFN5gE0P7Vui8bbc=
-      - secure: IlvaufTODSJPN3aIeQV4k/9c0YVRReCK4GAkBUj6Q9rMEJ9XQaSC3x5O0i1CM2cODWqfQsqVkII92LJy/Q8bbvIVW6ZYLy5aYi+EIiHAZMZkPb+kyIS97uDeYGL4Oo9OteGftNCIQTIpqu5WwWDx9cu9IoX9Qb19lO6chkCBo2I=
+
 deploy:
   - provider: script
     script: make docker-build && make docker-push
@@ -29,3 +23,11 @@ deploy:
     on:
       tags: true
       node: "8"
+
+notifications:
+  slack:
+    if: branch = master
+    on_success: never
+    on_failure: change
+    rooms:
+      - secure: Y6eefesugmhL9jLjlyMggLaOty5vvtFT7vzxj9AG2kRZs2zc8ZwKOLED9F5ceC6gObYJut5Qsns8tPXZmF9lJpLTeBmGA7IxewLUlJiim0G08myXT7FnU8wDiew6BUSy8xIhqLnAA4mG25oJ/Wx4ZZN7QZMZv+vKP3lEeqdwdL0=
