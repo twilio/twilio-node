@@ -7,6 +7,8 @@
 
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
+import { AwsListInstance } from './credential/aws';
+import { PublicKeyListInstance } from './credential/publicKey';
 
 /**
  * Initialize the CredentialList
@@ -16,8 +18,8 @@ import V1 = require('../V1');
 declare function CredentialList(version: V1): CredentialListInstance;
 
 interface CredentialListInstance {
-  aws?: object;
-  publicKey?: object;
+  aws?: AwsListInstance;
+  publicKey?: PublicKeyListInstance;
   /**
    * Provide a user-friendly representation
    */

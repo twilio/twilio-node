@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import Sync = require('../Sync');
-import serialize = require('../../../base/serialize');
 import { DocumentList } from './service/document';
 import { DocumentListInstance } from './service/document';
 import { SerializableClass } from '../../../interfaces';

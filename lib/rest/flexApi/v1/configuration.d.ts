@@ -141,7 +141,7 @@ declare class ConfigurationInstance extends SerializableClass {
 
   private _proxy: ConfigurationContext;
   accountSid: string;
-  attributes: object;
+  attributes: any;
   callRecordingEnabled: boolean;
   callRecordingWebhookUrl: string;
   chatServiceInstanceSid: string;
@@ -151,7 +151,7 @@ declare class ConfigurationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   create(callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
-  crmAttributes: object;
+  crmAttributes: any;
   crmCallbackUrl: string;
   crmEnabled: boolean;
   crmFallbackUrl: string;
@@ -173,11 +173,11 @@ declare class ConfigurationInstance extends SerializableClass {
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   integrations: object[];
   messagingServiceInstanceSid: string;
-  outboundCallFlows: object;
-  pluginServiceAttributes: object;
+  outboundCallFlows: any;
+  pluginServiceAttributes: any;
   pluginServiceEnabled: boolean;
-  publicAttributes: object;
-  queueStatsConfiguration: object;
+  publicAttributes: any;
+  queueStatsConfiguration: any;
   runtimeDomain: string;
   serverlessServiceSids: string[];
   serviceVersion: string;
@@ -187,15 +187,15 @@ declare class ConfigurationInstance extends SerializableClass {
   taskrouterTargetTaskqueueSid: string;
   taskrouterTargetWorkflowSid: string;
   taskrouterTaskqueues: object[];
-  taskrouterWorkerAttributes: object;
-  taskrouterWorkerChannels: object;
+  taskrouterWorkerAttributes: any;
+  taskrouterWorkerChannels: any;
   taskrouterWorkspaceSid: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  uiAttributes: object;
-  uiDependencies: object;
+  uiAttributes: any;
+  uiDependencies: any;
   uiLanguage: string;
   uiVersion: string;
   /**

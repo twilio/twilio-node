@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
 import { CredentialListList } from './trunk/credentialList';
 import { CredentialListListInstance } from './trunk/credentialList';
 import { IpAccessControlListList } from './trunk/ipAccessControlList';
@@ -367,7 +366,7 @@ declare class TrunkInstance extends SerializableClass {
    * Access the phoneNumbers
    */
   phoneNumbers(): PhoneNumberListInstance;
-  recording: object;
+  recording: any;
   /**
    * remove a TrunkInstance
    *

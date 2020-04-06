@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import TrustedComms = require('../TrustedComms');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**

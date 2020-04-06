@@ -102,7 +102,7 @@ declare class JobInstance extends SerializableClass {
   constructor(version: V1, payload: JobPayload, jobSid: string);
 
   private _proxy: JobContext;
-  details: object;
+  details: any;
   email: string;
   endDay: string;
   /**

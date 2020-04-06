@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2 = require('../../../V2');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 type MessageOrderType = 'asc'|'desc';
@@ -372,7 +371,7 @@ declare class MessageInstance extends SerializableClass {
   from: string;
   index: number;
   lastUpdatedBy: string;
-  media: object;
+  media: any;
   /**
    * remove a MessageInstance
    *

@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { DocumentPermissionList } from './document/documentPermission';
 import { DocumentPermissionListInstance } from './document/documentPermission';
 import { SerializableClass } from '../../../../interfaces';
@@ -335,7 +334,7 @@ declare class DocumentInstance extends SerializableClass {
   private _proxy: DocumentContext;
   accountSid: string;
   createdBy: string;
-  data: object;
+  data: any;
   dateCreated: Date;
   dateExpires: Date;
   dateUpdated: Date;

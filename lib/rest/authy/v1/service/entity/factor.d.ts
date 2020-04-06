@@ -373,7 +373,7 @@ declare class FactorInstance extends SerializableClass {
    * Access the challenges
    */
   challenges(): ChallengeListInstance;
-  config: object;
+  config: any;
   dateCreated: Date;
   dateUpdated: Date;
   entitySid: string;

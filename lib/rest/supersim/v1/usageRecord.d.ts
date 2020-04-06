@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 type UsageRecordGranularity = 'hour'|'day'|'all';
@@ -247,7 +246,7 @@ declare class UsageRecordInstance extends SerializableClass {
   dataDownload: number;
   dataTotal: number;
   dataUpload: number;
-  period: object;
+  period: any;
   simSid: string;
   /**
    * Provide a user-friendly representation

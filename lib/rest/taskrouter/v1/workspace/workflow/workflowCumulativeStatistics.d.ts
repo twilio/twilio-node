@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -150,7 +149,7 @@ declare class WorkflowCumulativeStatisticsInstance extends SerializableClass {
   reservationsRejected: number;
   reservationsRescinded: number;
   reservationsTimedOut: number;
-  splitByWaitTime: object;
+  splitByWaitTime: any;
   startTime: Date;
   tasksCanceled: number;
   tasksCompleted: number;
@@ -163,8 +162,8 @@ declare class WorkflowCumulativeStatisticsInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
-  waitDurationUntilAccepted: object;
-  waitDurationUntilCanceled: object;
+  waitDurationUntilAccepted: any;
+  waitDurationUntilCanceled: any;
   workflowSid: string;
   workspaceSid: string;
 }

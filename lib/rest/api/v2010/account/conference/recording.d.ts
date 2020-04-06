@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
@@ -310,7 +309,7 @@ declare class RecordingInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   duration: string;
-  encryptionDetails: object;
+  encryptionDetails: any;
   errorCode: number;
   /**
    * fetch a RecordingInstance

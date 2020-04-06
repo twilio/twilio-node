@@ -8,6 +8,8 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import { CountryListInstance } from './voice/country';
+import { NumberListInstance } from './voice/number';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -18,8 +20,8 @@ import { SerializableClass } from '../../../interfaces';
 declare function VoiceList(version: V1): VoiceListInstance;
 
 interface VoiceListInstance {
-  countries?: object;
-  numbers?: object;
+  countries?: CountryListInstance;
+  numbers?: NumberListInstance;
   /**
    * Provide a user-friendly representation
    */

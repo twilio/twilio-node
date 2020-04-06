@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 type CompositionHookFormat = 'mp4'|'webm';
@@ -395,7 +394,7 @@ declare class CompositionHookInstance extends SerializableClass {
    */
   update(opts: CompositionHookInstanceUpdateOptions, callback?: (error: Error | null, items: CompositionHookInstance) => any): Promise<CompositionHookInstance>;
   url: string;
-  videoLayout: object;
+  videoLayout: any;
 }
 
 

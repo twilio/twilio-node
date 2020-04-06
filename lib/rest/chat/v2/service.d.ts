@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
-import serialize = require('../../../base/serialize');
 import { BindingList } from './service/binding';
 import { BindingListInstance } from './service/binding';
 import { ChannelList } from './service/channel';
@@ -406,10 +405,10 @@ declare class ServiceInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   friendlyName: string;
-  limits: object;
+  limits: any;
   links: string;
-  media: object;
-  notifications: object;
+  media: any;
+  notifications: any;
   postWebhookRetryCount: number;
   postWebhookUrl: string;
   preWebhookRetryCount: number;

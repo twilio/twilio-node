@@ -267,7 +267,7 @@ declare class RegulationInstance extends SerializableClass {
   friendlyName: string;
   isoCountry: string;
   numberType: string;
-  requirements: object;
+  requirements: any;
   sid: string;
   /**
    * Provide a user-friendly representation

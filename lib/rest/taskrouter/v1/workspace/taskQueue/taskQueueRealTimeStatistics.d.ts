@@ -131,8 +131,8 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
   longestTaskWaitingAge: number;
   longestTaskWaitingSid: string;
   taskQueueSid: string;
-  tasksByPriority: object;
-  tasksByStatus: object;
+  tasksByPriority: any;
+  tasksByStatus: any;
   /**
    * Provide a user-friendly representation
    */

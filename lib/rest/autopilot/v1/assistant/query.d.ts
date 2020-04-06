@@ -350,7 +350,7 @@ declare class QueryInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: QueryInstance) => any): Promise<boolean>;
-  results: object;
+  results: any;
   sampleSid: string;
   sid: string;
   sourceChannel: string;

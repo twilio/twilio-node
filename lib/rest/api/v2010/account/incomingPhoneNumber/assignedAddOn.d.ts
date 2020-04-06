@@ -284,7 +284,7 @@ declare class AssignedAddOnInstance extends SerializableClass {
 
   private _proxy: AssignedAddOnContext;
   accountSid: string;
-  configuration: object;
+  configuration: any;
   dateCreated: Date;
   dateUpdated: Date;
   description: string;

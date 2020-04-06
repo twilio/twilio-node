@@ -7,6 +7,8 @@
 
 import Page = require('../../../../../../../base/Page');
 import V2010 = require('../../../../../V2010');
+import { AuthCallsCredentialListMappingListInstance } from './authCallsMapping/authCallsCredentialListMapping';
+import { AuthCallsIpAccessControlListMappingListInstance } from './authCallsMapping/authCallsIpAccessControlListMapping';
 
 /**
  * Initialize the AuthTypeCallsList
@@ -18,8 +20,8 @@ import V2010 = require('../../../../../V2010');
 declare function AuthTypeCallsList(version: V2010, accountSid: string, domainSid: string): AuthTypeCallsListInstance;
 
 interface AuthTypeCallsListInstance {
-  credentialListMappings?: object;
-  ipAccessControlListMappings?: object;
+  credentialListMappings?: AuthCallsCredentialListMappingListInstance;
+  ipAccessControlListMappings?: AuthCallsIpAccessControlListMappingListInstance;
   /**
    * Provide a user-friendly representation
    */

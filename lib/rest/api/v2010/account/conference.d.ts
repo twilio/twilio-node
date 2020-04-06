@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import serialize = require('../../../../base/serialize');
 import { ParticipantList } from './conference/participant';
 import { ParticipantListInstance } from './conference/participant';
 import { RecordingList } from './conference/recording';

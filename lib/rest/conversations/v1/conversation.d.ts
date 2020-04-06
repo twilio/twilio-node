@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
 import { MessageList } from './conversation/message';
 import { MessageListInstance } from './conversation/message';
 import { ParticipantList } from './conversation/participant';

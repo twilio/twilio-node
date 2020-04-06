@@ -237,7 +237,7 @@ declare class DependentPhoneNumberInstance extends SerializableClass {
   accountSid: string;
   addressRequirements: DependentPhoneNumberAddressRequirement;
   apiVersion: string;
-  capabilities: object;
+  capabilities: any;
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;

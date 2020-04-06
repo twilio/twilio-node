@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 type EndUserType = 'individual'|'business';
@@ -286,7 +285,7 @@ declare class EndUserInstance extends SerializableClass {
 
   private _proxy: EndUserContext;
   accountSid: string;
-  attributes: object;
+  attributes: any;
   dateCreated: Date;
   dateUpdated: Date;
   /**

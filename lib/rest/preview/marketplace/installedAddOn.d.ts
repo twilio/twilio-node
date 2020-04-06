@@ -8,7 +8,6 @@
 import Marketplace = require('../Marketplace');
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
-import serialize = require('../../../base/serialize');
 import { InstalledAddOnExtensionList } from './installedAddOn/installedAddOnExtension';
 import { InstalledAddOnExtensionListInstance } from './installedAddOn/installedAddOnExtension';
 import { SerializableClass } from '../../../interfaces';
@@ -309,7 +308,7 @@ declare class InstalledAddOnInstance extends SerializableClass {
 
   private _proxy: InstalledAddOnContext;
   accountSid: string;
-  configuration: object;
+  configuration: any;
   dateCreated: Date;
   dateUpdated: Date;
   description: string;

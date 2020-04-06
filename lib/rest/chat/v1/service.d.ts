@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
 import { ChannelList } from './service/channel';
 import { ChannelListInstance } from './service/channel';
 import { RoleList } from './service/role';
@@ -475,9 +474,9 @@ declare class ServiceInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   friendlyName: string;
-  limits: object;
+  limits: any;
   links: string;
-  notifications: object;
+  notifications: any;
   postWebhookUrl: string;
   preWebhookUrl: string;
   reachabilityEnabled: boolean;
@@ -518,7 +517,7 @@ declare class ServiceInstance extends SerializableClass {
   users(): UserListInstance;
   webhookFilters: string[];
   webhookMethod: string;
-  webhooks: object;
+  webhooks: any;
 }
 
 

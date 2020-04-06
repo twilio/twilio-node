@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 type ParticipantWebhookEnabledType = 'true'|'false';
@@ -355,7 +354,7 @@ declare class ParticipantInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   identity: string;
-  messagingBinding: object;
+  messagingBinding: any;
   /**
    * remove a ParticipantInstance
    *

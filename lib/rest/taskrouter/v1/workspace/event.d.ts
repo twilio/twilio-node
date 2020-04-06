@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -323,7 +322,7 @@ declare class EventInstance extends SerializableClass {
   actorType: string;
   actorUrl: string;
   description: string;
-  eventData: object;
+  eventData: any;
   eventDate: Date;
   eventDateMs: number;
   eventType: string;

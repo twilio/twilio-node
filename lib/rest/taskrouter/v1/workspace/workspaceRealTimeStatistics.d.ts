@@ -120,8 +120,8 @@ declare class WorkspaceRealTimeStatisticsInstance extends SerializableClass {
   fetch(opts?: WorkspaceRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceRealTimeStatisticsInstance) => any): Promise<WorkspaceRealTimeStatisticsInstance>;
   longestTaskWaitingAge: number;
   longestTaskWaitingSid: string;
-  tasksByPriority: object;
-  tasksByStatus: object;
+  tasksByPriority: any;
+  tasksByStatus: any;
   /**
    * Provide a user-friendly representation
    */

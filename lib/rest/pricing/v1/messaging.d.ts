@@ -8,6 +8,7 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import { CountryListInstance } from './messaging/country';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -18,7 +19,7 @@ import { SerializableClass } from '../../../interfaces';
 declare function MessagingList(version: V1): MessagingListInstance;
 
 interface MessagingListInstance {
-  countries?: object;
+  countries?: CountryListInstance;
   /**
    * Provide a user-friendly representation
    */

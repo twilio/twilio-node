@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import Understand = require('../Understand');
-import serialize = require('../../../base/serialize');
 import { AssistantFallbackActionsList } from './assistant/assistantFallbackActions';
 import { AssistantFallbackActionsListInstance } from './assistant/assistantFallbackActions';
 import { AssistantInitiationActionsList } from './assistant/assistantInitiationActions';

@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 type FlowValidateStatus = 'draft'|'published';

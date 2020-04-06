@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { ExecutionContextList } from './execution/executionContext';
 import { ExecutionContextListInstance } from './execution/executionContext';
 import { ExecutionStepList } from './execution/executionStep';
@@ -295,7 +294,7 @@ declare class ExecutionInstance extends SerializableClass {
   accountSid: string;
   contactChannelAddress: string;
   contactSid: string;
-  context: object;
+  context: any;
   dateCreated: Date;
   dateUpdated: Date;
   /**

@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 type SyncListItemQueryFromBoundType = 'inclusive'|'exclusive';
@@ -357,7 +356,7 @@ declare class SyncListItemInstance extends SerializableClass {
   private _proxy: SyncListItemContext;
   accountSid: string;
   createdBy: string;
-  data: object;
+  data: any;
   dateCreated: Date;
   dateExpires: Date;
   dateUpdated: Date;

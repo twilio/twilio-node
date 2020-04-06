@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
-import serialize = require('../../../base/serialize');
 import { ExecutionList } from './flow/execution';
 import { ExecutionListInstance } from './flow/execution';
 import { FlowRevisionList } from './flow/flowRevision';
@@ -319,7 +318,7 @@ declare class FlowInstance extends SerializableClass {
   commitMessage: string;
   dateCreated: Date;
   dateUpdated: Date;
-  definition: object;
+  definition: any;
   errors: object[];
   /**
    * Access the executions

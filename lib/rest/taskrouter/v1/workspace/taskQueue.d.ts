@@ -15,6 +15,7 @@ import { TaskQueueRealTimeStatisticsList } from './taskQueue/taskQueueRealTimeSt
 import { TaskQueueRealTimeStatisticsListInstance } from './taskQueue/taskQueueRealTimeStatistics';
 import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
 import { TaskQueueStatisticsListInstance } from './taskQueue/taskQueueStatistics';
+import { TaskQueuesStatisticsListInstance } from './taskQueue/taskQueuesStatistics';
 
 type TaskQueueTaskOrder = 'FIFO'|'LIFO';
 
@@ -159,7 +160,7 @@ interface TaskQueueListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TaskQueueListInstancePageOptions, callback?: (error: Error | null, items: TaskQueuePage) => any): Promise<TaskQueuePage>;
-  statistics?: object;
+  statistics?: TaskQueuesStatisticsListInstance;
   /**
    * Provide a user-friendly representation
    */

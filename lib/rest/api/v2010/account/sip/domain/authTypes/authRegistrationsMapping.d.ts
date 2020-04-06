@@ -7,6 +7,7 @@
 
 import Page = require('../../../../../../../base/Page');
 import V2010 = require('../../../../../V2010');
+import { AuthRegistrationsCredentialListMappingListInstance } from './authRegistrationsMapping/authRegistrationsCredentialListMapping';
 
 /**
  * Initialize the AuthTypeRegistrationsList
@@ -18,7 +19,7 @@ import V2010 = require('../../../../../V2010');
 declare function AuthTypeRegistrationsList(version: V2010, accountSid: string, domainSid: string): AuthTypeRegistrationsListInstance;
 
 interface AuthTypeRegistrationsListInstance {
-  credentialListMappings?: object;
+  credentialListMappings?: AuthRegistrationsCredentialListMappingListInstance;
   /**
    * Provide a user-friendly representation
    */

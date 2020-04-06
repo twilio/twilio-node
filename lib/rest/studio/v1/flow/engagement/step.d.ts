@@ -254,7 +254,7 @@ declare class StepInstance extends SerializableClass {
 
   private _proxy: StepContext;
   accountSid: string;
-  context: object;
+  context: any;
   dateCreated: Date;
   dateUpdated: Date;
   engagementSid: string;
