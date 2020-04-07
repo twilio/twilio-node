@@ -252,6 +252,7 @@ interface FlowResource {
   status: FlowStatus;
   url: string;
   valid: boolean;
+  warnings: object[];
   webhook_url: string;
 }
 
@@ -362,6 +363,7 @@ declare class FlowInstance extends SerializableClass {
   update(opts: FlowInstanceUpdateOptions, callback?: (error: Error | null, items: FlowInstance) => any): Promise<FlowInstance>;
   url: string;
   valid: boolean;
+  warnings: object[];
   webhookUrl: string;
 }
 

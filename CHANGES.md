@@ -1,6 +1,20 @@
 twilio-node changelog
 =====================
 
+[2020-04-07] Version 3.42.1
+---------------------------
+**Library - Fix**
+- [PR #558](https://github.com/twilio/twilio-node/pull/558): add list instance types and update 'object' type properties to 'any' in TS. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #556](https://github.com/twilio/twilio-node/pull/556): update allowed types for response body. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #554](https://github.com/twilio/twilio-node/pull/554): json parsing for non default clients. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Chore**
+- [PR #557](https://github.com/twilio/twilio-node/pull/557): remove S3 URLs from test data. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Studio**
+- Add new `warnings` attribute v2 flow POST api
+
+
 [2020-04-01] Version 3.42.0
 ---------------------------
 **Library - Fix**
