@@ -7,6 +7,9 @@
 
 import Page = require('../../../../base/Page');
 import V2010 = require('../../V2010');
+import { CredentialListListInstance } from './sip/credentialList';
+import { DomainListInstance } from './sip/domain';
+import { IpAccessControlListListInstance } from './sip/ipAccessControlList';
 
 /**
  * Initialize the SipList
@@ -17,9 +20,9 @@ import V2010 = require('../../V2010');
 declare function SipList(version: V2010, accountSid: string): SipListInstance;
 
 interface SipListInstance {
-  credentialLists?: object;
-  domains?: object;
-  ipAccessControlLists?: object;
+  credentialLists?: CredentialListListInstance;
+  domains?: DomainListInstance;
+  ipAccessControlLists?: IpAccessControlListListInstance;
   /**
    * Provide a user-friendly representation
    */

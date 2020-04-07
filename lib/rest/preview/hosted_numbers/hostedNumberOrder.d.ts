@@ -8,7 +8,6 @@
 import HostedNumbers = require('../HostedNumbers');
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 type HostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';

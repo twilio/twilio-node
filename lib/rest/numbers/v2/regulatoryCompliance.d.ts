@@ -7,6 +7,12 @@
 
 import Page = require('../../../base/Page');
 import V2 = require('../V2');
+import { BundleListInstance } from './regulatoryCompliance/bundle';
+import { EndUserListInstance } from './regulatoryCompliance/endUser';
+import { EndUserTypeListInstance } from './regulatoryCompliance/endUserType';
+import { RegulationListInstance } from './regulatoryCompliance/regulation';
+import { SupportingDocumentListInstance } from './regulatoryCompliance/supportingDocument';
+import { SupportingDocumentTypeListInstance } from './regulatoryCompliance/supportingDocumentType';
 
 /**
  * Initialize the RegulatoryComplianceList
@@ -16,12 +22,12 @@ import V2 = require('../V2');
 declare function RegulatoryComplianceList(version: V2): RegulatoryComplianceListInstance;
 
 interface RegulatoryComplianceListInstance {
-  bundles?: object;
-  endUserTypes?: object;
-  endUsers?: object;
-  regulations?: object;
-  supportingDocumentTypes?: object;
-  supportingDocuments?: object;
+  bundles?: BundleListInstance;
+  endUserTypes?: EndUserTypeListInstance;
+  endUsers?: EndUserListInstance;
+  regulations?: RegulationListInstance;
+  supportingDocumentTypes?: SupportingDocumentTypeListInstance;
+  supportingDocuments?: SupportingDocumentListInstance;
   /**
    * Provide a user-friendly representation
    */

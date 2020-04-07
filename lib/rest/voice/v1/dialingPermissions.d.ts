@@ -7,6 +7,9 @@
 
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
+import { BulkCountryUpdateListInstance } from './dialingPermissions/bulkCountryUpdate';
+import { CountryListInstance } from './dialingPermissions/country';
+import { SettingsListInstance } from './dialingPermissions/settings';
 
 /**
  * Initialize the DialingPermissionsList
@@ -20,9 +23,9 @@ import V1 = require('../V1');
 declare function DialingPermissionsList(version: V1): DialingPermissionsListInstance;
 
 interface DialingPermissionsListInstance {
-  bulkCountryUpdates?: object;
-  countries?: object;
-  settings?: object;
+  bulkCountryUpdates?: BulkCountryUpdateListInstance;
+  countries?: CountryListInstance;
+  settings?: SettingsListInstance;
   /**
    * Provide a user-friendly representation
    */

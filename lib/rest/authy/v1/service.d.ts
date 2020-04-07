@@ -344,7 +344,7 @@ declare class ServiceInstance extends SerializableClass {
 
   private _proxy: ServiceContext;
   accountSid: string;
-  configuration: object;
+  configuration: any;
   dateCreated: Date;
   dateUpdated: Date;
   /**

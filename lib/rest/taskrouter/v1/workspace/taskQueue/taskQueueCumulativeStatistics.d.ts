@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -150,7 +149,7 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
   reservationsRejected: number;
   reservationsRescinded: number;
   reservationsTimedOut: number;
-  splitByWaitTime: object;
+  splitByWaitTime: any;
   startTime: Date;
   taskQueueSid: string;
   tasksCanceled: number;
@@ -163,9 +162,9 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
-  waitDurationInQueueUntilAccepted: object;
-  waitDurationUntilAccepted: object;
-  waitDurationUntilCanceled: object;
+  waitDurationInQueueUntilAccepted: any;
+  waitDurationUntilAccepted: any;
+  waitDurationUntilCanceled: any;
   workspaceSid: string;
 }
 

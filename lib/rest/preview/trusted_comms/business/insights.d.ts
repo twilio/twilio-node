@@ -7,6 +7,7 @@
 
 import Page = require('../../../../base/Page');
 import TrustedComms = require('../../TrustedComms');
+import { ImpressionsRateListInstance } from './insights/impressionsRate';
 
 /**
  * Initialize the InsightsList
@@ -21,7 +22,7 @@ import TrustedComms = require('../../TrustedComms');
 declare function InsightsList(version: TrustedComms, businessSid: string): InsightsListInstance;
 
 interface InsightsListInstance {
-  impressionsRate?: object;
+  impressionsRate?: ImpressionsRateListInstance;
   /**
    * Provide a user-friendly representation
    */

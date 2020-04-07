@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -74,7 +73,7 @@ declare class StreamMessageInstance extends SerializableClass {
    */
   constructor(version: V1, payload: StreamMessagePayload, serviceSid: string, streamSid: string);
 
-  data: object;
+  data: any;
   sid: string;
   /**
    * Provide a user-friendly representation

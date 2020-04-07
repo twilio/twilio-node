@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { FieldList } from './task/field';
 import { FieldListInstance } from './task/field';
 import { SampleList } from './task/sample';

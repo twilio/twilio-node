@@ -131,12 +131,12 @@ declare class CallSummaryInstance extends SerializableClass {
 
   private _proxy: CallSummaryContext;
   accountSid: string;
-  attributes: object;
+  attributes: any;
   callSid: string;
   callState: CallSummaryCallState;
   callType: CallSummaryCallType;
-  carrierEdge: object;
-  clientEdge: object;
+  carrierEdge: any;
+  clientEdge: any;
   connectDuration: number;
   duration: number;
   endTime: Date;
@@ -153,14 +153,14 @@ declare class CallSummaryInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: CallSummaryInstanceFetchOptions, callback?: (error: Error | null, items: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
-  from: object;
+  from: any;
   processingState: CallSummaryProcessingState;
-  properties: object;
-  sdkEdge: object;
-  sipEdge: object;
+  properties: any;
+  sdkEdge: any;
+  sipEdge: any;
   startTime: Date;
   tags: string[];
-  to: object;
+  to: any;
   /**
    * Provide a user-friendly representation
    */

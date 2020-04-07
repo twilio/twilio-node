@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import serialize = require('../../../../base/serialize');
 import { FeedbackList } from './message/feedback';
 import { FeedbackListInstance } from './message/feedback';
 import { MediaList } from './message/media';

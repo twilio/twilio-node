@@ -108,7 +108,7 @@ declare class ExportAssistantInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ExportAssistantInstance) => any): Promise<ExportAssistantInstance>;
-  schema: object;
+  schema: any;
   status: ExportAssistantStatus;
   /**
    * Provide a user-friendly representation

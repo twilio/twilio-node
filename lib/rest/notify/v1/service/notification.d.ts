@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 type NotificationPriority = 'high'|'low';
@@ -133,20 +132,20 @@ declare class NotificationInstance extends SerializableClass {
 
   accountSid: string;
   action: string;
-  alexa: object;
-  apn: object;
+  alexa: any;
+  apn: any;
   body: string;
-  data: object;
+  data: any;
   dateCreated: Date;
-  facebookMessenger: object;
-  fcm: object;
-  gcm: object;
+  facebookMessenger: any;
+  fcm: any;
+  gcm: any;
   identities: string[];
   priority: NotificationPriority;
   segments: string[];
   serviceSid: string;
   sid: string;
-  sms: object;
+  sms: any;
   sound: string;
   tags: string[];
   title: string;

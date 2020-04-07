@@ -8,9 +8,9 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import serialize = require('../../../../base/serialize');
 import { FeedbackList } from './call/feedback';
 import { FeedbackListInstance } from './call/feedback';
+import { FeedbackSummaryListInstance } from './call/feedbackSummary';
 import { NotificationList } from './call/notification';
 import { NotificationListInstance } from './call/notification';
 import { PaymentList } from './call/payment';
@@ -99,7 +99,7 @@ interface CallListInstance {
    * @param callback - Function to process each record
    */
   each(opts?: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
-  feedbackSummaries?: object;
+  feedbackSummaries?: FeedbackSummaryListInstance;
   /**
    * Constructs a call
    *

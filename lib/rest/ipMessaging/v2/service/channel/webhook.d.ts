@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2 = require('../../../V2');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 type WebhookMethod = 'GET'|'POST';
@@ -324,7 +323,7 @@ declare class WebhookInstance extends SerializableClass {
   private _proxy: WebhookContext;
   accountSid: string;
   channelSid: string;
-  configuration: object;
+  configuration: any;
   dateCreated: Date;
   dateUpdated: Date;
   /**

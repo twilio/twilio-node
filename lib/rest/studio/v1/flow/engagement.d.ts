@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { EngagementContextList } from './engagement/engagementContext';
 import { EngagementContextListInstance } from './engagement/engagementContext';
 import { SerializableClass } from '../../../../interfaces';
@@ -283,7 +282,7 @@ declare class EngagementInstance extends SerializableClass {
   accountSid: string;
   contactChannelAddress: string;
   contactSid: string;
-  context: object;
+  context: any;
   dateCreated: Date;
   dateUpdated: Date;
   /**

@@ -252,7 +252,7 @@ declare class AvailableAddOnInstance extends SerializableClass {
   constructor(version: Marketplace, payload: AvailableAddOnPayload, sid: string);
 
   private _proxy: AvailableAddOnContext;
-  configurationSchema: object;
+  configurationSchema: any;
   description: string;
   /**
    * Access the extensions

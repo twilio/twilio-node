@@ -87,7 +87,7 @@ declare class EngagementContextInstance extends SerializableClass {
 
   private _proxy: EngagementContextContext;
   accountSid: string;
-  context: object;
+  context: any;
   engagementSid: string;
   /**
    * fetch a EngagementContextInstance

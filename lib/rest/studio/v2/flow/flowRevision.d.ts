@@ -261,7 +261,7 @@ declare class FlowRevisionInstance extends SerializableClass {
   commitMessage: string;
   dateCreated: Date;
   dateUpdated: Date;
-  definition: object;
+  definition: any;
   errors: object[];
   /**
    * fetch a FlowRevisionInstance

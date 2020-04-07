@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import Wireless = require('../Wireless');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**

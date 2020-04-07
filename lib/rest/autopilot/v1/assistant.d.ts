@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
 import { DefaultsList } from './assistant/defaults';
 import { DefaultsListInstance } from './assistant/defaults';
 import { DialogueList } from './assistant/dialogue';

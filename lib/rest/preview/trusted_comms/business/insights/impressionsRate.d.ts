@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import TrustedComms = require('../../../TrustedComms');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 type ImpressionsRateIntervals = 'minute'|'hour'|'day'|'week'|'month';
@@ -144,7 +143,7 @@ declare class ImpressionsRateInstance extends SerializableClass {
    */
   fetch(opts?: ImpressionsRateInstanceFetchOptions, callback?: (error: Error | null, items: ImpressionsRateInstance) => any): Promise<ImpressionsRateInstance>;
   interval: ImpressionsRateIntervals;
-  reports: object;
+  reports: any;
   start: Date;
   /**
    * Provide a user-friendly representation

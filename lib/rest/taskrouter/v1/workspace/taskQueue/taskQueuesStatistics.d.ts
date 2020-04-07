@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -244,8 +243,8 @@ declare class TaskQueuesStatisticsInstance extends SerializableClass {
   constructor(version: V1, payload: TaskQueuesStatisticsPayload, workspaceSid: string);
 
   accountSid: string;
-  cumulative: object;
-  realtime: object;
+  cumulative: any;
+  realtime: any;
   taskQueueSid: string;
   /**
    * Provide a user-friendly representation

@@ -101,9 +101,9 @@ declare class FormInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FormInstance) => any): Promise<FormInstance>;
-  formMeta: object;
+  formMeta: any;
   formType: FormFormTypes;
-  forms: object;
+  forms: any;
   /**
    * Provide a user-friendly representation
    */

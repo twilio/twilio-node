@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 type VerificationChannel = 'sms'|'call'|'email';
@@ -163,7 +162,7 @@ declare class VerificationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: VerificationInstance) => any): Promise<VerificationInstance>;
-  lookup: object;
+  lookup: any;
   payee: string;
   sendCodeAttempts: object[];
   serviceSid: string;

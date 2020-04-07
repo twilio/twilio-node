@@ -230,14 +230,14 @@ declare class EventInstance extends SerializableClass {
 
   accountSid: string;
   callSid: string;
-  carrierEdge: object;
-  clientEdge: object;
+  carrierEdge: any;
+  clientEdge: any;
   edge: EventTwilioEdge;
   group: string;
   level: EventLevel;
   name: string;
-  sdkEdge: object;
-  sipEdge: object;
+  sdkEdge: any;
+  sipEdge: any;
   timestamp: string;
   /**
    * Provide a user-friendly representation

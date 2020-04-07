@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 type SupportingDocumentStatus = 'draft'|'pending-review'|'rejected'|'approved'|'expired';
@@ -290,7 +289,7 @@ declare class SupportingDocumentInstance extends SerializableClass {
 
   private _proxy: SupportingDocumentContext;
   accountSid: string;
-  attributes: object;
+  attributes: any;
   dateCreated: Date;
   dateUpdated: Date;
   /**

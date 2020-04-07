@@ -92,7 +92,7 @@ declare class StepContextInstance extends SerializableClass {
 
   private _proxy: StepContextContext;
   accountSid: string;
-  context: object;
+  context: any;
   engagementSid: string;
   /**
    * fetch a StepContextInstance

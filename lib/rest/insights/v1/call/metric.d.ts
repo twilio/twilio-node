@@ -234,12 +234,12 @@ declare class MetricInstance extends SerializableClass {
 
   accountSid: string;
   callSid: string;
-  carrierEdge: object;
-  clientEdge: object;
+  carrierEdge: any;
+  clientEdge: any;
   direction: MetricStreamDirection;
   edge: MetricTwilioEdge;
-  sdkEdge: object;
-  sipEdge: object;
+  sdkEdge: any;
+  sipEdge: any;
   timestamp: string;
   /**
    * Provide a user-friendly representation

@@ -92,7 +92,7 @@ declare class ExecutionStepContextInstance extends SerializableClass {
 
   private _proxy: ExecutionStepContextContext;
   accountSid: string;
-  context: object;
+  context: any;
   executionSid: string;
   /**
    * fetch a ExecutionStepContextInstance

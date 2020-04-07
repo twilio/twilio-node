@@ -7,6 +7,8 @@
 
 import Page = require('../../../../base/Page');
 import V2010 = require('../../V2010');
+import { RecordListInstance } from './usage/record';
+import { TriggerListInstance } from './usage/trigger';
 
 /**
  * Initialize the UsageList
@@ -17,12 +19,12 @@ import V2010 = require('../../V2010');
 declare function UsageList(version: V2010, accountSid: string): UsageListInstance;
 
 interface UsageListInstance {
-  records?: object;
+  records?: RecordListInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  triggers?: object;
+  triggers?: TriggerListInstance;
 }
 
 interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {

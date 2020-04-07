@@ -7,6 +7,8 @@
 
 import Page = require('../../../../../../base/Page');
 import V2010 = require('../../../../V2010');
+import { AuthTypeCallsListInstance } from './authTypes/authCallsMapping';
+import { AuthTypeRegistrationsListInstance } from './authTypes/authRegistrationsMapping';
 
 /**
  * Initialize the AuthTypesList
@@ -18,8 +20,8 @@ import V2010 = require('../../../../V2010');
 declare function AuthTypesList(version: V2010, accountSid: string, domainSid: string): AuthTypesListInstance;
 
 interface AuthTypesListInstance {
-  calls?: object;
-  registrations?: object;
+  calls?: AuthTypeCallsListInstance;
+  registrations?: AuthTypeRegistrationsListInstance;
   /**
    * Provide a user-friendly representation
    */

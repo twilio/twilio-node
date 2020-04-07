@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 type FlexFlowChannelType = 'web'|'sms'|'facebook'|'whatsapp'|'line'|'custom';
@@ -381,7 +380,7 @@ declare class FlexFlowInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: FlexFlowInstance) => any): Promise<FlexFlowInstance>;
   friendlyName: string;
-  integration: object;
+  integration: any;
   integrationType: FlexFlowIntegrationType;
   janitorEnabled: boolean;
   longLived: boolean;

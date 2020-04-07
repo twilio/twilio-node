@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { ReservationList } from './worker/reservation';
 import { ReservationListInstance } from './worker/reservation';
 import { SerializableClass } from '../../../../interfaces';
@@ -20,6 +19,7 @@ import { WorkersCumulativeStatisticsList } from './worker/workersCumulativeStati
 import { WorkersCumulativeStatisticsListInstance } from './worker/workersCumulativeStatistics';
 import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistics';
 import { WorkersRealTimeStatisticsListInstance } from './worker/workersRealTimeStatistics';
+import { WorkersStatisticsListInstance } from './worker/workersStatistics';
 
 /**
  * Initialize the WorkerList
@@ -158,7 +158,7 @@ interface WorkerListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: WorkerListInstancePageOptions, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
-  statistics?: object;
+  statistics?: WorkersStatisticsListInstance;
   /**
    * Provide a user-friendly representation
    */

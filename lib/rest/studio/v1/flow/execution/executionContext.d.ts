@@ -87,7 +87,7 @@ declare class ExecutionContextInstance extends SerializableClass {
 
   private _proxy: ExecutionContextContext;
   accountSid: string;
-  context: object;
+  context: any;
   executionSid: string;
   /**
    * fetch a ExecutionContextInstance

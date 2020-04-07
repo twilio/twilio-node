@@ -8,7 +8,6 @@
 import HostedNumbers = require('../HostedNumbers');
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
-import serialize = require('../../../base/serialize');
 import { DependentHostedNumberOrderList } from './authorizationDocument/dependentHostedNumberOrder';
 import { DependentHostedNumberOrderListInstance } from './authorizationDocument/dependentHostedNumberOrder';
 import { SerializableClass } from '../../../interfaces';

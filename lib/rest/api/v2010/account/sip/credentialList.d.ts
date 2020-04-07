@@ -9,7 +9,7 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import { CredentialList } from './credentialList/credential';
-import { CredentialListInstance } from './credentialList/credential';
+import { CredentialListInstance as CredentialListInstanceImport } from './credentialList/credential';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -243,7 +243,7 @@ declare class CredentialListContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  credentials: CredentialListInstance;
+  credentials: CredentialListInstanceImport;
   /**
    * fetch a CredentialListInstance
    *
@@ -286,7 +286,7 @@ declare class CredentialListInstance extends SerializableClass {
   /**
    * Access the credentials
    */
-  credentials(): CredentialListInstance;
+  credentials(): CredentialListInstanceImport;
   dateCreated: Date;
   dateUpdated: Date;
   /**

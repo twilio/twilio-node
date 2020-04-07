@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -230,7 +229,7 @@ declare class DataSessionInstance extends SerializableClass {
 
   accountSid: string;
   cellId: string;
-  cellLocationEstimate: object;
+  cellLocationEstimate: any;
   end: Date;
   imei: string;
   lastUpdated: Date;

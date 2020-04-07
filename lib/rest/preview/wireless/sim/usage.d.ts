@@ -117,10 +117,10 @@ declare class UsageInstance extends SerializableClass {
 
   private _proxy: UsageContext;
   accountSid: string;
-  commandsCosts: object;
-  commandsUsage: object;
-  dataCosts: object;
-  dataUsage: object;
+  commandsCosts: any;
+  commandsUsage: any;
+  dataCosts: any;
+  dataUsage: any;
   /**
    * fetch a UsageInstance
    *
@@ -134,7 +134,7 @@ declare class UsageInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: UsageInstanceFetchOptions, callback?: (error: Error | null, items: UsageInstance) => any): Promise<UsageInstance>;
-  period: object;
+  period: any;
   simSid: string;
   simUniqueName: string;
   /**

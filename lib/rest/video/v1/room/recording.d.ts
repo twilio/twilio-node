@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 type RoomRecordingCodec = 'VP8'|'H264'|'OPUS'|'PCMU';
@@ -300,7 +299,7 @@ declare class RoomRecordingInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): Promise<RoomRecordingInstance>;
-  groupingSids: object;
+  groupingSids: any;
   links: string;
   offset: number;
   /**

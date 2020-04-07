@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -118,7 +117,7 @@ declare class DefaultsInstance extends SerializableClass {
   private _proxy: DefaultsContext;
   accountSid: string;
   assistantSid: string;
-  data: object;
+  data: any;
   /**
    * fetch a DefaultsInstance
    *

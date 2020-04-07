@@ -288,7 +288,7 @@ declare class PhoneNumberInstance extends SerializableClass {
   addressRequirements: PhoneNumberAddressRequirement;
   apiVersion: string;
   beta: boolean;
-  capabilities: object;
+  capabilities: any;
   dateCreated: Date;
   dateUpdated: Date;
   /**

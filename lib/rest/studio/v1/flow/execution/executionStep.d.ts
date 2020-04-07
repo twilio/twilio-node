@@ -254,7 +254,7 @@ declare class ExecutionStepInstance extends SerializableClass {
 
   private _proxy: ExecutionStepContext;
   accountSid: string;
-  context: object;
+  context: any;
   dateCreated: Date;
   dateUpdated: Date;
   executionSid: string;

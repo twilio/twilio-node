@@ -100,7 +100,7 @@ declare class DialogueInstance extends SerializableClass {
   private _proxy: DialogueContext;
   accountSid: string;
   assistantSid: string;
-  data: object;
+  data: any;
   /**
    * fetch a DialogueInstance
    *

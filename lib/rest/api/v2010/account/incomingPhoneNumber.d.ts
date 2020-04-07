@@ -8,10 +8,12 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import serialize = require('../../../../base/serialize');
 import { AssignedAddOnList } from './incomingPhoneNumber/assignedAddOn';
 import { AssignedAddOnListInstance } from './incomingPhoneNumber/assignedAddOn';
+import { LocalListInstance } from './incomingPhoneNumber/local';
+import { MobileListInstance } from './incomingPhoneNumber/mobile';
 import { SerializableClass } from '../../../../interfaces';
+import { TollFreeListInstance } from './incomingPhoneNumber/tollFree';
 
 type IncomingPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
 
@@ -179,8 +181,8 @@ interface IncomingPhoneNumberListInstance {
    * @param callback - Callback to handle list of records
    */
   list(opts?: IncomingPhoneNumberListInstanceOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
-  local?: object;
-  mobile?: object;
+  local?: LocalListInstance;
+  mobile?: MobileListInstance;
   /**
    * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
    *
@@ -208,7 +210,7 @@ interface IncomingPhoneNumberListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  tollFree?: object;
+  tollFree?: TollFreeListInstance;
 }
 
 /**

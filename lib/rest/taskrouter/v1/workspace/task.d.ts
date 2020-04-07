@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import serialize = require('../../../../base/serialize');
 import { ReservationList } from './task/reservation';
 import { ReservationListInstance } from './task/reservation';
 import { SerializableClass } from '../../../../interfaces';

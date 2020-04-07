@@ -12,6 +12,7 @@ import { DayList } from './export/day';
 import { DayListInstance } from './export/day';
 import { ExportCustomJobList } from './export/exportCustomJob';
 import { ExportCustomJobListInstance } from './export/exportCustomJob';
+import { JobListInstance } from './export/job';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -36,7 +37,7 @@ interface ExportListInstance {
    * @param resourceType - The type of communication – Messages, Calls
    */
   get(resourceType: string): ExportContext;
-  jobs?: object;
+  jobs?: JobListInstance;
   /**
    * Provide a user-friendly representation
    */

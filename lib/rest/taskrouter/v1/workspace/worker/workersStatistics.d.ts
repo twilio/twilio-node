@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
-import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -112,7 +111,7 @@ declare class WorkersStatisticsInstance extends SerializableClass {
 
   private _proxy: WorkersStatisticsContext;
   accountSid: string;
-  cumulative: object;
+  cumulative: any;
   /**
    * fetch a WorkersStatisticsInstance
    *
@@ -126,7 +125,7 @@ declare class WorkersStatisticsInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
-  realtime: object;
+  realtime: any;
   /**
    * Provide a user-friendly representation
    */

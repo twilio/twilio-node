@@ -8,7 +8,6 @@
 import BulkExports = require('../BulkExports');
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 /**

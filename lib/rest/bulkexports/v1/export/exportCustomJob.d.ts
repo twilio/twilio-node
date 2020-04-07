@@ -258,7 +258,7 @@ declare class ExportCustomJobInstance extends SerializableClass {
    */
   constructor(version: V1, payload: ExportCustomJobPayload, resourceType: string);
 
-  details: object;
+  details: any;
   email: string;
   endDay: string;
   friendlyName: string;

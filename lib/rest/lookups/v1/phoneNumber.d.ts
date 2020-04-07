@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 type PhoneNumberType = 'landline'|'mobile'|'voip';
@@ -109,9 +108,9 @@ declare class PhoneNumberInstance extends SerializableClass {
   constructor(version: V1, payload: PhoneNumberPayload, phoneNumber: string);
 
   private _proxy: PhoneNumberContext;
-  addOns: object;
-  callerName: object;
-  carrier: object;
+  addOns: any;
+  callerName: any;
+  carrier: any;
   countryCode: string;
   /**
    * fetch a PhoneNumberInstance

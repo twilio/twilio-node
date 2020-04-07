@@ -122,8 +122,8 @@ declare class WorkflowRealTimeStatisticsInstance extends SerializableClass {
   fetch(opts?: WorkflowRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
   longestTaskWaitingAge: number;
   longestTaskWaitingSid: string;
-  tasksByPriority: object;
-  tasksByStatus: object;
+  tasksByPriority: any;
+  tasksByStatus: any;
   /**
    * Provide a user-friendly representation
    */
