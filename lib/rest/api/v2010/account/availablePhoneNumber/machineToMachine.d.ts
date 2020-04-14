@@ -8,6 +8,7 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
+import { PhoneNumberCapabilities } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -293,7 +294,7 @@ interface MachineToMachinePayload extends MachineToMachineResource, Page.TwilioR
 interface MachineToMachineResource {
   address_requirements: string;
   beta: boolean;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   friendly_name: string;
   iso_country: string;
   lata: string;
@@ -325,7 +326,7 @@ declare class MachineToMachineInstance extends SerializableClass {
 
   addressRequirements: string;
   beta: boolean;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   friendlyName: string;
   isoCountry: string;
   lata: string;

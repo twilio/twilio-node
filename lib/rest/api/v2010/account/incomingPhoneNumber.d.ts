@@ -12,6 +12,7 @@ import { AssignedAddOnList } from './incomingPhoneNumber/assignedAddOn';
 import { AssignedAddOnListInstance } from './incomingPhoneNumber/assignedAddOn';
 import { LocalListInstance } from './incomingPhoneNumber/local';
 import { MobileListInstance } from './incomingPhoneNumber/mobile';
+import { PhoneNumberCapabilities } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 import { TollFreeListInstance } from './incomingPhoneNumber/tollFree';
 
@@ -359,7 +360,7 @@ interface IncomingPhoneNumberResource {
   api_version: string;
   beta: boolean;
   bundle_sid: string;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   date_created: Date;
   date_updated: Date;
   emergency_address_sid: string;
@@ -456,7 +457,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
   assignedAddOns(): AssignedAddOnListInstance;
   beta: boolean;
   bundleSid: string;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;
