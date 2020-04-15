@@ -226,4 +226,61 @@ describe('Execution', function() {
       }).done();
     }
   );
+  it('should generate valid update request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var opts = {status: 'active'};
+      var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .executions('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://studio.twilio.com/v2/Flows/${flowSid}/Executions/${sid}`;
+
+      var values = {Status: 'active', };
+      holodeck.assertHasRequest(new Request({
+          method: 'POST',
+          url: url,
+          data: values
+      }));
+    }
+  );
+  it('should generate valid update response',
+    function(done) {
+      var body = {
+          'url': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'flow_sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'context': {},
+          'contact_channel_address': '+14155555555',
+          'status': 'ended',
+          'date_created': '2017-11-06T12:00:00Z',
+          'date_updated': '2017-11-06T12:00:00Z',
+          'links': {
+              'steps': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps',
+              'execution_context': 'https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var opts = {status: 'active'};
+      var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .executions('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
 });

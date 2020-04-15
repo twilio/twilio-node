@@ -21,7 +21,7 @@ declare class V2 extends Version {
    */
   constructor(domain: Studio);
 
-  readonly flowValid: FlowValidateListInstance;
+  readonly flowValidate: FlowValidateListInstance;
   readonly flows: FlowListInstance;
 }
 

@@ -17,9 +17,9 @@ import { SerializableClass } from '../../../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param flowSid - The flow_sid
- * @param executionSid - The execution_sid
- * @param stepSid - The step_sid
+ * @param flowSid - The SID of the Flow
+ * @param executionSid - The SID of the Execution
+ * @param stepSid - Step SID
  */
 declare function ExecutionStepContextList(version: V2, flowSid: string, executionSid: string, stepSid: string): ExecutionStepContextListInstance;
 
@@ -65,9 +65,9 @@ declare class ExecutionStepContextContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - The flow_sid
-   * @param executionSid - The execution_sid
-   * @param stepSid - The step_sid
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
+   * @param stepSid - Step SID
    */
   constructor(version: V2, flowSid: string, executionSid: string, stepSid: string);
 
@@ -93,9 +93,9 @@ declare class ExecutionStepContextInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - The flow_sid
-   * @param executionSid - The execution_sid
-   * @param stepSid - The step_sid
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
+   * @param stepSid - Step SID
    */
   constructor(version: V2, payload: ExecutionStepContextPayload, flowSid: string, executionSid: string, stepSid: string);
 

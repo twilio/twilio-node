@@ -395,6 +395,7 @@ declare namespace VoiceResponse {
    * @property actionOnEmptyResult - Force webhook to the action URL event if there is no input
    * @property bargeIn - Stop playing media upon speech
    * @property debug - Allow debug for gather
+   * @property enhanced - Use enhanced speech model
    * @property finishOnKey - Finish gather on key
    * @property hints - Speech recognition hints
    * @property input - Input type Twilio should accept
@@ -414,6 +415,7 @@ declare namespace VoiceResponse {
     actionOnEmptyResult?: boolean;
     bargeIn?: boolean;
     debug?: boolean;
+    enhanced?: boolean;
     finishOnKey?: string;
     hints?: string;
     input?: GatherInput[];

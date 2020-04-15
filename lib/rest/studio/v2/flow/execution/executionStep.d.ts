@@ -19,8 +19,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param flowSid - The flow_sid
- * @param executionSid - The execution_sid
+ * @param flowSid - The SID of the Flow
+ * @param executionSid - The SID of the Execution
  */
 declare function ExecutionStepList(version: V2, flowSid: string, executionSid: string): ExecutionStepListInstance;
 
@@ -63,7 +63,7 @@ interface ExecutionStepListInstance {
   /**
    * Constructs a execution_step
    *
-   * @param sid - The sid
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): ExecutionStepContext;
   /**
@@ -226,9 +226,9 @@ declare class ExecutionStepContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - The flow_sid
-   * @param executionSid - The execution_sid
-   * @param sid - The sid
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, flowSid: string, executionSid: string, sid: string);
 
@@ -255,9 +255,9 @@ declare class ExecutionStepInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - The flow_sid
-   * @param executionSid - The execution_sid
-   * @param sid - The sid
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V2, payload: ExecutionStepPayload, flowSid: string, executionSid: string, sid: string);
 

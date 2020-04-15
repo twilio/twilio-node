@@ -1,6 +1,27 @@
 twilio-node changelog
 =====================
 
+[2020-04-15] Version 3.42.2
+---------------------------
+**Library - Fix**
+- [PR #560](https://github.com/twilio/twilio-node/pull/560): type declaration for IncomingPhoneNumberInstance. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Api**
+- Updated description for property `call_reason` in the call create request
+
+**Contacts**
+- Added Read, Delete All, and Delete by SID docs
+- Initial Release
+
+**Studio**
+- Rename `flow_valid` to `flow_validate`
+- Removed `errors` and `warnings` from flows error response and added new property named `details`
+- Add Update Execution endpoints to v1 and v2 to end execution via API
+
+**Twiml**
+- Add enhanced attribute to use with `speech_model` for the `Gather` verb
+
+
 [2020-04-07] Version 3.42.1
 ---------------------------
 **Library - Fix**

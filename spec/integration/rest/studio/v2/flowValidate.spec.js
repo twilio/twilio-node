@@ -36,7 +36,7 @@ describe('FlowValidate', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {friendlyName: 'friendly_name', status: 'draft', definition: {}};
-      var promise = client.studio.v2.flowValid.update(opts);
+      var promise = client.studio.v2.flowValidate.update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -63,7 +63,7 @@ describe('FlowValidate', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {friendlyName: 'friendly_name', status: 'draft', definition: {}};
-      var promise = client.studio.v2.flowValid.update(opts);
+      var promise = client.studio.v2.flowValidate.update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

@@ -23,9 +23,18 @@ type ExecutionStatus = 'active'|'ended';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param flowSid - The flow_sid
+ * @param flowSid - The SID of the Flow
  */
 declare function ExecutionList(version: V2, flowSid: string): ExecutionListInstance;
+
+/**
+ * Options to pass to update
+ *
+ * @property status - The status of the Execution
+ */
+interface ExecutionInstanceUpdateOptions {
+  status: ExecutionStatus;
+}
 
 interface ExecutionListInstance {
   /**
@@ -73,7 +82,7 @@ interface ExecutionListInstance {
   /**
    * Constructs a execution
    *
-   * @param sid - The sid
+   * @param sid - The SID of the Execution resource to fetch
    */
   get(sid: string): ExecutionContext;
   /**
@@ -150,9 +159,9 @@ interface ExecutionListInstance {
 /**
  * Options to pass to create
  *
- * @property from - The from
- * @property parameters - The parameters
- * @property to - The to
+ * @property from - The Twilio phone number to send messages or initiate calls from during the Flow Execution
+ * @property parameters - JSON data that will be added to the Flow's context
+ * @property to - The Contact phone number to start a Studio Flow Execution
  */
 interface ExecutionListInstanceCreateOptions {
   from: string;
@@ -166,8 +175,8 @@ interface ExecutionListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedFrom - The date_created_from
- * @property dateCreatedTo - The date_created_to
+ * @property dateCreatedFrom - Only show Executions that started on or after this ISO 8601 date-time
+ * @property dateCreatedTo - Only show Executions that started before this ISO 8601 date-time
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -192,8 +201,8 @@ interface ExecutionListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedFrom - The date_created_from
- * @property dateCreatedTo - The date_created_to
+ * @property dateCreatedFrom - Only show Executions that started on or after this ISO 8601 date-time
+ * @property dateCreatedTo - Only show Executions that started before this ISO 8601 date-time
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -215,8 +224,8 @@ interface ExecutionListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedFrom - The date_created_from
- * @property dateCreatedTo - The date_created_to
+ * @property dateCreatedFrom - Only show Executions that started on or after this ISO 8601 date-time
+ * @property dateCreatedTo - Only show Executions that started before this ISO 8601 date-time
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -258,8 +267,8 @@ declare class ExecutionContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - The flow_sid
-   * @param sid - The sid
+   * @param flowSid - The SID of the Flow
+   * @param sid - The SID of the Execution resource to fetch
    */
   constructor(version: V2, flowSid: string, sid: string);
 
@@ -281,6 +290,13 @@ declare class ExecutionContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ExecutionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: ExecutionInstanceUpdateOptions, callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<ExecutionInstance>;
 }
 
 
@@ -293,8 +309,8 @@ declare class ExecutionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - The flow_sid
-   * @param sid - The sid
+   * @param flowSid - The SID of the Flow
+   * @param sid - The SID of the Execution resource to fetch
    */
   constructor(version: V2, payload: ExecutionPayload, flowSid: string, sid: string);
 
@@ -332,6 +348,13 @@ declare class ExecutionInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ExecutionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: ExecutionInstanceUpdateOptions, callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<ExecutionInstance>;
   url: string;
 }
 
@@ -361,4 +384,4 @@ declare class ExecutionPage extends Page<V2, ExecutionPayload, ExecutionResource
   toJSON(): any;
 }
 
-export { ExecutionContext, ExecutionInstance, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution, ExecutionStatus }
+export { ExecutionContext, ExecutionInstance, ExecutionInstanceUpdateOptions, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution, ExecutionStatus }

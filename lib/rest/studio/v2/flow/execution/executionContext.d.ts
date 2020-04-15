@@ -17,8 +17,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param flowSid - The flow_sid
- * @param executionSid - The execution_sid
+ * @param flowSid - The SID of the Flow
+ * @param executionSid - The SID of the Execution
  */
 declare function ExecutionContextList(version: V2, flowSid: string, executionSid: string): ExecutionContextListInstance;
 
@@ -62,8 +62,8 @@ declare class ExecutionContextContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - The flow_sid
-   * @param executionSid - The execution_sid
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
    */
   constructor(version: V2, flowSid: string, executionSid: string);
 
@@ -89,8 +89,8 @@ declare class ExecutionContextInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - The flow_sid
-   * @param executionSid - The execution_sid
+   * @param flowSid - The SID of the Flow
+   * @param executionSid - The SID of the Execution
    */
   constructor(version: V2, payload: ExecutionContextPayload, flowSid: string, executionSid: string);
 

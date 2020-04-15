@@ -21,7 +21,7 @@ declare class Studio extends Domain {
    */
   constructor(twilio: Twilio);
 
-  readonly flowValid: FlowValidateListInstance;
+  readonly flowValidate: FlowValidateListInstance;
   readonly flows: FlowListInstance;
   readonly v1: V1;
   readonly v2: V2;

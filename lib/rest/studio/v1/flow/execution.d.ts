@@ -24,6 +24,15 @@ type ExecutionStatus = 'active'|'ended';
  */
 declare function ExecutionList(version: V1, flowSid: string): ExecutionListInstance;
 
+/**
+ * Options to pass to update
+ *
+ * @property status - The status of the Execution
+ */
+interface ExecutionInstanceUpdateOptions {
+  status: ExecutionStatus;
+}
+
 interface ExecutionListInstance {
   /**
    * @param sid - sid of instance
@@ -276,6 +285,13 @@ declare class ExecutionContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ExecutionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: ExecutionInstanceUpdateOptions, callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<ExecutionInstance>;
 }
 
 
@@ -325,6 +341,13 @@ declare class ExecutionInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a ExecutionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: ExecutionInstanceUpdateOptions, callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<ExecutionInstance>;
   url: string;
 }
 
@@ -351,4 +374,4 @@ declare class ExecutionPage extends Page<V1, ExecutionPayload, ExecutionResource
   toJSON(): any;
 }
 
-export { ExecutionContext, ExecutionInstance, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution, ExecutionStatus }
+export { ExecutionContext, ExecutionInstance, ExecutionInstanceUpdateOptions, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution, ExecutionStatus }
