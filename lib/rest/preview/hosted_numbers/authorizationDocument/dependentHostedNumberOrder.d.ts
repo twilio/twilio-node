@@ -8,6 +8,7 @@
 import HostedNumbers = require('../../HostedNumbers');
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
+import { PhoneNumberCapabilities } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 type DependentHostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
@@ -227,7 +228,7 @@ interface DependentHostedNumberOrderResource {
   account_sid: string;
   address_sid: string;
   call_delay: number;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   cc_emails: string[];
   date_created: Date;
   date_updated: Date;
@@ -270,7 +271,7 @@ declare class DependentHostedNumberOrderInstance extends SerializableClass {
   accountSid: string;
   addressSid: string;
   callDelay: number;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   ccEmails: string[];
   dateCreated: Date;
   dateUpdated: Date;

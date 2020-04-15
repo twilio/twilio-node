@@ -8,6 +8,7 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
+import { PhoneNumberCapabilities } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -231,7 +232,7 @@ interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePay
 
 interface PhoneNumberResource {
   account_sid: string;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
@@ -310,7 +311,7 @@ declare class PhoneNumberInstance extends SerializableClass {
 
   private _proxy: PhoneNumberContext;
   accountSid: string;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   dateCreated: Date;
   dateUpdated: Date;
   /**

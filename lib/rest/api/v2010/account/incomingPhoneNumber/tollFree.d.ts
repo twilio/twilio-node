@@ -8,6 +8,7 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
+import { PhoneNumberCapabilities } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 type TollFreeAddressRequirement = 'none'|'any'|'local'|'foreign';
@@ -278,7 +279,7 @@ interface TollFreeResource {
   api_version: string;
   beta: boolean;
   bundle_sid: string;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   date_created: Date;
   date_updated: Date;
   emergency_address_sid: string;
@@ -326,7 +327,7 @@ declare class TollFreeInstance extends SerializableClass {
   apiVersion: string;
   beta: boolean;
   bundleSid: string;
-  capabilities: string;
+  capabilities: PhoneNumberCapabilities;
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;
