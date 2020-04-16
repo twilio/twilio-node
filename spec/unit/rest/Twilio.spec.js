@@ -12,11 +12,10 @@ describe('hostname', function() {
         return deferred.promise;
       },
     });
-
-    client = new RequestClientMock('ACXXXXXXXX', 'test-password');
   });
 
   it('should use the default region if only edge is defined', function() {
+    client = new RequestClientMock('ACXXXXXXXX', 'test-password');
     client.edge = 'edge';
     client.messages.create({
       body: 'Hello from Node',
@@ -28,6 +27,7 @@ describe('hostname', function() {
   });
 
   it('should set the region properly', function() {
+    client = new RequestClientMock('ACXXXXXXXX', 'test-password');
     client.region = 'region';
     client.messages.create({
       body: 'Hello from Node',
@@ -39,6 +39,7 @@ describe('hostname', function() {
   });
 
   it('should set the region and edge properly', function() {
+    client = new RequestClientMock('ACXXXXXXXX', 'test-password');
     client.edge = 'edge';
     client.region = 'region';
     client.messages.create({
@@ -48,5 +49,34 @@ describe('hostname', function() {
     });
     var uri = new url.URL(client._httpClient.lastRequest.url);
     expect(uri.hostname).toEqual('api.edge.region.twilio.com');
+  });
+
+  it('should set the region and edge properly when there is already a region defined', function() {
+    client = new RequestClientMock('ACXXXXXXXX', 'test-password', {
+      uri: 'https://api.region.twilio.com',
+    });
+    client.region = 'new_region';
+    client.messages.create({
+      body: 'Hello from Node',
+      to: '+XXXXXXXXXX',
+      from: '+XXXXXXXXXX',
+    });
+    var uri = new url.URL(client._httpClient.lastRequest.url);
+    expect(uri.hostname).toEqual('api.new_region.twilio.com');
+  });
+
+  it('should set the region and edge properly when there is already an edge defined', function() {
+    client = new RequestClientMock('ACXXXXXXXX', 'test-password', {
+      uri: 'https://api.edge.region.twilio.com',
+    });
+    client.edge = 'new_edge';
+    client.region = 'new_region';
+    client.messages.create({
+      body: 'Hello from Node',
+      to: '+XXXXXXXXXX',
+      from: '+XXXXXXXXXX',
+    });
+    var uri = new url.URL(client._httpClient.lastRequest.url);
+    expect(uri.hostname).toEqual('api.new_edge.new_region.twilio.com');
   });
 });
