@@ -12,7 +12,7 @@ describe('hostname', function() {
       },
     });
 
-    client = new RequestClientMock();
+    client = new RequestClientMock('ACXXXXXXXX', 'test-password');
   });
 
   it('should use the default region if only edge is defined', function() {
