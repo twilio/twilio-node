@@ -1,4 +1,5 @@
 var proxyquire = require('proxyquire');
+var url = require('url');  /* jshint ignore:line */
 var Q = require('q');
 
 describe('hostname', function() {
@@ -22,7 +23,7 @@ describe('hostname', function() {
       to: '+XXXXXXXXXX',
       from: '+XXXXXXXXXX',
     });
-    var uri = new URL(client._httpClient.lastRequest.url);
+    var uri = new url.URL(client._httpClient.lastRequest.url);
     expect(uri.hostname).toEqual('api.edge.us1.twilio.com');
   });
 
@@ -33,7 +34,7 @@ describe('hostname', function() {
       to: '+XXXXXXXXXX',
       from: '+XXXXXXXXXX',
     });
-    var uri = new URL(client._httpClient.lastRequest.url);
+    var uri = new url.URL(client._httpClient.lastRequest.url);
     expect(uri.hostname).toEqual('api.region.twilio.com');
   });
 
@@ -45,7 +46,7 @@ describe('hostname', function() {
       to: '+XXXXXXXXXX',
       from: '+XXXXXXXXXX',
     });
-    var uri = new URL(client._httpClient.lastRequest.url);
+    var uri = new url.URL(client._httpClient.lastRequest.url);
     expect(uri.hostname).toEqual('api.edge.region.twilio.com');
   });
 });
