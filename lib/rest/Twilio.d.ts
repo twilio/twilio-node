@@ -63,6 +63,14 @@ declare class Twilio {
   conversations: Conversations;
   fax: Fax;
   flexApi: FlexApi;
+  /**
+   * Adds a region and/or edge to a given hostname
+   *
+   * @param hostname - A URI hostname (e.g. api.twilio.com)
+   * @param targetEdge - The targeted edge location (e.g. sydney)
+   * @param targetRegion - The targeted region location (e.g. au1)
+   */
+  getHostname(hostname: string, targetEdge: string, targetRegion: string): string;
   httpClient?: RequestClient;
   incomingPhoneNumbers: (typeof Api.prototype.account.incomingPhoneNumbers);
   insights: Insights;
