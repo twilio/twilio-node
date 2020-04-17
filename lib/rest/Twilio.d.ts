@@ -146,11 +146,11 @@ declare namespace Twilio {
    * Options to pass to the Twilio Client constructor
    *
    * @property accountSid - The default accountSid. This is set to username if not provided
-   * @property edge - Twilio region to use. Defaults to none
+   * @property edge - Twilio edge to use. Defaults to none
    * @property env - The environment object. Defaults to process.env
    * @property httpClient - The client used for http requests. Defaults to RequestClient
    * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled
-   * @property region - Twilio region to use. Defaults to defaultRegion
+   * @property region - Twilio region to use. Defaults to none or defaultRegion if edge provided
    */
   export interface TwilioClientOptions {
     accountSid?: string;
