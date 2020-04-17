@@ -4,56 +4,54 @@ var url = require('url');  /* jshint ignore:line */
 
 describe('client', () => {
   var client;
-
-  beforeEach(() => {
-    var twilio = require('../../../lib');
-    client = new twilio('ACXXXXXXXX', 'test-password');
-    nock('https://api.twilio.com')
-      .get('/')
-      .reply(200, 'test response');
-  });
+  const twilio = require('../../../lib');
 
   describe('setting the region', () => {
     it('should use the default region if only edge is defined', () => {
+      client = new twilio('ACXXXXXXXX', 'test-password');
+      const scope = nock('https://api.edge.us1.twilio.com')
+        .get('/')
+        .reply(200, 'test response');
       client.edge = 'edge';
-      client.messages.create({
-        body: 'Hello from Node',
-        to: '+XXXXXXXXXX',
-        from: '+XXXXXXXXXX',
-      });
-      var uri = new url.URL(client._httpClient.lastRequest.url);
-      expect(uri.hostname).toEqual('api.edge.us1.twilio.com');
+      return client.request({method: 'GET', uri: 'https://api.twilio.com'})
+        .then(() => scope.done());
     });
     it('should set the region properly if only the region is specified', () => {
+      client = new twilio('ACXXXXXXXX', 'test-password');
+      const scope = nock('https://api.region.twilio.com')
+        .get('/')
+        .reply(200, 'test response');
       client.region = 'region';
-      client.messages.create({
-        body: 'Hello from Node',
-        to: '+XXXXXXXXXX',
-        from: '+XXXXXXXXXX',
-      });
-      var uri = new url.URL(client._httpClient.lastRequest.url);
-      expect(uri.hostname).toEqual('api.region.twilio.com');
-    });
-    it('should use the default region if only edge is defined', () => {
-      client.edge = 'edge';
-      client.messages.create({
-        body: 'Hello from Node',
-        to: '+XXXXXXXXXX',
-        from: '+XXXXXXXXXX',
-      });
-      var uri = new url.URL(client._httpClient.lastRequest.url);
-      expect(uri.hostname).toEqual('api.edge.us1.twilio.com');
+      return client.request({method: 'GET', uri: 'https://api.twilio.com'})
+        .then(() => scope.done());
     });
     it('should set the region and edge properly', () => {
+      client = new twilio('ACXXXXXXXX', 'test-password');
+      const scope = nock('https://api.edge.region.twilio.com')
+        .get('/')
+        .reply(200, 'test response');
       client.edge = 'edge';
       client.region = 'region';
-      client.messages.create({
-        body: 'Hello from Node',
-        to: '+XXXXXXXXXX',
-        from: '+XXXXXXXXXX',
-      });
-      var uri = new url.URL(client._httpClient.lastRequest.url);
-      expect(uri.hostname).toEqual('api.edge.region.twilio.com');
+      return client.request({method: 'GET', uri: 'https://api.twilio.com'})
+        .then(() => scope.done());
+    });
+    it('should set the region and edge properly when an edge is already included', () => {
+      client = new twilio('ACXXXXXXXX', 'test-password');
+      const scope = nock('https://api.edge2.region.twilio.com')
+        .get('/')
+        .reply(200, 'test response');
+      client.edge = 'edge2';
+      return client.request({method: 'GET', uri: 'https://api.edge1.region.twilio.com'})
+        .then(() => scope.done());
+    });
+    it('should set the region and edge properly when a region is already included', () => {
+      client = new twilio('ACXXXXXXXX', 'test-password');
+      const scope = nock('https://api.region2.twilio.com')
+        .get('/')
+        .reply(200, 'test response');
+      client.region = 'region2';
+      return client.request({method: 'GET', uri: 'https://api.region.twilio.com'})
+        .then(() => scope.done());
     });
   });
 });
