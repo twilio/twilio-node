@@ -3,7 +3,7 @@ declare class RestException extends Error {
   message: string;
   code: number;
   moreInfo: string;
-  detail: string;
+  details: object;
 }
 
 export = RestException;
