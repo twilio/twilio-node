@@ -63,14 +63,6 @@ declare class Twilio {
   conversations: Conversations;
   fax: Fax;
   flexApi: FlexApi;
-  /**
-   * Adds a region and/or edge to a given hostname
-   *
-   * @param hostname - A URI hostname (e.g. api.twilio.com)
-   * @param targetEdge - The targeted edge location (e.g. sydney)
-   * @param targetRegion - The targeted region location (e.g. au1)
-   */
-  getHostname(hostname: string, targetEdge: string, targetRegion: string): string;
   httpClient?: RequestClient;
   incomingPhoneNumbers: (typeof Api.prototype.account.incomingPhoneNumbers);
   insights: Insights;
@@ -158,7 +150,7 @@ declare namespace Twilio {
    * @property env - The environment object. Defaults to process.env
    * @property httpClient - The client used for http requests. Defaults to RequestClient
    * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled
-   * @property region - Twilio region to use. Defaults to none or us1 if edge provided
+   * @property region - Twilio region to use. Defaults to us1 if edge provided
    */
   export interface TwilioClientOptions {
     accountSid?: string;
