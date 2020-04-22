@@ -59,5 +59,29 @@ describe('client', () => {
       return client.request({method: 'GET', uri: 'https://api.edge.region.twilio.com'})
         .then(() => scope.done());
     });
+    it('should set the region properly when a region is already included', () => {
+      const scope = nock('https://api.region2.twilio.com')
+        .get('/')
+        .reply(200, 'test response');
+      client.region = 'region2';
+      return client.request({method: 'GET', uri: 'https://api.region.twilio.com'})
+        .then(() => scope.done());
+    });
+    it('should set the region properly on a custom domain', () => {
+      const scope = nock('https://api.region2.domain.com')
+        .get('/')
+        .reply(200, 'test response');
+      client.region = 'region2';
+      return client.request({method: 'GET', uri: 'https://api.domain.com'})
+        .then(() => scope.done());
+    });
+    it('should set the region properly when a port is included', () => {
+      const scope = nock('https://api.region.twilio.com:123')
+        .get('/')
+        .reply(200, 'test response');
+      client.region = 'region';
+      return client.request({method: 'GET', uri: 'https://api.twilio.com:123'})
+        .then(() => scope.done());
+    });
   });
 });
