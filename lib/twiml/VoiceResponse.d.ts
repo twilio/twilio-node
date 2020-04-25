@@ -912,6 +912,12 @@ declare namespace VoiceResponse {
      */
     number(attributes: VoiceResponse.NumberAttributes, phoneNumber: string): void;
     /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(attributes?: VoiceResponse.ParameterAttributes): void;
+    /**
      * <Queue> TwiML Noun
      *
      * @param name - Queue name

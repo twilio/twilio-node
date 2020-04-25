@@ -237,4 +237,28 @@ describe('create voice response TwiML', function() {
 
     expect(legacy.toString()).toEqual(renamed.toString());
   });
+
+  it('should add 1 parameter to dial', function() {
+    var actual = new VoiceResponse();
+    actual.dial({
+      hangupOnStar: true,
+      timeout: 5,
+      method: 'GET',
+      trim: 'do-not-trim'
+    }, '+18584611234').parameter({name: 'foo', value: 'bar'});
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial hangupOnStar="true" timeout="5" method="GET" trim="do-not-trim">+18584611234<Parameter name="foo" value="bar"/></Dial></Response>');
+  });
+
+  it('should add 2 parameters to dial', function() {
+    var actual = new VoiceResponse();
+    let dialer = actual.dial({
+      hangupOnStar: true,
+      timeout: 5,
+      method: 'GET',
+      trim: 'do-not-trim'
+    }, '+18584611234');
+    dialer.parameter({name: 'foo', value: 'bar'});
+    dialer.parameter({name: 'bar', value: 'foo'});
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial hangupOnStar="true" timeout="5" method="GET" trim="do-not-trim">+18584611234<Parameter name="foo" value="bar"/><Parameter name="bar" value="foo"/></Dial></Response>');
+  });
 });
