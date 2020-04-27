@@ -49,6 +49,28 @@ const client = require('twilio')(accountSid, authToken, {
 });
 ```
 
+### Specify Region and/or Edge
+
+```javascript
+var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
+var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+
+const client = require('twilio')(accountSid, authToken, { 
+    region: 'au1',
+    edge: 'sydney',
+});
+```
+
+Alternatively, specify the edge and/or region after constructing the Twilio client:
+
+```javascript
+const client = require('twilio')(accountSid, authToken);
+client.region = 'au1';
+client.edge = 'sydney';
+```
+
+This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
+
 ## Docker Image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-node` Docker image are currently used by Twilio for testing purposes only.
