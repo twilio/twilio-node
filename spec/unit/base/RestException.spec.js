@@ -31,7 +31,7 @@ describe('exception gets created from json error', function () {
     expect(exception.message).toEqual('test');
     expect(exception.code).toEqual(81022);
     expect(exception.moreInfo).toEqual('https://www.twilio.com/docs/errors/81022');
-    expect(exception.details).toEqual(null);
+    expect(exception.details).toEqual(undefined);
   });
 
   it('should create exception with details', function () {
