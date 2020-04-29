@@ -13,10 +13,6 @@ import { SerializableClass } from '../../../interfaces';
 /**
  * Initialize the RecordingSettingsList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- *
  * @param version - Version of the resource
  */
 declare function RecordingSettingsList(version: V1): RecordingSettingsListInstance;
@@ -77,10 +73,6 @@ declare class RecordingSettingsContext {
   /**
    * Initialize the RecordingSettingsContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
-   *
    * @param version - Version of the resource
    */
   constructor(version: V1);
@@ -108,10 +100,6 @@ declare class RecordingSettingsContext {
 declare class RecordingSettingsInstance extends SerializableClass {
   /**
    * Initialize the RecordingSettingsContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -150,10 +138,6 @@ declare class RecordingSettingsInstance extends SerializableClass {
 declare class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsInstance> {
   /**
    * Initialize the RecordingSettingsPage
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -1,6 +1,25 @@
 twilio-node changelog
 =====================
 
+[2020-04-29] Version 3.43.0
+---------------------------
+**Library - Chore**
+- [PR #568](https://github.com/twilio/twilio-node/pull/568): logic refactor. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Feature**
+- [PR #565](https://github.com/twilio/twilio-node/pull/565): adds details to rest exception. Thanks to [@ashish-s](https://github.com/ashish-s)!
+- [PR #563](https://github.com/twilio/twilio-node/pull/563): add regional support. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Preview**
+- Added `Dispatch` version to `preview`
+
+**Studio**
+- Reroute Create Execution for V2 to the V2 downstream
+
+**Supersim**
+- Add Networks resource
+
+
 [2020-04-15] Version 3.42.2
 ---------------------------
 **Library - Fix**

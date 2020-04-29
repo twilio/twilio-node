@@ -166,6 +166,7 @@ interface MessageListInstance {
  *
  * @property addressRetention - Determines if the address can be stored or obfuscated based on privacy settings
  * @property applicationSid - The application to use for callbacks
+ * @property attempt - Total numer of attempts made , this inclusive to send out the message
  * @property body - The text of the message you want to send. Can be up to 1,600 characters in length.
  * @property contentRetention - Determines if the message content can be stored or redacted based on privacy settings
  * @property forceDelivery - Reserved
@@ -183,6 +184,7 @@ interface MessageListInstance {
 interface MessageListInstanceCreateOptions {
   addressRetention?: MessageAddressRetention;
   applicationSid?: string;
+  attempt?: number;
   body?: string;
   contentRetention?: MessageContentRetention;
   forceDelivery?: boolean;

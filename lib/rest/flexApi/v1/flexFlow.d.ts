@@ -39,8 +39,8 @@ declare function FlexFlowList(version: V1): FlexFlowListInstance;
  * @property integration.workflowSid - The Workflow SID for a new task
  * @property integration.workspaceSid - The Workspace SID for a new task
  * @property integrationType - The integration type
- * @property janitorEnabled - Boolean flag for enabling or disabling the Janitor
- * @property longLived - Whether new channels created are long-lived
+ * @property janitorEnabled - Remove active Proxy sessions if the corresponding Task is deleted.
+ * @property longLived - Reuse this chat channel for future interactions with a contact
  */
 interface FlexFlowInstanceUpdateOptions {
   channelType?: FlexFlowChannelType;
@@ -202,8 +202,8 @@ interface FlexFlowListInstance {
  * @property integration.workflowSid - The Workflow SID for a new task
  * @property integration.workspaceSid - The Workspace SID for a new task
  * @property integrationType - The integration type
- * @property janitorEnabled - Boolean flag for enabling or disabling the Janitor
- * @property longLived - Whether new channels are long-lived
+ * @property janitorEnabled - Remove active Proxy sessions if the corresponding Task is deleted
+ * @property longLived - Reuse this chat channel for future interactions with a contact
  */
 interface FlexFlowListInstanceCreateOptions {
   channelType: FlexFlowChannelType;

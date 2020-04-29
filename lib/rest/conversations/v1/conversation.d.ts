@@ -16,6 +16,8 @@ import { SerializableClass } from '../../../interfaces';
 import { WebhookList } from './conversation/webhook';
 import { WebhookListInstance } from './conversation/webhook';
 
+type ConversationState = 'inactive'|'active'|'closed';
+
 type ConversationWebhookEnabledType = 'true'|'false';
 
 /**
@@ -45,6 +47,7 @@ interface ConversationInstanceRemoveOptions {
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
  * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
+ * @property state - Current state of this conversation.
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationInstanceUpdateOptions {
@@ -53,6 +56,7 @@ interface ConversationInstanceUpdateOptions {
   dateUpdated?: Date;
   friendlyName?: string;
   messagingServiceSid?: string;
+  state?: ConversationState;
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
@@ -190,6 +194,7 @@ interface ConversationListInstance {
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
  * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
+ * @property state - Current state of this conversation.
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationListInstanceCreateOptions {
@@ -198,6 +203,7 @@ interface ConversationListInstanceCreateOptions {
   dateUpdated?: Date;
   friendlyName?: string;
   messagingServiceSid?: string;
+  state?: ConversationState;
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
@@ -271,6 +277,7 @@ interface ConversationResource {
   links: string;
   messaging_service_sid: string;
   sid: string;
+  state: ConversationState;
   url: string;
 }
 
@@ -382,6 +389,7 @@ declare class ConversationInstance extends SerializableClass {
    */
   remove(opts?: ConversationInstanceRemoveOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
   sid: string;
+  state: ConversationState;
   /**
    * Provide a user-friendly representation
    */
@@ -432,4 +440,4 @@ declare class ConversationPage extends Page<V1, ConversationPayload, Conversatio
   toJSON(): any;
 }
 
-export { ConversationContext, ConversationInstance, ConversationInstanceRemoveOptions, ConversationInstanceUpdateOptions, ConversationList, ConversationListInstance, ConversationListInstanceCreateOptions, ConversationListInstanceEachOptions, ConversationListInstanceOptions, ConversationListInstancePageOptions, ConversationPage, ConversationPayload, ConversationResource, ConversationSolution, ConversationWebhookEnabledType }
+export { ConversationContext, ConversationInstance, ConversationInstanceRemoveOptions, ConversationInstanceUpdateOptions, ConversationList, ConversationListInstance, ConversationListInstanceCreateOptions, ConversationListInstanceEachOptions, ConversationListInstanceOptions, ConversationListInstancePageOptions, ConversationPage, ConversationPayload, ConversationResource, ConversationSolution, ConversationState, ConversationWebhookEnabledType }
