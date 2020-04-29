@@ -150,7 +150,7 @@ declare namespace Twilio {
    * @property env - The environment object. Defaults to process.env
    * @property httpClient - The client used for http requests. Defaults to RequestClient
    * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled
-   * @property region - Twilio region to use. Defaults to us1 if edge provided
+   * @property region - Twilio region to use. Defaults to us1 if edge defined
    */
   export interface TwilioClientOptions {
     accountSid?: string;
