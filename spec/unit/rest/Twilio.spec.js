@@ -18,8 +18,8 @@ describe('client', () => {
       return client.request({method: 'GET', uri: 'https://api.twilio.com'})
         .then(() => scope.done());
     });
-    it('should use the default region if only edge is defined and there is a defined region', () => {
-      const scope = nock('https://api.edge.us1.twilio.com')
+    it('should use the provided region if only edge is defined and there is a provided region', () => {
+      const scope = nock('https://api.edge.region.twilio.com')
         .get('/')
         .reply(200, 'test response');
       client.edge = 'edge';
@@ -44,7 +44,7 @@ describe('client', () => {
         .then(() => scope.done());
     });
     it('should set the region and edge properly when an edge is already included', () => {
-      const scope = nock('https://api.edge2.us1.twilio.com')
+      const scope = nock('https://api.edge2.region.twilio.com')
         .get('/')
         .reply(200, 'test response');
       client.edge = 'edge2';
