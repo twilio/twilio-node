@@ -8,6 +8,8 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
+import { EvaluationList } from './bundle/evaluation';
+import { EvaluationListInstance } from './bundle/evaluation';
 import { ItemAssignmentList } from './bundle/itemAssignment';
 import { ItemAssignmentListInstance } from './bundle/itemAssignment';
 import { SerializableClass } from '../../../../interfaces';
@@ -296,6 +298,7 @@ declare class BundleContext {
    */
   constructor(version: V2, sid: string);
 
+  evaluations: EvaluationListInstance;
   /**
    * fetch a BundleInstance
    *
@@ -338,6 +341,10 @@ declare class BundleInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   email: string;
+  /**
+   * Access the evaluations
+   */
+  evaluations(): EvaluationListInstance;
   /**
    * fetch a BundleInstance
    *

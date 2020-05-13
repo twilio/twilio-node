@@ -27,7 +27,9 @@ declare function DomainList(version: V2010, accountSid: string): DomainListInsta
 /**
  * Options to pass to update
  *
+ * @property byocTrunkSid - The SID of the BYOC Trunk resource.
  * @property domainName - The unique address on Twilio to route SIP traffic
+ * @property emergencyCallerSid - Whether an emergency caller sid is configured for the domain.
  * @property emergencyCallingEnabled - Whether emergency calling is enabled for the domain.
  * @property friendlyName - A string to describe the resource
  * @property secure - Whether secure SIP is enabled for the domain
@@ -40,7 +42,9 @@ declare function DomainList(version: V2010, accountSid: string): DomainListInsta
  * @property voiceUrl - The URL we should call when receiving a call
  */
 interface DomainInstanceUpdateOptions {
+  byocTrunkSid?: string;
   domainName?: string;
+  emergencyCallerSid?: string;
   emergencyCallingEnabled?: boolean;
   friendlyName?: string;
   secure?: boolean;
@@ -176,7 +180,9 @@ interface DomainListInstance {
 /**
  * Options to pass to create
  *
+ * @property byocTrunkSid - The SID of the BYOC Trunk resource.
  * @property domainName - The unique address on Twilio to route SIP traffic
+ * @property emergencyCallerSid - Whether an emergency caller sid is configured for the domain.
  * @property emergencyCallingEnabled - Whether emergency calling is enabled for the domain.
  * @property friendlyName - A string to describe the resource
  * @property secure - Whether secure SIP is enabled for the domain
@@ -189,7 +195,9 @@ interface DomainListInstance {
  * @property voiceUrl - The URL we should call when receiving a call
  */
 interface DomainListInstanceCreateOptions {
+  byocTrunkSid?: string;
   domainName: string;
+  emergencyCallerSid?: string;
   emergencyCallingEnabled?: boolean;
   friendlyName?: string;
   secure?: boolean;
@@ -266,9 +274,11 @@ interface DomainResource {
   account_sid: string;
   api_version: string;
   auth_type: string;
+  byoc_trunk_sid: string;
   date_created: Date;
   date_updated: Date;
   domain_name: string;
+  emergency_caller_sid: string;
   emergency_calling_enabled: boolean;
   friendly_name: string;
   secure: boolean;
@@ -353,6 +363,7 @@ declare class DomainInstance extends SerializableClass {
    */
   auth(): AuthTypesListInstance;
   authType: string;
+  byocTrunkSid: string;
   /**
    * Access the credentialListMappings
    */
@@ -360,6 +371,7 @@ declare class DomainInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   domainName: string;
+  emergencyCallerSid: string;
   emergencyCallingEnabled: boolean;
   /**
    * fetch a DomainInstance

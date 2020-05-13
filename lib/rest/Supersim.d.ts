@@ -10,6 +10,7 @@ import Twilio = require('./Twilio');
 import V1 = require('./supersim/V1');
 import { CommandListInstance } from './supersim/v1/command';
 import { FleetListInstance } from './supersim/v1/fleet';
+import { NetworkAccessProfileListInstance } from './supersim/v1/networkAccessProfile';
 import { SimListInstance } from './supersim/v1/sim';
 import { UsageRecordListInstance } from './supersim/v1/usageRecord';
 
@@ -24,6 +25,7 @@ declare class Supersim extends Domain {
 
   readonly commands: CommandListInstance;
   readonly fleets: FleetListInstance;
+  readonly networkAccessProfiles: NetworkAccessProfileListInstance;
   readonly sims: SimListInstance;
   readonly usageRecords: UsageRecordListInstance;
   readonly v1: V1;

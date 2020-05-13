@@ -9,6 +9,8 @@ import Autopilot = require('../Autopilot');
 import Version = require('../../base/Version');
 import { AssistantList } from './v1/assistant';
 import { AssistantListInstance } from './v1/assistant';
+import { RestoreAssistantList } from './v1/restoreAssistant';
+import { RestoreAssistantListInstance } from './v1/restoreAssistant';
 
 
 declare class V1 extends Version {
@@ -20,6 +22,7 @@ declare class V1 extends Version {
   constructor(domain: Autopilot);
 
   readonly assistants: AssistantListInstance;
+  readonly restoreAssistant: RestoreAssistantListInstance;
 }
 
 export = V1;

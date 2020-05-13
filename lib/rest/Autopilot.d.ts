@@ -9,6 +9,7 @@ import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./autopilot/V1');
 import { AssistantListInstance } from './autopilot/v1/assistant';
+import { RestoreAssistantListInstance } from './autopilot/v1/restoreAssistant';
 
 
 declare class Autopilot extends Domain {
@@ -20,6 +21,7 @@ declare class Autopilot extends Domain {
   constructor(twilio: Twilio);
 
   readonly assistants: AssistantListInstance;
+  readonly restoreAssistant: RestoreAssistantListInstance;
   readonly v1: V1;
 }
 

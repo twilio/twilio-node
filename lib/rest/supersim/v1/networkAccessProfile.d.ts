@@ -10,10 +10,8 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
-type FleetDataMetering = 'payg';
-
 /**
- * Initialize the FleetList
+ * Initialize the NetworkAccessProfileList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
@@ -21,39 +19,37 @@ type FleetDataMetering = 'payg';
  *
  * @param version - Version of the resource
  */
-declare function FleetList(version: V1): FleetListInstance;
+declare function NetworkAccessProfileList(version: V1): NetworkAccessProfileListInstance;
 
 /**
  * Options to pass to update
  *
- * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
- * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property uniqueName - The unique_name
  */
-interface FleetInstanceUpdateOptions {
-  networkAccessProfile?: string;
+interface NetworkAccessProfileInstanceUpdateOptions {
   uniqueName?: string;
 }
 
-interface FleetListInstance {
+interface NetworkAccessProfileListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): FleetContext;
+  (sid: string): NetworkAccessProfileContext;
   /**
-   * create a FleetInstance
+   * create a NetworkAccessProfileInstance
    *
    * @param callback - Callback to handle processed record
    */
-  create(callback?: (error: Error | null, item: FleetInstance) => any): Promise<FleetInstance>;
+  create(callback?: (error: Error | null, item: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
   /**
-   * create a FleetInstance
+   * create a NetworkAccessProfileInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: FleetListInstanceCreateOptions, callback?: (error: Error | null, item: FleetInstance) => any): Promise<FleetInstance>;
+  create(opts?: NetworkAccessProfileListInstanceCreateOptions, callback?: (error: Error | null, item: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
   /**
-   * Streams FleetInstance records from the API.
+   * Streams NetworkAccessProfileInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -66,9 +62,9 @@ interface FleetListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: NetworkAccessProfileInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams FleetInstance records from the API.
+   * Streams NetworkAccessProfileInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -82,15 +78,16 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FleetListInstanceEachOptions, callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: NetworkAccessProfileListInstanceEachOptions, callback?: (item: NetworkAccessProfileInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a fleet
+   * Constructs a network_access_profile
    *
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The sid
    */
-  get(sid: string): FleetContext;
+  get(sid: string): NetworkAccessProfileContext;
   /**
-   * Retrieve a single target page of FleetInstance records from the API.
+   * Retrieve a single target page of NetworkAccessProfileInstance records from the
+   * API.
    *
    * The request is executed immediately.
    *
@@ -99,9 +96,10 @@ interface FleetListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
+  getPage(callback?: (error: Error | null, items: NetworkAccessProfilePage) => any): Promise<NetworkAccessProfilePage>;
   /**
-   * Retrieve a single target page of FleetInstance records from the API.
+   * Retrieve a single target page of NetworkAccessProfileInstance records from the
+   * API.
    *
    * The request is executed immediately.
    *
@@ -111,18 +109,18 @@ interface FleetListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: NetworkAccessProfilePage) => any): Promise<NetworkAccessProfilePage>;
   /**
-   * Lists FleetInstance records from the API as a list.
+   * Lists NetworkAccessProfileInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
+  list(callback?: (error: Error | null, items: NetworkAccessProfileInstance[]) => any): Promise<NetworkAccessProfileInstance[]>;
   /**
-   * Lists FleetInstance records from the API as a list.
+   * Lists NetworkAccessProfileInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -130,9 +128,9 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FleetListInstanceOptions, callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
+  list(opts?: NetworkAccessProfileListInstanceOptions, callback?: (error: Error | null, items: NetworkAccessProfileInstance[]) => any): Promise<NetworkAccessProfileInstance[]>;
   /**
-   * Retrieve a single page of FleetInstance records from the API.
+   * Retrieve a single page of NetworkAccessProfileInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -141,9 +139,9 @@ interface FleetListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
+  page(callback?: (error: Error | null, items: NetworkAccessProfilePage) => any): Promise<NetworkAccessProfilePage>;
   /**
-   * Retrieve a single page of FleetInstance records from the API.
+   * Retrieve a single page of NetworkAccessProfileInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -153,7 +151,7 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FleetListInstancePageOptions, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
+  page(opts?: NetworkAccessProfileListInstancePageOptions, callback?: (error: Error | null, items: NetworkAccessProfilePage) => any): Promise<NetworkAccessProfilePage>;
   /**
    * Provide a user-friendly representation
    */
@@ -163,19 +161,11 @@ interface FleetListInstance {
 /**
  * Options to pass to create
  *
- * @property commandsEnabled - Defines whether SIMs in the Fleet are capable of sending and receiving Commands via SMS
- * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
- * @property commandsUrl - The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine Command
- * @property dataEnabled - Defines whether SIMs in the Fleet are capable of using data connectivity
- * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
- * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property networks - The networks
+ * @property uniqueName - The unique_name
  */
-interface FleetListInstanceCreateOptions {
-  commandsEnabled?: boolean;
-  commandsMethod?: string;
-  commandsUrl?: string;
-  dataEnabled?: boolean;
-  networkAccessProfile?: string;
+interface NetworkAccessProfileListInstanceCreateOptions {
+  networks?: string | string[];
   uniqueName?: string;
 }
 
@@ -190,7 +180,6 @@ interface FleetListInstanceCreateOptions {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -198,11 +187,10 @@ interface FleetListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface FleetListInstanceEachOptions {
-  callback?: (item: FleetInstance, done: (err?: Error) => void) => void;
+interface NetworkAccessProfileListInstanceEachOptions {
+  callback?: (item: NetworkAccessProfileInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
-  networkAccessProfile?: string;
   pageSize?: number;
 }
 
@@ -213,7 +201,6 @@ interface FleetListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -221,91 +208,82 @@ interface FleetListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface FleetListInstanceOptions {
+interface NetworkAccessProfileListInstanceOptions {
   limit?: number;
-  networkAccessProfile?: string;
   pageSize?: number;
 }
 
 /**
  * Options to pass to page
  *
- * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface FleetListInstancePageOptions {
-  networkAccessProfile?: string;
+interface NetworkAccessProfileListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface FleetPayload extends FleetResource, Page.TwilioResponsePayload {
+interface NetworkAccessProfilePayload extends NetworkAccessProfileResource, Page.TwilioResponsePayload {
 }
 
-interface FleetResource {
+interface NetworkAccessProfileResource {
   account_sid: string;
-  commands_enabled: boolean;
-  commands_method: string;
-  commands_url: string;
-  data_enabled: boolean;
-  data_metering: FleetDataMetering;
   date_created: Date;
   date_updated: Date;
-  network_access_profile_sid: string;
   sid: string;
   unique_name: string;
   url: string;
 }
 
-interface FleetSolution {
+interface NetworkAccessProfileSolution {
 }
 
 
-declare class FleetContext {
+declare class NetworkAccessProfileContext {
   /**
-   * Initialize the FleetContext
+   * Initialize the NetworkAccessProfileContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The sid
    */
   constructor(version: V1, sid: string);
 
   /**
-   * fetch a FleetInstance
+   * fetch a NetworkAccessProfileInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  fetch(callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
-   * update a FleetInstance
+   * update a NetworkAccessProfileInstance
    *
    * @param callback - Callback to handle processed record
    */
-  update(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  update(callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
   /**
-   * update a FleetInstance
+   * update a NetworkAccessProfileInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  update(opts?: NetworkAccessProfileInstanceUpdateOptions, callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
 }
 
 
-declare class FleetInstance extends SerializableClass {
+declare class NetworkAccessProfileInstance extends SerializableClass {
   /**
-   * Initialize the FleetContext
+   * Initialize the NetworkAccessProfileContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -313,26 +291,20 @@ declare class FleetInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The sid
    */
-  constructor(version: V1, payload: FleetPayload, sid: string);
+  constructor(version: V1, payload: NetworkAccessProfilePayload, sid: string);
 
-  private _proxy: FleetContext;
+  private _proxy: NetworkAccessProfileContext;
   accountSid: string;
-  commandsEnabled: boolean;
-  commandsMethod: string;
-  commandsUrl: string;
-  dataEnabled: boolean;
-  dataMetering: FleetDataMetering;
   dateCreated: Date;
   dateUpdated: Date;
   /**
-   * fetch a FleetInstance
+   * fetch a NetworkAccessProfileInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
-  networkAccessProfileSid: string;
+  fetch(callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
   sid: string;
   /**
    * Provide a user-friendly representation
@@ -340,25 +312,25 @@ declare class FleetInstance extends SerializableClass {
   toJSON(): any;
   uniqueName: string;
   /**
-   * update a FleetInstance
+   * update a NetworkAccessProfileInstance
    *
    * @param callback - Callback to handle processed record
    */
-  update(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  update(callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
   /**
-   * update a FleetInstance
+   * update a NetworkAccessProfileInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  update(opts?: NetworkAccessProfileInstanceUpdateOptions, callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
   url: string;
 }
 
 
-declare class FleetPage extends Page<V1, FleetPayload, FleetResource, FleetInstance> {
+declare class NetworkAccessProfilePage extends Page<V1, NetworkAccessProfilePayload, NetworkAccessProfileResource, NetworkAccessProfileInstance> {
   /**
-   * Initialize the FleetPage
+   * Initialize the NetworkAccessProfilePage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -368,18 +340,18 @@ declare class FleetPage extends Page<V1, FleetPayload, FleetResource, FleetInsta
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: FleetSolution);
+  constructor(version: V1, response: Response<string>, solution: NetworkAccessProfileSolution);
 
   /**
-   * Build an instance of FleetInstance
+   * Build an instance of NetworkAccessProfileInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FleetPayload): FleetInstance;
+  getInstance(payload: NetworkAccessProfilePayload): NetworkAccessProfileInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { FleetContext, FleetDataMetering, FleetInstance, FleetInstanceUpdateOptions, FleetList, FleetListInstance, FleetListInstanceCreateOptions, FleetListInstanceEachOptions, FleetListInstanceOptions, FleetListInstancePageOptions, FleetPage, FleetPayload, FleetResource, FleetSolution }
+export { NetworkAccessProfileContext, NetworkAccessProfileInstance, NetworkAccessProfileInstanceUpdateOptions, NetworkAccessProfileList, NetworkAccessProfileListInstance, NetworkAccessProfileListInstanceCreateOptions, NetworkAccessProfileListInstanceEachOptions, NetworkAccessProfileListInstanceOptions, NetworkAccessProfileListInstancePageOptions, NetworkAccessProfilePage, NetworkAccessProfilePayload, NetworkAccessProfileResource, NetworkAccessProfileSolution }

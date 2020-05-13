@@ -29,6 +29,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  * Options to pass to update
  *
  * @property codeLength - The length of the verification code to generate
+ * @property customCodeEnabled - Whether to allow sending verifications with a custom code.
  * @property doNotShareWarningEnabled - Whether to add a privacy warning at the end of an SMS.
  * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
  * @property friendlyName - A string to describe the verification service
@@ -39,6 +40,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  */
 interface ServiceInstanceUpdateOptions {
   codeLength?: number;
+  customCodeEnabled?: boolean;
   doNotShareWarningEnabled?: boolean;
   dtmfInputRequired?: boolean;
   friendlyName?: string;
@@ -172,6 +174,7 @@ interface ServiceListInstance {
  * Options to pass to create
  *
  * @property codeLength - The length of the verification code to generate
+ * @property customCodeEnabled - Whether to allow sending verifications with a custom code.
  * @property doNotShareWarningEnabled - Whether to add a security warning at the end of an SMS.
  * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
  * @property friendlyName - A string to describe the verification service
@@ -182,6 +185,7 @@ interface ServiceListInstance {
  */
 interface ServiceListInstanceCreateOptions {
   codeLength?: number;
+  customCodeEnabled?: boolean;
   doNotShareWarningEnabled?: boolean;
   dtmfInputRequired?: boolean;
   friendlyName: string;
@@ -254,6 +258,7 @@ interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
 interface ServiceResource {
   account_sid: string;
   code_length: number;
+  custom_code_enabled: boolean;
   date_created: Date;
   date_updated: Date;
   do_not_share_warning_enabled: boolean;
@@ -330,6 +335,7 @@ declare class ServiceInstance extends SerializableClass {
   private _proxy: ServiceContext;
   accountSid: string;
   codeLength: number;
+  customCodeEnabled: boolean;
   dateCreated: Date;
   dateUpdated: Date;
   doNotShareWarningEnabled: boolean;

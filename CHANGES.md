@@ -1,6 +1,41 @@
 twilio-node changelog
 =====================
 
+[2020-05-13] Version 3.43.1
+---------------------------
+**Library - Fix**
+- [PR #571](https://github.com/twilio/twilio-node/pull/571): regional/edge precendence and env vars. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional `emergency_caller_sid` parameter to SIP Domain
+- Updated `call_reason` optional property to be treated as PII
+- Added optional BYOC Trunk Sid property to Sip Domain API resource
+
+**Autopilot**
+- Add Restore resource to Autopilot Assistant
+
+**Contacts**
+- Added contacts Create API definition
+
+**Events**
+- Subscriptions API initial release
+
+**Numbers**
+- Add Evaluations API
+
+**Supersim**
+- Allow filtering the Fleets resource by Network Access Profile
+- Allow assigning a Network Access Profile when creating and updating a Fleet
+- Add Network Access Profiles resource
+
+**Verify**
+- Add `CustomCode` optional parameter on Verification creation.
+- Add delete action on Service resource.
+
+**Voice**
+- Added endpoints for BYOC trunks, SIP connection policies and source IP mappings
+
+
 [2020-04-29] Version 3.43.0
 ---------------------------
 **Library - Chore**

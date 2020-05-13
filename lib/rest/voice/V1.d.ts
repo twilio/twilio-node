@@ -7,8 +7,16 @@
 
 import Version = require('../../base/Version');
 import Voice = require('../Voice');
+import { ByocTrunkList } from './v1/byocTrunk';
+import { ByocTrunkListInstance } from './v1/byocTrunk';
+import { ConnectionPolicyList } from './v1/connectionPolicy';
+import { ConnectionPolicyListInstance } from './v1/connectionPolicy';
 import { DialingPermissionsList } from './v1/dialingPermissions';
 import { DialingPermissionsListInstance } from './v1/dialingPermissions';
+import { IpRecordList } from './v1/ipRecord';
+import { IpRecordListInstance } from './v1/ipRecord';
+import { SourceIpMappingList } from './v1/sourceIpMapping';
+import { SourceIpMappingListInstance } from './v1/sourceIpMapping';
 
 
 declare class V1 extends Version {
@@ -19,7 +27,11 @@ declare class V1 extends Version {
    */
   constructor(domain: Voice);
 
+  readonly byocTrunks: ByocTrunkListInstance;
+  readonly connectionPolicies: ConnectionPolicyListInstance;
   readonly dialingPermissions: DialingPermissionsListInstance;
+  readonly ipRecords: IpRecordListInstance;
+  readonly sourceIpMappings: SourceIpMappingListInstance;
 }
 
 export = V1;
