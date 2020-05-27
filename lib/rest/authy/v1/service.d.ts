@@ -26,19 +26,19 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to fetch
  *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ServiceInstanceFetchOptions {
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
  * Options to pass to remove
  *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ServiceInstanceRemoveOptions {
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -46,12 +46,12 @@ interface ServiceInstanceRemoveOptions {
  *
  * @property friendlyName - A human readable description of this resource.
  * @property push - Optional service level push factors configuration
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
   push?: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 interface ServiceListInstance {
@@ -179,12 +179,12 @@ interface ServiceListInstance {
  *
  * @property friendlyName - A human readable description of this resource.
  * @property push - Optional service level push factors configuration
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;
   push?: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -204,14 +204,14 @@ interface ServiceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ServiceListInstanceEachOptions {
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -227,12 +227,12 @@ interface ServiceListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ServiceListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -241,13 +241,13 @@ interface ServiceListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ServiceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {

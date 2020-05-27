@@ -14,6 +14,8 @@ import { RecordingList } from './conference/recording';
 import { RecordingListInstance } from './conference/recording';
 import { SerializableClass } from '../../../../interfaces';
 
+type ConferenceReasonConferenceEnded = 'conference-ended-via-api'|'participant-with-end-conference-on-exit-left'|'participant-with-end-conference-on-exit-kicked'|'last-participant-kicked'|'last-participant-left';
+
 type ConferenceStatus = 'init'|'in-progress'|'completed';
 
 type ConferenceUpdateStatus = 'completed';
@@ -263,9 +265,11 @@ interface ConferencePayload extends ConferenceResource, Page.TwilioResponsePaylo
 interface ConferenceResource {
   account_sid: string;
   api_version: string;
+  call_sid_ending_conference: string;
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
+  reason_conference_ended: ConferenceReasonConferenceEnded;
   region: string;
   sid: string;
   status: ConferenceStatus;
@@ -330,6 +334,7 @@ declare class ConferenceInstance extends SerializableClass {
   private _proxy: ConferenceContext;
   accountSid: string;
   apiVersion: string;
+  callSidEndingConference: string;
   dateCreated: Date;
   dateUpdated: Date;
   /**
@@ -343,6 +348,7 @@ declare class ConferenceInstance extends SerializableClass {
    * Access the participants
    */
   participants(): ParticipantListInstance;
+  reasonConferenceEnded: ConferenceReasonConferenceEnded;
   /**
    * Access the recordings
    */
@@ -394,4 +400,4 @@ declare class ConferencePage extends Page<V2010, ConferencePayload, ConferenceRe
   toJSON(): any;
 }
 
-export { ConferenceContext, ConferenceInstance, ConferenceInstanceUpdateOptions, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution, ConferenceStatus, ConferenceUpdateStatus }
+export { ConferenceContext, ConferenceInstance, ConferenceInstanceUpdateOptions, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceReasonConferenceEnded, ConferenceResource, ConferenceSolution, ConferenceStatus, ConferenceUpdateStatus }

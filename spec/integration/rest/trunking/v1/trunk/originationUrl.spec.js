@@ -35,7 +35,7 @@ describe('OriginationUrl', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('OriginationUrl', function() {
         done();
       }).done();
 
-      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var trunkSid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls/${sid}`;
 
@@ -66,13 +66,13 @@ describe('OriginationUrl', function() {
           'sip_url': 'sip://sip-box.com:1234',
           'sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2018-05-07T20:20:46Z',
-          'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -86,7 +86,7 @@ describe('OriginationUrl', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
         throw new Error('failed');
@@ -95,7 +95,7 @@ describe('OriginationUrl', function() {
         done();
       }).done();
 
-      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var trunkSid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls/${sid}`;
 
@@ -111,7 +111,7 @@ describe('OriginationUrl', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function(response) {
         expect(response).toBe(true);
@@ -132,7 +132,7 @@ describe('OriginationUrl', function() {
         friendlyName: 'friendly_name',
         sipUrl: 'https://example.com'
       };
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -141,7 +141,7 @@ describe('OriginationUrl', function() {
         done();
       }).done();
 
-      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var trunkSid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls`;
 
       var values = {
@@ -170,8 +170,8 @@ describe('OriginationUrl', function() {
           'sip_url': 'sip://sip-box.com:1234',
           'sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2018-05-07T20:50:58Z',
-          'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(201, body));
@@ -183,7 +183,7 @@ describe('OriginationUrl', function() {
         friendlyName: 'friendly_name',
         sipUrl: 'https://example.com'
       };
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -197,13 +197,13 @@ describe('OriginationUrl', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
+              'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
           },
           'origination_urls': [
               {
@@ -216,13 +216,13 @@ describe('OriginationUrl', function() {
                   'sip_url': 'sip://sip-box.com:1234',
                   'sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2018-05-09T20:47:35Z',
-                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       };
       holodeck.mock(new Response(200, body));
-      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .originationUrls.each(() => done());
     }
   );
@@ -230,13 +230,13 @@ describe('OriginationUrl', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
+              'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
           },
           'origination_urls': [
               {
@@ -249,13 +249,13 @@ describe('OriginationUrl', function() {
                   'sip_url': 'sip://sip-box.com:1234',
                   'sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2018-05-09T20:47:35Z',
-                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       };
       holodeck.mock(new Response(200, body));
-      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .originationUrls.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
@@ -268,13 +268,13 @@ describe('OriginationUrl', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
+              'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
           },
           'origination_urls': [
               {
@@ -287,13 +287,13 @@ describe('OriginationUrl', function() {
                   'sip_url': 'sip://sip-box.com:1234',
                   'sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2018-05-09T20:47:35Z',
-                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       };
       holodeck.mock(new Response(200, body));
-      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                         .originationUrls.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
@@ -301,7 +301,7 @@ describe('OriginationUrl', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
       promise.then(function() {
         throw new Error('failed');
@@ -310,7 +310,7 @@ describe('OriginationUrl', function() {
         done();
       }).done();
 
-      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var trunkSid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls`;
 
       holodeck.assertHasRequest(new Request({
@@ -323,13 +323,13 @@ describe('OriginationUrl', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
+              'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
           },
           'origination_urls': [
               {
@@ -342,15 +342,15 @@ describe('OriginationUrl', function() {
                   'sip_url': 'sip://sip-box.com:1234',
                   'sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2018-05-09T20:47:35Z',
-                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -364,20 +364,20 @@ describe('OriginationUrl', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0',
               'key': 'origination_urls',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
+              'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0'
           },
           'origination_urls': []
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -391,7 +391,7 @@ describe('OriginationUrl', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
         throw new Error('failed');
@@ -400,7 +400,7 @@ describe('OriginationUrl', function() {
         done();
       }).done();
 
-      var trunkSid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var trunkSid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls/${sid}`;
 
@@ -422,13 +422,13 @@ describe('OriginationUrl', function() {
           'sip_url': 'sip://sip-updated.com:4321',
           'sid': 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2018-05-07T20:50:58Z',
-          'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function(response) {
         expect(response).toBeDefined();

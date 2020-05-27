@@ -59,6 +59,7 @@ interface ConfigurationResource {
   crm_type: string;
   date_created: Date;
   date_updated: Date;
+  flex_service_instance_sid: string;
   integrations: object[];
   messaging_service_instance_sid: string;
   outbound_call_flows: object;
@@ -171,6 +172,7 @@ declare class ConfigurationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  flexServiceInstanceSid: string;
   integrations: object[];
   messagingServiceInstanceSid: string;
   outboundCallFlows: any;

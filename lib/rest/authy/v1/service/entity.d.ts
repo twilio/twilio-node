@@ -27,19 +27,19 @@ declare function EntityList(version: V1, serviceSid: string): EntityListInstance
 /**
  * Options to pass to fetch
  *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface EntityInstanceFetchOptions {
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
  * Options to pass to remove
  *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface EntityInstanceRemoveOptions {
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 interface EntityListInstance {
@@ -166,11 +166,11 @@ interface EntityListInstance {
  * Options to pass to create
  *
  * @property identity - Unique identity of the Entity
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface EntityListInstanceCreateOptions {
   identity: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -190,14 +190,14 @@ interface EntityListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface EntityListInstanceEachOptions {
   callback?: (item: EntityInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -213,12 +213,12 @@ interface EntityListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface EntityListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -227,13 +227,13 @@ interface EntityListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface EntityListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 interface EntityPayload extends EntityResource, Page.TwilioResponsePayload {

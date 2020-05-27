@@ -33,30 +33,30 @@ declare function ChallengeList(version: V1, serviceSid: string, identity: string
 /**
  * Options to pass to fetch
  *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceFetchOptions {
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
  * Options to pass to remove
  *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceRemoveOptions {
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Challenge
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceUpdateOptions {
   authPayload?: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 interface ChallengeListInstance {
@@ -191,13 +191,13 @@ interface ChallengeListInstance {
  * @property details - Public details provided to contextualize the Challenge
  * @property expirationDate - The future date in which this Challenge will expire
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceCreateOptions {
   details?: string;
   expirationDate?: Date;
   hiddenDetails?: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -218,7 +218,7 @@ interface ChallengeListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property status - The Status of theChallenges to fetch
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceEachOptions {
   callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void;
@@ -226,7 +226,7 @@ interface ChallengeListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -243,13 +243,13 @@ interface ChallengeListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property status - The Status of theChallenges to fetch
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceOptions {
   limit?: number;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -259,14 +259,14 @@ interface ChallengeListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property status - The Status of theChallenges to fetch
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
   status?: ChallengeChallengeStatuses;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 interface ChallengePayload extends ChallengeResource, Page.TwilioResponsePayload {

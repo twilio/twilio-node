@@ -167,6 +167,7 @@ interface FleetListInstance {
  * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
  * @property commandsUrl - The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine Command
  * @property dataEnabled - Defines whether SIMs in the Fleet are capable of using data connectivity
+ * @property dataLimit - The data_limit
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
@@ -175,6 +176,7 @@ interface FleetListInstanceCreateOptions {
   commandsMethod?: string;
   commandsUrl?: string;
   dataEnabled?: boolean;
+  dataLimit?: number;
   networkAccessProfile?: string;
   uniqueName?: string;
 }
@@ -251,6 +253,7 @@ interface FleetResource {
   commands_method: string;
   commands_url: string;
   data_enabled: boolean;
+  data_limit: number;
   data_metering: FleetDataMetering;
   date_created: Date;
   date_updated: Date;
@@ -323,6 +326,7 @@ declare class FleetInstance extends SerializableClass {
   commandsMethod: string;
   commandsUrl: string;
   dataEnabled: boolean;
+  dataLimit: number;
   dataMetering: FleetDataMetering;
   dateCreated: Date;
   dateUpdated: Date;

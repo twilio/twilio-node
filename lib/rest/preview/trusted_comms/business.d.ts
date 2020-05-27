@@ -8,6 +8,8 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import TrustedComms = require('../TrustedComms');
+import { BrandList } from './business/brand';
+import { BrandListInstance } from './business/brand';
 import { InsightsList } from './business/insights';
 import { InsightsListInstance } from './business/insights';
 import { SerializableClass } from '../../../interfaces';
@@ -67,6 +69,7 @@ declare class BusinessContext {
    */
   constructor(version: TrustedComms, sid: string);
 
+  brands: BrandListInstance;
   /**
    * fetch a BusinessInstance
    *
@@ -97,6 +100,10 @@ declare class BusinessInstance extends SerializableClass {
 
   private _proxy: BusinessContext;
   accountSid: string;
+  /**
+   * Access the brands
+   */
+  brands(): BrandListInstance;
   /**
    * fetch a BusinessInstance
    *

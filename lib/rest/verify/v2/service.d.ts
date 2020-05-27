@@ -8,6 +8,8 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
+import { EntityList } from './service/entity';
+import { EntityListInstance } from './service/entity';
 import { MessagingConfigurationList } from './service/messagingConfiguration';
 import { MessagingConfigurationListInstance } from './service/messagingConfiguration';
 import { RateLimitList } from './service/rateLimit';
@@ -286,6 +288,7 @@ declare class ServiceContext {
    */
   constructor(version: V2, sid: string);
 
+  entities: EntityListInstance;
   /**
    * fetch a ServiceInstance
    *
@@ -340,6 +343,10 @@ declare class ServiceInstance extends SerializableClass {
   dateUpdated: Date;
   doNotShareWarningEnabled: boolean;
   dtmfInputRequired: boolean;
+  /**
+   * Access the entities
+   */
+  entities(): EntityListInstance;
   /**
    * fetch a ServiceInstance
    *

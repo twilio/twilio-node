@@ -33,7 +33,7 @@ describe('Trunk', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,7 +41,7 @@ describe('Trunk', function() {
         done();
       }).done();
 
-      var sid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
@@ -53,7 +53,7 @@ describe('Trunk', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = {
-          'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'domain_name': 'test.pstn.twilio.com',
           'disaster_recovery_method': 'POST',
@@ -69,18 +69,18 @@ describe('Trunk', function() {
           'auth_type_set': [],
           'date_created': '2015-01-02T11:23:45Z',
           'date_updated': '2015-01-02T11:23:45Z',
-          'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
-              'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
-              'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
-              'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
+              'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
+              'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
+              'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
+              'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
           }
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -93,7 +93,7 @@ describe('Trunk', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -101,7 +101,7 @@ describe('Trunk', function() {
         done();
       }).done();
 
-      var sid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
@@ -116,7 +116,7 @@ describe('Trunk', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function(response) {
         expect(response).toBe(true);
         done();
@@ -148,7 +148,7 @@ describe('Trunk', function() {
   it('should generate valid create response',
     function(done) {
       var body = {
-          'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'domain_name': 'test.pstn.twilio.com',
           'disaster_recovery_method': 'POST',
@@ -164,12 +164,12 @@ describe('Trunk', function() {
           'auth_type_set': [],
           'date_created': '2015-01-02T11:23:45Z',
           'date_updated': '2015-01-02T11:23:45Z',
-          'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
-              'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
-              'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
-              'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
+              'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
+              'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
+              'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
+              'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
           }
       };
 
@@ -198,7 +198,7 @@ describe('Trunk', function() {
           },
           'trunks': [
               {
-                  'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'domain_name': 'test.pstn.twilio.com',
                   'disaster_recovery_method': 'POST',
@@ -214,12 +214,12 @@ describe('Trunk', function() {
                   'auth_type_set': [],
                   'date_created': '2015-01-02T11:23:45Z',
                   'date_updated': '2015-01-02T11:23:45Z',
-                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
-                      'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
-                      'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
-                      'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
+                      'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
+                      'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
+                      'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
+                      'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
                   }
               }
           ]
@@ -242,7 +242,7 @@ describe('Trunk', function() {
           },
           'trunks': [
               {
-                  'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'domain_name': 'test.pstn.twilio.com',
                   'disaster_recovery_method': 'POST',
@@ -258,12 +258,12 @@ describe('Trunk', function() {
                   'auth_type_set': [],
                   'date_created': '2015-01-02T11:23:45Z',
                   'date_updated': '2015-01-02T11:23:45Z',
-                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
-                      'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
-                      'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
-                      'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
+                      'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
+                      'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
+                      'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
+                      'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
                   }
               }
           ]
@@ -291,7 +291,7 @@ describe('Trunk', function() {
           },
           'trunks': [
               {
-                  'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'domain_name': 'test.pstn.twilio.com',
                   'disaster_recovery_method': 'POST',
@@ -307,12 +307,12 @@ describe('Trunk', function() {
                   'auth_type_set': [],
                   'date_created': '2015-01-02T11:23:45Z',
                   'date_updated': '2015-01-02T11:23:45Z',
-                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
-                      'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
-                      'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
-                      'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
+                      'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
+                      'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
+                      'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
+                      'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
                   }
               }
           ]
@@ -355,7 +355,7 @@ describe('Trunk', function() {
           },
           'trunks': [
               {
-                  'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'domain_name': 'test.pstn.twilio.com',
                   'disaster_recovery_method': 'POST',
@@ -371,12 +371,12 @@ describe('Trunk', function() {
                   'auth_type_set': [],
                   'date_created': '2015-01-02T11:23:45Z',
                   'date_updated': '2015-01-02T11:23:45Z',
-                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
-                      'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
-                      'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
-                      'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
+                      'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
+                      'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
+                      'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
+                      'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
                   }
               }
           ]
@@ -423,7 +423,7 @@ describe('Trunk', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -431,7 +431,7 @@ describe('Trunk', function() {
         done();
       }).done();
 
-      var sid = 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var sid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trunking.twilio.com/v1/Trunks/${sid}`;
 
       holodeck.assertHasRequest(new Request({
@@ -443,7 +443,7 @@ describe('Trunk', function() {
   it('should generate valid update response',
     function(done) {
       var body = {
-          'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'domain_name': 'test.pstn.twilio.com',
           'disaster_recovery_method': 'GET',
@@ -459,18 +459,18 @@ describe('Trunk', function() {
           'auth_type_set': [],
           'date_created': '2015-01-02T11:23:45Z',
           'date_updated': '2015-01-02T11:23:45Z',
-          'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
-              'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
-              'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
-              'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
+              'origination_urls': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls',
+              'credential_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists',
+              'ip_access_control_lists': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists',
+              'phone_numbers': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
           }
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

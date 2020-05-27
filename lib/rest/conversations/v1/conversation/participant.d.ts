@@ -38,12 +38,14 @@ interface ParticipantInstanceRemoveOptions {
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
+ * @property roleSid - The SID of the Role to assign to the participant
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantInstanceUpdateOptions {
   attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
+  roleSid?: string;
   xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
 }
 
@@ -183,6 +185,7 @@ interface ParticipantListInstance {
  * @property messagingBinding.address - The address of the participant's device.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
+ * @property roleSid - The SID of the Role to assign to the participant
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantListInstanceCreateOptions {
@@ -195,6 +198,7 @@ interface ParticipantListInstanceCreateOptions {
     proxyAddress?: string;
     projectedAddress?: string;
   };
+  roleSid?: string;
   xTwilioWebhookEnabled?: ParticipantWebhookEnabledType;
 }
 
@@ -266,6 +270,7 @@ interface ParticipantResource {
   date_updated: Date;
   identity: string;
   messaging_binding: object;
+  role_sid: string;
   sid: string;
   url: string;
 }
@@ -368,6 +373,7 @@ declare class ParticipantInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(opts?: ParticipantInstanceRemoveOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<boolean>;
+  roleSid: string;
   sid: string;
   /**
    * Provide a user-friendly representation

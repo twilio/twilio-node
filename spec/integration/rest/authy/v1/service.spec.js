@@ -33,7 +33,7 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var opts = {friendlyName: 'friendly_name', twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.authy.v1.services.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -51,7 +51,7 @@ describe('Service', function() {
           data: values
       }));
 
-      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
+      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
@@ -90,7 +90,7 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -102,7 +102,7 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
-      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
+      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
         url: url,
@@ -129,7 +129,7 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -141,7 +141,7 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
-      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
+      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
         url: url,
@@ -277,7 +277,7 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.authy.v1.services.list(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -288,7 +288,7 @@ describe('Service', function() {
 
       var url = 'https://authy.twilio.com/v1/Services';
 
-      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
+      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
         url: url,
@@ -365,7 +365,7 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioAuthySandboxMode: 'twilio_authy_sandbox_mode'};
+      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -377,7 +377,7 @@ describe('Service', function() {
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://authy.twilio.com/v1/Services/${sid}`;
 
-      var headers = {'Twilio-Authy-Sandbox-Mode': 'twilio_authy_sandbox_mode'};
+      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,

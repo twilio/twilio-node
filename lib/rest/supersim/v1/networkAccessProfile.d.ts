@@ -8,6 +8,8 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import { NetworkAccessProfileNetworkList } from './networkAccessProfile/networkAccessProfileNetwork';
+import { NetworkAccessProfileNetworkListInstance } from './networkAccessProfile/networkAccessProfileNetwork';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -24,7 +26,7 @@ declare function NetworkAccessProfileList(version: V1): NetworkAccessProfileList
 /**
  * Options to pass to update
  *
- * @property uniqueName - The unique_name
+ * @property uniqueName - The new unique name of the resource
  */
 interface NetworkAccessProfileInstanceUpdateOptions {
   uniqueName?: string;
@@ -82,7 +84,7 @@ interface NetworkAccessProfileListInstance {
   /**
    * Constructs a network_access_profile
    *
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   get(sid: string): NetworkAccessProfileContext;
   /**
@@ -161,8 +163,8 @@ interface NetworkAccessProfileListInstance {
 /**
  * Options to pass to create
  *
- * @property networks - The networks
- * @property uniqueName - The unique_name
+ * @property networks - List of Network SIDs that this Network Access Profile will allow connections to
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface NetworkAccessProfileListInstanceCreateOptions {
   networks?: string | string[];
@@ -233,6 +235,7 @@ interface NetworkAccessProfileResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
+  links: string;
   sid: string;
   unique_name: string;
   url: string;
@@ -251,7 +254,7 @@ declare class NetworkAccessProfileContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, sid: string);
 
@@ -261,6 +264,7 @@ declare class NetworkAccessProfileContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
+  networks: NetworkAccessProfileNetworkListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -291,7 +295,7 @@ declare class NetworkAccessProfileInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - The SID that identifies the resource to fetch
    */
   constructor(version: V1, payload: NetworkAccessProfilePayload, sid: string);
 
@@ -305,6 +309,11 @@ declare class NetworkAccessProfileInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: NetworkAccessProfileInstance) => any): Promise<NetworkAccessProfileInstance>;
+  links: string;
+  /**
+   * Access the networks
+   */
+  networks(): NetworkAccessProfileNetworkListInstance;
   sid: string;
   /**
    * Provide a user-friendly representation

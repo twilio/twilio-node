@@ -32,19 +32,19 @@ declare function FactorList(version: V1, serviceSid: string, identity: string): 
 /**
  * Options to pass to fetch
  *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceFetchOptions {
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
  * Options to pass to remove
  *
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceRemoveOptions {
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -53,13 +53,13 @@ interface FactorInstanceRemoveOptions {
  * @property authPayload - Optional payload to verify the Factor for the first time
  * @property config - The config for this Factor as a json string
  * @property friendlyName - The friendly name of this Factor
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceUpdateOptions {
   authPayload?: string;
   config?: string;
   friendlyName?: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 interface FactorListInstance {
@@ -190,7 +190,7 @@ interface FactorListInstance {
  * @property config - The config for this Factor as a json string
  * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceCreateOptions {
   authorization?: string;
@@ -198,7 +198,7 @@ interface FactorListInstanceCreateOptions {
   config: string;
   factorType: FactorFactorTypes;
   friendlyName: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -218,14 +218,14 @@ interface FactorListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceEachOptions {
   callback?: (item: FactorInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -241,12 +241,12 @@ interface FactorListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 /**
@@ -255,13 +255,13 @@ interface FactorListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property twilioAuthySandboxMode - The Twilio-Authy-Sandbox-Mode HTTP request header
+ * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  twilioAuthySandboxMode?: string;
+  twilioSandboxMode?: string;
 }
 
 interface FactorPayload extends FactorResource, Page.TwilioResponsePayload {

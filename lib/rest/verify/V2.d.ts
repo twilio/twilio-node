@@ -7,6 +7,8 @@
 
 import Verify = require('../Verify');
 import Version = require('../../base/Version');
+import { FormList } from './v2/form';
+import { FormListInstance } from './v2/form';
 import { ServiceList } from './v2/service';
 import { ServiceListInstance } from './v2/service';
 
@@ -19,6 +21,7 @@ declare class V2 extends Version {
    */
   constructor(domain: Verify);
 
+  readonly forms: FormListInstance;
   readonly services: ServiceListInstance;
 }
 

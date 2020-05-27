@@ -218,6 +218,7 @@ interface LogPayload extends LogResource, Page.TwilioResponsePayload {
 
 interface LogResource {
   account_sid: string;
+  build_sid: string;
   date_created: Date;
   deployment_sid: string;
   environment_sid: string;
@@ -282,6 +283,7 @@ declare class LogInstance extends SerializableClass {
 
   private _proxy: LogContext;
   accountSid: string;
+  buildSid: string;
   dateCreated: Date;
   deploymentSid: string;
   environmentSid: string;
