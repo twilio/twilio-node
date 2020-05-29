@@ -51,6 +51,8 @@ const client = require('twilio')(accountSid, authToken, {
 
 ### Specify Region and/or Edge
 
+To take advantage of Twilio's [Global Infrastructure](https://www.twilio.com/docs/global-infrastructure), specify the target Region and/or Edge for the client:
+
 ```javascript
 var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
 var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
