@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../../interfaces';
 
 type BundleEndUserType = 'individual'|'business';
 
-type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
+type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
 
 /**
  * Initialize the BundleList

@@ -61,7 +61,7 @@ describe('ValidationRequest', function() {
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
           'phone_number': '+18001234567',
-          'validation_code': 100
+          'validation_code': '111111'
       };
 
       holodeck.mock(new Response(201, body));

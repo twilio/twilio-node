@@ -59,7 +59,7 @@ interface ValidationRequestResource {
   call_sid: string;
   friendly_name: string;
   phone_number: string;
-  validation_code: number;
+  validation_code: string;
 }
 
 interface ValidationRequestSolution {
@@ -85,7 +85,7 @@ declare class ValidationRequestInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  validationCode: number;
+  validationCode: string;
 }
 
 

@@ -98,7 +98,7 @@ interface ParticipantListInstance {
   /**
    * Constructs a participant
    *
-   * @param callSid - The Call SID of the resource to fetch
+   * @param callSid - The Call SID or URL encoded label of the participant to fetch
    */
   get(callSid: string): ParticipantContext;
   /**
@@ -352,7 +352,7 @@ declare class ParticipantContext {
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created the resource to fetch
    * @param conferenceSid - The SID of the conference with the participant to fetch
-   * @param callSid - The Call SID of the resource to fetch
+   * @param callSid - The Call SID or URL encoded label of the participant to fetch
    */
   constructor(version: V2010, accountSid: string, conferenceSid: string, callSid: string);
 
@@ -396,7 +396,7 @@ declare class ParticipantInstance extends SerializableClass {
    * @param payload - The instance payload
    * @param accountSid - The SID of the Account that created the resource
    * @param conferenceSid - The SID of the conference the participant is in
-   * @param callSid - The Call SID of the resource to fetch
+   * @param callSid - The Call SID or URL encoded label of the participant to fetch
    */
   constructor(version: V2010, payload: ParticipantPayload, accountSid: string, conferenceSid: string, callSid: string);
 

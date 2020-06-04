@@ -41,11 +41,9 @@ interface ChannelListInstance {
 /**
  * Options to pass to create
  *
- * @property phoneNumber - Twilio number to assign to the Branded Channel
  * @property phoneNumberSid - Phone Number Sid to be branded.
  */
 interface ChannelListInstanceCreateOptions {
-  phoneNumber: string;
   phoneNumberSid: string;
 }
 

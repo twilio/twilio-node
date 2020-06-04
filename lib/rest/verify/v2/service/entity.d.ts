@@ -8,6 +8,8 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
+import { AccessTokenList } from './entity/accessToken';
+import { AccessTokenListInstance } from './entity/accessToken';
 import { FactorList } from './entity/factor';
 import { FactorListInstance } from './entity/factor';
 import { SerializableClass } from '../../../../interfaces';
@@ -269,6 +271,7 @@ declare class EntityContext {
    */
   constructor(version: V2, serviceSid: string, identity: string);
 
+  accessTokens: AccessTokenListInstance;
   factors: FactorListInstance;
   /**
    * fetch a EntityInstance
@@ -319,6 +322,10 @@ declare class EntityInstance extends SerializableClass {
   constructor(version: V2, payload: EntityPayload, serviceSid: string, identity: string);
 
   private _proxy: EntityContext;
+  /**
+   * Access the accessTokens
+   */
+  accessTokens(): AccessTokenListInstance;
   accountSid: string;
   dateCreated: Date;
   dateUpdated: Date;
