@@ -57,7 +57,7 @@ describe('The TaskRouter Capability Token Object', function() {
     });
 
     var decoded = jwt.verify(c.toJwt(), 'foobar');
-    expect(decoded.policies.length).toBe(6);
+    expect(decoded.policies.length).toBe(7);
     var activitiesPolicy = {
         url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities',
         method: 'GET',
@@ -95,13 +95,22 @@ describe('The TaskRouter Capability Token Object', function() {
     expect(decoded.policies[3]).toEqual(workerFetchPolicy);
 
     var getPolicy = {
+      url: 'https://event-bridge.twilio.com/v1/wschannels',
+      method: 'GET',
+      query_filter: {},
+      post_filter: {},
+      allow: true
+    };
+    expect(decoded.policies[4]).toEqual(getPolicy);
+
+    var getPolicy = {
         url: 'https://event-bridge.twilio.com/v1/wschannels/AC123/WK789',
         method: 'GET',
         query_filter: {},
         post_filter: {},
         allow: true
     };
-    expect(decoded.policies[4]).toEqual(getPolicy);
+    expect(decoded.policies[5]).toEqual(getPolicy);
 
     var postPolicy = {
         url: 'https://event-bridge.twilio.com/v1/wschannels/AC123/WK789',
@@ -110,6 +119,6 @@ describe('The TaskRouter Capability Token Object', function() {
         post_filter: {},
         allow: true
     };
-    expect(decoded.policies[5]).toEqual(postPolicy);
+    expect(decoded.policies[6]).toEqual(postPolicy);
   });
 });
