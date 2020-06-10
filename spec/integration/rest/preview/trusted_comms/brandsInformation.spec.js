@@ -29,92 +29,12 @@ describe('BrandsInformation', function() {
       httpClient: holodeck
     });
   });
-  it('should treat the first each arg as a callback',
-    function(done) {
-      var body = {
-          'brands_information': [
-              {
-                  'event_type': 'full',
-                  'update_time': '2020-05-19T19:47:51Z',
-                  'file_link': 'https://www.twilio.com',
-                  'file_link_ttl_in_seconds': '900'
-              }
-          ],
-          'meta': {
-              'first_page_url': 'https://preview.twilio.com/TrustedComms/BrandsInformation?Type=full&PageSize=50&Page=0',
-              'key': 'brands_information',
-              'next_page_url': null,
-              'page': 0,
-              'page_size': 50,
-              'previous_page_url': null,
-              'url': 'https://preview.twilio.com/TrustedComms/BrandsInformation?Type=full&PageSize=50&Page=0'
-          }
-      };
-      holodeck.mock(new Response(200, body));
-      client.preview.trusted_comms.brandsInformation.each(() => done());
-    }
-  );
-  it('should treat the second arg as a callback',
-    function(done) {
-      var body = {
-          'brands_information': [
-              {
-                  'event_type': 'full',
-                  'update_time': '2020-05-19T19:47:51Z',
-                  'file_link': 'https://www.twilio.com',
-                  'file_link_ttl_in_seconds': '900'
-              }
-          ],
-          'meta': {
-              'first_page_url': 'https://preview.twilio.com/TrustedComms/BrandsInformation?Type=full&PageSize=50&Page=0',
-              'key': 'brands_information',
-              'next_page_url': null,
-              'page': 0,
-              'page_size': 50,
-              'previous_page_url': null,
-              'url': 'https://preview.twilio.com/TrustedComms/BrandsInformation?Type=full&PageSize=50&Page=0'
-          }
-      };
-      holodeck.mock(new Response(200, body));
-      client.preview.trusted_comms.brandsInformation.each({pageSize: 20}, () => done());
-      holodeck.assertHasRequest(new Request({
-          method: 'GET',
-          url: 'https://preview.twilio.com/TrustedComms/BrandsInformation',
-          params: {PageSize: 20},
-      }));
-    }
-  );
-  it('should find the callback in the opts object',
-    function(done) {
-      var body = {
-          'brands_information': [
-              {
-                  'event_type': 'full',
-                  'update_time': '2020-05-19T19:47:51Z',
-                  'file_link': 'https://www.twilio.com',
-                  'file_link_ttl_in_seconds': '900'
-              }
-          ],
-          'meta': {
-              'first_page_url': 'https://preview.twilio.com/TrustedComms/BrandsInformation?Type=full&PageSize=50&Page=0',
-              'key': 'brands_information',
-              'next_page_url': null,
-              'page': 0,
-              'page_size': 50,
-              'previous_page_url': null,
-              'url': 'https://preview.twilio.com/TrustedComms/BrandsInformation?Type=full&PageSize=50&Page=0'
-          }
-      };
-      holodeck.mock(new Response(200, body));
-      client.preview.trusted_comms.brandsInformation.each({callback: () => done()}, () => fail('wrong callback!'));
-    }
-  );
-  it('should generate valid list request',
+  it('should generate valid fetch request',
     function(done) {
       holodeck.mock(new Response(500, {}));
 
       var opts = {ifNoneMatch: 'if_none_match'};
-      var promise = client.preview.trusted_comms.brandsInformation.list(opts);
+      var promise = client.preview.trusted_comms.brandsInformation().fetch(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -132,31 +52,18 @@ describe('BrandsInformation', function() {
       }));
     }
   );
-  it('should generate valid read_full_results_with_etag response',
+  it('should generate valid fetch_results_with_etag response',
     function(done) {
       var body = {
-          'brands_information': [
-              {
-                  'event_type': 'full',
-                  'update_time': '2020-05-19T19:47:51Z',
-                  'file_link': 'https://www.twilio.com',
-                  'file_link_ttl_in_seconds': '900'
-              }
-          ],
-          'meta': {
-              'first_page_url': 'https://preview.twilio.com/TrustedComms/BrandsInformation?Type=full&PageSize=50&Page=0',
-              'key': 'brands_information',
-              'next_page_url': null,
-              'page': 0,
-              'page_size': 50,
-              'previous_page_url': null,
-              'url': 'https://preview.twilio.com/TrustedComms/BrandsInformation?Type=full&PageSize=50&Page=0'
-          }
+          'update_time': '2020-05-19T19:47:51Z',
+          'file_link': 'https://www.twilio.com',
+          'file_link_ttl_in_seconds': '900',
+          'url': 'https://preview.twilio.com/TrustedComms/BrandsInformation'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.trusted_comms.brandsInformation.list();
+      var promise = client.preview.trusted_comms.brandsInformation().fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

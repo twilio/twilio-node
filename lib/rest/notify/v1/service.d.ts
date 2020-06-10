@@ -194,6 +194,8 @@ interface ServiceListInstance {
  * @property defaultApnNotificationProtocolVersion - The protocol version to use for sending APNS notifications
  * @property defaultFcmNotificationProtocolVersion - The protocol version to use for sending FCM notifications
  * @property defaultGcmNotificationProtocolVersion - The protocol version to use for sending GCM notifications
+ * @property deliveryCallbackEnabled - Enable delivery callbacks
+ * @property deliveryCallbackUrl - Webhook URL
  * @property facebookMessengerPageId - Deprecated
  * @property fcmCredentialSid - The SID of the Credential to use for FCM Bindings
  * @property friendlyName - A string to describe the resource
@@ -208,6 +210,8 @@ interface ServiceListInstanceCreateOptions {
   defaultApnNotificationProtocolVersion?: string;
   defaultFcmNotificationProtocolVersion?: string;
   defaultGcmNotificationProtocolVersion?: string;
+  deliveryCallbackEnabled?: boolean;
+  deliveryCallbackUrl?: string;
   facebookMessengerPageId?: string;
   fcmCredentialSid?: string;
   friendlyName?: string;
@@ -292,6 +296,8 @@ interface ServiceResource {
   default_apn_notification_protocol_version: string;
   default_fcm_notification_protocol_version: string;
   default_gcm_notification_protocol_version: string;
+  delivery_callback_enabled: boolean;
+  delivery_callback_url: string;
   facebook_messenger_page_id: string;
   fcm_credential_sid: string;
   friendly_name: string;
@@ -380,6 +386,8 @@ declare class ServiceInstance extends SerializableClass {
   defaultApnNotificationProtocolVersion: string;
   defaultFcmNotificationProtocolVersion: string;
   defaultGcmNotificationProtocolVersion: string;
+  deliveryCallbackEnabled: boolean;
+  deliveryCallbackUrl: string;
   facebookMessengerPageId: string;
   fcmCredentialSid: string;
   /**

@@ -10,8 +10,6 @@ import Response = require('../../../http/response');
 import TrustedComms = require('../TrustedComms');
 import { SerializableClass } from '../../../interfaces';
 
-type BrandsInformationEventType = 'full'|'updates';
-
 /**
  * Initialize the BrandsInformationList
  *
@@ -23,189 +21,73 @@ type BrandsInformationEventType = 'full'|'updates';
  */
 declare function BrandsInformationList(version: TrustedComms): BrandsInformationListInstance;
 
+/**
+ * Options to pass to fetch
+ *
+ * @property ifNoneMatch - Standard `If-None-Match` HTTP header
+ */
+interface BrandsInformationInstanceFetchOptions {
+  ifNoneMatch?: string;
+}
+
 interface BrandsInformationListInstance {
   /**
-   * Streams BrandsInformationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param callback - Function to process each record
+   * @param sid - sid of instance
    */
-  each(callback?: (item: BrandsInformationInstance, done: (err?: Error) => void) => void): void;
+  (sid: string): BrandsInformationContext;
   /**
-   * Streams BrandsInformationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param opts - Options for request
-   * @param callback - Function to process each record
+   * Constructs a brands_information
    */
-  each(opts?: BrandsInformationListInstanceEachOptions, callback?: (item: BrandsInformationInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Retrieve a single target page of BrandsInformationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param callback - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: BrandsInformationPage) => any): Promise<BrandsInformationPage>;
-  /**
-   * Retrieve a single target page of BrandsInformationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BrandsInformationPage) => any): Promise<BrandsInformationPage>;
-  /**
-   * Lists BrandsInformationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param callback - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: BrandsInformationInstance[]) => any): Promise<BrandsInformationInstance[]>;
-  /**
-   * Lists BrandsInformationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle list of records
-   */
-  list(opts?: BrandsInformationListInstanceOptions, callback?: (error: Error | null, items: BrandsInformationInstance[]) => any): Promise<BrandsInformationInstance[]>;
-  /**
-   * Retrieve a single page of BrandsInformationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param callback - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: BrandsInformationPage) => any): Promise<BrandsInformationPage>;
-  /**
-   * Retrieve a single page of BrandsInformationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle list of records
-   */
-  page(opts?: BrandsInformationListInstancePageOptions, callback?: (error: Error | null, items: BrandsInformationPage) => any): Promise<BrandsInformationPage>;
+  get(): BrandsInformationContext;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-/**
- * Options to pass to each
- *
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- * @property ifNoneMatch - Standard `If-None-Match` HTTP header
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property type - Scope of the brands information to query
- */
-interface BrandsInformationListInstanceEachOptions {
-  callback?: (item: BrandsInformationInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  ifNoneMatch?: string;
-  limit?: number;
-  pageSize?: number;
-  type?: string;
-}
-
-/**
- * Options to pass to list
- *
- * @property ifNoneMatch - Standard `If-None-Match` HTTP header
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- * @property type - Scope of the brands information to query
- */
-interface BrandsInformationListInstanceOptions {
-  ifNoneMatch?: string;
-  limit?: number;
-  pageSize?: number;
-  type?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property ifNoneMatch - Standard `If-None-Match` HTTP header
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- * @property pageToken - PageToken provided by the API
- * @property type - Scope of the brands information to query
- */
-interface BrandsInformationListInstancePageOptions {
-  ifNoneMatch?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  type?: string;
-}
-
 interface BrandsInformationPayload extends BrandsInformationResource, Page.TwilioResponsePayload {
 }
 
 interface BrandsInformationResource {
-  event_type: BrandsInformationEventType;
   file_link: string;
   file_link_ttl_in_seconds: string;
   update_time: Date;
+  url: string;
 }
 
 interface BrandsInformationSolution {
+}
+
+
+declare class BrandsInformationContext {
+  /**
+   * Initialize the BrandsInformationContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   */
+  constructor(version: TrustedComms);
+
+  /**
+   * fetch a BrandsInformationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
+  /**
+   * fetch a BrandsInformationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  fetch(opts?: BrandsInformationInstanceFetchOptions, callback?: (error: Error | null, items: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -222,7 +104,20 @@ declare class BrandsInformationInstance extends SerializableClass {
    */
   constructor(version: TrustedComms, payload: BrandsInformationPayload);
 
-  eventType: BrandsInformationEventType;
+  private _proxy: BrandsInformationContext;
+  /**
+   * fetch a BrandsInformationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
+  /**
+   * fetch a BrandsInformationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  fetch(opts?: BrandsInformationInstanceFetchOptions, callback?: (error: Error | null, items: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
   fileLink: string;
   fileLinkTtlInSeconds: string;
   /**
@@ -230,6 +125,7 @@ declare class BrandsInformationInstance extends SerializableClass {
    */
   toJSON(): any;
   updateTime: Date;
+  url: string;
 }
 
 
@@ -259,4 +155,4 @@ declare class BrandsInformationPage extends Page<TrustedComms, BrandsInformation
   toJSON(): any;
 }
 
-export { BrandsInformationEventType, BrandsInformationInstance, BrandsInformationList, BrandsInformationListInstance, BrandsInformationListInstanceEachOptions, BrandsInformationListInstanceOptions, BrandsInformationListInstancePageOptions, BrandsInformationPage, BrandsInformationPayload, BrandsInformationResource, BrandsInformationSolution }
+export { BrandsInformationContext, BrandsInformationInstance, BrandsInformationInstanceFetchOptions, BrandsInformationList, BrandsInformationListInstance, BrandsInformationPage, BrandsInformationPayload, BrandsInformationResource, BrandsInformationSolution }

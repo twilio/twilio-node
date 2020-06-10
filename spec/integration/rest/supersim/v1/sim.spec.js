@@ -200,13 +200,13 @@ describe('Sim', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&Iccid=11111111111111111111&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&Iccid=11111111111111111111&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           },
           'sims': [
               {
@@ -214,7 +214,7 @@ describe('Sim', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'unique_name': 'My SIM',
                   'status': 'new',
-                  'fleet_sid': null,
+                  'fleet_sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'iccid': 'iccid',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -230,13 +230,13 @@ describe('Sim', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&Iccid=11111111111111111111&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&Iccid=11111111111111111111&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           },
           'sims': [
               {
@@ -244,7 +244,7 @@ describe('Sim', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'unique_name': 'My SIM',
                   'status': 'new',
-                  'fleet_sid': null,
+                  'fleet_sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'iccid': 'iccid',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -265,13 +265,13 @@ describe('Sim', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&Iccid=11111111111111111111&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&Iccid=11111111111111111111&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           },
           'sims': [
               {
@@ -279,7 +279,7 @@ describe('Sim', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'unique_name': 'My SIM',
                   'status': 'new',
-                  'fleet_sid': null,
+                  'fleet_sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'iccid': 'iccid',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -316,13 +316,13 @@ describe('Sim', function() {
       var body = {
           'sims': [],
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Iccid=11111111111111111111&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Iccid=11111111111111111111&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           }
       };
 
@@ -337,17 +337,93 @@ describe('Sim', function() {
       }).done();
     }
   );
-  it('should generate valid read_full response',
+  it('should generate valid read_full_by_fleet_sid response',
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&Iccid=11111111111111111111&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sims',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&Iccid=11111111111111111111&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
+          },
+          'sims': [
+              {
+                  'sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'My SIM',
+                  'status': 'new',
+                  'fleet_sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'iccid': 'iccid',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.supersim.v1.sims.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid read_full_by_fleet_name response',
+    function(done) {
+      var body = {
+          'meta': {
+              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&PageSize=50&Page=0',
+              'key': 'sims',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://supersim.twilio.com/v1/Sims?Status=new&Fleet=MyFleet&PageSize=50&Page=0'
+          },
+          'sims': [
+              {
+                  'sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'My SIM',
+                  'status': 'new',
+                  'fleet_sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'iccid': 'iccid',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.supersim.v1.sims.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid read_by_iccid response',
+    function(done) {
+      var body = {
+          'meta': {
+              'first_page_url': 'https://supersim.twilio.com/v1/Sims?Iccid=11111111111111111111&PageSize=50&Page=0',
+              'key': 'sims',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://supersim.twilio.com/v1/Sims?Iccid=11111111111111111111&PageSize=50&Page=0'
           },
           'sims': [
               {
@@ -356,7 +432,7 @@ describe('Sim', function() {
                   'unique_name': 'My SIM',
                   'status': 'new',
                   'fleet_sid': null,
-                  'iccid': 'iccid',
+                  'iccid': '11111111111111111111',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'

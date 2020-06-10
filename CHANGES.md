@@ -1,6 +1,33 @@
 twilio-node changelog
 =====================
 
+[2020-06-10] Version 3.46.0
+---------------------------
+**Library - Docs**
+- [PR #583](https://github.com/twilio/twilio-node/pull/583): link to handling exceptions. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #582](https://github.com/twilio/twilio-node/pull/582): link to custom HTTP client instructions. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Api**
+- Added `pstnconnectivity` to `usage_record` API
+
+**Contacts**
+- Added contacts channel create, update, read, delete API definition
+- Added contacts Get API definition
+- Added contacts Update API definition
+- Added contacts Delete API definition
+- Added contacts Search API definition
+- Added contacts location Create, update, read and delete API definitions
+
+**Notify**
+- delivery_callback_url and delivery_callback_enabled added
+
+**Preview**
+- `BrandsInformation` endpoint now returns a single `BrandsInformation`
+
+**Supersim**
+- Require a Network Access Profile when creating a Fleet **(breaking change)**
+
+
 [2020-06-04] Version 3.45.0
 ---------------------------
 **Autopilot**
