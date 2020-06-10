@@ -73,6 +73,10 @@ client.edge = 'sydney';
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
+## Handling Exceptions
+
+For an example on how to handle exceptions in this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/node/usage-guide#exceptions).
+
 ## Using a Custom HTTP Client
 
 To use a custom HTTP client with this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/node/custom-http-clients-node).
