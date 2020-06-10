@@ -73,6 +73,10 @@ client.edge = 'sydney';
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
+## Using a Custom HTTP Client
+
+To use a custom HTTP client with this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/node/custom-http-clients-node).
+
 ## Docker Image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-node` Docker image are currently used by Twilio for testing purposes only.
