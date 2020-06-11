@@ -10,14 +10,6 @@ twilio-node changelog
 **Api**
 - Added `pstnconnectivity` to `usage_record` API
 
-**Contacts**
-- Added contacts channel create, update, read, delete API definition
-- Added contacts Get API definition
-- Added contacts Update API definition
-- Added contacts Delete API definition
-- Added contacts Search API definition
-- Added contacts location Create, update, read and delete API definitions
-
 **Notify**
 - delivery_callback_url and delivery_callback_enabled added
 
