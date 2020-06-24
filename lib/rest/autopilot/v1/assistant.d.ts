@@ -12,8 +12,6 @@ import { DefaultsList } from './assistant/defaults';
 import { DefaultsListInstance } from './assistant/defaults';
 import { DialogueList } from './assistant/dialogue';
 import { DialogueListInstance } from './assistant/dialogue';
-import { ExportAssistantList } from './assistant/exportAssistant';
-import { ExportAssistantListInstance } from './assistant/exportAssistant';
 import { FieldTypeList } from './assistant/fieldType';
 import { FieldTypeListInstance } from './assistant/fieldType';
 import { ModelBuildList } from './assistant/modelBuild';
@@ -305,7 +303,6 @@ declare class AssistantContext {
 
   defaults: DefaultsListInstance;
   dialogues: DialogueListInstance;
-  exportAssistant: ExportAssistantListInstance;
   /**
    * fetch a AssistantInstance
    *
@@ -373,10 +370,6 @@ declare class AssistantInstance extends SerializableClass {
    * Access the dialogues
    */
   dialogues(): DialogueListInstance;
-  /**
-   * Access the exportAssistant
-   */
-  exportAssistant(): ExportAssistantListInstance;
   /**
    * fetch a AssistantInstance
    *

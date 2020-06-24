@@ -19,6 +19,8 @@ import { VerificationCheckList } from './service/verificationCheck';
 import { VerificationCheckListInstance } from './service/verificationCheck';
 import { VerificationList } from './service/verification';
 import { VerificationListInstance } from './service/verification';
+import { WebhookList } from './service/webhook';
+import { WebhookListInstance } from './service/webhook';
 
 /**
  * Initialize the ServiceList
@@ -322,6 +324,7 @@ declare class ServiceContext {
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   verificationChecks: VerificationCheckListInstance;
   verifications: VerificationListInstance;
+  webhooks: WebhookListInstance;
 }
 
 
@@ -400,6 +403,10 @@ declare class ServiceInstance extends SerializableClass {
    * Access the verifications
    */
   verifications(): VerificationListInstance;
+  /**
+   * Access the webhooks
+   */
+  webhooks(): WebhookListInstance;
 }
 
 

@@ -48,6 +48,8 @@ interface ConversationInstanceRemoveOptions {
  * @property friendlyName - The human-readable name of this conversation.
  * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
  * @property state - Current state of this conversation.
+ * @property timers.closed - ISO8601 duration when conversation will be switched to `closed` state.
+ * @property timers.inactive - ISO8601 duration when conversation will be switched to `inactive` state.
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationInstanceUpdateOptions {
@@ -57,6 +59,10 @@ interface ConversationInstanceUpdateOptions {
   friendlyName?: string;
   messagingServiceSid?: string;
   state?: ConversationState;
+  timers?: {
+    inactive?: string;
+    closed?: string;
+  };
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
@@ -195,6 +201,8 @@ interface ConversationListInstance {
  * @property friendlyName - The human-readable name of this conversation.
  * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
  * @property state - Current state of this conversation.
+ * @property timers.closed - ISO8601 duration when conversation will be switched to `closed` state.
+ * @property timers.inactive - ISO8601 duration when conversation will be switched to `inactive` state.
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationListInstanceCreateOptions {
@@ -204,6 +212,10 @@ interface ConversationListInstanceCreateOptions {
   friendlyName?: string;
   messagingServiceSid?: string;
   state?: ConversationState;
+  timers?: {
+    inactive?: string;
+    closed?: string;
+  };
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
@@ -278,6 +290,7 @@ interface ConversationResource {
   messaging_service_sid: string;
   sid: string;
   state: ConversationState;
+  timers: object;
   url: string;
 }
 
@@ -390,6 +403,7 @@ declare class ConversationInstance extends SerializableClass {
   remove(opts?: ConversationInstanceRemoveOptions, callback?: (error: Error | null, items: ConversationInstance) => any): Promise<boolean>;
   sid: string;
   state: ConversationState;
+  timers: any;
   /**
    * Provide a user-friendly representation
    */

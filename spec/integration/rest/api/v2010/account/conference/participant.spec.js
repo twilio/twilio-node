@@ -430,6 +430,39 @@ describe('Participant', function() {
       }).done();
     }
   );
+  it('should generate valid create_with_friendly_name_jitter_buffer_size response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'label': null,
+          'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': 'Fri, 18 Feb 2011 21:07:19 +0000',
+          'date_updated': 'Fri, 18 Feb 2011 21:07:19 +0000',
+          'end_conference_on_exit': false,
+          'muted': false,
+          'hold': false,
+          'status': 'complete',
+          'start_conference_on_enter': true,
+          'coaching': false,
+          'call_sid_to_coach': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {from: '+15017122661', to: '+15558675310'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .participants.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid create_with_friendly_name_byoc response',
     function(done) {
       var body = {
@@ -446,6 +479,39 @@ describe('Participant', function() {
           'start_conference_on_enter': true,
           'coaching': false,
           'call_sid_to_coach': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {from: '+15017122661', to: '+15558675310'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .participants.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create_with_friendly_name_caller_id response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': 'Fri, 18 Feb 2011 21:07:19 +0000',
+          'date_updated': 'Fri, 18 Feb 2011 21:07:19 +0000',
+          'end_conference_on_exit': false,
+          'muted': false,
+          'hold': false,
+          'status': 'complete',
+          'start_conference_on_enter': true,
+          'coaching': false,
+          'call_sid_to_coach': null,
+          'label': null,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 

@@ -10,7 +10,7 @@ import Response = require('../../../../http/response');
 import V2 = require('../../V2');
 import { SerializableClass } from '../../../../interfaces';
 
-type SupportingDocumentStatus = 'draft'|'pending-review'|'rejected'|'approved'|'expired';
+type SupportingDocumentStatus = 'draft'|'pending-review'|'rejected'|'approved'|'expired'|'provisionally-approved';
 
 /**
  * Initialize the SupportingDocumentList

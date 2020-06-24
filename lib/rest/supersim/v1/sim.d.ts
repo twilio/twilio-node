@@ -12,7 +12,7 @@ import { SerializableClass } from '../../../interfaces';
 
 type SimStatus = 'new'|'ready'|'active'|'inactive'|'scheduled';
 
-type SimStatusUpdate = 'active'|'inactive';
+type SimStatusUpdate = 'ready'|'active'|'inactive';
 
 /**
  * Initialize the SimList

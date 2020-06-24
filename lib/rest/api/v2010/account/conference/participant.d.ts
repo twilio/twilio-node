@@ -178,6 +178,7 @@ interface ParticipantListInstance {
  * @property beep - Whether to play a notification beep to the conference when the participant joins
  * @property byoc - BYOC trunk SID (Beta)
  * @property callSidToCoach - The SID of the participant who is being `coached`
+ * @property callerId - The phone number, Client identifier, or username portion of SIP address that made this call.
  * @property coaching - Indicates if the participant changed to coach
  * @property conferenceRecord - Whether to record the conference the participant is joining
  * @property conferenceRecordingStatusCallback - The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available
@@ -189,7 +190,9 @@ interface ParticipantListInstance {
  * @property conferenceTrim - Whether to trim leading and trailing silence from your recorded conference audio files
  * @property earlyMedia - Whether agents can hear the state of the outbound call
  * @property endConferenceOnExit - Whether to end the conference when the participant leaves
- * @property from - The `from` phone number used to invite a participant
+ * @property from - The phone number, Client identifier, or username portion of SIP address that made this call.
+ * @property jitterBufferSize - Jitter Buffer size for the connecting participant
+ * @property label - The label of this participant
  * @property maxParticipants - The maximum number of agent conference participants
  * @property muted - Whether to mute the agent
  * @property record - Whether to record the participant and their conferences
@@ -205,7 +208,7 @@ interface ParticipantListInstance {
  * @property statusCallbackEvent - Set state change events that will trigger a callback
  * @property statusCallbackMethod - The HTTP method we should use to call `status_callback`
  * @property timeout - he number of seconds that we should wait for an answer
- * @property to - The number, client id, or sip address of the new participant
+ * @property to - The phone number, SIP address or Client identifier that received this call.
  * @property waitMethod - The HTTP method we should use to call `wait_url`
  * @property waitUrl - URL that hosts pre-conference hold music
  */
@@ -213,6 +216,7 @@ interface ParticipantListInstanceCreateOptions {
   beep?: string;
   byoc?: string;
   callSidToCoach?: string;
+  callerId?: string;
   coaching?: boolean;
   conferenceRecord?: string;
   conferenceRecordingStatusCallback?: string;
@@ -225,6 +229,8 @@ interface ParticipantListInstanceCreateOptions {
   earlyMedia?: boolean;
   endConferenceOnExit?: boolean;
   from: string;
+  jitterBufferSize?: string;
+  label?: string;
   maxParticipants?: number;
   muted?: boolean;
   record?: boolean;
@@ -333,6 +339,7 @@ interface ParticipantResource {
   date_updated: Date;
   end_conference_on_exit: boolean;
   hold: boolean;
+  label: string;
   muted: boolean;
   start_conference_on_enter: boolean;
   status: ParticipantStatus;
@@ -416,6 +423,7 @@ declare class ParticipantInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   hold: boolean;
+  label: string;
   muted: boolean;
   /**
    * remove a ParticipantInstance

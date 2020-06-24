@@ -7,7 +7,6 @@
 
 import Accounts = require('./Accounts');
 import Api = require('./Api');
-import Authy = require('./Authy');
 import Autopilot = require('./Autopilot');
 import Bulkexports = require('./Bulkexports');
 import Chat = require('./Chat');
@@ -51,7 +50,6 @@ declare class Twilio {
   api: Api;
   applications: (typeof Api.prototype.account.applications);
   authorizedConnectApps: (typeof Api.prototype.account.authorizedConnectApps);
-  authy: Authy;
   autopilot: Autopilot;
   availablePhoneNumbers: (typeof Api.prototype.account.availablePhoneNumbers);
   balance: (typeof Api.prototype.account.balance);

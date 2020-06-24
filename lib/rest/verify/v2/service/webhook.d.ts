@@ -7,13 +7,15 @@
 
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { FactorList } from './entity/factor';
-import { FactorListInstance } from './entity/factor';
+import V2 = require('../../V2');
 import { SerializableClass } from '../../../../interfaces';
 
+type WebhookMethods = 'GET'|'POST';
+
+type WebhookStatus = 'enabled'|'disabled';
+
 /**
- * Initialize the EntityList
+ * Initialize the WebhookList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
@@ -22,40 +24,37 @@ import { SerializableClass } from '../../../../interfaces';
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
  */
-declare function EntityList(version: V1, serviceSid: string): EntityListInstance;
+declare function WebhookList(version: V2, serviceSid: string): WebhookListInstance;
 
 /**
- * Options to pass to fetch
+ * Options to pass to update
  *
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
+ * @property eventTypes - The array of events that this Webhook is subscribed to.
+ * @property friendlyName - The string that you assigned to describe the webhook
+ * @property status - The webhook status
+ * @property webhookUrl - The URL associated with this Webhook.
  */
-interface EntityInstanceFetchOptions {
-  twilioSandboxMode?: string;
+interface WebhookInstanceUpdateOptions {
+  eventTypes?: string | string[];
+  friendlyName?: string;
+  status?: WebhookStatus;
+  webhookUrl?: string;
 }
 
-/**
- * Options to pass to remove
- *
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
- */
-interface EntityInstanceRemoveOptions {
-  twilioSandboxMode?: string;
-}
-
-interface EntityListInstance {
+interface WebhookListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): EntityContext;
+  (sid: string): WebhookContext;
   /**
-   * create a EntityInstance
+   * create a WebhookInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: EntityListInstanceCreateOptions, callback?: (error: Error | null, item: EntityInstance) => any): Promise<EntityInstance>;
+  create(opts: WebhookListInstanceCreateOptions, callback?: (error: Error | null, item: WebhookInstance) => any): Promise<WebhookInstance>;
   /**
-   * Streams EntityInstance records from the API.
+   * Streams WebhookInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -68,9 +67,9 @@ interface EntityListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: EntityInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams EntityInstance records from the API.
+   * Streams WebhookInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -84,15 +83,15 @@ interface EntityListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: EntityListInstanceEachOptions, callback?: (item: EntityInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: WebhookListInstanceEachOptions, callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a entity
+   * Constructs a webhook
    *
-   * @param identity - Unique identity of the Entity
+   * @param sid - The unique string that identifies the resource to fetch
    */
-  get(identity: string): EntityContext;
+  get(sid: string): WebhookContext;
   /**
-   * Retrieve a single target page of EntityInstance records from the API.
+   * Retrieve a single target page of WebhookInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -101,9 +100,9 @@ interface EntityListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: EntityPage) => any): Promise<EntityPage>;
+  getPage(callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
   /**
-   * Retrieve a single target page of EntityInstance records from the API.
+   * Retrieve a single target page of WebhookInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -113,18 +112,18 @@ interface EntityListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EntityPage) => any): Promise<EntityPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
   /**
-   * Lists EntityInstance records from the API as a list.
+   * Lists WebhookInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: EntityInstance[]) => any): Promise<EntityInstance[]>;
+  list(callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
   /**
-   * Lists EntityInstance records from the API as a list.
+   * Lists WebhookInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -132,9 +131,9 @@ interface EntityListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: EntityListInstanceOptions, callback?: (error: Error | null, items: EntityInstance[]) => any): Promise<EntityInstance[]>;
+  list(opts?: WebhookListInstanceOptions, callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
   /**
-   * Retrieve a single page of EntityInstance records from the API.
+   * Retrieve a single page of WebhookInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -143,9 +142,9 @@ interface EntityListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: EntityPage) => any): Promise<EntityPage>;
+  page(callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
   /**
-   * Retrieve a single page of EntityInstance records from the API.
+   * Retrieve a single page of WebhookInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -155,7 +154,7 @@ interface EntityListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: EntityListInstancePageOptions, callback?: (error: Error | null, items: EntityPage) => any): Promise<EntityPage>;
+  page(opts?: WebhookListInstancePageOptions, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -165,12 +164,16 @@ interface EntityListInstance {
 /**
  * Options to pass to create
  *
- * @property identity - Unique identity of the Entity
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
+ * @property eventTypes - The array of events that this Webhook is subscribed to.
+ * @property friendlyName - The string that you assigned to describe the webhook
+ * @property status - The webhook status
+ * @property webhookUrl - The URL associated with this Webhook.
  */
-interface EntityListInstanceCreateOptions {
-  identity: string;
-  twilioSandboxMode?: string;
+interface WebhookListInstanceCreateOptions {
+  eventTypes: string | string[];
+  friendlyName: string;
+  status?: WebhookStatus;
+  webhookUrl: string;
 }
 
 /**
@@ -190,14 +193,12 @@ interface EntityListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
-interface EntityListInstanceEachOptions {
-  callback?: (item: EntityInstance, done: (err?: Error) => void) => void;
+interface WebhookListInstanceEachOptions {
+  callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -213,12 +214,10 @@ interface EntityListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
-interface EntityListInstanceOptions {
+interface WebhookListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -227,37 +226,38 @@ interface EntityListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
-interface EntityListInstancePageOptions {
+interface WebhookListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  twilioSandboxMode?: string;
 }
 
-interface EntityPayload extends EntityResource, Page.TwilioResponsePayload {
+interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
 }
 
-interface EntityResource {
+interface WebhookResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
-  identity: string;
-  links: string;
+  event_types: string[];
+  friendly_name: string;
   service_sid: string;
   sid: string;
+  status: WebhookStatus;
   url: string;
+  webhook_method: WebhookMethods;
+  webhook_url: string;
 }
 
-interface EntitySolution {
+interface WebhookSolution {
   serviceSid?: string;
 }
 
 
-declare class EntityContext {
+declare class WebhookContext {
   /**
-   * Initialize the EntityContext
+   * Initialize the WebhookContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -265,47 +265,45 @@ declare class EntityContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
+   * @param sid - The unique string that identifies the resource to fetch
    */
-  constructor(version: V1, serviceSid: string, identity: string);
+  constructor(version: V2, serviceSid: string, sid: string);
 
-  factors: FactorListInstance;
   /**
-   * fetch a EntityInstance
+   * fetch a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   /**
-   * fetch a EntityInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  fetch(opts?: EntityInstanceFetchOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
-  /**
-   * remove a EntityInstance
+   * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
-  /**
-   * remove a EntityInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: EntityInstanceRemoveOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a WebhookInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
+  /**
+   * update a WebhookInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
 }
 
 
-declare class EntityInstance extends SerializableClass {
+declare class WebhookInstance extends SerializableClass {
   /**
-   * Initialize the EntityContext
+   * Initialize the WebhookContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -314,59 +312,57 @@ declare class EntityInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
+   * @param sid - The unique string that identifies the resource to fetch
    */
-  constructor(version: V1, payload: EntityPayload, serviceSid: string, identity: string);
+  constructor(version: V2, payload: WebhookPayload, serviceSid: string, sid: string);
 
-  private _proxy: EntityContext;
+  private _proxy: WebhookContext;
   accountSid: string;
   dateCreated: Date;
   dateUpdated: Date;
+  eventTypes: string[];
   /**
-   * Access the factors
-   */
-  factors(): FactorListInstance;
-  /**
-   * fetch a EntityInstance
+   * fetch a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
+  friendlyName: string;
   /**
-   * fetch a EntityInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  fetch(opts?: EntityInstanceFetchOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
-  identity: string;
-  links: string;
-  /**
-   * remove a EntityInstance
+   * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
-  /**
-   * remove a EntityInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: EntityInstanceRemoveOptions, callback?: (error: Error | null, items: EntityInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
+  status: WebhookStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a WebhookInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
+  /**
+   * update a WebhookInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   url: string;
+  webhookMethod: WebhookMethods;
+  webhookUrl: string;
 }
 
 
-declare class EntityPage extends Page<V1, EntityPayload, EntityResource, EntityInstance> {
+declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
-   * Initialize the EntityPage
+   * Initialize the WebhookPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -376,18 +372,18 @@ declare class EntityPage extends Page<V1, EntityPayload, EntityResource, EntityI
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: EntitySolution);
+  constructor(version: V2, response: Response<string>, solution: WebhookSolution);
 
   /**
-   * Build an instance of EntityInstance
+   * Build an instance of WebhookInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EntityPayload): EntityInstance;
+  getInstance(payload: WebhookPayload): WebhookInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { EntityContext, EntityInstance, EntityInstanceFetchOptions, EntityInstanceRemoveOptions, EntityList, EntityListInstance, EntityListInstanceCreateOptions, EntityListInstanceEachOptions, EntityListInstanceOptions, EntityListInstancePageOptions, EntityPage, EntityPayload, EntityResource, EntitySolution }
+export { WebhookContext, WebhookInstance, WebhookInstanceUpdateOptions, WebhookList, WebhookListInstance, WebhookListInstanceCreateOptions, WebhookListInstanceEachOptions, WebhookListInstanceOptions, WebhookListInstancePageOptions, WebhookMethods, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution, WebhookStatus }
