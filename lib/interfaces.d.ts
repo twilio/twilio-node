@@ -8,6 +8,7 @@ export type PhoneNumberCapabilities = {
   mms: boolean;
   sms: boolean;
   voice: boolean;
+  fax: boolean;
 }
 
 export type Sid = string;
