@@ -283,6 +283,7 @@ interface BundleResource {
   status: BundleStatus;
   status_callback: string;
   url: string;
+  valid_until: Date;
 }
 
 interface BundleSolution {
@@ -306,6 +307,12 @@ declare class BundleContext {
    */
   fetch(callback?: (error: Error | null, items: BundleInstance) => any): Promise<BundleInstance>;
   itemAssignments: ItemAssignmentListInstance;
+  /**
+   * remove a BundleInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: BundleInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -358,6 +365,12 @@ declare class BundleInstance extends SerializableClass {
   itemAssignments(): ItemAssignmentListInstance;
   links: string;
   regulationSid: string;
+  /**
+   * remove a BundleInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: BundleInstance) => any): Promise<boolean>;
   sid: string;
   status: BundleStatus;
   statusCallback: string;
@@ -379,6 +392,7 @@ declare class BundleInstance extends SerializableClass {
    */
   update(opts?: BundleInstanceUpdateOptions, callback?: (error: Error | null, items: BundleInstance) => any): Promise<BundleInstance>;
   url: string;
+  validUntil: Date;
 }
 
 

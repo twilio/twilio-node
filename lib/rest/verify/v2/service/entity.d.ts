@@ -8,8 +8,8 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
-import { AccessTokenList } from './entity/accessToken';
-import { AccessTokenListInstance } from './entity/accessToken';
+import { ChallengeList } from './entity/challenge';
+import { ChallengeListInstance } from './entity/challenge';
 import { FactorList } from './entity/factor';
 import { FactorListInstance } from './entity/factor';
 import { SerializableClass } from '../../../../interfaces';
@@ -90,7 +90,7 @@ interface EntityListInstance {
   /**
    * Constructs a entity
    *
-   * @param identity - Unique identity of the Entity
+   * @param identity - Unique external identifier of the Entity
    */
   get(identity: string): EntityContext;
   /**
@@ -167,7 +167,7 @@ interface EntityListInstance {
 /**
  * Options to pass to create
  *
- * @property identity - Unique identity of the Entity
+ * @property identity - Unique external identifier of the Entity
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface EntityListInstanceCreateOptions {
@@ -267,11 +267,11 @@ declare class EntityContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
+   * @param identity - Unique external identifier of the Entity
    */
   constructor(version: V2, serviceSid: string, identity: string);
 
-  accessTokens: AccessTokenListInstance;
+  challenges: ChallengeListInstance;
   factors: FactorListInstance;
   /**
    * fetch a EntityInstance
@@ -317,16 +317,16 @@ declare class EntityInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
+   * @param identity - Unique external identifier of the Entity
    */
   constructor(version: V2, payload: EntityPayload, serviceSid: string, identity: string);
 
   private _proxy: EntityContext;
-  /**
-   * Access the accessTokens
-   */
-  accessTokens(): AccessTokenListInstance;
   accountSid: string;
+  /**
+   * Access the challenges
+   */
+  challenges(): ChallengeListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   /**

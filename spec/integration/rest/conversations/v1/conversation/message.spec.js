@@ -68,7 +68,18 @@ describe('Message', function() {
           'date_created': '2015-12-16T22:18:37Z',
           'date_updated': '2015-12-16T22:18:38Z',
           'index': 0,
-          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'delivery': {
+              'total': 2,
+              'sent': 'all',
+              'delivered': 'some',
+              'read': 'some',
+              'failed': 'none',
+              'undelivered': 'none'
+          },
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+          }
       };
 
       holodeck.mock(new Response(201, body));
@@ -104,7 +115,18 @@ describe('Message', function() {
           'date_created': '2015-12-16T22:18:37Z',
           'date_updated': '2015-12-16T22:18:38Z',
           'index': 0,
-          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'delivery': {
+              'total': 2,
+              'sent': 'all',
+              'delivered': 'some',
+              'read': 'some',
+              'failed': 'none',
+              'undelivered': 'none'
+          },
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+          }
       };
 
       holodeck.mock(new Response(201, body));
@@ -159,7 +181,18 @@ describe('Message', function() {
           'date_created': '2015-12-16T22:18:37Z',
           'date_updated': '2015-12-16T22:18:38Z',
           'index': 0,
-          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'delivery': {
+              'total': 2,
+              'sent': 'all',
+              'delivered': 'some',
+              'read': 'some',
+              'failed': 'none',
+              'undelivered': 'none'
+          },
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+          }
       };
 
       holodeck.mock(new Response(200, body));
@@ -253,7 +286,18 @@ describe('Message', function() {
           'date_created': '2016-03-24T20:37:57Z',
           'date_updated': '2016-03-24T20:37:57Z',
           'index': 0,
-          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'delivery': {
+              'total': 2,
+              'sent': 'all',
+              'delivered': 'some',
+              'read': 'some',
+              'failed': 'none',
+              'undelivered': 'none'
+          },
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+          }
       };
 
       holodeck.mock(new Response(200, body));
@@ -293,7 +337,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:37:57Z',
                   'date_updated': '2016-03-24T20:37:57Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               },
               {
                   'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -307,7 +362,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:38:21Z',
                   'date_updated': '2016-03-24T20:38:21Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               },
               {
                   'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -328,7 +394,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:38:21Z',
                   'date_updated': '2016-03-24T20:38:21Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               }
           ]
       };
@@ -362,7 +439,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:37:57Z',
                   'date_updated': '2016-03-24T20:37:57Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               },
               {
                   'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -376,7 +464,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:38:21Z',
                   'date_updated': '2016-03-24T20:38:21Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               },
               {
                   'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -397,7 +496,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:38:21Z',
                   'date_updated': '2016-03-24T20:38:21Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               }
           ]
       };
@@ -436,7 +546,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:37:57Z',
                   'date_updated': '2016-03-24T20:37:57Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               },
               {
                   'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -450,7 +571,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:38:21Z',
                   'date_updated': '2016-03-24T20:38:21Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               },
               {
                   'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -471,7 +603,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:38:21Z',
                   'date_updated': '2016-03-24T20:38:21Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               }
           ]
       };
@@ -527,7 +670,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:37:57Z',
                   'date_updated': '2016-03-24T20:37:57Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               },
               {
                   'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -541,7 +695,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:38:21Z',
                   'date_updated': '2016-03-24T20:38:21Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               },
               {
                   'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -562,7 +727,18 @@ describe('Message', function() {
                   'date_created': '2016-03-24T20:38:21Z',
                   'date_updated': '2016-03-24T20:38:21Z',
                   'index': 0,
-                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'delivery': {
+                      'total': 2,
+                      'sent': 'all',
+                      'delivered': 'some',
+                      'read': 'some',
+                      'failed': 'none',
+                      'undelivered': 'none'
+                  },
+                  'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+                  }
               }
           ]
       };

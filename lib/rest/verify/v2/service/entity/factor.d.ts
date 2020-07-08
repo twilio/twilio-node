@@ -8,13 +8,11 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2 = require('../../../V2');
-import { ChallengeList } from './factor/challenge';
-import { ChallengeListInstance } from './factor/challenge';
 import { SerializableClass } from '../../../../../interfaces';
 
 type FactorFactorStatuses = 'unverified'|'verified';
 
-type FactorFactorTypes = 'app-push'|'sms'|'totp'|'push';
+type FactorFactorTypes = 'push';
 
 /**
  * Initialize the FactorList
@@ -25,7 +23,7 @@ type FactorFactorTypes = 'app-push'|'sms'|'totp'|'push';
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
- * @param identity - Unique identity of the Entity
+ * @param identity - Unique external identifier of the Entity
  */
 declare function FactorList(version: V2, serviceSid: string, identity: string): FactorListInstance;
 
@@ -276,7 +274,6 @@ interface FactorResource {
   factor_type: FactorFactorTypes;
   friendly_name: string;
   identity: string;
-  links: string;
   service_sid: string;
   sid: string;
   status: FactorFactorStatuses;
@@ -299,12 +296,11 @@ declare class FactorContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
+   * @param identity - Unique external identifier of the Entity
    * @param sid - A string that uniquely identifies this Factor.
    */
   constructor(version: V2, serviceSid: string, identity: string, sid: string);
 
-  challenges: ChallengeListInstance;
   /**
    * fetch a FactorInstance
    *
@@ -362,17 +358,13 @@ declare class FactorInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
+   * @param identity - Unique external identifier of the Entity
    * @param sid - A string that uniquely identifies this Factor.
    */
   constructor(version: V2, payload: FactorPayload, serviceSid: string, identity: string, sid: string);
 
   private _proxy: FactorContext;
   accountSid: string;
-  /**
-   * Access the challenges
-   */
-  challenges(): ChallengeListInstance;
   config: any;
   dateCreated: Date;
   dateUpdated: Date;
@@ -393,7 +385,6 @@ declare class FactorInstance extends SerializableClass {
   fetch(opts?: FactorInstanceFetchOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<FactorInstance>;
   friendlyName: string;
   identity: string;
-  links: string;
   /**
    * remove a FactorInstance
    *

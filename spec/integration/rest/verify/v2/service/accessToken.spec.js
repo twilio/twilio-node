@@ -9,14 +9,14 @@
  */
 /* jshint ignore:end */
 
-var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
+var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
-    '../../../../../../../lib/http/request');  /* jshint ignore:line */
+    '../../../../../../lib/http/request');  /* jshint ignore:line */
 var Response = require(
-    '../../../../../../../lib/http/response');  /* jshint ignore:line */
+    '../../../../../../lib/http/response');  /* jshint ignore:line */
 var RestException = require(
-    '../../../../../../../lib/base/RestException');  /* jshint ignore:line */
-var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
+    '../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -33,9 +33,8 @@ describe('AccessToken', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {factorType: 'push'};
+      var opts = {identity: 'identity', factorType: 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .entities('identity')
                                     .accessTokens.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -45,10 +44,9 @@ describe('AccessToken', function() {
       }).done();
 
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var identity = 'identity';
-      var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/AccessTokens`;
+      var url = `https://verify.twilio.com/v2/Services/${serviceSid}/AccessTokens`;
 
-      var values = {FactorType: 'push', };
+      var values = {Identity: 'identity', FactorType: 'push', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -64,9 +62,8 @@ describe('AccessToken', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {factorType: 'push'};
+      var opts = {identity: 'identity', factorType: 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .entities('identity')
                                     .accessTokens.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

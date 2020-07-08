@@ -5,10 +5,10 @@
  *       /       /
  */
 
-import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2 = require('../../../V2');
-import { SerializableClass } from '../../../../../interfaces';
+import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
+import V2 = require('../../V2');
+import { SerializableClass } from '../../../../interfaces';
 
 type AccessTokenFactorTypes = 'push';
 
@@ -20,10 +20,9 @@ type AccessTokenFactorTypes = 'push';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param serviceSid - Service Sid.
- * @param identity - Unique identity of the Entity
+ * @param serviceSid - The unique string that identifies the resource
  */
-declare function AccessTokenList(version: V2, serviceSid: string, identity: string): AccessTokenListInstance;
+declare function AccessTokenList(version: V2, serviceSid: string): AccessTokenListInstance;
 
 interface AccessTokenListInstance {
   /**
@@ -43,9 +42,11 @@ interface AccessTokenListInstance {
  * Options to pass to create
  *
  * @property factorType - The Type of this Factor
+ * @property identity - Unique external identifier of the Entity
  */
 interface AccessTokenListInstanceCreateOptions {
   factorType: AccessTokenFactorTypes;
+  identity: string;
 }
 
 interface AccessTokenPayload extends AccessTokenResource, Page.TwilioResponsePayload {
@@ -56,7 +57,6 @@ interface AccessTokenResource {
 }
 
 interface AccessTokenSolution {
-  identity?: string;
   serviceSid?: string;
 }
 
@@ -71,10 +71,9 @@ declare class AccessTokenInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
+   * @param serviceSid - The unique string that identifies the resource
    */
-  constructor(version: V2, payload: AccessTokenPayload, serviceSid: string, identity: string);
+  constructor(version: V2, payload: AccessTokenPayload, serviceSid: string);
 
   /**
    * Provide a user-friendly representation

@@ -33,7 +33,7 @@ describe('Form', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.verify.v2.forms('form-app-push').fetch();
+      var promise = client.verify.v2.forms('form-push').fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,7 +41,7 @@ describe('Form', function() {
         done();
       }).done();
 
-      var formType = 'form-app-push';
+      var formType = 'form-push';
       var url = `https://verify.twilio.com/v2/Forms/${formType}`;
 
       holodeck.assertHasRequest(new Request({
@@ -53,19 +53,19 @@ describe('Form', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = {
-          'form_type': 'form-sms',
+          'form_type': 'form-push',
           'forms': {
               'create_factor': {},
               'verify_factor': {},
               'create_challenge': {}
           },
           'form_meta': {},
-          'url': 'https://verify.twilio.com/v2/Forms/form-sms'
+          'url': 'https://verify.twilio.com/v2/Forms/form-push'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.verify.v2.forms('form-app-push').fetch();
+      var promise = client.verify.v2.forms('form-push').fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
