@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2020-07-22] Version 3.48.1
+---------------------------
+**Api**
+- Add optional Click Tracking and Scheduling parameters to Create action of Message resource
+
+**Supersim**
+- Add callback_url and callback_method parameters to Sim resource update request
+
+
 [2020-07-08] Version 3.48.0
 ---------------------------
 **Library - Fix**
