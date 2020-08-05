@@ -5,8 +5,8 @@ export type Url = string;
 export type PhoneNumber = string;
 
 export type PhoneNumberCapabilities = {
-  mms: boolean;
-  sms: boolean;
+  MMS: boolean;
+  SMS: boolean;
   voice: boolean;
   fax: boolean;
 }
