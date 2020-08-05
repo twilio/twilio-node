@@ -33,11 +33,13 @@ declare function SessionList(version: V1, serviceSid: string): SessionListInstan
  * Options to pass to update
  *
  * @property dateExpiry - The ISO 8601 date when the Session should expire
+ * @property failOnParticipantConflict - Opt-in to enable Proxy to return 400 on detected conflict on re-open request.
  * @property status - The new status of the resource
  * @property ttl - When the session will expire
  */
 interface SessionInstanceUpdateOptions {
   dateExpiry?: Date;
+  failOnParticipantConflict?: boolean;
   status?: SessionStatus;
   ttl?: number;
 }
