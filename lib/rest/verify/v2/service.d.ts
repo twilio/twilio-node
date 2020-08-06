@@ -8,6 +8,8 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2 = require('../V2');
+import { AccessTokenList } from './service/accessToken';
+import { AccessTokenListInstance } from './service/accessToken';
 import { EntityList } from './service/entity';
 import { EntityListInstance } from './service/entity';
 import { MessagingConfigurationList } from './service/messagingConfiguration';
@@ -39,6 +41,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  * @property friendlyName - A string to describe the verification service
  * @property lookupEnabled - Whether to perform a lookup with each verification
  * @property psd2Enabled - Whether to pass PSD2 transaction parameters when starting a verification
+ * @property push - Optional service level push factors configuration
  * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
  * @property ttsName - The name of an alternative text-to-speech service to use in phone calls
  */
@@ -50,6 +53,7 @@ interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
   lookupEnabled?: boolean;
   psd2Enabled?: boolean;
+  push?: object;
   skipSmsToLandlines?: boolean;
   ttsName?: string;
 }
@@ -184,6 +188,7 @@ interface ServiceListInstance {
  * @property friendlyName - A string to describe the verification service
  * @property lookupEnabled - Whether to perform a lookup with each verification
  * @property psd2Enabled - Whether to pass PSD2 transaction parameters when starting a verification
+ * @property push - Optional service level push factors configuration
  * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
  * @property ttsName - The name of an alternative text-to-speech service to use in phone calls
  */
@@ -195,6 +200,7 @@ interface ServiceListInstanceCreateOptions {
   friendlyName: string;
   lookupEnabled?: boolean;
   psd2Enabled?: boolean;
+  push?: object;
   skipSmsToLandlines?: boolean;
   ttsName?: string;
 }
@@ -271,6 +277,7 @@ interface ServiceResource {
   links: string;
   lookup_enabled: boolean;
   psd2_enabled: boolean;
+  push: object;
   sid: string;
   skip_sms_to_landlines: boolean;
   tts_name: string;
@@ -290,6 +297,7 @@ declare class ServiceContext {
    */
   constructor(version: V2, sid: string);
 
+  accessTokens: AccessTokenListInstance;
   entities: EntityListInstance;
   /**
    * fetch a ServiceInstance
@@ -339,6 +347,10 @@ declare class ServiceInstance extends SerializableClass {
   constructor(version: V2, payload: ServicePayload, sid: string);
 
   private _proxy: ServiceContext;
+  /**
+   * Access the accessTokens
+   */
+  accessTokens(): AccessTokenListInstance;
   accountSid: string;
   codeLength: number;
   customCodeEnabled: boolean;
@@ -364,6 +376,7 @@ declare class ServiceInstance extends SerializableClass {
    */
   messagingConfigurations(): MessagingConfigurationListInstance;
   psd2Enabled: boolean;
+  push: any;
   /**
    * Access the rateLimits
    */

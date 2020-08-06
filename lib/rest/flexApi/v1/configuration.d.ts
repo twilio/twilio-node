@@ -84,7 +84,6 @@ interface ConfigurationResource {
   ui_language: string;
   ui_version: string;
   url: string;
-  wfm_integrations: object[];
 }
 
 interface ConfigurationSolution {
@@ -207,7 +206,6 @@ declare class ConfigurationInstance extends SerializableClass {
    */
   update(callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   url: string;
-  wfmIntegrations: object[];
 }
 
 

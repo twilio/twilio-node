@@ -5,16 +5,16 @@
  *       /       /
  */
 
-import Page = require('../../../../../../base/Page');
-import Response = require('../../../../../../http/response');
-import V2 = require('../../../../V2');
-import { SerializableClass } from '../../../../../../interfaces';
+import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
+import V2 = require('../../../V2');
+import { SerializableClass } from '../../../../../interfaces';
 
 type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
 
 type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
 
-type ChallengeFactorTypes = 'app-push'|'sms'|'totp'|'push';
+type ChallengeFactorTypes = 'push';
 
 /**
  * Initialize the ChallengeList
@@ -25,10 +25,9 @@ type ChallengeFactorTypes = 'app-push'|'sms'|'totp'|'push';
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
- * @param identity - Unique identity of the Entity
- * @param factorSid - Factor Sid.
+ * @param identity - Unique external identifier of the Entity
  */
-declare function ChallengeList(version: V2, serviceSid: string, identity: string, factorSid: string): ChallengeListInstance;
+declare function ChallengeList(version: V2, serviceSid: string, identity: string): ChallengeListInstance;
 
 /**
  * Options to pass to fetch
@@ -36,15 +35,6 @@ declare function ChallengeList(version: V2, serviceSid: string, identity: string
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceFetchOptions {
-  twilioSandboxMode?: string;
-}
-
-/**
- * Options to pass to remove
- *
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
- */
-interface ChallengeInstanceRemoveOptions {
   twilioSandboxMode?: string;
 }
 
@@ -67,16 +57,10 @@ interface ChallengeListInstance {
   /**
    * create a ChallengeInstance
    *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  /**
-   * create a ChallengeInstance
-   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: ChallengeListInstanceCreateOptions, callback?: (error: Error | null, item: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  create(opts: ChallengeListInstanceCreateOptions, callback?: (error: Error | null, item: ChallengeInstance) => any): Promise<ChallengeInstance>;
   /**
    * Streams ChallengeInstance records from the API.
    *
@@ -111,7 +95,7 @@ interface ChallengeListInstance {
   /**
    * Constructs a challenge
    *
-   * @param sid - A string that uniquely identifies this Challenge, or `latest`.
+   * @param sid - A string that uniquely identifies this Challenge.
    */
   get(sid: string): ChallengeContext;
   /**
@@ -190,12 +174,14 @@ interface ChallengeListInstance {
  *
  * @property details - Public details provided to contextualize the Challenge
  * @property expirationDate - The future date in which this Challenge will expire
+ * @property factorSid - Factor Sid.
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceCreateOptions {
   details?: string;
   expirationDate?: Date;
+  factorSid: string;
   hiddenDetails?: string;
   twilioSandboxMode?: string;
 }
@@ -207,6 +193,7 @@ interface ChallengeListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
+ * @property factorSid - Factor Sid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -223,6 +210,7 @@ interface ChallengeListInstanceCreateOptions {
 interface ChallengeListInstanceEachOptions {
   callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void;
   done?: Function;
+  factorSid?: string;
   limit?: number;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
@@ -232,6 +220,7 @@ interface ChallengeListInstanceEachOptions {
 /**
  * Options to pass to list
  *
+ * @property factorSid - Factor Sid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -246,6 +235,7 @@ interface ChallengeListInstanceEachOptions {
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceOptions {
+  factorSid?: string;
   limit?: number;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
@@ -255,6 +245,7 @@ interface ChallengeListInstanceOptions {
 /**
  * Options to pass to page
  *
+ * @property factorSid - Factor Sid.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -262,6 +253,7 @@ interface ChallengeListInstanceOptions {
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstancePageOptions {
+  factorSid?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -292,7 +284,6 @@ interface ChallengeResource {
 }
 
 interface ChallengeSolution {
-  factorSid?: string;
   identity?: string;
   serviceSid?: string;
 }
@@ -308,11 +299,10 @@ declare class ChallengeContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
-   * @param factorSid - Factor Sid.
-   * @param sid - A string that uniquely identifies this Challenge, or `latest`.
+   * @param identity - Unique external identifier of the Entity
+   * @param sid - A string that uniquely identifies this Challenge.
    */
-  constructor(version: V2, serviceSid: string, identity: string, factorSid: string, sid: string);
+  constructor(version: V2, serviceSid: string, identity: string, sid: string);
 
   /**
    * fetch a ChallengeInstance
@@ -327,19 +317,6 @@ declare class ChallengeContext {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  /**
-   * remove a ChallengeInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
-  /**
-   * remove a ChallengeInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: ChallengeInstanceRemoveOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -371,11 +348,10 @@ declare class ChallengeInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
-   * @param identity - Unique identity of the Entity
-   * @param factorSid - Factor Sid.
-   * @param sid - A string that uniquely identifies this Challenge, or `latest`.
+   * @param identity - Unique external identifier of the Entity
+   * @param sid - A string that uniquely identifies this Challenge.
    */
-  constructor(version: V2, payload: ChallengePayload, serviceSid: string, identity: string, factorSid: string, sid: string);
+  constructor(version: V2, payload: ChallengePayload, serviceSid: string, identity: string, sid: string);
 
   private _proxy: ChallengeContext;
   accountSid: string;
@@ -402,19 +378,6 @@ declare class ChallengeInstance extends SerializableClass {
   fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   hiddenDetails: string;
   identity: string;
-  /**
-   * remove a ChallengeInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
-  /**
-   * remove a ChallengeInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: ChallengeInstanceRemoveOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<boolean>;
   respondedReason: ChallengeChallengeReasons;
   serviceSid: string;
   sid: string;
@@ -466,4 +429,4 @@ declare class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource
   toJSON(): any;
 }
 
-export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceFetchOptions, ChallengeInstanceRemoveOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
+export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceFetchOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }

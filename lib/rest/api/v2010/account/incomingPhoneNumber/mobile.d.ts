@@ -294,6 +294,7 @@ interface MobileResource {
   sms_fallback_url: string;
   sms_method: string;
   sms_url: string;
+  status: string;
   status_callback: string;
   status_callback_method: string;
   trunk_sid: string;
@@ -303,6 +304,7 @@ interface MobileResource {
   voice_fallback_method: string;
   voice_fallback_url: string;
   voice_method: string;
+  voice_receive_mode: MobileVoiceReceiveMode;
   voice_url: string;
 }
 
@@ -342,6 +344,7 @@ declare class MobileInstance extends SerializableClass {
   smsFallbackUrl: string;
   smsMethod: string;
   smsUrl: string;
+  status: string;
   statusCallback: string;
   statusCallbackMethod: string;
   /**
@@ -355,6 +358,7 @@ declare class MobileInstance extends SerializableClass {
   voiceFallbackMethod: string;
   voiceFallbackUrl: string;
   voiceMethod: string;
+  voiceReceiveMode: MobileVoiceReceiveMode;
   voiceUrl: string;
 }
 

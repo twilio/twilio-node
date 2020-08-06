@@ -9,14 +9,14 @@
  */
 /* jshint ignore:end */
 
-var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
+var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
-    '../../../../../../../lib/http/request');  /* jshint ignore:line */
+    '../../../../../../lib/http/request');  /* jshint ignore:line */
 var Response = require(
-    '../../../../../../../lib/http/response');  /* jshint ignore:line */
+    '../../../../../../lib/http/response');  /* jshint ignore:line */
 var RestException = require(
-    '../../../../../../../lib/base/RestException');  /* jshint ignore:line */
-var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
+    '../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -33,9 +33,8 @@ describe('AccessToken', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {factorType: 'push'};
+      var opts = {identity: 'identity', factorType: 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .entities('identity')
                                     .accessTokens.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -45,10 +44,9 @@ describe('AccessToken', function() {
       }).done();
 
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var identity = 'identity';
-      var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/AccessTokens`;
+      var url = `https://verify.twilio.com/v2/Services/${serviceSid}/AccessTokens`;
 
-      var values = {FactorType: 'push', };
+      var values = {Identity: 'identity', FactorType: 'push', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -59,14 +57,13 @@ describe('AccessToken', function() {
   it('should generate valid create response',
     function(done) {
       var body = {
-          'token': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'token': 'eyJ6aXAiOiJERUYiLCJraWQiOiJTQVNfUzNfX19LTVNfdjEiLCJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsImVuYyI6IkEyNTZHQ00iLCJhbGciOiJkaXIifQ..qjltWfIgQaTwp2De.81Z_6W4kR-hdlAUvJQCbwS8CQ7QAoFRkOvNMoySEj8zEB4BAY3MXhPARfaK4Lnr4YceA2cXEmrzPKQ7bPm0XZMGYm1fqLYzAR8YAqUetI9WEdQLFytg1h4XnJnXhgd99eNXsLkpKHhsCnFkchV9eGpRrdrfB0STR5Xq0fdakomb98iuIFt1XtP0_iqxvxQZKe1O4035XhK_ELVwQBz_qdI77XRZBFM0REAzlnEOe61nOcQxkaIM9Qel9L7RPhcndcCPFAyYjxo6Ri5c4vOnszLDiHmeK9Ep9fRE5-Oz0px0ZEg_FgTUEPFPo2OHQj076H1plJnFr-qPINDJkUL_i7loqG1IlapOi1JSlflPH-Ebj4hhpBdMIcs-OX7jhqzmVqkIKWkpPyPEmfvY2-eA5Zpoo08YpqAJ3G1l_xEcHl28Ijkefj1mdb6E8POx41skAwXCpdfIbzWzV_VjFpmwhacS3JZNt9C4hVG4Yp-RGPEl1C7aJHRIUavAmoRHaXbfG20zzv5Zu0P5PcopDszzoqVfZpzc.GCt35DWTurtP-QaIL5aBSQ'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {factorType: 'push'};
+      var opts = {identity: 'identity', factorType: 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .entities('identity')
                                     .accessTokens.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

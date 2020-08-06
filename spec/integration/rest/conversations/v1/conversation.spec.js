@@ -87,6 +87,38 @@ describe('Conversation', function() {
       }).done();
     }
   );
+  it('should generate valid create_no_timers_no_attributes response',
+    function(done) {
+      var body = {
+          'sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'chat_service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'friendly_name': 'friendly_name',
+          'attributes': '{}',
+          'date_created': '2020-07-01T22:18:37Z',
+          'date_updated': '2020-07-01T22:18:37Z',
+          'state': 'active',
+          'timers': {},
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'participants': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
+              'messages': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages',
+              'webhooks': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks'
+          }
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.conversations.v1.conversations.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, {}));

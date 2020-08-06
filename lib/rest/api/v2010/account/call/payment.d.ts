@@ -36,10 +36,10 @@ declare function PaymentList(version: V2010, accountSid: string, callSid: string
 /**
  * Options to pass to update
  *
- * @property capture - Specific payment source information to expect.
- * @property idempotencyKey - A unique token for each payment session that should be provided to maintain idempotency of the session.
- * @property status - Instruction to complete or cancel the transaction.
- * @property statusCallback - The URL we should call to send status of payment session.
+ * @property capture - The piece of payment information that you wish the caller to enter.
+ * @property idempotencyKey - A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions.
+ * @property status - Indicates whether the current payment session should be cancelled or completed.
+ * @property statusCallback - Provide an absolute or relative URL to receive status updates regarding your Pay session.
  */
 interface PaymentInstanceUpdateOptions {
   capture?: PaymentCapture;
@@ -75,22 +75,22 @@ interface PaymentListInstance {
 /**
  * Options to pass to create
  *
- * @property bankAccountType - If Payment source is ACH, type of bank account.
- * @property chargeAmount - If this field is present and greater than `0.0` payment source will be charged.
- * @property currency - Currency `charge_amount` is in.
- * @property description - Decription of the charge.
- * @property idempotencyKey - A unique token for each payment session that should be provided to maintain idempotency of the session.
- * @property input - Kind of medium customer would enter payment source information in.
- * @property minPostalCodeLength - If postal code is expected, minimum length of the postal code.
- * @property parameter - Additonal data to be sent over to payment provider.
- * @property paymentConnector - Payment connector that you would like Twilio to use for processing payments.
- * @property paymentMethod - Payment source type.
- * @property postalCode - Whether to expect postal code during payment source data gathering.
- * @property securityCode - Whether to expect security code during payment source data gathering.
- * @property statusCallback - The URL we should call to send status of payment session.
- * @property timeout - The number of seconds that we should allow customer to enter payment information
- * @property tokenType - If tokenization of payment source is desired, this represents type of token.
- * @property validCardTypes - List of card types accepted with each card types separated by space.
+ * @property bankAccountType - Type of bank account if payment source is ACH.
+ * @property chargeAmount - A positive decimal value less than 1,000,000 to charge against the credit card or bank account.
+ * @property currency - The currency of the `charge_amount`.
+ * @property description - The description can be used to provide more details regarding the transaction.
+ * @property idempotencyKey - A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions.
+ * @property input - A list of inputs that should be accepted. Currently only `dtmf` is supported.
+ * @property minPostalCodeLength - A positive integer that is used to validate the length of the `PostalCode` inputted by the user.
+ * @property parameter - A single level JSON string that is required when accepting certain information specific only to ACH payments.
+ * @property paymentConnector - This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons.
+ * @property paymentMethod - Type of payment being captured.
+ * @property postalCode - Indicates whether the credit card PostalCode (zip code) is a required piece of payment information that must be provided by the caller.
+ * @property securityCode - Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller.
+ * @property statusCallback - Provide an absolute or relative URL to receive status updates regarding your Pay session..
+ * @property timeout - The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured.
+ * @property tokenType - Indicates whether the payment method should be tokenized as a `one-time` or `reusable` token.
+ * @property validCardTypes - Credit card types separated by space that Pay should accept.
  */
 interface PaymentListInstanceCreateOptions {
   bankAccountType?: PaymentBankAccountType;

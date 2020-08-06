@@ -142,6 +142,66 @@ describe('Participant', function() {
       }).done();
     }
   );
+  it('should generate valid create_gmms_chat_no_attributes response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identity': 'IDENTITY',
+          'attributes': '{}',
+          'messaging_binding': {
+              'type': 'sms',
+              'projected_address': '+15017122661'
+          },
+          'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2020-07-01T22:18:37Z',
+          'date_updated': '2020-07-01T22:18:37Z',
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .participants.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create_gmms_sms_no_attributes response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identity': 'null',
+          'attributes': '{}',
+          'messaging_binding': {
+              'type': 'sms',
+              'address': '+15017122661'
+          },
+          'role_sid': 'null',
+          'date_created': '2020-07-01T22:18:37Z',
+          'date_updated': '2020-07-01T22:18:37Z',
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .participants.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, {}));
@@ -180,6 +240,36 @@ describe('Participant', function() {
               'type': 'sms',
               'address': '+15558675310',
               'proxy_address': '+15017122661'
+          },
+          'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-12-16T22:18:37Z',
+          'date_updated': '2015-12-16T22:18:38Z',
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid update_gmms response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identity': 'id',
+          'attributes': '{ \'role\': \'driver\' }',
+          'messaging_binding': {
+              'type': 'sms',
+              'projected_address': '+15017122661'
           },
           'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-12-16T22:18:37Z',
