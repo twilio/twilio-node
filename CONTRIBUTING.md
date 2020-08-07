@@ -105,7 +105,7 @@ Before you submit your pull request consider the following guidelines:
 * Make your changes in a new git branch:
 
     ```shell
-    git checkout -b my-fix-branch master
+    git checkout -b my-fix-branch main
     ```
 
 * Create your patch, **including appropriate test cases**.
@@ -132,7 +132,7 @@ Before you submit your pull request consider the following guidelines:
     git push origin my-fix-branch
     ```
 
-In GitHub, send a pull request to `twilio-node:master`.
+In GitHub, send a pull request to `twilio-node:main`.
 If we suggest changes, then:
 
 * Make the required updates.
