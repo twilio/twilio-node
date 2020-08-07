@@ -63,6 +63,7 @@ interface VerificationListInstance {
  * @property channel - The verification method to use
  * @property channelConfiguration - Channel specific configuration in json format.
  * @property customCode - A pre-generated code
+ * @property customFriendlyName - A custom user defined friendly name
  * @property customMessage - The text of a custom message to use for the verification
  * @property locale - The locale to use for the verification SMS or call
  * @property payee - The payee of the associated PSD2 compliant transaction
@@ -76,6 +77,7 @@ interface VerificationListInstanceCreateOptions {
   channel: string;
   channelConfiguration?: object;
   customCode?: string;
+  customFriendlyName?: string;
   customMessage?: string;
   locale?: string;
   payee?: string;

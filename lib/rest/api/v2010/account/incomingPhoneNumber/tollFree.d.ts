@@ -294,6 +294,7 @@ interface TollFreeResource {
   sms_fallback_url: string;
   sms_method: string;
   sms_url: string;
+  status: string;
   status_callback: string;
   status_callback_method: string;
   trunk_sid: string;
@@ -303,6 +304,7 @@ interface TollFreeResource {
   voice_fallback_method: string;
   voice_fallback_url: string;
   voice_method: string;
+  voice_receive_mode: TollFreeVoiceReceiveMode;
   voice_url: string;
 }
 
@@ -342,6 +344,7 @@ declare class TollFreeInstance extends SerializableClass {
   smsFallbackUrl: string;
   smsMethod: string;
   smsUrl: string;
+  status: string;
   statusCallback: string;
   statusCallbackMethod: string;
   /**
@@ -355,6 +358,7 @@ declare class TollFreeInstance extends SerializableClass {
   voiceFallbackMethod: string;
   voiceFallbackUrl: string;
   voiceMethod: string;
+  voiceReceiveMode: TollFreeVoiceReceiveMode;
   voiceUrl: string;
 }
 

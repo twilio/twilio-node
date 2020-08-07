@@ -141,6 +141,46 @@ describe('Message', function() {
       }).done();
     }
   );
+  it('should generate valid create_no_attributes response',
+    function(done) {
+      var body = {
+          'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'body': 'Hello',
+          'media': null,
+          'author': 'message author',
+          'participant_sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'attributes': '{}',
+          'date_created': '2020-07-01T22:18:37Z',
+          'date_updated': '2020-07-01T22:18:37Z',
+          'index': 0,
+          'delivery': {
+              'total': 2,
+              'sent': 'all',
+              'delivered': 'some',
+              'read': 'some',
+              'failed': 'none',
+              'undelivered': 'none'
+          },
+          'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'delivery_receipts': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts'
+          }
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .messages.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, {}));
