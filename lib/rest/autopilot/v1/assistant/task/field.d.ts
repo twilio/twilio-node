@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  *
  * @param version - Version of the resource
  * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
- * @param taskSid - The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
+ * @param taskSid - The SID of the {@link https://www.twilio.com/docs/autopilot/api/task|Task} resource associated with this Field
  */
 declare function FieldList(version: V1, assistantSid: string, taskSid: string): FieldListInstance;
 
@@ -242,7 +242,7 @@ declare class FieldContext {
    *
    * @param version - Version of the resource
    * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource to fetch
-   * @param taskSid - The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resource to fetch
+   * @param taskSid - The SID of the {@link https://www.twilio.com/docs/autopilot/api/task|Task} resource associated with the Field resource to fetch
    * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, assistantSid: string, taskSid: string, sid: string);
@@ -277,7 +277,7 @@ declare class FieldInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param assistantSid - The SID of the Assistant that is the parent of the Task associated with the resource
-   * @param taskSid - The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with this Field
+   * @param taskSid - The SID of the {@link https://www.twilio.com/docs/autopilot/api/task|Task} resource associated with this Field
    * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: FieldPayload, assistantSid: string, taskSid: string, sid: string);

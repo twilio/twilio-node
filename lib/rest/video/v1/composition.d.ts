@@ -176,7 +176,7 @@ interface CompositionListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedAfter - Read only Composition resources created on or after this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
  * @property dateCreatedBefore - Read only Composition resources created before this ISO 8601 date-time with time zone
  * @property done - Function to be called upon completion of streaming
  * @property limit -
@@ -206,7 +206,7 @@ interface CompositionListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedAfter - Read only Composition resources created on or after this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
  * @property dateCreatedBefore - Read only Composition resources created before this ISO 8601 date-time with time zone
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -233,7 +233,7 @@ interface CompositionListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedAfter - Read only Composition resources created on or after this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
  * @property dateCreatedBefore - Read only Composition resources created before this ISO 8601 date-time with time zone
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50

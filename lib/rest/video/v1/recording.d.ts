@@ -144,8 +144,8 @@ interface RecordingListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dateCreatedAfter - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
- * @property dateCreatedBefore - Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedAfter - Read only recordings that started on or after this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
+ * @property dateCreatedBefore - Read only recordings that started before this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
  * @property done - Function to be called upon completion of streaming
  * @property groupingSid - Read only recordings that have this grouping_sid
  * @property limit -
@@ -178,8 +178,8 @@ interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedAfter - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
- * @property dateCreatedBefore - Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedAfter - Read only recordings that started on or after this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
+ * @property dateCreatedBefore - Read only recordings that started before this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
  * @property groupingSid - Read only recordings that have this grouping_sid
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -209,8 +209,8 @@ interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedAfter - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
- * @property dateCreatedBefore - Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+ * @property dateCreatedAfter - Read only recordings that started on or after this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
+ * @property dateCreatedBefore - Read only recordings that started before this {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601} date-time with time zone
  * @property groupingSid - Read only recordings that have this grouping_sid
  * @property mediaType - Read only recordings that have this media type
  * @property pageNumber - Page Number, this value is simply for client state
