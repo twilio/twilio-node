@@ -149,7 +149,7 @@ interface IpRecordListInstance {
 /**
  * Options to pass to create
  *
- * @property cidrPrefixLength - An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+ * @property cidrPrefixLength - An integer representing the length of the {@link https://tools.ietf.org/html/rfc4632|CIDR} prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
  * @property friendlyName - A string to describe the resource
  * @property ipAddress - An IP address in dotted decimal notation, IPv4 only.
  */
