@@ -27,7 +27,7 @@ declare function ApplicationList(version: V2010, accountSid: string): Applicatio
  * @property smsFallbackMethod - The HTTP method to use with sms_fallback_url
  * @property smsFallbackUrl - The URL to call when an error occurs while retrieving or executing the TwiML
  * @property smsMethod - The HTTP method to use with sms_url
- * @property smsStatusCallback - The URL to send status information to your application
+ * @property smsStatusCallback - Same as message_status_callback. Deprecated, included for backwards compatibility.
  * @property smsUrl - The URL to call when the phone number receives an incoming SMS message
  * @property statusCallback - The URL to send status information to your application
  * @property statusCallbackMethod - The HTTP method to use to call status_callback

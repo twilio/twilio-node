@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the SubscribeRulesList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param roomSid - The SID of the Room resource for the Subscribe Rules
  * @param participantSid - The SID of the Participant resource for the Subscribe Rules
@@ -78,9 +75,6 @@ declare class SubscribeRulesInstance extends SerializableClass {
   /**
    * Initialize the SubscribeRulesContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param roomSid - The SID of the Room resource for the Subscribe Rules
@@ -103,9 +97,6 @@ declare class SubscribeRulesInstance extends SerializableClass {
 declare class SubscribeRulesPage extends Page<V1, SubscribeRulesPayload, SubscribeRulesResource, SubscribeRulesInstance> {
   /**
    * Initialize the SubscribeRulesPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

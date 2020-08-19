@@ -38,6 +38,7 @@ interface ParticipantInstanceRemoveOptions {
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
+ * @property identity - A unique string identifier for the conversation participant as Chat User.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
  * @property roleSid - The SID of the Role to assign to the participant
@@ -47,6 +48,7 @@ interface ParticipantInstanceUpdateOptions {
   attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
+  identity?: string;
   messagingBinding?: {
     proxyAddress?: string;
     projectedAddress?: string;

@@ -12,11 +12,9 @@ import { SerializableClass } from '../../../interfaces';
 
 type UsageRecordGranularity = 'hour'|'day'|'all';
 
-type UsageRecordGroup = 'sim';
+type UsageRecordGroup = 'sim'|'fleet'|'network'|'isoCountry';
 
 type UsageRecordSortBy = 'time';
-
-type UsageRecordSortOrder = 'desc'|'asc';
 
 /**
  * Initialize the UsageRecordList
@@ -140,26 +138,34 @@ interface UsageRecordListInstance {
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
  * @property endTime - Only include usage that occurred before this time.
+ * @property fleet - SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
  * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
+ * @property group - Dimension over which to aggregate usage records.
+ * @property isoCountry - Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property network - SID of a Network resource. Only show UsageRecords representing usage on this network.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property sim - SID of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+ * @property sim - SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
  * @property startTime - Only include usage that occurred at or after this time.
  */
 interface UsageRecordListInstanceEachOptions {
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
   done?: Function;
   endTime?: Date;
+  fleet?: string;
   granularity?: UsageRecordGranularity;
+  group?: UsageRecordGroup;
+  isoCountry?: string;
   limit?: number;
+  network?: string;
   pageSize?: number;
   sim?: string;
   startTime?: Date;
@@ -169,24 +175,32 @@ interface UsageRecordListInstanceEachOptions {
  * Options to pass to list
  *
  * @property endTime - Only include usage that occurred before this time.
+ * @property fleet - SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
  * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
+ * @property group - Dimension over which to aggregate usage records.
+ * @property isoCountry - Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property network - SID of a Network resource. Only show UsageRecords representing usage on this network.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property sim - SID of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+ * @property sim - SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
  * @property startTime - Only include usage that occurred at or after this time.
  */
 interface UsageRecordListInstanceOptions {
   endTime?: Date;
+  fleet?: string;
   granularity?: UsageRecordGranularity;
+  group?: UsageRecordGroup;
+  isoCountry?: string;
   limit?: number;
+  network?: string;
   pageSize?: number;
   sim?: string;
   startTime?: Date;
@@ -196,16 +210,24 @@ interface UsageRecordListInstanceOptions {
  * Options to pass to page
  *
  * @property endTime - Only include usage that occurred before this time.
+ * @property fleet - SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
  * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
+ * @property group - Dimension over which to aggregate usage records.
+ * @property isoCountry - Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+ * @property network - SID of a Network resource. Only show UsageRecords representing usage on this network.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property sim - SID of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+ * @property sim - SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
  * @property startTime - Only include usage that occurred at or after this time.
  */
 interface UsageRecordListInstancePageOptions {
   endTime?: Date;
+  fleet?: string;
   granularity?: UsageRecordGranularity;
+  group?: UsageRecordGroup;
+  isoCountry?: string;
+  network?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -221,6 +243,9 @@ interface UsageRecordResource {
   data_download: number;
   data_total: number;
   data_upload: number;
+  fleet_sid: string;
+  iso_country: string;
+  network_sid: string;
   period: object;
   sim_sid: string;
 }
@@ -246,6 +271,9 @@ declare class UsageRecordInstance extends SerializableClass {
   dataDownload: number;
   dataTotal: number;
   dataUpload: number;
+  fleetSid: string;
+  isoCountry: string;
+  networkSid: string;
   period: any;
   simSid: string;
   /**
@@ -281,4 +309,4 @@ declare class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordRe
   toJSON(): any;
 }
 
-export { UsageRecordGranularity, UsageRecordGroup, UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordListInstanceEachOptions, UsageRecordListInstanceOptions, UsageRecordListInstancePageOptions, UsageRecordPage, UsageRecordPayload, UsageRecordResource, UsageRecordSolution, UsageRecordSortBy, UsageRecordSortOrder }
+export { UsageRecordGranularity, UsageRecordGroup, UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordListInstanceEachOptions, UsageRecordListInstanceOptions, UsageRecordListInstancePageOptions, UsageRecordPage, UsageRecordPayload, UsageRecordResource, UsageRecordSolution, UsageRecordSortBy }
