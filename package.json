@@ -33,7 +33,7 @@
     "xmlbuilder": "^13.0.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.112",
+    "@types/lodash": "4.14.112",
     "@types/node": "^9.6.57",
     "eslint": "^7.3.1",
     "express": "^4.17.1",
