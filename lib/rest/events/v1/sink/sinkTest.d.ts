@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param sid - The sid
+ * @param sid - A string that uniquely identifies this Sink.
  */
 declare function SinkTestList(version: V1, sid: string): SinkTestListInstance;
 
@@ -57,7 +57,7 @@ declare class SinkTestInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A string that uniquely identifies this Sink.
    */
   constructor(version: V1, payload: SinkTestPayload, sid: string);
 

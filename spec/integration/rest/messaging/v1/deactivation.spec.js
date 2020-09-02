@@ -22,7 +22,7 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('Export', function() {
+describe('Deactivations', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -33,7 +33,7 @@ describe('Export', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.bulkexports.v1.exports('resource_type').fetch();
+      var promise = client.messaging.v1.deactivations().fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,8 +41,7 @@ describe('Export', function() {
         done();
       }).done();
 
-      var resourceType = 'resource_type';
-      var url = `https://bulkexports.twilio.com/v1/Exports/${resourceType}`;
+      var url = 'https://messaging.twilio.com/v1/Deactivations';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -53,16 +52,12 @@ describe('Export', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = {
-          'resource_type': 'Messages',
-          'url': 'https://bulkexports.twilio.com/v1/Exports/Messages',
-          'links': {
-              'days': 'https://bulkexports.twilio.com/v1/Exports/Messages/Days'
-          }
+          'redirect_to': 'https://www.twilio.com'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.bulkexports.v1.exports('resource_type').fetch();
+      var promise = client.messaging.v1.deactivations().fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

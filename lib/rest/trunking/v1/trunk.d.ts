@@ -20,6 +20,8 @@ import { SerializableClass } from '../../../interfaces';
 
 type TrunkRecordingSetting = 'do-not-record'|'record-from-ringing'|'record-from-answer';
 
+type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
+
 /**
  * Initialize the TrunkList
  *
@@ -37,6 +39,7 @@ declare function TrunkList(version: V1): TrunkListInstance;
  * @property friendlyName - A string to describe the resource
  * @property recording - The recording settings for the trunk
  * @property secure - Whether Secure Trunking is enabled for the trunk
+ * @property transferMode - The call transfer settings for the trunk
  */
 interface TrunkInstanceUpdateOptions {
   cnamLookupEnabled?: boolean;
@@ -46,6 +49,7 @@ interface TrunkInstanceUpdateOptions {
   friendlyName?: string;
   recording?: TrunkRecordingSetting;
   secure?: boolean;
+  transferMode?: TrunkTransferSetting;
 }
 
 interface TrunkListInstance {
@@ -184,6 +188,7 @@ interface TrunkListInstance {
  * @property friendlyName - A string to describe the resource
  * @property recording - The recording settings for the trunk
  * @property secure - Whether Secure Trunking is enabled for the trunk
+ * @property transferMode - The call transfer settings for the trunk
  */
 interface TrunkListInstanceCreateOptions {
   cnamLookupEnabled?: boolean;
@@ -193,6 +198,7 @@ interface TrunkListInstanceCreateOptions {
   friendlyName?: string;
   recording?: TrunkRecordingSetting;
   secure?: boolean;
+  transferMode?: TrunkTransferSetting;
 }
 
 /**
@@ -270,6 +276,7 @@ interface TrunkResource {
   recording: object;
   secure: boolean;
   sid: string;
+  transfer_mode: TrunkTransferSetting;
   url: string;
 }
 
@@ -379,6 +386,7 @@ declare class TrunkInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  transferMode: TrunkTransferSetting;
   /**
    * update a TrunkInstance
    *
@@ -418,4 +426,4 @@ declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInsta
   toJSON(): any;
 }
 
-export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkRecordingSetting, TrunkResource, TrunkSolution }
+export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkRecordingSetting, TrunkResource, TrunkSolution, TrunkTransferSetting }

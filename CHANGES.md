@@ -1,6 +1,33 @@
 twilio-node changelog
 =====================
 
+[2020-09-02] Version 3.49.1
+---------------------------
+**Library - Fix**
+- [PR #605](https://github.com/twilio/twilio-node/pull/605): allow lower versions of typescript (2.5). Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Ai**
+- Initial release
+
+**Bulkexports**
+- removing public beta feature flag from BulkExports Jobs API
+
+**Messaging**
+- Add Deactivation List API
+- Added page token parameter for fetch in WhatsApp Templates API
+
+**Numbers**
+- Add API endpoint for End User deletion
+
+**Routes**
+- Add Resource Route Configurations API
+- Add Route Configurations API
+- Initial Release
+
+**Trunking**
+- Added `transfer_mode` property on Trunks.
+
+
 [2020-08-19] Version 3.49.0
 ---------------------------
 **Library - Docs**

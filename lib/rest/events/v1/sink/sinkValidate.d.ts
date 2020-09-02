@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param sid - The sid
+ * @param sid - A string that uniquely identifies this Sink.
  */
 declare function SinkValidateList(version: V1, sid: string): SinkValidateListInstance;
 
@@ -39,7 +39,7 @@ interface SinkValidateListInstance {
 /**
  * Options to pass to create
  *
- * @property testId - The test_id
+ * @property testId - A string that uniquely identifies the test event for a Sink being validated.
  */
 interface SinkValidateListInstanceCreateOptions {
   testId: string;
@@ -67,7 +67,7 @@ declare class SinkValidateInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A string that uniquely identifies this Sink.
    */
   constructor(version: V1, payload: SinkValidatePayload, sid: string);
 

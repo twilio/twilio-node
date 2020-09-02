@@ -69,7 +69,7 @@ interface SubscriptionListInstance {
   /**
    * Constructs a subscription
    *
-   * @param sid - The sid
+   * @param sid - A string that uniquely identifies this Subscription.
    */
   get(sid: string): SubscriptionContext;
   /**
@@ -146,9 +146,9 @@ interface SubscriptionListInstance {
 /**
  * Options to pass to create
  *
- * @property description - The description
- * @property sinkSid - The sink_sid
- * @property types - The types
+ * @property description - Subscription description
+ * @property sinkSid - Sink SID.
+ * @property types - Nested resource URLs.
  */
 interface SubscriptionListInstanceCreateOptions {
   description: string;
@@ -240,7 +240,7 @@ declare class SubscriptionContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A string that uniquely identifies this Subscription.
    */
   constructor(version: V1, sid: string);
 
@@ -274,7 +274,7 @@ declare class SubscriptionInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A string that uniquely identifies this Subscription.
    */
   constructor(version: V1, payload: SubscriptionPayload, sid: string);
 

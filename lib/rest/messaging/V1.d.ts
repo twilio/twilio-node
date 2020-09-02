@@ -7,6 +7,8 @@
 
 import Messaging = require('../Messaging');
 import Version = require('../../base/Version');
+import { DeactivationsList } from './v1/deactivation';
+import { DeactivationsListInstance } from './v1/deactivation';
 import { ServiceList } from './v1/service';
 import { ServiceListInstance } from './v1/service';
 
@@ -19,6 +21,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Messaging);
 
+  readonly deactivations: DeactivationsListInstance;
   readonly services: ServiceListInstance;
 }
 

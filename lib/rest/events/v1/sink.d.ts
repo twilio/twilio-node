@@ -75,7 +75,7 @@ interface SinkListInstance {
   /**
    * Constructs a sink
    *
-   * @param sid - The sid
+   * @param sid - A string that uniquely identifies this Sink.
    */
   get(sid: string): SinkContext;
   /**
@@ -152,9 +152,9 @@ interface SinkListInstance {
 /**
  * Options to pass to create
  *
- * @property description - The description
- * @property sinkConfiguration - The sink_configuration
- * @property sinkType - The sink_type
+ * @property description - Sink Description
+ * @property sinkConfiguration - JSON Sink configuration.
+ * @property sinkType - Sink type.
  */
 interface SinkListInstanceCreateOptions {
   description: string;
@@ -247,7 +247,7 @@ declare class SinkContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A string that uniquely identifies this Sink.
    */
   constructor(version: V1, sid: string);
 
@@ -282,7 +282,7 @@ declare class SinkInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A string that uniquely identifies this Sink.
    */
   constructor(version: V1, payload: SinkPayload, sid: string);
 

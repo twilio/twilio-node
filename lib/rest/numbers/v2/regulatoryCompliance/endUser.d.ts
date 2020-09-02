@@ -254,6 +254,12 @@ declare class EndUserContext {
    */
   fetch(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<EndUserInstance>;
   /**
+   * remove a EndUserInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<boolean>;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -295,6 +301,12 @@ declare class EndUserInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<EndUserInstance>;
   friendlyName: string;
+  /**
+   * remove a EndUserInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<boolean>;
   sid: string;
   /**
    * Provide a user-friendly representation

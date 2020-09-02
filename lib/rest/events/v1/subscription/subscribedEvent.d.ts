@@ -18,14 +18,14 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param subscriptionSid - The subscription_sid
+ * @param subscriptionSid - Subscription SID.
  */
 declare function SubscribedEventList(version: V1, subscriptionSid: string): SubscribedEventListInstance;
 
 /**
  * Options to pass to update
  *
- * @property version - The version
+ * @property version - The schema version that the subscription should use.
  */
 interface SubscribedEventInstanceUpdateOptions {
   version: number;
@@ -77,7 +77,7 @@ interface SubscribedEventListInstance {
   /**
    * Constructs a subscribed_event
    *
-   * @param type - The type
+   * @param type - Type of event being subscribed to.
    */
   get(type: string): SubscribedEventContext;
   /**
@@ -154,8 +154,8 @@ interface SubscribedEventListInstance {
 /**
  * Options to pass to create
  *
- * @property type - The type
- * @property version - The version
+ * @property type - Type of event being subscribed to.
+ * @property version - The schema version that the subscription should use.
  */
 interface SubscribedEventListInstanceCreateOptions {
   type: string;
@@ -244,8 +244,8 @@ declare class SubscribedEventContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param subscriptionSid - The subscription_sid
-   * @param type - The type
+   * @param subscriptionSid - Subscription SID.
+   * @param type - Type of event being subscribed to.
    */
   constructor(version: V1, subscriptionSid: string, type: string);
 
@@ -279,8 +279,8 @@ declare class SubscribedEventInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param subscriptionSid - The subscription_sid
-   * @param type - The type
+   * @param subscriptionSid - Subscription SID.
+   * @param type - Type of event being subscribed to.
    */
   constructor(version: V1, payload: SubscribedEventPayload, subscriptionSid: string, type: string);
 
