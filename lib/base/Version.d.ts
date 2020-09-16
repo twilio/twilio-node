@@ -26,7 +26,7 @@ declare class Version {
   request(opts: TwilioClient.RequestOptions): Promise<any>;
   /**
    * Fetch a instance of a record
-   * @throws {Error} If response returns non 2xx status code
+   * @throws {Error} If response returns non 2xx or 3xx status code
    *
    * @param  opts request options
    * @return promise that resolves to fetched result
