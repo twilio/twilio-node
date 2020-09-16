@@ -196,6 +196,31 @@ describe('Sim', function() {
       }).done();
     }
   );
+  it('should generate valid transfer_sim_to_another_account response',
+    function(done) {
+      var body = {
+          'sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+          'unique_name': null,
+          'status': 'new',
+          'fleet_sid': 'HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'iccid': 'iccid',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.supersim.v1.sims('HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should treat the first each arg as a callback',
     function(done) {
       var body = {

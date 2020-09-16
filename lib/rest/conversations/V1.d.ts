@@ -7,8 +7,20 @@
 
 import Conversations = require('../Conversations');
 import Version = require('../../base/Version');
+import { ConfigurationList } from './v1/configuration';
+import { ConfigurationListInstance } from './v1/configuration';
 import { ConversationList } from './v1/conversation';
 import { ConversationListInstance } from './v1/conversation';
+import { CredentialList } from './v1/credential';
+import { CredentialListInstance } from './v1/credential';
+import { NotificationList } from './v1/notification';
+import { NotificationListInstance } from './v1/notification';
+import { RoleList } from './v1/role';
+import { RoleListInstance } from './v1/role';
+import { ServiceList } from './v1/service';
+import { ServiceListInstance } from './v1/service';
+import { UserList } from './v1/user';
+import { UserListInstance } from './v1/user';
 import { WebhookList } from './v1/webhook';
 import { WebhookListInstance } from './v1/webhook';
 
@@ -21,7 +33,13 @@ declare class V1 extends Version {
    */
   constructor(domain: Conversations);
 
+  readonly configuration: ConfigurationListInstance;
   readonly conversations: ConversationListInstance;
+  readonly credentials: CredentialListInstance;
+  readonly notifications: NotificationListInstance;
+  readonly roles: RoleListInstance;
+  readonly services: ServiceListInstance;
+  readonly users: UserListInstance;
   readonly webhooks: WebhookListInstance;
 }
 

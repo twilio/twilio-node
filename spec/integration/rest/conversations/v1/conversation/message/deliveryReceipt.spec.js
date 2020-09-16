@@ -58,6 +58,7 @@ describe('DeliveryReceipt', function() {
     function(done) {
       var body = {
           'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -97,6 +98,7 @@ describe('DeliveryReceipt', function() {
           'delivery_receipts': [
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -109,6 +111,7 @@ describe('DeliveryReceipt', function() {
               },
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -121,6 +124,7 @@ describe('DeliveryReceipt', function() {
               },
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -154,6 +158,7 @@ describe('DeliveryReceipt', function() {
           'delivery_receipts': [
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -166,6 +171,7 @@ describe('DeliveryReceipt', function() {
               },
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -178,6 +184,7 @@ describe('DeliveryReceipt', function() {
               },
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -216,6 +223,7 @@ describe('DeliveryReceipt', function() {
           'delivery_receipts': [
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -228,6 +236,7 @@ describe('DeliveryReceipt', function() {
               },
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -240,6 +249,7 @@ describe('DeliveryReceipt', function() {
               },
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -297,6 +307,7 @@ describe('DeliveryReceipt', function() {
           'delivery_receipts': [
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -309,6 +320,7 @@ describe('DeliveryReceipt', function() {
               },
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -321,6 +333,7 @@ describe('DeliveryReceipt', function() {
               },
               {
                   'sid': 'DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'message_sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_message_sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',

@@ -34,7 +34,7 @@ declare function ServiceList(version: V1): ServiceListInstance;
  *
  * @property friendlyName - A string to describe the Service resource
  * @property includeCredentials - Whether to inject Account credentials into a function invocation context
- * @property uiEditable - Whether the Service's properties and subresources can be edited via the UI
+ * @property uiEditable - Whether the Service resource's properties and subresources can be edited via the UI
  */
 interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
@@ -168,7 +168,7 @@ interface ServiceListInstance {
  * @property friendlyName - A string to describe the Service resource
  * @property includeCredentials - Whether to inject Account credentials into a function invocation context
  * @property uiEditable - Whether the Service's properties and subresources can be edited via the UI
- * @property uniqueName - An application-defined string that uniquely identifies the Service resource
+ * @property uniqueName - A user-defined string that uniquely identifies the Service resource
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;

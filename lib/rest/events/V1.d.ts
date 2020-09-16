@@ -7,6 +7,8 @@
 
 import Events = require('../Events');
 import Version = require('../../base/Version');
+import { EventTypeList } from './v1/eventType';
+import { EventTypeListInstance } from './v1/eventType';
 import { SinkList } from './v1/sink';
 import { SinkListInstance } from './v1/sink';
 import { SubscriptionList } from './v1/subscription';
@@ -21,6 +23,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Events);
 
+  readonly eventTypes: EventTypeListInstance;
   readonly sinks: SinkListInstance;
   readonly subscriptions: SubscriptionListInstance;
 }

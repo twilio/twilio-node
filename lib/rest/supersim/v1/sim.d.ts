@@ -28,6 +28,7 @@ declare function SimList(version: V1): SimListInstance;
 /**
  * Options to pass to update
  *
+ * @property accountSid - The SID of the Account to which the Sim resource should belong
  * @property callbackMethod - The HTTP method we should use to call callback_url
  * @property callbackUrl - The URL we should call after the update has finished
  * @property fleet - The SID or unique name of the Fleet to which the SIM resource should be assigned
@@ -35,6 +36,7 @@ declare function SimList(version: V1): SimListInstance;
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface SimInstanceUpdateOptions {
+  accountSid?: string;
   callbackMethod?: string;
   callbackUrl?: string;
   fleet?: string;

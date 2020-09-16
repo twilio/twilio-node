@@ -203,6 +203,7 @@ interface ConversationListInstance {
  * @property state - Current state of this conversation.
  * @property timers.closed - ISO8601 duration when conversation will be switched to `closed` state.
  * @property timers.inactive - ISO8601 duration when conversation will be switched to `inactive` state.
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationListInstanceCreateOptions {
@@ -216,6 +217,7 @@ interface ConversationListInstanceCreateOptions {
     inactive?: string;
     closed?: string;
   };
+  uniqueName?: string;
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
@@ -291,6 +293,7 @@ interface ConversationResource {
   sid: string;
   state: ConversationState;
   timers: object;
+  unique_name: string;
   url: string;
 }
 
@@ -408,6 +411,7 @@ declare class ConversationInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  uniqueName: string;
   /**
    * update a ConversationInstance
    *

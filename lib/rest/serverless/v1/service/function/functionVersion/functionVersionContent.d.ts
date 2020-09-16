@@ -68,7 +68,7 @@ declare class FunctionVersionContentContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Function Version content from
-   * @param functionSid - The SID of the function that is the parent of the Function Version content to fetch
+   * @param functionSid - The SID of the Function that is the parent of the Function Version content to fetch
    * @param sid - The SID that identifies the Function Version content to fetch
    */
   constructor(version: V1, serviceSid: string, functionSid: string, sid: string);

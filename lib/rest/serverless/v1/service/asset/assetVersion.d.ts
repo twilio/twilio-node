@@ -21,7 +21,7 @@ type AssetVersionVisibility = 'public'|'private'|'protected';
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Asset Version resource is associated with
- * @param assetSid - The SID of the Asset resource that is the parent of the asset version
+ * @param assetSid - The SID of the Asset resource that is the parent of the Asset Version
  */
 declare function AssetVersionList(version: V1, serviceSid: string, assetSid: string): AssetVersionListInstance;
 
@@ -254,7 +254,7 @@ declare class AssetVersionInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the Asset Version resource is associated with
-   * @param assetSid - The SID of the Asset resource that is the parent of the asset version
+   * @param assetSid - The SID of the Asset resource that is the parent of the Asset Version
    * @param sid - The SID that identifies the Asset Version resource to fetch
    */
   constructor(version: V1, payload: AssetVersionPayload, serviceSid: string, assetSid: string, sid: string);

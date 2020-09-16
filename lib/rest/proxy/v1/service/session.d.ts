@@ -33,7 +33,7 @@ declare function SessionList(version: V1, serviceSid: string): SessionListInstan
  * Options to pass to update
  *
  * @property dateExpiry - The ISO 8601 date when the Session should expire
- * @property failOnParticipantConflict - An experimental flag that instructs Proxy to return 400 instead of 200 when it detects that conflicts would result from re-open requests.
+ * @property failOnParticipantConflict - An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
  * @property status - The new status of the resource
  * @property ttl - When the session will expire
  */
@@ -174,7 +174,7 @@ interface SessionListInstance {
  * Options to pass to create
  *
  * @property dateExpiry - The ISO 8601 date when the Session should expire
- * @property failOnParticipantConflict - An experimental flag that instructs Proxy to reject a Session create request when it detects a Participant conflict.
+ * @property failOnParticipantConflict - An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
  * @property mode - The Mode of the Session
  * @property participants - The Participant objects to include in the new session
  * @property status - Session status

@@ -258,6 +258,12 @@ declare class SupportingDocumentContext {
    */
   fetch(callback?: (error: Error | null, items: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>;
   /**
+   * remove a SupportingDocumentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SupportingDocumentInstance) => any): Promise<boolean>;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -300,6 +306,12 @@ declare class SupportingDocumentInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: SupportingDocumentInstance) => any): Promise<SupportingDocumentInstance>;
   friendlyName: string;
   mimeType: string;
+  /**
+   * remove a SupportingDocumentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SupportingDocumentInstance) => any): Promise<boolean>;
   sid: string;
   status: SupportingDocumentStatus;
   /**

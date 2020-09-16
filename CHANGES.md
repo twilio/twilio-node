@@ -1,6 +1,33 @@
 twilio-node changelog
 =====================
 
+[2020-09-16] Version 3.49.2
+---------------------------
+**Library - Fix**
+- [PR #614](https://github.com/twilio/twilio-node/pull/614): Prevent throwing an exception on 3xx response status code. Thanks to [@Saka7](https://github.com/Saka7)!
+
+**Conversations**
+- Expose Configuration and Service Configuration resources
+- Add Unique Name support for Conversations
+- Add Services Push Notification resource
+- Add Service scoped Conversation resources
+- Support Identity in Users resource endpoint
+
+**Messaging**
+- GA Deactivation List API
+- Add domain cert API's(fetch, update, create) for link tracker
+
+**Numbers**
+- Add API endpoint for Supporting Document deletion
+
+**Proxy**
+- Updated usage of FailOnParticipantConflict param to apply only to accounts with ProxyAllowParticipantConflict account flag
+
+**Supersim**
+- Add `AccountSid` parameter to Sim resource update request
+- Add `ready` status as an available status for a Sim resource
+
+
 [2020-09-02] Version 3.49.1
 ---------------------------
 **Library - Fix**

@@ -23,7 +23,7 @@ type FunctionVersionVisibility = 'public'|'private'|'protected';
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Function Version resource is associated with
- * @param functionSid - The SID of the function that is the parent of the function version
+ * @param functionSid - The SID of the Function resource that is the parent of the Function Version resource
  */
 declare function FunctionVersionList(version: V1, serviceSid: string, functionSid: string): FunctionVersionListInstance;
 
@@ -258,7 +258,7 @@ declare class FunctionVersionInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the Function Version resource is associated with
-   * @param functionSid - The SID of the function that is the parent of the function version
+   * @param functionSid - The SID of the Function resource that is the parent of the Function Version resource
    * @param sid - The SID that identifies the Function Version resource to fetch
    */
   constructor(version: V1, payload: FunctionVersionPayload, serviceSid: string, functionSid: string, sid: string);

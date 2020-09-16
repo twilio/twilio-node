@@ -60,7 +60,7 @@ describe('Participant', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'identity': 'null',
+          'identity': null,
           'attributes': '{ \'role\': \'driver\' }',
           'messaging_binding': {
               'type': 'sms',
@@ -178,13 +178,13 @@ describe('Participant', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'identity': 'null',
+          'identity': null,
           'attributes': '{}',
           'messaging_binding': {
               'type': 'sms',
               'address': '+15017122661'
           },
-          'role_sid': 'null',
+          'role_sid': null,
           'date_created': '2020-07-01T22:18:37Z',
           'date_updated': '2020-07-01T22:18:37Z',
           'url': 'https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -234,7 +234,7 @@ describe('Participant', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'identity': 'null',
+          'identity': null,
           'attributes': '{ \'role\': \'driver\' }',
           'messaging_binding': {
               'type': 'sms',
@@ -360,7 +360,7 @@ describe('Participant', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'identity': 'null',
+          'identity': null,
           'attributes': '{ \'role\': \'driver\' }',
           'messaging_binding': {
               'type': 'sms',
@@ -402,7 +402,7 @@ describe('Participant', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'identity': 'null',
+                  'identity': null,
                   'attributes': '{ \'role\': \'driver\' }',
                   'messaging_binding': {
                       'type': 'sms',
@@ -450,7 +450,7 @@ describe('Participant', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'identity': 'null',
+                  'identity': null,
                   'attributes': '{ \'role\': \'driver\' }',
                   'messaging_binding': {
                       'type': 'sms',
@@ -503,7 +503,7 @@ describe('Participant', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'identity': 'null',
+                  'identity': null,
                   'attributes': '{ \'role\': \'driver\' }',
                   'messaging_binding': {
                       'type': 'sms',
@@ -573,7 +573,7 @@ describe('Participant', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'conversation_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'identity': 'null',
+                  'identity': null,
                   'attributes': '{ \'role\': \'driver\' }',
                   'messaging_binding': {
                       'type': 'sms',

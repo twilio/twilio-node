@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Deployment resource is associated with
- * @param environmentSid - The SID of the environment for the deployment
+ * @param environmentSid - The SID of the Environment for the Deployment
  */
 declare function DeploymentList(version: V1, serviceSid: string, environmentSid: string): DeploymentListInstance;
 
@@ -152,7 +152,7 @@ interface DeploymentListInstance {
 /**
  * Options to pass to create
  *
- * @property buildSid - The SID of the build for the deployment
+ * @property buildSid - The SID of the Build for the Deployment
  */
 interface DeploymentListInstanceCreateOptions {
   buildSid?: string;
@@ -245,7 +245,7 @@ declare class DeploymentContext {
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Deployment resource from
-   * @param environmentSid - The SID of the environment used by the Deployment to fetch
+   * @param environmentSid - The SID of the Environment used by the Deployment to fetch
    * @param sid - The SID that identifies the Deployment resource to fetch
    */
   constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
@@ -274,7 +274,7 @@ declare class DeploymentInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the Deployment resource is associated with
-   * @param environmentSid - The SID of the environment for the deployment
+   * @param environmentSid - The SID of the Environment for the Deployment
    * @param sid - The SID that identifies the Deployment resource to fetch
    */
   constructor(version: V1, payload: DeploymentPayload, serviceSid: string, environmentSid: string, sid: string);

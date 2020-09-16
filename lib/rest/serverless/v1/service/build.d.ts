@@ -153,9 +153,9 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - The list of Asset Version resource SIDs to include in the build
- * @property dependencies - A list of objects that describe the Dependencies included in the build
- * @property functionVersions - The list of the Variable resource SIDs to include in the build
+ * @property assetVersions - The list of Asset Version resource SIDs to include in the Build
+ * @property dependencies - A list of objects that describe the Dependencies included in the Build
+ * @property functionVersions - The list of the Function Version resource SIDs to include in the Build
  */
 interface BuildListInstanceCreateOptions {
   assetVersions?: string | string[];

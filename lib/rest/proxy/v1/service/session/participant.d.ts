@@ -147,7 +147,7 @@ interface ParticipantListInstance {
 /**
  * Options to pass to create
  *
- * @property failOnParticipantConflict - An experimental flag that instructs Proxy to reject a Participant create request when it detects a conflict.
+ * @property failOnParticipantConflict - An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
  * @property friendlyName - The string that you assigned to describe the participant
  * @property identifier - The phone number of the Participant
  * @property proxyIdentifier - The proxy phone number to use for the Participant

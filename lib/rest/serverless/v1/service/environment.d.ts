@@ -152,7 +152,7 @@ interface EnvironmentListInstance {
  * Options to pass to create
  *
  * @property domainSuffix - A URL-friendly name that represents the environment
- * @property uniqueName - An application-defined string that uniquely identifies the Environment resource
+ * @property uniqueName - A user-defined string that uniquely identifies the Environment resource
  */
 interface EnvironmentListInstanceCreateOptions {
   domainSuffix?: string;
