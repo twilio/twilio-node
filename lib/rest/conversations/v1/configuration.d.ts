@@ -9,6 +9,7 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
+import { WebhookListInstance } from './configuration/webhook';
 
 /**
  * Initialize the ConfigurationList
@@ -23,7 +24,7 @@ declare function ConfigurationList(version: V1): ConfigurationListInstance;
 /**
  * Options to pass to update
  *
- * @property defaultChatServiceSid - The SID of the default Chat Service that every new conversation will be associated with.
+ * @property defaultChatServiceSid - The SID of the default Conversation Service that every new conversation will be associated with.
  * @property defaultClosedTimer - Default ISO8601 duration when conversation will be switched to `closed` state.
  * @property defaultInactiveTimer - Default ISO8601 duration when conversation will be switched to `inactive` state.
  * @property defaultMessagingServiceSid - The SID of the default Messaging Service that every new conversation will be associated with.
@@ -48,6 +49,7 @@ interface ConfigurationListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  webhooks?: WebhookListInstance;
 }
 
 interface ConfigurationPayload extends ConfigurationResource, Page.TwilioResponsePayload {

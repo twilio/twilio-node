@@ -21,7 +21,7 @@ type MessageWebhookEnabledType = 'true'|'false';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param conversationSid - The unique id of the Conversation for this message.
+ * @param conversationSid - The unique ID of the Conversation for this message.
  */
 declare function MessageList(version: V1, conversationSid: string): MessageListInstance;
 
@@ -187,7 +187,7 @@ interface MessageListInstance {
  * @property body - The content of the message.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
- * @property mediaSid - The Media Sid to be attached to the new Message.
+ * @property mediaSid - The Media SID to be attached to the new Message.
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageListInstanceCreateOptions {
@@ -290,7 +290,7 @@ declare class MessageContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param conversationSid - The unique id of the Conversation for this message.
+   * @param conversationSid - The unique ID of the Conversation for this message.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, conversationSid: string, sid: string);
@@ -344,7 +344,7 @@ declare class MessageInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param conversationSid - The unique id of the Conversation for this message.
+   * @param conversationSid - The unique ID of the Conversation for this message.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: MessagePayload, conversationSid: string, sid: string);

@@ -19,9 +19,9 @@ type DeliveryReceiptDeliveryStatus = 'read'|'failed'|'delivered'|'undelivered'|'
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
- * @param conversationSid - The unique id of the Conversation for this message.
- * @param messageSid - The sid of the message the delivery receipt belongs to
+ * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
+ * @param conversationSid - The unique ID of the Conversation for this message.
+ * @param messageSid - The SID of the message the delivery receipt belongs to
  */
 declare function DeliveryReceiptList(version: V1, chatServiceSid: string, conversationSid: string, messageSid: string): DeliveryReceiptListInstance;
 
@@ -228,9 +228,9 @@ declare class DeliveryReceiptContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
-   * @param conversationSid - The unique id of the Conversation for this delivery receipt.
-   * @param messageSid - The sid of the message the delivery receipt belongs to.
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
+   * @param conversationSid - The unique ID of the Conversation for this delivery receipt.
+   * @param messageSid - The SID of the message the delivery receipt belongs to.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, chatServiceSid: string, conversationSid: string, messageSid: string, sid: string);
@@ -257,9 +257,9 @@ declare class DeliveryReceiptInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
-   * @param conversationSid - The unique id of the Conversation for this message.
-   * @param messageSid - The sid of the message the delivery receipt belongs to
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
+   * @param conversationSid - The unique ID of the Conversation for this message.
+   * @param messageSid - The SID of the message the delivery receipt belongs to
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: DeliveryReceiptPayload, chatServiceSid: string, conversationSid: string, messageSid: string, sid: string);

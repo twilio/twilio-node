@@ -9,20 +9,20 @@
  */
 /* jshint ignore:end */
 
-var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
+var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
-    '../../../../../lib/http/request');  /* jshint ignore:line */
+    '../../../../../../lib/http/request');  /* jshint ignore:line */
 var Response = require(
-    '../../../../../lib/http/response');  /* jshint ignore:line */
+    '../../../../../../lib/http/response');  /* jshint ignore:line */
 var RestException = require(
-    '../../../../../lib/base/RestException');  /* jshint ignore:line */
-var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+    '../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
 var holodeck;
 
-describe('Configuration', function() {
+describe('Webhook', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -33,7 +33,8 @@ describe('Configuration', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.conversations.v1.configuration().fetch();
+      var promise = client.conversations.v1.configuration
+                                           .webhooks().fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,7 +42,7 @@ describe('Configuration', function() {
         done();
       }).done();
 
-      var url = 'https://conversations.twilio.com/v1/Configuration';
+      var url = 'https://conversations.twilio.com/v1/Configuration/Webhooks';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -53,20 +54,21 @@ describe('Configuration', function() {
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_chat_service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_inactive_timer': 'PT1M',
-          'default_closed_timer': 'PT10M',
-          'url': 'https://conversations.twilio.com/v1/Configuration',
-          'links': {
-              'service': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configuration',
-              'webhooks': 'https://conversations.twilio.com/v1/Configuration/Webhooks'
-          }
+          'pre_webhook_url': 'https://example.com/pre',
+          'post_webhook_url': 'https://example.com/post',
+          'method': 'GET',
+          'filters': [
+              'onMessageSend',
+              'onConversationUpdated'
+          ],
+          'target': 'webhook',
+          'url': 'https://conversations.twilio.com/v1/Configuration/Webhooks'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.conversations.v1.configuration().fetch();
+      var promise = client.conversations.v1.configuration
+                                           .webhooks().fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -79,7 +81,8 @@ describe('Configuration', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.conversations.v1.configuration().update();
+      var promise = client.conversations.v1.configuration
+                                           .webhooks().update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -87,7 +90,7 @@ describe('Configuration', function() {
         done();
       }).done();
 
-      var url = 'https://conversations.twilio.com/v1/Configuration';
+      var url = 'https://conversations.twilio.com/v1/Configuration/Webhooks';
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -99,20 +102,20 @@ describe('Configuration', function() {
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_chat_service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_inactive_timer': 'PT1M',
-          'default_closed_timer': 'PT10M',
-          'url': 'https://conversations.twilio.com/v1/Configuration',
-          'links': {
-              'service': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configuration',
-              'webhooks': 'https://conversations.twilio.com/v1/Configuration/Webhooks'
-          }
+          'pre_webhook_url': 'https://example.com/pre',
+          'post_webhook_url': 'http://example.com/post',
+          'method': 'GET',
+          'filters': [
+              'onConversationUpdated'
+          ],
+          'target': 'webhook',
+          'url': 'https://conversations.twilio.com/v1/Configuration/Webhooks'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.conversations.v1.configuration().update();
+      var promise = client.conversations.v1.configuration
+                                           .webhooks().update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

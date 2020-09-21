@@ -9,20 +9,20 @@
  */
 /* jshint ignore:end */
 
-var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
+var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
-    '../../../../../lib/http/request');  /* jshint ignore:line */
+    '../../../../../../lib/http/request');  /* jshint ignore:line */
 var Response = require(
-    '../../../../../lib/http/response');  /* jshint ignore:line */
+    '../../../../../../lib/http/response');  /* jshint ignore:line */
 var RestException = require(
-    '../../../../../lib/base/RestException');  /* jshint ignore:line */
-var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+    '../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
 var holodeck;
 
-describe('Webhook', function() {
+describe('Recording', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -33,7 +33,8 @@ describe('Webhook', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.conversations.v1.webhooks().fetch();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .recordings().fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,7 +42,8 @@ describe('Webhook', function() {
         done();
       }).done();
 
-      var url = 'https://conversations.twilio.com/v1/Conversations/Webhooks';
+      var trunkSid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/Recording`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -52,21 +54,16 @@ describe('Webhook', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = {
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'pre_webhook_url': 'https://example.com/pre',
-          'post_webhook_url': 'https://example.com/post',
-          'method': 'GET',
-          'filters': [
-              'onMessageSend',
-              'onConversationUpdated'
-          ],
-          'target': 'webhook',
-          'url': 'https://conversations.twilio.com/v1/Conversations/Webhooks'
+          'mode': 'do-not-record',
+          'trim': 'do-not-trim',
+          'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recording',
+          'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.conversations.v1.webhooks().fetch();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .recordings().fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -79,7 +76,8 @@ describe('Webhook', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.conversations.v1.webhooks().update();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .recordings().update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -87,7 +85,8 @@ describe('Webhook', function() {
         done();
       }).done();
 
-      var url = 'https://conversations.twilio.com/v1/Conversations/Webhooks';
+      var trunkSid = 'TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/Recording`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -98,20 +97,16 @@ describe('Webhook', function() {
   it('should generate valid update response',
     function(done) {
       var body = {
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'pre_webhook_url': 'https://example.com/pre',
-          'post_webhook_url': 'http://example.com/post',
-          'method': 'GET',
-          'filters': [
-              'onConversationUpdated'
-          ],
-          'target': 'webhook',
-          'url': 'https://conversations.twilio.com/v1/Conversations/Webhooks'
+          'mode': 'do-not-record',
+          'trim': 'do-not-trim',
+          'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recording',
+          'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.conversations.v1.webhooks().update();
+      var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .recordings().update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

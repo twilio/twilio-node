@@ -19,7 +19,7 @@ type BindingBindingType = 'apn'|'gcm'|'fcm';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
+ * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
  */
 declare function BindingList(version: V1, chatServiceSid: string): BindingListInstance;
 
@@ -144,7 +144,7 @@ interface BindingListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property identity - The `identity` value of the resources to read.
+ * @property identity - The identity of Conversation User associated with this binding.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -169,7 +169,7 @@ interface BindingListInstanceEachOptions {
  * Options to pass to list
  *
  * @property bindingType - The push technology used by the Binding resources to read.
- * @property identity - The `identity` value of the resources to read.
+ * @property identity - The identity of Conversation User associated with this binding.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -192,7 +192,7 @@ interface BindingListInstanceOptions {
  * Options to pass to page
  *
  * @property bindingType - The push technology used by the Binding resources to read.
- * @property identity - The `identity` value of the resources to read.
+ * @property identity - The identity of Conversation User associated with this binding.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -235,7 +235,7 @@ declare class BindingContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, chatServiceSid: string, sid: string);
@@ -268,7 +268,7 @@ declare class BindingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: BindingPayload, chatServiceSid: string, sid: string);

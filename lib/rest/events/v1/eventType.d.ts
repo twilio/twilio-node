@@ -60,7 +60,7 @@ interface EventTypeListInstance {
   /**
    * Constructs a event_type
    *
-   * @param type - The type
+   * @param type - A string that uniquely identifies this Event Type.
    */
   get(type: string): EventTypeContext;
   /**
@@ -217,7 +217,7 @@ declare class EventTypeContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param type - The type
+   * @param type - A string that uniquely identifies this Event Type.
    */
   constructor(version: V1, type: string);
 
@@ -244,7 +244,7 @@ declare class EventTypeInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param type - The type
+   * @param type - A string that uniquely identifies this Event Type.
    */
   constructor(version: V1, payload: EventTypePayload, type: string);
 

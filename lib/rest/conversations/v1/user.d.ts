@@ -25,7 +25,7 @@ declare function UserList(version: V1): UserListInstance;
  *
  * @property attributes - The JSON Object string that stores application-specific data
  * @property friendlyName - The string that you assigned to describe the resource
- * @property roleSid - The SID of the Role to assign to the user
+ * @property roleSid - The SID of a service-level Role to assign to the user
  */
 interface UserInstanceUpdateOptions {
   attributes?: string;
@@ -159,7 +159,7 @@ interface UserListInstance {
  * @property attributes - The JSON Object string that stores application-specific data
  * @property friendlyName - The string that you assigned to describe the resource
  * @property identity - The string that identifies the resource's User
- * @property roleSid - The SID of the Role to assign to the user
+ * @property roleSid - The SID of a service-level Role to assign to the user
  */
 interface UserListInstanceCreateOptions {
   attributes?: string;

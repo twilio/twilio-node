@@ -1,6 +1,18 @@
 twilio-node changelog
 =====================
 
+[2020-09-21] Version 3.49.3
+---------------------------
+**Accounts**
+- Add Auth Token rotation API
+
+**Conversations**
+- Change resource path for Webhook Configuration
+
+**Events**
+- Schemas API get all Schemas names and versions
+
+
 [2020-09-16] Version 3.49.2
 ---------------------------
 **Library - Fix**

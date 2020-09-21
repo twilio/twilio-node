@@ -9,14 +9,14 @@
  */
 /* jshint ignore:end */
 
-var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
+var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
 var Request = require(
-    '../../../../../lib/http/request');  /* jshint ignore:line */
+    '../../../../../../../lib/http/request');  /* jshint ignore:line */
 var Response = require(
-    '../../../../../lib/http/response');  /* jshint ignore:line */
+    '../../../../../../../lib/http/response');  /* jshint ignore:line */
 var RestException = require(
-    '../../../../../lib/base/RestException');  /* jshint ignore:line */
-var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+    '../../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -33,7 +33,9 @@ describe('Notification', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.conversations.v1.notifications('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .configuration
+                                           .notifications().update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -77,7 +79,9 @@ describe('Notification', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.conversations.v1.notifications('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .configuration
+                                           .notifications().update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -90,7 +94,9 @@ describe('Notification', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.conversations.v1.notifications('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .configuration
+                                           .notifications().fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -134,7 +140,9 @@ describe('Notification', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.conversations.v1.notifications('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                           .configuration
+                                           .notifications().fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

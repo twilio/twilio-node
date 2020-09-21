@@ -23,6 +23,17 @@ import { SubscribedEventListInstance } from './subscription/subscribedEvent';
  */
 declare function SubscriptionList(version: V1): SubscriptionListInstance;
 
+/**
+ * Options to pass to update
+ *
+ * @property description - Subscription description.
+ * @property sinkSid - Sink SID.
+ */
+interface SubscriptionInstanceUpdateOptions {
+  description?: string;
+  sinkSid?: string;
+}
+
 interface SubscriptionListInstance {
   /**
    * @param sid - sid of instance
@@ -261,6 +272,19 @@ declare class SubscriptionContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a SubscriptionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
+  /**
+   * update a SubscriptionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SubscriptionInstanceUpdateOptions, callback?: (error: Error | null, items: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
 }
 
 
@@ -306,6 +330,19 @@ declare class SubscriptionInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a SubscriptionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
+  /**
+   * update a SubscriptionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SubscriptionInstanceUpdateOptions, callback?: (error: Error | null, items: SubscriptionInstance) => any): Promise<SubscriptionInstance>;
   url: string;
 }
 
@@ -336,4 +373,4 @@ declare class SubscriptionPage extends Page<V1, SubscriptionPayload, Subscriptio
   toJSON(): any;
 }
 
-export { SubscriptionContext, SubscriptionInstance, SubscriptionList, SubscriptionListInstance, SubscriptionListInstanceCreateOptions, SubscriptionListInstanceEachOptions, SubscriptionListInstanceOptions, SubscriptionListInstancePageOptions, SubscriptionPage, SubscriptionPayload, SubscriptionResource, SubscriptionSolution }
+export { SubscriptionContext, SubscriptionInstance, SubscriptionInstanceUpdateOptions, SubscriptionList, SubscriptionListInstance, SubscriptionListInstanceCreateOptions, SubscriptionListInstanceEachOptions, SubscriptionListInstanceOptions, SubscriptionListInstancePageOptions, SubscriptionPage, SubscriptionPayload, SubscriptionResource, SubscriptionSolution }

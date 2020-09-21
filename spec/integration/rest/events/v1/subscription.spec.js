@@ -363,6 +363,53 @@ describe('Subscription', function() {
       }).done();
     }
   );
+  it('should generate valid update request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var sid = 'DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://events.twilio.com/v1/Subscriptions/${sid}`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid update response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2020-07-30T20:01:33Z',
+          'sid': 'DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sink_sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
+          'description': 'Updated description',
+          'url': 'https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'subscribed_events': 'https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid remove request',
     function(done) {
       holodeck.mock(new Response(500, {}));

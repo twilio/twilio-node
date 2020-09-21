@@ -46,7 +46,7 @@ interface ConversationInstanceRemoveOptions {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
- * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
+ * @property messagingServiceSid - The unique ID of the Messaging Service this conversation belongs to.
  * @property state - Current state of this conversation.
  * @property timers.closed - ISO8601 duration when conversation will be switched to `closed` state.
  * @property timers.inactive - ISO8601 duration when conversation will be switched to `inactive` state.
@@ -199,7 +199,7 @@ interface ConversationListInstance {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
- * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
+ * @property messagingServiceSid - The unique ID of the Messaging Service this conversation belongs to.
  * @property state - Current state of this conversation.
  * @property timers.closed - ISO8601 duration when conversation will be switched to `closed` state.
  * @property timers.inactive - ISO8601 duration when conversation will be switched to `inactive` state.

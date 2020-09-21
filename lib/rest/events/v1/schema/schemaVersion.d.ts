@@ -11,20 +11,24 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * Initialize the SubscribedEventList
+ * Initialize the VersionList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param subscriptionSid - Subscription SID.
+ * @param id - The unique identifier of the schema.
  */
-declare function SubscribedEventList(version: V1, subscriptionSid: string): SubscribedEventListInstance;
+declare function VersionList(version: V1, id: string): VersionListInstance;
 
-interface SubscribedEventListInstance {
+interface VersionListInstance {
   /**
-   * Streams SubscribedEventInstance records from the API.
+   * @param sid - sid of instance
+   */
+  (sid: string): VersionContext;
+  /**
+   * Streams VersionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -37,9 +41,9 @@ interface SubscribedEventListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: SubscribedEventInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: VersionInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams SubscribedEventInstance records from the API.
+   * Streams VersionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -53,9 +57,15 @@ interface SubscribedEventListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SubscribedEventListInstanceEachOptions, callback?: (item: SubscribedEventInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: VersionListInstanceEachOptions, callback?: (item: VersionInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Retrieve a single target page of SubscribedEventInstance records from the API.
+   * Constructs a version
+   *
+   * @param schemaVersion - The version of the schema
+   */
+  get(schemaVersion: string): VersionContext;
+  /**
+   * Retrieve a single target page of VersionInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -64,9 +74,9 @@ interface SubscribedEventListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: SubscribedEventPage) => any): Promise<SubscribedEventPage>;
+  getPage(callback?: (error: Error | null, items: VersionPage) => any): Promise<VersionPage>;
   /**
-   * Retrieve a single target page of SubscribedEventInstance records from the API.
+   * Retrieve a single target page of VersionInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -76,18 +86,18 @@ interface SubscribedEventListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SubscribedEventPage) => any): Promise<SubscribedEventPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: VersionPage) => any): Promise<VersionPage>;
   /**
-   * Lists SubscribedEventInstance records from the API as a list.
+   * Lists VersionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: SubscribedEventInstance[]) => any): Promise<SubscribedEventInstance[]>;
+  list(callback?: (error: Error | null, items: VersionInstance[]) => any): Promise<VersionInstance[]>;
   /**
-   * Lists SubscribedEventInstance records from the API as a list.
+   * Lists VersionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -95,9 +105,9 @@ interface SubscribedEventListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SubscribedEventListInstanceOptions, callback?: (error: Error | null, items: SubscribedEventInstance[]) => any): Promise<SubscribedEventInstance[]>;
+  list(opts?: VersionListInstanceOptions, callback?: (error: Error | null, items: VersionInstance[]) => any): Promise<VersionInstance[]>;
   /**
-   * Retrieve a single page of SubscribedEventInstance records from the API.
+   * Retrieve a single page of VersionInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -106,9 +116,9 @@ interface SubscribedEventListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: SubscribedEventPage) => any): Promise<SubscribedEventPage>;
+  page(callback?: (error: Error | null, items: VersionPage) => any): Promise<VersionPage>;
   /**
-   * Retrieve a single page of SubscribedEventInstance records from the API.
+   * Retrieve a single page of VersionInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -118,7 +128,7 @@ interface SubscribedEventListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SubscribedEventListInstancePageOptions, callback?: (error: Error | null, items: SubscribedEventPage) => any): Promise<SubscribedEventPage>;
+  page(opts?: VersionListInstancePageOptions, callback?: (error: Error | null, items: VersionPage) => any): Promise<VersionPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -143,8 +153,8 @@ interface SubscribedEventListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface SubscribedEventListInstanceEachOptions {
-  callback?: (item: SubscribedEventInstance, done: (err?: Error) => void) => void;
+interface VersionListInstanceEachOptions {
+  callback?: (item: VersionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -164,7 +174,7 @@ interface SubscribedEventListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface SubscribedEventListInstanceOptions {
+interface VersionListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -176,31 +186,58 @@ interface SubscribedEventListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface SubscribedEventListInstancePageOptions {
+interface VersionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface SubscribedEventPayload extends SubscribedEventResource, Page.TwilioResponsePayload {
+interface VersionPayload extends VersionResource, Page.TwilioResponsePayload {
 }
 
-interface SubscribedEventResource {
-  account_sid: string;
-  subscription_sid: string;
-  type: string;
+interface VersionResource {
+  date_created: Date;
+  id: string;
+  raw: string;
+  schema_version: number;
   url: string;
-  version: number;
 }
 
-interface SubscribedEventSolution {
-  subscriptionSid?: string;
+interface VersionSolution {
+  id?: string;
 }
 
 
-declare class SubscribedEventInstance extends SerializableClass {
+declare class VersionContext {
   /**
-   * Initialize the SubscribedEventContext
+   * Initialize the VersionContext
+   *
+   * PLEASE NOTE that this class contains preview products that are subject to
+   * change. Use them with caution. If you currently do not have developer preview
+   * access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param id - The unique identifier of the schema.
+   * @param schemaVersion - The version of the schema
+   */
+  constructor(version: V1, id: string, schemaVersion: number);
+
+  /**
+   * fetch a VersionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: VersionInstance) => any): Promise<VersionInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+}
+
+
+declare class VersionInstance extends SerializableClass {
+  /**
+   * Initialize the VersionContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -208,25 +245,33 @@ declare class SubscribedEventInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param subscriptionSid - Subscription SID.
+   * @param id - The unique identifier of the schema.
+   * @param schemaVersion - The version of the schema
    */
-  constructor(version: V1, payload: SubscribedEventPayload, subscriptionSid: string);
+  constructor(version: V1, payload: VersionPayload, id: string, schemaVersion: number);
 
-  accountSid: string;
-  subscriptionSid: string;
+  private _proxy: VersionContext;
+  dateCreated: Date;
+  /**
+   * fetch a VersionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: VersionInstance) => any): Promise<VersionInstance>;
+  id: string;
+  raw: string;
+  schemaVersion: number;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  type: string;
   url: string;
-  version: number;
 }
 
 
-declare class SubscribedEventPage extends Page<V1, SubscribedEventPayload, SubscribedEventResource, SubscribedEventInstance> {
+declare class VersionPage extends Page<V1, VersionPayload, VersionResource, VersionInstance> {
   /**
-   * Initialize the SubscribedEventPage
+   * Initialize the VersionPage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -236,18 +281,18 @@ declare class SubscribedEventPage extends Page<V1, SubscribedEventPayload, Subsc
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: SubscribedEventSolution);
+  constructor(version: V1, response: Response<string>, solution: VersionSolution);
 
   /**
-   * Build an instance of SubscribedEventInstance
+   * Build an instance of VersionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SubscribedEventPayload): SubscribedEventInstance;
+  getInstance(payload: VersionPayload): VersionInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { SubscribedEventInstance, SubscribedEventList, SubscribedEventListInstance, SubscribedEventListInstanceEachOptions, SubscribedEventListInstanceOptions, SubscribedEventListInstancePageOptions, SubscribedEventPage, SubscribedEventPayload, SubscribedEventResource, SubscribedEventSolution }
+export { VersionContext, VersionInstance, VersionList, VersionListInstance, VersionListInstanceEachOptions, VersionListInstanceOptions, VersionListInstancePageOptions, VersionPage, VersionPayload, VersionResource, VersionSolution }

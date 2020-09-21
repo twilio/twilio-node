@@ -5,10 +5,10 @@
  *       /       /
  */
 
-import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { SerializableClass } from '../../../interfaces';
+import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
+import V1 = require('../../../V1');
+import { SerializableClass } from '../../../../../interfaces';
 
 /**
  * Initialize the NotificationList
@@ -17,8 +17,9 @@ import { SerializableClass } from '../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
+ * @param chatServiceSid - The unique string that identifies the resource
  */
-declare function NotificationList(version: V1): NotificationListInstance;
+declare function NotificationList(version: V1, chatServiceSid: string): NotificationListInstance;
 
 /**
  * Options to pass to update
@@ -62,10 +63,8 @@ interface NotificationListInstance {
   (sid: string): NotificationContext;
   /**
    * Constructs a notification
-   *
-   * @param chatServiceSid - The SID of the Chat Service that the Configuration applies to.
    */
-  get(chatServiceSid: string): NotificationContext;
+  get(): NotificationContext;
   /**
    * Provide a user-friendly representation
    */
@@ -86,6 +85,7 @@ interface NotificationResource {
 }
 
 interface NotificationSolution {
+  chatServiceSid?: string;
 }
 
 
@@ -97,7 +97,7 @@ declare class NotificationContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param chatServiceSid - The SID of the Chat Service that the Configuration applies to.
+   * @param chatServiceSid - The SID of the Conversation Service that the Configuration applies to.
    */
   constructor(version: V1, chatServiceSid: string);
 
@@ -136,7 +136,7 @@ declare class NotificationInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param chatServiceSid - The SID of the Chat Service that the Configuration applies to.
+   * @param chatServiceSid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: NotificationPayload, chatServiceSid: string);
 

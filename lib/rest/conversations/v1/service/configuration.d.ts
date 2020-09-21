@@ -8,6 +8,7 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
+import { NotificationListInstance } from './configuration/notification';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -43,6 +44,7 @@ interface ConfigurationListInstance {
    * Constructs a configuration
    */
   get(): ConfigurationContext;
+  notifications?: NotificationListInstance;
   /**
    * Provide a user-friendly representation
    */

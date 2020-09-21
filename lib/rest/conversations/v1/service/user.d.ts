@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param chatServiceSid - The SID of the Service that the resource is associated with
+ * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with
  */
 declare function UserList(version: V1, chatServiceSid: string): UserListInstance;
 
@@ -26,7 +26,7 @@ declare function UserList(version: V1, chatServiceSid: string): UserListInstance
  *
  * @property attributes - The JSON Object string that stores application-specific data
  * @property friendlyName - The string that you assigned to describe the resource
- * @property roleSid - The SID of the Role to assign to the user
+ * @property roleSid - The SID of a service-level Role to assign to the user
  */
 interface UserInstanceUpdateOptions {
   attributes?: string;
@@ -160,7 +160,7 @@ interface UserListInstance {
  * @property attributes - The JSON Object string that stores application-specific data
  * @property friendlyName - The string that you assigned to describe the resource
  * @property identity - The string that identifies the resource's User
- * @property roleSid - The SID of the Role to assign to the user
+ * @property roleSid - The SID of a service-level Role to assign to the user
  */
 interface UserListInstanceCreateOptions {
   attributes?: string;
@@ -256,7 +256,7 @@ declare class UserContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param chatServiceSid - The SID of the Service to fetch the resource from
+   * @param chatServiceSid - The SID of the Conversation Service to fetch the resource from
    * @param sid - The SID of the User resource to fetch
    */
   constructor(version: V1, chatServiceSid: string, sid: string);
@@ -302,7 +302,7 @@ declare class UserInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param chatServiceSid - The SID of the Service that the resource is associated with
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with
    * @param sid - The SID of the User resource to fetch
    */
   constructor(version: V1, payload: UserPayload, chatServiceSid: string, sid: string);

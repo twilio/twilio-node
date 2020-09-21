@@ -19,8 +19,8 @@ type ParticipantWebhookEnabledType = 'true'|'false';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
- * @param conversationSid - The unique id of the Conversation for this participant.
+ * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
+ * @param conversationSid - The unique ID of the Conversation for this participant.
  */
 declare function ParticipantList(version: V1, chatServiceSid: string, conversationSid: string): ParticipantListInstance;
 
@@ -39,10 +39,10 @@ interface ParticipantInstanceRemoveOptions {
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
- * @property identity - A unique string identifier for the conversation participant as Chat User.
+ * @property identity - A unique string identifier for the conversation participant as Conversation User.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
- * @property roleSid - The SID of the Role to assign to the participant
+ * @property roleSid - The SID of a conversation-level Role to assign to the participant
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantInstanceUpdateOptions {
@@ -190,11 +190,11 @@ interface ParticipantListInstance {
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
- * @property identity - A unique string identifier for the conversation participant as Chat User.
+ * @property identity - A unique string identifier for the conversation participant as Conversation User.
  * @property messagingBinding.address - The address of the participant's device.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
- * @property roleSid - The SID of the Role to assign to the participant
+ * @property roleSid - The SID of a conversation-level Role to assign to the participant
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantListInstanceCreateOptions {
@@ -299,8 +299,8 @@ declare class ParticipantContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
-   * @param conversationSid - The unique id of the Conversation for this participant.
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
+   * @param conversationSid - The unique ID of the Conversation for this participant.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, chatServiceSid: string, conversationSid: string, sid: string);
@@ -353,8 +353,8 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param chatServiceSid - The SID of the Chat Service that the resource is associated with.
-   * @param conversationSid - The unique id of the Conversation for this participant.
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
+   * @param conversationSid - The unique ID of the Conversation for this participant.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: ParticipantPayload, chatServiceSid: string, conversationSid: string, sid: string);

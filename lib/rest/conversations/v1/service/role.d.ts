@@ -19,7 +19,7 @@ type RoleRoleType = 'conversation'|'service';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param chatServiceSid - The SID of the Service that the resource is associated with
+ * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with
  */
 declare function RoleList(version: V1, chatServiceSid: string): RoleListInstance;
 
@@ -250,7 +250,7 @@ declare class RoleContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param chatServiceSid - The SID of the Service to fetch the resource from
+   * @param chatServiceSid - The SID of the Conversation Service to fetch the resource from
    * @param sid - The SID of the Role resource to fetch
    */
   constructor(version: V1, chatServiceSid: string, sid: string);
@@ -290,7 +290,7 @@ declare class RoleInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param chatServiceSid - The SID of the Service that the resource is associated with
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with
    * @param sid - The SID of the Role resource to fetch
    */
   constructor(version: V1, payload: RolePayload, chatServiceSid: string, sid: string);

@@ -11,11 +11,9 @@ import V1 = require('./conversations/V1');
 import { ConfigurationListInstance } from './conversations/v1/configuration';
 import { ConversationListInstance } from './conversations/v1/conversation';
 import { CredentialListInstance } from './conversations/v1/credential';
-import { NotificationListInstance } from './conversations/v1/notification';
 import { RoleListInstance } from './conversations/v1/role';
 import { ServiceListInstance } from './conversations/v1/service';
 import { UserListInstance } from './conversations/v1/user';
-import { WebhookListInstance } from './conversations/v1/webhook';
 
 
 declare class Conversations extends Domain {
@@ -29,12 +27,10 @@ declare class Conversations extends Domain {
   readonly configuration: ConfigurationListInstance;
   readonly conversations: ConversationListInstance;
   readonly credentials: CredentialListInstance;
-  readonly notifications: NotificationListInstance;
   readonly roles: RoleListInstance;
   readonly services: ServiceListInstance;
   readonly users: UserListInstance;
   readonly v1: V1;
-  readonly webhooks: WebhookListInstance;
 }
 
 export = Conversations;

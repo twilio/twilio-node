@@ -9,6 +9,7 @@ import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./events/V1');
 import { EventTypeListInstance } from './events/v1/eventType';
+import { SchemaListInstance } from './events/v1/schema';
 import { SinkListInstance } from './events/v1/sink';
 import { SubscriptionListInstance } from './events/v1/subscription';
 
@@ -22,6 +23,7 @@ declare class Events extends Domain {
   constructor(twilio: Twilio);
 
   readonly eventTypes: EventTypeListInstance;
+  readonly schemas: SchemaListInstance;
   readonly sinks: SinkListInstance;
   readonly subscriptions: SubscriptionListInstance;
   readonly v1: V1;
