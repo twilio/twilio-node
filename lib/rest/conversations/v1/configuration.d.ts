@@ -14,9 +14,6 @@ import { WebhookListInstance } from './configuration/webhook';
 /**
  * Initialize the ConfigurationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function ConfigurationList(version: V1): ConfigurationListInstance;
@@ -73,9 +70,6 @@ declare class ConfigurationContext {
   /**
    * Initialize the ConfigurationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    */
   constructor(version: V1);
@@ -109,9 +103,6 @@ declare class ConfigurationContext {
 declare class ConfigurationInstance extends SerializableClass {
   /**
    * Initialize the ConfigurationContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -155,9 +146,6 @@ declare class ConfigurationInstance extends SerializableClass {
 declare class ConfigurationPage extends Page<V1, ConfigurationPayload, ConfigurationResource, ConfigurationInstance> {
   /**
    * Initialize the ConfigurationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

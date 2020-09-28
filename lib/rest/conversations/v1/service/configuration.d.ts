@@ -14,9 +14,6 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the ConfigurationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param chatServiceSid - The unique string that identifies the resource
  */
@@ -72,9 +69,6 @@ declare class ConfigurationContext {
   /**
    * Initialize the ConfigurationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param chatServiceSid - The SID of the Service configuration resource to fetch
    */
@@ -109,9 +103,6 @@ declare class ConfigurationContext {
 declare class ConfigurationInstance extends SerializableClass {
   /**
    * Initialize the ConfigurationContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -155,9 +146,6 @@ declare class ConfigurationInstance extends SerializableClass {
 declare class ConfigurationPage extends Page<V1, ConfigurationPayload, ConfigurationResource, ConfigurationInstance> {
   /**
    * Initialize the ConfigurationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -1,6 +1,22 @@
 twilio-node changelog
 =====================
 
+[2020-09-28] Version 3.49.4
+---------------------------
+**Api**
+- Add optional property `call_reason` in the participant create request
+- Make sip-domain-service endpoints available in stage-au1 and prod-au1
+
+**Messaging**
+- Removed beta feature gate from WhatsApp Templates API
+
+**Serverless**
+- Add Build Status endpoint
+
+**Video**
+- [Rooms] Add new room type "go" for WebRTC Go
+
+
 [2020-09-21] Version 3.49.3
 ---------------------------
 **Accounts**

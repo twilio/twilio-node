@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the NotificationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param chatServiceSid - The unique string that identifies the resource
  */
@@ -93,9 +90,6 @@ declare class NotificationContext {
   /**
    * Initialize the NotificationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param chatServiceSid - The SID of the Conversation Service that the Configuration applies to.
    */
@@ -130,9 +124,6 @@ declare class NotificationContext {
 declare class NotificationInstance extends SerializableClass {
   /**
    * Initialize the NotificationContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -177,9 +168,6 @@ declare class NotificationInstance extends SerializableClass {
 declare class NotificationPage extends Page<V1, NotificationPayload, NotificationResource, NotificationInstance> {
   /**
    * Initialize the NotificationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

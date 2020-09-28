@@ -183,7 +183,6 @@ interface FactorListInstance {
 /**
  * Options to pass to create
  *
- * @property authorization - The Authorization HTTP request header
  * @property binding - A unique binding for this Factor as a json string
  * @property config - The config for this Factor as a json string
  * @property factorType - The Type of this Factor
@@ -191,7 +190,6 @@ interface FactorListInstance {
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceCreateOptions {
-  authorization?: string;
   binding: string;
   config: string;
   factorType: FactorFactorTypes;

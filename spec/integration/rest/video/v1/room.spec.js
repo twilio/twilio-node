@@ -148,14 +148,14 @@ describe('Room', function() {
       }).done();
     }
   );
-  it('should generate valid create_p2p_basic response',
+  it('should generate valid create_webrtc_go response',
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'status': 'in-progress',
-          'type': 'peer-to-peer-basic',
+          'type': 'go',
           'sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'enable_turn': true,
           'unique_name': 'room1',

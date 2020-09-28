@@ -17,9 +17,6 @@ type WebhookTarget = 'webhook'|'trigger'|'studio';
 /**
  * Initialize the WebhookList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
  * @param conversationSid - The unique ID of the Conversation for this webhook.
@@ -270,9 +267,6 @@ declare class WebhookContext {
   /**
    * Initialize the WebhookContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
    * @param conversationSid - The unique ID of the Conversation for this webhook.
@@ -315,9 +309,6 @@ declare class WebhookContext {
 declare class WebhookInstance extends SerializableClass {
   /**
    * Initialize the WebhookContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -372,9 +363,6 @@ declare class WebhookInstance extends SerializableClass {
 declare class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
    * Initialize the WebhookPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

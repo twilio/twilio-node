@@ -8,6 +8,8 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
+import { BuildStatusList } from './build/buildStatus';
+import { BuildStatusListInstance } from './build/buildStatus';
 import { SerializableClass } from '../../../../interfaces';
 
 type BuildStatus = 'building'|'completed'|'failed';
@@ -230,6 +232,7 @@ interface BuildResource {
   date_updated: Date;
   dependencies: object[];
   function_versions: object[];
+  links: string;
   service_sid: string;
   sid: string;
   status: BuildStatus;
@@ -255,6 +258,7 @@ declare class BuildContext {
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
+  buildStatus: BuildStatusListInstance;
   /**
    * fetch a BuildInstance
    *
@@ -292,6 +296,10 @@ declare class BuildInstance extends SerializableClass {
   private _proxy: BuildContext;
   accountSid: string;
   assetVersions: object[];
+  /**
+   * Access the buildStatus
+   */
+  buildStatus(): BuildStatusListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   dependencies: object[];
@@ -302,6 +310,7 @@ declare class BuildInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
   functionVersions: object[];
+  links: string;
   /**
    * remove a BuildInstance
    *

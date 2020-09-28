@@ -17,9 +17,6 @@ type WebhookTarget = 'webhook'|'flex';
 /**
  * Initialize the WebhookList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function WebhookList(version: V1): WebhookListInstance;
@@ -77,9 +74,6 @@ declare class WebhookContext {
   /**
    * Initialize the WebhookContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    */
   constructor(version: V1);
@@ -113,9 +107,6 @@ declare class WebhookContext {
 declare class WebhookInstance extends SerializableClass {
   /**
    * Initialize the WebhookContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -159,9 +150,6 @@ declare class WebhookInstance extends SerializableClass {
 declare class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
    * Initialize the WebhookPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

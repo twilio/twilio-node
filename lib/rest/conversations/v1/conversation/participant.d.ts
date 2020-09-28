@@ -15,9 +15,6 @@ type ParticipantWebhookEnabledType = 'true'|'false';
 /**
  * Initialize the ParticipantList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param conversationSid - The unique ID of the Conversation for this participant.
  */
@@ -292,9 +289,6 @@ declare class ParticipantContext {
   /**
    * Initialize the ParticipantContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param conversationSid - The unique ID of the Conversation for this participant.
    * @param sid - A 34 character string that uniquely identifies this resource.
@@ -343,9 +337,6 @@ declare class ParticipantContext {
 declare class ParticipantInstance extends SerializableClass {
   /**
    * Initialize the ParticipantContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -407,9 +398,6 @@ declare class ParticipantInstance extends SerializableClass {
 declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
    * Initialize the ParticipantPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

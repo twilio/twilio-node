@@ -10,11 +10,10 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
+type UserWebhookEnabledType = 'true'|'false';
+
 /**
  * Initialize the UserList
- *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
  *
  * @param version - Version of the resource
  * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with
@@ -22,16 +21,27 @@ import { SerializableClass } from '../../../../interfaces';
 declare function UserList(version: V1, chatServiceSid: string): UserListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
+ */
+interface UserInstanceRemoveOptions {
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
+}
+
+/**
  * Options to pass to update
  *
  * @property attributes - The JSON Object string that stores application-specific data
  * @property friendlyName - The string that you assigned to describe the resource
  * @property roleSid - The SID of a service-level Role to assign to the user
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface UserInstanceUpdateOptions {
   attributes?: string;
   friendlyName?: string;
   roleSid?: string;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
 }
 
 interface UserListInstance {
@@ -161,12 +171,14 @@ interface UserListInstance {
  * @property friendlyName - The string that you assigned to describe the resource
  * @property identity - The string that identifies the resource's User
  * @property roleSid - The SID of a service-level Role to assign to the user
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface UserListInstanceCreateOptions {
   attributes?: string;
   friendlyName?: string;
   identity: string;
   roleSid?: string;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
 }
 
 /**
@@ -252,9 +264,6 @@ declare class UserContext {
   /**
    * Initialize the UserContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param chatServiceSid - The SID of the Conversation Service to fetch the resource from
    * @param sid - The SID of the User resource to fetch
@@ -273,6 +282,13 @@ declare class UserContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: UserInstance) => any): Promise<boolean>;
+  /**
+   * remove a UserInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  remove(opts?: UserInstanceRemoveOptions, callback?: (error: Error | null, items: UserInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -296,9 +312,6 @@ declare class UserContext {
 declare class UserInstance extends SerializableClass {
   /**
    * Initialize the UserContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -328,6 +341,13 @@ declare class UserInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: UserInstance) => any): Promise<boolean>;
+  /**
+   * remove a UserInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  remove(opts?: UserInstanceRemoveOptions, callback?: (error: Error | null, items: UserInstance) => any): Promise<boolean>;
   roleSid: string;
   sid: string;
   /**
@@ -355,9 +375,6 @@ declare class UserPage extends Page<V1, UserPayload, UserResource, UserInstance>
   /**
    * Initialize the UserPage
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
@@ -376,4 +393,4 @@ declare class UserPage extends Page<V1, UserPayload, UserResource, UserInstance>
   toJSON(): any;
 }
 
-export { UserContext, UserInstance, UserInstanceUpdateOptions, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }
+export { UserContext, UserInstance, UserInstanceRemoveOptions, UserInstanceUpdateOptions, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution, UserWebhookEnabledType }

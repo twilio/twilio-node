@@ -38,8 +38,7 @@ describe('Factor', function() {
         friendlyName: 'friendly_name',
         factorType: 'push',
         config: 'config',
-        twilioSandboxMode: 'twilio_sandbox_mode',
-        authorization: 'authorization'
+        twilioSandboxMode: 'twilio_sandbox_mode'
       };
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
@@ -67,7 +66,7 @@ describe('Factor', function() {
           data: values
       }));
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode', 'Authorization': 'authorization'};
+      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,

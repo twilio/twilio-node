@@ -17,9 +17,6 @@ type MessageWebhookEnabledType = 'true'|'false';
 /**
  * Initialize the MessageList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
  * @param conversationSid - The unique ID of the Conversation for this message.
@@ -289,9 +286,6 @@ declare class MessageContext {
   /**
    * Initialize the MessageContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
    * @param conversationSid - The unique ID of the Conversation for this message.
@@ -342,9 +336,6 @@ declare class MessageContext {
 declare class MessageInstance extends SerializableClass {
   /**
    * Initialize the MessageContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -416,9 +407,6 @@ declare class MessageInstance extends SerializableClass {
 declare class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
   /**
    * Initialize the MessagePage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

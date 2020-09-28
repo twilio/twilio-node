@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../interfaces';
 
 type RoomRoomStatus = 'in-progress'|'completed'|'failed';
 
-type RoomRoomType = 'peer-to-peer-basic'|'peer-to-peer'|'group'|'group-small';
+type RoomRoomType = 'go'|'peer-to-peer'|'group'|'group-small';
 
 type RoomVideoCodec = 'VP8'|'H264';
 

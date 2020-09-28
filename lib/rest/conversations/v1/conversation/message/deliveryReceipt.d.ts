@@ -15,9 +15,6 @@ type DeliveryReceiptDeliveryStatus = 'read'|'failed'|'delivered'|'undelivered'|'
 /**
  * Initialize the DeliveryReceiptList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param conversationSid - The unique ID of the Conversation for this message.
  * @param messageSid - The SID of the message the delivery receipt belongs to
@@ -221,9 +218,6 @@ declare class DeliveryReceiptContext {
   /**
    * Initialize the DeliveryReceiptContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param conversationSid - The unique ID of the Conversation for this delivery receipt.
    * @param messageSid - The SID of the message the delivery receipt belongs to.
@@ -247,9 +241,6 @@ declare class DeliveryReceiptContext {
 declare class DeliveryReceiptInstance extends SerializableClass {
   /**
    * Initialize the DeliveryReceiptContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -287,9 +278,6 @@ declare class DeliveryReceiptInstance extends SerializableClass {
 declare class DeliveryReceiptPage extends Page<V1, DeliveryReceiptPayload, DeliveryReceiptResource, DeliveryReceiptInstance> {
   /**
    * Initialize the DeliveryReceiptPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

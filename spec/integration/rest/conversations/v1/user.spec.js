@@ -33,7 +33,7 @@ describe('User', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity'};
+      var opts = {identity: 'identity', xTwilioWebhookEnabled: 'true'};
       var promise = client.conversations.v1.users.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -49,6 +49,13 @@ describe('User', function() {
           method: 'POST',
           url: url,
           data: values
+      }));
+
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -84,7 +91,8 @@ describe('User', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.conversations.v1.users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      var opts = {xTwilioWebhookEnabled: 'true'};
+      var promise = client.conversations.v1.users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -95,9 +103,11 @@ describe('User', function() {
       var sid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Users/${sid}`;
 
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -132,7 +142,8 @@ describe('User', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.conversations.v1.users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      var opts = {xTwilioWebhookEnabled: 'true'};
+      var promise = client.conversations.v1.users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -143,9 +154,11 @@ describe('User', function() {
       var sid = 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Users/${sid}`;
 
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

@@ -23,9 +23,6 @@ type ConversationWebhookEnabledType = 'true'|'false';
 /**
  * Initialize the ConversationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param chatServiceSid - The unique ID of the Conversation Service this conversation belongs to.
  */
@@ -307,9 +304,6 @@ declare class ConversationContext {
   /**
    * Initialize the ConversationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param chatServiceSid - The chat_service_sid
    * @param sid - A 34 character string that uniquely identifies this resource.
@@ -361,9 +355,6 @@ declare class ConversationContext {
 declare class ConversationInstance extends SerializableClass {
   /**
    * Initialize the ConversationContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -440,9 +431,6 @@ declare class ConversationInstance extends SerializableClass {
 declare class ConversationPage extends Page<V1, ConversationPayload, ConversationResource, ConversationInstance> {
   /**
    * Initialize the ConversationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

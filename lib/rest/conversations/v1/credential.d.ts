@@ -15,9 +15,6 @@ type CredentialPushType = 'apn'|'gcm'|'fcm';
 /**
  * Initialize the CredentialList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function CredentialList(version: V1): CredentialListInstance;
@@ -263,9 +260,6 @@ declare class CredentialContext {
   /**
    * Initialize the CredentialContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
@@ -306,9 +300,6 @@ declare class CredentialContext {
 declare class CredentialInstance extends SerializableClass {
   /**
    * Initialize the CredentialContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -360,9 +351,6 @@ declare class CredentialInstance extends SerializableClass {
 declare class CredentialPage extends Page<V1, CredentialPayload, CredentialResource, CredentialInstance> {
   /**
    * Initialize the CredentialPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

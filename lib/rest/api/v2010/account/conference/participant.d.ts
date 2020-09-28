@@ -177,6 +177,7 @@ interface ParticipantListInstance {
  *
  * @property beep - Whether to play a notification beep to the conference when the participant joins
  * @property byoc - BYOC trunk SID (Beta)
+ * @property callReason - Reason for the call (Branded Calls Beta)
  * @property callSidToCoach - The SID of the participant who is being `coached`
  * @property callerId - The phone number, Client identifier, or username portion of SIP address that made this call.
  * @property coaching - Indicates if the participant changed to coach
@@ -215,6 +216,7 @@ interface ParticipantListInstance {
 interface ParticipantListInstanceCreateOptions {
   beep?: string;
   byoc?: string;
+  callReason?: string;
   callSidToCoach?: string;
   callerId?: string;
   coaching?: boolean;

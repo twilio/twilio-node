@@ -15,9 +15,6 @@ type BindingBindingType = 'apn'|'gcm'|'fcm';
 /**
  * Initialize the BindingList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
  */
@@ -231,9 +228,6 @@ declare class BindingContext {
   /**
    * Initialize the BindingContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
    * @param sid - A 34 character string that uniquely identifies this resource.
@@ -262,9 +256,6 @@ declare class BindingContext {
 declare class BindingInstance extends SerializableClass {
   /**
    * Initialize the BindingContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -307,9 +298,6 @@ declare class BindingInstance extends SerializableClass {
 declare class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {
   /**
    * Initialize the BindingPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
