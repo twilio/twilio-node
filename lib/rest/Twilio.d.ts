@@ -122,6 +122,7 @@ declare namespace Twilio {
    *
    * @property allowRedirects - Should the client follow redirects
    * @property data - The request data
+   * @property debug - Show debug logs
    * @property headers - The request headers
    * @property method - The http method
    * @property params - The request params
@@ -133,6 +134,7 @@ declare namespace Twilio {
   export interface RequestOptions {
     allowRedirects?: boolean;
     data?: object;
+    debug?: boolean;
     headers?: object;
     method: string;
     params?: object;
@@ -146,6 +148,7 @@ declare namespace Twilio {
    * Options to pass to the Twilio Client constructor
    *
    * @property accountSid - The default accountSid. This is set to username if not provided
+   * @property debug - Debug logs will be shown. Defaults to none
    * @property edge - Twilio edge to use. Defaults to none
    * @property env - The environment object. Defaults to process.env
    * @property httpClient - The client used for http requests. Defaults to RequestClient
@@ -154,6 +157,7 @@ declare namespace Twilio {
    */
   export interface TwilioClientOptions {
     accountSid?: string;
+    debug?: boolean;
     edge?: string;
     env?: object;
     httpClient?: RequestClient;
