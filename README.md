@@ -46,8 +46,8 @@ If your environment requires SSL decryption, you can set the path to CA bundle i
 var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
 var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
 
-const client = require('twilio')(accountSid, authToken, { 
-    lazyLoading: true 
+const client = require('twilio')(accountSid, authToken, {
+    lazyLoading: true
 });
 ```
 
@@ -59,7 +59,7 @@ To take advantage of Twilio's [Global Infrastructure](https://www.twilio.com/doc
 var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
 var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
 
-const client = require('twilio')(accountSid, authToken, { 
+const client = require('twilio')(accountSid, authToken, {
     region: 'au1',
     edge: 'sydney',
 });
@@ -74,6 +74,22 @@ client.edge = 'sydney';
 ```
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
+
+### Enable Debug Logging
+There are two ways to enable debug logging in the default HTTP client. You can create an environment variable called `TWILIO_DEBUG` and set it to `true` or you can set the debug variable on the client as true:
+```javascript
+var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
+var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+
+const client = require('twilio')(accountSid, authToken, {
+  debug: true
+});
+```
+You can also set the debug variable on the client as true after constructing the Twilio client:
+```javascript
+const client = require('twilio')(accountSid, authToken);
+client.debug = true;
+```
 
 ## Handling Exceptions
 
