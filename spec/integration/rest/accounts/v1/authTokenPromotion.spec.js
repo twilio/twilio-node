@@ -22,18 +22,18 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('Business', function() {
+describe('AuthTokenPromotion', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
-  it('should generate valid fetch request',
+  it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.preview.trusted_comms.businesses('BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.accounts.v1.authTokenPromotion().update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,29 +41,27 @@ describe('Business', function() {
         done();
       }).done();
 
-      var sid = 'BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://preview.twilio.com/TrustedComms/Businesses/${sid}`;
+      var url = 'https://accounts.twilio.com/v1/AuthTokens/Promote';
 
       holodeck.assertHasRequest(new Request({
-        method: 'GET',
+        method: 'POST',
         url: url
       }));
     }
   );
-  it('should generate valid fetch response',
+  it('should generate valid update response',
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'links': {
-              'insights': 'https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Insights'
-          }
+          'auth_token': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+          'date_created': '2015-07-31T04:00:00Z',
+          'date_updated': '2015-07-31T04:00:00Z',
+          'url': 'https://accounts.twilio.com/v1/AuthTokens/Promote'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.trusted_comms.businesses('BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.accounts.v1.authTokenPromotion().update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

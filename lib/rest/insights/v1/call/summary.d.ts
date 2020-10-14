@@ -74,6 +74,7 @@ interface CallSummaryResource {
   start_time: Date;
   tags: string[];
   to: object;
+  trust: object;
   url: string;
 }
 
@@ -165,6 +166,7 @@ declare class CallSummaryInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  trust: any;
   url: string;
 }
 

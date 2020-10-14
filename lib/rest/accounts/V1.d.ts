@@ -7,8 +7,12 @@
 
 import Accounts = require('../Accounts');
 import Version = require('../../base/Version');
+import { AuthTokenPromotionList } from './v1/authTokenPromotion';
+import { AuthTokenPromotionListInstance } from './v1/authTokenPromotion';
 import { CredentialList } from './v1/credential';
 import { CredentialListInstance } from './v1/credential';
+import { SecondaryAuthTokenList } from './v1/secondaryAuthToken';
+import { SecondaryAuthTokenListInstance } from './v1/secondaryAuthToken';
 
 
 declare class V1 extends Version {
@@ -19,7 +23,9 @@ declare class V1 extends Version {
    */
   constructor(domain: Accounts);
 
+  readonly authTokenPromotion: AuthTokenPromotionListInstance;
   readonly credentials: CredentialListInstance;
+  readonly secondaryAuthToken: SecondaryAuthTokenListInstance;
 }
 
 export = V1;

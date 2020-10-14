@@ -153,7 +153,7 @@ describe('Conversation', function() {
           'chat_service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
           'friendly_name': 'friendly_name',
-          'unique_name': null,
+          'unique_name': 'unique_name',
           'attributes': '{ \'topic\': \'feedback\' }',
           'date_created': '2015-12-16T22:18:37Z',
           'date_updated': '2015-12-16T22:18:38Z',

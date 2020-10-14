@@ -14,6 +14,8 @@ type FactorFactorStatuses = 'unverified'|'verified';
 
 type FactorFactorTypes = 'push';
 
+type FactorNotificationPlatforms = 'apn'|'fcm';
+
 /**
  * Initialize the FactorList
  *
@@ -49,13 +51,17 @@ interface FactorInstanceRemoveOptions {
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Factor for the first time
- * @property config - The config for this Factor as a json string
+ * @property config.notificationToken - For APN, the device token. For FCM the registration token
+ * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
  * @property friendlyName - The friendly name of this Factor
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceUpdateOptions {
   authPayload?: string;
-  config?: string;
+  config?: {
+    notificationToken?: string;
+    sdkVersion?: string;
+  };
   friendlyName?: string;
   twilioSandboxMode?: string;
 }
@@ -183,15 +189,27 @@ interface FactorListInstance {
 /**
  * Options to pass to create
  *
- * @property binding - A unique binding for this Factor as a json string
- * @property config - The config for this Factor as a json string
+ * @property binding.alg - The algorithm used when `factor_type` is `push`
+ * @property binding.publicKey - The public key encoded in Base64
+ * @property config.appId - The ID that uniquely identifies your app in the Google or Apple store
+ * @property config.notificationPlatform - The transport technology used to generate the Notification Token
+ * @property config.notificationToken - For APN, the device token. For FCM the registration token
+ * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
  * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceCreateOptions {
-  binding: string;
-  config: string;
+  binding?: {
+    alg?: string;
+    publicKey?: string;
+  };
+  config?: {
+    appId?: string;
+    notificationPlatform?: FactorNotificationPlatforms;
+    notificationToken?: string;
+    sdkVersion?: string;
+  };
   factorType: FactorFactorTypes;
   friendlyName: string;
   twilioSandboxMode?: string;
@@ -446,4 +464,4 @@ declare class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorI
   toJSON(): any;
 }
 
-export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceFetchOptions, FactorInstanceRemoveOptions, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorPage, FactorPayload, FactorResource, FactorSolution }
+export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceFetchOptions, FactorInstanceRemoveOptions, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorNotificationPlatforms, FactorPage, FactorPayload, FactorResource, FactorSolution }

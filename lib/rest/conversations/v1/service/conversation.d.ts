@@ -48,6 +48,7 @@ interface ConversationInstanceRemoveOptions {
  * @property state - Current state of this conversation.
  * @property timers.closed - ISO8601 duration when conversation will be switched to `closed` state.
  * @property timers.inactive - ISO8601 duration when conversation will be switched to `inactive` state.
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationInstanceUpdateOptions {
@@ -61,6 +62,7 @@ interface ConversationInstanceUpdateOptions {
     inactive?: string;
     closed?: string;
   };
+  uniqueName?: string;
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
@@ -305,7 +307,7 @@ declare class ConversationContext {
    * Initialize the ConversationContext
    *
    * @param version - Version of the resource
-   * @param chatServiceSid - The chat_service_sid
+   * @param chatServiceSid - The SID of the Conversation Service that the resource is associated with.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, chatServiceSid: string, sid: string);

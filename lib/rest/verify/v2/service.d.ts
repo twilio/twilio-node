@@ -41,7 +41,9 @@ declare function ServiceList(version: V2): ServiceListInstance;
  * @property friendlyName - A string to describe the verification service
  * @property lookupEnabled - Whether to perform a lookup with each verification
  * @property psd2Enabled - Whether to pass PSD2 transaction parameters when starting a verification
- * @property push - Optional service level push factors configuration
+ * @property push.apnCredentialSid - Optional. Set APN Credential for this service.
+ * @property push.fcmCredentialSid - Optional. Set FCM Credential for this service.
+ * @property push.includeDate - Optional. Include the date in the Challenge's reponse. Default: true
  * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
  * @property ttsName - The name of an alternative text-to-speech service to use in phone calls
  */
@@ -53,7 +55,11 @@ interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
   lookupEnabled?: boolean;
   psd2Enabled?: boolean;
-  push?: object;
+  push?: {
+    includeDate?: boolean;
+    apnCredentialSid?: string;
+    fcmCredentialSid?: string;
+  };
   skipSmsToLandlines?: boolean;
   ttsName?: string;
 }
@@ -188,7 +194,9 @@ interface ServiceListInstance {
  * @property friendlyName - A string to describe the verification service
  * @property lookupEnabled - Whether to perform a lookup with each verification
  * @property psd2Enabled - Whether to pass PSD2 transaction parameters when starting a verification
- * @property push - Optional service level push factors configuration
+ * @property push.apnCredentialSid - Optional. Set APN Credential for this service.
+ * @property push.fcmCredentialSid - Optional. Set FCM Credential for this service.
+ * @property push.includeDate - Optional. Include the date in the Challenge's reponse. Default: true
  * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
  * @property ttsName - The name of an alternative text-to-speech service to use in phone calls
  */
@@ -200,7 +208,11 @@ interface ServiceListInstanceCreateOptions {
   friendlyName: string;
   lookupEnabled?: boolean;
   psd2Enabled?: boolean;
-  push?: object;
+  push?: {
+    includeDate?: boolean;
+    apnCredentialSid?: string;
+    fcmCredentialSid?: string;
+  };
   skipSmsToLandlines?: boolean;
   ttsName?: string;
 }

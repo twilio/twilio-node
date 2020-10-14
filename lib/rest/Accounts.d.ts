@@ -8,7 +8,9 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./accounts/V1');
+import { AuthTokenPromotionListInstance } from './accounts/v1/authTokenPromotion';
 import { CredentialListInstance } from './accounts/v1/credential';
+import { SecondaryAuthTokenListInstance } from './accounts/v1/secondaryAuthToken';
 
 
 declare class Accounts extends Domain {
@@ -19,7 +21,9 @@ declare class Accounts extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly authTokenPromotion: AuthTokenPromotionListInstance;
   readonly credentials: CredentialListInstance;
+  readonly secondaryAuthToken: SecondaryAuthTokenListInstance;
   readonly v1: V1;
 }
 

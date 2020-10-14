@@ -5,10 +5,10 @@
  *       /       /
  */
 
-import Page = require('../../../../../../base/Page');
-import Response = require('../../../../../../http/response');
-import TrustedComms = require('../../../../TrustedComms');
-import { SerializableClass } from '../../../../../../interfaces';
+import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
+import TrustedComms = require('../../TrustedComms');
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * Initialize the ChannelList
@@ -18,11 +18,9 @@ import { SerializableClass } from '../../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param businessSid - Business Sid.
- * @param brandSid - Brand Sid.
  * @param brandedChannelSid - Branded Channel Sid.
  */
-declare function ChannelList(version: TrustedComms, businessSid: string, brandSid: string, brandedChannelSid: string): ChannelListInstance;
+declare function ChannelList(version: TrustedComms, brandedChannelSid: string): ChannelListInstance;
 
 interface ChannelListInstance {
   /**
@@ -61,9 +59,7 @@ interface ChannelResource {
 }
 
 interface ChannelSolution {
-  brandSid?: string;
   brandedChannelSid?: string;
-  businessSid?: string;
 }
 
 
@@ -77,11 +73,9 @@ declare class ChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param businessSid - Business Sid.
-   * @param brandSid - Brand Sid.
    * @param brandedChannelSid - Branded Channel Sid.
    */
-  constructor(version: TrustedComms, payload: ChannelPayload, businessSid: string, brandSid: string, brandedChannelSid: string);
+  constructor(version: TrustedComms, payload: ChannelPayload, brandedChannelSid: string);
 
   accountSid: string;
   brandSid: string;

@@ -172,17 +172,21 @@ interface ChallengeListInstance {
 /**
  * Options to pass to create
  *
- * @property details - Public details provided to contextualize the Challenge
+ * @property details.fields - A list of objects that describe the Fields included in the Challenge
+ * @property details.message - Shown to the user when the push notification arrives
  * @property expirationDate - The future date in which this Challenge will expire
  * @property factorSid - Factor Sid.
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
  * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceCreateOptions {
-  details?: string;
+  details?: {
+    message?: string;
+    fields?: object | object[];
+  };
   expirationDate?: Date;
   factorSid: string;
-  hiddenDetails?: string;
+  hiddenDetails?: object;
   twilioSandboxMode?: string;
 }
 
@@ -269,12 +273,12 @@ interface ChallengeResource {
   date_created: Date;
   date_responded: Date;
   date_updated: Date;
-  details: string;
+  details: object;
   entity_sid: string;
   expiration_date: Date;
   factor_sid: string;
   factor_type: ChallengeFactorTypes;
-  hidden_details: string;
+  hidden_details: object;
   identity: string;
   responded_reason: ChallengeChallengeReasons;
   service_sid: string;
@@ -358,7 +362,7 @@ declare class ChallengeInstance extends SerializableClass {
   dateCreated: Date;
   dateResponded: Date;
   dateUpdated: Date;
-  details: string;
+  details: any;
   entitySid: string;
   expirationDate: Date;
   factorSid: string;
@@ -376,7 +380,7 @@ declare class ChallengeInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  hiddenDetails: string;
+  hiddenDetails: any;
   identity: string;
   respondedReason: ChallengeChallengeReasons;
   serviceSid: string;

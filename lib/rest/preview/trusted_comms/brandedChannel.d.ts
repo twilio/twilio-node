@@ -5,12 +5,12 @@
  *       /       /
  */
 
-import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import TrustedComms = require('../../../TrustedComms');
+import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
+import TrustedComms = require('../TrustedComms');
 import { ChannelList } from './brandedChannel/channel';
 import { ChannelListInstance } from './brandedChannel/channel';
-import { SerializableClass } from '../../../../../interfaces';
+import { SerializableClass } from '../../../interfaces';
 
 /**
  * Initialize the BrandedChannelList
@@ -20,10 +20,8 @@ import { SerializableClass } from '../../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param businessSid - Business Sid.
- * @param brandSid - Brand Sid.
  */
-declare function BrandedChannelList(version: TrustedComms, businessSid: string, brandSid: string): BrandedChannelListInstance;
+declare function BrandedChannelList(version: TrustedComms): BrandedChannelListInstance;
 
 interface BrandedChannelListInstance {
   /**
@@ -55,8 +53,6 @@ interface BrandedChannelResource {
 }
 
 interface BrandedChannelSolution {
-  brandSid?: string;
-  businessSid?: string;
 }
 
 
@@ -69,11 +65,9 @@ declare class BrandedChannelContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param businessSid - Business Sid.
-   * @param brandSid - Brand Sid.
    * @param sid - Branded Channel Sid.
    */
-  constructor(version: TrustedComms, businessSid: string, brandSid: string, sid: string);
+  constructor(version: TrustedComms, sid: string);
 
   channels: ChannelListInstance;
   /**
@@ -99,11 +93,9 @@ declare class BrandedChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param businessSid - Business Sid.
-   * @param brandSid - Brand Sid.
    * @param sid - Branded Channel Sid.
    */
-  constructor(version: TrustedComms, payload: BrandedChannelPayload, businessSid: string, brandSid: string, sid: string);
+  constructor(version: TrustedComms, payload: BrandedChannelPayload, sid: string);
 
   private _proxy: BrandedChannelContext;
   accountSid: string;

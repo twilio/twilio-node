@@ -22,7 +22,7 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('Business', function() {
+describe('BrandedChannel', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -33,7 +33,7 @@ describe('Business', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.preview.trusted_comms.businesses('BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.preview.trusted_comms.brandedChannels('BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -41,8 +41,8 @@ describe('Business', function() {
         done();
       }).done();
 
-      var sid = 'BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://preview.twilio.com/TrustedComms/Businesses/${sid}`;
+      var sid = 'BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://preview.twilio.com/TrustedComms/BrandedChannels/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -54,16 +54,18 @@ describe('Business', function() {
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'business_sid': 'BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'brand_sid': 'BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'insights': 'https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Insights'
-          }
+              'channels': 'https://preview.twilio.com/TrustedComms/BrandedChannels/BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+          },
+          'url': 'https://preview.twilio.com/TrustedComms/BrandedChannels/BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.trusted_comms.businesses('BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      var promise = client.preview.trusted_comms.brandedChannels('BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

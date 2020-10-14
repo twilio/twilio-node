@@ -34,10 +34,8 @@ describe('Factor', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        binding: 'binding',
         friendlyName: 'friendly_name',
         factorType: 'push',
-        config: 'config',
         twilioSandboxMode: 'twilio_sandbox_mode'
       };
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -54,12 +52,7 @@ describe('Factor', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-      var values = {
-        Binding: 'binding',
-        FriendlyName: 'friendly_name',
-        FactorType: 'push',
-        Config: 'config',
-      };
+      var values = {FriendlyName: 'friendly_name', FactorType: 'push', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -89,7 +82,7 @@ describe('Factor', function() {
           'factor_type': 'push',
           'config': {
               'sdk_version': '1.0',
-              'app_id': 'com.authy.authy',
+              'app_id': 'com.example.myapp',
               'notification_platform': 'fcm',
               'notification_token': 'test_token'
           },
@@ -98,12 +91,7 @@ describe('Factor', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        binding: 'binding',
-        friendlyName: 'friendly_name',
-        factorType: 'push',
-        config: 'config'
-      };
+      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .factors.create(opts);
@@ -203,7 +191,7 @@ describe('Factor', function() {
           'factor_type': 'push',
           'config': {
               'sdk_version': '1.0',
-              'app_id': 'com.authy.authy',
+              'app_id': 'com.example.myapp',
               'notification_platform': 'fcm',
               'notification_token': 'test_token'
           },
@@ -240,7 +228,7 @@ describe('Factor', function() {
                   'factor_type': 'push',
                   'config': {
                       'sdk_version': '1.0',
-                      'app_id': 'com.authy.authy',
+                      'app_id': 'com.example.myapp',
                       'notification_platform': 'fcm',
                       'notification_token': 'test_token'
                   },
@@ -280,7 +268,7 @@ describe('Factor', function() {
                   'factor_type': 'push',
                   'config': {
                       'sdk_version': '1.0',
-                      'app_id': 'com.authy.authy',
+                      'app_id': 'com.example.myapp',
                       'notification_platform': 'fcm',
                       'notification_token': 'test_token'
                   },
@@ -325,7 +313,7 @@ describe('Factor', function() {
                   'factor_type': 'push',
                   'config': {
                       'sdk_version': '1.0',
-                      'app_id': 'com.authy.authy',
+                      'app_id': 'com.example.myapp',
                       'notification_platform': 'fcm',
                       'notification_token': 'test_token'
                   },
@@ -420,7 +408,7 @@ describe('Factor', function() {
                   'factor_type': 'push',
                   'config': {
                       'sdk_version': '1.0',
-                      'app_id': 'com.authy.authy',
+                      'app_id': 'com.example.myapp',
                       'notification_platform': 'fcm',
                       'notification_token': 'test_token'
                   },
@@ -494,7 +482,7 @@ describe('Factor', function() {
           'factor_type': 'push',
           'config': {
               'sdk_version': '1.0',
-              'app_id': 'com.authy.authy',
+              'app_id': 'com.example.myapp',
               'notification_platform': 'fcm',
               'notification_token': 'test_token'
           },

@@ -19,6 +19,7 @@ import { AssistantListInstance } from './preview/understand/assistant';
 import { AuthorizationDocumentListInstance } from './preview/hosted_numbers/authorizationDocument';
 import { AvailableAddOnListInstance } from './preview/marketplace/availableAddOn';
 import { BrandedCallListInstance } from './preview/trusted_comms/brandedCall';
+import { BrandedChannelListInstance } from './preview/trusted_comms/brandedChannel';
 import { BrandsInformationListInstance } from './preview/trusted_comms/brandsInformation';
 import { BusinessListInstance } from './preview/trusted_comms/business';
 import { CommandListInstance } from './preview/wireless/command';
@@ -47,6 +48,7 @@ declare class Preview extends Domain {
   readonly authorizationDocuments: AuthorizationDocumentListInstance;
   readonly availableAddOns: AvailableAddOnListInstance;
   readonly brandedCalls: BrandedCallListInstance;
+  readonly brandedChannels: BrandedChannelListInstance;
   readonly brandsInformation: BrandsInformationListInstance;
   readonly bulk_exports: BulkExports;
   readonly businesses: BusinessListInstance;
