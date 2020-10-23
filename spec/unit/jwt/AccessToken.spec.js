@@ -47,7 +47,7 @@ describe('AccessToken', function() {
       });
 
       ['', undefined, null, {}, 1, 0].forEach(function(value) {
-        it('should not twr header if region is ' + value, function() {
+        it('should not add twr header if region is ' + value, function() {
           var token = new twilio.jwt.AccessToken(accountSid, keySid, secret, {region: value});
           var decoded = jwt.decode(token.toJwt(), {complete: true});
 
@@ -67,7 +67,7 @@ describe('AccessToken', function() {
       });
     });
 
-    it('should accept different algorithm', function() {
+    it('should accept different algorithms', function() {
       var validateAlg = function(alg) {
         var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
         var decoded = jwt.decode(token.toJwt(alg), {
