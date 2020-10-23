@@ -158,6 +158,10 @@ declare namespace AccessToken {
      * Time from epoch in seconds for not before value
      */
     nbf?: number;
+    /**
+     * Home region to use
+     */
+    region?: string;
   }
 }
 
