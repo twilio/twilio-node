@@ -159,7 +159,7 @@ declare namespace AccessToken {
      */
     nbf?: number;
     /**
-     * Home region to use
+     * The region value associated with this account
      */
     region?: string;
   }
