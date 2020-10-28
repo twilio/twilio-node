@@ -38,7 +38,7 @@
     "@types/node": "9.6.57",
     "eslint": "^7.3.1",
     "express": "^4.17.1",
-    "jasmine": "^3.5.0",
+    "jasmine": "~3.5.0",
     "jsdoc": "^3.6.4",
     "jshint": "^2.11.0",
     "mock-fs": "^4.12.0",
