@@ -33,10 +33,7 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {
-        factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        twilioSandboxMode: 'twilio_sandbox_mode'
-      };
+      var opts = {factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .challenges.create(opts);
@@ -56,13 +53,6 @@ describe('Challenge', function() {
           method: 'POST',
           url: url,
           data: values
-      }));
-
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
-      holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url,
-        headers: headers
       }));
     }
   );
@@ -116,10 +106,9 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch(opts);
+                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -132,11 +121,9 @@ describe('Challenge', function() {
       var sid = 'YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Challenges/${sid}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -344,10 +331,9 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .challenges.list(opts);
+                                    .challenges.list();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -359,11 +345,9 @@ describe('Challenge', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Challenges`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -457,10 +441,9 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -473,11 +456,9 @@ describe('Challenge', function() {
       var sid = 'YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Challenges/${sid}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );

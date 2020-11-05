@@ -19,9 +19,8 @@ type ChallengeFactorTypes = 'push';
 /**
  * Initialize the ChallengeList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -30,23 +29,12 @@ type ChallengeFactorTypes = 'push';
 declare function ChallengeList(version: V2, serviceSid: string, identity: string): ChallengeListInstance;
 
 /**
- * Options to pass to fetch
- *
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
- */
-interface ChallengeInstanceFetchOptions {
-  twilioSandboxMode?: string;
-}
-
-/**
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Challenge
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceUpdateOptions {
   authPayload?: string;
-  twilioSandboxMode?: string;
 }
 
 interface ChallengeListInstance {
@@ -177,7 +165,6 @@ interface ChallengeListInstance {
  * @property expirationDate - The future date in which this Challenge will expire
  * @property factorSid - Factor Sid.
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceCreateOptions {
   details?: {
@@ -187,7 +174,6 @@ interface ChallengeListInstanceCreateOptions {
   expirationDate?: Date;
   factorSid: string;
   hiddenDetails?: object;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -209,7 +195,6 @@ interface ChallengeListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property status - The Status of theChallenges to fetch
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceEachOptions {
   callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void;
@@ -218,7 +203,6 @@ interface ChallengeListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -236,14 +220,12 @@ interface ChallengeListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property status - The Status of theChallenges to fetch
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceOptions {
   factorSid?: string;
   limit?: number;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -254,7 +236,6 @@ interface ChallengeListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property status - The Status of theChallenges to fetch
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstancePageOptions {
   factorSid?: string;
@@ -262,7 +243,6 @@ interface ChallengeListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   status?: ChallengeChallengeStatuses;
-  twilioSandboxMode?: string;
 }
 
 interface ChallengePayload extends ChallengeResource, Page.TwilioResponsePayload {
@@ -297,9 +277,8 @@ declare class ChallengeContext {
   /**
    * Initialize the ChallengeContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -314,13 +293,6 @@ declare class ChallengeContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  /**
-   * fetch a ChallengeInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -345,9 +317,8 @@ declare class ChallengeInstance extends SerializableClass {
   /**
    * Initialize the ChallengeContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -373,13 +344,6 @@ declare class ChallengeInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  /**
-   * fetch a ChallengeInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   hiddenDetails: any;
   identity: string;
   respondedReason: ChallengeChallengeReasons;
@@ -411,9 +375,8 @@ declare class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource
   /**
    * Initialize the ChallengePage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -433,4 +396,4 @@ declare class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource
   toJSON(): any;
 }
 
-export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceFetchOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
+export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }

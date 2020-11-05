@@ -18,8 +18,8 @@ type MessageWebhookEnabledType = 'true'|'false';
  * Initialize the MessageList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
- * @param channelSid - The SID of the Channel the Message resource belongs to
+ * @param serviceSid - The service_sid
+ * @param channelSid - The channel_sid
  */
 declare function MessageList(version: V2, serviceSid: string, channelSid: string): MessageListInstance;
 
@@ -35,12 +35,12 @@ interface MessageInstanceRemoveOptions {
 /**
  * Options to pass to update
  *
- * @property attributes - A valid JSON string that contains application-specific data
- * @property body - The message to send to the channel
- * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
- * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
- * @property from - The Identity of the message's author
- * @property lastUpdatedBy - The Identity of the User who last updated the Message, if applicable
+ * @property attributes - The attributes
+ * @property body - The body
+ * @property dateCreated - The date_created
+ * @property dateUpdated - The date_updated
+ * @property from - The from
+ * @property lastUpdatedBy - The last_updated_by
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageInstanceUpdateOptions {
@@ -105,7 +105,7 @@ interface MessageListInstance {
   /**
    * Constructs a message
    *
-   * @param sid - The SID of the Message resource to fetch
+   * @param sid - The sid
    */
   get(sid: string): MessageContext;
   /**
@@ -182,13 +182,13 @@ interface MessageListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - A valid JSON string that contains application-specific data
- * @property body - The message to send to the channel
- * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
- * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
- * @property from - The Identity of the new message's author
- * @property lastUpdatedBy - The Identity of the User who last updated the Message
- * @property mediaSid -  The Media Sid to be attached to the new Message
+ * @property attributes - The attributes
+ * @property body - The body
+ * @property dateCreated - The date_created
+ * @property dateUpdated - The date_updated
+ * @property from - The from
+ * @property lastUpdatedBy - The last_updated_by
+ * @property mediaSid - The media_sid
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface MessageListInstanceCreateOptions {
@@ -213,7 +213,7 @@ interface MessageListInstanceCreateOptions {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - The sort order of the returned messages
+ * @property order - The order
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -236,7 +236,7 @@ interface MessageListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - The sort order of the returned messages
+ * @property order - The order
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -253,7 +253,7 @@ interface MessageListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property order - The sort order of the returned messages
+ * @property order - The order
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -298,9 +298,9 @@ declare class MessageContext {
    * Initialize the MessageContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param channelSid - The SID of the Channel the message to fetch belongs to
-   * @param sid - The SID of the Message resource to fetch
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
   constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
@@ -349,9 +349,9 @@ declare class MessageInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param channelSid - The SID of the Channel the Message resource belongs to
-   * @param sid - The SID of the Message resource to fetch
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
   constructor(version: V2, payload: MessagePayload, serviceSid: string, channelSid: string, sid: string);
 

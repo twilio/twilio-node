@@ -10,6 +10,8 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { ParticipantList } from './room/roomParticipant';
 import { ParticipantListInstance } from './room/roomParticipant';
+import { RecordingRulesList } from './room/roomRecordingRule';
+import { RecordingRulesListInstance } from './room/roomRecordingRule';
 import { RoomRecordingList } from './room/recording';
 import { RoomRecordingListInstance } from './room/recording';
 import { SerializableClass } from '../../../interfaces';
@@ -312,6 +314,7 @@ declare class RoomContext {
    */
   fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
   participants: ParticipantListInstance;
+  recordingRules: RecordingRulesListInstance;
   recordings: RoomRecordingListInstance;
   /**
    * Provide a user-friendly representation
@@ -358,6 +361,10 @@ declare class RoomInstance extends SerializableClass {
    */
   participants(): ParticipantListInstance;
   recordParticipantsOnConnect: boolean;
+  /**
+   * Access the recordingRules
+   */
+  recordingRules(): RecordingRulesListInstance;
   /**
    * Access the recordings
    */

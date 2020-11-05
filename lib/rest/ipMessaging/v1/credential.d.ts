@@ -22,12 +22,12 @@ declare function CredentialList(version: V1): CredentialListInstance;
 /**
  * Options to pass to update
  *
- * @property apiKey - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential
- * @property certificate - [APN only] The URL encoded representation of the certificate
- * @property friendlyName - A string to describe the resource
- * @property privateKey - [APN only] The URL encoded representation of the private key
- * @property sandbox - [APN only] Whether to send the credential to sandbox APNs
- * @property secret - [FCM only] The Server key of your project from Firebase console
+ * @property apiKey - The api_key
+ * @property certificate - The certificate
+ * @property friendlyName - The friendly_name
+ * @property privateKey - The private_key
+ * @property sandbox - The sandbox
+ * @property secret - The secret
  */
 interface CredentialInstanceUpdateOptions {
   apiKey?: string;
@@ -84,7 +84,7 @@ interface CredentialListInstance {
   /**
    * Constructs a credential
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The sid
    */
   get(sid: string): CredentialContext;
   /**
@@ -161,13 +161,13 @@ interface CredentialListInstance {
 /**
  * Options to pass to create
  *
- * @property apiKey - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential
- * @property certificate - [APN only] The URL encoded representation of the certificate
- * @property friendlyName - A string to describe the resource
- * @property privateKey - [APN only] The URL encoded representation of the private key
- * @property sandbox - [APN only] Whether to send the credential to sandbox APNs
- * @property secret - [FCM only] The Server key of your project from Firebase console
- * @property type - The type of push-notification service the credential is for
+ * @property apiKey - The api_key
+ * @property certificate - The certificate
+ * @property friendlyName - The friendly_name
+ * @property privateKey - The private_key
+ * @property sandbox - The sandbox
+ * @property secret - The secret
+ * @property type - The type
  */
 interface CredentialListInstanceCreateOptions {
   apiKey?: string;
@@ -259,7 +259,7 @@ declare class CredentialContext {
    * Initialize the CredentialContext
    *
    * @param version - Version of the resource
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The sid
    */
   constructor(version: V1, sid: string);
 
@@ -301,7 +301,7 @@ declare class CredentialInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The sid
    */
   constructor(version: V1, payload: CredentialPayload, sid: string);
 

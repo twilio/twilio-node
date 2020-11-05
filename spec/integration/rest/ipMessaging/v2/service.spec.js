@@ -42,7 +42,7 @@ describe('Service', function() {
       }).done();
 
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v2/Services/${sid}`;
+      var url = `https://ip-messaging.twilio.com/v2/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -66,10 +66,10 @@ describe('Service', function() {
               'user_channels': 250
           },
           'links': {
-              'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-              'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-              'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
+              'channels': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
+              'users': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
+              'roles': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+              'bindings': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
           },
           'notifications': {},
           'post_webhook_url': 'post_webhook_url',
@@ -80,7 +80,7 @@ describe('Service', function() {
           'read_status_enabled': false,
           'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'typing_indicator_timeout': 100,
-          'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'webhook_filters': [
               'webhook_filters'
           ],
@@ -115,7 +115,7 @@ describe('Service', function() {
       }).done();
 
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v2/Services/${sid}`;
+      var url = `https://ip-messaging.twilio.com/v2/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -151,7 +151,7 @@ describe('Service', function() {
         done();
       }).done();
 
-      var url = 'https://chat.twilio.com/v2/Services';
+      var url = 'https://ip-messaging.twilio.com/v2/Services';
 
       var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
@@ -177,10 +177,10 @@ describe('Service', function() {
               'user_channels': 250
           },
           'links': {
-              'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-              'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-              'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
+              'channels': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
+              'users': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
+              'roles': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+              'bindings': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
           },
           'notifications': {},
           'post_webhook_url': 'post_webhook_url',
@@ -191,7 +191,7 @@ describe('Service', function() {
           'read_status_enabled': false,
           'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'typing_indicator_timeout': 100,
-          'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'webhook_filters': [
               'webhook_filters'
           ],
@@ -218,13 +218,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0'
+              'url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0'
           },
           'services': [
               {
@@ -241,10 +241,10 @@ describe('Service', function() {
                       'user_channels': 250
                   },
                   'links': {
-                      'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-                      'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-                      'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-                      'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
+                      'channels': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
+                      'users': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
+                      'roles': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+                      'bindings': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
                   },
                   'notifications': {},
                   'post_webhook_url': 'post_webhook_url',
@@ -255,7 +255,7 @@ describe('Service', function() {
                   'read_status_enabled': false,
                   'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'typing_indicator_timeout': 100,
-                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'webhook_filters': [
                       'webhook_filters'
                   ],
@@ -275,13 +275,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0'
+              'url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0'
           },
           'services': [
               {
@@ -298,10 +298,10 @@ describe('Service', function() {
                       'user_channels': 250
                   },
                   'links': {
-                      'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-                      'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-                      'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-                      'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
+                      'channels': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
+                      'users': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
+                      'roles': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+                      'bindings': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
                   },
                   'notifications': {},
                   'post_webhook_url': 'post_webhook_url',
@@ -312,7 +312,7 @@ describe('Service', function() {
                   'read_status_enabled': false,
                   'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'typing_indicator_timeout': 100,
-                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'webhook_filters': [
                       'webhook_filters'
                   ],
@@ -328,7 +328,7 @@ describe('Service', function() {
       client.ipMessaging.v2.services.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://chat.twilio.com/v2/Services',
+          url: 'https://ip-messaging.twilio.com/v2/Services',
           params: {PageSize: 20},
       }));
     }
@@ -337,13 +337,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0'
+              'url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0'
           },
           'services': [
               {
@@ -360,10 +360,10 @@ describe('Service', function() {
                       'user_channels': 250
                   },
                   'links': {
-                      'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-                      'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-                      'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-                      'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
+                      'channels': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
+                      'users': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
+                      'roles': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+                      'bindings': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
                   },
                   'notifications': {},
                   'post_webhook_url': 'post_webhook_url',
@@ -374,7 +374,7 @@ describe('Service', function() {
                   'read_status_enabled': false,
                   'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'typing_indicator_timeout': 100,
-                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'webhook_filters': [
                       'webhook_filters'
                   ],
@@ -402,7 +402,7 @@ describe('Service', function() {
         done();
       }).done();
 
-      var url = 'https://chat.twilio.com/v2/Services';
+      var url = 'https://ip-messaging.twilio.com/v2/Services';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -414,13 +414,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0'
+              'url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0'
           },
           'services': []
       };
@@ -440,13 +440,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services?PageSize=50&Page=0'
+              'url': 'https://ip-messaging.twilio.com/v2/Services?PageSize=50&Page=0'
           },
           'services': [
               {
@@ -463,10 +463,10 @@ describe('Service', function() {
                       'user_channels': 250
                   },
                   'links': {
-                      'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-                      'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-                      'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-                      'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
+                      'channels': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
+                      'users': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
+                      'roles': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+                      'bindings': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
                   },
                   'notifications': {},
                   'post_webhook_url': 'post_webhook_url',
@@ -477,7 +477,7 @@ describe('Service', function() {
                   'read_status_enabled': false,
                   'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'typing_indicator_timeout': 100,
-                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'webhook_filters': [
                       'webhook_filters'
                   ],
@@ -514,7 +514,7 @@ describe('Service', function() {
       }).done();
 
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v2/Services/${sid}`;
+      var url = `https://ip-messaging.twilio.com/v2/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -538,10 +538,10 @@ describe('Service', function() {
               'user_channels': 600
           },
           'links': {
-              'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-              'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-              'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
+              'channels': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
+              'users': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
+              'roles': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+              'bindings': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
           },
           'notifications': {
               'log_enabled': true,
@@ -571,7 +571,7 @@ describe('Service', function() {
           'read_status_enabled': false,
           'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'typing_indicator_timeout': 100,
-          'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'webhook_filters': [
               'webhook_filters'
           ],

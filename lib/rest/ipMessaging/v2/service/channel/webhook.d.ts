@@ -18,20 +18,20 @@ type WebhookType = 'webhook'|'trigger'|'studio';
  * Initialize the WebhookList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the Channel Webhook resource is associated with
- * @param channelSid - The SID of the Channel the Channel Webhook resource belongs to
+ * @param serviceSid - The service_sid
+ * @param channelSid - The channel_sid
  */
 declare function WebhookList(version: V2, serviceSid: string, channelSid: string): WebhookListInstance;
 
 /**
  * Options to pass to update
  *
- * @property configuration.filters - The events that cause us to call the Channel Webhook
- * @property configuration.flowSid - The SID of the Studio Flow to call when an event occurs
- * @property configuration.method - The HTTP method used to call `configuration.url`
- * @property configuration.retryCount - The number of times to retry the webhook if the first attempt fails
- * @property configuration.triggers - A string that will cause us to call the webhook when it is found in a message body
- * @property configuration.url - The URL of the webhook to call
+ * @property configuration.filters - The configuration.filters
+ * @property configuration.flowSid - The configuration.flow_sid
+ * @property configuration.method - The configuration.method
+ * @property configuration.retryCount - The configuration.retry_count
+ * @property configuration.triggers - The configuration.triggers
+ * @property configuration.url - The configuration.url
  */
 interface WebhookInstanceUpdateOptions {
   configuration?: {
@@ -90,7 +90,7 @@ interface WebhookListInstance {
   /**
    * Constructs a webhook
    *
-   * @param sid - The SID of the Channel Webhook resource to fetch
+   * @param sid - The sid
    */
   get(sid: string): WebhookContext;
   /**
@@ -167,13 +167,13 @@ interface WebhookListInstance {
 /**
  * Options to pass to create
  *
- * @property configuration.filters - The events that cause us to call the Channel Webhook
- * @property configuration.flowSid - The SID of the Studio Flow to call when an event occurs
- * @property configuration.method - The HTTP method used to call `configuration.url`
- * @property configuration.retryCount - The number of times to retry the webhook if the first attempt fails
- * @property configuration.triggers - A string that will cause us to call the webhook when it is found in a message body
- * @property configuration.url - The URL of the webhook to call
- * @property type - The type of webhook
+ * @property configuration.filters - The configuration.filters
+ * @property configuration.flowSid - The configuration.flow_sid
+ * @property configuration.method - The configuration.method
+ * @property configuration.retryCount - The configuration.retry_count
+ * @property configuration.triggers - The configuration.triggers
+ * @property configuration.url - The configuration.url
+ * @property type - The type
  */
 interface WebhookListInstanceCreateOptions {
   configuration?: {
@@ -270,9 +270,9 @@ declare class WebhookContext {
    * Initialize the WebhookContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service with the Channel to fetch the Webhook resource from
-   * @param channelSid - The SID of the Channel the resource to fetch belongs to
-   * @param sid - The SID of the Channel Webhook resource to fetch
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
   constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
@@ -314,9 +314,9 @@ declare class WebhookInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the Channel Webhook resource is associated with
-   * @param channelSid - The SID of the Channel the Channel Webhook resource belongs to
-   * @param sid - The SID of the Channel Webhook resource to fetch
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
   constructor(version: V2, payload: WebhookPayload, serviceSid: string, channelSid: string, sid: string);
 

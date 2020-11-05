@@ -19,9 +19,8 @@ type FactorNotificationPlatforms = 'apn'|'fcm';
 /**
  * Initialize the FactorList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -30,31 +29,12 @@ type FactorNotificationPlatforms = 'apn'|'fcm';
 declare function FactorList(version: V2, serviceSid: string, identity: string): FactorListInstance;
 
 /**
- * Options to pass to fetch
- *
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
- */
-interface FactorInstanceFetchOptions {
-  twilioSandboxMode?: string;
-}
-
-/**
- * Options to pass to remove
- *
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
- */
-interface FactorInstanceRemoveOptions {
-  twilioSandboxMode?: string;
-}
-
-/**
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Factor for the first time
  * @property config.notificationToken - For APN, the device token. For FCM the registration token
  * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
  * @property friendlyName - The friendly name of this Factor
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorInstanceUpdateOptions {
   authPayload?: string;
@@ -63,7 +43,6 @@ interface FactorInstanceUpdateOptions {
     sdkVersion?: string;
   };
   friendlyName?: string;
-  twilioSandboxMode?: string;
 }
 
 interface FactorListInstance {
@@ -197,7 +176,6 @@ interface FactorListInstance {
  * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
  * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceCreateOptions {
   binding?: {
@@ -212,7 +190,6 @@ interface FactorListInstanceCreateOptions {
   };
   factorType: FactorFactorTypes;
   friendlyName: string;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -232,14 +209,12 @@ interface FactorListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceEachOptions {
   callback?: (item: FactorInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -255,12 +230,10 @@ interface FactorListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -269,13 +242,11 @@ interface FactorListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface FactorListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  twilioSandboxMode?: string;
 }
 
 interface FactorPayload extends FactorResource, Page.TwilioResponsePayload {
@@ -306,9 +277,8 @@ declare class FactorContext {
   /**
    * Initialize the FactorContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -324,25 +294,11 @@ declare class FactorContext {
    */
   fetch(callback?: (error: Error | null, items: FactorInstance) => any): Promise<FactorInstance>;
   /**
-   * fetch a FactorInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  fetch(opts?: FactorInstanceFetchOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<FactorInstance>;
-  /**
    * remove a FactorInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
-  /**
-   * remove a FactorInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: FactorInstanceRemoveOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -367,9 +323,8 @@ declare class FactorInstance extends SerializableClass {
   /**
    * Initialize the FactorContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -392,13 +347,6 @@ declare class FactorInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FactorInstance) => any): Promise<FactorInstance>;
-  /**
-   * fetch a FactorInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  fetch(opts?: FactorInstanceFetchOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<FactorInstance>;
   friendlyName: string;
   identity: string;
   /**
@@ -407,13 +355,6 @@ declare class FactorInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
-  /**
-   * remove a FactorInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: FactorInstanceRemoveOptions, callback?: (error: Error | null, items: FactorInstance) => any): Promise<boolean>;
   serviceSid: string;
   sid: string;
   status: FactorFactorStatuses;
@@ -442,9 +383,8 @@ declare class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorI
   /**
    * Initialize the FactorPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -464,4 +404,4 @@ declare class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorI
   toJSON(): any;
 }
 
-export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceFetchOptions, FactorInstanceRemoveOptions, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorNotificationPlatforms, FactorPage, FactorPayload, FactorResource, FactorSolution }
+export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorNotificationPlatforms, FactorPage, FactorPayload, FactorResource, FactorSolution }

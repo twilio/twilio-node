@@ -35,9 +35,9 @@ describe('Binding', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'bindings'
           },
@@ -58,9 +58,9 @@ describe('Binding', function() {
                       'added_to_channel',
                       'invited_to_channel'
                   ],
-                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'user': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
+                      'user': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
                   }
               }
           ]
@@ -76,9 +76,9 @@ describe('Binding', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'bindings'
           },
@@ -99,9 +99,9 @@ describe('Binding', function() {
                       'added_to_channel',
                       'invited_to_channel'
                   ],
-                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'user': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
+                      'user': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
                   }
               }
           ]
@@ -111,7 +111,7 @@ describe('Binding', function() {
                            .bindings.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://chat.twilio.com/v2/Services/${serviceSid}/Bindings',
+          url: 'https://ip-messaging.twilio.com/v2/Services/${serviceSid}/Bindings',
           params: {PageSize: 20},
       }));
     }
@@ -122,9 +122,9 @@ describe('Binding', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'bindings'
           },
@@ -145,9 +145,9 @@ describe('Binding', function() {
                       'added_to_channel',
                       'invited_to_channel'
                   ],
-                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'user': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
+                      'user': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
                   }
               }
           ]
@@ -171,7 +171,7 @@ describe('Binding', function() {
       }).done();
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Bindings`;
+      var url = `https://ip-messaging.twilio.com/v2/Services/${serviceSid}/Bindings`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -185,9 +185,9 @@ describe('Binding', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'bindings'
           },
@@ -208,9 +208,9 @@ describe('Binding', function() {
                       'added_to_channel',
                       'invited_to_channel'
                   ],
-                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'user': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
+                      'user': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
                   }
               }
           ]
@@ -234,9 +234,9 @@ describe('Binding', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'first_page_url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'bindings'
           },
@@ -270,7 +270,7 @@ describe('Binding', function() {
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Bindings/${sid}`;
+      var url = `https://ip-messaging.twilio.com/v2/Services/${serviceSid}/Bindings/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -296,9 +296,9 @@ describe('Binding', function() {
               'added_to_channel',
               'invited_to_channel'
           ],
-          'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'user': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
+              'user': 'https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser'
           }
       };
 
@@ -329,7 +329,7 @@ describe('Binding', function() {
 
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var sid = 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Bindings/${sid}`;
+      var url = `https://ip-messaging.twilio.com/v2/Services/${serviceSid}/Bindings/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

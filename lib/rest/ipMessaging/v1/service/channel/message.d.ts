@@ -16,16 +16,16 @@ type MessageOrderType = 'asc'|'desc';
  * Initialize the MessageList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
- * @param channelSid - The unique ID of the Channel the Message resource belongs to
+ * @param serviceSid - The service_sid
+ * @param channelSid - The channel_sid
  */
 declare function MessageList(version: V1, serviceSid: string, channelSid: string): MessageListInstance;
 
 /**
  * Options to pass to update
  *
- * @property attributes - A valid JSON string that contains application-specific data
- * @property body - The message to send to the channel
+ * @property attributes - The attributes
+ * @property body - The body
  */
 interface MessageInstanceUpdateOptions {
   attributes?: string;
@@ -78,7 +78,7 @@ interface MessageListInstance {
   /**
    * Constructs a message
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The sid
    */
   get(sid: string): MessageContext;
   /**
@@ -155,9 +155,9 @@ interface MessageListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - A valid JSON string that contains application-specific data
- * @property body - The message to send to the channel
- * @property from - The identity of the new message's author
+ * @property attributes - The attributes
+ * @property body - The body
+ * @property from - The from
  */
 interface MessageListInstanceCreateOptions {
   attributes?: string;
@@ -176,7 +176,7 @@ interface MessageListInstanceCreateOptions {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - The sort order of the returned messages
+ * @property order - The order
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -199,7 +199,7 @@ interface MessageListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property order - The sort order of the returned messages
+ * @property order - The order
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -216,7 +216,7 @@ interface MessageListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property order - The sort order of the returned messages
+ * @property order - The order
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -258,9 +258,9 @@ declare class MessageContext {
    * Initialize the MessageContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param channelSid - The unique ID of the Channel the message to fetch belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
   constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
 
@@ -302,9 +302,9 @@ declare class MessageInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param channelSid - The unique ID of the Channel the Message resource belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
   constructor(version: V1, payload: MessagePayload, serviceSid: string, channelSid: string, sid: string);
 

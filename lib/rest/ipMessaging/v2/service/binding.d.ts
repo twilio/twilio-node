@@ -16,7 +16,7 @@ type BindingBindingType = 'gcm'|'apn'|'fcm';
  * Initialize the BindingList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the Binding resource is associated with
+ * @param serviceSid - The service_sid
  */
 declare function BindingList(version: V2, serviceSid: string): BindingListInstance;
 
@@ -59,7 +59,7 @@ interface BindingListInstance {
   /**
    * Constructs a binding
    *
-   * @param sid - The SID of the resource to fetch
+   * @param sid - The sid
    */
   get(sid: string): BindingContext;
   /**
@@ -136,12 +136,12 @@ interface BindingListInstance {
 /**
  * Options to pass to each
  *
- * @property bindingType - The push technology used by the Binding resources to read
+ * @property bindingType - The binding_type
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property identity - The `identity` value of the resources to read
+ * @property identity - The identity
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -165,8 +165,8 @@ interface BindingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property bindingType - The push technology used by the Binding resources to read
- * @property identity - The `identity` value of the resources to read
+ * @property bindingType - The binding_type
+ * @property identity - The identity
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -188,8 +188,8 @@ interface BindingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property bindingType - The push technology used by the Binding resources to read
- * @property identity - The `identity` value of the resources to read
+ * @property bindingType - The binding_type
+ * @property identity - The identity
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -230,8 +230,8 @@ declare class BindingContext {
    * Initialize the BindingContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The SID of the resource to fetch
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
   constructor(version: V2, serviceSid: string, sid: string);
 
@@ -260,8 +260,8 @@ declare class BindingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the Binding resource is associated with
-   * @param sid - The SID of the resource to fetch
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
   constructor(version: V2, payload: BindingPayload, serviceSid: string, sid: string);
 

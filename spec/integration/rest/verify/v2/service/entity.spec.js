@@ -33,7 +33,7 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity', twilioSandboxMode: 'twilio_sandbox_mode'};
+      var opts = {identity: 'identity'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities.create(opts);
       promise.then(function() {
@@ -51,13 +51,6 @@ describe('Entity', function() {
           method: 'POST',
           url: url,
           data: values
-      }));
-
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
-      holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url,
-        headers: headers
       }));
     }
   );
@@ -94,9 +87,8 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .entities('identity').remove(opts);
+                                    .entities('identity').remove();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -108,11 +100,9 @@ describe('Entity', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -136,9 +126,8 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .entities('identity').fetch(opts);
+                                    .entities('identity').fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -150,11 +139,9 @@ describe('Entity', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -294,9 +281,8 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .entities.list(opts);
+                                    .entities.list();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -307,11 +293,9 @@ describe('Entity', function() {
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );

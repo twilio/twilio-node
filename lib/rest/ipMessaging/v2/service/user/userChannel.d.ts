@@ -18,17 +18,17 @@ type UserChannelNotificationLevel = 'default'|'muted';
  * Initialize the UserChannelList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
- * @param userSid - The SID of the User the User Channel belongs to
+ * @param serviceSid - The service_sid
+ * @param userSid - The user_sid
  */
 declare function UserChannelList(version: V2, serviceSid: string, userSid: string): UserChannelListInstance;
 
 /**
  * Options to pass to update
  *
- * @property lastConsumedMessageIndex - The index of the last Message that the Member has read within the Channel
- * @property lastConsumptionTimestamp - The ISO 8601 based timestamp string that represents the datetime of the last Message read event for the Member within the Channel
- * @property notificationLevel - The push notification level to assign to the User Channel
+ * @property lastConsumedMessageIndex - The last_consumed_message_index
+ * @property lastConsumptionTimestamp - The last_consumption_timestamp
+ * @property notificationLevel - The notification_level
  */
 interface UserChannelInstanceUpdateOptions {
   lastConsumedMessageIndex?: number;
@@ -75,7 +75,7 @@ interface UserChannelListInstance {
   /**
    * Constructs a user_channel
    *
-   * @param channelSid - The SID of the Channel that has the User Channel to fetch
+   * @param channelSid - The channel_sid
    */
   get(channelSid: string): UserChannelContext;
   /**
@@ -234,9 +234,9 @@ declare class UserChannelContext {
    * Initialize the UserChannelContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the User Channel resource from
-   * @param userSid - The SID of the User to fetch the User Channel resource from
-   * @param channelSid - The SID of the Channel that has the User Channel to fetch
+   * @param serviceSid - The service_sid
+   * @param userSid - The user_sid
+   * @param channelSid - The channel_sid
    */
   constructor(version: V2, serviceSid: string, userSid: string, channelSid: string);
 
@@ -278,9 +278,9 @@ declare class UserChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param userSid - The SID of the User the User Channel belongs to
-   * @param channelSid - The SID of the Channel that has the User Channel to fetch
+   * @param serviceSid - The service_sid
+   * @param userSid - The user_sid
+   * @param channelSid - The channel_sid
    */
   constructor(version: V2, payload: UserChannelPayload, serviceSid: string, userSid: string, channelSid: string);
 

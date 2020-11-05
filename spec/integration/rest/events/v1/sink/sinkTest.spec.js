@@ -54,7 +54,7 @@ describe('SinkTest', function() {
   it('should generate valid create response',
     function(done) {
       var body = {
-          'result': 'valid'
+          'result': 'submitted'
       };
 
       holodeck.mock(new Response(201, body));

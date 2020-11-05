@@ -26,7 +26,7 @@ type ChannelWebhookEnabledType = 'true'|'false';
  * Initialize the ChannelList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param serviceSid - The service_sid
  */
 declare function ChannelList(version: V2, serviceSid: string): ChannelListInstance;
 
@@ -42,12 +42,12 @@ interface ChannelInstanceRemoveOptions {
 /**
  * Options to pass to update
  *
- * @property attributes - A valid JSON string that contains application-specific data
- * @property createdBy - The identity of the User that created the Channel
- * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
- * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
- * @property friendlyName - A string to describe the resource
- * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property attributes - The attributes
+ * @property createdBy - The created_by
+ * @property dateCreated - The date_created
+ * @property dateUpdated - The date_updated
+ * @property friendlyName - The friendly_name
+ * @property uniqueName - The unique_name
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ChannelInstanceUpdateOptions {
@@ -112,7 +112,7 @@ interface ChannelListInstance {
   /**
    * Constructs a channel
    *
-   * @param sid - The SID of the resource
+   * @param sid - The sid
    */
   get(sid: string): ChannelContext;
   /**
@@ -189,13 +189,13 @@ interface ChannelListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - A valid JSON string that contains application-specific data
- * @property createdBy - The identity of the User that created the Channel
- * @property dateCreated - The ISO 8601 date and time in GMT when the resource was created
- * @property dateUpdated - The ISO 8601 date and time in GMT when the resource was updated
- * @property friendlyName - A string to describe the new resource
- * @property type - The visibility of the channel
- * @property uniqueName - An application-defined string that uniquely identifies the Channel resource
+ * @property attributes - The attributes
+ * @property createdBy - The created_by
+ * @property dateCreated - The date_created
+ * @property dateUpdated - The date_updated
+ * @property friendlyName - The friendly_name
+ * @property type - The type
+ * @property uniqueName - The unique_name
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ChannelListInstanceCreateOptions {
@@ -226,7 +226,7 @@ interface ChannelListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property type - The visibility of the channel to read
+ * @property type - The type
  */
 interface ChannelListInstanceEachOptions {
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
@@ -249,7 +249,7 @@ interface ChannelListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property type - The visibility of the channel to read
+ * @property type - The type
  */
 interface ChannelListInstanceOptions {
   limit?: number;
@@ -263,7 +263,7 @@ interface ChannelListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property type - The visibility of the channel to read
+ * @property type - The type
  */
 interface ChannelListInstancePageOptions {
   pageNumber?: number;
@@ -302,8 +302,8 @@ declare class ChannelContext {
    * Initialize the ChannelContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The SID of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
   constructor(version: V2, serviceSid: string, sid: string);
 
@@ -356,8 +356,8 @@ declare class ChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param sid - The SID of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
   constructor(version: V2, payload: ChannelPayload, serviceSid: string, sid: string);
 

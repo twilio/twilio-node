@@ -1,6 +1,42 @@
 twilio-node changelog
 =====================
 
+[2020-11-05] Version 3.51.0
+---------------------------
+**Library - Fix**
+- [PR #621](https://github.com/twilio/twilio-node/pull/621): X-Twilio-Signature validation when URL query parameters contain @ or :. Thanks to [@adamj9431](https://github.com/adamj9431)!
+- [PR #622](https://github.com/twilio/twilio-node/pull/622): remove request auth headers from debug logging. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Library - Feature**
+- [PR #623](https://github.com/twilio/twilio-node/pull/623): add regional twr header in the access token. Thanks to [@charliesantos](https://github.com/charliesantos)!
+- [PR #618](https://github.com/twilio/twilio-node/pull/618): add http logging for Node JS. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Library - Chore**
+- [PR #625](https://github.com/twilio/twilio-node/pull/625): pin jasmine for compatibility with older node versions. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Added `verify-push` to `usage_record` API
+
+**Bulkexports**
+- When creating a custom export the StartDay, EndDay, and FriendlyName fields were required but this was not reflected in the API documentation.  The API itself failed the request without these fields. **(breaking change)**
+- Added property descriptions for Custom Export create method
+- Clarified WebhookUrl and WebhookMethod must be provided together for Custom Export
+
+**Insights**
+- Added video room and participant summary apis.
+
+**Ip_messaging**
+- Create separate definition for ip-messaging
+- Restore v2 endpoints for ip-messaging
+
+**Verify**
+- Verify Push madurity were updated from `preview` to `beta`
+- `twilio_sandbox_mode` header was removed from Verify Push resources **(breaking change)**
+
+**Video**
+- [Rooms] Add Recording Rules API
+
+
 [2020-10-14] Version 3.50.0
 ---------------------------
 **Ai**

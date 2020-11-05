@@ -26,16 +26,10 @@ interface ExportCustomJobListInstance {
   /**
    * create a ExportCustomJobInstance
    *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: ExportCustomJobInstance) => any): Promise<ExportCustomJobInstance>;
-  /**
-   * create a ExportCustomJobInstance
-   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: ExportCustomJobListInstanceCreateOptions, callback?: (error: Error | null, item: ExportCustomJobInstance) => any): Promise<ExportCustomJobInstance>;
+  create(opts: ExportCustomJobListInstanceCreateOptions, callback?: (error: Error | null, item: ExportCustomJobInstance) => any): Promise<ExportCustomJobInstance>;
   /**
    * Streams ExportCustomJobInstance records from the API.
    *
@@ -141,18 +135,18 @@ interface ExportCustomJobListInstance {
 /**
  * Options to pass to create
  *
- * @property email - The email
- * @property endDay - The end_day
- * @property friendlyName - The friendly_name
- * @property startDay - The start_day
- * @property webhookMethod - The webhook_method
- * @property webhookUrl - The webhook_url
+ * @property email - The optional email to send the completion notification to
+ * @property endDay - The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
+ * @property friendlyName - The friendly name specified when creating the job
+ * @property startDay - The start day for the custom export specified as a string in the format of yyyy-mm-dd
+ * @property webhookMethod - This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+ * @property webhookUrl - The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied.
  */
 interface ExportCustomJobListInstanceCreateOptions {
   email?: string;
-  endDay?: string;
-  friendlyName?: string;
-  startDay?: string;
+  endDay: string;
+  friendlyName: string;
+  startDay: string;
   webhookMethod?: string;
   webhookUrl?: string;
 }
@@ -168,22 +162,18 @@ interface ExportCustomJobListInstanceCreateOptions {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property nextToken - The token for the next page of job results
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property previousToken - The token for the previous page of result
  */
 interface ExportCustomJobListInstanceEachOptions {
   callback?: (item: ExportCustomJobInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
-  nextToken?: string;
   pageSize?: number;
-  previousToken?: string;
 }
 
 /**
@@ -193,37 +183,29 @@ interface ExportCustomJobListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property nextToken - The token for the next page of job results
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property previousToken - The token for the previous page of result
  */
 interface ExportCustomJobListInstanceOptions {
   limit?: number;
-  nextToken?: string;
   pageSize?: number;
-  previousToken?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property nextToken - The token for the next page of job results
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property previousToken - The token for the previous page of result
  */
 interface ExportCustomJobListInstancePageOptions {
-  nextToken?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  previousToken?: string;
 }
 
 interface ExportCustomJobPayload extends ExportCustomJobResource, Page.TwilioResponsePayload {

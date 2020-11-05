@@ -16,14 +16,14 @@ type RoleRoleType = 'channel'|'deployment';
  * Initialize the RoleList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param serviceSid - The service_sid
  */
 declare function RoleList(version: V1, serviceSid: string): RoleListInstance;
 
 /**
  * Options to pass to update
  *
- * @property permission - A permission the role should have
+ * @property permission - The permission
  */
 interface RoleInstanceUpdateOptions {
   permission: string | string[];
@@ -75,7 +75,7 @@ interface RoleListInstance {
   /**
    * Constructs a role
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The sid
    */
   get(sid: string): RoleContext;
   /**
@@ -152,9 +152,9 @@ interface RoleListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A string to describe the new resource
- * @property permission - A permission the role should have
- * @property type - The type of role
+ * @property friendlyName - The friendly_name
+ * @property permission - The permission
+ * @property type - The type
  */
 interface RoleListInstanceCreateOptions {
   friendlyName: string;
@@ -244,8 +244,8 @@ declare class RoleContext {
    * Initialize the RoleContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -281,8 +281,8 @@ declare class RoleInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
   constructor(version: V1, payload: RolePayload, serviceSid: string, sid: string);
 

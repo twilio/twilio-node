@@ -146,22 +146,18 @@ interface DayListInstance {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property nextToken - The next_token
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property previousToken - The previous_token
  */
 interface DayListInstanceEachOptions {
   callback?: (item: DayInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
-  nextToken?: string;
   pageSize?: number;
-  previousToken?: string;
 }
 
 /**
@@ -171,37 +167,29 @@ interface DayListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property nextToken - The next_token
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property previousToken - The previous_token
  */
 interface DayListInstanceOptions {
   limit?: number;
-  nextToken?: string;
   pageSize?: number;
-  previousToken?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property nextToken - The next_token
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property previousToken - The previous_token
  */
 interface DayListInstancePageOptions {
-  nextToken?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  previousToken?: string;
 }
 
 interface DayPayload extends DayResource, Page.TwilioResponsePayload {

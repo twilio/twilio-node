@@ -9,6 +9,8 @@ import Insights = require('../Insights');
 import Version = require('../../base/Version');
 import { CallList } from './v1/call';
 import { CallListInstance } from './v1/call';
+import { RoomList } from './v1/room';
+import { RoomListInstance } from './v1/room';
 
 
 declare class V1 extends Version {
@@ -20,6 +22,7 @@ declare class V1 extends Version {
   constructor(domain: Insights);
 
   readonly calls: CallListInstance;
+  readonly rooms: RoomListInstance;
 }
 
 export = V1;
