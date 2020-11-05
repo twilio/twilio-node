@@ -46,6 +46,11 @@ describe('lastResponse and lastRequest defined', function() {
     expect(client.lastResponse.body).toEqual('voltron');
   });
 
+  it('should not include request authorization header in filtered headers', function () {
+    const filteredHeaderKeys = client.filterLoggingHeaders(client.lastRequest.headers);
+    expect(filteredHeaderKeys).toEqual(['test-header-key', 'Connection'])
+  });
+
 });
 
 describe('lastRequest defined, lastResponse undefined', function() {
