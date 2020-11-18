@@ -13,9 +13,8 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the DeploymentList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Deployment resource is associated with
@@ -239,9 +238,8 @@ declare class DeploymentContext {
   /**
    * Initialize the DeploymentContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Deployment resource from
@@ -267,9 +265,8 @@ declare class DeploymentInstance extends SerializableClass {
   /**
    * Initialize the DeploymentContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -305,9 +302,8 @@ declare class DeploymentPage extends Page<V1, DeploymentPayload, DeploymentResou
   /**
    * Initialize the DeploymentPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

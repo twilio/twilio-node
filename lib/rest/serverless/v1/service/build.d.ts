@@ -17,9 +17,8 @@ type BuildStatus = 'building'|'completed'|'failed';
 /**
  * Initialize the BuildList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Build resource is associated with
@@ -248,9 +247,8 @@ declare class BuildContext {
   /**
    * Initialize the BuildContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Build resource from
@@ -282,9 +280,8 @@ declare class BuildInstance extends SerializableClass {
   /**
    * Initialize the BuildContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -332,9 +329,8 @@ declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInsta
   /**
    * Initialize the BuildPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -162,7 +162,7 @@ interface ChallengeListInstance {
  *
  * @property details.fields - A list of objects that describe the Fields included in the Challenge
  * @property details.message - Shown to the user when the push notification arrives
- * @property expirationDate - The future date in which this Challenge will expire
+ * @property expirationDate - The date-time when this Challenge expires
  * @property factorSid - Factor Sid.
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
  */

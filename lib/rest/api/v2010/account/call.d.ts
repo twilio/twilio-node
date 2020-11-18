@@ -8,6 +8,8 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
+import { EventList } from './call/event';
+import { EventListInstance } from './call/event';
 import { FeedbackList } from './call/feedback';
 import { FeedbackListInstance } from './call/feedback';
 import { FeedbackSummaryListInstance } from './call/feedbackSummary';
@@ -413,6 +415,7 @@ declare class CallContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
+  events: EventListInstance;
   feedback: FeedbackListInstance;
   /**
    * fetch a CallInstance
@@ -471,6 +474,10 @@ declare class CallInstance extends SerializableClass {
   direction: string;
   duration: string;
   endTime: Date;
+  /**
+   * Access the events
+   */
+  events(): EventListInstance;
   /**
    * Access the feedback
    */

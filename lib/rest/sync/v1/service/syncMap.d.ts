@@ -14,6 +14,8 @@ import { SyncMapItemListInstance } from './syncMap/syncMapItem';
 import { SyncMapPermissionList } from './syncMap/syncMapPermission';
 import { SyncMapPermissionListInstance } from './syncMap/syncMapPermission';
 
+type SyncMapHideExpiredType = 'true'|'false';
+
 /**
  * Initialize the SyncMapList
  *
@@ -182,6 +184,7 @@ interface SyncMapListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
+ * @property hideExpired - Hide expired Sync Maps and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -196,6 +199,7 @@ interface SyncMapListInstanceCreateOptions {
 interface SyncMapListInstanceEachOptions {
   callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void;
   done?: Function;
+  hideExpired?: SyncMapHideExpiredType;
   limit?: number;
   pageSize?: number;
 }
@@ -203,6 +207,7 @@ interface SyncMapListInstanceEachOptions {
 /**
  * Options to pass to list
  *
+ * @property hideExpired - Hide expired Sync Maps and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -215,6 +220,7 @@ interface SyncMapListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface SyncMapListInstanceOptions {
+  hideExpired?: SyncMapHideExpiredType;
   limit?: number;
   pageSize?: number;
 }
@@ -222,11 +228,13 @@ interface SyncMapListInstanceOptions {
 /**
  * Options to pass to page
  *
+ * @property hideExpired - Hide expired Sync Maps and show only active ones.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface SyncMapListInstancePageOptions {
+  hideExpired?: SyncMapHideExpiredType;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -392,4 +400,4 @@ declare class SyncMapPage extends Page<V1, SyncMapPayload, SyncMapResource, Sync
   toJSON(): any;
 }
 
-export { SyncMapContext, SyncMapInstance, SyncMapInstanceUpdateOptions, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }
+export { SyncMapContext, SyncMapHideExpiredType, SyncMapInstance, SyncMapInstanceUpdateOptions, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }

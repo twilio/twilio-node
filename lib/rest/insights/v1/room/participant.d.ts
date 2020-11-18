@@ -14,11 +14,9 @@ type ParticipantCodec = 'VP8'|'H264'|'VP9';
 
 type ParticipantEdgeLocation = 'ashburn'|'dublin'|'frankfurt'|'singapore'|'sydney'|'sao_paulo'|'roaming'|'umatilla'|'tokyo';
 
-type ParticipantEndReason = 'disconnected_via_api'|'signaling_connection_error'|'signaling_connection_disconnected'|'signaling_connection_timed_out'|'client_received_an_invalid_signaling_message'|'client_sent_an_invalid_signaling_message'|'room_name_is_invalid'|'room_name_is_too_long'|'room_name_contains_invalid_characters'|'unable_to_create_room'|'unable_to_connect_to_room'|'room_contains_too_many_participants'|'room_not_found'|'max_participants_is_out_of_range'|'room_type_is_not_valid'|'timeout_is_out_of_range'|'status_callback_method_is_invalid'|'status_callback_is_invalid'|'status_is_invalid'|'room_creation_failed'|'room_completed_error'|'the_room_account_limit_was_exceeded'|'invalid_recording_rule'|'approaching_room_or_participant_concurrency_limits'|'recording_operation_requested_is_not_supported_for_the_Room_type'|'participant_identity_is_invalid'|'participant_identity_is_too_long'|'participant_identity_contains_invalid_characters'|'participant_has_too_many_tracks'|'participant_not_found'|'participant_disconnected_because_of_duplicate_identity'|'participant_account_limit_was_exceeded'|'invalid_subscribe_rule'|'track_is_invalid'|'track_name_is_invalid'|'track_name_is_too_long'|'track_name_contains_invalid_characters'|'track_name_is_duplicated'|'client_is_unable_to_create_or_apply_a_local_media_description'|'server_is_unable_to_create_or_apply_a_local_media_description'|'client_is_unable_to_apply_a_remote_media_description'|'server_is_unable_to_apply_a_remote_media_description'|'no_supported_codec'|'media_connection_failed_or_media_activity_ceased'|'unable_to_acquire_configuration'|'unable_to_acquire_TURN_credentials';
-
 type ParticipantRoomStatus = 'in_progress'|'completed';
 
-type ParticipantTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll'|'outside'|'stage_us1'|'stage_us2'|'stage_au1'|'stage_br1'|'stage_ie1'|'stage_jp1'|'stage_sg1'|'stage_in1'|'stage_de1'|'dev_us1'|'dev_us2';
+type ParticipantTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
 
 /**
  * Initialize the ParticipantList
@@ -206,11 +204,10 @@ interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePay
 
 interface ParticipantResource {
   account_sid: string;
-  call_sid: string;
   codecs: ParticipantCodec[];
   duration_sec: number;
   edge_location: ParticipantEdgeLocation;
-  end_reason: ParticipantEndReason;
+  end_reason: string;
   error_code: number;
   error_code_url: string;
   join_time: Date;
@@ -272,11 +269,10 @@ declare class ParticipantInstance extends SerializableClass {
 
   private _proxy: ParticipantContext;
   accountSid: string;
-  callSid: string;
   codecs: ParticipantCodec[];
   durationSec: number;
   edgeLocation: ParticipantEdgeLocation;
-  endReason: ParticipantEndReason;
+  endReason: string;
   errorCode: number;
   errorCodeUrl: string;
   /**
@@ -327,4 +323,4 @@ declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantRe
   toJSON(): any;
 }
 
-export { ParticipantCodec, ParticipantContext, ParticipantEdgeLocation, ParticipantEndReason, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantRoomStatus, ParticipantSolution, ParticipantTwilioRealm }
+export { ParticipantCodec, ParticipantContext, ParticipantEdgeLocation, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantRoomStatus, ParticipantSolution, ParticipantTwilioRealm }

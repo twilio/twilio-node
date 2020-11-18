@@ -184,12 +184,14 @@ interface SubscriptionListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property sinkSid - Sink SID.
  */
 interface SubscriptionListInstanceEachOptions {
   callback?: (item: SubscriptionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
+  sinkSid?: string;
 }
 
 /**
@@ -205,10 +207,12 @@ interface SubscriptionListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property sinkSid - Sink SID.
  */
 interface SubscriptionListInstanceOptions {
   limit?: number;
   pageSize?: number;
+  sinkSid?: string;
 }
 
 /**
@@ -217,11 +221,13 @@ interface SubscriptionListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property sinkSid - Sink SID.
  */
 interface SubscriptionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  sinkSid?: string;
 }
 
 interface SubscriptionPayload extends SubscriptionResource, Page.TwilioResponsePayload {

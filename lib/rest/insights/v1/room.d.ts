@@ -26,7 +26,7 @@ type RoomRoomStatus = 'in_progress'|'completed';
 
 type RoomRoomType = 'go'|'peer_to_peer'|'group'|'group_small';
 
-type RoomTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll'|'outside'|'stage_us1'|'stage_us2'|'stage_au1'|'stage_br1'|'stage_ie1'|'stage_jp1'|'stage_sg1'|'stage_in1'|'stage_de1'|'dev_us1'|'dev_us2';
+type RoomTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
 
 /**
  * Initialize the RoomList

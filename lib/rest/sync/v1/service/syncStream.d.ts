@@ -12,6 +12,8 @@ import { SerializableClass } from '../../../../interfaces';
 import { StreamMessageList } from './syncStream/streamMessage';
 import { StreamMessageListInstance } from './syncStream/streamMessage';
 
+type SyncStreamHideExpiredType = 'true'|'false';
+
 /**
  * Initialize the SyncStreamList
  *
@@ -176,6 +178,7 @@ interface SyncStreamListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
+ * @property hideExpired - Hide expired Sync Streams and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -190,6 +193,7 @@ interface SyncStreamListInstanceCreateOptions {
 interface SyncStreamListInstanceEachOptions {
   callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void;
   done?: Function;
+  hideExpired?: SyncStreamHideExpiredType;
   limit?: number;
   pageSize?: number;
 }
@@ -197,6 +201,7 @@ interface SyncStreamListInstanceEachOptions {
 /**
  * Options to pass to list
  *
+ * @property hideExpired - Hide expired Sync Streams and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -209,6 +214,7 @@ interface SyncStreamListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface SyncStreamListInstanceOptions {
+  hideExpired?: SyncStreamHideExpiredType;
   limit?: number;
   pageSize?: number;
 }
@@ -216,11 +222,13 @@ interface SyncStreamListInstanceOptions {
 /**
  * Options to pass to page
  *
+ * @property hideExpired - Hide expired Sync Streams and show only active ones.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface SyncStreamListInstancePageOptions {
+  hideExpired?: SyncStreamHideExpiredType;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -379,4 +387,4 @@ declare class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResou
   toJSON(): any;
 }
 
-export { SyncStreamContext, SyncStreamInstance, SyncStreamInstanceUpdateOptions, SyncStreamList, SyncStreamListInstance, SyncStreamListInstanceCreateOptions, SyncStreamListInstanceEachOptions, SyncStreamListInstanceOptions, SyncStreamListInstancePageOptions, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }
+export { SyncStreamContext, SyncStreamHideExpiredType, SyncStreamInstance, SyncStreamInstanceUpdateOptions, SyncStreamList, SyncStreamListInstance, SyncStreamListInstanceCreateOptions, SyncStreamListInstanceEachOptions, SyncStreamListInstanceOptions, SyncStreamListInstancePageOptions, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }
