@@ -18,9 +18,20 @@ type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
  * Initialize the RecordingList
  *
  * @param version - Version of the resource
- * @param trunkSid - The trunk_sid
+ * @param trunkSid - The unique string that identifies the resource
  */
 declare function RecordingList(version: V1, trunkSid: string): RecordingListInstance;
+
+/**
+ * Options to pass to update
+ *
+ * @property mode - The recording mode for the trunk.
+ * @property trim - The recording trim setting for the trunk.
+ */
+interface RecordingInstanceUpdateOptions {
+  mode?: RecordingRecordingMode;
+  trim?: RecordingRecordingTrim;
+}
 
 interface RecordingListInstance {
   /**
@@ -43,8 +54,6 @@ interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload
 interface RecordingResource {
   mode: RecordingRecordingMode;
   trim: RecordingRecordingTrim;
-  trunk_sid: string;
-  url: string;
 }
 
 interface RecordingSolution {
@@ -77,6 +86,13 @@ declare class RecordingContext {
    * @param callback - Callback to handle processed record
    */
   update(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
+  /**
+   * update a RecordingInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: RecordingInstanceUpdateOptions, callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
 }
 
 
@@ -86,7 +102,7 @@ declare class RecordingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param trunkSid - The trunk_sid
+   * @param trunkSid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: RecordingPayload, trunkSid: string);
 
@@ -103,14 +119,19 @@ declare class RecordingInstance extends SerializableClass {
    */
   toJSON(): any;
   trim: RecordingRecordingTrim;
-  trunkSid: string;
   /**
    * update a RecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
   update(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
-  url: string;
+  /**
+   * update a RecordingInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: RecordingInstanceUpdateOptions, callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
 }
 
 
@@ -136,4 +157,4 @@ declare class RecordingPage extends Page<V1, RecordingPayload, RecordingResource
   toJSON(): any;
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingPayload, RecordingRecordingMode, RecordingRecordingTrim, RecordingResource, RecordingSolution }
+export { RecordingContext, RecordingInstance, RecordingInstanceUpdateOptions, RecordingList, RecordingListInstance, RecordingPage, RecordingPayload, RecordingRecordingMode, RecordingRecordingTrim, RecordingResource, RecordingSolution }

@@ -195,6 +195,8 @@ declare namespace VoiceResponse {
 
   type ConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
 
+  type ConferenceJitterBufferSize = 'large'|'medium'|'small'|'off';
+
   type ConferenceRecord = 'do-not-record'|'record-from-start';
 
   type ConferenceRecordingEvent = 'in-progress'|'completed'|'absent';
@@ -291,8 +293,10 @@ declare namespace VoiceResponse {
    * @property coach - Call coach
    * @property endConferenceOnExit - End the conferenceon exit
    * @property eventCallbackUrl - Event callback URL
+   * @property jitterBufferSize - Size of jitter buffer for participant
    * @property maxParticipants - Maximum number of participants
    * @property muted - Join the conference muted
+   * @property participantLabel - A label for participant
    * @property record - Record the conference
    * @property recordingStatusCallback - Recording status callback URL
    * @property recordingStatusCallbackEvent - Recording status callback events
@@ -311,8 +315,10 @@ declare namespace VoiceResponse {
     coach?: string;
     endConferenceOnExit?: boolean;
     eventCallbackUrl?: string;
+    jitterBufferSize?: ConferenceJitterBufferSize;
     maxParticipants?: number;
     muted?: boolean;
+    participantLabel?: string;
     record?: ConferenceRecord;
     recordingStatusCallback?: string;
     recordingStatusCallbackEvent?: ConferenceRecordingEvent[];

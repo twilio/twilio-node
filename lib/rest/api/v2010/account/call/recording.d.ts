@@ -272,6 +272,7 @@ interface RecordingResource {
   source: RecordingSource;
   start_time: Date;
   status: RecordingStatus;
+  track: string;
   uri: string;
 }
 
@@ -363,6 +364,7 @@ declare class RecordingInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  track: string;
   /**
    * update a RecordingInstance
    *
