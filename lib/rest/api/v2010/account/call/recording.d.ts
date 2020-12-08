@@ -167,6 +167,7 @@ interface RecordingListInstance {
  * @property recordingStatusCallback - The callback URL on each selected recording event
  * @property recordingStatusCallbackEvent - The recording status changes that should generate a callback
  * @property recordingStatusCallbackMethod - The HTTP method we should use to call `recording_status_callback`
+ * @property recordingTrack - Which track(s) to record
  * @property trim - Whether to trim the silence in the recording
  */
 interface RecordingListInstanceCreateOptions {
@@ -174,6 +175,7 @@ interface RecordingListInstanceCreateOptions {
   recordingStatusCallback?: string;
   recordingStatusCallbackEvent?: string | string[];
   recordingStatusCallbackMethod?: string;
+  recordingTrack?: string;
   trim?: string;
 }
 

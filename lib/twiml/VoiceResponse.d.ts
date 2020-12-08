@@ -209,6 +209,8 @@ declare namespace VoiceResponse {
 
   type DialRecordingEvent = 'in-progress'|'completed'|'absent';
 
+  type DialRecordingTrack = 'both'|'inbound'|'outbound';
+
   type DialRingTone = 'at'|'au'|'bg'|'br'|'be'|'ch'|'cl'|'cn'|'cz'|'de'|'dk'|'ee'|'es'|'fi'|'fr'|'gr'|'hu'|'il'|'in'|'it'|'lt'|'jp'|'mx'|'my'|'nl'|'no'|'nz'|'ph'|'pl'|'pt'|'ru'|'se'|'sg'|'th'|'uk'|'us'|'us-old'|'tw'|'ve'|'za';
 
   type DialTrim = 'trim-silence'|'do-not-trim';
@@ -356,6 +358,7 @@ declare namespace VoiceResponse {
    * @property recordingStatusCallback - Recording status callback URL
    * @property recordingStatusCallbackEvent - Recording status callback events
    * @property recordingStatusCallbackMethod - Recording status callback URL method
+   * @property recordingTrack - To indicate which audio track should be recorded
    * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
    * @property timeLimit - Max time length
    * @property timeout - Time to wait for answer
@@ -371,6 +374,7 @@ declare namespace VoiceResponse {
     recordingStatusCallback?: string;
     recordingStatusCallbackEvent?: DialRecordingEvent[];
     recordingStatusCallbackMethod?: string;
+    recordingTrack?: DialRecordingTrack;
     ringTone?: DialRingTone;
     timeLimit?: number;
     timeout?: number;

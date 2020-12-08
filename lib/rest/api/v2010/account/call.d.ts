@@ -203,6 +203,7 @@ interface CallListInstance {
  * @property recordingStatusCallback - The URL that we call when the recording is available to be accessed
  * @property recordingStatusCallbackEvent - The recording status events that will trigger calls to the URL specified in `recording_status_callback`
  * @property recordingStatusCallbackMethod - The HTTP method we should use when calling the `recording_status_callback` URL
+ * @property recordingTrack - Which track(s) to record
  * @property sendDigits - The digits to dial after connecting to the number
  * @property sipAuthPassword - The password required to authenticate the user account specified in `sip_auth_username`.
  * @property sipAuthUsername - The username used to authenticate the caller making a SIP call
@@ -237,6 +238,7 @@ interface CallListInstanceCreateOptions {
   recordingStatusCallback?: string;
   recordingStatusCallbackEvent?: string | string[];
   recordingStatusCallbackMethod?: string;
+  recordingTrack?: string;
   sendDigits?: string;
   sipAuthPassword?: string;
   sipAuthUsername?: string;
