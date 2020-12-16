@@ -25,11 +25,13 @@ declare function ConfigurationList(version: V1, chatServiceSid: string): Configu
  * @property defaultChatServiceRoleSid - The service role assigned to users when they are added to the service
  * @property defaultConversationCreatorRoleSid - The role assigned to a conversation creator when they join a new conversation
  * @property defaultConversationRoleSid - The role assigned to users when they are added to a conversation
+ * @property reachabilityEnabled - Whether the Reachability Indicator feature is enabled for this Conversations Service
  */
 interface ConfigurationInstanceUpdateOptions {
   defaultChatServiceRoleSid?: string;
   defaultConversationCreatorRoleSid?: string;
   defaultConversationRoleSid?: string;
+  reachabilityEnabled?: boolean;
 }
 
 interface ConfigurationListInstance {
@@ -57,6 +59,7 @@ interface ConfigurationResource {
   default_conversation_creator_role_sid: string;
   default_conversation_role_sid: string;
   links: string;
+  reachability_enabled: boolean;
   url: string;
 }
 
@@ -122,6 +125,7 @@ declare class ConfigurationInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   links: string;
+  reachabilityEnabled: boolean;
   /**
    * Provide a user-friendly representation
    */

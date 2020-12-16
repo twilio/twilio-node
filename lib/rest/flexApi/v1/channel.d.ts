@@ -143,13 +143,13 @@ interface ChannelListInstance {
  * @property chatFriendlyName - The chat channel's friendly name
  * @property chatUniqueName - The chat channel's unique name
  * @property chatUserFriendlyName - The chat participant's friendly name
- * @property flexFlowSid - The SID of the FlexFlow
+ * @property flexFlowSid - The SID of the Flex Flow
  * @property identity - The identity value that identifies the new resource's chat User
  * @property longLived - Whether to create the channel as long-lived
  * @property preEngagementData - The pre-engagement data
  * @property target - The Target Contact Identity
- * @property taskAttributes - The task attributes to be added for the TaskRouter Task
- * @property taskSid - The SID of the TaskRouter task
+ * @property taskAttributes - The Task attributes to be added for the TaskRouter Task
+ * @property taskSid - The SID of the TaskRouter Task
  */
 interface ChannelListInstanceCreateOptions {
   chatFriendlyName: string;

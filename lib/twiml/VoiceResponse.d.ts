@@ -360,6 +360,7 @@ declare namespace VoiceResponse {
    * @property recordingStatusCallbackMethod - Recording status callback URL method
    * @property recordingTrack - To indicate which audio track should be recorded
    * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
+   * @property sequential - Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel
    * @property timeLimit - Max time length
    * @property timeout - Time to wait for answer
    * @property trim - Trim the recording
@@ -376,6 +377,7 @@ declare namespace VoiceResponse {
     recordingStatusCallbackMethod?: string;
     recordingTrack?: DialRecordingTrack;
     ringTone?: DialRingTone;
+    sequential?: boolean;
     timeLimit?: number;
     timeout?: number;
     trim?: DialTrim;

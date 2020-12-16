@@ -201,7 +201,7 @@ interface ParticipantListInstance {
  * @property recordingStatusCallback - The URL that we should call using the `recording_status_callback_method` when the recording status changes
  * @property recordingStatusCallbackEvent - The recording state changes that should generate a call to `recording_status_callback`
  * @property recordingStatusCallbackMethod - The HTTP method we should use when we call `recording_status_callback`
- * @property recordingTrack - The track to record
+ * @property recordingTrack - The track(s) to record
  * @property region - The region where we should mix the conference audio
  * @property sipAuthPassword - The SIP password for authentication
  * @property sipAuthUsername - The SIP username used for authentication

@@ -36,6 +36,8 @@ interface ParticipantInstanceRemoveOptions {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property identity - A unique string identifier for the conversation participant as Conversation User.
+ * @property lastReadMessageIndex - Index of last “read” message in the Conversation for the Participant.
+ * @property lastReadTimestamp - Timestamp of last “read” message in the Conversation for the Participant.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
  * @property roleSid - The SID of a conversation-level Role to assign to the participant
@@ -46,6 +48,8 @@ interface ParticipantInstanceUpdateOptions {
   dateCreated?: Date;
   dateUpdated?: Date;
   identity?: string;
+  lastReadMessageIndex?: number;
+  lastReadTimestamp?: string;
   messagingBinding?: {
     proxyAddress?: string;
     projectedAddress?: string;
@@ -274,6 +278,8 @@ interface ParticipantResource {
   date_created: Date;
   date_updated: Date;
   identity: string;
+  last_read_message_index: number;
+  last_read_timestamp: string;
   messaging_binding: object;
   role_sid: string;
   sid: string;
@@ -358,6 +364,8 @@ declare class ParticipantInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   identity: string;
+  lastReadMessageIndex: number;
+  lastReadTimestamp: string;
   messagingBinding: any;
   /**
    * remove a ParticipantInstance

@@ -249,6 +249,7 @@ interface UserResource {
   date_updated: Date;
   friendly_name: string;
   identity: string;
+  is_notifiable: boolean;
   is_online: boolean;
   role_sid: string;
   sid: string;
@@ -334,6 +335,7 @@ declare class UserInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
   friendlyName: string;
   identity: string;
+  isNotifiable: boolean;
   isOnline: boolean;
   /**
    * remove a UserInstance
