@@ -17,7 +17,7 @@ deploy:
       tags: true
       node: "8"
   - provider: npm
-    email: team_interfaces@twilio.com
+    email: twilio-ci@twilio.com
     api_key: $NPM_TOKEN
     on:
       tags: true
