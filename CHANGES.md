@@ -1,6 +1,13 @@
 twilio-node changelog
 =====================
 
+[2021-01-06] Version 3.54.2
+---------------------------
+**Library - Fix**
+- [PR #640](https://github.com/twilio/twilio-node/pull/640): axios update to v0.21.1. Thanks to [@ShelbyZ](https://github.com/ShelbyZ)!
+- [PR #642](https://github.com/twilio/twilio-node/pull/642): url encoding for validateExpressRequest. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+
 [2020-12-16] Version 3.54.1
 ---------------------------
 **Api**
