@@ -10,8 +10,6 @@ import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
-type SyncListItemHideExpiredType = 'true'|'false';
-
 type SyncListItemQueryFromBoundType = 'inclusive'|'exclusive';
 
 type SyncListItemQueryResultOrder = 'asc'|'desc';
@@ -198,7 +196,6 @@ interface SyncListItemListInstanceCreateOptions {
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
  * @property from - The index of the first Sync List Item resource to read
- * @property hideExpired - Hide expired Sync List items and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -216,7 +213,6 @@ interface SyncListItemListInstanceEachOptions {
   callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
   from?: string;
-  hideExpired?: SyncListItemHideExpiredType;
   limit?: number;
   order?: SyncListItemQueryResultOrder;
   pageSize?: number;
@@ -227,7 +223,6 @@ interface SyncListItemListInstanceEachOptions {
  *
  * @property bounds - Whether to include the List Item referenced by the from parameter
  * @property from - The index of the first Sync List Item resource to read
- * @property hideExpired - Hide expired Sync List items and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -243,7 +238,6 @@ interface SyncListItemListInstanceEachOptions {
 interface SyncListItemListInstanceOptions {
   bounds?: SyncListItemQueryFromBoundType;
   from?: string;
-  hideExpired?: SyncListItemHideExpiredType;
   limit?: number;
   order?: SyncListItemQueryResultOrder;
   pageSize?: number;
@@ -254,7 +248,6 @@ interface SyncListItemListInstanceOptions {
  *
  * @property bounds - Whether to include the List Item referenced by the from parameter
  * @property from - The index of the first Sync List Item resource to read
- * @property hideExpired - Hide expired Sync List items and show only active ones.
  * @property order - The order to return the List Items
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
@@ -263,7 +256,6 @@ interface SyncListItemListInstanceOptions {
 interface SyncListItemListInstancePageOptions {
   bounds?: SyncListItemQueryFromBoundType;
   from?: string;
-  hideExpired?: SyncListItemHideExpiredType;
   order?: SyncListItemQueryResultOrder;
   pageNumber?: number;
   pageSize?: number;
@@ -437,4 +429,4 @@ declare class SyncListItemPage extends Page<V1, SyncListItemPayload, SyncListIte
   toJSON(): any;
 }
 
-export { SyncListItemContext, SyncListItemHideExpiredType, SyncListItemInstance, SyncListItemInstanceRemoveOptions, SyncListItemInstanceUpdateOptions, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemQueryFromBoundType, SyncListItemQueryResultOrder, SyncListItemResource, SyncListItemSolution }
+export { SyncListItemContext, SyncListItemInstance, SyncListItemInstanceRemoveOptions, SyncListItemInstanceUpdateOptions, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemQueryFromBoundType, SyncListItemQueryResultOrder, SyncListItemResource, SyncListItemSolution }

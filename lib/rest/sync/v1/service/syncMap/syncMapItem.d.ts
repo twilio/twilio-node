@@ -10,8 +10,6 @@ import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
-type SyncMapItemHideExpiredType = 'true'|'false';
-
 type SyncMapItemQueryFromBoundType = 'inclusive'|'exclusive';
 
 type SyncMapItemQueryResultOrder = 'asc'|'desc';
@@ -200,7 +198,6 @@ interface SyncMapItemListInstanceCreateOptions {
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
  * @property from - The index of the first Sync Map Item resource to read
- * @property hideExpired - Hide expired Sync Map items and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -218,7 +215,6 @@ interface SyncMapItemListInstanceEachOptions {
   callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
   from?: string;
-  hideExpired?: SyncMapItemHideExpiredType;
   limit?: number;
   order?: SyncMapItemQueryResultOrder;
   pageSize?: number;
@@ -229,7 +225,6 @@ interface SyncMapItemListInstanceEachOptions {
  *
  * @property bounds - Whether to include the Map Item referenced by the from parameter
  * @property from - The index of the first Sync Map Item resource to read
- * @property hideExpired - Hide expired Sync Map items and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -245,7 +240,6 @@ interface SyncMapItemListInstanceEachOptions {
 interface SyncMapItemListInstanceOptions {
   bounds?: SyncMapItemQueryFromBoundType;
   from?: string;
-  hideExpired?: SyncMapItemHideExpiredType;
   limit?: number;
   order?: SyncMapItemQueryResultOrder;
   pageSize?: number;
@@ -256,7 +250,6 @@ interface SyncMapItemListInstanceOptions {
  *
  * @property bounds - Whether to include the Map Item referenced by the from parameter
  * @property from - The index of the first Sync Map Item resource to read
- * @property hideExpired - Hide expired Sync Map items and show only active ones.
  * @property order - How to order the Map Items returned by their key value
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
@@ -265,7 +258,6 @@ interface SyncMapItemListInstanceOptions {
 interface SyncMapItemListInstancePageOptions {
   bounds?: SyncMapItemQueryFromBoundType;
   from?: string;
-  hideExpired?: SyncMapItemHideExpiredType;
   order?: SyncMapItemQueryResultOrder;
   pageNumber?: number;
   pageSize?: number;
@@ -439,4 +431,4 @@ declare class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemRe
   toJSON(): any;
 }
 
-export { SyncMapItemContext, SyncMapItemHideExpiredType, SyncMapItemInstance, SyncMapItemInstanceRemoveOptions, SyncMapItemInstanceUpdateOptions, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemQueryFromBoundType, SyncMapItemQueryResultOrder, SyncMapItemResource, SyncMapItemSolution }
+export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemInstanceRemoveOptions, SyncMapItemInstanceUpdateOptions, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemQueryFromBoundType, SyncMapItemQueryResultOrder, SyncMapItemResource, SyncMapItemSolution }

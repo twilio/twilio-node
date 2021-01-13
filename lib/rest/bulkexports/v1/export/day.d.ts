@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param resourceType - The type of communication – Messages, Calls
+ * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
  */
 declare function DayList(version: V1, resourceType: string): DayListInstance;
 
@@ -216,7 +216,7 @@ declare class DayContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param resourceType - The type of communication – Messages, Calls
+   * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
    * @param day - The date of the data in the file
    */
   constructor(version: V1, resourceType: string, day: string);
@@ -243,7 +243,7 @@ declare class DayInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param resourceType - The type of communication – Messages, Calls
+   * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
    * @param day - The date of the data in the file
    */
   constructor(version: V1, payload: DayPayload, resourceType: string, day: string);

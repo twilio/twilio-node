@@ -14,7 +14,7 @@ import { SinkTestListInstance } from './sink/sinkTest';
 import { SinkValidateList } from './sink/sinkValidate';
 import { SinkValidateListInstance } from './sink/sinkValidate';
 
-type SinkSinkType = 'kinesis';
+type SinkSinkType = 'kinesis'|'webhook';
 
 type SinkStatus = 'initialized'|'validating'|'active'|'failed';
 

@@ -12,8 +12,6 @@ import { DocumentPermissionList } from './document/documentPermission';
 import { DocumentPermissionListInstance } from './document/documentPermission';
 import { SerializableClass } from '../../../../interfaces';
 
-type DocumentHideExpiredType = 'true'|'false';
-
 /**
  * Initialize the DocumentList
  *
@@ -193,7 +191,6 @@ interface DocumentListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property hideExpired - Hide expired Sync Documents and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -208,7 +205,6 @@ interface DocumentListInstanceCreateOptions {
 interface DocumentListInstanceEachOptions {
   callback?: (item: DocumentInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  hideExpired?: DocumentHideExpiredType;
   limit?: number;
   pageSize?: number;
 }
@@ -216,7 +212,6 @@ interface DocumentListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property hideExpired - Hide expired Sync Documents and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -229,7 +224,6 @@ interface DocumentListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface DocumentListInstanceOptions {
-  hideExpired?: DocumentHideExpiredType;
   limit?: number;
   pageSize?: number;
 }
@@ -237,13 +231,11 @@ interface DocumentListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property hideExpired - Hide expired Sync Documents and show only active ones.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface DocumentListInstancePageOptions {
-  hideExpired?: DocumentHideExpiredType;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -420,4 +412,4 @@ declare class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, D
   toJSON(): any;
 }
 
-export { DocumentContext, DocumentHideExpiredType, DocumentInstance, DocumentInstanceRemoveOptions, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }
+export { DocumentContext, DocumentInstance, DocumentInstanceRemoveOptions, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

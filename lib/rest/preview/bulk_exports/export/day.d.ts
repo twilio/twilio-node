@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param resourceType - The type of communication – Messages, Calls
+ * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
  */
 declare function DayList(version: BulkExports, resourceType: string): DayListInstance;
 
@@ -218,7 +218,7 @@ declare class DayContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param resourceType - The type of communication – Messages, Calls
+   * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
    * @param day - The date of the data in the file
    */
   constructor(version: BulkExports, resourceType: string, day: string);
@@ -246,7 +246,7 @@ declare class DayInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param resourceType - The type of communication – Messages, Calls
+   * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
    * @param day - The date of the data in the file
    */
   constructor(version: BulkExports, payload: DayPayload, resourceType: string, day: string);

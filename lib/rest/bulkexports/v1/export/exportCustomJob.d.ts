@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param resourceType - The type of communication – Messages, Calls
+ * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
  */
 declare function ExportCustomJobList(version: V1, resourceType: string): ExportCustomJobListInstance;
 
@@ -236,7 +236,7 @@ declare class ExportCustomJobInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param resourceType - The type of communication – Messages, Calls
+   * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
    */
   constructor(version: V1, payload: ExportCustomJobPayload, resourceType: string);
 

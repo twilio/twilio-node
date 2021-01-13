@@ -29,7 +29,7 @@ interface JobListInstance {
   /**
    * Constructs a job
    *
-   * @param jobSid - The job_sid
+   * @param jobSid - The unique string that that we created to identify the Bulk Export job
    */
   get(jobSid: string): JobContext;
   /**
@@ -67,7 +67,7 @@ declare class JobContext {
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param jobSid - The job_sid
+   * @param jobSid - The unique string that that we created to identify the Bulk Export job
    */
   constructor(version: BulkExports, jobSid: string);
 
@@ -100,7 +100,7 @@ declare class JobInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param jobSid - The job_sid
+   * @param jobSid - The unique string that that we created to identify the Bulk Export job
    */
   constructor(version: BulkExports, payload: JobPayload, jobSid: string);
 

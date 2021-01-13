@@ -281,6 +281,7 @@ interface RoomResource {
   enable_turn: boolean;
   end_time: Date;
   links: string;
+  max_concurrent_published_tracks: number;
   max_participants: number;
   media_region: string;
   record_participants_on_connect: boolean;
@@ -354,6 +355,7 @@ declare class RoomInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
   links: string;
+  maxConcurrentPublishedTracks: number;
   maxParticipants: number;
   mediaRegion: string;
   /**

@@ -62,6 +62,7 @@ describe('Room', function() {
           'enable_turn': true,
           'unique_name': 'unique_name',
           'max_participants': 10,
+          'max_concurrent_published_tracks': 10,
           'duration': 0,
           'status_callback_method': 'POST',
           'status_callback': '',
@@ -121,6 +122,7 @@ describe('Room', function() {
           'sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'enable_turn': true,
           'unique_name': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'max_concurrent_published_tracks': 10,
           'max_participants': 10,
           'duration': 0,
           'status_callback_method': 'POST',
@@ -162,6 +164,7 @@ describe('Room', function() {
           'enable_turn': true,
           'unique_name': 'room1',
           'max_participants': 10,
+          'max_concurrent_published_tracks': 10,
           'duration': 0,
           'status_callback_method': 'POST',
           'status_callback': '',
@@ -208,6 +211,7 @@ describe('Room', function() {
                   'end_time': '2017-04-03T22:21:51Z',
                   'duration': 2,
                   'max_participants': 10,
+                  'max_concurrent_published_tracks': 10,
                   'record_participants_on_connect': false,
                   'video_codecs': [
                       'VP8'
@@ -253,6 +257,7 @@ describe('Room', function() {
                   'end_time': '2017-04-03T22:21:51Z',
                   'duration': 2,
                   'max_participants': 10,
+                  'max_concurrent_published_tracks': 10,
                   'record_participants_on_connect': false,
                   'video_codecs': [
                       'VP8'
@@ -303,6 +308,7 @@ describe('Room', function() {
                   'end_time': '2017-04-03T22:21:51Z',
                   'duration': 2,
                   'max_participants': 10,
+                  'max_concurrent_published_tracks': 10,
                   'record_participants_on_connect': false,
                   'video_codecs': [
                       'VP8'
@@ -394,6 +400,7 @@ describe('Room', function() {
                   'end_time': '2017-04-03T22:21:51Z',
                   'duration': 2,
                   'max_participants': 10,
+                  'max_concurrent_published_tracks': 10,
                   'record_participants_on_connect': false,
                   'video_codecs': [
                       'VP8'
@@ -465,6 +472,7 @@ describe('Room', function() {
           'enable_turn': true,
           'unique_name': 'unique_name',
           'max_participants': 10,
+          'max_concurrent_published_tracks': 10,
           'status_callback_method': 'POST',
           'status_callback': '',
           'record_participants_on_connect': false,

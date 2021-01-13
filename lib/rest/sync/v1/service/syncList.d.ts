@@ -14,8 +14,6 @@ import { SyncListItemListInstance } from './syncList/syncListItem';
 import { SyncListPermissionList } from './syncList/syncListPermission';
 import { SyncListPermissionListInstance } from './syncList/syncListPermission';
 
-type SyncListHideExpiredType = 'true'|'false';
-
 /**
  * Initialize the SyncListList
  *
@@ -184,7 +182,6 @@ interface SyncListListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property hideExpired - Hide expired Sync Lists and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -199,7 +196,6 @@ interface SyncListListInstanceCreateOptions {
 interface SyncListListInstanceEachOptions {
   callback?: (item: SyncListInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  hideExpired?: SyncListHideExpiredType;
   limit?: number;
   pageSize?: number;
 }
@@ -207,7 +203,6 @@ interface SyncListListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property hideExpired - Hide expired Sync Lists and show only active ones.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -220,7 +215,6 @@ interface SyncListListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface SyncListListInstanceOptions {
-  hideExpired?: SyncListHideExpiredType;
   limit?: number;
   pageSize?: number;
 }
@@ -228,13 +222,11 @@ interface SyncListListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property hideExpired - Hide expired Sync Lists and show only active ones.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface SyncListListInstancePageOptions {
-  hideExpired?: SyncListHideExpiredType;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -400,4 +392,4 @@ declare class SyncListPage extends Page<V1, SyncListPayload, SyncListResource, S
   toJSON(): any;
 }
 
-export { SyncListContext, SyncListHideExpiredType, SyncListInstance, SyncListInstanceUpdateOptions, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }
+export { SyncListContext, SyncListInstance, SyncListInstanceUpdateOptions, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }
