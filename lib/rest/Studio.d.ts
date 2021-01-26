@@ -9,7 +9,7 @@ import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./studio/V1');
 import V2 = require('./studio/V2');
-import { FlowListInstance } from './studio/v2/flow';
+import { FlowListInstance } from './studio/v1/flow';
 import { FlowValidateListInstance } from './studio/v2/flowValidate';
 
 
