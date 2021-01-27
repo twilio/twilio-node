@@ -15,9 +15,6 @@ type FlowValidateStatus = 'draft'|'published';
 /**
  * Initialize the FlowValidateList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function FlowValidateList(version: V2): FlowValidateListInstance;
@@ -39,10 +36,10 @@ interface FlowValidateListInstance {
 /**
  * Options to pass to update
  *
- * @property commitMessage - The commit_message
- * @property definition - The definition
- * @property friendlyName - The friendly_name
- * @property status - The status
+ * @property commitMessage - Description of change made in the revision
+ * @property definition - JSON representation of flow definition
+ * @property friendlyName - The string that you assigned to describe the Flow
+ * @property status - The status of the Flow
  */
 interface FlowValidateListInstanceUpdateOptions {
   commitMessage?: string;
@@ -66,9 +63,6 @@ declare class FlowValidateInstance extends SerializableClass {
   /**
    * Initialize the FlowValidateContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
@@ -85,9 +79,6 @@ declare class FlowValidateInstance extends SerializableClass {
 declare class FlowValidatePage extends Page<V2, FlowValidatePayload, FlowValidateResource, FlowValidateInstance> {
   /**
    * Initialize the FlowValidatePage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

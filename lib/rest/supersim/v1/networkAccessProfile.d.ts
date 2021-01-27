@@ -15,9 +15,8 @@ import { SerializableClass } from '../../../interfaces';
 /**
  * Initialize the NetworkAccessProfileList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -249,9 +248,8 @@ declare class NetworkAccessProfileContext {
   /**
    * Initialize the NetworkAccessProfileContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param sid - The SID that identifies the resource to fetch
@@ -289,9 +287,8 @@ declare class NetworkAccessProfileInstance extends SerializableClass {
   /**
    * Initialize the NetworkAccessProfileContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -341,9 +338,8 @@ declare class NetworkAccessProfilePage extends Page<V1, NetworkAccessProfilePayl
   /**
    * Initialize the NetworkAccessProfilePage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

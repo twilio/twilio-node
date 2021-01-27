@@ -19,9 +19,6 @@ type ExecutionStatus = 'active'|'ended';
 /**
  * Initialize the ExecutionList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param flowSid - The SID of the Flow
  */
@@ -263,9 +260,6 @@ declare class ExecutionContext {
   /**
    * Initialize the ExecutionContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param flowSid - The SID of the Flow
    * @param sid - The SID of the Execution resource to fetch
@@ -303,9 +297,6 @@ declare class ExecutionContext {
 declare class ExecutionInstance extends SerializableClass {
   /**
    * Initialize the ExecutionContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -362,9 +353,6 @@ declare class ExecutionInstance extends SerializableClass {
 declare class ExecutionPage extends Page<V2, ExecutionPayload, ExecutionResource, ExecutionInstance> {
   /**
    * Initialize the ExecutionPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
