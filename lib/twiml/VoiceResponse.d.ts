@@ -269,6 +269,8 @@ declare namespace VoiceResponse {
 
   type SsmlSayAsRole = 'mdy'|'dmy'|'ymd'|'md'|'dm'|'ym'|'my'|'d'|'m'|'y'|'yyyymmdd';
 
+  type StreamStatusCallbackMethod = 'GET'|'POST';
+
   type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
   /**
@@ -799,12 +801,16 @@ declare namespace VoiceResponse {
    *
    * @property connectorName - Unique name for Stream Connector
    * @property name - Friendly name given to the Stream
+   * @property statusCallback - Status Callback URL
+   * @property statusCallbackMethod - Status Callback URL method
    * @property track - Track to be streamed to remote service
    * @property url - URL of the remote service where the Stream is routed
    */
   export interface StreamAttributes {
     connectorName?: string;
     name?: string;
+    statusCallback?: string;
+    statusCallbackMethod?: StreamStatusCallbackMethod;
     track?: StreamTrack;
     url?: string;
   }

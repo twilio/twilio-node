@@ -15,9 +15,8 @@ type FleetDataMetering = 'payg';
 /**
  * Initialize the FleetList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -26,10 +25,14 @@ declare function FleetList(version: V1): FleetListInstance;
 /**
  * Options to pass to update
  *
+ * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
+ * @property commandsUrl - The URL that will receive a webhook when a SIM in the Fleet is used to send an SMS from your device (mobile originated) to the Commands number
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface FleetInstanceUpdateOptions {
+  commandsMethod?: string;
+  commandsUrl?: string;
   networkAccessProfile?: string;
   uniqueName?: string;
 }
@@ -159,7 +162,7 @@ interface FleetListInstance {
  *
  * @property commandsEnabled - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
  * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
- * @property commandsUrl - The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine SMS via Commands
+ * @property commandsUrl - The URL that will receive a webhook when a SIM in the Fleet is used to send an SMS from your device (mobile originated) to the Commands number
  * @property dataEnabled - Defines whether SIMs in the Fleet are capable of using data connectivity
  * @property dataLimit - The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
@@ -265,9 +268,8 @@ declare class FleetContext {
   /**
    * Initialize the FleetContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param sid - The SID that identifies the resource to fetch
@@ -304,9 +306,8 @@ declare class FleetInstance extends SerializableClass {
   /**
    * Initialize the FleetContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -358,9 +359,8 @@ declare class FleetPage extends Page<V1, FleetPayload, FleetResource, FleetInsta
   /**
    * Initialize the FleetPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

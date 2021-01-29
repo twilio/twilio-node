@@ -15,9 +15,6 @@ type FlowRevisionStatus = 'draft'|'published';
 /**
  * Initialize the FlowRevisionList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param sid - The unique string that identifies the resource
  */
@@ -220,9 +217,6 @@ declare class FlowRevisionContext {
   /**
    * Initialize the FlowRevisionContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param sid - The SID that identifies the resource to fetch
    * @param revision - Specific Revision number or can be `LatestPublished` and `LatestRevision`
@@ -245,9 +239,6 @@ declare class FlowRevisionContext {
 declare class FlowRevisionInstance extends SerializableClass {
   /**
    * Initialize the FlowRevisionContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -285,9 +276,6 @@ declare class FlowRevisionInstance extends SerializableClass {
 declare class FlowRevisionPage extends Page<V2, FlowRevisionPayload, FlowRevisionResource, FlowRevisionInstance> {
   /**
    * Initialize the FlowRevisionPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

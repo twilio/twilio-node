@@ -21,9 +21,6 @@ type FlowStatus = 'draft'|'published';
 /**
  * Initialize the FlowList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function FlowList(version: V2): FlowListInstance;
@@ -31,7 +28,7 @@ declare function FlowList(version: V2): FlowListInstance;
 /**
  * Options to pass to update
  *
- * @property commitMessage - Description on change made in the revision
+ * @property commitMessage - Description of change made in the revision
  * @property definition - JSON representation of flow definition
  * @property friendlyName - The string that you assigned to describe the Flow
  * @property status - The status of the Flow
@@ -166,7 +163,7 @@ interface FlowListInstance {
 /**
  * Options to pass to create
  *
- * @property commitMessage - Description on change made in the revision
+ * @property commitMessage - Description of change made in the revision
  * @property definition - JSON representation of flow definition
  * @property friendlyName - The string that you assigned to describe the Flow
  * @property status - The status of the Flow
@@ -264,9 +261,6 @@ declare class FlowContext {
   /**
    * Initialize the FlowContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param sid - The SID that identifies the resource to fetch
    */
@@ -304,9 +298,6 @@ declare class FlowContext {
 declare class FlowInstance extends SerializableClass {
   /**
    * Initialize the FlowContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -371,9 +362,6 @@ declare class FlowInstance extends SerializableClass {
 declare class FlowPage extends Page<V2, FlowPayload, FlowResource, FlowInstance> {
   /**
    * Initialize the FlowPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
