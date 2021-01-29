@@ -72,11 +72,11 @@ declare class Version {
 }
 
 declare namespace Version {
-  export interface PageLimitOptions { 
+  export interface PageLimitOptions {
     /**
      * The maximum number of items to fetch
      */
-    limit: number; 
+    limit: number;
     /**
      * The maximum number of items to return with every request
      */
@@ -86,7 +86,6 @@ declare namespace Version {
   export interface PageLimit {
     limit: number;
     pageSize: number;
-    pageLimit: number;
   }
 }
 
