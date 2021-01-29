@@ -69,7 +69,8 @@ describe('Service', function() {
           'custom_code_enabled': true,
           'push': {
               'include_date': true,
-              'notify_service_sid': null
+              'apn_credential_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              'fcm_credential_sid': null
           },
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -135,7 +136,8 @@ describe('Service', function() {
           'custom_code_enabled': true,
           'push': {
               'include_date': true,
-              'notify_service_sid': null
+              'apn_credential_sid': null,
+              'fcm_credential_sid': null
           },
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
@@ -226,7 +228,8 @@ describe('Service', function() {
                   'custom_code_enabled': true,
                   'push': {
                       'include_date': true,
-                      'notify_service_sid': null
+                      'apn_credential_sid': null,
+                      'fcm_credential_sid': null
                   },
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -275,7 +278,8 @@ describe('Service', function() {
                   'custom_code_enabled': true,
                   'push': {
                       'include_date': true,
-                      'notify_service_sid': null
+                      'apn_credential_sid': null,
+                      'fcm_credential_sid': null
                   },
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -329,7 +333,8 @@ describe('Service', function() {
                   'custom_code_enabled': true,
                   'push': {
                       'include_date': true,
-                      'notify_service_sid': null
+                      'apn_credential_sid': null,
+                      'fcm_credential_sid': null
                   },
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -398,7 +403,8 @@ describe('Service', function() {
                   'custom_code_enabled': true,
                   'push': {
                       'include_date': true,
-                      'notify_service_sid': null
+                      'apn_credential_sid': null,
+                      'fcm_credential_sid': null
                   },
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -465,7 +471,8 @@ describe('Service', function() {
           'custom_code_enabled': true,
           'push': {
               'include_date': true,
-              'notify_service_sid': null
+              'apn_credential_sid': null,
+              'fcm_credential_sid': 'CRbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
           },
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',

@@ -16,9 +16,11 @@ import { OriginationUrlList } from './trunk/originationUrl';
 import { OriginationUrlListInstance } from './trunk/originationUrl';
 import { PhoneNumberList } from './trunk/phoneNumber';
 import { PhoneNumberListInstance } from './trunk/phoneNumber';
+import { RecordingList } from './trunk/recording';
+import { RecordingListInstance } from './trunk/recording';
 import { SerializableClass } from '../../../interfaces';
 
-type TrunkRecordingSetting = 'do-not-record'|'record-from-ringing'|'record-from-answer';
+type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
 
 /**
  * Initialize the TrunkList
@@ -35,8 +37,8 @@ declare function TrunkList(version: V1): TrunkListInstance;
  * @property disasterRecoveryUrl - The HTTP URL that we should call if an error occurs while sending SIP traffic towards your configured Origination URL
  * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic
  * @property friendlyName - A string to describe the resource
- * @property recording - The recording settings for the trunk
  * @property secure - Whether Secure Trunking is enabled for the trunk
+ * @property transferMode - The call transfer settings for the trunk
  */
 interface TrunkInstanceUpdateOptions {
   cnamLookupEnabled?: boolean;
@@ -44,8 +46,8 @@ interface TrunkInstanceUpdateOptions {
   disasterRecoveryUrl?: string;
   domainName?: string;
   friendlyName?: string;
-  recording?: TrunkRecordingSetting;
   secure?: boolean;
+  transferMode?: TrunkTransferSetting;
 }
 
 interface TrunkListInstance {
@@ -182,8 +184,8 @@ interface TrunkListInstance {
  * @property disasterRecoveryUrl - The HTTP URL that we should call if an error occurs while sending SIP traffic towards your configured Origination URL
  * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic
  * @property friendlyName - A string to describe the resource
- * @property recording - The recording settings for the trunk
  * @property secure - Whether Secure Trunking is enabled for the trunk
+ * @property transferMode - The call transfer settings for the trunk
  */
 interface TrunkListInstanceCreateOptions {
   cnamLookupEnabled?: boolean;
@@ -191,8 +193,8 @@ interface TrunkListInstanceCreateOptions {
   disasterRecoveryUrl?: string;
   domainName?: string;
   friendlyName?: string;
-  recording?: TrunkRecordingSetting;
   secure?: boolean;
+  transferMode?: TrunkTransferSetting;
 }
 
 /**
@@ -270,6 +272,7 @@ interface TrunkResource {
   recording: object;
   secure: boolean;
   sid: string;
+  transfer_mode: TrunkTransferSetting;
   url: string;
 }
 
@@ -296,6 +299,7 @@ declare class TrunkContext {
   ipAccessControlLists: IpAccessControlListListInstance;
   originationUrls: OriginationUrlListInstance;
   phoneNumbers: PhoneNumberListInstance;
+  recordings: RecordingListInstance;
   /**
    * remove a TrunkInstance
    *
@@ -368,6 +372,10 @@ declare class TrunkInstance extends SerializableClass {
   phoneNumbers(): PhoneNumberListInstance;
   recording: any;
   /**
+   * Access the recordings
+   */
+  recordings(): RecordingListInstance;
+  /**
    * remove a TrunkInstance
    *
    * @param callback - Callback to handle processed record
@@ -379,6 +387,7 @@ declare class TrunkInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  transferMode: TrunkTransferSetting;
   /**
    * update a TrunkInstance
    *
@@ -418,4 +427,4 @@ declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInsta
   toJSON(): any;
 }
 
-export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkRecordingSetting, TrunkResource, TrunkSolution }
+export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution, TrunkTransferSetting }

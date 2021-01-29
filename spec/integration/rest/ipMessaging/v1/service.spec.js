@@ -42,7 +42,7 @@ describe('Service', function() {
       }).done();
 
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v1/Services/${sid}`;
+      var url = `https://ip-messaging.twilio.com/v1/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -106,7 +106,7 @@ describe('Service', function() {
       }).done();
 
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v1/Services/${sid}`;
+      var url = `https://ip-messaging.twilio.com/v1/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -142,7 +142,7 @@ describe('Service', function() {
         done();
       }).done();
 
-      var url = 'https://chat.twilio.com/v1/Services';
+      var url = 'https://ip-messaging.twilio.com/v1/Services';
 
       var values = {FriendlyName: 'friendly_name', };
       holodeck.assertHasRequest(new Request({
@@ -200,13 +200,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 1,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Services'
+              'url': 'https://ip-messaging.twilio.com/v1/Services'
           },
           'services': [
               {
@@ -248,13 +248,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 1,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Services'
+              'url': 'https://ip-messaging.twilio.com/v1/Services'
           },
           'services': [
               {
@@ -292,7 +292,7 @@ describe('Service', function() {
       client.ipMessaging.v1.services.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://chat.twilio.com/v1/Services',
+          url: 'https://ip-messaging.twilio.com/v1/Services',
           params: {PageSize: 20},
       }));
     }
@@ -301,13 +301,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 1,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Services'
+              'url': 'https://ip-messaging.twilio.com/v1/Services'
           },
           'services': [
               {
@@ -357,7 +357,7 @@ describe('Service', function() {
         done();
       }).done();
 
-      var url = 'https://chat.twilio.com/v1/Services';
+      var url = 'https://ip-messaging.twilio.com/v1/Services';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -369,13 +369,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 0,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Services'
+              'url': 'https://ip-messaging.twilio.com/v1/Services'
           },
           'services': []
       };
@@ -395,13 +395,13 @@ describe('Service', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50',
               'key': 'services',
               'next_page_url': null,
               'page': 0,
               'page_size': 1,
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Services'
+              'url': 'https://ip-messaging.twilio.com/v1/Services'
           },
           'services': [
               {
@@ -460,7 +460,7 @@ describe('Service', function() {
       }).done();
 
       var sid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://chat.twilio.com/v1/Services/${sid}`;
+      var url = `https://ip-messaging.twilio.com/v1/Services/${sid}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',

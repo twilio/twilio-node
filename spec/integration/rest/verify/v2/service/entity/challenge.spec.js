@@ -33,10 +33,7 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {
-        factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        twilioSandboxMode: 'twilio_sandbox_mode'
-      };
+      var opts = {factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .challenges.create(opts);
@@ -57,13 +54,6 @@ describe('Challenge', function() {
           url: url,
           data: values
       }));
-
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
-      holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url,
-        headers: headers
-      }));
     }
   );
   it('should generate valid create response',
@@ -81,8 +71,19 @@ describe('Challenge', function() {
           'expiration_date': '2015-07-30T20:00:00Z',
           'status': 'pending',
           'responded_reason': 'none',
-          'details': '{\'message\': \'Hi! Mr. John Doe, would you like to sign up?\', \'date\':\'2020-07-01T12:13:14Z\', \'fields\': [{\'label\': \'Action\', \'value\': \'Sign up in portal\'}]}',
-          'hidden_details': '{\'ip\': \'172.168.1.234\'}',
+          'details': {
+              'message': 'Hi! Mr. John Doe, would you like to sign up?',
+              'date': '2020-07-01T12:13:14Z',
+              'fields': [
+                  {
+                      'label': 'Action',
+                      'value': 'Sign up in portal'
+                  }
+              ]
+          },
+          'hidden_details': {
+              'ip': '172.168.1.234'
+          },
           'factor_type': 'push',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
@@ -105,10 +106,9 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch(opts);
+                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -121,11 +121,9 @@ describe('Challenge', function() {
       var sid = 'YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Challenges/${sid}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -144,8 +142,19 @@ describe('Challenge', function() {
           'expiration_date': '2015-07-30T20:00:00Z',
           'status': 'pending',
           'responded_reason': 'none',
-          'details': '{\'message\': \'Hi! Mr. John Doe, would you like to sign up?\', \'fields\': [{\'label\': \'Action\', \'value\': \'Sign up in portal\'}]}',
-          'hidden_details': '{\'ip\': \'172.168.1.234\'}',
+          'details': {
+              'message': 'Hi! Mr. John Doe, would you like to sign up?',
+              'date': '2020-07-01T12:13:14Z',
+              'fields': [
+                  {
+                      'label': 'Action',
+                      'value': 'Sign up in portal'
+                  }
+              ]
+          },
+          'hidden_details': {
+              'ip': '172.168.1.234'
+          },
           'factor_type': 'push',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
@@ -180,8 +189,19 @@ describe('Challenge', function() {
                   'expiration_date': '2015-07-30T20:00:00Z',
                   'status': 'pending',
                   'responded_reason': 'none',
-                  'details': '{\'message\': \'Hi! Mr. John Doe, would you like to sign up?\', \'fields\': [{\'label\': \'Action\', \'value\': \'Sign up in portal\'}]}',
-                  'hidden_details': '{\'ip\': \'172.168.1.234\'}',
+                  'details': {
+                      'message': 'Hi! Mr. John Doe, would you like to sign up?',
+                      'date': '2020-07-01T12:13:14Z',
+                      'fields': [
+                          {
+                              'label': 'Action',
+                              'value': 'Sign up in portal'
+                          }
+                      ]
+                  },
+                  'hidden_details': {
+                      'ip': '172.168.1.234'
+                  },
                   'factor_type': 'push',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -219,8 +239,19 @@ describe('Challenge', function() {
                   'expiration_date': '2015-07-30T20:00:00Z',
                   'status': 'pending',
                   'responded_reason': 'none',
-                  'details': '{\'message\': \'Hi! Mr. John Doe, would you like to sign up?\', \'fields\': [{\'label\': \'Action\', \'value\': \'Sign up in portal\'}]}',
-                  'hidden_details': '{\'ip\': \'172.168.1.234\'}',
+                  'details': {
+                      'message': 'Hi! Mr. John Doe, would you like to sign up?',
+                      'date': '2020-07-01T12:13:14Z',
+                      'fields': [
+                          {
+                              'label': 'Action',
+                              'value': 'Sign up in portal'
+                          }
+                      ]
+                  },
+                  'hidden_details': {
+                      'ip': '172.168.1.234'
+                  },
                   'factor_type': 'push',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -263,8 +294,19 @@ describe('Challenge', function() {
                   'expiration_date': '2015-07-30T20:00:00Z',
                   'status': 'pending',
                   'responded_reason': 'none',
-                  'details': '{\'message\': \'Hi! Mr. John Doe, would you like to sign up?\', \'fields\': [{\'label\': \'Action\', \'value\': \'Sign up in portal\'}]}',
-                  'hidden_details': '{\'ip\': \'172.168.1.234\'}',
+                  'details': {
+                      'message': 'Hi! Mr. John Doe, would you like to sign up?',
+                      'date': '2020-07-01T12:13:14Z',
+                      'fields': [
+                          {
+                              'label': 'Action',
+                              'value': 'Sign up in portal'
+                          }
+                      ]
+                  },
+                  'hidden_details': {
+                      'ip': '172.168.1.234'
+                  },
                   'factor_type': 'push',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -289,10 +331,9 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .challenges.list(opts);
+                                    .challenges.list();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -304,11 +345,9 @@ describe('Challenge', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Challenges`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -357,8 +396,19 @@ describe('Challenge', function() {
                   'expiration_date': '2015-07-30T20:00:00Z',
                   'status': 'pending',
                   'responded_reason': 'none',
-                  'details': '{\'message\': \'Hi! Mr. John Doe, would you like to sign up?\', \'fields\': [{\'label\': \'Action\', \'value\': \'Sign up in portal\'}]}',
-                  'hidden_details': '{\'ip\': \'172.168.1.234\'}',
+                  'details': {
+                      'message': 'Hi! Mr. John Doe, would you like to sign up?',
+                      'date': '2020-07-01T12:13:14Z',
+                      'fields': [
+                          {
+                              'label': 'Action',
+                              'value': 'Sign up in portal'
+                          }
+                      ]
+                  },
+                  'hidden_details': {
+                      'ip': '172.168.1.234'
+                  },
                   'factor_type': 'push',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -391,10 +441,9 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -407,11 +456,9 @@ describe('Challenge', function() {
       var sid = 'YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Challenges/${sid}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -430,8 +477,19 @@ describe('Challenge', function() {
           'expiration_date': '2015-07-30T20:00:00Z',
           'status': 'approved',
           'responded_reason': 'none',
-          'details': '{\'message\': \'Hi! Mr. John Doe, would you like to sign up?\', \'fields\': [{\'label\': \'Action\', \'value\': \'Sign up in portal\'}]}',
-          'hidden_details': '{\'ip\': \'172.168.1.234\'}',
+          'details': {
+              'message': 'Hi! Mr. John Doe, would you like to sign up?',
+              'date': '2020-07-01T12:13:14Z',
+              'fields': [
+                  {
+                      'label': 'Action',
+                      'value': 'Sign up in portal'
+                  }
+              ]
+          },
+          'hidden_details': {
+              'ip': '172.168.1.234'
+          },
           'factor_type': 'push',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };

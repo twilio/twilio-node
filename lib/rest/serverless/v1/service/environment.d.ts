@@ -19,9 +19,8 @@ import { VariableListInstance } from './environment/variable';
 /**
  * Initialize the EnvironmentList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Environment resource is associated with
@@ -152,7 +151,7 @@ interface EnvironmentListInstance {
  * Options to pass to create
  *
  * @property domainSuffix - A URL-friendly name that represents the environment
- * @property uniqueName - An application-defined string that uniquely identifies the Environment resource
+ * @property uniqueName - A user-defined string that uniquely identifies the Environment resource
  */
 interface EnvironmentListInstanceCreateOptions {
   domainSuffix?: string;
@@ -242,9 +241,8 @@ declare class EnvironmentContext {
   /**
    * Initialize the EnvironmentContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Environment resource from
@@ -278,9 +276,8 @@ declare class EnvironmentInstance extends SerializableClass {
   /**
    * Initialize the EnvironmentContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -336,9 +333,8 @@ declare class EnvironmentPage extends Page<V1, EnvironmentPayload, EnvironmentRe
   /**
    * Initialize the EnvironmentPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -17,11 +17,8 @@ type WebhookTarget = 'webhook'|'trigger'|'studio';
 /**
  * Initialize the WebhookList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
- * @param conversationSid - The unique id of the Conversation for this webhook.
+ * @param conversationSid - The unique ID of the Conversation for this webhook.
  */
 declare function WebhookList(version: V1, conversationSid: string): WebhookListInstance;
 
@@ -29,7 +26,7 @@ declare function WebhookList(version: V1, conversationSid: string): WebhookListI
  * Options to pass to update
  *
  * @property configuration.filters - The list of events, firing webhook event for this Conversation.
- * @property configuration.flowSid - The studio flow sid, where the webhook should be sent to.
+ * @property configuration.flowSid - The studio flow SID, where the webhook should be sent to.
  * @property configuration.method - The HTTP method to be used when sending a webhook request.
  * @property configuration.triggers - The list of keywords, firing webhook event for this Conversation.
  * @property configuration.url - The absolute url the webhook request should be sent to.
@@ -168,7 +165,7 @@ interface WebhookListInstance {
  * Options to pass to create
  *
  * @property configuration.filters - The list of events, firing webhook event for this Conversation.
- * @property configuration.flowSid - The studio flow sid, where the webhook should be sent to.
+ * @property configuration.flowSid - The studio flow SID, where the webhook should be sent to.
  * @property configuration.method - The HTTP method to be used when sending a webhook request.
  * @property configuration.replayAfter - The message index for which and it's successors the webhook will be replayed.
  * @property configuration.triggers - The list of keywords, firing webhook event for this Conversation.
@@ -267,11 +264,8 @@ declare class WebhookContext {
   /**
    * Initialize the WebhookContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
-   * @param conversationSid - The unique id of the Conversation for this webhook.
+   * @param conversationSid - The unique ID of the Conversation for this webhook.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, conversationSid: string, sid: string);
@@ -312,12 +306,9 @@ declare class WebhookInstance extends SerializableClass {
   /**
    * Initialize the WebhookContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param conversationSid - The unique id of the Conversation for this webhook.
+   * @param conversationSid - The unique ID of the Conversation for this webhook.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: WebhookPayload, conversationSid: string, sid: string);
@@ -366,9 +357,6 @@ declare class WebhookInstance extends SerializableClass {
 declare class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
    * Initialize the WebhookPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

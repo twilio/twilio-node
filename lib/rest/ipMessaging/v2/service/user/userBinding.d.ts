@@ -16,8 +16,8 @@ type UserBindingBindingType = 'gcm'|'apn'|'fcm';
  * Initialize the UserBindingList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
- * @param userSid - The SID of the User with the binding
+ * @param serviceSid - The service_sid
+ * @param userSid - The user_sid
  */
 declare function UserBindingList(version: V2, serviceSid: string, userSid: string): UserBindingListInstance;
 
@@ -60,7 +60,7 @@ interface UserBindingListInstance {
   /**
    * Constructs a user_binding
    *
-   * @param sid - The SID of the User Binding resource to fetch
+   * @param sid - The sid
    */
   get(sid: string): UserBindingContext;
   /**
@@ -137,7 +137,7 @@ interface UserBindingListInstance {
 /**
  * Options to pass to each
  *
- * @property bindingType - The push technology used by the User Binding resources to read
+ * @property bindingType - The binding_type
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
@@ -164,7 +164,7 @@ interface UserBindingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property bindingType - The push technology used by the User Binding resources to read
+ * @property bindingType - The binding_type
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -185,7 +185,7 @@ interface UserBindingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property bindingType - The push technology used by the User Binding resources to read
+ * @property bindingType - The binding_type
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -226,9 +226,9 @@ declare class UserBindingContext {
    * Initialize the UserBindingContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param userSid - The SID of the User with the binding
-   * @param sid - The SID of the User Binding resource to fetch
+   * @param serviceSid - The service_sid
+   * @param userSid - The user_sid
+   * @param sid - The sid
    */
   constructor(version: V2, serviceSid: string, userSid: string, sid: string);
 
@@ -257,9 +257,9 @@ declare class UserBindingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param userSid - The SID of the User with the binding
-   * @param sid - The SID of the User Binding resource to fetch
+   * @param serviceSid - The service_sid
+   * @param userSid - The user_sid
+   * @param sid - The sid
    */
   constructor(version: V2, payload: UserBindingPayload, serviceSid: string, userSid: string, sid: string);
 

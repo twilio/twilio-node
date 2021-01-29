@@ -15,9 +15,8 @@ type AccessTokenFactorTypes = 'push';
 /**
  * Initialize the AccessTokenList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique string that identifies the resource
@@ -65,9 +64,8 @@ declare class AccessTokenInstance extends SerializableClass {
   /**
    * Initialize the AccessTokenContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -87,9 +85,8 @@ declare class AccessTokenPage extends Page<V2, AccessTokenPayload, AccessTokenRe
   /**
    * Initialize the AccessTokenPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

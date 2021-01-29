@@ -156,7 +156,7 @@ interface WebChannelListInstance {
  * @property chatFriendlyName - The chat channel's friendly name
  * @property chatUniqueName - The chat channel's unique name
  * @property customerFriendlyName - The chat participant's friendly name
- * @property flexFlowSid - The SID of the FlexFlow
+ * @property flexFlowSid - The SID of the Flex Flow
  * @property identity - The chat identity
  * @property preEngagementData - The pre-engagement data
  */

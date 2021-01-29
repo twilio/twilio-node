@@ -128,7 +128,6 @@ interface DataSessionListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property end - The date that the record ended, given as GMT in ISO 8601 format
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -139,21 +138,17 @@ interface DataSessionListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property start - The date that the Data Session started, given as GMT in ISO 8601 format
  */
 interface DataSessionListInstanceEachOptions {
   callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  end?: Date;
   limit?: number;
   pageSize?: number;
-  start?: Date;
 }
 
 /**
  * Options to pass to list
  *
- * @property end - The date that the record ended, given as GMT in ISO 8601 format
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -164,30 +159,23 @@ interface DataSessionListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property start - The date that the Data Session started, given as GMT in ISO 8601 format
  */
 interface DataSessionListInstanceOptions {
-  end?: Date;
   limit?: number;
   pageSize?: number;
-  start?: Date;
 }
 
 /**
  * Options to pass to page
  *
- * @property end - The date that the record ended, given as GMT in ISO 8601 format
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property start - The date that the Data Session started, given as GMT in ISO 8601 format
  */
 interface DataSessionListInstancePageOptions {
-  end?: Date;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  start?: Date;
 }
 
 interface DataSessionPayload extends DataSessionResource, Page.TwilioResponsePayload {

@@ -10,13 +10,15 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { ParticipantList } from './room/roomParticipant';
 import { ParticipantListInstance } from './room/roomParticipant';
+import { RecordingRulesList } from './room/roomRecordingRule';
+import { RecordingRulesListInstance } from './room/roomRecordingRule';
 import { RoomRecordingList } from './room/recording';
 import { RoomRecordingListInstance } from './room/recording';
 import { SerializableClass } from '../../../interfaces';
 
 type RoomRoomStatus = 'in-progress'|'completed'|'failed';
 
-type RoomRoomType = 'peer-to-peer'|'group'|'group-small';
+type RoomRoomType = 'go'|'peer-to-peer'|'group'|'group-small';
 
 type RoomVideoCodec = 'VP8'|'H264';
 
@@ -279,6 +281,7 @@ interface RoomResource {
   enable_turn: boolean;
   end_time: Date;
   links: string;
+  max_concurrent_published_tracks: number;
   max_participants: number;
   media_region: string;
   record_participants_on_connect: boolean;
@@ -312,6 +315,7 @@ declare class RoomContext {
    */
   fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
   participants: ParticipantListInstance;
+  recordingRules: RecordingRulesListInstance;
   recordings: RoomRecordingListInstance;
   /**
    * Provide a user-friendly representation
@@ -351,6 +355,7 @@ declare class RoomInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
   links: string;
+  maxConcurrentPublishedTracks: number;
   maxParticipants: number;
   mediaRegion: string;
   /**
@@ -358,6 +363,10 @@ declare class RoomInstance extends SerializableClass {
    */
   participants(): ParticipantListInstance;
   recordParticipantsOnConnect: boolean;
+  /**
+   * Access the recordingRules
+   */
+  recordingRules(): RecordingRulesListInstance;
   /**
    * Access the recordings
    */

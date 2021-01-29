@@ -19,10 +19,6 @@ type CallSummaryProcessingState = 'complete'|'partial';
 /**
  * Initialize the CallSummaryList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- *
  * @param version - Version of the resource
  * @param callSid - The call_sid
  */
@@ -64,6 +60,7 @@ interface CallSummaryResource {
   carrier_edge: object;
   client_edge: object;
   connect_duration: number;
+  created_time: Date;
   duration: number;
   end_time: Date;
   from: object;
@@ -74,6 +71,7 @@ interface CallSummaryResource {
   start_time: Date;
   tags: string[];
   to: object;
+  trust: object;
   url: string;
 }
 
@@ -85,10 +83,6 @@ interface CallSummarySolution {
 declare class CallSummaryContext {
   /**
    * Initialize the CallSummaryContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param callSid - The call_sid
@@ -119,10 +113,6 @@ declare class CallSummaryInstance extends SerializableClass {
   /**
    * Initialize the CallSummaryContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param callSid - The call_sid
@@ -138,6 +128,7 @@ declare class CallSummaryInstance extends SerializableClass {
   carrierEdge: any;
   clientEdge: any;
   connectDuration: number;
+  createdTime: Date;
   duration: number;
   endTime: Date;
   /**
@@ -165,6 +156,7 @@ declare class CallSummaryInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  trust: any;
   url: string;
 }
 
@@ -172,10 +164,6 @@ declare class CallSummaryInstance extends SerializableClass {
 declare class CallSummaryPage extends Page<V1, CallSummaryPayload, CallSummaryResource, CallSummaryInstance> {
   /**
    * Initialize the CallSummaryPage
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

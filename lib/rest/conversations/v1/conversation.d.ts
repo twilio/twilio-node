@@ -23,9 +23,6 @@ type ConversationWebhookEnabledType = 'true'|'false';
 /**
  * Initialize the ConversationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function ConversationList(version: V1): ConversationListInstance;
@@ -46,10 +43,11 @@ interface ConversationInstanceRemoveOptions {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
- * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
+ * @property messagingServiceSid - The unique ID of the Messaging Service this conversation belongs to.
  * @property state - Current state of this conversation.
  * @property timers.closed - ISO8601 duration when conversation will be switched to `closed` state.
  * @property timers.inactive - ISO8601 duration when conversation will be switched to `inactive` state.
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationInstanceUpdateOptions {
@@ -63,6 +61,7 @@ interface ConversationInstanceUpdateOptions {
     inactive?: string;
     closed?: string;
   };
+  uniqueName?: string;
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
@@ -199,10 +198,11 @@ interface ConversationListInstance {
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
  * @property friendlyName - The human-readable name of this conversation.
- * @property messagingServiceSid - The unique id of the SMS Service this conversation belongs to.
+ * @property messagingServiceSid - The unique ID of the Messaging Service this conversation belongs to.
  * @property state - Current state of this conversation.
  * @property timers.closed - ISO8601 duration when conversation will be switched to `closed` state.
  * @property timers.inactive - ISO8601 duration when conversation will be switched to `inactive` state.
+ * @property uniqueName - An application-defined string that uniquely identifies the resource
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ConversationListInstanceCreateOptions {
@@ -216,6 +216,7 @@ interface ConversationListInstanceCreateOptions {
     inactive?: string;
     closed?: string;
   };
+  uniqueName?: string;
   xTwilioWebhookEnabled?: ConversationWebhookEnabledType;
 }
 
@@ -291,6 +292,7 @@ interface ConversationResource {
   sid: string;
   state: ConversationState;
   timers: object;
+  unique_name: string;
   url: string;
 }
 
@@ -301,9 +303,6 @@ interface ConversationSolution {
 declare class ConversationContext {
   /**
    * Initialize the ConversationContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param sid - A 34 character string that uniquely identifies this resource.
@@ -356,9 +355,6 @@ declare class ConversationInstance extends SerializableClass {
   /**
    * Initialize the ConversationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - A 34 character string that uniquely identifies this resource.
@@ -408,6 +404,7 @@ declare class ConversationInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  uniqueName: string;
   /**
    * update a ConversationInstance
    *
@@ -432,9 +429,6 @@ declare class ConversationInstance extends SerializableClass {
 declare class ConversationPage extends Page<V1, ConversationPayload, ConversationResource, ConversationInstance> {
   /**
    * Initialize the ConversationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

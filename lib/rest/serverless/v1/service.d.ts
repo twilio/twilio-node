@@ -21,9 +21,8 @@ import { SerializableClass } from '../../../interfaces';
 /**
  * Initialize the ServiceList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -34,7 +33,7 @@ declare function ServiceList(version: V1): ServiceListInstance;
  *
  * @property friendlyName - A string to describe the Service resource
  * @property includeCredentials - Whether to inject Account credentials into a function invocation context
- * @property uiEditable - Whether the Service's properties and subresources can be edited via the UI
+ * @property uiEditable - Whether the Service resource's properties and subresources can be edited via the UI
  */
 interface ServiceInstanceUpdateOptions {
   friendlyName?: string;
@@ -168,7 +167,7 @@ interface ServiceListInstance {
  * @property friendlyName - A string to describe the Service resource
  * @property includeCredentials - Whether to inject Account credentials into a function invocation context
  * @property uiEditable - Whether the Service's properties and subresources can be edited via the UI
- * @property uniqueName - An application-defined string that uniquely identifies the Service resource
+ * @property uniqueName - A user-defined string that uniquely identifies the Service resource
  */
 interface ServiceListInstanceCreateOptions {
   friendlyName: string;
@@ -258,9 +257,8 @@ declare class ServiceContext {
   /**
    * Initialize the ServiceContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param sid - The SID of the Service resource to fetch
@@ -307,9 +305,8 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Initialize the ServiceContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -380,9 +377,8 @@ declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, Serv
   /**
    * Initialize the ServicePage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

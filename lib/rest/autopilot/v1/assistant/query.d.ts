@@ -174,7 +174,7 @@ interface QueryListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property dialogueSid - The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+ * @property dialogueSid - The SID of the {@link https://www.twilio.com/docs/autopilot/api/dialogue|Dialogue}.
  * @property done - Function to be called upon completion of streaming
  * @property language - The ISO language-country string that specifies the language used by the Query resources to read
  * @property limit -
@@ -204,7 +204,7 @@ interface QueryListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dialogueSid - The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+ * @property dialogueSid - The SID of the {@link https://www.twilio.com/docs/autopilot/api/dialogue|Dialogue}.
  * @property language - The ISO language-country string that specifies the language used by the Query resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -231,7 +231,7 @@ interface QueryListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dialogueSid - The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+ * @property dialogueSid - The SID of the {@link https://www.twilio.com/docs/autopilot/api/dialogue|Dialogue}.
  * @property language - The ISO language-country string that specifies the language used by the Query resources to read
  * @property modelBuild - The SID or unique name of the Model Build to be queried
  * @property pageNumber - Page Number, this value is simply for client state

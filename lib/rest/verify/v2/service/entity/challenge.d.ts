@@ -19,9 +19,8 @@ type ChallengeFactorTypes = 'push';
 /**
  * Initialize the ChallengeList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
@@ -30,23 +29,12 @@ type ChallengeFactorTypes = 'push';
 declare function ChallengeList(version: V2, serviceSid: string, identity: string): ChallengeListInstance;
 
 /**
- * Options to pass to fetch
- *
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
- */
-interface ChallengeInstanceFetchOptions {
-  twilioSandboxMode?: string;
-}
-
-/**
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Challenge
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeInstanceUpdateOptions {
   authPayload?: string;
-  twilioSandboxMode?: string;
 }
 
 interface ChallengeListInstance {
@@ -172,18 +160,20 @@ interface ChallengeListInstance {
 /**
  * Options to pass to create
  *
- * @property details - Public details provided to contextualize the Challenge
- * @property expirationDate - The future date in which this Challenge will expire
+ * @property details.fields - A list of objects that describe the Fields included in the Challenge
+ * @property details.message - Shown to the user when the push notification arrives
+ * @property expirationDate - The date-time when this Challenge expires
  * @property factorSid - Factor Sid.
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceCreateOptions {
-  details?: string;
+  details?: {
+    message?: string;
+    fields?: object | object[];
+  };
   expirationDate?: Date;
   factorSid: string;
-  hiddenDetails?: string;
-  twilioSandboxMode?: string;
+  hiddenDetails?: object;
 }
 
 /**
@@ -205,7 +195,6 @@ interface ChallengeListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property status - The Status of theChallenges to fetch
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceEachOptions {
   callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void;
@@ -214,7 +203,6 @@ interface ChallengeListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -232,14 +220,12 @@ interface ChallengeListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property status - The Status of theChallenges to fetch
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstanceOptions {
   factorSid?: string;
   limit?: number;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
-  twilioSandboxMode?: string;
 }
 
 /**
@@ -250,7 +236,6 @@ interface ChallengeListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property status - The Status of theChallenges to fetch
- * @property twilioSandboxMode - The Twilio-Sandbox-Mode HTTP request header
  */
 interface ChallengeListInstancePageOptions {
   factorSid?: string;
@@ -258,7 +243,6 @@ interface ChallengeListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   status?: ChallengeChallengeStatuses;
-  twilioSandboxMode?: string;
 }
 
 interface ChallengePayload extends ChallengeResource, Page.TwilioResponsePayload {
@@ -269,12 +253,12 @@ interface ChallengeResource {
   date_created: Date;
   date_responded: Date;
   date_updated: Date;
-  details: string;
+  details: object;
   entity_sid: string;
   expiration_date: Date;
   factor_sid: string;
   factor_type: ChallengeFactorTypes;
-  hidden_details: string;
+  hidden_details: object;
   identity: string;
   responded_reason: ChallengeChallengeReasons;
   service_sid: string;
@@ -293,9 +277,8 @@ declare class ChallengeContext {
   /**
    * Initialize the ChallengeContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
@@ -310,13 +293,6 @@ declare class ChallengeContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  /**
-   * fetch a ChallengeInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -341,9 +317,8 @@ declare class ChallengeInstance extends SerializableClass {
   /**
    * Initialize the ChallengeContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -358,7 +333,7 @@ declare class ChallengeInstance extends SerializableClass {
   dateCreated: Date;
   dateResponded: Date;
   dateUpdated: Date;
-  details: string;
+  details: any;
   entitySid: string;
   expirationDate: Date;
   factorSid: string;
@@ -369,14 +344,7 @@ declare class ChallengeInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  /**
-   * fetch a ChallengeInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  fetch(opts?: ChallengeInstanceFetchOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
-  hiddenDetails: string;
+  hiddenDetails: any;
   identity: string;
   respondedReason: ChallengeChallengeReasons;
   serviceSid: string;
@@ -407,9 +375,8 @@ declare class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource
   /**
    * Initialize the ChallengePage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
@@ -429,4 +396,4 @@ declare class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource
   toJSON(): any;
 }
 
-export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceFetchOptions, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
+export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }

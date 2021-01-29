@@ -27,19 +27,19 @@ declare function FlexFlowList(version: V1): FlexFlowListInstance;
  * @property channelType - The channel type
  * @property chatServiceSid - The SID of the chat service
  * @property contactIdentity - The channel contact's Identity
- * @property enabled - Whether the FlexFlow is enabled
+ * @property enabled - Whether the new Flex Flow is enabled
  * @property friendlyName - A string to describe the resource
- * @property integration.channel - task channel for a new task
- * @property integration.creationOnMessage - Whether to create a task when the first message arrives
- * @property integration.flowSid - The SID of the Flow
- * @property integration.priority - The task priority of a new task
+ * @property integration.channel - The Task Channel for a new Task
+ * @property integration.creationOnMessage - Whether to create a Task when the first message arrives
+ * @property integration.flowSid - The SID of the Studio Flow
+ * @property integration.priority - The Task priority of a new Task
  * @property integration.retryCount - The number of times to retry the webhook if the first attempt fails
- * @property integration.timeout - The task timeout in seconds for a new task
+ * @property integration.timeout - The Task timeout in seconds for a new Task
  * @property integration.url - The External Webhook URL
- * @property integration.workflowSid - The Workflow SID for a new task
- * @property integration.workspaceSid - The Workspace SID for a new task
+ * @property integration.workflowSid - The Workflow SID for a new Task
+ * @property integration.workspaceSid - The Workspace SID for a new Task
  * @property integrationType - The integration type
- * @property janitorEnabled - Remove active Proxy sessions if the corresponding Task is deleted.
+ * @property janitorEnabled - Remove active Proxy sessions if the corresponding Task is deleted
  * @property longLived - Reuse this chat channel for future interactions with a contact
  */
 interface FlexFlowInstanceUpdateOptions {
@@ -190,17 +190,17 @@ interface FlexFlowListInstance {
  * @property channelType - The channel type
  * @property chatServiceSid - The SID of the chat service
  * @property contactIdentity - The channel contact's Identity
- * @property enabled - Whether the new FlexFlow is enabled
+ * @property enabled - Whether the new Flex Flow is enabled
  * @property friendlyName - A string to describe the resource
- * @property integration.channel - The task channel for a new task
- * @property integration.creationOnMessage - Whether to create a task when the first message arrives
- * @property integration.flowSid - The SID of the Flow
- * @property integration.priority - The task priority of a new task
+ * @property integration.channel - The Task Channel for a new Task
+ * @property integration.creationOnMessage - Whether to create a Task when the first message arrives
+ * @property integration.flowSid - The SID of the Studio Flow
+ * @property integration.priority - The Task priority of a new Task
  * @property integration.retryCount - The number of times to retry the webhook if the first attempt fails
- * @property integration.timeout - The task timeout in seconds for a new task
+ * @property integration.timeout - The Task timeout in seconds for a new Task
  * @property integration.url - The External Webhook URL
- * @property integration.workflowSid - The Workflow SID for a new task
- * @property integration.workspaceSid - The Workspace SID for a new task
+ * @property integration.workflowSid - The Workflow SID for a new Task
+ * @property integration.workspaceSid - The Workspace SID for a new Task
  * @property integrationType - The integration type
  * @property janitorEnabled - Remove active Proxy sessions if the corresponding Task is deleted
  * @property longLived - Reuse this chat channel for future interactions with a contact
@@ -234,7 +234,7 @@ interface FlexFlowListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - The `friendly_name` of the FlexFlow resources to read
+ * @property friendlyName - The `friendly_name` of the Flex Flow resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -257,7 +257,7 @@ interface FlexFlowListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - The `friendly_name` of the FlexFlow resources to read
+ * @property friendlyName - The `friendly_name` of the Flex Flow resources to read
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -278,7 +278,7 @@ interface FlexFlowListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - The `friendly_name` of the FlexFlow resources to read
+ * @property friendlyName - The `friendly_name` of the Flex Flow resources to read
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API

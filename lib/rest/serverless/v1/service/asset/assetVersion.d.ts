@@ -15,13 +15,12 @@ type AssetVersionVisibility = 'public'|'private'|'protected';
 /**
  * Initialize the AssetVersionList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Asset Version resource is associated with
- * @param assetSid - The SID of the Asset resource that is the parent of the asset version
+ * @param assetSid - The SID of the Asset resource that is the parent of the Asset Version
  */
 declare function AssetVersionList(version: V1, serviceSid: string, assetSid: string): AssetVersionListInstance;
 
@@ -219,9 +218,8 @@ declare class AssetVersionContext {
   /**
    * Initialize the AssetVersionContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Asset Version resource from
@@ -247,14 +245,13 @@ declare class AssetVersionInstance extends SerializableClass {
   /**
    * Initialize the AssetVersionContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the Asset Version resource is associated with
-   * @param assetSid - The SID of the Asset resource that is the parent of the asset version
+   * @param assetSid - The SID of the Asset resource that is the parent of the Asset Version
    * @param sid - The SID that identifies the Asset Version resource to fetch
    */
   constructor(version: V1, payload: AssetVersionPayload, serviceSid: string, assetSid: string, sid: string);
@@ -285,9 +282,8 @@ declare class AssetVersionPage extends Page<V1, AssetVersionPayload, AssetVersio
   /**
    * Initialize the AssetVersionPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -17,13 +17,12 @@ type FunctionVersionVisibility = 'public'|'private'|'protected';
 /**
  * Initialize the FunctionVersionList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Function Version resource is associated with
- * @param functionSid - The SID of the function that is the parent of the function version
+ * @param functionSid - The SID of the Function resource that is the parent of the Function Version resource
  */
 declare function FunctionVersionList(version: V1, serviceSid: string, functionSid: string): FunctionVersionListInstance;
 
@@ -222,9 +221,8 @@ declare class FunctionVersionContext {
   /**
    * Initialize the FunctionVersionContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Function Version resource from
@@ -251,14 +249,13 @@ declare class FunctionVersionInstance extends SerializableClass {
   /**
    * Initialize the FunctionVersionContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the Function Version resource is associated with
-   * @param functionSid - The SID of the function that is the parent of the function version
+   * @param functionSid - The SID of the Function resource that is the parent of the Function Version resource
    * @param sid - The SID that identifies the Function Version resource to fetch
    */
   constructor(version: V1, payload: FunctionVersionPayload, serviceSid: string, functionSid: string, sid: string);
@@ -294,9 +291,8 @@ declare class FunctionVersionPage extends Page<V1, FunctionVersionPayload, Funct
   /**
    * Initialize the FunctionVersionPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

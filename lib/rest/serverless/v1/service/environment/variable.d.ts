@@ -13,13 +13,12 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the VariableList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Variable resource is associated with
- * @param environmentSid - The SID of the environment in which the variable exists
+ * @param environmentSid - The SID of the Environment in which the Variable exists
  */
 declare function VariableList(version: V1, serviceSid: string, environmentSid: string): VariableListInstance;
 
@@ -27,7 +26,7 @@ declare function VariableList(version: V1, serviceSid: string, environmentSid: s
  * Options to pass to update
  *
  * @property key - A string by which the Variable resource can be referenced
- * @property value - A string that contains the actual value of the variable
+ * @property value - A string that contains the actual value of the Variable
  */
 interface VariableInstanceUpdateOptions {
   key?: string;
@@ -158,7 +157,7 @@ interface VariableListInstance {
  * Options to pass to create
  *
  * @property key - A string by which the Variable resource can be referenced
- * @property value - A string that contains the actual value of the variable
+ * @property value - A string that contains the actual value of the Variable
  */
 interface VariableListInstanceCreateOptions {
   key: string;
@@ -247,13 +246,12 @@ declare class VariableContext {
   /**
    * Initialize the VariableContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Variable resource from
-   * @param environmentSid - The SID of the environment with the Variable resource to fetch
+   * @param environmentSid - The SID of the Environment with the Variable resource to fetch
    * @param sid - The SID of the Variable resource to fetch
    */
   constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
@@ -294,14 +292,13 @@ declare class VariableInstance extends SerializableClass {
   /**
    * Initialize the VariableContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the Variable resource is associated with
-   * @param environmentSid - The SID of the environment in which the variable exists
+   * @param environmentSid - The SID of the Environment in which the Variable exists
    * @param sid - The SID of the Variable resource to fetch
    */
   constructor(version: V1, payload: VariablePayload, serviceSid: string, environmentSid: string, sid: string);
@@ -352,9 +349,8 @@ declare class VariablePage extends Page<V1, VariablePayload, VariableResource, V
   /**
    * Initialize the VariablePage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

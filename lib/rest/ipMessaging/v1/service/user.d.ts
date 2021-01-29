@@ -16,16 +16,16 @@ import { UserChannelListInstance } from './user/userChannel';
  * Initialize the UserList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
+ * @param serviceSid - The service_sid
  */
 declare function UserList(version: V1, serviceSid: string): UserListInstance;
 
 /**
  * Options to pass to update
  *
- * @property attributes - A valid JSON string that contains application-specific data
- * @property friendlyName - A string to describe the resource
- * @property roleSid - The SID id of the Role assigned to this user
+ * @property attributes - The attributes
+ * @property friendlyName - The friendly_name
+ * @property roleSid - The role_sid
  */
 interface UserInstanceUpdateOptions {
   attributes?: string;
@@ -79,7 +79,7 @@ interface UserListInstance {
   /**
    * Constructs a user
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The sid
    */
   get(sid: string): UserContext;
   /**
@@ -156,10 +156,10 @@ interface UserListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - A valid JSON string that contains application-specific data
- * @property friendlyName - A string to describe the new resource
- * @property identity - The `identity` value that identifies the new resource's User
- * @property roleSid - The SID of the Role assigned to this user
+ * @property attributes - The attributes
+ * @property friendlyName - The friendly_name
+ * @property identity - The identity
+ * @property roleSid - The role_sid
  */
 interface UserListInstanceCreateOptions {
   attributes?: string;
@@ -255,8 +255,8 @@ declare class UserContext {
    * Initialize the UserContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
@@ -299,8 +299,8 @@ declare class UserInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
   constructor(version: V1, payload: UserPayload, serviceSid: string, sid: string);
 

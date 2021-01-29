@@ -42,7 +42,7 @@ declare function AssistantList(version: V1): AssistantListInstance;
  *
  * @property callbackEvents - Reserved
  * @property callbackUrl - Reserved
- * @property defaults - A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
+ * @property defaults - A JSON object that defines the Assistant's {@link https://www.twilio.com/docs/autopilot/api/assistant/defaults|default tasks} for various scenarios
  * @property developmentStage - A string describing the state of the assistant.
  * @property friendlyName - A string to describe the resource
  * @property logQueries - Whether queries should be logged and kept after training

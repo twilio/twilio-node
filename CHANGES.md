@@ -1,6 +1,280 @@
 twilio-node changelog
 =====================
 
+[2021-01-27] Version 3.55.1
+---------------------------
+**Studio**
+- Studio V2 API is now GA
+
+**Supersim**
+- Allow updating `CommandsUrl` and `CommandsMethod` on a Fleet
+
+**Twiml**
+- Add `status_callback` and `status_callback_method` to `Stream`.
+
+
+[2021-01-13] Version 3.55.0
+---------------------------
+**Api**
+- Add 'Electric Imp v1 Usage' to usage categories
+
+**Conversations**
+- Changed `last_read_message_index` type in Participant's resource **(breaking change)**
+
+**Insights**
+- Added `created_time` to call summary.
+
+**Sync**
+- Remove HideExpired query parameter for filtering Sync Documents with expired **(breaking change)**
+
+**Video**
+- [Rooms] Expose maxConcurrentPublishedTracks property in Room resource
+
+
+[2021-01-06] Version 3.54.2
+---------------------------
+**Library - Fix**
+- [PR #640](https://github.com/twilio/twilio-node/pull/640): axios update to v0.21.1. Thanks to [@ShelbyZ](https://github.com/ShelbyZ)!
+- [PR #642](https://github.com/twilio/twilio-node/pull/642): url encoding for validateExpressRequest. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+
+[2020-12-16] Version 3.54.1
+---------------------------
+**Api**
+- Updated `call_event` default_output_properties to request and response.
+
+**Conversations**
+- Added `last_read_message_index` and `last_read_timestamp` to Participant's resource update operation
+- Added `is_notifiable` and `is_online` to User's resource
+- Added `reachability_enabled` parameters to update method for Conversation Service Configuration resource
+
+**Messaging**
+- Added WA template quick reply, URL, and phone number buttons
+
+**Twiml**
+- Add `sequential` to `Dial`.
+
+
+[2020-12-08] Version 3.54.0
+---------------------------
+**Api**
+- Added optional `RecordingTrack` parameter for create calls, create participants, and create call recordings
+- Removed deprecated Programmable Chat usage record categories **(breaking change)**
+
+**Twiml**
+- Add `recordingTrack` to `Dial`.
+
+
+[2020-12-02] Version 3.53.0
+---------------------------
+**Api**
+- Remove `RecordingTrack` parameter for create calls, create participants, and create call recordings **(breaking change)**
+- Added `RecordingTrack` parameter for create calls and create call recordings
+- Add optional property `recording_track` in the participant create request
+
+**Lookups**
+- Changed `caller_name` and `carrier` properties type to object **(breaking change)**
+
+**Trunking**
+- Added dual channel recording options for Trunks.
+
+**Twiml**
+- Add `jitterBufferSize` and `participantLabel` to `Conference`.
+
+
+[2020-11-18] Version 3.52.0
+---------------------------
+**Library - Chore**
+- [PR #630](https://github.com/twilio/twilio-node/pull/630): Move @types dependencies to peerDependencies. Thanks to [@taxilian](https://github.com/taxilian)!
+
+**Api**
+- Add new call events resource - GET /2010-04-01/Accounts/{account_sid}/Calls/{call_sid}/Events.json
+
+**Conversations**
+- Fixed default response property issue for Service Notifications Configuration
+
+**Insights**
+- Removing call_sid from participant summary. **(breaking change)**
+
+**Serverless**
+- Allow Service unique name to be used in path (in place of SID) in Service update request
+
+**Sync**
+- Added HideExpired query parameter for filtering Sync Documents with expired
+
+**Verify**
+- Challenge `Details` and `HiddenDetails` properties are now marked as `PII`
+- Challenge `expiration_date` attribute updated to set a default value of five (5) minutes and to allow max dates of one (1) hour after creation.
+- Entity `identity` attribute updated to allow values between 8 and 64 characters.
+- Verify Service frinedly_name attribute updated from 64 max lenght to 30 characters.
+
+
+[2020-11-05] Version 3.51.0
+---------------------------
+**Library - Fix**
+- [PR #621](https://github.com/twilio/twilio-node/pull/621): X-Twilio-Signature validation when URL query parameters contain @ or :. Thanks to [@adamj9431](https://github.com/adamj9431)!
+- [PR #622](https://github.com/twilio/twilio-node/pull/622): remove request auth headers from debug logging. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Library - Feature**
+- [PR #623](https://github.com/twilio/twilio-node/pull/623): add regional twr header in the access token. Thanks to [@charliesantos](https://github.com/charliesantos)!
+- [PR #618](https://github.com/twilio/twilio-node/pull/618): add http logging for Node JS. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Library - Chore**
+- [PR #625](https://github.com/twilio/twilio-node/pull/625): pin jasmine for compatibility with older node versions. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Added `verify-push` to `usage_record` API
+
+**Bulkexports**
+- When creating a custom export the StartDay, EndDay, and FriendlyName fields were required but this was not reflected in the API documentation.  The API itself failed the request without these fields. **(breaking change)**
+- Added property descriptions for Custom Export create method
+- Clarified WebhookUrl and WebhookMethod must be provided together for Custom Export
+
+**Insights**
+- Added video room and participant summary apis.
+
+**Ip_messaging**
+- Create separate definition for ip-messaging
+- Restore v2 endpoints for ip-messaging
+
+**Verify**
+- Verify Push madurity were updated from `preview` to `beta`
+- `twilio_sandbox_mode` header was removed from Verify Push resources **(breaking change)**
+
+**Video**
+- [Rooms] Add Recording Rules API
+
+
+[2020-10-14] Version 3.50.0
+---------------------------
+**Ai**
+- Add `Annotation Project` and `Annotation Task` endpoints
+- Add `Primitives` endpoints
+- Add `meta.total` to the search endpoint
+
+**Conversations**
+- Mutable Conversation Unique Names
+
+**Insights**
+- Added `trust` to summary.
+
+**Preview**
+- Simplified `Channels` resource. The path is now `/BrandedChannels/branded_channel_sid/Channels` **(breaking change)**
+
+**Verify**
+- Changed parameters (`config` and `binding`) to use dot notation instead of JSON string (e.i. Before: `binding={"alg":"ES256", "public_key": "xxx..."}`, Now: `Binding.Alg="ES256"`, `Binding.PublicKey="xxx..."`). **(breaking change)**
+- Changed parameters (`details` and `hidden_details`) to use dot notation instead of JSON string (e.i. Before: `details={"message":"Test message", "fields": "[{\"label\": \"Action 1\", \"value\":\"value 1\"}]"}`, Now: `details.Message="Test message"`, `Details.Fields=["{\"label\": \"Action 1\", \"value\":\"value 1\"}"]`). **(breaking change)**
+- Removed `notify_service_sid` from `push` service configuration object. Add `Push.IncludeDate`, `Push.ApnCredentialSid` and `Push.FcmCredentialSid` service configuration parameters. **(breaking change)**
+
+
+[2020-09-28] Version 3.49.4
+---------------------------
+**Api**
+- Add optional property `call_reason` in the participant create request
+- Make sip-domain-service endpoints available in stage-au1 and prod-au1
+
+**Messaging**
+- Removed beta feature gate from WhatsApp Templates API
+
+**Serverless**
+- Add Build Status endpoint
+
+**Video**
+- [Rooms] Add new room type "go" for WebRTC Go
+
+
+[2020-09-21] Version 3.49.3
+---------------------------
+**Accounts**
+- Add Auth Token rotation API
+
+**Conversations**
+- Change resource path for Webhook Configuration
+
+**Events**
+- Schemas API get all Schemas names and versions
+
+
+[2020-09-16] Version 3.49.2
+---------------------------
+**Library - Fix**
+- [PR #614](https://github.com/twilio/twilio-node/pull/614): Prevent throwing an exception on 3xx response status code. Thanks to [@Saka7](https://github.com/Saka7)!
+
+**Conversations**
+- Expose Configuration and Service Configuration resources
+- Add Unique Name support for Conversations
+- Add Services Push Notification resource
+- Add Service scoped Conversation resources
+- Support Identity in Users resource endpoint
+
+**Messaging**
+- GA Deactivation List API
+- Add domain cert API's(fetch, update, create) for link tracker
+
+**Numbers**
+- Add API endpoint for Supporting Document deletion
+
+**Proxy**
+- Updated usage of FailOnParticipantConflict param to apply only to accounts with ProxyAllowParticipantConflict account flag
+
+**Supersim**
+- Add `AccountSid` parameter to Sim resource update request
+- Add `ready` status as an available status for a Sim resource
+
+
+[2020-09-02] Version 3.49.1
+---------------------------
+**Library - Fix**
+- [PR #605](https://github.com/twilio/twilio-node/pull/605): allow lower versions of typescript (2.5). Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Ai**
+- Initial release
+
+**Bulkexports**
+- removing public beta feature flag from BulkExports Jobs API
+
+**Messaging**
+- Add Deactivation List API
+- Added page token parameter for fetch in WhatsApp Templates API
+
+**Numbers**
+- Add API endpoint for End User deletion
+
+**Routes**
+- Add Resource Route Configurations API
+- Add Route Configurations API
+- Initial Release
+
+**Trunking**
+- Added `transfer_mode` property on Trunks.
+
+
+[2020-08-19] Version 3.49.0
+---------------------------
+**Library - Docs**
+- [PR #603](https://github.com/twilio/twilio-node/pull/603): convert markdown links to jsdoc formatted links. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Chore**
+- [PR #602](https://github.com/twilio/twilio-node/pull/602): update GitHub branch references to use HEAD. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Conversations**
+- Allow Identity addition to Participants
+
+**Events**
+- Sinks API Get all Sinks
+
+**Proxy**
+- Clarified usage of FailOnParticipantConflict param as experimental
+- Add FailOnParticipantConflict param to Proxy Session create and Proxy Participant create
+
+**Supersim**
+- Add fleet, network, and isoCountryCode to the UsageRecords resource
+- Change sort order of UsageRecords from ascending to descending with respect to start time field, records are now returned newest to oldest
+
+**Wireless**
+- Removed `Start` and `End` parameters from the Data Sessions list endpoint. **(breaking change)**
+
+
 [2020-08-05] Version 3.48.2
 ---------------------------
 **Messaging**

@@ -33,14 +33,7 @@ describe('Factor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {
-        binding: 'binding',
-        friendlyName: 'friendly_name',
-        factorType: 'push',
-        config: 'config',
-        twilioSandboxMode: 'twilio_sandbox_mode',
-        authorization: 'authorization'
-      };
+      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .factors.create(opts);
@@ -55,23 +48,11 @@ describe('Factor', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-      var values = {
-        Binding: 'binding',
-        FriendlyName: 'friendly_name',
-        FactorType: 'push',
-        Config: 'config',
-      };
+      var values = {FriendlyName: 'friendly_name', FactorType: 'push', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
           data: values
-      }));
-
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode', 'Authorization': 'authorization'};
-      holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url,
-        headers: headers
       }));
     }
   );
@@ -90,7 +71,7 @@ describe('Factor', function() {
           'factor_type': 'push',
           'config': {
               'sdk_version': '1.0',
-              'app_id': 'com.authy.authy',
+              'app_id': 'com.example.myapp',
               'notification_platform': 'fcm',
               'notification_token': 'test_token'
           },
@@ -99,12 +80,7 @@ describe('Factor', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        binding: 'binding',
-        friendlyName: 'friendly_name',
-        factorType: 'push',
-        config: 'config'
-      };
+      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .factors.create(opts);
@@ -120,10 +96,9 @@ describe('Factor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
+                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -136,11 +111,9 @@ describe('Factor', function() {
       var sid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -165,10 +138,9 @@ describe('Factor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch(opts);
+                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -181,11 +153,9 @@ describe('Factor', function() {
       var sid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -204,7 +174,7 @@ describe('Factor', function() {
           'factor_type': 'push',
           'config': {
               'sdk_version': '1.0',
-              'app_id': 'com.authy.authy',
+              'app_id': 'com.example.myapp',
               'notification_platform': 'fcm',
               'notification_token': 'test_token'
           },
@@ -241,7 +211,7 @@ describe('Factor', function() {
                   'factor_type': 'push',
                   'config': {
                       'sdk_version': '1.0',
-                      'app_id': 'com.authy.authy',
+                      'app_id': 'com.example.myapp',
                       'notification_platform': 'fcm',
                       'notification_token': 'test_token'
                   },
@@ -281,7 +251,7 @@ describe('Factor', function() {
                   'factor_type': 'push',
                   'config': {
                       'sdk_version': '1.0',
-                      'app_id': 'com.authy.authy',
+                      'app_id': 'com.example.myapp',
                       'notification_platform': 'fcm',
                       'notification_token': 'test_token'
                   },
@@ -326,7 +296,7 @@ describe('Factor', function() {
                   'factor_type': 'push',
                   'config': {
                       'sdk_version': '1.0',
-                      'app_id': 'com.authy.authy',
+                      'app_id': 'com.example.myapp',
                       'notification_platform': 'fcm',
                       'notification_token': 'test_token'
                   },
@@ -353,10 +323,9 @@ describe('Factor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .factors.list(opts);
+                                    .factors.list();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -368,11 +337,9 @@ describe('Factor', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'GET',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -421,7 +388,7 @@ describe('Factor', function() {
                   'factor_type': 'push',
                   'config': {
                       'sdk_version': '1.0',
-                      'app_id': 'com.authy.authy',
+                      'app_id': 'com.example.myapp',
                       'notification_platform': 'fcm',
                       'notification_token': 'test_token'
                   },
@@ -456,10 +423,9 @@ describe('Factor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {twilioSandboxMode: 'twilio_sandbox_mode'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
-                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                    .factors('YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -472,11 +438,9 @@ describe('Factor', function() {
       var sid = 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Factors/${sid}`;
 
-      var headers = {'Twilio-Sandbox-Mode': 'twilio_sandbox_mode'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );
@@ -495,7 +459,7 @@ describe('Factor', function() {
           'factor_type': 'push',
           'config': {
               'sdk_version': '1.0',
-              'app_id': 'com.authy.authy',
+              'app_id': 'com.example.myapp',
               'notification_platform': 'fcm',
               'notification_token': 'test_token'
           },

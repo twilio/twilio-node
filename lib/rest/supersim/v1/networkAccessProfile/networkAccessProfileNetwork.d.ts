@@ -13,9 +13,8 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the NetworkAccessProfileNetworkList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param networkAccessProfileSid - The unique string that identifies the Network Access Profile resource
@@ -233,9 +232,8 @@ declare class NetworkAccessProfileNetworkContext {
   /**
    * Initialize the NetworkAccessProfileNetworkContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param networkAccessProfileSid - The unique string that identifies the Network Access Profile resource
@@ -266,9 +264,8 @@ declare class NetworkAccessProfileNetworkInstance extends SerializableClass {
   /**
    * Initialize the NetworkAccessProfileNetworkContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -307,9 +304,8 @@ declare class NetworkAccessProfileNetworkPage extends Page<V1, NetworkAccessProf
   /**
    * Initialize the NetworkAccessProfileNetworkPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

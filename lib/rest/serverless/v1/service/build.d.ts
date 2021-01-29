@@ -8,6 +8,8 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
+import { BuildStatusList } from './build/buildStatus';
+import { BuildStatusListInstance } from './build/buildStatus';
 import { SerializableClass } from '../../../../interfaces';
 
 type BuildStatus = 'building'|'completed'|'failed';
@@ -15,9 +17,8 @@ type BuildStatus = 'building'|'completed'|'failed';
 /**
  * Initialize the BuildList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Build resource is associated with
@@ -153,9 +154,9 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - The list of Asset Version resource SIDs to include in the build
- * @property dependencies - A list of objects that describe the Dependencies included in the build
- * @property functionVersions - The list of the Variable resource SIDs to include in the build
+ * @property assetVersions - The list of Asset Version resource SIDs to include in the Build
+ * @property dependencies - A list of objects that describe the Dependencies included in the Build
+ * @property functionVersions - The list of the Function Version resource SIDs to include in the Build
  */
 interface BuildListInstanceCreateOptions {
   assetVersions?: string | string[];
@@ -230,6 +231,7 @@ interface BuildResource {
   date_updated: Date;
   dependencies: object[];
   function_versions: object[];
+  links: string;
   service_sid: string;
   sid: string;
   status: BuildStatus;
@@ -245,9 +247,8 @@ declare class BuildContext {
   /**
    * Initialize the BuildContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Build resource from
@@ -255,6 +256,7 @@ declare class BuildContext {
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
+  buildStatus: BuildStatusListInstance;
   /**
    * fetch a BuildInstance
    *
@@ -278,9 +280,8 @@ declare class BuildInstance extends SerializableClass {
   /**
    * Initialize the BuildContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -292,6 +293,10 @@ declare class BuildInstance extends SerializableClass {
   private _proxy: BuildContext;
   accountSid: string;
   assetVersions: object[];
+  /**
+   * Access the buildStatus
+   */
+  buildStatus(): BuildStatusListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   dependencies: object[];
@@ -302,6 +307,7 @@ declare class BuildInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
   functionVersions: object[];
+  links: string;
   /**
    * remove a BuildInstance
    *
@@ -323,9 +329,8 @@ declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInsta
   /**
    * Initialize the BuildPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

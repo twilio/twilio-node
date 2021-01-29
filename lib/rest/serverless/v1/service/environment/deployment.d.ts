@@ -13,13 +13,12 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the DeploymentList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Service that the Deployment resource is associated with
- * @param environmentSid - The SID of the environment for the deployment
+ * @param environmentSid - The SID of the Environment for the Deployment
  */
 declare function DeploymentList(version: V1, serviceSid: string, environmentSid: string): DeploymentListInstance;
 
@@ -152,7 +151,7 @@ interface DeploymentListInstance {
 /**
  * Options to pass to create
  *
- * @property buildSid - The SID of the build for the deployment
+ * @property buildSid - The SID of the Build for the Deployment
  */
 interface DeploymentListInstanceCreateOptions {
   buildSid?: string;
@@ -239,13 +238,12 @@ declare class DeploymentContext {
   /**
    * Initialize the DeploymentContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Service to fetch the Deployment resource from
-   * @param environmentSid - The SID of the environment used by the Deployment to fetch
+   * @param environmentSid - The SID of the Environment used by the Deployment to fetch
    * @param sid - The SID that identifies the Deployment resource to fetch
    */
   constructor(version: V1, serviceSid: string, environmentSid: string, sid: string);
@@ -267,14 +265,13 @@ declare class DeploymentInstance extends SerializableClass {
   /**
    * Initialize the DeploymentContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Service that the Deployment resource is associated with
-   * @param environmentSid - The SID of the environment for the deployment
+   * @param environmentSid - The SID of the Environment for the Deployment
    * @param sid - The SID that identifies the Deployment resource to fetch
    */
   constructor(version: V1, payload: DeploymentPayload, serviceSid: string, environmentSid: string, sid: string);
@@ -305,9 +302,8 @@ declare class DeploymentPage extends Page<V1, DeploymentPayload, DeploymentResou
   /**
    * Initialize the DeploymentPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

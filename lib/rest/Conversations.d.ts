@@ -8,8 +8,12 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./conversations/V1');
+import { ConfigurationListInstance } from './conversations/v1/configuration';
 import { ConversationListInstance } from './conversations/v1/conversation';
-import { WebhookListInstance } from './conversations/v1/webhook';
+import { CredentialListInstance } from './conversations/v1/credential';
+import { RoleListInstance } from './conversations/v1/role';
+import { ServiceListInstance } from './conversations/v1/service';
+import { UserListInstance } from './conversations/v1/user';
 
 
 declare class Conversations extends Domain {
@@ -20,9 +24,13 @@ declare class Conversations extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly configuration: ConfigurationListInstance;
   readonly conversations: ConversationListInstance;
+  readonly credentials: CredentialListInstance;
+  readonly roles: RoleListInstance;
+  readonly services: ServiceListInstance;
+  readonly users: UserListInstance;
   readonly v1: V1;
-  readonly webhooks: WebhookListInstance;
 }
 
 export = Conversations;

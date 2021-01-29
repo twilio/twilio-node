@@ -195,6 +195,8 @@ declare namespace VoiceResponse {
 
   type ConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
 
+  type ConferenceJitterBufferSize = 'large'|'medium'|'small'|'off';
+
   type ConferenceRecord = 'do-not-record'|'record-from-start';
 
   type ConferenceRecordingEvent = 'in-progress'|'completed'|'absent';
@@ -206,6 +208,8 @@ declare namespace VoiceResponse {
   type DialRecord = 'do-not-record'|'record-from-answer'|'record-from-ringing'|'record-from-answer-dual'|'record-from-ringing-dual';
 
   type DialRecordingEvent = 'in-progress'|'completed'|'absent';
+
+  type DialRecordingTrack = 'both'|'inbound'|'outbound';
 
   type DialRingTone = 'at'|'au'|'bg'|'br'|'be'|'ch'|'cl'|'cn'|'cz'|'de'|'dk'|'ee'|'es'|'fi'|'fr'|'gr'|'hu'|'il'|'in'|'it'|'lt'|'jp'|'mx'|'my'|'nl'|'no'|'nz'|'ph'|'pl'|'pt'|'ru'|'se'|'sg'|'th'|'uk'|'us'|'us-old'|'tw'|'ve'|'za';
 
@@ -265,6 +269,8 @@ declare namespace VoiceResponse {
 
   type SsmlSayAsRole = 'mdy'|'dmy'|'ymd'|'md'|'dm'|'ym'|'my'|'d'|'m'|'y'|'yyyymmdd';
 
+  type StreamStatusCallbackMethod = 'GET'|'POST';
+
   type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
   /**
@@ -291,8 +297,10 @@ declare namespace VoiceResponse {
    * @property coach - Call coach
    * @property endConferenceOnExit - End the conferenceon exit
    * @property eventCallbackUrl - Event callback URL
+   * @property jitterBufferSize - Size of jitter buffer for participant
    * @property maxParticipants - Maximum number of participants
    * @property muted - Join the conference muted
+   * @property participantLabel - A label for participant
    * @property record - Record the conference
    * @property recordingStatusCallback - Recording status callback URL
    * @property recordingStatusCallbackEvent - Recording status callback events
@@ -311,8 +319,10 @@ declare namespace VoiceResponse {
     coach?: string;
     endConferenceOnExit?: boolean;
     eventCallbackUrl?: string;
+    jitterBufferSize?: ConferenceJitterBufferSize;
     maxParticipants?: number;
     muted?: boolean;
+    participantLabel?: string;
     record?: ConferenceRecord;
     recordingStatusCallback?: string;
     recordingStatusCallbackEvent?: ConferenceRecordingEvent[];
@@ -350,7 +360,9 @@ declare namespace VoiceResponse {
    * @property recordingStatusCallback - Recording status callback URL
    * @property recordingStatusCallbackEvent - Recording status callback events
    * @property recordingStatusCallbackMethod - Recording status callback URL method
+   * @property recordingTrack - To indicate which audio track should be recorded
    * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
+   * @property sequential - Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel
    * @property timeLimit - Max time length
    * @property timeout - Time to wait for answer
    * @property trim - Trim the recording
@@ -365,7 +377,9 @@ declare namespace VoiceResponse {
     recordingStatusCallback?: string;
     recordingStatusCallbackEvent?: DialRecordingEvent[];
     recordingStatusCallbackMethod?: string;
+    recordingTrack?: DialRecordingTrack;
     ringTone?: DialRingTone;
+    sequential?: boolean;
     timeLimit?: number;
     timeout?: number;
     trim?: DialTrim;
@@ -787,12 +801,16 @@ declare namespace VoiceResponse {
    *
    * @property connectorName - Unique name for Stream Connector
    * @property name - Friendly name given to the Stream
+   * @property statusCallback - Status Callback URL
+   * @property statusCallbackMethod - Status Callback URL method
    * @property track - Track to be streamed to remote service
    * @property url - URL of the remote service where the Stream is routed
    */
   export interface StreamAttributes {
     connectorName?: string;
     name?: string;
+    statusCallback?: string;
+    statusCallbackMethod?: StreamStatusCallbackMethod;
     track?: StreamTrack;
     url?: string;
   }

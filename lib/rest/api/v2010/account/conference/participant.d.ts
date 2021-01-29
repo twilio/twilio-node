@@ -177,6 +177,7 @@ interface ParticipantListInstance {
  *
  * @property beep - Whether to play a notification beep to the conference when the participant joins
  * @property byoc - BYOC trunk SID (Beta)
+ * @property callReason - Reason for the call (Branded Calls Beta)
  * @property callSidToCoach - The SID of the participant who is being `coached`
  * @property callerId - The phone number, Client identifier, or username portion of SIP address that made this call.
  * @property coaching - Indicates if the participant changed to coach
@@ -200,6 +201,7 @@ interface ParticipantListInstance {
  * @property recordingStatusCallback - The URL that we should call using the `recording_status_callback_method` when the recording status changes
  * @property recordingStatusCallbackEvent - The recording state changes that should generate a call to `recording_status_callback`
  * @property recordingStatusCallbackMethod - The HTTP method we should use when we call `recording_status_callback`
+ * @property recordingTrack - The track(s) to record
  * @property region - The region where we should mix the conference audio
  * @property sipAuthPassword - The SIP password for authentication
  * @property sipAuthUsername - The SIP username used for authentication
@@ -215,6 +217,7 @@ interface ParticipantListInstance {
 interface ParticipantListInstanceCreateOptions {
   beep?: string;
   byoc?: string;
+  callReason?: string;
   callSidToCoach?: string;
   callerId?: string;
   coaching?: boolean;
@@ -238,6 +241,7 @@ interface ParticipantListInstanceCreateOptions {
   recordingStatusCallback?: string;
   recordingStatusCallbackEvent?: string | string[];
   recordingStatusCallbackMethod?: string;
+  recordingTrack?: string;
   region?: string;
   sipAuthPassword?: string;
   sipAuthUsername?: string;

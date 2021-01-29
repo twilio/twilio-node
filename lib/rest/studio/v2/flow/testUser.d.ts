@@ -13,18 +13,15 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the FlowTestUserList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
- * @param sid - The sid
+ * @param sid - Unique identifier of the flow.
  */
 declare function FlowTestUserList(version: V2, sid: string): FlowTestUserListInstance;
 
 /**
  * Options to pass to update
  *
- * @property testUsers - The test_users
+ * @property testUsers - List of test user identities that can test draft versions of the flow.
  */
 interface FlowTestUserInstanceUpdateOptions {
   testUsers: string | string[];
@@ -63,11 +60,8 @@ declare class FlowTestUserContext {
   /**
    * Initialize the FlowTestUserContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - Unique identifier of the flow.
    */
   constructor(version: V2, sid: string);
 
@@ -95,12 +89,9 @@ declare class FlowTestUserInstance extends SerializableClass {
   /**
    * Initialize the FlowTestUserContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - Unique identifier of the flow.
    */
   constructor(version: V2, payload: FlowTestUserPayload, sid: string);
 
@@ -131,9 +122,6 @@ declare class FlowTestUserInstance extends SerializableClass {
 declare class FlowTestUserPage extends Page<V2, FlowTestUserPayload, FlowTestUserResource, FlowTestUserInstance> {
   /**
    * Initialize the FlowTestUserPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

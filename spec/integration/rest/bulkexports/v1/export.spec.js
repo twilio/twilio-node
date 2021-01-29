@@ -53,10 +53,10 @@ describe('Export', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = {
-          'resource_type': 'Calls',
-          'url': 'https://bulkexports.twilio.com/v1/Exports/Calls',
+          'resource_type': 'Messages',
+          'url': 'https://bulkexports.twilio.com/v1/Exports/Messages',
           'links': {
-              'days': 'https://bulkexports.twilio.com/v1/Exports/Calls/Days'
+              'days': 'https://bulkexports.twilio.com/v1/Exports/Messages/Days'
           }
       };
 

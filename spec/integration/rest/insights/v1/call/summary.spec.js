@@ -59,6 +59,7 @@ describe('CallSummary', function() {
           'call_type': 'carrier',
           'call_state': 'ringing',
           'processing_state': 'complete',
+          'created_time': '2015-07-30T20:00:00Z',
           'start_time': '2015-07-30T20:00:00Z',
           'end_time': '2015-07-30T20:00:00Z',
           'duration': 100,
@@ -74,6 +75,7 @@ describe('CallSummary', function() {
           ],
           'attributes': {},
           'properties': {},
+          'trust': {},
           'url': 'https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Summary'
       };
 

@@ -15,12 +15,9 @@ type DeliveryReceiptDeliveryStatus = 'read'|'failed'|'delivered'|'undelivered'|'
 /**
  * Initialize the DeliveryReceiptList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
- * @param conversationSid - The conversation_sid
- * @param messageSid - The sid of the message the delivery receipt belongs to
+ * @param conversationSid - The unique ID of the Conversation for this message.
+ * @param messageSid - The SID of the message the delivery receipt belongs to
  */
 declare function DeliveryReceiptList(version: V1, conversationSid: string, messageSid: string): DeliveryReceiptListInstance;
 
@@ -198,6 +195,7 @@ interface DeliveryReceiptPayload extends DeliveryReceiptResource, Page.TwilioRes
 }
 
 interface DeliveryReceiptResource {
+  account_sid: string;
   channel_message_sid: string;
   conversation_sid: string;
   date_created: Date;
@@ -220,12 +218,9 @@ declare class DeliveryReceiptContext {
   /**
    * Initialize the DeliveryReceiptContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
-   * @param conversationSid - The unique id of the Conversation for this delivery receipt.
-   * @param messageSid - The sid of the message the delivery receipt belongs to
+   * @param conversationSid - The unique ID of the Conversation for this delivery receipt.
+   * @param messageSid - The SID of the message the delivery receipt belongs to.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, conversationSid: string, messageSid: string, sid: string);
@@ -247,18 +242,16 @@ declare class DeliveryReceiptInstance extends SerializableClass {
   /**
    * Initialize the DeliveryReceiptContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param conversationSid - The conversation_sid
-   * @param messageSid - The sid of the message the delivery receipt belongs to
+   * @param conversationSid - The unique ID of the Conversation for this message.
+   * @param messageSid - The SID of the message the delivery receipt belongs to
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: DeliveryReceiptPayload, conversationSid: string, messageSid: string, sid: string);
 
   private _proxy: DeliveryReceiptContext;
+  accountSid: string;
   channelMessageSid: string;
   conversationSid: string;
   dateCreated: Date;
@@ -285,9 +278,6 @@ declare class DeliveryReceiptInstance extends SerializableClass {
 declare class DeliveryReceiptPage extends Page<V1, DeliveryReceiptPayload, DeliveryReceiptResource, DeliveryReceiptInstance> {
   /**
    * Initialize the DeliveryReceiptPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

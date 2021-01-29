@@ -35,6 +35,27 @@ describe('AccessToken', function() {
   });
 
   describe('generate', function() {
+
+    describe('home region', function() {
+      var secret = 'aTBl1PhJnykIjWll4TOiXKtD1ugxiz6f';
+
+      it('should add twr header when region is provided', function() {
+        var token = new twilio.jwt.AccessToken(accountSid, keySid, secret, {region: 'foo'});
+        var decoded = jwt.decode(token.toJwt(), {complete: true});
+
+        expect(decoded.header.twr).toBe('foo');
+      });
+
+      ['', undefined, null, {}, 1, 0].forEach(function(value) {
+        it('should not add twr header if region is ' + value, function() {
+          var token = new twilio.jwt.AccessToken(accountSid, keySid, secret, {region: value});
+          var decoded = jwt.decode(token.toJwt(), {complete: true});
+
+          expect(decoded.header.twr).toBe(undefined);
+        });
+      });
+    });
+
     it('should generate the correct headers', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'aTBl1PhJnykIjWll4TOiXKtD1ugxiz6f');
       var decoded = jwt.decode(token.toJwt(), {complete: true});
@@ -46,7 +67,7 @@ describe('AccessToken', function() {
       });
     });
 
-    it('should accept different algorithsm', function() {
+    it('should accept different algorithms', function() {
       var validateAlg = function(alg) {
         var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
         var decoded = jwt.decode(token.toJwt(alg), {

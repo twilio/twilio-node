@@ -14,16 +14,16 @@ import { SerializableClass } from '../../../../../interfaces';
  * Initialize the MemberList
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the resource is associated with
- * @param channelSid - The unique ID of the Channel for the member
+ * @param serviceSid - The service_sid
+ * @param channelSid - The channel_sid
  */
 declare function MemberList(version: V1, serviceSid: string, channelSid: string): MemberListInstance;
 
 /**
  * Options to pass to update
  *
- * @property lastConsumedMessageIndex - The index of the last consumed Message for the Channel for the Member
- * @property roleSid - The SID of the Role to assign to the member
+ * @property lastConsumedMessageIndex - The last_consumed_message_index
+ * @property roleSid - The role_sid
  */
 interface MemberInstanceUpdateOptions {
   lastConsumedMessageIndex?: number;
@@ -76,7 +76,7 @@ interface MemberListInstance {
   /**
    * Constructs a member
    *
-   * @param sid - The unique string that identifies the resource
+   * @param sid - The sid
    */
   get(sid: string): MemberContext;
   /**
@@ -153,8 +153,8 @@ interface MemberListInstance {
 /**
  * Options to pass to create
  *
- * @property identity - The `identity` value that identifies the new resource's User
- * @property roleSid - The SID of the Role to assign to the member
+ * @property identity - The identity
+ * @property roleSid - The role_sid
  */
 interface MemberListInstanceCreateOptions {
   identity: string;
@@ -168,7 +168,7 @@ interface MemberListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property identity - The `identity` value of the resources to read
+ * @property identity - The identity
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -191,7 +191,7 @@ interface MemberListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property identity - The `identity` value of the resources to read
+ * @property identity - The identity
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -212,7 +212,7 @@ interface MemberListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property identity - The `identity` value of the resources to read
+ * @property identity - The identity
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -252,9 +252,9 @@ declare class MemberContext {
    * Initialize the MemberContext
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the resource from
-   * @param channelSid - The unique ID of the channel the member belongs to
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
   constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
 
@@ -296,9 +296,9 @@ declare class MemberInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the resource is associated with
-   * @param channelSid - The unique ID of the Channel for the member
-   * @param sid - The unique string that identifies the resource
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
   constructor(version: V1, payload: MemberPayload, serviceSid: string, channelSid: string, sid: string);
 

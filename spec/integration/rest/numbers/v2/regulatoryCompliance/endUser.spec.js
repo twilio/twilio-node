@@ -368,4 +368,42 @@ describe('EndUser', function() {
       }).done();
     }
   );
+  it('should generate valid remove request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var promise = client.numbers.v2.regulatoryCompliance
+                                     .endUsers('ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var sid = 'ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://numbers.twilio.com/v2/RegulatoryCompliance/EndUsers/${sid}`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid delete response',
+    function(done) {
+      var body = null;
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.numbers.v2.regulatoryCompliance
+                                     .endUsers('ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise.then(function(response) {
+        expect(response).toBe(true);
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
 });

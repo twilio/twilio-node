@@ -62,6 +62,7 @@ describe('Room', function() {
           'enable_turn': true,
           'unique_name': 'unique_name',
           'max_participants': 10,
+          'max_concurrent_published_tracks': 10,
           'duration': 0,
           'status_callback_method': 'POST',
           'status_callback': '',
@@ -74,7 +75,8 @@ describe('Room', function() {
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
-              'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings'
+              'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings',
+              'recording_rules': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules'
           }
       };
 
@@ -120,6 +122,7 @@ describe('Room', function() {
           'sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'enable_turn': true,
           'unique_name': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'max_concurrent_published_tracks': 10,
           'max_participants': 10,
           'duration': 0,
           'status_callback_method': 'POST',
@@ -133,7 +136,49 @@ describe('Room', function() {
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
-              'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings'
+              'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings',
+              'recording_rules': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules'
+          }
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.video.v1.rooms.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create_webrtc_go response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'status': 'in-progress',
+          'type': 'go',
+          'sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'enable_turn': true,
+          'unique_name': 'room1',
+          'max_participants': 10,
+          'max_concurrent_published_tracks': 10,
+          'duration': 0,
+          'status_callback_method': 'POST',
+          'status_callback': '',
+          'record_participants_on_connect': false,
+          'video_codecs': [
+              'VP8'
+          ],
+          'media_region': 'us1',
+          'end_time': '2015-07-30T20:00:00Z',
+          'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
+              'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings',
+              'recording_rules': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules'
           }
       };
 
@@ -166,6 +211,7 @@ describe('Room', function() {
                   'end_time': '2017-04-03T22:21:51Z',
                   'duration': 2,
                   'max_participants': 10,
+                  'max_concurrent_published_tracks': 10,
                   'record_participants_on_connect': false,
                   'video_codecs': [
                       'VP8'
@@ -174,7 +220,8 @@ describe('Room', function() {
                   'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
                   'links': {
                       'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
-                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings'
+                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings',
+                      'recording_rules': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/RecordingRules'
                   }
               }
           ],
@@ -210,6 +257,7 @@ describe('Room', function() {
                   'end_time': '2017-04-03T22:21:51Z',
                   'duration': 2,
                   'max_participants': 10,
+                  'max_concurrent_published_tracks': 10,
                   'record_participants_on_connect': false,
                   'video_codecs': [
                       'VP8'
@@ -218,7 +266,8 @@ describe('Room', function() {
                   'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
                   'links': {
                       'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
-                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings'
+                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings',
+                      'recording_rules': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/RecordingRules'
                   }
               }
           ],
@@ -259,6 +308,7 @@ describe('Room', function() {
                   'end_time': '2017-04-03T22:21:51Z',
                   'duration': 2,
                   'max_participants': 10,
+                  'max_concurrent_published_tracks': 10,
                   'record_participants_on_connect': false,
                   'video_codecs': [
                       'VP8'
@@ -267,7 +317,8 @@ describe('Room', function() {
                   'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
                   'links': {
                       'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
-                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings'
+                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings',
+                      'recording_rules': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/RecordingRules'
                   }
               }
           ],
@@ -349,6 +400,7 @@ describe('Room', function() {
                   'end_time': '2017-04-03T22:21:51Z',
                   'duration': 2,
                   'max_participants': 10,
+                  'max_concurrent_published_tracks': 10,
                   'record_participants_on_connect': false,
                   'video_codecs': [
                       'VP8'
@@ -357,7 +409,8 @@ describe('Room', function() {
                   'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
                   'links': {
                       'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
-                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings'
+                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings',
+                      'recording_rules': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/RecordingRules'
                   }
               }
           ],
@@ -419,6 +472,7 @@ describe('Room', function() {
           'enable_turn': true,
           'unique_name': 'unique_name',
           'max_participants': 10,
+          'max_concurrent_published_tracks': 10,
           'status_callback_method': 'POST',
           'status_callback': '',
           'record_participants_on_connect': false,
@@ -431,7 +485,8 @@ describe('Room', function() {
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
-              'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings'
+              'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings',
+              'recording_rules': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules'
           }
       };
 

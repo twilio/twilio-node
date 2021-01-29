@@ -171,7 +171,7 @@ interface TaskListInstance {
  * @property attributes - A URL-encoded JSON string describing the attributes of the task
  * @property priority - The priority to assign the new task and override the default
  * @property taskChannel - When MultiTasking is enabled specify the TaskChannel by passing either its unique_name or SID
- * @property timeout - The amount of time in seconds the task is allowed to live
+ * @property timeout - The amount of time in seconds the task can live before being assigned
  * @property workflowSid - The SID of the Workflow that you would like to handle routing for the new Task
  */
 interface TaskListInstanceCreateOptions {

@@ -15,11 +15,8 @@ type ParticipantWebhookEnabledType = 'true'|'false';
 /**
  * Initialize the ParticipantList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
- * @param conversationSid - The unique id of the Conversation for this participant.
+ * @param conversationSid - The unique ID of the Conversation for this participant.
  */
 declare function ParticipantList(version: V1, conversationSid: string): ParticipantListInstance;
 
@@ -38,15 +35,21 @@ interface ParticipantInstanceRemoveOptions {
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
+ * @property identity - A unique string identifier for the conversation participant as Conversation User.
+ * @property lastReadMessageIndex - Index of last “read” message in the Conversation for the Participant.
+ * @property lastReadTimestamp - Timestamp of last “read” message in the Conversation for the Participant.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
- * @property roleSid - The SID of the Role to assign to the participant
+ * @property roleSid - The SID of a conversation-level Role to assign to the participant
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantInstanceUpdateOptions {
   attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
+  identity?: string;
+  lastReadMessageIndex?: number;
+  lastReadTimestamp?: string;
   messagingBinding?: {
     proxyAddress?: string;
     projectedAddress?: string;
@@ -187,11 +190,11 @@ interface ParticipantListInstance {
  * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The date that this resource was created.
  * @property dateUpdated - The date that this resource was last updated.
- * @property identity - A unique string identifier for the conversation participant as Chat User.
+ * @property identity - A unique string identifier for the conversation participant as Conversation User.
  * @property messagingBinding.address - The address of the participant's device.
  * @property messagingBinding.projectedAddress - The address of the Twilio phone number that is used in Group MMS.
  * @property messagingBinding.proxyAddress - The address of the Twilio phone number that the participant is in contact with.
- * @property roleSid - The SID of the Role to assign to the participant
+ * @property roleSid - The SID of a conversation-level Role to assign to the participant
  * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
  */
 interface ParticipantListInstanceCreateOptions {
@@ -275,6 +278,8 @@ interface ParticipantResource {
   date_created: Date;
   date_updated: Date;
   identity: string;
+  last_read_message_index: number;
+  last_read_timestamp: string;
   messaging_binding: object;
   role_sid: string;
   sid: string;
@@ -290,11 +295,8 @@ declare class ParticipantContext {
   /**
    * Initialize the ParticipantContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
-   * @param conversationSid - The unique id of the Conversation for this participant.
+   * @param conversationSid - The unique ID of the Conversation for this participant.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, conversationSid: string, sid: string);
@@ -342,12 +344,9 @@ declare class ParticipantInstance extends SerializableClass {
   /**
    * Initialize the ParticipantContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param conversationSid - The unique id of the Conversation for this participant.
+   * @param conversationSid - The unique ID of the Conversation for this participant.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: ParticipantPayload, conversationSid: string, sid: string);
@@ -365,6 +364,8 @@ declare class ParticipantInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
   identity: string;
+  lastReadMessageIndex: number;
+  lastReadTimestamp: string;
   messagingBinding: any;
   /**
    * remove a ParticipantInstance
@@ -405,9 +406,6 @@ declare class ParticipantInstance extends SerializableClass {
 declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
    * Initialize the ParticipantPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
