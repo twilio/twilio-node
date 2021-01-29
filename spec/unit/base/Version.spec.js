@@ -32,11 +32,18 @@ describe('fetch method', function () {
   });
 });
 
-describe('Paging limit', function () {
-  const body = {
+describe('streaming results', function () {
+  const bodyOne = {
     'next_page_uri': '/2010-04-01/Accounts/AC123/Messages.json?Page=1',
-    'messages': [{'body': 'payload0'}, {'body': 'payload1'}],
-    'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?To=%2B123456789&From=%2B987654321&DateSent%3E=2008-01-02&PageSize=2&Page=0'
+    'messages': [{'body': 'payload0'}, {'body': 'payload1'}]
+  };
+  const bodyTwo = {
+    'next_page_uri': '/2010-04-01/Accounts/AC123/Messages.json?Page=2',
+    'messages': [{'body': 'payload2'}, {'body': 'payload3'}]
+  };
+  const bodyThree = {
+    'next_page_uri': null,
+    'messages': [{'body': 'payload4'}]
   };
 
   beforeEach(function () {
@@ -46,15 +53,35 @@ describe('Paging limit', function () {
     });
   });
 
-  it('should limit results to one result',
+  it('streams all results',
     function (done) {
       const messages = [];
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(200, bodyOne));
+      holodeck.mock(new Response(200, bodyTwo));
+      holodeck.mock(new Response(200, bodyThree));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-        .messages.list({limit: 1}, (m => {
-        messages.push(m);
-        expect(messages.length).toEqual(1);
-      }));
+        .messages.list().then(m => {
+        m.foreach(message => {
+          messages.push(message);
+        })
+        expect(messages.length).toEqual(5);
+      });
+      done();
+    });
+
+  it('limits results',
+    function (done) {
+      const messages = [];
+      holodeck.mock(new Response(200, bodyOne));
+      holodeck.mock(new Response(200, bodyTwo));
+      holodeck.mock(new Response(200, bodyThree));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+        .messages.list({limit: 3}).then(m => {
+        m.foreach(message => {
+          messages.push(message);
+        })
+        expect(messages.length).toEqual(3);
+      });
       done();
     });
 });
