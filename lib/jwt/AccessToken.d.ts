@@ -1,6 +1,11 @@
-declare class AccessToken {
+declare class AccessToken implements AccessToken.AccessTokenOptions {
   static DEFAULT_ALGORITHM: 'HS256';
   static ALGORITHMS: ['HS256', 'HS384', 'HS512'];
+
+  ttl: number;
+  identity?: string;
+  nbf?: number;
+  region?: string;
 
   /**
    * Creates new AccessToken instance
@@ -53,7 +58,11 @@ declare namespace AccessToken {
     TaskRouterGrantOptions,
     TaskRouterGrantPayload,
     'task_router'
-  > {}
+  > implements TaskRouterGrantOptions {
+    workspaceSid?: string;
+    workerSid?: string;
+    role?: string;
+  }
 
   export interface ChatGrantOptions {
     serviceSid?: string;
@@ -73,13 +82,23 @@ declare namespace AccessToken {
     ChatGrantOptions,
     ChatGrantPayload,
     'chat'
-  > {}
+  > implements ChatGrantOptions {
+    serviceSid?: string;
+    endpointId?: string;
+    deploymentRoleSid?: string;
+    pushCredentialSid?: string;
+  }
 
   export class IpMessagingGrant extends Grant<
     ChatGrantOptions,
     ChatGrantPayload,
     'ip_messaging'
-  > {}
+  > implements ChatGrantOptions {
+    serviceSid?: string;
+    endpointId?: string;
+    deploymentRoleSid?: string;
+    pushCredentialSid?: string;
+  }
 
   export interface ConversationsGrantOptions {
     configurationProfileSid?: string;
@@ -93,7 +112,9 @@ declare namespace AccessToken {
     ConversationsGrantOptions,
     ConversationsGrantPayload,
     'rtc'
-  > {}
+  > implements ConversationsGrant {
+    configurationProfileSid?: string;
+  }
 
   export interface VideoGrantOptions {
     room?: string;
@@ -107,7 +128,9 @@ declare namespace AccessToken {
     VideoGrantOptions,
     VideoGrantPayload,
     'video'
-  > {}
+  > implements VideoGrantOptions {
+    room?: string
+  }
 
   export interface SyncGrantOptions {
     serviceSid?: string;
@@ -123,7 +146,10 @@ declare namespace AccessToken {
     SyncGrantOptions,
     SyncGrantPayload,
     'data_sync'
-  > {}
+  > implements SyncGrantOptions {
+    serviceSid?: string;
+    endpointId?: string;
+  }
 
   export interface VoiceGrantOptions {
     incomingAllow?: boolean;
@@ -143,7 +169,13 @@ declare namespace AccessToken {
     VoiceGrantOptions,
     VoiceGrantPayload,
     'voice'
-  > {}
+  > implements VoiceGrantOptions {
+    incomingAllow?: boolean;
+    outgoingApplicationSid?: string;
+    outgoingApplicationParams?: object;
+    pushCredentialSid?: string;
+    endpointId?: string;
+  }
 
   export interface AccessTokenOptions {
     /**
