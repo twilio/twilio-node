@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the DocumentPermissionList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  * @param documentSid - The Sync Document SID
@@ -231,9 +228,6 @@ declare class DocumentPermissionContext {
   /**
    * Initialize the DocumentPermissionContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Sync Service with the Document Permission resource to fetch
    * @param documentSid - The SID of the Sync Document with the Document Permission resource to fetch
@@ -270,9 +264,6 @@ declare class DocumentPermissionContext {
 declare class DocumentPermissionInstance extends SerializableClass {
   /**
    * Initialize the DocumentPermissionContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -320,9 +311,6 @@ declare class DocumentPermissionInstance extends SerializableClass {
 declare class DocumentPermissionPage extends Page<V1, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {
   /**
    * Initialize the DocumentPermissionPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

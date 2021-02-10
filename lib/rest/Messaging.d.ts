@@ -8,8 +8,11 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./messaging/V1');
+import { BrandRegistrationListInstance } from './messaging/v1/brandRegistration';
+import { CampaignListInstance } from './messaging/v1/campaign';
 import { DeactivationsListInstance } from './messaging/v1/deactivation';
 import { ServiceListInstance } from './messaging/v1/service';
+import { UseCaseListInstance } from './messaging/v1/useCase';
 
 
 declare class Messaging extends Domain {
@@ -20,8 +23,11 @@ declare class Messaging extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly brandRegistrations: BrandRegistrationListInstance;
+  readonly campaigns: CampaignListInstance;
   readonly deactivations: DeactivationsListInstance;
   readonly services: ServiceListInstance;
+  readonly useCases: UseCaseListInstance;
   readonly v1: V1;
 }
 

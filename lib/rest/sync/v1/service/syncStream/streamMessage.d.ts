@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the StreamMessageList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  * @param streamSid - The unique string that identifies the resource
@@ -63,9 +60,6 @@ declare class StreamMessageInstance extends SerializableClass {
   /**
    * Initialize the StreamMessageContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The SID of the Sync Service that the resource is associated with
@@ -85,9 +79,6 @@ declare class StreamMessageInstance extends SerializableClass {
 declare class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {
   /**
    * Initialize the StreamMessagePage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

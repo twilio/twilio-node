@@ -17,9 +17,6 @@ type SyncMapItemQueryResultOrder = 'asc'|'desc';
 /**
  * Initialize the SyncMapItemList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  * @param mapSid - The SID of the Sync Map that contains the Map Item
@@ -291,9 +288,6 @@ declare class SyncMapItemContext {
   /**
    * Initialize the SyncMapItemContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Sync Service with the Sync Map Item resource to fetch
    * @param mapSid - The SID of the Sync Map with the Sync Map Item resource to fetch
@@ -343,9 +337,6 @@ declare class SyncMapItemContext {
 declare class SyncMapItemInstance extends SerializableClass {
   /**
    * Initialize the SyncMapItemContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -409,9 +400,6 @@ declare class SyncMapItemInstance extends SerializableClass {
 declare class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
   /**
    * Initialize the SyncMapItemPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

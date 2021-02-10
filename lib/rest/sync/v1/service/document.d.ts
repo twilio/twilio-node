@@ -15,22 +15,10 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the DocumentList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  */
 declare function DocumentList(version: V1, serviceSid: string): DocumentListInstance;
-
-/**
- * Options to pass to remove
- *
- * @property ifMatch - The If-Match HTTP request header
- */
-interface DocumentInstanceRemoveOptions {
-  ifMatch?: string;
-}
 
 /**
  * Options to pass to update
@@ -268,9 +256,6 @@ declare class DocumentContext {
   /**
    * Initialize the DocumentContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Sync Service with the Document resource to fetch
    * @param sid - The SID of the Document resource to fetch
@@ -290,13 +275,6 @@ declare class DocumentContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
-  /**
-   * remove a DocumentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: DocumentInstanceRemoveOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -320,9 +298,6 @@ declare class DocumentContext {
 declare class DocumentInstance extends SerializableClass {
   /**
    * Initialize the DocumentContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -355,13 +330,6 @@ declare class DocumentInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
-  /**
-   * remove a DocumentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: DocumentInstanceRemoveOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   sid: string;
@@ -391,9 +359,6 @@ declare class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, D
   /**
    * Initialize the DocumentPage
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
@@ -412,4 +377,4 @@ declare class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, D
   toJSON(): any;
 }
 
-export { DocumentContext, DocumentInstance, DocumentInstanceRemoveOptions, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }
+export { DocumentContext, DocumentInstance, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

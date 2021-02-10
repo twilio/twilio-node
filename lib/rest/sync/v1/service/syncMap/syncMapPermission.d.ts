@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../../interfaces';
 /**
  * Initialize the SyncMapPermissionList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  * @param mapSid - Sync Map SID
@@ -229,9 +226,6 @@ declare class SyncMapPermissionContext {
   /**
    * Initialize the SyncMapPermissionContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Sync Service with the Sync Map Permission resource to fetch
    * @param mapSid - The SID of the Sync Map with the Sync Map Permission resource to fetch
@@ -268,9 +262,6 @@ declare class SyncMapPermissionContext {
 declare class SyncMapPermissionInstance extends SerializableClass {
   /**
    * Initialize the SyncMapPermissionContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -318,9 +309,6 @@ declare class SyncMapPermissionInstance extends SerializableClass {
 declare class SyncMapPermissionPage extends Page<V1, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {
   /**
    * Initialize the SyncMapPermissionPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

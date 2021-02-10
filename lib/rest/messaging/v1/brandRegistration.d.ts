@@ -5,48 +5,37 @@
  *       /       /
  */
 
-import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { BuildStatusList } from './build/buildStatus';
-import { BuildStatusListInstance } from './build/buildStatus';
-import { SerializableClass } from '../../../../interfaces';
+import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
+import V1 = require('../V1');
+import { SerializableClass } from '../../../interfaces';
 
-type BuildRuntime = 'node8'|'node10'|'node12';
-
-type BuildStatus = 'building'|'completed'|'failed';
+type BrandRegistrationStatus = 'IN_PROGRESS'|'VERIFIED'|'FAILED';
 
 /**
- * Initialize the BuildList
+ * Initialize the BrandRegistrationList
  *
  * PLEASE NOTE that this class contains beta products that are subject to change.
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the Build resource is associated with
  */
-declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
+declare function BrandRegistrationList(version: V1): BrandRegistrationListInstance;
 
-interface BuildListInstance {
+interface BrandRegistrationListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): BuildContext;
+  (sid: string): BrandRegistrationContext;
   /**
-   * create a BuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
-  /**
-   * create a BuildInstance
+   * create a BrandRegistrationInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: BuildListInstanceCreateOptions, callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
+  create(opts: BrandRegistrationListInstanceCreateOptions, callback?: (error: Error | null, item: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams BrandRegistrationInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -59,9 +48,9 @@ interface BuildListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: BrandRegistrationInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams BrandRegistrationInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -75,15 +64,15 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: BrandRegistrationListInstanceEachOptions, callback?: (item: BrandRegistrationInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a build
+   * Constructs a brand_registration
    *
-   * @param sid - The SID of the Build resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  get(sid: string): BuildContext;
+  get(sid: string): BrandRegistrationContext;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of BrandRegistrationInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -92,9 +81,9 @@ interface BuildListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(callback?: (error: Error | null, items: BrandRegistrationPage) => any): Promise<BrandRegistrationPage>;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of BrandRegistrationInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -104,18 +93,18 @@ interface BuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: BrandRegistrationPage) => any): Promise<BrandRegistrationPage>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists BrandRegistrationInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any): Promise<BrandRegistrationInstance[]>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists BrandRegistrationInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -123,9 +112,9 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(opts?: BrandRegistrationListInstanceOptions, callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any): Promise<BrandRegistrationInstance[]>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of BrandRegistrationInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -134,9 +123,9 @@ interface BuildListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(callback?: (error: Error | null, items: BrandRegistrationPage) => any): Promise<BrandRegistrationPage>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of BrandRegistrationInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -146,7 +135,7 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(opts?: BrandRegistrationListInstancePageOptions, callback?: (error: Error | null, items: BrandRegistrationPage) => any): Promise<BrandRegistrationPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -156,16 +145,12 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - The list of Asset Version resource SIDs to include in the Build
- * @property dependencies - A list of objects that describe the Dependencies included in the Build
- * @property functionVersions - The list of the Function Version resource SIDs to include in the Build
- * @property runtime - The Runtime version that will be used to run the Build.
+ * @property a2PProfileBundleSid - A2P Messaging Profile Bundle Sid
+ * @property customerProfileBundleSid - Customer Profile Bundle Sid
  */
-interface BuildListInstanceCreateOptions {
-  assetVersions?: string | string[];
-  dependencies?: string;
-  functionVersions?: string | string[];
-  runtime?: string;
+interface BrandRegistrationListInstanceCreateOptions {
+  a2PProfileBundleSid: string;
+  customerProfileBundleSid: string;
 }
 
 /**
@@ -186,8 +171,8 @@ interface BuildListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceEachOptions {
-  callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
+interface BrandRegistrationListInstanceEachOptions {
+  callback?: (item: BrandRegistrationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -207,7 +192,7 @@ interface BuildListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceOptions {
+interface BrandRegistrationListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -219,61 +204,50 @@ interface BuildListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface BuildListInstancePageOptions {
+interface BrandRegistrationListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
+interface BrandRegistrationPayload extends BrandRegistrationResource, Page.TwilioResponsePayload {
 }
 
-interface BuildResource {
+interface BrandRegistrationResource {
+  a2p_profile_bundle_sid: string;
   account_sid: string;
-  asset_versions: object[];
+  customer_profile_bundle_sid: string;
   date_created: Date;
   date_updated: Date;
-  dependencies: object[];
-  function_versions: object[];
-  links: string;
-  runtime: BuildRuntime;
-  service_sid: string;
+  failure_reason: string;
   sid: string;
-  status: BuildStatus;
+  status: BrandRegistrationStatus;
+  tcr_id: string;
   url: string;
 }
 
-interface BuildSolution {
-  serviceSid?: string;
+interface BrandRegistrationSolution {
 }
 
 
-declare class BuildContext {
+declare class BrandRegistrationContext {
   /**
-   * Initialize the BuildContext
+   * Initialize the BrandRegistrationContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the Build resource from
-   * @param sid - The SID of the Build resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, sid: string);
 
-  buildStatus: BuildStatusListInstance;
   /**
-   * fetch a BuildInstance
+   * fetch a BrandRegistrationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
-  /**
-   * remove a BuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): Promise<boolean>;
+  fetch(callback?: (error: Error | null, items: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -281,48 +255,35 @@ declare class BuildContext {
 }
 
 
-declare class BuildInstance extends SerializableClass {
+declare class BrandRegistrationInstance extends SerializableClass {
   /**
-   * Initialize the BuildContext
+   * Initialize the BrandRegistrationContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the Build resource is associated with
-   * @param sid - The SID of the Build resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
+  constructor(version: V1, payload: BrandRegistrationPayload, sid: string);
 
-  private _proxy: BuildContext;
+  private _proxy: BrandRegistrationContext;
+  a2PProfileBundleSid: string;
   accountSid: string;
-  assetVersions: object[];
-  /**
-   * Access the buildStatus
-   */
-  buildStatus(): BuildStatusListInstance;
+  customerProfileBundleSid: string;
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: object[];
+  failureReason: string;
   /**
-   * fetch a BuildInstance
+   * fetch a BrandRegistrationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
-  functionVersions: object[];
-  links: string;
-  /**
-   * remove a BuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): Promise<boolean>;
-  runtime: BuildRuntime;
-  serviceSid: string;
+  fetch(callback?: (error: Error | null, items: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>;
   sid: string;
-  status: BuildStatus;
+  status: BrandRegistrationStatus;
+  tcrId: string;
   /**
    * Provide a user-friendly representation
    */
@@ -331,9 +292,9 @@ declare class BuildInstance extends SerializableClass {
 }
 
 
-declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+declare class BrandRegistrationPage extends Page<V1, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationInstance> {
   /**
-   * Initialize the BuildPage
+   * Initialize the BrandRegistrationPage
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
@@ -342,18 +303,18 @@ declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInsta
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution);
+  constructor(version: V1, response: Response<string>, solution: BrandRegistrationSolution);
 
   /**
-   * Build an instance of BuildInstance
+   * Build an instance of BrandRegistrationInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance;
+  getInstance(payload: BrandRegistrationPayload): BrandRegistrationInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { BuildContext, BuildInstance, BuildList, BuildListInstance, BuildListInstanceCreateOptions, BuildListInstanceEachOptions, BuildListInstanceOptions, BuildListInstancePageOptions, BuildPage, BuildPayload, BuildResource, BuildRuntime, BuildSolution, BuildStatus }
+export { BrandRegistrationContext, BrandRegistrationInstance, BrandRegistrationList, BrandRegistrationListInstance, BrandRegistrationListInstanceCreateOptions, BrandRegistrationListInstanceEachOptions, BrandRegistrationListInstanceOptions, BrandRegistrationListInstancePageOptions, BrandRegistrationPage, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationSolution, BrandRegistrationStatus }

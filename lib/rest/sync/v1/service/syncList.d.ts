@@ -17,9 +17,6 @@ import { SyncListPermissionListInstance } from './syncList/syncListPermission';
 /**
  * Initialize the SyncListList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  */
@@ -258,9 +255,6 @@ declare class SyncListContext {
   /**
    * Initialize the SyncListContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Sync Service with the Sync List resource to fetch
    * @param sid - The SID of the Sync List resource to fetch
@@ -304,9 +298,6 @@ declare class SyncListContext {
 declare class SyncListInstance extends SerializableClass {
   /**
    * Initialize the SyncListContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -370,9 +361,6 @@ declare class SyncListInstance extends SerializableClass {
 declare class SyncListPage extends Page<V1, SyncListPayload, SyncListResource, SyncListInstance> {
   /**
    * Initialize the SyncListPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

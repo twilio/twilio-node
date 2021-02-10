@@ -88,9 +88,8 @@ describe('Document', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                       .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
+                                       .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -102,11 +101,9 @@ describe('Document', function() {
       var sid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents/${sid}`;
 
-      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url,
-        headers: headers
+        url: url
       }));
     }
   );

@@ -5,48 +5,37 @@
  *       /       /
  */
 
-import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { BuildStatusList } from './build/buildStatus';
-import { BuildStatusListInstance } from './build/buildStatus';
-import { SerializableClass } from '../../../../interfaces';
+import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
+import V1 = require('../V1');
+import { SerializableClass } from '../../../interfaces';
 
-type BuildRuntime = 'node8'|'node10'|'node12';
-
-type BuildStatus = 'building'|'completed'|'failed';
+type CampaignStatus = 'approved'|'pending'|'failed';
 
 /**
- * Initialize the BuildList
+ * Initialize the CampaignList
  *
  * PLEASE NOTE that this class contains beta products that are subject to change.
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The SID of the Service that the Build resource is associated with
  */
-declare function BuildList(version: V1, serviceSid: string): BuildListInstance;
+declare function CampaignList(version: V1): CampaignListInstance;
 
-interface BuildListInstance {
+interface CampaignListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): BuildContext;
+  (sid: string): CampaignContext;
   /**
-   * create a BuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
-  /**
-   * create a BuildInstance
+   * create a CampaignInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: BuildListInstanceCreateOptions, callback?: (error: Error | null, item: BuildInstance) => any): Promise<BuildInstance>;
+  create(opts: CampaignListInstanceCreateOptions, callback?: (error: Error | null, item: CampaignInstance) => any): Promise<CampaignInstance>;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams CampaignInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -59,9 +48,9 @@ interface BuildListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: CampaignInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams BuildInstance records from the API.
+   * Streams CampaignInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -75,15 +64,15 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BuildListInstanceEachOptions, callback?: (item: BuildInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: CampaignListInstanceEachOptions, callback?: (item: CampaignInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a build
+   * Constructs a campaign
    *
-   * @param sid - The SID of the Build resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  get(sid: string): BuildContext;
+  get(sid: string): CampaignContext;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of CampaignInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -92,9 +81,9 @@ interface BuildListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(callback?: (error: Error | null, items: CampaignPage) => any): Promise<CampaignPage>;
   /**
-   * Retrieve a single target page of BuildInstance records from the API.
+   * Retrieve a single target page of CampaignInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -104,18 +93,18 @@ interface BuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CampaignPage) => any): Promise<CampaignPage>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists CampaignInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(callback?: (error: Error | null, items: CampaignInstance[]) => any): Promise<CampaignInstance[]>;
   /**
-   * Lists BuildInstance records from the API as a list.
+   * Lists CampaignInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -123,9 +112,9 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BuildListInstanceOptions, callback?: (error: Error | null, items: BuildInstance[]) => any): Promise<BuildInstance[]>;
+  list(opts?: CampaignListInstanceOptions, callback?: (error: Error | null, items: CampaignInstance[]) => any): Promise<CampaignInstance[]>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of CampaignInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -134,9 +123,9 @@ interface BuildListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(callback?: (error: Error | null, items: CampaignPage) => any): Promise<CampaignPage>;
   /**
-   * Retrieve a single page of BuildInstance records from the API.
+   * Retrieve a single page of CampaignInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -146,7 +135,7 @@ interface BuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BuildListInstancePageOptions, callback?: (error: Error | null, items: BuildPage) => any): Promise<BuildPage>;
+  page(opts?: CampaignListInstancePageOptions, callback?: (error: Error | null, items: CampaignPage) => any): Promise<CampaignPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -156,16 +145,22 @@ interface BuildListInstance {
 /**
  * Options to pass to create
  *
- * @property assetVersions - The list of Asset Version resource SIDs to include in the Build
- * @property dependencies - A list of objects that describe the Dependencies included in the Build
- * @property functionVersions - The list of the Function Version resource SIDs to include in the Build
- * @property runtime - The Runtime version that will be used to run the Build.
+ * @property brandRegistrationSid - A2P BrandRegistration Sid
+ * @property description - A short description of what this SMS campaign does
+ * @property hasEmbeddedLinks - Indicate that this SMS campaign will send messages that contain links
+ * @property hasEmbeddedPhone - Indicates that this SMS campaign will send messages that contain phone numbers
+ * @property messageSamples - Message samples
+ * @property messagingServiceSid - MessagingService SID
+ * @property useCase - A2P Campaign UseCase.
  */
-interface BuildListInstanceCreateOptions {
-  assetVersions?: string | string[];
-  dependencies?: string;
-  functionVersions?: string | string[];
-  runtime?: string;
+interface CampaignListInstanceCreateOptions {
+  brandRegistrationSid: string;
+  description: string;
+  hasEmbeddedLinks: boolean;
+  hasEmbeddedPhone: boolean;
+  messageSamples: string | string[];
+  messagingServiceSid: string;
+  useCase: string;
 }
 
 /**
@@ -186,8 +181,8 @@ interface BuildListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceEachOptions {
-  callback?: (item: BuildInstance, done: (err?: Error) => void) => void;
+interface CampaignListInstanceEachOptions {
+  callback?: (item: CampaignInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -207,7 +202,7 @@ interface BuildListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface BuildListInstanceOptions {
+interface CampaignListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -219,61 +214,60 @@ interface BuildListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface BuildListInstancePageOptions {
+interface CampaignListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface BuildPayload extends BuildResource, Page.TwilioResponsePayload {
+interface CampaignPayload extends CampaignResource, Page.TwilioResponsePayload {
 }
 
-interface BuildResource {
+interface CampaignResource {
   account_sid: string;
-  asset_versions: object[];
+  brand_registration_sid: string;
   date_created: Date;
   date_updated: Date;
-  dependencies: object[];
-  function_versions: object[];
-  links: string;
-  runtime: BuildRuntime;
-  service_sid: string;
+  description: string;
+  failure_reason: string;
+  has_embedded_links: boolean;
+  has_embedded_phone: boolean;
+  message_samples: string[];
+  messaging_service_sid: string;
   sid: string;
-  status: BuildStatus;
+  status: CampaignStatus;
   url: string;
+  use_case: string;
 }
 
-interface BuildSolution {
-  serviceSid?: string;
+interface CampaignSolution {
 }
 
 
-declare class BuildContext {
+declare class CampaignContext {
   /**
-   * Initialize the BuildContext
+   * Initialize the CampaignContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The SID of the Service to fetch the Build resource from
-   * @param sid - The SID of the Build resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, sid: string);
 
-  buildStatus: BuildStatusListInstance;
   /**
-   * fetch a BuildInstance
+   * fetch a CampaignInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
+  fetch(callback?: (error: Error | null, items: CampaignInstance) => any): Promise<CampaignInstance>;
   /**
-   * remove a BuildInstance
+   * remove a CampaignInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, items: CampaignInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
@@ -281,59 +275,56 @@ declare class BuildContext {
 }
 
 
-declare class BuildInstance extends SerializableClass {
+declare class CampaignInstance extends SerializableClass {
   /**
-   * Initialize the BuildContext
+   * Initialize the CampaignContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The SID of the Service that the Build resource is associated with
-   * @param sid - The SID of the Build resource to fetch
+   * @param sid - The SID that identifies the resource to fetch
    */
-  constructor(version: V1, payload: BuildPayload, serviceSid: string, sid: string);
+  constructor(version: V1, payload: CampaignPayload, sid: string);
 
-  private _proxy: BuildContext;
+  private _proxy: CampaignContext;
   accountSid: string;
-  assetVersions: object[];
-  /**
-   * Access the buildStatus
-   */
-  buildStatus(): BuildStatusListInstance;
+  brandRegistrationSid: string;
   dateCreated: Date;
   dateUpdated: Date;
-  dependencies: object[];
+  description: string;
+  failureReason: string;
   /**
-   * fetch a BuildInstance
+   * fetch a CampaignInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BuildInstance) => any): Promise<BuildInstance>;
-  functionVersions: object[];
-  links: string;
+  fetch(callback?: (error: Error | null, items: CampaignInstance) => any): Promise<CampaignInstance>;
+  hasEmbeddedLinks: boolean;
+  hasEmbeddedPhone: boolean;
+  messageSamples: string[];
+  messagingServiceSid: string;
   /**
-   * remove a BuildInstance
+   * remove a CampaignInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BuildInstance) => any): Promise<boolean>;
-  runtime: BuildRuntime;
-  serviceSid: string;
+  remove(callback?: (error: Error | null, items: CampaignInstance) => any): Promise<boolean>;
   sid: string;
-  status: BuildStatus;
+  status: CampaignStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
+  useCase: string;
 }
 
 
-declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+declare class CampaignPage extends Page<V1, CampaignPayload, CampaignResource, CampaignInstance> {
   /**
-   * Initialize the BuildPage
+   * Initialize the CampaignPage
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
@@ -342,18 +333,18 @@ declare class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInsta
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution);
+  constructor(version: V1, response: Response<string>, solution: CampaignSolution);
 
   /**
-   * Build an instance of BuildInstance
+   * Build an instance of CampaignInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BuildPayload): BuildInstance;
+  getInstance(payload: CampaignPayload): CampaignInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { BuildContext, BuildInstance, BuildList, BuildListInstance, BuildListInstanceCreateOptions, BuildListInstanceEachOptions, BuildListInstanceOptions, BuildListInstancePageOptions, BuildPage, BuildPayload, BuildResource, BuildRuntime, BuildSolution, BuildStatus }
+export { CampaignContext, CampaignInstance, CampaignList, CampaignListInstance, CampaignListInstanceCreateOptions, CampaignListInstanceEachOptions, CampaignListInstanceOptions, CampaignListInstancePageOptions, CampaignPage, CampaignPayload, CampaignResource, CampaignSolution, CampaignStatus }

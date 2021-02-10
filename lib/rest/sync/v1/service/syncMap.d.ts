@@ -17,9 +17,6 @@ import { SyncMapPermissionListInstance } from './syncMap/syncMapPermission';
 /**
  * Initialize the SyncMapList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  */
@@ -258,9 +255,6 @@ declare class SyncMapContext {
   /**
    * Initialize the SyncMapContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Sync Service with the Sync Map resource to fetch
    * @param sid - The SID of the Sync Map resource to fetch
@@ -304,9 +298,6 @@ declare class SyncMapContext {
 declare class SyncMapInstance extends SerializableClass {
   /**
    * Initialize the SyncMapContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -370,9 +361,6 @@ declare class SyncMapInstance extends SerializableClass {
 declare class SyncMapPage extends Page<V1, SyncMapPayload, SyncMapResource, SyncMapInstance> {
   /**
    * Initialize the SyncMapPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

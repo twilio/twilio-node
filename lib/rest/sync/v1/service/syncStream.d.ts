@@ -15,9 +15,6 @@ import { StreamMessageListInstance } from './syncStream/streamMessage';
 /**
  * Initialize the SyncStreamList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  */
@@ -251,9 +248,6 @@ declare class SyncStreamContext {
   /**
    * Initialize the SyncStreamContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Sync Service with the Sync Stream resource to fetch
    * @param sid - The SID of the Stream resource to fetch
@@ -296,9 +290,6 @@ declare class SyncStreamContext {
 declare class SyncStreamInstance extends SerializableClass {
   /**
    * Initialize the SyncStreamContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -357,9 +348,6 @@ declare class SyncStreamInstance extends SerializableClass {
 declare class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResource, SyncStreamInstance> {
   /**
    * Initialize the SyncStreamPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

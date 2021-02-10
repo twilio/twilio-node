@@ -61,7 +61,9 @@ interface ConfigurationResource {
   date_updated: Date;
   flex_service_instance_sid: string;
   integrations: object[];
+  markdown: object;
   messaging_service_instance_sid: string;
+  notifications: object;
   outbound_call_flows: object;
   plugin_service_attributes: object;
   plugin_service_enabled: boolean;
@@ -173,7 +175,9 @@ declare class ConfigurationInstance extends SerializableClass {
   fetch(opts?: ConfigurationInstanceFetchOptions, callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   flexServiceInstanceSid: string;
   integrations: object[];
+  markdown: any;
   messagingServiceInstanceSid: string;
+  notifications: any;
   outboundCallFlows: any;
   pluginServiceAttributes: any;
   pluginServiceEnabled: boolean;

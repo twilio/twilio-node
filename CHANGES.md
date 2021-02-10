@@ -1,6 +1,41 @@
 twilio-node changelog
 =====================
 
+[2021-02-10] Version 3.56.0
+---------------------------
+**Library - Fix**
+- [PR #654](https://github.com/twilio/twilio-node/pull/654): validation failing due to params. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #590](https://github.com/twilio/twilio-node/pull/590): updated RequestClient to handle proxy from default PROXY_HOST env var. Thanks to [@tlawrie](https://github.com/tlawrie)!
+- [PR #653](https://github.com/twilio/twilio-node/pull/653): adds property types for AccessToken and Grants. Thanks to [@philnash](https://github.com/philnash)!
+- [PR #652](https://github.com/twilio/twilio-node/pull/652): pagination bug and drop page limit and page limit calculation. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #651](https://github.com/twilio/twilio-node/pull/651): shortcut syntax for new non-GA versions. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Revert change that conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Events**
+- Documentation should state that no fields are PII
+
+**Flex**
+- Adding `notifications` and `markdown` to Flex Configuration
+
+**Messaging**
+- Add A2P use cases API
+- Add Brand Registrations API
+- Add Campaigns API
+
+**Serverless**
+- Add runtime field to Build response and as an optional parameter to the Build create endpoint.
+- Add @twilio/runtime-handler dependency to Build response example.
+
+**Sync**
+- Remove If-Match header for Document **(breaking change)**
+
+**Twiml**
+- Add `refer_url` and `refer_method` to `Dial`.
+
+
 [2021-01-27] Version 3.55.1
 ---------------------------
 **Studio**

@@ -361,6 +361,8 @@ declare namespace VoiceResponse {
    * @property recordingStatusCallbackEvent - Recording status callback events
    * @property recordingStatusCallbackMethod - Recording status callback URL method
    * @property recordingTrack - To indicate which audio track should be recorded
+   * @property referMethod - The HTTP method to use for the refer Webhook
+   * @property referUrl - Webhook that will receive future SIP REFER requests
    * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
    * @property sequential - Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel
    * @property timeLimit - Max time length
@@ -378,6 +380,8 @@ declare namespace VoiceResponse {
     recordingStatusCallbackEvent?: DialRecordingEvent[];
     recordingStatusCallbackMethod?: string;
     recordingTrack?: DialRecordingTrack;
+    referMethod?: string;
+    referUrl?: string;
     ringTone?: DialRingTone;
     sequential?: boolean;
     timeLimit?: number;

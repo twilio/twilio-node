@@ -26,7 +26,7 @@ declare function FleetList(version: V1): FleetListInstance;
  * Options to pass to update
  *
  * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
- * @property commandsUrl - The URL that will receive a webhook when a SIM in the Fleet is used to send an SMS from your device (mobile originated) to the Commands number
+ * @property commandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
@@ -162,7 +162,7 @@ interface FleetListInstance {
  *
  * @property commandsEnabled - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
  * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
- * @property commandsUrl - The URL that will receive a webhook when a SIM in the Fleet is used to send an SMS from your device (mobile originated) to the Commands number
+ * @property commandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
  * @property dataEnabled - Defines whether SIMs in the Fleet are capable of using data connectivity
  * @property dataLimit - The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet

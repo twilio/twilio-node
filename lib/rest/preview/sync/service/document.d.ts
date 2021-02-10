@@ -25,15 +25,6 @@ import { SerializableClass } from '../../../../interfaces';
 declare function DocumentList(version: Sync, serviceSid: string): DocumentListInstance;
 
 /**
- * Options to pass to remove
- *
- * @property ifMatch - The If-Match HTTP request header
- */
-interface DocumentInstanceRemoveOptions {
-  ifMatch?: string;
-}
-
-/**
  * Options to pass to update
  *
  * @property data - The data
@@ -288,13 +279,6 @@ declare class DocumentContext {
    */
   remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
   /**
-   * remove a DocumentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: DocumentInstanceRemoveOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
-  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -346,13 +330,6 @@ declare class DocumentInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
-  /**
-   * remove a DocumentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  remove(opts?: DocumentInstanceRemoveOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<boolean>;
   revision: string;
   serviceSid: string;
   sid: string;
@@ -398,4 +375,4 @@ declare class DocumentPage extends Page<Sync, DocumentPayload, DocumentResource,
   toJSON(): any;
 }
 
-export { DocumentContext, DocumentInstance, DocumentInstanceRemoveOptions, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }
+export { DocumentContext, DocumentInstance, DocumentInstanceUpdateOptions, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

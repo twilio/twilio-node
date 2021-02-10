@@ -17,9 +17,6 @@ type SyncListItemQueryResultOrder = 'asc'|'desc';
 /**
  * Initialize the SyncListItemList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - The SID of the Sync Service that the resource is associated with
  * @param listSid - The SID of the Sync List that contains the List Item
@@ -289,9 +286,6 @@ declare class SyncListItemContext {
   /**
    * Initialize the SyncListItemContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - The SID of the Sync Service with the Sync List Item resource to fetch
    * @param listSid - The SID of the Sync List with the Sync List Item resource to fetch
@@ -341,9 +335,6 @@ declare class SyncListItemContext {
 declare class SyncListItemInstance extends SerializableClass {
   /**
    * Initialize the SyncListItemContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -407,9 +398,6 @@ declare class SyncListItemInstance extends SerializableClass {
 declare class SyncListItemPage extends Page<V1, SyncListItemPayload, SyncListItemResource, SyncListItemInstance> {
   /**
    * Initialize the SyncListItemPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
