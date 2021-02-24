@@ -11,6 +11,8 @@ import { FormList } from './v2/form';
 import { FormListInstance } from './v2/form';
 import { ServiceList } from './v2/service';
 import { ServiceListInstance } from './v2/service';
+import { VerificationAttemptList } from './v2/verificationAttempt';
+import { VerificationAttemptListInstance } from './v2/verificationAttempt';
 
 
 declare class V2 extends Version {
@@ -23,6 +25,7 @@ declare class V2 extends Version {
 
   readonly forms: FormListInstance;
   readonly services: ServiceListInstance;
+  readonly verificationAttempts: VerificationAttemptListInstance;
 }
 
 export = V2;

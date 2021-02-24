@@ -9,14 +9,10 @@ import Messaging = require('../Messaging');
 import Version = require('../../base/Version');
 import { BrandRegistrationList } from './v1/brandRegistration';
 import { BrandRegistrationListInstance } from './v1/brandRegistration';
-import { CampaignList } from './v1/campaign';
-import { CampaignListInstance } from './v1/campaign';
 import { DeactivationsList } from './v1/deactivation';
 import { DeactivationsListInstance } from './v1/deactivation';
 import { ServiceList } from './v1/service';
 import { ServiceListInstance } from './v1/service';
-import { UseCaseList } from './v1/useCase';
-import { UseCaseListInstance } from './v1/useCase';
 
 
 declare class V1 extends Version {
@@ -28,10 +24,8 @@ declare class V1 extends Version {
   constructor(domain: Messaging);
 
   readonly brandRegistrations: BrandRegistrationListInstance;
-  readonly campaigns: CampaignListInstance;
   readonly deactivations: DeactivationsListInstance;
   readonly services: ServiceListInstance;
-  readonly useCases: UseCaseListInstance;
 }
 
 export = V1;

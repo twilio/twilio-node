@@ -10,32 +10,38 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
-type CampaignStatus = 'approved'|'pending'|'failed';
-
 /**
- * Initialize the CampaignList
- *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
+ * Initialize the EndUserList
  *
  * @param version - Version of the resource
  */
-declare function CampaignList(version: V1): CampaignListInstance;
+declare function EndUserList(version: V1): EndUserListInstance;
 
-interface CampaignListInstance {
+/**
+ * Options to pass to update
+ *
+ * @property attributes - The set of parameters that compose the End User resource
+ * @property friendlyName - The string that you assigned to describe the resource
+ */
+interface EndUserInstanceUpdateOptions {
+  attributes?: object;
+  friendlyName?: string;
+}
+
+interface EndUserListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): CampaignContext;
+  (sid: string): EndUserContext;
   /**
-   * create a CampaignInstance
+   * create a EndUserInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CampaignListInstanceCreateOptions, callback?: (error: Error | null, item: CampaignInstance) => any): Promise<CampaignInstance>;
+  create(opts: EndUserListInstanceCreateOptions, callback?: (error: Error | null, item: EndUserInstance) => any): Promise<EndUserInstance>;
   /**
-   * Streams CampaignInstance records from the API.
+   * Streams EndUserInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -48,9 +54,9 @@ interface CampaignListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: CampaignInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: EndUserInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams CampaignInstance records from the API.
+   * Streams EndUserInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -64,15 +70,15 @@ interface CampaignListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CampaignListInstanceEachOptions, callback?: (item: CampaignInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: EndUserListInstanceEachOptions, callback?: (item: EndUserInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a campaign
+   * Constructs a end_user
    *
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
-  get(sid: string): CampaignContext;
+  get(sid: string): EndUserContext;
   /**
-   * Retrieve a single target page of CampaignInstance records from the API.
+   * Retrieve a single target page of EndUserInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -81,9 +87,9 @@ interface CampaignListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: CampaignPage) => any): Promise<CampaignPage>;
+  getPage(callback?: (error: Error | null, items: EndUserPage) => any): Promise<EndUserPage>;
   /**
-   * Retrieve a single target page of CampaignInstance records from the API.
+   * Retrieve a single target page of EndUserInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -93,18 +99,18 @@ interface CampaignListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CampaignPage) => any): Promise<CampaignPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: EndUserPage) => any): Promise<EndUserPage>;
   /**
-   * Lists CampaignInstance records from the API as a list.
+   * Lists EndUserInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: CampaignInstance[]) => any): Promise<CampaignInstance[]>;
+  list(callback?: (error: Error | null, items: EndUserInstance[]) => any): Promise<EndUserInstance[]>;
   /**
-   * Lists CampaignInstance records from the API as a list.
+   * Lists EndUserInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -112,9 +118,9 @@ interface CampaignListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CampaignListInstanceOptions, callback?: (error: Error | null, items: CampaignInstance[]) => any): Promise<CampaignInstance[]>;
+  list(opts?: EndUserListInstanceOptions, callback?: (error: Error | null, items: EndUserInstance[]) => any): Promise<EndUserInstance[]>;
   /**
-   * Retrieve a single page of CampaignInstance records from the API.
+   * Retrieve a single page of EndUserInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -123,9 +129,9 @@ interface CampaignListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: CampaignPage) => any): Promise<CampaignPage>;
+  page(callback?: (error: Error | null, items: EndUserPage) => any): Promise<EndUserPage>;
   /**
-   * Retrieve a single page of CampaignInstance records from the API.
+   * Retrieve a single page of EndUserInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -135,7 +141,7 @@ interface CampaignListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CampaignListInstancePageOptions, callback?: (error: Error | null, items: CampaignPage) => any): Promise<CampaignPage>;
+  page(opts?: EndUserListInstancePageOptions, callback?: (error: Error | null, items: EndUserPage) => any): Promise<EndUserPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -145,22 +151,14 @@ interface CampaignListInstance {
 /**
  * Options to pass to create
  *
- * @property brandRegistrationSid - A2P BrandRegistration Sid
- * @property description - A short description of what this SMS campaign does
- * @property hasEmbeddedLinks - Indicate that this SMS campaign will send messages that contain links
- * @property hasEmbeddedPhone - Indicates that this SMS campaign will send messages that contain phone numbers
- * @property messageSamples - Message samples
- * @property messagingServiceSid - MessagingService SID
- * @property useCase - A2P Campaign UseCase.
+ * @property attributes - The set of parameters that compose the End User resource
+ * @property friendlyName - The string that you assigned to describe the resource
+ * @property type - The type of end user of the Bundle resource
  */
-interface CampaignListInstanceCreateOptions {
-  brandRegistrationSid: string;
-  description: string;
-  hasEmbeddedLinks: boolean;
-  hasEmbeddedPhone: boolean;
-  messageSamples: string | string[];
-  messagingServiceSid: string;
-  useCase: string;
+interface EndUserListInstanceCreateOptions {
+  attributes?: object;
+  friendlyName: string;
+  type: string;
 }
 
 /**
@@ -181,8 +179,8 @@ interface CampaignListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface CampaignListInstanceEachOptions {
-  callback?: (item: CampaignInstance, done: (err?: Error) => void) => void;
+interface EndUserListInstanceEachOptions {
+  callback?: (item: EndUserInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -202,7 +200,7 @@ interface CampaignListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface CampaignListInstanceOptions {
+interface EndUserListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -214,137 +212,142 @@ interface CampaignListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface CampaignListInstancePageOptions {
+interface EndUserListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface CampaignPayload extends CampaignResource, Page.TwilioResponsePayload {
+interface EndUserPayload extends EndUserResource, Page.TwilioResponsePayload {
 }
 
-interface CampaignResource {
+interface EndUserResource {
   account_sid: string;
-  brand_registration_sid: string;
+  attributes: object;
   date_created: Date;
   date_updated: Date;
-  description: string;
-  failure_reason: string;
-  has_embedded_links: boolean;
-  has_embedded_phone: boolean;
-  message_samples: string[];
-  messaging_service_sid: string;
+  friendly_name: string;
   sid: string;
-  status: CampaignStatus;
+  type: string;
   url: string;
-  use_case: string;
 }
 
-interface CampaignSolution {
+interface EndUserSolution {
 }
 
 
-declare class CampaignContext {
+declare class EndUserContext {
   /**
-   * Initialize the CampaignContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
+   * Initialize the EndUserContext
    *
    * @param version - Version of the resource
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, sid: string);
 
   /**
-   * fetch a CampaignInstance
+   * fetch a EndUserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CampaignInstance) => any): Promise<CampaignInstance>;
+  fetch(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<EndUserInstance>;
   /**
-   * remove a CampaignInstance
+   * remove a EndUserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CampaignInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<boolean>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a EndUserInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<EndUserInstance>;
+  /**
+   * update a EndUserInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: EndUserInstanceUpdateOptions, callback?: (error: Error | null, items: EndUserInstance) => any): Promise<EndUserInstance>;
 }
 
 
-declare class CampaignInstance extends SerializableClass {
+declare class EndUserInstance extends SerializableClass {
   /**
-   * Initialize the CampaignContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
+   * Initialize the EndUserContext
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The SID that identifies the resource to fetch
+   * @param sid - The unique string that identifies the resource
    */
-  constructor(version: V1, payload: CampaignPayload, sid: string);
+  constructor(version: V1, payload: EndUserPayload, sid: string);
 
-  private _proxy: CampaignContext;
+  private _proxy: EndUserContext;
   accountSid: string;
-  brandRegistrationSid: string;
+  attributes: any;
   dateCreated: Date;
   dateUpdated: Date;
-  description: string;
-  failureReason: string;
   /**
-   * fetch a CampaignInstance
+   * fetch a EndUserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CampaignInstance) => any): Promise<CampaignInstance>;
-  hasEmbeddedLinks: boolean;
-  hasEmbeddedPhone: boolean;
-  messageSamples: string[];
-  messagingServiceSid: string;
+  fetch(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<EndUserInstance>;
+  friendlyName: string;
   /**
-   * remove a CampaignInstance
+   * remove a EndUserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CampaignInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<boolean>;
   sid: string;
-  status: CampaignStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  type: string;
+  /**
+   * update a EndUserInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: EndUserInstance) => any): Promise<EndUserInstance>;
+  /**
+   * update a EndUserInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: EndUserInstanceUpdateOptions, callback?: (error: Error | null, items: EndUserInstance) => any): Promise<EndUserInstance>;
   url: string;
-  useCase: string;
 }
 
 
-declare class CampaignPage extends Page<V1, CampaignPayload, CampaignResource, CampaignInstance> {
+declare class EndUserPage extends Page<V1, EndUserPayload, EndUserResource, EndUserInstance> {
   /**
-   * Initialize the CampaignPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
+   * Initialize the EndUserPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: CampaignSolution);
+  constructor(version: V1, response: Response<string>, solution: EndUserSolution);
 
   /**
-   * Build an instance of CampaignInstance
+   * Build an instance of EndUserInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CampaignPayload): CampaignInstance;
+  getInstance(payload: EndUserPayload): EndUserInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { CampaignContext, CampaignInstance, CampaignList, CampaignListInstance, CampaignListInstanceCreateOptions, CampaignListInstanceEachOptions, CampaignListInstanceOptions, CampaignListInstancePageOptions, CampaignPage, CampaignPayload, CampaignResource, CampaignSolution, CampaignStatus }
+export { EndUserContext, EndUserInstance, EndUserInstanceUpdateOptions, EndUserList, EndUserListInstance, EndUserListInstanceCreateOptions, EndUserListInstanceEachOptions, EndUserListInstanceOptions, EndUserListInstancePageOptions, EndUserPage, EndUserPayload, EndUserResource, EndUserSolution }

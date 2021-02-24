@@ -159,7 +159,7 @@ interface SubscriptionListInstance {
  *
  * @property description - Subscription description
  * @property sinkSid - Sink SID.
- * @property types - Nested resource URLs.
+ * @property types - Subscribed Event Types
  */
 interface SubscriptionListInstanceCreateOptions {
   description: string;

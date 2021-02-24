@@ -10,19 +10,22 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
+type PoliciesEndUserType = 'individual'|'business';
+
 /**
- * Initialize the UseCaseList
- *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
+ * Initialize the PoliciesList
  *
  * @param version - Version of the resource
  */
-declare function UseCaseList(version: V1): UseCaseListInstance;
+declare function PoliciesList(version: V1): PoliciesListInstance;
 
-interface UseCaseListInstance {
+interface PoliciesListInstance {
   /**
-   * Streams UseCaseInstance records from the API.
+   * @param sid - sid of instance
+   */
+  (sid: string): PoliciesContext;
+  /**
+   * Streams PoliciesInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -35,9 +38,9 @@ interface UseCaseListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: UseCaseInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams UseCaseInstance records from the API.
+   * Streams PoliciesInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -51,9 +54,15 @@ interface UseCaseListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UseCaseListInstanceEachOptions, callback?: (item: UseCaseInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: PoliciesListInstanceEachOptions, callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Retrieve a single target page of UseCaseInstance records from the API.
+   * Constructs a policies
+   *
+   * @param sid - The unique string that identifies the Policy resource
+   */
+  get(sid: string): PoliciesContext;
+  /**
+   * Retrieve a single target page of PoliciesInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -62,9 +71,9 @@ interface UseCaseListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: UseCasePage) => any): Promise<UseCasePage>;
+  getPage(callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
   /**
-   * Retrieve a single target page of UseCaseInstance records from the API.
+   * Retrieve a single target page of PoliciesInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -74,18 +83,18 @@ interface UseCaseListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UseCasePage) => any): Promise<UseCasePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
   /**
-   * Lists UseCaseInstance records from the API as a list.
+   * Lists PoliciesInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: UseCaseInstance[]) => any): Promise<UseCaseInstance[]>;
+  list(callback?: (error: Error | null, items: PoliciesInstance[]) => any): Promise<PoliciesInstance[]>;
   /**
-   * Lists UseCaseInstance records from the API as a list.
+   * Lists PoliciesInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -93,9 +102,9 @@ interface UseCaseListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: UseCaseListInstanceOptions, callback?: (error: Error | null, items: UseCaseInstance[]) => any): Promise<UseCaseInstance[]>;
+  list(opts?: PoliciesListInstanceOptions, callback?: (error: Error | null, items: PoliciesInstance[]) => any): Promise<PoliciesInstance[]>;
   /**
-   * Retrieve a single page of UseCaseInstance records from the API.
+   * Retrieve a single page of PoliciesInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -104,9 +113,9 @@ interface UseCaseListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: UseCasePage) => any): Promise<UseCasePage>;
+  page(callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
   /**
-   * Retrieve a single page of UseCaseInstance records from the API.
+   * Retrieve a single page of PoliciesInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -116,7 +125,7 @@ interface UseCaseListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: UseCaseListInstancePageOptions, callback?: (error: Error | null, items: UseCasePage) => any): Promise<UseCasePage>;
+  page(opts?: PoliciesListInstancePageOptions, callback?: (error: Error | null, items: PoliciesPage) => any): Promise<PoliciesPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -141,8 +150,8 @@ interface UseCaseListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface UseCaseListInstanceEachOptions {
-  callback?: (item: UseCaseInstance, done: (err?: Error) => void) => void;
+interface PoliciesListInstanceEachOptions {
+  callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -162,7 +171,7 @@ interface UseCaseListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface UseCaseListInstanceOptions {
+interface PoliciesListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -174,40 +183,41 @@ interface UseCaseListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface UseCaseListInstancePageOptions {
+interface PoliciesListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface UseCasePayload extends UseCaseResource, Page.TwilioResponsePayload {
+interface PoliciesPayload extends PoliciesResource, Page.TwilioResponsePayload {
 }
 
-interface UseCaseResource {
-  code: string;
-  description: string;
-  name: string;
+interface PoliciesResource {
+  friendly_name: string;
+  requirements: object;
+  sid: string;
+  url: string;
 }
 
-interface UseCaseSolution {
+interface PoliciesSolution {
 }
 
 
-declare class UseCaseInstance extends SerializableClass {
+declare class PoliciesContext {
   /**
-   * Initialize the UseCaseContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
+   * Initialize the PoliciesContext
    *
    * @param version - Version of the resource
-   * @param payload - The instance payload
+   * @param sid - The unique string that identifies the Policy resource
    */
-  constructor(version: V1, payload: UseCasePayload);
+  constructor(version: V1, sid: string);
 
-  code: string;
-  description: string;
-  name: string;
+  /**
+   * fetch a PoliciesInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: PoliciesInstance) => any): Promise<PoliciesInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -215,29 +225,54 @@ declare class UseCaseInstance extends SerializableClass {
 }
 
 
-declare class UseCasePage extends Page<V1, UseCasePayload, UseCaseResource, UseCaseInstance> {
+declare class PoliciesInstance extends SerializableClass {
   /**
-   * Initialize the UseCasePage
+   * Initialize the PoliciesContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
+   * @param version - Version of the resource
+   * @param payload - The instance payload
+   * @param sid - The unique string that identifies the Policy resource
+   */
+  constructor(version: V1, payload: PoliciesPayload, sid: string);
+
+  private _proxy: PoliciesContext;
+  /**
+   * fetch a PoliciesInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: PoliciesInstance) => any): Promise<PoliciesInstance>;
+  friendlyName: string;
+  requirements: any;
+  sid: string;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  url: string;
+}
+
+
+declare class PoliciesPage extends Page<V1, PoliciesPayload, PoliciesResource, PoliciesInstance> {
+  /**
+   * Initialize the PoliciesPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: UseCaseSolution);
+  constructor(version: V1, response: Response<string>, solution: PoliciesSolution);
 
   /**
-   * Build an instance of UseCaseInstance
+   * Build an instance of PoliciesInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UseCasePayload): UseCaseInstance;
+  getInstance(payload: PoliciesPayload): PoliciesInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { UseCaseInstance, UseCaseList, UseCaseListInstance, UseCaseListInstanceEachOptions, UseCaseListInstanceOptions, UseCaseListInstancePageOptions, UseCasePage, UseCasePayload, UseCaseResource, UseCaseSolution }
+export { PoliciesContext, PoliciesEndUserType, PoliciesInstance, PoliciesList, PoliciesListInstance, PoliciesListInstanceEachOptions, PoliciesListInstanceOptions, PoliciesListInstancePageOptions, PoliciesPage, PoliciesPayload, PoliciesResource, PoliciesSolution }

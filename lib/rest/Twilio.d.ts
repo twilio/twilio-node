@@ -31,6 +31,7 @@ import Supersim = require('./Supersim');
 import Sync = require('./Sync');
 import Taskrouter = require('./Taskrouter');
 import Trunking = require('./Trunking');
+import Trusthub = require('./Trusthub');
 import Verify = require('./Verify');
 import Video = require('./Video');
 import Voice = require('./Voice');
@@ -101,6 +102,7 @@ declare class Twilio {
   tokens: (typeof Api.prototype.account.tokens);
   transcriptions: (typeof Api.prototype.account.transcriptions);
   trunking: Trunking;
+  trusthub: Trusthub;
   usage: (typeof Api.prototype.account.usage);
   /**
    * Validates that a request to the new SSL certificate is successful.
