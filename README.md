@@ -95,6 +95,9 @@ const client = require('twilio')(accountSid, authToken);
 client.logLevel = 'debug';
 ```
 
+## Using webhook validation
+See [example](examples/express.js) for a code sample for incoming Twilio request validation
+
 ## Handling Exceptions
 
 For an example on how to handle exceptions in this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/node/usage-guide#exceptions).
