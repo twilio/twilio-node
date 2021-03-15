@@ -24,6 +24,10 @@ const bodySignature = '0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f
 const requestUrlWithHash = requestUrl + '&bodySHA256=' + bodySignature;
 const requestUrlWithHashSignature = 'a9nBmqA0ju/hNViExpshrM61xv4=';
 
+const requestUrlWithHashSignatureEmptyBody = 'Ldidvp12m26NI7eqEvxnEpkd9Hc=';
+const bodySignatureEmpty = '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a';
+const requestUrlWithHashEmpty = requestUrl + '&bodySHA256=' + bodySignatureEmpty;
+
 describe('Request validation', () => {
   it('should succeed with the correct signature', () => {
     const isValid = validateRequest(token, defaultSignature, requestUrl, defaultParams);
@@ -51,6 +55,12 @@ describe('Request validation', () => {
 
   it('should validate request body when given', () => {
     const isValid = validateRequestWithBody(token, requestUrlWithHashSignature, requestUrlWithHash, body);
+
+    expect(isValid).toBeTruthy();
+  });
+
+  it('should validate request body when empty', () => {
+    const isValid = validateRequestWithBody(token, requestUrlWithHashSignatureEmptyBody, requestUrlWithHashEmpty, '{}');
 
     expect(isValid).toBeTruthy();
   });
@@ -265,6 +275,7 @@ describe('Request validation middleware', () => {
       }),
     }));
 
+    request.rawBody = body;
     middleware(request, response, () => {
       done();
     });
@@ -296,8 +307,8 @@ describe('Request validation middleware', () => {
     const newUrl = fullUrl.pathname + fullUrl.search + '&somethingUnexpected=true';
     const request = httpMocks.createRequest(Object.assign({},
       defaultRequestWithoutTwilioSignature, {
-        originalUrl: newUrl,
-      }));
+      originalUrl: newUrl,
+    }));
 
     middleware(request, response, () => {
       expect(true).toBeFalsy();
