@@ -15,9 +15,8 @@ import { VersionListInstance } from './schema/schemaVersion';
 /**
  * Initialize the SchemaList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -59,9 +58,8 @@ declare class SchemaContext {
   /**
    * Initialize the SchemaContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param id - The unique identifier of the schema.
@@ -86,9 +84,8 @@ declare class SchemaInstance extends SerializableClass {
   /**
    * Initialize the SchemaContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -123,9 +120,8 @@ declare class SchemaPage extends Page<V1, SchemaPayload, SchemaResource, SchemaI
   /**
    * Initialize the SchemaPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

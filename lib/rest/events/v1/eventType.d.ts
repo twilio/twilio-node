@@ -13,9 +13,8 @@ import { SerializableClass } from '../../../interfaces';
 /**
  * Initialize the EventTypeList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -212,9 +211,8 @@ declare class EventTypeContext {
   /**
    * Initialize the EventTypeContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param type - A string that uniquely identifies this Event Type.
@@ -238,9 +236,8 @@ declare class EventTypeInstance extends SerializableClass {
   /**
    * Initialize the EventTypeContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -273,9 +270,8 @@ declare class EventTypePage extends Page<V1, EventTypePayload, EventTypeResource
   /**
    * Initialize the EventTypePage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

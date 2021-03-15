@@ -13,9 +13,8 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the SubscribedEventList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param subscriptionSid - Subscription SID.
@@ -202,9 +201,8 @@ declare class SubscribedEventInstance extends SerializableClass {
   /**
    * Initialize the SubscribedEventContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -228,9 +226,8 @@ declare class SubscribedEventPage extends Page<V1, SubscribedEventPayload, Subsc
   /**
    * Initialize the SubscribedEventPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

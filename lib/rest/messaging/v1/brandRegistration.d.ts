@@ -10,7 +10,7 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
-type BrandRegistrationStatus = 'IN_PROGRESS'|'VERIFIED'|'FAILED';
+type BrandRegistrationStatus = 'PENDING'|'APPROVED'|'FAILED';
 
 /**
  * Initialize the BrandRegistrationList

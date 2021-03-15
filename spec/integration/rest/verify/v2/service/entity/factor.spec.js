@@ -56,7 +56,7 @@ describe('Factor', function() {
       }));
     }
   );
-  it('should generate valid create response',
+  it('should generate valid create_push response',
     function(done) {
       var body = {
           'sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -159,7 +159,7 @@ describe('Factor', function() {
       }));
     }
   );
-  it('should generate valid fetch response',
+  it('should generate valid fetch_push response',
     function(done) {
       var body = {
           'sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -444,7 +444,7 @@ describe('Factor', function() {
       }));
     }
   );
-  it('should generate valid verify response',
+  it('should generate valid verify_push response',
     function(done) {
       var body = {
           'sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',

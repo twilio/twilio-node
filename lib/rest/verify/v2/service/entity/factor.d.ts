@@ -12,9 +12,11 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type FactorFactorStatuses = 'unverified'|'verified';
 
-type FactorFactorTypes = 'push';
+type FactorFactorTypes = 'push'|'totp';
 
 type FactorNotificationPlatforms = 'apn'|'fcm';
+
+type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
 
 /**
  * Initialize the FactorList
@@ -32,8 +34,12 @@ declare function FactorList(version: V2, serviceSid: string, identity: string): 
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Factor for the first time
+ * @property config.alg - The algorithm used to derive the TOTP codes
+ * @property config.codeLength - Number of digits for generated TOTP codes
  * @property config.notificationToken - For APN, the device token. For FCM the registration token
  * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
+ * @property config.skew - The number of past and future time-steps valid at a given time
+ * @property config.timeStep - How often, in seconds, are TOTP codes generated
  * @property friendlyName - The friendly name of this Factor
  */
 interface FactorInstanceUpdateOptions {
@@ -41,6 +47,10 @@ interface FactorInstanceUpdateOptions {
   config?: {
     notificationToken?: string;
     sdkVersion?: string;
+    timeStep?: number;
+    skew?: number;
+    codeLength?: number;
+    alg?: FactorTotpAlgorithms;
   };
   friendlyName?: string;
 }
@@ -170,10 +180,15 @@ interface FactorListInstance {
  *
  * @property binding.alg - The algorithm used when `factor_type` is `push`
  * @property binding.publicKey - The public key encoded in Base64
+ * @property binding.secret - The shared secret in Base32
+ * @property config.alg - The algorithm used to derive the TOTP codes
  * @property config.appId - The ID that uniquely identifies your app in the Google or Apple store
+ * @property config.codeLength - Number of digits for generated TOTP codes
  * @property config.notificationPlatform - The transport technology used to generate the Notification Token
  * @property config.notificationToken - For APN, the device token. For FCM the registration token
  * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
+ * @property config.skew - The number of past and future time-steps valid at a given time
+ * @property config.timeStep - How often, in seconds, are TOTP codes generated
  * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
  */
@@ -181,12 +196,17 @@ interface FactorListInstanceCreateOptions {
   binding?: {
     alg?: string;
     publicKey?: string;
+    secret?: string;
   };
   config?: {
     appId?: string;
     notificationPlatform?: FactorNotificationPlatforms;
     notificationToken?: string;
     sdkVersion?: string;
+    timeStep?: number;
+    skew?: number;
+    codeLength?: number;
+    alg?: FactorTotpAlgorithms;
   };
   factorType: FactorFactorTypes;
   friendlyName: string;
@@ -404,4 +424,4 @@ declare class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorI
   toJSON(): any;
 }
 
-export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorNotificationPlatforms, FactorPage, FactorPayload, FactorResource, FactorSolution }
+export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorNotificationPlatforms, FactorPage, FactorPayload, FactorResource, FactorSolution, FactorTotpAlgorithms }

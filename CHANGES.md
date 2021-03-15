@@ -1,6 +1,30 @@
 twilio-node changelog
 =====================
 
+[2021-03-15] Version 3.58.0
+---------------------------
+**Library - Fix**
+- [PR #665](https://github.com/twilio/twilio-node/pull/665): fix validateExpressRequest issue. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Chore**
+- [PR #661](https://github.com/twilio/twilio-node/pull/661): upgrade url-parse. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Events**
+- Set maturity to beta
+
+**Messaging**
+- Adjust A2P brand registration status enum **(breaking change)**
+
+**Studio**
+- Remove internal safeguards for Studio V2 API usage now that it's GA
+
+**Verify**
+- Add support for creating and verifying totp factors. Support for totp factors is behind the `api.verify.totp` beta feature.
+
+**Twiml**
+- Add support for `<VirtualAgent>` noun
+
+
 [2021-02-24] Version 3.57.0
 ---------------------------
 **Events**

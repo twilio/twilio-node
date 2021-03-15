@@ -13,9 +13,8 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the SinkValidateList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param sid - A string that uniquely identifies this Sink.
@@ -61,9 +60,8 @@ declare class SinkValidateInstance extends SerializableClass {
   /**
    * Initialize the SinkValidateContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -83,9 +81,8 @@ declare class SinkValidatePage extends Page<V1, SinkValidatePayload, SinkValidat
   /**
    * Initialize the SinkValidatePage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

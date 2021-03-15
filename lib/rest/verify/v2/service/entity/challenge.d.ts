@@ -14,7 +14,7 @@ type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
 
 type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
 
-type ChallengeFactorTypes = 'push';
+type ChallengeFactorTypes = 'push'|'totp';
 
 /**
  * Initialize the ChallengeList

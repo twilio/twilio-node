@@ -25,7 +25,7 @@ type ParticipantTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'d
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param roomSid - The room_sid
+ * @param roomSid - Unique identifier for the room.
  */
 declare function ParticipantList(version: V1, roomSid: string): ParticipantListInstance;
 
@@ -68,7 +68,7 @@ interface ParticipantListInstance {
   /**
    * Constructs a participant
    *
-   * @param participantSid - The participant_sid
+   * @param participantSid - The SID of the Participant resource.
    */
   get(participantSid: string): ParticipantContext;
   /**
@@ -235,8 +235,8 @@ declare class ParticipantContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param roomSid - The room_sid
-   * @param participantSid - The participant_sid
+   * @param roomSid - The SID of the Room resource.
+   * @param participantSid - The SID of the Participant resource.
    */
   constructor(version: V1, roomSid: string, participantSid: string);
 
@@ -262,8 +262,8 @@ declare class ParticipantInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - The room_sid
-   * @param participantSid - The participant_sid
+   * @param roomSid - Unique identifier for the room.
+   * @param participantSid - The SID of the Participant resource.
    */
   constructor(version: V1, payload: ParticipantPayload, roomSid: string, participantSid: string);
 

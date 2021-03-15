@@ -77,7 +77,7 @@ interface RoomListInstance {
   /**
    * Constructs a room
    *
-   * @param roomSid - The room_sid
+   * @param roomSid - The SID of the Room resource.
    */
   get(roomSid: string): RoomContext;
   /**
@@ -157,9 +157,9 @@ interface RoomListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property codec - The codec
- * @property createdAfter - The created_after
- * @property createdBefore - The created_before
+ * @property codec - Codecs used by participants in the room.
+ * @property createdAfter - Only read rooms that started on or after this ISO 8601 timestamp.
+ * @property createdBefore - Only read rooms that started before this ISO 8601 timestamp.
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -171,8 +171,8 @@ interface RoomListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property roomName - The room_name
- * @property roomType - The room_type
+ * @property roomName - Room friendly name.
+ * @property roomType - Type of room.
  */
 interface RoomListInstanceEachOptions {
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
@@ -189,9 +189,9 @@ interface RoomListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property codec - The codec
- * @property createdAfter - The created_after
- * @property createdBefore - The created_before
+ * @property codec - Codecs used by participants in the room.
+ * @property createdAfter - Only read rooms that started on or after this ISO 8601 timestamp.
+ * @property createdBefore - Only read rooms that started before this ISO 8601 timestamp.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -202,8 +202,8 @@ interface RoomListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property roomName - The room_name
- * @property roomType - The room_type
+ * @property roomName - Room friendly name.
+ * @property roomType - Type of room.
  */
 interface RoomListInstanceOptions {
   codec?: RoomCodec | RoomCodec[];
@@ -218,14 +218,14 @@ interface RoomListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property codec - The codec
- * @property createdAfter - The created_after
- * @property createdBefore - The created_before
+ * @property codec - Codecs used by participants in the room.
+ * @property createdAfter - Only read rooms that started on or after this ISO 8601 timestamp.
+ * @property createdBefore - Only read rooms that started before this ISO 8601 timestamp.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property roomName - The room_name
- * @property roomType - The room_type
+ * @property roomName - Room friendly name.
+ * @property roomType - Type of room.
  */
 interface RoomListInstancePageOptions {
   codec?: RoomCodec | RoomCodec[];
@@ -282,7 +282,7 @@ declare class RoomContext {
    * Use them with caution.
    *
    * @param version - Version of the resource
-   * @param roomSid - The room_sid
+   * @param roomSid - The SID of the Room resource.
    */
   constructor(version: V1, roomSid: string);
 
@@ -309,7 +309,7 @@ declare class RoomInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - The room_sid
+   * @param roomSid - The SID of the Room resource.
    */
   constructor(version: V1, payload: RoomPayload, roomSid: string);
 

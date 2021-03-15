@@ -13,9 +13,8 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the VersionList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  * @param id - The unique identifier of the schema.
@@ -212,9 +211,8 @@ declare class VersionContext {
   /**
    * Initialize the VersionContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param id - The unique identifier of the schema.
@@ -239,9 +237,8 @@ declare class VersionInstance extends SerializableClass {
   /**
    * Initialize the VersionContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -273,9 +270,8 @@ declare class VersionPage extends Page<V1, VersionPayload, VersionResource, Vers
   /**
    * Initialize the VersionPage
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

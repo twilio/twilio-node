@@ -830,6 +830,21 @@ declare namespace VoiceResponse {
     timeout?: number;
   }
 
+  /**
+   * Options to pass to virtualAgent
+   *
+   * @property connectorName - Defines the conversation profile Dialogflow needs to use
+   * @property language - Language to be used by Dialogflow to transcribe speech
+   * @property sentimentAnalysis - Whether sentiment analysis needs to be enabled or not
+   * @property statusCallback - URL to post status callbacks from Twilio
+   */
+  export interface VirtualAgentAttributes {
+    connectorName?: string;
+    language?: string;
+    sentimentAnalysis?: boolean;
+    statusCallback?: string;
+  }
+
 
   class Client {
 
@@ -889,6 +904,12 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      */
     stream(attributes?: VoiceResponse.StreamAttributes): VoiceResponse.Stream;
+    /**
+     * <VirtualAgent> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    virtualAgent(attributes?: VoiceResponse.VirtualAgentAttributes): void;
   }
 
 
