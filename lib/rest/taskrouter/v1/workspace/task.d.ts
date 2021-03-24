@@ -27,6 +27,7 @@ declare function TaskList(version: V1, workspaceSid: string): TaskListInstance;
  *
  * @property assignmentStatus - The new status of the task
  * @property attributes - The JSON string that describes the custom attributes of the task
+ * @property ifMatch - The If-Match HTTP request header
  * @property priority - The Task's new priority value
  * @property reason - The reason that the Task was canceled or complete
  * @property taskChannel - When MultiTasking is enabled, specify the TaskChannel with the task to update
@@ -34,6 +35,7 @@ declare function TaskList(version: V1, workspaceSid: string): TaskListInstance;
 interface TaskInstanceUpdateOptions {
   assignmentStatus?: TaskStatus;
   attributes?: string;
+  ifMatch?: string;
   priority?: number;
   reason?: string;
   taskChannel?: string;

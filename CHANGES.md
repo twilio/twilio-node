@@ -1,6 +1,34 @@
 twilio-node changelog
 =====================
 
+[2021-03-24] Version 3.59.0
+---------------------------
+**Api**
+- Added optional parameter `CallToken` for create calls api
+- Add optional property `time_limit` in the call create request.
+
+**Bulkexports**
+- adding two new fields with job api queue_position and estimated_completion_time
+
+**Events**
+- Add new endpoints to manage subscribed_events in subscriptions
+
+**Numbers**
+- Remove feature flags for RegulatoryCompliance endpoints
+
+**Supersim**
+- Add SmsCommands resource
+- Add fields `SmsCommandsUrl`, `SmsCommandsMethod` and `SmsCommandsEnabled` to a Fleet resource
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Task Update
+- Add `ETag` as Response Headers to Tasks and Reservations
+
+**Video**
+- Recording rule beta flag **(breaking change)**
+- [Rooms] Add RecordingRules param to Rooms
+
+
 [2021-03-15] Version 3.58.0
 ---------------------------
 **Library - Fix**

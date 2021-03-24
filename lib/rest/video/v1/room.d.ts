@@ -171,6 +171,7 @@ interface RoomListInstance {
  * @property maxParticipants - The maximum number of concurrent Participants allowed in the room
  * @property mediaRegion - The region for the media server in Group Rooms
  * @property recordParticipantsOnConnect - Whether to start recording when Participants connect
+ * @property recordingRules - A collection of Recording Rules
  * @property statusCallback - The URL to send status information to your application
  * @property statusCallbackMethod - The HTTP method we should use to call status_callback
  * @property type - The type of room
@@ -182,6 +183,7 @@ interface RoomListInstanceCreateOptions {
   maxParticipants?: number;
   mediaRegion?: string;
   recordParticipantsOnConnect?: boolean;
+  recordingRules?: object;
   statusCallback?: string;
   statusCallbackMethod?: string;
   type?: RoomRoomType;

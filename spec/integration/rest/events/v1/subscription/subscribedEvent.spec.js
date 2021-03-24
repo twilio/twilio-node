@@ -227,4 +227,181 @@ describe('SubscribedEvent', function() {
       }).done();
     }
   );
+  it('should generate valid create request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var opts = {type: 'type'};
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .subscribedEvents.create(opts);
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var subscriptionSid = 'DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://events.twilio.com/v1/Subscriptions/${subscriptionSid}/SubscribedEvents`;
+
+      var values = {Type: 'type', };
+      holodeck.assertHasRequest(new Request({
+          method: 'POST',
+          url: url,
+          data: values
+      }));
+    }
+  );
+  it('should generate valid create response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'subscription_sid': 'DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'type': 'event.type',
+          'version': 2,
+          'url': 'https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {type: 'type'};
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .subscribedEvents.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid fetch request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .subscribedEvents('type').fetch();
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var subscriptionSid = 'DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var type = 'type';
+      var url = `https://events.twilio.com/v1/Subscriptions/${subscriptionSid}/SubscribedEvents/${type}`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'GET',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid fetch response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'subscription_sid': 'DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'type': 'event.type',
+          'version': 2,
+          'url': 'https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type'
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .subscribedEvents('type').fetch();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid update request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .subscribedEvents('type').update();
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var subscriptionSid = 'DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var type = 'type';
+      var url = `https://events.twilio.com/v1/Subscriptions/${subscriptionSid}/SubscribedEvents/${type}`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid update response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'subscription_sid': 'DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'type': 'event.type',
+          'version': 2,
+          'url': 'https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type'
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .subscribedEvents('type').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid remove request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .subscribedEvents('type').remove();
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var subscriptionSid = 'DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var type = 'type';
+      var url = `https://events.twilio.com/v1/Subscriptions/${subscriptionSid}/SubscribedEvents/${type}`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid delete response',
+    function(done) {
+      var body = null;
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .subscribedEvents('type').remove();
+      promise.then(function(response) {
+        expect(response).toBe(true);
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
 });

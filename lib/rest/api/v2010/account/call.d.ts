@@ -188,6 +188,7 @@ interface CallListInstance {
  * @property asyncAmdStatusCallbackMethod - HTTP Method to use with async_amd_status_callback
  * @property byoc - BYOC trunk SID (Beta)
  * @property callReason - Reason for the call (Branded Calls Beta)
+ * @property callToken - A token string needed to invoke a forwarded call with a caller-id recieved on a previous incoming call
  * @property callerId - The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
  * @property fallbackMethod - HTTP Method to use with fallback_url
  * @property fallbackUrl - Fallback URL in case of error
@@ -210,6 +211,7 @@ interface CallListInstance {
  * @property statusCallback - The URL we should call to send status information to your application
  * @property statusCallbackEvent - The call progress events that we send to the `status_callback` URL.
  * @property statusCallbackMethod - HTTP Method to use with status_callback
+ * @property timeLimit - The maximum duration of the call in seconds.
  * @property timeout - Number of seconds to wait for an answer
  * @property to - Phone number, SIP address, or client identifier to call
  * @property trim - Set this parameter to control trimming of silence on the recording.
@@ -223,6 +225,7 @@ interface CallListInstanceCreateOptions {
   asyncAmdStatusCallbackMethod?: string;
   byoc?: string;
   callReason?: string;
+  callToken?: string;
   callerId?: string;
   fallbackMethod?: string;
   fallbackUrl?: string;
@@ -245,6 +248,7 @@ interface CallListInstanceCreateOptions {
   statusCallback?: string;
   statusCallbackEvent?: string | string[];
   statusCallbackMethod?: string;
+  timeLimit?: number;
   timeout?: number;
   to: string;
   trim?: string;

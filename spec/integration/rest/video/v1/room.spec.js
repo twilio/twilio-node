@@ -193,6 +193,47 @@ describe('Room', function() {
       }).done();
     }
   );
+  it('should generate valid create_group_rooms response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'status': 'in-progress',
+          'type': 'group',
+          'sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'enable_turn': true,
+          'unique_name': 'grouproom',
+          'max_participants': 50,
+          'max_concurrent_published_tracks': 10,
+          'duration': 0,
+          'status_callback_method': 'POST',
+          'status_callback': '',
+          'record_participants_on_connect': false,
+          'video_codecs': [
+              'VP8'
+          ],
+          'media_region': 'us1',
+          'end_time': '2015-07-30T20:00:00Z',
+          'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
+              'recordings': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings',
+              'recording_rules': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules'
+          }
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.video.v1.rooms.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should treat the first each arg as a callback',
     function(done) {
       var body = {

@@ -51,7 +51,9 @@ describe('ExportCustomJob', function() {
                   'end_day': 'end_day',
                   'webhook_url': 'webhook_url',
                   'email': 'email',
-                  'resource_type': 'resource_type'
+                  'resource_type': 'resource_type',
+                  'job_queue_position': '1',
+                  'estimated_completion_time': '2021-03-15T20:20:14.547'
               }
           ]
       };
@@ -82,7 +84,9 @@ describe('ExportCustomJob', function() {
                   'end_day': 'end_day',
                   'webhook_url': 'webhook_url',
                   'email': 'email',
-                  'resource_type': 'resource_type'
+                  'resource_type': 'resource_type',
+                  'job_queue_position': '1',
+                  'estimated_completion_time': '2021-03-15T20:20:14.547'
               }
           ]
       };
@@ -118,7 +122,9 @@ describe('ExportCustomJob', function() {
                   'end_day': 'end_day',
                   'webhook_url': 'webhook_url',
                   'email': 'email',
-                  'resource_type': 'resource_type'
+                  'resource_type': 'resource_type',
+                  'job_queue_position': '1',
+                  'estimated_completion_time': '2021-03-15T20:20:14.547'
               }
           ]
       };
@@ -198,7 +204,9 @@ describe('ExportCustomJob', function() {
                   'end_day': 'end_day',
                   'webhook_url': 'webhook_url',
                   'email': 'email',
-                  'resource_type': 'resource_type'
+                  'resource_type': 'resource_type',
+                  'job_queue_position': '1',
+                  'estimated_completion_time': '2021-03-15T20:20:14.547'
               }
           ]
       };
@@ -251,7 +259,9 @@ describe('ExportCustomJob', function() {
           'end_day': 'end_day',
           'webhook_url': 'webhook_url',
           'email': 'email',
-          'resource_type': 'resource_type'
+          'resource_type': 'resource_type',
+          'job_queue_position': '1',
+          'estimated_completion_time': '2021-03-15T20:20:14.547'
       };
 
       holodeck.mock(new Response(201, body));

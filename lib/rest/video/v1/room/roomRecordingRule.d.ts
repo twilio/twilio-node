@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the RecordingRulesList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param roomSid - The SID of the Room resource for the Recording Rules
  */
@@ -75,9 +72,6 @@ declare class RecordingRulesInstance extends SerializableClass {
   /**
    * Initialize the RecordingRulesContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param roomSid - The SID of the Room resource for the Recording Rules
@@ -98,9 +92,6 @@ declare class RecordingRulesInstance extends SerializableClass {
 declare class RecordingRulesPage extends Page<V1, RecordingRulesPayload, RecordingRulesResource, RecordingRulesInstance> {
   /**
    * Initialize the RecordingRulesPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

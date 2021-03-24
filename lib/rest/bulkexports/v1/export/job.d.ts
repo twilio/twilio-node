@@ -44,7 +44,9 @@ interface JobResource {
   details: object;
   email: string;
   end_day: string;
+  estimated_completion_time: string;
   friendly_name: string;
+  job_queue_position: string;
   job_sid: string;
   resource_type: string;
   start_day: string;
@@ -105,6 +107,7 @@ declare class JobInstance extends SerializableClass {
   details: any;
   email: string;
   endDay: string;
+  estimatedCompletionTime: string;
   /**
    * fetch a JobInstance
    *
@@ -112,6 +115,7 @@ declare class JobInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: JobInstance) => any): Promise<JobInstance>;
   friendlyName: string;
+  jobQueuePosition: string;
   jobSid: string;
   /**
    * remove a JobInstance

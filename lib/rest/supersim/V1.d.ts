@@ -17,6 +17,8 @@ import { NetworkList } from './v1/network';
 import { NetworkListInstance } from './v1/network';
 import { SimList } from './v1/sim';
 import { SimListInstance } from './v1/sim';
+import { SmsCommandList } from './v1/smsCommand';
+import { SmsCommandListInstance } from './v1/smsCommand';
 import { UsageRecordList } from './v1/usageRecord';
 import { UsageRecordListInstance } from './v1/usageRecord';
 
@@ -34,6 +36,7 @@ declare class V1 extends Version {
   readonly networkAccessProfiles: NetworkAccessProfileListInstance;
   readonly networks: NetworkListInstance;
   readonly sims: SimListInstance;
+  readonly smsCommands: SmsCommandListInstance;
   readonly usageRecords: UsageRecordListInstance;
 }
 

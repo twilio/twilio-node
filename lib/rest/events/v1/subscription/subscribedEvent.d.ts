@@ -21,7 +21,27 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SubscribedEventList(version: V1, subscriptionSid: string): SubscribedEventListInstance;
 
+/**
+ * Options to pass to update
+ *
+ * @property version - The schema version that the subscription should use.
+ */
+interface SubscribedEventInstanceUpdateOptions {
+  version?: number;
+}
+
 interface SubscribedEventListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  (sid: string): SubscribedEventContext;
+  /**
+   * create a SubscribedEventInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  create(opts: SubscribedEventListInstanceCreateOptions, callback?: (error: Error | null, item: SubscribedEventInstance) => any): Promise<SubscribedEventInstance>;
   /**
    * Streams SubscribedEventInstance records from the API.
    *
@@ -53,6 +73,12 @@ interface SubscribedEventListInstance {
    * @param callback - Function to process each record
    */
   each(opts?: SubscribedEventListInstanceEachOptions, callback?: (item: SubscribedEventInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Constructs a subscribed_event
+   *
+   * @param type - Type of event being subscribed to.
+   */
+  get(type: string): SubscribedEventContext;
   /**
    * Retrieve a single target page of SubscribedEventInstance records from the API.
    *
@@ -122,6 +148,17 @@ interface SubscribedEventListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property type - Type of event being subscribed to.
+ * @property version - The schema version that the subscription should use.
+ */
+interface SubscribedEventListInstanceCreateOptions {
+  type: string;
+  version?: number;
 }
 
 /**
@@ -197,6 +234,51 @@ interface SubscribedEventSolution {
 }
 
 
+declare class SubscribedEventContext {
+  /**
+   * Initialize the SubscribedEventContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param subscriptionSid - Subscription SID.
+   * @param type - Type of event being subscribed to.
+   */
+  constructor(version: V1, subscriptionSid: string, type: string);
+
+  /**
+   * fetch a SubscribedEventInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<SubscribedEventInstance>;
+  /**
+   * remove a SubscribedEventInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<boolean>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  /**
+   * update a SubscribedEventInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<SubscribedEventInstance>;
+  /**
+   * update a SubscribedEventInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SubscribedEventInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<SubscribedEventInstance>;
+}
+
+
 declare class SubscribedEventInstance extends SerializableClass {
   /**
    * Initialize the SubscribedEventContext
@@ -207,16 +289,43 @@ declare class SubscribedEventInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param subscriptionSid - Subscription SID.
+   * @param type - Type of event being subscribed to.
    */
-  constructor(version: V1, payload: SubscribedEventPayload, subscriptionSid: string);
+  constructor(version: V1, payload: SubscribedEventPayload, subscriptionSid: string, type: string);
 
+  private _proxy: SubscribedEventContext;
   accountSid: string;
+  /**
+   * fetch a SubscribedEventInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<SubscribedEventInstance>;
+  /**
+   * remove a SubscribedEventInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<boolean>;
   subscriptionSid: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   type: string;
+  /**
+   * update a SubscribedEventInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<SubscribedEventInstance>;
+  /**
+   * update a SubscribedEventInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SubscribedEventInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<SubscribedEventInstance>;
   url: string;
   version: number;
 }
@@ -247,4 +356,4 @@ declare class SubscribedEventPage extends Page<V1, SubscribedEventPayload, Subsc
   toJSON(): any;
 }
 
-export { SubscribedEventInstance, SubscribedEventList, SubscribedEventListInstance, SubscribedEventListInstanceEachOptions, SubscribedEventListInstanceOptions, SubscribedEventListInstancePageOptions, SubscribedEventPage, SubscribedEventPayload, SubscribedEventResource, SubscribedEventSolution }
+export { SubscribedEventContext, SubscribedEventInstance, SubscribedEventInstanceUpdateOptions, SubscribedEventList, SubscribedEventListInstance, SubscribedEventListInstanceCreateOptions, SubscribedEventListInstanceEachOptions, SubscribedEventListInstanceOptions, SubscribedEventListInstancePageOptions, SubscribedEventPage, SubscribedEventPayload, SubscribedEventResource, SubscribedEventSolution }
