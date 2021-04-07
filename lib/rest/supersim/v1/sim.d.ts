@@ -49,6 +49,13 @@ interface SimListInstance {
    */
   (sid: string): SimContext;
   /**
+   * create a SimInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  create(opts: SimListInstanceCreateOptions, callback?: (error: Error | null, item: SimInstance) => any): Promise<SimInstance>;
+  /**
    * Streams SimInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -154,6 +161,17 @@ interface SimListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property iccid - The {@link https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID|ICCID} of the Super SIM to be added to your Account
+ * @property registrationCode - The 10 digit code required to claim the Super SIM for your Account
+ */
+interface SimListInstanceCreateOptions {
+  iccid: string;
+  registrationCode: string;
 }
 
 /**
@@ -362,4 +380,4 @@ declare class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
   toJSON(): any;
 }
 
-export { SimContext, SimInstance, SimInstanceUpdateOptions, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution, SimStatus, SimStatusUpdate }
+export { SimContext, SimInstance, SimInstanceUpdateOptions, SimList, SimListInstance, SimListInstanceCreateOptions, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution, SimStatus, SimStatusUpdate }

@@ -12,6 +12,8 @@ import { ChallengeList } from './entity/challenge';
 import { ChallengeListInstance } from './entity/challenge';
 import { FactorList } from './entity/factor';
 import { FactorListInstance } from './entity/factor';
+import { NewFactorList } from './entity/newFactor';
+import { NewFactorListInstance } from './entity/newFactor';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -251,6 +253,7 @@ declare class EntityContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
+  newFactors: NewFactorListInstance;
   /**
    * remove a EntityInstance
    *
@@ -298,6 +301,10 @@ declare class EntityInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: EntityInstance) => any): Promise<EntityInstance>;
   identity: string;
   links: string;
+  /**
+   * Access the newFactors
+   */
+  newFactors(): NewFactorListInstance;
   /**
    * remove a EntityInstance
    *

@@ -29,6 +29,55 @@ describe('Sim', function() {
       httpClient: holodeck
     });
   });
+  it('should generate valid create request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var opts = {iccid: 'iccid', registrationCode: 'registration_code'};
+      var promise = client.supersim.v1.sims.create(opts);
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var url = 'https://supersim.twilio.com/v1/Sims';
+
+      var values = {Iccid: 'iccid', RegistrationCode: 'registration_code', };
+      holodeck.assertHasRequest(new Request({
+          method: 'POST',
+          url: url,
+          data: values
+      }));
+    }
+  );
+  it('should generate valid create response',
+    function(done) {
+      var body = {
+          'sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'unique_name': 'MySIM',
+          'status': 'new',
+          'fleet_sid': null,
+          'iccid': 'iccid',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {iccid: 'iccid', registrationCode: 'registration_code'};
+      var promise = client.supersim.v1.sims.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid fetch request',
     function(done) {
       holodeck.mock(new Response(500, {}));
