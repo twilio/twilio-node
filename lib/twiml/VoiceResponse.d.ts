@@ -193,7 +193,7 @@ declare namespace VoiceResponse {
 
   type ConferenceBeep = 'true'|'false'|'onEnter'|'onExit';
 
-  type ConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
+  type ConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker'|'announcement';
 
   type ConferenceJitterBufferSize = 'large'|'medium'|'small'|'off';
 

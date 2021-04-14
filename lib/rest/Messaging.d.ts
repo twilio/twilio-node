@@ -10,7 +10,9 @@ import Twilio = require('./Twilio');
 import V1 = require('./messaging/V1');
 import { BrandRegistrationListInstance } from './messaging/v1/brandRegistration';
 import { DeactivationsListInstance } from './messaging/v1/deactivation';
+import { ExternalCampaignListInstance } from './messaging/v1/externalCampaign';
 import { ServiceListInstance } from './messaging/v1/service';
+import { UsecaseListInstance } from './messaging/v1/usecase';
 
 
 declare class Messaging extends Domain {
@@ -23,7 +25,9 @@ declare class Messaging extends Domain {
 
   readonly brandRegistrations: BrandRegistrationListInstance;
   readonly deactivations: DeactivationsListInstance;
+  readonly externalCampaign: ExternalCampaignListInstance;
   readonly services: ServiceListInstance;
+  readonly usecases: UsecaseListInstance;
   readonly v1: V1;
 }
 

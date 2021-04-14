@@ -61,13 +61,6 @@ interface FactorListInstance {
    */
   (sid: string): FactorContext;
   /**
-   * create a FactorInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: FactorListInstanceCreateOptions, callback?: (error: Error | null, item: FactorInstance) => any): Promise<FactorInstance>;
-  /**
    * Streams FactorInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
@@ -173,43 +166,6 @@ interface FactorListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-}
-
-/**
- * Options to pass to create
- *
- * @property binding.alg - The algorithm used when `factor_type` is `push`
- * @property binding.publicKey - The public key encoded in Base64
- * @property binding.secret - The shared secret in Base32
- * @property config.alg - The algorithm used to derive the TOTP codes
- * @property config.appId - The ID that uniquely identifies your app in the Google or Apple store
- * @property config.codeLength - Number of digits for generated TOTP codes
- * @property config.notificationPlatform - The transport technology used to generate the Notification Token
- * @property config.notificationToken - For APN, the device token. For FCM the registration token
- * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
- * @property config.skew - The number of past and future time-steps valid at a given time
- * @property config.timeStep - How often, in seconds, are TOTP codes generated
- * @property factorType - The Type of this Factor
- * @property friendlyName - The friendly name of this Factor
- */
-interface FactorListInstanceCreateOptions {
-  binding?: {
-    alg?: string;
-    publicKey?: string;
-    secret?: string;
-  };
-  config?: {
-    appId?: string;
-    notificationPlatform?: FactorNotificationPlatforms;
-    notificationToken?: string;
-    sdkVersion?: string;
-    timeStep?: number;
-    skew?: number;
-    codeLength?: number;
-    alg?: FactorTotpAlgorithms;
-  };
-  factorType: FactorFactorTypes;
-  friendlyName: string;
 }
 
 /**
@@ -424,4 +380,4 @@ declare class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorI
   toJSON(): any;
 }
 
-export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceCreateOptions, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorNotificationPlatforms, FactorPage, FactorPayload, FactorResource, FactorSolution, FactorTotpAlgorithms }
+export { FactorContext, FactorFactorStatuses, FactorFactorTypes, FactorInstance, FactorInstanceUpdateOptions, FactorList, FactorListInstance, FactorListInstanceEachOptions, FactorListInstanceOptions, FactorListInstancePageOptions, FactorNotificationPlatforms, FactorPage, FactorPayload, FactorResource, FactorSolution, FactorTotpAlgorithms }

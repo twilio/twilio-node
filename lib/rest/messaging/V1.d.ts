@@ -11,8 +11,12 @@ import { BrandRegistrationList } from './v1/brandRegistration';
 import { BrandRegistrationListInstance } from './v1/brandRegistration';
 import { DeactivationsList } from './v1/deactivation';
 import { DeactivationsListInstance } from './v1/deactivation';
+import { ExternalCampaignList } from './v1/externalCampaign';
+import { ExternalCampaignListInstance } from './v1/externalCampaign';
 import { ServiceList } from './v1/service';
 import { ServiceListInstance } from './v1/service';
+import { UsecaseList } from './v1/usecase';
+import { UsecaseListInstance } from './v1/usecase';
 
 
 declare class V1 extends Version {
@@ -25,7 +29,9 @@ declare class V1 extends Version {
 
   readonly brandRegistrations: BrandRegistrationListInstance;
   readonly deactivations: DeactivationsListInstance;
+  readonly externalCampaign: ExternalCampaignListInstance;
   readonly services: ServiceListInstance;
+  readonly usecases: UsecaseListInstance;
 }
 
 export = V1;

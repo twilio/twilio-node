@@ -8,6 +8,7 @@ import TwilioClient = require('./lib/rest/Twilio');
 import AccessToken = require('./lib/jwt/AccessToken');
 import ClientCapability = require('./lib/jwt/ClientCapability');
 import TaskRouterCapability = require('./lib/jwt/taskrouter/TaskRouterCapability');
+import RequestClient = require('./lib/base/RequestClient');
 
 interface TwimlConstructor<T> {
   new (): T;
@@ -36,6 +37,7 @@ declare namespace twilio {
   }
   export const jwt: JwtInterface;
   export const twiml: TwimlInterface;
+  export const RequestClient: RequestClient;
   export const validateRequest: typeof webhookTools.validateRequest;
   export const validateRequestWithBody: typeof webhookTools.validateRequestWithBody;
   export const validateExpressRequest: typeof webhookTools.validateExpressRequest;

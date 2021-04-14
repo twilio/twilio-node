@@ -15,6 +15,10 @@ import { PhoneNumberListInstance } from './service/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
 import { ShortCodeList } from './service/shortCode';
 import { ShortCodeListInstance } from './service/shortCode';
+import { UsAppToPersonList } from './service/usAppToPerson';
+import { UsAppToPersonListInstance } from './service/usAppToPerson';
+import { UsAppToPersonUsecaseList } from './service/usAppToPersonUsecase';
+import { UsAppToPersonUsecaseListInstance } from './service/usAppToPersonUsecase';
 
 type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
 
@@ -349,6 +353,8 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  usAppToPerson: UsAppToPersonListInstance;
+  usAppToPersonUsecases: UsAppToPersonUsecaseListInstance;
 }
 
 
@@ -426,6 +432,14 @@ declare class ServiceInstance extends SerializableClass {
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   url: string;
+  /**
+   * Access the usAppToPerson
+   */
+  usAppToPerson(): UsAppToPersonListInstance;
+  /**
+   * Access the usAppToPersonUsecases
+   */
+  usAppToPersonUsecases(): UsAppToPersonUsecaseListInstance;
   validityPeriod: number;
 }
 
