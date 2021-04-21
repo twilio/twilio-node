@@ -8,6 +8,8 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2 = require('../../../V2');
+import { NotificationList } from './challenge/notification';
+import { NotificationListInstance } from './challenge/notification';
 import { SerializableClass } from '../../../../../interfaces';
 
 type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
@@ -160,6 +162,7 @@ interface ChallengeListInstance {
 /**
  * Options to pass to create
  *
+ * @property authPayload - Optional payload to verify the Challenge
  * @property details.fields - A list of objects that describe the Fields included in the Challenge
  * @property details.message - Shown to the user when the push notification arrives
  * @property expirationDate - The date-time when this Challenge expires
@@ -167,6 +170,7 @@ interface ChallengeListInstance {
  * @property hiddenDetails - Hidden details provided to contextualize the Challenge
  */
 interface ChallengeListInstanceCreateOptions {
+  authPayload?: string;
   details?: {
     message?: string;
     fields?: object | object[];
@@ -260,6 +264,7 @@ interface ChallengeResource {
   factor_type: ChallengeFactorTypes;
   hidden_details: object;
   identity: string;
+  links: string;
   responded_reason: ChallengeChallengeReasons;
   service_sid: string;
   sid: string;
@@ -293,6 +298,7 @@ declare class ChallengeContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
+  notifications: NotificationListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -346,6 +352,11 @@ declare class ChallengeInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): Promise<ChallengeInstance>;
   hiddenDetails: any;
   identity: string;
+  links: string;
+  /**
+   * Access the notifications
+   */
+  notifications(): NotificationListInstance;
   respondedReason: ChallengeChallengeReasons;
   serviceSid: string;
   sid: string;

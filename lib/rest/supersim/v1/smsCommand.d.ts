@@ -177,7 +177,7 @@ interface SmsCommandListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property sim - The SID or unique name of the Sim that SMS Command was sent to or from.
+ * @property sim - The SID or unique name of the Sim resource that SMS Command was sent to or from.
  * @property status - The status of the SMS Command
  */
 interface SmsCommandListInstanceEachOptions {
@@ -204,7 +204,7 @@ interface SmsCommandListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property sim - The SID or unique name of the Sim that SMS Command was sent to or from.
+ * @property sim - The SID or unique name of the Sim resource that SMS Command was sent to or from.
  * @property status - The status of the SMS Command
  */
 interface SmsCommandListInstanceOptions {
@@ -222,7 +222,7 @@ interface SmsCommandListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property sim - The SID or unique name of the Sim that SMS Command was sent to or from.
+ * @property sim - The SID or unique name of the Sim resource that SMS Command was sent to or from.
  * @property status - The status of the SMS Command
  */
 interface SmsCommandListInstancePageOptions {

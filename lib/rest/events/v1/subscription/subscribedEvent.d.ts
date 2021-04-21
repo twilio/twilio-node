@@ -24,10 +24,10 @@ declare function SubscribedEventList(version: V1, subscriptionSid: string): Subs
 /**
  * Options to pass to update
  *
- * @property version - The schema version that the subscription should use.
+ * @property schemaVersion - The schema version that the subscription should use.
  */
 interface SubscribedEventInstanceUpdateOptions {
-  version?: number;
+  schemaVersion?: number;
 }
 
 interface SubscribedEventListInstance {
@@ -153,12 +153,12 @@ interface SubscribedEventListInstance {
 /**
  * Options to pass to create
  *
+ * @property schemaVersion - The schema version that the subscription should use.
  * @property type - Type of event being subscribed to.
- * @property version - The schema version that the subscription should use.
  */
 interface SubscribedEventListInstanceCreateOptions {
+  schemaVersion?: number;
   type: string;
-  version?: number;
 }
 
 /**
@@ -223,10 +223,10 @@ interface SubscribedEventPayload extends SubscribedEventResource, Page.TwilioRes
 
 interface SubscribedEventResource {
   account_sid: string;
+  schema_version: number;
   subscription_sid: string;
   type: string;
   url: string;
-  version: number;
 }
 
 interface SubscribedEventSolution {
@@ -307,6 +307,7 @@ declare class SubscribedEventInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<boolean>;
+  schemaVersion: number;
   subscriptionSid: string;
   /**
    * Provide a user-friendly representation
@@ -327,7 +328,6 @@ declare class SubscribedEventInstance extends SerializableClass {
    */
   update(opts?: SubscribedEventInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedEventInstance) => any): Promise<SubscribedEventInstance>;
   url: string;
-  version: number;
 }
 
 

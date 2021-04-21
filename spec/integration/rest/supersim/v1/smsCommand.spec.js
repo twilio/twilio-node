@@ -154,13 +154,13 @@ describe('SmsCommand', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sms_commands',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           },
           'sms_commands': [
               {
@@ -168,7 +168,7 @@ describe('SmsCommand', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'payload': 'content of the command',
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'queued',
+                  'status': 'received',
                   'direction': 'from_sim',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -184,13 +184,13 @@ describe('SmsCommand', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sms_commands',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           },
           'sms_commands': [
               {
@@ -198,7 +198,7 @@ describe('SmsCommand', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'payload': 'content of the command',
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'queued',
+                  'status': 'received',
                   'direction': 'from_sim',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -219,13 +219,13 @@ describe('SmsCommand', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sms_commands',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           },
           'sms_commands': [
               {
@@ -233,7 +233,7 @@ describe('SmsCommand', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'payload': 'content of the command',
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'queued',
+                  'status': 'received',
                   'direction': 'from_sim',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
@@ -270,13 +270,13 @@ describe('SmsCommand', function() {
       var body = {
           'sms_commands': [],
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sms_commands',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           }
       };
 
@@ -295,13 +295,13 @@ describe('SmsCommand', function() {
     function(done) {
       var body = {
           'meta': {
-              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
+              'first_page_url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0',
               'key': 'sms_commands',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=queued&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
+              'url': 'https://supersim.twilio.com/v1/SmsCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0'
           },
           'sms_commands': [
               {
@@ -309,7 +309,7 @@ describe('SmsCommand', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'payload': 'content of the command',
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'queued',
+                  'status': 'received',
                   'direction': 'from_sim',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',

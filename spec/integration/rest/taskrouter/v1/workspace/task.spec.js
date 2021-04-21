@@ -168,8 +168,9 @@ describe('Task', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                        .tasks('WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                        .tasks('WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -181,9 +182,11 @@ describe('Task', function() {
       var sid = 'WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Tasks/${sid}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

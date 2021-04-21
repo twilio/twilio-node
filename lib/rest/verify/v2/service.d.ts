@@ -45,6 +45,10 @@ declare function ServiceList(version: V2): ServiceListInstance;
  * @property push.fcmCredentialSid - Optional. Set FCM Credential for this service.
  * @property push.includeDate - Optional. Include the date in the Challenge's reponse. Default: true
  * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
+ * @property totp.codeLength - Optional. Number of digits for generated TOTP codes
+ * @property totp.issuer - Optional. Set TOTP Issuer for this service.
+ * @property totp.skew - Optional. The number of past and future time-steps valid at a given time
+ * @property totp.timeStep - Optional. How often, in seconds, are TOTP codes generated
  * @property ttsName - The name of an alternative text-to-speech service to use in phone calls
  */
 interface ServiceInstanceUpdateOptions {
@@ -61,6 +65,12 @@ interface ServiceInstanceUpdateOptions {
     fcmCredentialSid?: string;
   };
   skipSmsToLandlines?: boolean;
+  totp?: {
+    issuer?: string;
+    timeStep?: number;
+    codeLength?: number;
+    skew?: number;
+  };
   ttsName?: string;
 }
 
@@ -198,6 +208,10 @@ interface ServiceListInstance {
  * @property push.fcmCredentialSid - Optional. Set FCM Credential for this service.
  * @property push.includeDate - Optional. Include the date in the Challenge's reponse. Default: true
  * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
+ * @property totp.codeLength - Optional. Number of digits for generated TOTP codes
+ * @property totp.issuer - Optional. Set TOTP Issuer for this service.
+ * @property totp.skew - Optional. The number of past and future time-steps valid at a given time
+ * @property totp.timeStep - Optional. How often, in seconds, are TOTP codes generated
  * @property ttsName - The name of an alternative text-to-speech service to use in phone calls
  */
 interface ServiceListInstanceCreateOptions {
@@ -214,6 +228,12 @@ interface ServiceListInstanceCreateOptions {
     fcmCredentialSid?: string;
   };
   skipSmsToLandlines?: boolean;
+  totp?: {
+    issuer?: string;
+    timeStep?: number;
+    codeLength?: number;
+    skew?: number;
+  };
   ttsName?: string;
 }
 
@@ -292,6 +312,7 @@ interface ServiceResource {
   push: object;
   sid: string;
   skip_sms_to_landlines: boolean;
+  totp: object;
   tts_name: string;
   url: string;
 }
@@ -405,6 +426,7 @@ declare class ServiceInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  totp: any;
   ttsName: string;
   /**
    * update a ServiceInstance

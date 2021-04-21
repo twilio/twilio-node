@@ -10,6 +10,8 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
+type ExportCustomJobStatus = 'ErrorDuringRun'|'Submitted'|'Running'|'CompletedEmptyRecords'|'Completed'|'Failed'|'RunningToBeDeleted'|'DeletedByUserRequest';
+
 /**
  * Initialize the ExportCustomJobList
  *
@@ -285,4 +287,4 @@ declare class ExportCustomJobPage extends Page<V1, ExportCustomJobPayload, Expor
   toJSON(): any;
 }
 
-export { ExportCustomJobInstance, ExportCustomJobList, ExportCustomJobListInstance, ExportCustomJobListInstanceCreateOptions, ExportCustomJobListInstanceEachOptions, ExportCustomJobListInstanceOptions, ExportCustomJobListInstancePageOptions, ExportCustomJobPage, ExportCustomJobPayload, ExportCustomJobResource, ExportCustomJobSolution }
+export { ExportCustomJobInstance, ExportCustomJobList, ExportCustomJobListInstance, ExportCustomJobListInstanceCreateOptions, ExportCustomJobListInstanceEachOptions, ExportCustomJobListInstanceOptions, ExportCustomJobListInstancePageOptions, ExportCustomJobPage, ExportCustomJobPayload, ExportCustomJobResource, ExportCustomJobSolution, ExportCustomJobStatus }

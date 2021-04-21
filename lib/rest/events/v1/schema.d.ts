@@ -8,9 +8,9 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import { SchemaVersionList } from './schema/version';
+import { SchemaVersionListInstance } from './schema/version';
 import { SerializableClass } from '../../../interfaces';
-import { VersionList } from './schema/schemaVersion';
-import { VersionListInstance } from './schema/schemaVersion';
 
 /**
  * Initialize the SchemaList
@@ -44,8 +44,8 @@ interface SchemaPayload extends SchemaResource, Page.TwilioResponsePayload {
 
 interface SchemaResource {
   id: string;
-  last_created: Date;
-  last_version: number;
+  latest_version: number;
+  latest_version_date_created: Date;
   links: string;
   url: string;
 }
@@ -76,7 +76,7 @@ declare class SchemaContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  versions: VersionListInstance;
+  versions: SchemaVersionListInstance;
 }
 
 
@@ -101,8 +101,8 @@ declare class SchemaInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: SchemaInstance) => any): Promise<SchemaInstance>;
   id: string;
-  lastCreated: Date;
-  lastVersion: number;
+  latestVersion: number;
+  latestVersionDateCreated: Date;
   links: string;
   /**
    * Provide a user-friendly representation
@@ -112,7 +112,7 @@ declare class SchemaInstance extends SerializableClass {
   /**
    * Access the versions
    */
-  versions(): VersionListInstance;
+  versions(): SchemaVersionListInstance;
 }
 
 

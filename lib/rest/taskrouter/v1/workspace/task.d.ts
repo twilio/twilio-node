@@ -23,6 +23,15 @@ type TaskStatus = 'pending'|'reserved'|'assigned'|'canceled'|'completed'|'wrappi
 declare function TaskList(version: V1, workspaceSid: string): TaskListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property ifMatch - The If-Match HTTP request header
+ */
+interface TaskInstanceRemoveOptions {
+  ifMatch?: string;
+}
+
+/**
  * Options to pass to update
  *
  * @property assignmentStatus - The new status of the task
@@ -349,6 +358,13 @@ declare class TaskContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TaskInstance) => any): Promise<boolean>;
+  /**
+   * remove a TaskInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  remove(opts?: TaskInstanceRemoveOptions, callback?: (error: Error | null, items: TaskInstance) => any): Promise<boolean>;
   reservations: ReservationListInstance;
   /**
    * Provide a user-friendly representation
@@ -404,6 +420,13 @@ declare class TaskInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TaskInstance) => any): Promise<boolean>;
+  /**
+   * remove a TaskInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  remove(opts?: TaskInstanceRemoveOptions, callback?: (error: Error | null, items: TaskInstance) => any): Promise<boolean>;
   /**
    * Access the reservations
    */
@@ -461,4 +484,4 @@ declare class TaskPage extends Page<V1, TaskPayload, TaskResource, TaskInstance>
   toJSON(): any;
 }
 
-export { TaskContext, TaskInstance, TaskInstanceUpdateOptions, TaskList, TaskListInstance, TaskListInstanceCreateOptions, TaskListInstanceEachOptions, TaskListInstanceOptions, TaskListInstancePageOptions, TaskPage, TaskPayload, TaskResource, TaskSolution, TaskStatus }
+export { TaskContext, TaskInstance, TaskInstanceRemoveOptions, TaskInstanceUpdateOptions, TaskList, TaskListInstance, TaskListInstanceCreateOptions, TaskListInstanceEachOptions, TaskListInstanceOptions, TaskListInstancePageOptions, TaskPage, TaskPayload, TaskResource, TaskSolution, TaskStatus }

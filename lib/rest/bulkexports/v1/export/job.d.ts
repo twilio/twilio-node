@@ -10,6 +10,8 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
+type JobStatus = 'ErrorDuringRun'|'Submitted'|'Running'|'CompletedEmptyRecords'|'Completed'|'Failed'|'RunningToBeDeleted'|'DeletedByUserRequest';
+
 /**
  * Initialize the JobList
  *
@@ -160,4 +162,4 @@ declare class JobPage extends Page<V1, JobPayload, JobResource, JobInstance> {
   toJSON(): any;
 }
 
-export { JobContext, JobInstance, JobList, JobListInstance, JobPage, JobPayload, JobResource, JobSolution }
+export { JobContext, JobInstance, JobList, JobListInstance, JobPage, JobPayload, JobResource, JobSolution, JobStatus }

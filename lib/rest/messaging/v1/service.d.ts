@@ -38,16 +38,17 @@ declare function ServiceList(version: V1): ServiceListInstance;
  * @property areaCodeGeomatch - Whether to enable Area Code Geomatch on the Service Instance
  * @property fallbackMethod - The HTTP method we should use to call fallback_url
  * @property fallbackToLongCode - Whether to enable Fallback to Long Code for messages sent through the Service instance
- * @property fallbackUrl - The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+ * @property fallbackUrl - The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
  * @property friendlyName - A string to describe the resource
  * @property inboundMethod - The HTTP method we should use to call inbound_request_url
- * @property inboundRequestUrl - The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+ * @property inboundRequestUrl - The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
  * @property mmsConverter - Whether to enable the MMS Converter for messages sent through the Service instance
  * @property scanMessageContent - Reserved
  * @property smartEncoding - Whether to enable Encoding for messages sent through the Service instance
  * @property statusCallback - The URL we should call to pass status updates about message delivery
  * @property stickySender - Whether to enable Sticky Sender on the Service instance
  * @property synchronousValidation - Reserved
+ * @property useInboundWebhookOnNumber - If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
  * @property validityPeriod - How long, in seconds, messages sent from the Service are valid
  */
 interface ServiceInstanceUpdateOptions {
@@ -64,6 +65,7 @@ interface ServiceInstanceUpdateOptions {
   statusCallback?: string;
   stickySender?: boolean;
   synchronousValidation?: boolean;
+  useInboundWebhookOnNumber?: boolean;
   validityPeriod?: number;
 }
 
@@ -193,16 +195,17 @@ interface ServiceListInstance {
  * @property areaCodeGeomatch - Whether to enable Area Code Geomatch on the Service Instance
  * @property fallbackMethod - The HTTP method we should use to call fallback_url
  * @property fallbackToLongCode - Whether to enable Fallback to Long Code for messages sent through the Service instance
- * @property fallbackUrl - The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+ * @property fallbackUrl - The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
  * @property friendlyName - A string to describe the resource
  * @property inboundMethod - The HTTP method we should use to call inbound_request_url
- * @property inboundRequestUrl - The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+ * @property inboundRequestUrl - The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
  * @property mmsConverter - Whether to enable the MMS Converter for messages sent through the Service instance
  * @property scanMessageContent - Reserved
  * @property smartEncoding - Whether to enable Encoding for messages sent through the Service instance
  * @property statusCallback - The URL we should call to pass status updates about message delivery
  * @property stickySender - Whether to enable Sticky Sender on the Service instance
  * @property synchronousValidation - Reserved
+ * @property useInboundWebhookOnNumber - If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
  * @property validityPeriod - How long, in seconds, messages sent from the Service are valid
  */
 interface ServiceListInstanceCreateOptions {
@@ -219,6 +222,7 @@ interface ServiceListInstanceCreateOptions {
   statusCallback?: string;
   stickySender?: boolean;
   synchronousValidation?: boolean;
+  useInboundWebhookOnNumber?: boolean;
   validityPeriod?: number;
 }
 
@@ -302,6 +306,7 @@ interface ServiceResource {
   sticky_sender: boolean;
   synchronous_validation: boolean;
   url: string;
+  use_inbound_webhook_on_number: boolean;
   validity_period: number;
 }
 
@@ -440,6 +445,7 @@ declare class ServiceInstance extends SerializableClass {
    * Access the usAppToPersonUsecases
    */
   usAppToPersonUsecases(): UsAppToPersonUsecaseListInstance;
+  useInboundWebhookOnNumber: boolean;
   validityPeriod: number;
 }
 

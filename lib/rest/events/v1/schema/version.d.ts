@@ -11,7 +11,7 @@ import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
- * Initialize the VersionList
+ * Initialize the SchemaVersionList
  *
  * PLEASE NOTE that this class contains beta products that are subject to change.
  * Use them with caution.
@@ -19,15 +19,15 @@ import { SerializableClass } from '../../../../interfaces';
  * @param version - Version of the resource
  * @param id - The unique identifier of the schema.
  */
-declare function VersionList(version: V1, id: string): VersionListInstance;
+declare function SchemaVersionList(version: V1, id: string): SchemaVersionListInstance;
 
-interface VersionListInstance {
+interface SchemaVersionListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): VersionContext;
+  (sid: string): SchemaVersionContext;
   /**
-   * Streams VersionInstance records from the API.
+   * Streams SchemaVersionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -40,9 +40,9 @@ interface VersionListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: VersionInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: SchemaVersionInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams VersionInstance records from the API.
+   * Streams SchemaVersionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -56,15 +56,15 @@ interface VersionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: VersionListInstanceEachOptions, callback?: (item: VersionInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: SchemaVersionListInstanceEachOptions, callback?: (item: SchemaVersionInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a version
+   * Constructs a schema_version
    *
    * @param schemaVersion - The version of the schema
    */
-  get(schemaVersion: string): VersionContext;
+  get(schemaVersion: string): SchemaVersionContext;
   /**
-   * Retrieve a single target page of VersionInstance records from the API.
+   * Retrieve a single target page of SchemaVersionInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -73,9 +73,9 @@ interface VersionListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: VersionPage) => any): Promise<VersionPage>;
+  getPage(callback?: (error: Error | null, items: SchemaVersionPage) => any): Promise<SchemaVersionPage>;
   /**
-   * Retrieve a single target page of VersionInstance records from the API.
+   * Retrieve a single target page of SchemaVersionInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -85,18 +85,18 @@ interface VersionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: VersionPage) => any): Promise<VersionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SchemaVersionPage) => any): Promise<SchemaVersionPage>;
   /**
-   * Lists VersionInstance records from the API as a list.
+   * Lists SchemaVersionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: VersionInstance[]) => any): Promise<VersionInstance[]>;
+  list(callback?: (error: Error | null, items: SchemaVersionInstance[]) => any): Promise<SchemaVersionInstance[]>;
   /**
-   * Lists VersionInstance records from the API as a list.
+   * Lists SchemaVersionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -104,9 +104,9 @@ interface VersionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: VersionListInstanceOptions, callback?: (error: Error | null, items: VersionInstance[]) => any): Promise<VersionInstance[]>;
+  list(opts?: SchemaVersionListInstanceOptions, callback?: (error: Error | null, items: SchemaVersionInstance[]) => any): Promise<SchemaVersionInstance[]>;
   /**
-   * Retrieve a single page of VersionInstance records from the API.
+   * Retrieve a single page of SchemaVersionInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -115,9 +115,9 @@ interface VersionListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: VersionPage) => any): Promise<VersionPage>;
+  page(callback?: (error: Error | null, items: SchemaVersionPage) => any): Promise<SchemaVersionPage>;
   /**
-   * Retrieve a single page of VersionInstance records from the API.
+   * Retrieve a single page of SchemaVersionInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -127,7 +127,7 @@ interface VersionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: VersionListInstancePageOptions, callback?: (error: Error | null, items: VersionPage) => any): Promise<VersionPage>;
+  page(opts?: SchemaVersionListInstancePageOptions, callback?: (error: Error | null, items: SchemaVersionPage) => any): Promise<SchemaVersionPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -152,8 +152,8 @@ interface VersionListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface VersionListInstanceEachOptions {
-  callback?: (item: VersionInstance, done: (err?: Error) => void) => void;
+interface SchemaVersionListInstanceEachOptions {
+  callback?: (item: SchemaVersionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -173,7 +173,7 @@ interface VersionListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface VersionListInstanceOptions {
+interface SchemaVersionListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -185,16 +185,16 @@ interface VersionListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface VersionListInstancePageOptions {
+interface SchemaVersionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface VersionPayload extends VersionResource, Page.TwilioResponsePayload {
+interface SchemaVersionPayload extends SchemaVersionResource, Page.TwilioResponsePayload {
 }
 
-interface VersionResource {
+interface SchemaVersionResource {
   date_created: Date;
   id: string;
   raw: string;
@@ -202,14 +202,14 @@ interface VersionResource {
   url: string;
 }
 
-interface VersionSolution {
+interface SchemaVersionSolution {
   id?: string;
 }
 
 
-declare class VersionContext {
+declare class SchemaVersionContext {
   /**
-   * Initialize the VersionContext
+   * Initialize the SchemaVersionContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
@@ -221,11 +221,11 @@ declare class VersionContext {
   constructor(version: V1, id: string, schemaVersion: number);
 
   /**
-   * fetch a VersionInstance
+   * fetch a SchemaVersionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: VersionInstance) => any): Promise<VersionInstance>;
+  fetch(callback?: (error: Error | null, items: SchemaVersionInstance) => any): Promise<SchemaVersionInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -233,9 +233,9 @@ declare class VersionContext {
 }
 
 
-declare class VersionInstance extends SerializableClass {
+declare class SchemaVersionInstance extends SerializableClass {
   /**
-   * Initialize the VersionContext
+   * Initialize the SchemaVersionContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
@@ -245,16 +245,16 @@ declare class VersionInstance extends SerializableClass {
    * @param id - The unique identifier of the schema.
    * @param schemaVersion - The version of the schema
    */
-  constructor(version: V1, payload: VersionPayload, id: string, schemaVersion: number);
+  constructor(version: V1, payload: SchemaVersionPayload, id: string, schemaVersion: number);
 
-  private _proxy: VersionContext;
+  private _proxy: SchemaVersionContext;
   dateCreated: Date;
   /**
-   * fetch a VersionInstance
+   * fetch a SchemaVersionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: VersionInstance) => any): Promise<VersionInstance>;
+  fetch(callback?: (error: Error | null, items: SchemaVersionInstance) => any): Promise<SchemaVersionInstance>;
   id: string;
   raw: string;
   schemaVersion: number;
@@ -266,9 +266,9 @@ declare class VersionInstance extends SerializableClass {
 }
 
 
-declare class VersionPage extends Page<V1, VersionPayload, VersionResource, VersionInstance> {
+declare class SchemaVersionPage extends Page<V1, SchemaVersionPayload, SchemaVersionResource, SchemaVersionInstance> {
   /**
-   * Initialize the VersionPage
+   * Initialize the SchemaVersionPage
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
@@ -277,18 +277,18 @@ declare class VersionPage extends Page<V1, VersionPayload, VersionResource, Vers
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: VersionSolution);
+  constructor(version: V1, response: Response<string>, solution: SchemaVersionSolution);
 
   /**
-   * Build an instance of VersionInstance
+   * Build an instance of SchemaVersionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: VersionPayload): VersionInstance;
+  getInstance(payload: SchemaVersionPayload): SchemaVersionInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { VersionContext, VersionInstance, VersionList, VersionListInstance, VersionListInstanceEachOptions, VersionListInstanceOptions, VersionListInstancePageOptions, VersionPage, VersionPayload, VersionResource, VersionSolution }
+export { SchemaVersionContext, SchemaVersionInstance, SchemaVersionList, SchemaVersionListInstance, SchemaVersionListInstanceEachOptions, SchemaVersionListInstanceOptions, SchemaVersionListInstancePageOptions, SchemaVersionPage, SchemaVersionPayload, SchemaVersionResource, SchemaVersionSolution }
