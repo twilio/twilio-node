@@ -1,28 +1,26 @@
 language: node_js
 node_js:
-  - "node"
-  - "lts/*"
-  - "10"
-  - "8"
-  - "6"
+- node
+- lts/*
+- '10'
+- '8'
+- '6'
 services:
-  - docker
+- docker
 script: npm run ci
-
 deploy:
-  - provider: script
-    script: make docker-build && make docker-push
-    skip_cleanup: true
-    on:
-      tags: true
-      node: "8"
-  - provider: npm
-    email: team_interfaces@twilio.com
-    api_key: $NPM_TOKEN
-    on:
-      tags: true
-      node: "8"
-
+- provider: script
+  script: make docker-build && make docker-push
+  skip_cleanup: true
+  on:
+    tags: true
+    node: '8'
+- provider: npm
+  email: team_interfaces@twilio.com
+  api_key: "$NPM_TOKEN"
+  on:
+    tags: true
+    node: '8'
 notifications:
   slack:
     if: branch = main
@@ -30,4 +28,4 @@ notifications:
     on_success: never
     on_failure: change
     rooms:
-      - secure: Y6eefesugmhL9jLjlyMggLaOty5vvtFT7vzxj9AG2kRZs2zc8ZwKOLED9F5ceC6gObYJut5Qsns8tPXZmF9lJpLTeBmGA7IxewLUlJiim0G08myXT7FnU8wDiew6BUSy8xIhqLnAA4mG25oJ/Wx4ZZN7QZMZv+vKP3lEeqdwdL0=
+      secure: hhVGtw3ogUdCazgfsy5fh0BnCrgQJuZ56mRmRv9fqv7JYJRktf73HT7ZtyxqWW0zYuzfxPcLeEHhU02CKNfYVuaJMtukDQT40LBKIudsTOGJllulYXmM2VJYm2NChalwcx9JPx7Sxy5dBkz+AMrXlX7fmw4943e+fbve+tivj90=
