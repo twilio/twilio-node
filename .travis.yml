@@ -29,3 +29,8 @@ notifications:
     on_failure: change
     rooms:
       secure: hhVGtw3ogUdCazgfsy5fh0BnCrgQJuZ56mRmRv9fqv7JYJRktf73HT7ZtyxqWW0zYuzfxPcLeEHhU02CKNfYVuaJMtukDQT40LBKIudsTOGJllulYXmM2VJYm2NChalwcx9JPx7Sxy5dBkz+AMrXlX7fmw4943e+fbve+tivj90=
+addons:
+  sonarcloud:
+    organization: "twilio"
+    token:
+      secure: $SONAR_TOKEN
