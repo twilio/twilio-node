@@ -7,7 +7,9 @@ node_js:
 - '6'
 services:
 - docker
-script: npm run ci
+script:
+  - npm run ci
+  - sonar-scanner
 deploy:
 - provider: script
   script: make docker-build && make docker-push
