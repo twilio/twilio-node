@@ -8,8 +8,8 @@ node_js:
 services:
 - docker
 script:
-  - npm run ci
-  - sonar-scanner
+- npm run ci
+- sonar-scanner
 deploy:
 - provider: script
   script: make docker-build && make docker-push
@@ -33,6 +33,6 @@ notifications:
       secure: hhVGtw3ogUdCazgfsy5fh0BnCrgQJuZ56mRmRv9fqv7JYJRktf73HT7ZtyxqWW0zYuzfxPcLeEHhU02CKNfYVuaJMtukDQT40LBKIudsTOGJllulYXmM2VJYm2NChalwcx9JPx7Sxy5dBkz+AMrXlX7fmw4943e+fbve+tivj90=
 addons:
   sonarcloud:
-    organization: "twilio"
+    organization: twilio
     token:
-      secure: $SONAR_TOKEN
+      secure: nCBPvVz97nV1YyOxwyHtgkWBXpICTVGk5XzMBoml2fp1EY8UP2tdik8IbhwFnFv5jyrxWSfo7hoGMciQZu65cIFl1S+3DjI0G3oyPdBkfi8kgRlt4cThK/saiJYHlFee96rvVMvcvpWX4s0XcKww8WjKVSkhvhAZ8d2NoZz+bxw=
