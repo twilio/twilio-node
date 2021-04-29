@@ -7,9 +7,14 @@ node_js:
 - '6'
 services:
 - docker
+jobs:
+  include:
+    - language: node_js
+      node_js: '10'
+      after_success:
+        - sonar-scanner
 script:
 - npm run ci
-- sonar-scanner
 deploy:
 - provider: script
   script: make docker-build && make docker-push
