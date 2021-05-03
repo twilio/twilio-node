@@ -1,0 +1,10 @@
+{
+  "exclude": [
+    "lib/rest/**/*.js",
+    "**/*.spec.js"
+  ],
+  "reporter": [
+    "lcovonly",
+    "text"
+  ]
+}

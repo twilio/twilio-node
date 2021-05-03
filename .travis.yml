@@ -2,12 +2,18 @@ language: node_js
 node_js:
 - node
 - lts/*
-- '10'
 - '8'
 - '6'
 services:
 - docker
-script: npm run ci
+jobs:
+  include:
+    - language: node_js
+      node_js: '10'
+      after_success:
+        - sonar-scanner
+script:
+- npm run ci
 deploy:
 - provider: script
   script: make docker-build && make docker-push
@@ -29,3 +35,8 @@ notifications:
     on_failure: change
     rooms:
       secure: hhVGtw3ogUdCazgfsy5fh0BnCrgQJuZ56mRmRv9fqv7JYJRktf73HT7ZtyxqWW0zYuzfxPcLeEHhU02CKNfYVuaJMtukDQT40LBKIudsTOGJllulYXmM2VJYm2NChalwcx9JPx7Sxy5dBkz+AMrXlX7fmw4943e+fbve+tivj90=
+addons:
+  sonarcloud:
+    organization: twilio
+    token:
+      secure: nCBPvVz97nV1YyOxwyHtgkWBXpICTVGk5XzMBoml2fp1EY8UP2tdik8IbhwFnFv5jyrxWSfo7hoGMciQZu65cIFl1S+3DjI0G3oyPdBkfi8kgRlt4cThK/saiJYHlFee96rvVMvcvpWX4s0XcKww8WjKVSkhvhAZ8d2NoZz+bxw=
