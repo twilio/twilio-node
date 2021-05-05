@@ -15,9 +15,6 @@ type JobStatus = 'ErrorDuringRun'|'Submitted'|'Running'|'CompletedEmptyRecords'|
 /**
  * Initialize the JobList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function JobList(version: V1): JobListInstance;
@@ -65,9 +62,6 @@ declare class JobContext {
   /**
    * Initialize the JobContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param jobSid - The unique string that that we created to identify the Bulk Export job
    */
@@ -95,9 +89,6 @@ declare class JobContext {
 declare class JobInstance extends SerializableClass {
   /**
    * Initialize the JobContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -140,9 +131,6 @@ declare class JobInstance extends SerializableClass {
 declare class JobPage extends Page<V1, JobPayload, JobResource, JobInstance> {
   /**
    * Initialize the JobPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

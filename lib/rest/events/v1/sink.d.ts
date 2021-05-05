@@ -28,6 +28,15 @@ type SinkStatus = 'initialized'|'validating'|'active'|'failed';
  */
 declare function SinkList(version: V1): SinkListInstance;
 
+/**
+ * Options to pass to update
+ *
+ * @property description - Sink Description
+ */
+interface SinkInstanceUpdateOptions {
+  description: string;
+}
+
 interface SinkListInstance {
   /**
    * @param sid - sid of instance
@@ -267,6 +276,13 @@ declare class SinkContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a SinkInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: SinkInstanceUpdateOptions, callback?: (error: Error | null, items: SinkInstance) => any): Promise<SinkInstance>;
 }
 
 
@@ -316,6 +332,13 @@ declare class SinkInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a SinkInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: SinkInstanceUpdateOptions, callback?: (error: Error | null, items: SinkInstance) => any): Promise<SinkInstance>;
   url: string;
 }
 
@@ -345,4 +368,4 @@ declare class SinkPage extends Page<V1, SinkPayload, SinkResource, SinkInstance>
   toJSON(): any;
 }
 
-export { SinkContext, SinkInstance, SinkList, SinkListInstance, SinkListInstanceCreateOptions, SinkListInstanceEachOptions, SinkListInstanceOptions, SinkListInstancePageOptions, SinkPage, SinkPayload, SinkResource, SinkSinkType, SinkSolution, SinkStatus }
+export { SinkContext, SinkInstance, SinkInstanceUpdateOptions, SinkList, SinkListInstance, SinkListInstanceCreateOptions, SinkListInstanceEachOptions, SinkListInstanceOptions, SinkListInstancePageOptions, SinkPage, SinkPayload, SinkResource, SinkSinkType, SinkSolution, SinkStatus }

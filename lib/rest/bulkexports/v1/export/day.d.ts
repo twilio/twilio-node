@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the DayList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
  */
@@ -212,9 +209,6 @@ declare class DayContext {
   /**
    * Initialize the DayContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
    * @param day - The date of the data in the file
@@ -237,9 +231,6 @@ declare class DayContext {
 declare class DayInstance extends SerializableClass {
   /**
    * Initialize the DayContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -271,9 +262,6 @@ declare class DayInstance extends SerializableClass {
 declare class DayPage extends Page<V1, DayPayload, DayResource, DayInstance> {
   /**
    * Initialize the DayPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

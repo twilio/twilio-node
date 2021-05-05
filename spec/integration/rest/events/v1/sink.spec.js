@@ -56,8 +56,12 @@ describe('Sink', function() {
     function(done) {
       var body = {
           'status': 'initialized',
-          'sink_configuration': {},
-          'description': 'description',
+          'sink_configuration': {
+              'arn': 'arn:aws:kinesis:us-east-1:111111111:stream/test',
+              'role_arn': 'arn:aws:iam::111111111:role/Role',
+              'external_id': '1234567890'
+          },
+          'description': 'A Sink',
           'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'sink_type': 'kinesis',
@@ -112,11 +116,11 @@ describe('Sink', function() {
       var body = {
           'status': 'initialized',
           'sink_configuration': {
-              'arn': '4242',
-              'role_arn': 'abc123',
-              'external_id': '010101'
+              'arn': 'arn:aws:kinesis:us-east-1:111111111:stream/test',
+              'role_arn': 'arn:aws:iam::111111111:role/Role',
+              'external_id': '1234567890'
           },
-          'description': 'description',
+          'description': 'My Kinesis Sink',
           'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'sink_type': 'kinesis',
@@ -182,12 +186,16 @@ describe('Sink', function() {
           'sinks': [
               {
                   'status': 'initialized',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'arn': 'arn:aws:kinesis:us-east-1:111111111:stream/test',
+                      'role_arn': 'arn:aws:iam::111111111:role/Role',
+                      'external_id': '1234567890'
+                  },
                   'description': 'A Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T19:00:00Z',
                   'sink_type': 'kinesis',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T19:00:00Z',
                   'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Test',
@@ -196,7 +204,11 @@ describe('Sink', function() {
               },
               {
                   'status': 'initialized',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'arn': 'arn:aws:kinesis:us-east-1:222222222:stream/test',
+                      'role_arn': 'arn:aws:iam::111111111:role/Role',
+                      'external_id': '1234567890'
+                  },
                   'description': 'ANOTHER Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
                   'date_created': '2015-07-30T20:00:00Z',
@@ -210,12 +222,16 @@ describe('Sink', function() {
               },
               {
                   'status': 'active',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'destination': 'http://example.org/webhook',
+                      'method': 'POST',
+                      'batch_events': true
+                  },
                   'description': 'A webhook Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac',
-                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T21:00:00Z',
                   'sink_type': 'webhook',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
                   'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac',
                   'links': {
                       'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac/Test',
@@ -243,12 +259,16 @@ describe('Sink', function() {
           'sinks': [
               {
                   'status': 'initialized',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'arn': 'arn:aws:kinesis:us-east-1:111111111:stream/test',
+                      'role_arn': 'arn:aws:iam::111111111:role/Role',
+                      'external_id': '1234567890'
+                  },
                   'description': 'A Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T19:00:00Z',
                   'sink_type': 'kinesis',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T19:00:00Z',
                   'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Test',
@@ -257,7 +277,11 @@ describe('Sink', function() {
               },
               {
                   'status': 'initialized',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'arn': 'arn:aws:kinesis:us-east-1:222222222:stream/test',
+                      'role_arn': 'arn:aws:iam::111111111:role/Role',
+                      'external_id': '1234567890'
+                  },
                   'description': 'ANOTHER Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
                   'date_created': '2015-07-30T20:00:00Z',
@@ -271,12 +295,16 @@ describe('Sink', function() {
               },
               {
                   'status': 'active',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'destination': 'http://example.org/webhook',
+                      'method': 'POST',
+                      'batch_events': true
+                  },
                   'description': 'A webhook Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac',
-                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T21:00:00Z',
                   'sink_type': 'webhook',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
                   'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac',
                   'links': {
                       'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac/Test',
@@ -309,12 +337,16 @@ describe('Sink', function() {
           'sinks': [
               {
                   'status': 'initialized',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'arn': 'arn:aws:kinesis:us-east-1:111111111:stream/test',
+                      'role_arn': 'arn:aws:iam::111111111:role/Role',
+                      'external_id': '1234567890'
+                  },
                   'description': 'A Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T19:00:00Z',
                   'sink_type': 'kinesis',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T19:00:00Z',
                   'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Test',
@@ -323,7 +355,11 @@ describe('Sink', function() {
               },
               {
                   'status': 'initialized',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'arn': 'arn:aws:kinesis:us-east-1:222222222:stream/test',
+                      'role_arn': 'arn:aws:iam::111111111:role/Role',
+                      'external_id': '1234567890'
+                  },
                   'description': 'ANOTHER Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
                   'date_created': '2015-07-30T20:00:00Z',
@@ -337,12 +373,16 @@ describe('Sink', function() {
               },
               {
                   'status': 'active',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'destination': 'http://example.org/webhook',
+                      'method': 'POST',
+                      'batch_events': true
+                  },
                   'description': 'A webhook Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac',
-                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T21:00:00Z',
                   'sink_type': 'webhook',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
                   'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac',
                   'links': {
                       'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac/Test',
@@ -416,12 +456,16 @@ describe('Sink', function() {
           'sinks': [
               {
                   'status': 'initialized',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'arn': 'arn:aws:kinesis:us-east-1:111111111:stream/test',
+                      'role_arn': 'arn:aws:iam::111111111:role/Role',
+                      'external_id': '1234567890'
+                  },
                   'description': 'A Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T19:00:00Z',
                   'sink_type': 'kinesis',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T19:00:00Z',
                   'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Test',
@@ -430,7 +474,11 @@ describe('Sink', function() {
               },
               {
                   'status': 'initialized',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'arn': 'arn:aws:kinesis:us-east-1:222222222:stream/test',
+                      'role_arn': 'arn:aws:iam::111111111:role/Role',
+                      'external_id': '1234567890'
+                  },
                   'description': 'ANOTHER Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
                   'date_created': '2015-07-30T20:00:00Z',
@@ -444,12 +492,16 @@ describe('Sink', function() {
               },
               {
                   'status': 'active',
-                  'sink_configuration': {},
+                  'sink_configuration': {
+                      'destination': 'http://example.org/webhook',
+                      'method': 'POST',
+                      'batch_events': true
+                  },
                   'description': 'A webhook Sink',
                   'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac',
-                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T21:00:00Z',
                   'sink_type': 'webhook',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
                   'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac',
                   'links': {
                       'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac/Test',
@@ -471,6 +523,63 @@ describe('Sink', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.events.v1.sinks.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid update request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var opts = {description: 'description'};
+      var promise = client.events.v1.sinks('DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var sid = 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://events.twilio.com/v1/Sinks/${sid}`;
+
+      var values = {Description: 'description', };
+      holodeck.assertHasRequest(new Request({
+          method: 'POST',
+          url: url,
+          data: values
+      }));
+    }
+  );
+  it('should generate valid update response',
+    function(done) {
+      var body = {
+          'status': 'initialized',
+          'sink_configuration': {
+              'arn': 'arn:aws:kinesis:us-east-1:111111111:stream/test',
+              'role_arn': 'arn:aws:iam::111111111:role/Role',
+              'external_id': '1234567890'
+          },
+          'description': 'My Kinesis Sink',
+          'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:00:00Z',
+          'sink_type': 'kinesis',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Test',
+              'sink_validate': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Validate'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var opts = {description: 'description'};
+      var promise = client.events.v1.sinks('DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

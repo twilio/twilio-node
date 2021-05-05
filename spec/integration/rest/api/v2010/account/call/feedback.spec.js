@@ -29,6 +29,57 @@ describe('Feedback', function() {
       httpClient: holodeck
     });
   });
+  it('should generate valid fetch request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .feedback().fetch();
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'GET',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid fetch response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': 'Thu, 20 Aug 2015 21:45:46 +0000',
+          'date_updated': 'Thu, 20 Aug 2015 21:45:46 +0000',
+          'issues': [
+              'imperfect-audio',
+              'post-dial-delay'
+          ],
+          'quality_score': 1,
+          'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .feedback().fetch();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid create request',
     function(done) {
       holodeck.mock(new Response(500, {}));
@@ -66,7 +117,7 @@ describe('Feedback', function() {
               'imperfect-audio',
               'post-dial-delay'
           ],
-          'quality_score': 5,
+          'quality_score': 1,
           'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
@@ -84,65 +135,13 @@ describe('Feedback', function() {
       }).done();
     }
   );
-  it('should generate valid fetch request',
-    function(done) {
-      holodeck.mock(new Response(500, {}));
-
-      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .feedback().fetch();
-      promise.then(function() {
-        throw new Error('failed');
-      }, function(error) {
-        expect(error.constructor).toBe(RestException.prototype.constructor);
-        done();
-      }).done();
-
-      var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
-
-      holodeck.assertHasRequest(new Request({
-        method: 'GET',
-        url: url
-      }));
-    }
-  );
-  it('should generate valid fetch response',
-    function(done) {
-      var body = {
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': 'Thu, 20 Aug 2015 21:45:46 +0000',
-          'date_updated': 'Thu, 20 Aug 2015 21:45:46 +0000',
-          'issues': [
-              'imperfect-audio',
-              'post-dial-delay'
-          ],
-          'quality_score': 5,
-          'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
-
-      holodeck.mock(new Response(200, body));
-
-      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .feedback().fetch();
-      promise.then(function(response) {
-        expect(response).toBeDefined();
-        done();
-      }, function() {
-        throw new Error('failed');
-      }).done();
-    }
-  );
   it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {qualityScore: 1};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .feedback().update(opts);
+                                    .feedback().update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -154,11 +153,9 @@ describe('Feedback', function() {
       var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
 
-      var values = {QualityScore: 1, };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -169,19 +166,17 @@ describe('Feedback', function() {
           'date_created': 'Thu, 20 Aug 2015 21:45:46 +0000',
           'date_updated': 'Thu, 20 Aug 2015 21:45:46 +0000',
           'issues': [
-              'imperfect-audio',
-              'post-dial-delay'
+              'audio-latency'
           ],
-          'quality_score': 5,
+          'quality_score': 2,
           'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {qualityScore: 1};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .feedback().update(opts);
+                                    .feedback().update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

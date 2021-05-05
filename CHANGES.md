@@ -1,6 +1,29 @@
 twilio-node changelog
 =====================
 
+[2021-05-05] Version 3.62.0
+---------------------------
+**Library - Chore**
+- [PR #672](https://github.com/twilio/twilio-node/pull/672): integrate with SonarCloud. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Corrected the data types for feedback summary fields **(breaking change)**
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- promoting API maturity to GA
+
+**Events**
+- Add endpoint to update description in sink
+- Remove beta-feature account flag
+
+**Messaging**
+- Update `status` field in us_app_to_person api to `campaign_status` **(breaking change)**
+
+**Verify**
+- Improve documentation regarding `push` factor and include extra information about `totp` factor.
+
+
 [2021-04-21] Version 3.61.0
 ---------------------------
 **Library - Fix**

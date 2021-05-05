@@ -40,7 +40,7 @@ interface FeedbackInstanceCreateOptions {
  */
 interface FeedbackInstanceUpdateOptions {
   issue?: FeedbackIssues | FeedbackIssues[];
-  qualityScore: number;
+  qualityScore?: number;
 }
 
 interface FeedbackListInstance {
@@ -106,10 +106,16 @@ declare class FeedbackContext {
   /**
    * update a FeedbackInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  /**
+   * update a FeedbackInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  update(opts?: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
 }
 
 
@@ -151,10 +157,16 @@ declare class FeedbackInstance extends SerializableClass {
   /**
    * update a FeedbackInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  /**
+   * update a FeedbackInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  update(opts?: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
 }
 
 

@@ -13,9 +13,6 @@ import { SerializableClass } from '../../../interfaces';
 /**
  * Initialize the ExportConfigurationList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function ExportConfigurationList(version: V1): ExportConfigurationListInstance;
@@ -69,9 +66,6 @@ declare class ExportConfigurationContext {
   /**
    * Initialize the ExportConfigurationContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
    */
@@ -106,9 +100,6 @@ declare class ExportConfigurationContext {
 declare class ExportConfigurationInstance extends SerializableClass {
   /**
    * Initialize the ExportConfigurationContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -151,9 +142,6 @@ declare class ExportConfigurationInstance extends SerializableClass {
 declare class ExportConfigurationPage extends Page<V1, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationInstance> {
   /**
    * Initialize the ExportConfigurationPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

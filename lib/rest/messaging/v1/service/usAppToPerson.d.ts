@@ -73,6 +73,7 @@ interface UsAppToPersonResource {
   account_sid: string;
   brand_registration_sid: string;
   campaign_id: string;
+  campaign_status: string;
   date_created: Date;
   date_updated: Date;
   description: string;
@@ -82,7 +83,6 @@ interface UsAppToPersonResource {
   message_samples: string[];
   messaging_service_sid: string;
   rate_limits: object;
-  status: string;
   url: string;
   us_app_to_person_usecase: string;
 }
@@ -108,6 +108,7 @@ declare class UsAppToPersonInstance extends SerializableClass {
   accountSid: string;
   brandRegistrationSid: string;
   campaignId: string;
+  campaignStatus: string;
   dateCreated: Date;
   dateUpdated: Date;
   description: string;
@@ -117,7 +118,6 @@ declare class UsAppToPersonInstance extends SerializableClass {
   messageSamples: string[];
   messagingServiceSid: string;
   rateLimits: any;
-  status: string;
   /**
    * Provide a user-friendly representation
    */

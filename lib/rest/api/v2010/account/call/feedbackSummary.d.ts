@@ -72,7 +72,7 @@ interface FeedbackSummaryResource {
   date_updated: Date;
   end_date: Date;
   include_subaccounts: boolean;
-  issues: string[];
+  issues: object[];
   quality_score_average: number;
   quality_score_median: number;
   quality_score_standard_deviation: number;
@@ -140,7 +140,7 @@ declare class FeedbackSummaryInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>;
   includeSubaccounts: boolean;
-  issues: string[];
+  issues: object[];
   qualityScoreAverage: number;
   qualityScoreMedian: number;
   qualityScoreStandardDeviation: number;

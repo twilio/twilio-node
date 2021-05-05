@@ -18,9 +18,6 @@ import { SerializableClass } from '../../../interfaces';
 /**
  * Initialize the ExportList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  */
 declare function ExportList(version: V1): ExportListInstance;
@@ -60,9 +57,6 @@ declare class ExportContext {
   /**
    * Initialize the ExportContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
    */
@@ -86,9 +80,6 @@ declare class ExportContext {
 declare class ExportInstance extends SerializableClass {
   /**
    * Initialize the ExportContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -124,9 +115,6 @@ declare class ExportInstance extends SerializableClass {
 declare class ExportPage extends Page<V1, ExportPayload, ExportResource, ExportInstance> {
   /**
    * Initialize the ExportPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

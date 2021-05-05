@@ -15,9 +15,6 @@ type ExportCustomJobStatus = 'ErrorDuringRun'|'Submitted'|'Running'|'CompletedEm
 /**
  * Initialize the ExportCustomJobList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
  */
@@ -235,9 +232,6 @@ declare class ExportCustomJobInstance extends SerializableClass {
   /**
    * Initialize the ExportCustomJobContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
@@ -265,9 +259,6 @@ declare class ExportCustomJobInstance extends SerializableClass {
 declare class ExportCustomJobPage extends Page<V1, ExportCustomJobPayload, ExportCustomJobResource, ExportCustomJobInstance> {
   /**
    * Initialize the ExportCustomJobPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

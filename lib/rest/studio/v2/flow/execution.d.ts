@@ -156,7 +156,7 @@ interface ExecutionListInstance {
 /**
  * Options to pass to create
  *
- * @property from - The Twilio phone number to send messages or initiate calls from during the Flow Execution
+ * @property from - The Twilio phone number or Messaging Service SID to send messages or initiate calls from during the Flow Execution
  * @property parameters - JSON data that will be added to the Flow's context
  * @property to - The Contact phone number to start a Studio Flow Execution
  */

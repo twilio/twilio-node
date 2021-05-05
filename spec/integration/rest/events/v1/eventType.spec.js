@@ -38,6 +38,7 @@ describe('EventType', function() {
                   'date_updated': '2020-08-13T13:28:20Z',
                   'type': 'com.twilio.messaging.message.delivered',
                   'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
                   'description': 'Messaging- delivered message',
                   'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered',
                   'links': {
@@ -49,6 +50,7 @@ describe('EventType', function() {
                   'date_updated': '2020-08-13T13:28:19Z',
                   'type': 'com.twilio.messaging.message.failed',
                   'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
                   'description': 'Messaging- failed message',
                   'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.failed',
                   'links': {
@@ -79,6 +81,7 @@ describe('EventType', function() {
                   'date_updated': '2020-08-13T13:28:20Z',
                   'type': 'com.twilio.messaging.message.delivered',
                   'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
                   'description': 'Messaging- delivered message',
                   'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered',
                   'links': {
@@ -90,6 +93,7 @@ describe('EventType', function() {
                   'date_updated': '2020-08-13T13:28:19Z',
                   'type': 'com.twilio.messaging.message.failed',
                   'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
                   'description': 'Messaging- failed message',
                   'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.failed',
                   'links': {
@@ -125,6 +129,7 @@ describe('EventType', function() {
                   'date_updated': '2020-08-13T13:28:20Z',
                   'type': 'com.twilio.messaging.message.delivered',
                   'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
                   'description': 'Messaging- delivered message',
                   'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered',
                   'links': {
@@ -136,6 +141,7 @@ describe('EventType', function() {
                   'date_updated': '2020-08-13T13:28:19Z',
                   'type': 'com.twilio.messaging.message.failed',
                   'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
                   'description': 'Messaging- failed message',
                   'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.failed',
                   'links': {
@@ -212,6 +218,7 @@ describe('EventType', function() {
                   'date_updated': '2020-08-13T13:28:20Z',
                   'type': 'com.twilio.messaging.message.delivered',
                   'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
                   'description': 'Messaging- delivered message',
                   'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered',
                   'links': {
@@ -223,6 +230,7 @@ describe('EventType', function() {
                   'date_updated': '2020-08-13T13:28:19Z',
                   'type': 'com.twilio.messaging.message.failed',
                   'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
                   'description': 'Messaging- failed message',
                   'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.failed',
                   'links': {
@@ -280,6 +288,7 @@ describe('EventType', function() {
           'date_updated': '2020-08-13T13:28:20Z',
           'type': 'com.twilio.messaging.message.delivered',
           'schema_id': 'Messaging.MessageStatus',
+          'public': true,
           'description': 'Messaging- delivered message',
           'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered',
           'links': {

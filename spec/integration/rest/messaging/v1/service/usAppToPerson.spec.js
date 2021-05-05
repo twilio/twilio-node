@@ -84,7 +84,7 @@ describe('UsAppToPerson', function() {
           'us_app_to_person_usecase': 'MARKETING',
           'has_embedded_links': true,
           'has_embedded_phone': false,
-          'status': 'PENDING',
+          'campaign_status': 'PENDING',
           'campaign_id': 'CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'is_externally_registered': false,
           'rate_limits': {
@@ -195,7 +195,7 @@ describe('UsAppToPerson', function() {
           'us_app_to_person_usecase': 'MARKETING',
           'has_embedded_links': true,
           'has_embedded_phone': false,
-          'status': 'PENDING',
+          'campaign_status': 'PENDING',
           'campaign_id': 'CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'is_externally_registered': false,
           'rate_limits': {
