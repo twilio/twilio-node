@@ -38,7 +38,7 @@ declare function FlexFlowList(version: V1): FlexFlowListInstance;
  * @property integration.url - The External Webhook URL
  * @property integration.workflowSid - The Workflow SID for a new Task
  * @property integration.workspaceSid - The Workspace SID for a new Task
- * @property integrationType - The integration type
+ * @property integrationType - The software that will handle inbound messages.
  * @property janitorEnabled - Remove active Proxy sessions if the corresponding Task is deleted
  * @property longLived - Reuse this chat channel for future interactions with a contact
  */
@@ -201,7 +201,7 @@ interface FlexFlowListInstance {
  * @property integration.url - The External Webhook URL
  * @property integration.workflowSid - The Workflow SID for a new Task
  * @property integration.workspaceSid - The Workspace SID for a new Task
- * @property integrationType - The integration type
+ * @property integrationType - The software that will handle inbound messages.
  * @property janitorEnabled - Remove active Proxy sessions if the corresponding Task is deleted
  * @property longLived - Reuse this chat channel for future interactions with a contact
  */

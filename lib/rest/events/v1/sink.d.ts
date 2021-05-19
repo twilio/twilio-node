@@ -160,7 +160,7 @@ interface SinkListInstance {
 /**
  * Options to pass to create
  *
- * @property description - Sink Description
+ * @property description - Sink Description.
  * @property sinkConfiguration - JSON Sink configuration.
  * @property sinkType - Sink type.
  */
@@ -177,6 +177,7 @@ interface SinkListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
+ * @property inUse - A boolean to return sinks used/not used by a subscription.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -187,17 +188,21 @@ interface SinkListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property status - A string to filter sinks by status.
  */
 interface SinkListInstanceEachOptions {
   callback?: (item: SinkInstance, done: (err?: Error) => void) => void;
   done?: Function;
+  inUse?: boolean;
   limit?: number;
   pageSize?: number;
+  status?: string;
 }
 
 /**
  * Options to pass to list
  *
+ * @property inUse - A boolean to return sinks used/not used by a subscription.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -208,23 +213,30 @@ interface SinkListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - A string to filter sinks by status.
  */
 interface SinkListInstanceOptions {
+  inUse?: boolean;
   limit?: number;
   pageSize?: number;
+  status?: string;
 }
 
 /**
  * Options to pass to page
  *
+ * @property inUse - A boolean to return sinks used/not used by a subscription.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property status - A string to filter sinks by status.
  */
 interface SinkListInstancePageOptions {
+  inUse?: boolean;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  status?: string;
 }
 
 interface SinkPayload extends SinkResource, Page.TwilioResponsePayload {

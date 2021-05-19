@@ -17,10 +17,6 @@ type CompositionStatus = 'enqueued'|'processing'|'completed'|'deleted'|'failed';
 /**
  * Initialize the CompositionList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- *
  * @param version - Version of the resource
  */
 declare function CompositionList(version: V1): CompositionListInstance;
@@ -283,10 +279,6 @@ declare class CompositionContext {
   /**
    * Initialize the CompositionContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
-   *
    * @param version - Version of the resource
    * @param sid - The SID that identifies the resource to fetch
    */
@@ -314,10 +306,6 @@ declare class CompositionContext {
 declare class CompositionInstance extends SerializableClass {
   /**
    * Initialize the CompositionContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -366,10 +354,6 @@ declare class CompositionInstance extends SerializableClass {
 declare class CompositionPage extends Page<V1, CompositionPayload, CompositionResource, CompositionInstance> {
   /**
    * Initialize the CompositionPage
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

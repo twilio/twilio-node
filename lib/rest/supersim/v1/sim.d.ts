@@ -167,7 +167,7 @@ interface SimListInstance {
  * Options to pass to create
  *
  * @property iccid - The {@link https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID|ICCID} of the Super SIM to be added to your Account
- * @property registrationCode - The 10 digit code required to claim the Super SIM for your Account
+ * @property registrationCode - The 10-digit code required to claim the Super SIM for your Account
  */
 interface SimListInstanceCreateOptions {
   iccid: string;

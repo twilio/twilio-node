@@ -55,7 +55,7 @@ describe('SupportingDocument', function() {
   it('should generate valid create response',
     function(done) {
       var body = {
-          'status': 'DRAFT',
+          'status': 'draft',
           'date_updated': '2021-02-11T17:23:00Z',
           'friendly_name': 'Business-profile-physical-address',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -86,7 +86,7 @@ describe('SupportingDocument', function() {
       var body = {
           'results': [
               {
-                  'status': 'DRAFT',
+                  'status': 'draft',
                   'date_updated': '2021-02-11T17:23:00Z',
                   'friendly_name': 'Business-profile-physical-address',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -119,7 +119,7 @@ describe('SupportingDocument', function() {
       var body = {
           'results': [
               {
-                  'status': 'DRAFT',
+                  'status': 'draft',
                   'date_updated': '2021-02-11T17:23:00Z',
                   'friendly_name': 'Business-profile-physical-address',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -157,7 +157,7 @@ describe('SupportingDocument', function() {
       var body = {
           'results': [
               {
-                  'status': 'DRAFT',
+                  'status': 'draft',
                   'date_updated': '2021-02-11T17:23:00Z',
                   'friendly_name': 'Business-profile-physical-address',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -236,7 +236,7 @@ describe('SupportingDocument', function() {
       var body = {
           'results': [
               {
-                  'status': 'DRAFT',
+                  'status': 'draft',
                   'date_updated': '2021-02-11T17:23:00Z',
                   'friendly_name': 'Business-profile-physical-address',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -296,7 +296,7 @@ describe('SupportingDocument', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = {
-          'status': 'DRAFT',
+          'status': 'draft',
           'date_updated': '2021-02-11T17:23:00Z',
           'friendly_name': 'Business-profile-physical-address',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -345,7 +345,7 @@ describe('SupportingDocument', function() {
   it('should generate valid update response',
     function(done) {
       var body = {
-          'status': 'DRAFT',
+          'status': 'draft',
           'date_updated': '2021-02-11T17:23:00Z',
           'friendly_name': 'friendly_name',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',

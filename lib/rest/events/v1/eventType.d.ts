@@ -150,12 +150,14 @@ interface EventTypeListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property schemaId - A string to filter Event Types by schema.
  */
 interface EventTypeListInstanceEachOptions {
   callback?: (item: EventTypeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
+  schemaId?: string;
 }
 
 /**
@@ -171,10 +173,12 @@ interface EventTypeListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property schemaId - A string to filter Event Types by schema.
  */
 interface EventTypeListInstanceOptions {
   limit?: number;
   pageSize?: number;
+  schemaId?: string;
 }
 
 /**
@@ -183,11 +187,13 @@ interface EventTypeListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property schemaId - A string to filter Event Types by schema.
  */
 interface EventTypeListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  schemaId?: string;
 }
 
 interface EventTypePayload extends EventTypeResource, Page.TwilioResponsePayload {

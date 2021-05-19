@@ -336,7 +336,7 @@ describe('PhoneNumber', function() {
   it('should generate valid fetch response',
     function(done) {
       var body = {
-          'sid': 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:12:31Z',
@@ -344,7 +344,7 @@ describe('PhoneNumber', function() {
           'phone_number': '12345',
           'country_code': 'US',
           'capabilities': [],
-          'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));

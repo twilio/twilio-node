@@ -281,12 +281,12 @@ describe('Challenge', function() {
       var body = {
           'challenges': [
               {
-                  'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'identity': 'ff483d1ff591898a9942916050d2ca3f',
-                  'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'factor_sid': 'YF03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'date_responded': '2015-07-30T20:00:00Z',
@@ -307,9 +307,41 @@ describe('Challenge', function() {
                       'ip': '172.168.1.234'
                   },
                   'factor_type': 'push',
-                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+                  }
+              },
+              {
+                  'sid': 'YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'ff483d1ff591898a9942916050d2ca3f',
+                  'factor_sid': 'YF02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_responded': '2015-07-30T20:00:00Z',
+                  'expiration_date': '2015-07-30T20:00:00Z',
+                  'status': 'pending',
+                  'responded_reason': 'none',
+                  'details': {
+                      'message': 'Hi! Mr. John Doe, would you like to sign up?',
+                      'date': '2020-07-01T12:13:14Z',
+                      'fields': [
+                          {
+                              'label': 'Action',
+                              'value': 'Sign up in portal'
+                          }
+                      ]
+                  },
+                  'hidden_details': {
+                      'ip': '172.168.1.234'
+                  },
+                  'factor_type': 'totp',
+                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
                   }
               }
           ],
@@ -334,12 +366,12 @@ describe('Challenge', function() {
       var body = {
           'challenges': [
               {
-                  'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'identity': 'ff483d1ff591898a9942916050d2ca3f',
-                  'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'factor_sid': 'YF03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'date_responded': '2015-07-30T20:00:00Z',
@@ -360,9 +392,41 @@ describe('Challenge', function() {
                       'ip': '172.168.1.234'
                   },
                   'factor_type': 'push',
-                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+                  }
+              },
+              {
+                  'sid': 'YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'ff483d1ff591898a9942916050d2ca3f',
+                  'factor_sid': 'YF02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_responded': '2015-07-30T20:00:00Z',
+                  'expiration_date': '2015-07-30T20:00:00Z',
+                  'status': 'pending',
+                  'responded_reason': 'none',
+                  'details': {
+                      'message': 'Hi! Mr. John Doe, would you like to sign up?',
+                      'date': '2020-07-01T12:13:14Z',
+                      'fields': [
+                          {
+                              'label': 'Action',
+                              'value': 'Sign up in portal'
+                          }
+                      ]
+                  },
+                  'hidden_details': {
+                      'ip': '172.168.1.234'
+                  },
+                  'factor_type': 'totp',
+                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
                   }
               }
           ],
@@ -392,12 +456,12 @@ describe('Challenge', function() {
       var body = {
           'challenges': [
               {
-                  'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'identity': 'ff483d1ff591898a9942916050d2ca3f',
-                  'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'factor_sid': 'YF03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'date_responded': '2015-07-30T20:00:00Z',
@@ -418,9 +482,41 @@ describe('Challenge', function() {
                       'ip': '172.168.1.234'
                   },
                   'factor_type': 'push',
-                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+                  }
+              },
+              {
+                  'sid': 'YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'ff483d1ff591898a9942916050d2ca3f',
+                  'factor_sid': 'YF02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_responded': '2015-07-30T20:00:00Z',
+                  'expiration_date': '2015-07-30T20:00:00Z',
+                  'status': 'pending',
+                  'responded_reason': 'none',
+                  'details': {
+                      'message': 'Hi! Mr. John Doe, would you like to sign up?',
+                      'date': '2020-07-01T12:13:14Z',
+                      'fields': [
+                          {
+                              'label': 'Action',
+                              'value': 'Sign up in portal'
+                          }
+                      ]
+                  },
+                  'hidden_details': {
+                      'ip': '172.168.1.234'
+                  },
+                  'factor_type': 'totp',
+                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
                   }
               }
           ],
@@ -497,12 +593,12 @@ describe('Challenge', function() {
       var body = {
           'challenges': [
               {
-                  'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'identity': 'ff483d1ff591898a9942916050d2ca3f',
-                  'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'factor_sid': 'YF03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'date_responded': '2015-07-30T20:00:00Z',
@@ -523,9 +619,41 @@ describe('Challenge', function() {
                       'ip': '172.168.1.234'
                   },
                   'factor_type': 'push',
-                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+                  }
+              },
+              {
+                  'sid': 'YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'ff483d1ff591898a9942916050d2ca3f',
+                  'factor_sid': 'YF02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_responded': '2015-07-30T20:00:00Z',
+                  'expiration_date': '2015-07-30T20:00:00Z',
+                  'status': 'pending',
+                  'responded_reason': 'none',
+                  'details': {
+                      'message': 'Hi! Mr. John Doe, would you like to sign up?',
+                      'date': '2020-07-01T12:13:14Z',
+                      'fields': [
+                          {
+                              'label': 'Action',
+                              'value': 'Sign up in portal'
+                          }
+                      ]
+                  },
+                  'hidden_details': {
+                      'ip': '172.168.1.234'
+                  },
+                  'factor_type': 'totp',
+                  'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
                   }
               }
           ],
@@ -578,15 +706,15 @@ describe('Challenge', function() {
       }));
     }
   );
-  it('should generate valid verify_sid response',
+  it('should generate valid verify_push response',
     function(done) {
       var body = {
-          'sid': 'YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'identity': 'ff483d1ff591898a9942916050d2ca3f',
-          'factor_sid': 'YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'factor_sid': 'YF03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'date_responded': '2015-07-30T20:00:00Z',
@@ -607,9 +735,57 @@ describe('Challenge', function() {
               'ip': '172.168.1.234'
           },
           'factor_type': 'push',
-          'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+              'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .entities('identity')
+                                    .challenges('YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid verify_totp response',
+    function(done) {
+      var body = {
+          'sid': 'YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'entity_sid': 'YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identity': 'ff483d1ff591898a9942916050d2ca3f',
+          'factor_sid': 'YF02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'date_responded': '2015-07-30T20:00:00Z',
+          'expiration_date': '2015-07-30T20:00:00Z',
+          'status': 'approved',
+          'responded_reason': 'none',
+          'details': {
+              'message': 'Hi! Mr. John Doe, would you like to sign up?',
+              'date': '2020-07-01T12:13:14Z',
+              'fields': [
+                  {
+                      'label': 'Action',
+                      'value': 'Sign up in portal'
+                  }
+              ]
+          },
+          'hidden_details': {
+              'ip': '172.168.1.234'
+          },
+          'factor_type': 'totp',
+          'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'notifications': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications'
           }
       };
 

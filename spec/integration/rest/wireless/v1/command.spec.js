@@ -304,7 +304,7 @@ describe('Command', function() {
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'command': 'command',
-                  'command_mode': 'not_confirmable',
+                  'command_mode': 'binary',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'delivery_receipt_requested': true,

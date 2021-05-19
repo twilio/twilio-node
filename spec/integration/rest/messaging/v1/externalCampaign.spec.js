@@ -55,6 +55,7 @@ describe('ExternalCampaign', function() {
   it('should generate valid create response',
     function(done) {
       var body = {
+          'sid': 'QE2c6890da8086d771620e9b13fadeba0b',
           'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'campaign_id': 'CMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',

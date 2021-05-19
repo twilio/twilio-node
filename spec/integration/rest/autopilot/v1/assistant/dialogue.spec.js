@@ -57,8 +57,8 @@ describe('Dialogue', function() {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'UKkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-          'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Dialogues/UKkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+          'sid': 'UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Dialogues/UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'data': {}
       };
 

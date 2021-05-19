@@ -260,6 +260,57 @@ describe('EventType', function() {
       }).done();
     }
   );
+  it('should generate valid read_results_with_schema_id response',
+    function(done) {
+      var body = {
+          'types': [
+              {
+                  'date_created': '2020-08-13T13:28:20Z',
+                  'date_updated': '2020-08-13T13:28:20Z',
+                  'type': 'com.twilio.messaging.message.delivered',
+                  'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
+                  'description': 'Messaging- delivered message',
+                  'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered',
+                  'links': {
+                      'schema': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions'
+                  }
+              },
+              {
+                  'date_created': '2020-08-13T13:28:19Z',
+                  'date_updated': '2020-08-13T13:28:19Z',
+                  'type': 'com.twilio.messaging.message.failed',
+                  'schema_id': 'Messaging.MessageStatus',
+                  'public': true,
+                  'description': 'Messaging- failed message',
+                  'url': 'https://events.twilio.com/v1/Types/com.twilio.messaging.message.failed',
+                  'links': {
+                      'schema': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 20,
+              'first_page_url': 'https://events.twilio.com/v1/Types?SchemaId=Messaging.MessageStatus&PageSize=20&Page=0',
+              'previous_page_url': null,
+              'url': 'https://events.twilio.com/v1/Types?SchemaId=Messaging.MessageStatus&PageSize=20&Page=0',
+              'next_page_url': null,
+              'key': 'types'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.events.v1.eventTypes.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid fetch request',
     function(done) {
       holodeck.mock(new Response(500, {}));

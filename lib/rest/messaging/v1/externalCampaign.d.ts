@@ -53,6 +53,7 @@ interface ExternalCampaignResource {
   campaign_id: string;
   date_created: Date;
   messaging_service_sid: string;
+  sid: string;
 }
 
 interface ExternalCampaignSolution {
@@ -75,6 +76,7 @@ declare class ExternalCampaignInstance extends SerializableClass {
   campaignId: string;
   dateCreated: Date;
   messagingServiceSid: string;
+  sid: string;
   /**
    * Provide a user-friendly representation
    */

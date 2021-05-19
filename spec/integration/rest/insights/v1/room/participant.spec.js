@@ -56,7 +56,7 @@ describe('Participant', function() {
     function(done) {
       var body = {
           'publisher_info': {},
-          'edge_location': 'Ashburn',
+          'edge_location': 'ashburn',
           'join_time': '2015-07-30T20:00:00Z',
           'leave_time': '2015-07-30T20:00:00Z',
           'end_reason': 'disconnected_via_api',
@@ -103,7 +103,7 @@ describe('Participant', function() {
           'participants': [
               {
                   'publisher_info': {},
-                  'edge_location': 'Ashburn',
+                  'edge_location': 'ashburn',
                   'join_time': '2015-07-30T20:00:00Z',
                   'leave_time': '2015-07-30T20:00:00Z',
                   'end_reason': 'disconnected_via_api',
@@ -144,7 +144,7 @@ describe('Participant', function() {
           'participants': [
               {
                   'publisher_info': {},
-                  'edge_location': 'Ashburn',
+                  'edge_location': 'ashburn',
                   'join_time': '2015-07-30T20:00:00Z',
                   'leave_time': '2015-07-30T20:00:00Z',
                   'end_reason': 'disconnected_via_api',
@@ -190,7 +190,7 @@ describe('Participant', function() {
           'participants': [
               {
                   'publisher_info': {},
-                  'edge_location': 'Ashburn',
+                  'edge_location': 'ashburn',
                   'join_time': '2015-07-30T20:00:00Z',
                   'leave_time': '2015-07-30T20:00:00Z',
                   'end_reason': 'disconnected_via_api',
@@ -280,7 +280,7 @@ describe('Participant', function() {
           'participants': [
               {
                   'publisher_info': {},
-                  'edge_location': 'Ashburn',
+                  'edge_location': 'ashburn',
                   'join_time': '2015-07-30T20:00:00Z',
                   'leave_time': '2015-07-30T20:00:00Z',
                   'end_reason': 'disconnected_via_api',

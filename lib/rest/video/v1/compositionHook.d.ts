@@ -15,10 +15,6 @@ type CompositionHookFormat = 'mp4'|'webm';
 /**
  * Initialize the CompositionHookList
  *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- *
  * @param version - Version of the resource
  */
 declare function CompositionHookList(version: V1): CompositionHookListInstance;
@@ -307,10 +303,6 @@ declare class CompositionHookContext {
   /**
    * Initialize the CompositionHookContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
-   *
    * @param version - Version of the resource
    * @param sid - The SID that identifies the resource to fetch
    */
@@ -345,10 +337,6 @@ declare class CompositionHookContext {
 declare class CompositionHookInstance extends SerializableClass {
   /**
    * Initialize the CompositionHookContext
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -401,10 +389,6 @@ declare class CompositionHookInstance extends SerializableClass {
 declare class CompositionHookPage extends Page<V1, CompositionHookPayload, CompositionHookResource, CompositionHookInstance> {
   /**
    * Initialize the CompositionHookPage
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
