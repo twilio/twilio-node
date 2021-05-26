@@ -1,11 +1,3 @@
-import { Request, Response } from 'express';
-
-type Middleware = (
-  request: Request,
-  response: Response,
-  next: () => void
-) => any;
-
 export interface RequestValidatorOptions {
   /**
    * The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
@@ -109,7 +101,7 @@ export function validateRequestWithBody(
  * @param opts - options for request validation
  */
 export function validateExpressRequest(
-  request: Request,
+  request: any,
   authToken: string,
   opts?: RequestValidatorOptions
 ): boolean;
@@ -144,7 +136,7 @@ export function validateExpressRequest(
  *     protocol: 'https'
  * });
  */
-export function webhook(): Middleware;
-export function webhook(opts: WebhookOptions): Middleware;
-export function webhook(authToken: string, opts: WebhookOptions): Middleware;
-export function webhook(opts: WebhookOptions, authToken: string): Middleware;
+export function webhook(): any;
+export function webhook(opts: WebhookOptions): any;
+export function webhook(authToken: string, opts: WebhookOptions): any;
+export function webhook(opts: WebhookOptions, authToken: string): any;
