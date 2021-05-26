@@ -1,9 +1,7 @@
 import twilio = require('../../');
 import {MessageListInstanceCreateOptions} from '../../lib/rest/api/v2010/account/message';
 
-
 const accountSid: string = process.env.TWILIO_ACCOUNT_SID || '';
-
 const token: string = process.env.TWILIO_AUTH_TOKEN || '';
 
 const client = twilio(accountSid, token);
@@ -28,9 +26,7 @@ client.calls.each({}, call => {
   console.log(call.sid);
 });
 
-
 const from = process.env.FROM_NUMBER || '';
-
 const to = process.env.TO_NUMBER || '';
 
 const msgData: MessageListInstanceCreateOptions = {
