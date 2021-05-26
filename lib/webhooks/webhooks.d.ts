@@ -1,3 +1,11 @@
+type Request = (
+  protocol: string,
+  host: string,
+  originalUrl: string,
+  rawBody: Body,
+  body: Body,
+) => any;
+
 export interface RequestValidatorOptions {
   /**
    * The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
@@ -101,7 +109,7 @@ export function validateRequestWithBody(
  * @param opts - options for request validation
  */
 export function validateExpressRequest(
-  request: any,
+  request: Request,
   authToken: string,
   opts?: RequestValidatorOptions
 ): boolean;
