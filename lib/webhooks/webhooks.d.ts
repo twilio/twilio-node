@@ -1,10 +1,13 @@
-type Request = (
-  protocol: string,
-  host: string,
-  originalUrl: string,
-  rawBody: Body,
-  body: Body,
-) => any;
+interface Request {
+  protocol: string;
+  host: header;
+  originalUrl: string;
+  rawBody: Body;
+  body: Body;
+}
+export interface header{
+  [header: string]: string;
+}
 
 export interface RequestValidatorOptions {
   /**
