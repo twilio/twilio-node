@@ -5,7 +5,7 @@ interface Request {
   header(name: string): string | undefined;
   headers: IncomingHttpHeaders;
   originalUrl: string;
-  rawBody: any;
+  rawBody?: any;
   body: any;
 }
 
