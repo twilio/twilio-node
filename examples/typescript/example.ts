@@ -115,7 +115,7 @@ client.messages.list({}, (err, messages) => {
   console.log('Listing messages using callbacks');
   messages.forEach(function(message){
     console.log(message.sid);
-  });  
+  });
 });
 
 // List messages using promises
@@ -124,7 +124,7 @@ promiseMessage.then(messages => {
   console.log('Listing messages using promises');
   messages.forEach(function(message){
     console.log(message.sid);
-  });  
+  });
 });
 
 const twiml = new twilio.twiml.VoiceResponse();

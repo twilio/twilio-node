@@ -1,10 +1,13 @@
-import { Request, Response } from 'express';
+import {IncomingHttpHeaders} from "http2";
 
-type Middleware = (
-  request: Request,
-  response: Response,
-  next: () => void
-) => any;
+interface Request {
+  protocol: string;
+  header(name: string): string | undefined;
+  headers: IncomingHttpHeaders;
+  originalUrl: string;
+  rawBody?: any;
+  body: any;
+}
 
 export interface RequestValidatorOptions {
   /**
@@ -144,7 +147,7 @@ export function validateExpressRequest(
  *     protocol: 'https'
  * });
  */
-export function webhook(): Middleware;
-export function webhook(opts: WebhookOptions): Middleware;
-export function webhook(authToken: string, opts: WebhookOptions): Middleware;
-export function webhook(opts: WebhookOptions, authToken: string): Middleware;
+export function webhook(): any;
+export function webhook(opts: WebhookOptions): any;
+export function webhook(authToken: string, opts: WebhookOptions): any;
+export function webhook(opts: WebhookOptions, authToken: string): any;
