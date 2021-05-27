@@ -1,12 +1,12 @@
+import {IncomingHttpHeaders} from "http2";
+
 interface Request {
   protocol: string;
-  host: header;
+  header(name: string): string | undefined;
+  headers: IncomingHttpHeaders;
   originalUrl: string;
-  rawBody: Body;
-  body: Body;
-}
-export interface header{
-  [header: string]: string;
+  rawBody: any;
+  body: any;
 }
 
 export interface RequestValidatorOptions {
