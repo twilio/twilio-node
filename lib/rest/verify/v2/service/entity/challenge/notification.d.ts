@@ -46,7 +46,7 @@ interface NotificationListInstance {
 /**
  * Options to pass to create
  *
- * @property ttl - How long, in seconds, the Notification is valid.
+ * @property ttl - How long, in seconds, the notification is valid.
  */
 interface NotificationListInstanceCreateOptions {
   ttl?: number;
