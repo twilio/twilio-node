@@ -1,6 +1,19 @@
 twilio-node changelog
 =====================
 
+[2021-06-16] Version 3.64.0
+---------------------------
+**Library - Chore**
+- [PR #677](https://github.com/twilio/twilio-node/pull/677): bump lodash and eslint per npm audit. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Api**
+- Update `status` enum for Messages to include 'canceled'
+- Update `update_status` enum for Messages to include 'canceled'
+
+**Trusthub**
+- Corrected the sid for policy sid in customer_profile_evaluation.json and trust_product_evaluation.json **(breaking change)**
+
+
 [2021-06-02] Version 3.63.1
 ---------------------------
 **Library - Fix**
