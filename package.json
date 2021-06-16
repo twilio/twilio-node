@@ -24,7 +24,7 @@
     "dayjs": "^1.8.29",
     "https-proxy-agent": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "q": "2.0.x",
     "qs": "^6.9.4",
     "rootpath": "^0.1.2",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "9.6.57",
-    "eslint": "^7.3.1",
+    "eslint": "^7.28.0",
     "express": "^4.17.1",
     "jasmine": "~3.5.0",
     "jsdoc": "^3.6.7",
