@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "9.6.57",
-    "eslint": "^7.3.1",
+    "eslint": "^7.28.0",
     "express": "^4.17.1",
     "jasmine": "~3.5.0",
     "jsdoc": "^3.6.7",
