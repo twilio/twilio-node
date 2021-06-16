@@ -14,6 +14,7 @@ import Conversations = require('./Conversations');
 import Events = require('./Events');
 import Fax = require('./Fax');
 import FlexApi = require('./FlexApi');
+import FrontlineApi = require('./FrontlineApi');
 import Insights = require('./Insights');
 import IpMessaging = require('./IpMessaging');
 import Lookups = require('./Lookups');
@@ -64,6 +65,7 @@ declare class Twilio {
   events: Events;
   fax: Fax;
   flexApi: FlexApi;
+  frontlineApi: FrontlineApi;
   httpClient?: RequestClient;
   incomingPhoneNumbers: (typeof Api.prototype.account.incomingPhoneNumbers);
   insights: Insights;

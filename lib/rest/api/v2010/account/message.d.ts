@@ -22,9 +22,11 @@ type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply
 
 type MessageScheduleType = 'fixed'|'optimize';
 
-type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read'|'partially_delivered';
+type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read'|'partially_delivered'|'canceled';
 
 type MessageTrafficType = 'free';
+
+type MessageUpdateStatus = 'canceled';
 
 /**
  * Initialize the MessageList
@@ -446,4 +448,4 @@ declare class MessagePage extends Page<V2010, MessagePayload, MessageResource, M
   toJSON(): any;
 }
 
-export { MessageAddressRetention, MessageContentRetention, MessageContext, MessageDirection, MessageInstance, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageScheduleType, MessageSolution, MessageStatus, MessageTrafficType }
+export { MessageAddressRetention, MessageContentRetention, MessageContext, MessageDirection, MessageInstance, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageScheduleType, MessageSolution, MessageStatus, MessageTrafficType, MessageUpdateStatus }
