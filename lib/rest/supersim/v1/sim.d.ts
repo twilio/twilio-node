@@ -8,6 +8,8 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import { BillingPeriodList } from './sim/billingPeriod';
+import { BillingPeriodListInstance } from './sim/billingPeriod';
 import { SerializableClass } from '../../../interfaces';
 
 type SimStatus = 'new'|'ready'|'active'|'inactive'|'scheduled';
@@ -258,6 +260,7 @@ interface SimResource {
   date_updated: Date;
   fleet_sid: string;
   iccid: string;
+  links: string;
   sid: string;
   status: SimStatus;
   unique_name: string;
@@ -280,6 +283,7 @@ declare class SimContext {
    */
   constructor(version: V1, sid: string);
 
+  billingPeriods: BillingPeriodListInstance;
   /**
    * fetch a SimInstance
    *
@@ -321,6 +325,10 @@ declare class SimInstance extends SerializableClass {
 
   private _proxy: SimContext;
   accountSid: string;
+  /**
+   * Access the billingPeriods
+   */
+  billingPeriods(): BillingPeriodListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   /**
@@ -331,6 +339,7 @@ declare class SimInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
   fleetSid: string;
   iccid: string;
+  links: string;
   sid: string;
   status: SimStatus;
   /**

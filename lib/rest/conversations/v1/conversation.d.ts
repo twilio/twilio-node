@@ -283,6 +283,7 @@ interface ConversationPayload extends ConversationResource, Page.TwilioResponseP
 interface ConversationResource {
   account_sid: string;
   attributes: string;
+  bindings: object;
   chat_service_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -364,6 +365,7 @@ declare class ConversationInstance extends SerializableClass {
   private _proxy: ConversationContext;
   accountSid: string;
   attributes: string;
+  bindings: any;
   chatServiceSid: string;
   dateCreated: Date;
   dateUpdated: Date;

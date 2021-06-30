@@ -787,9 +787,8 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {body: 'body'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -801,11 +800,9 @@ describe('Message', function() {
       var sid = 'MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages/${sid}.json`;
 
-      var values = {Body: 'body', };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -839,9 +836,48 @@ describe('Message', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {body: 'body'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid cancel_message response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'api_version': '2010-04-01',
+          'body': '',
+          'date_created': 'Fri, 24 May 2019 17:18:27 +0000',
+          'date_sent': 'Fri, 24 May 2019 17:18:28 +0000',
+          'date_updated': 'Fri, 24 May 2019 17:18:28 +0000',
+          'direction': 'outbound-api',
+          'error_code': 30007,
+          'error_message': 'Carrier violation',
+          'from': '+12019235161',
+          'messaging_service_sid': 'MGdeadbeefdeadbeefdeadbeefdeadbeef',
+          'num_media': '0',
+          'num_segments': '1',
+          'price': '-0.00750',
+          'price_unit': 'USD',
+          'sid': 'SMb7c0a2ce80504485a6f653a7110836f5',
+          'status': 'canceled',
+          'subresource_uris': {
+              'media': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5/Media.json',
+              'feedback': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5/Feedback.json'
+          },
+          'to': '+18182008801',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5.json'
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

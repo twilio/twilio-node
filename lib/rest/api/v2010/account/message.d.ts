@@ -42,7 +42,7 @@ declare function MessageList(version: V2010, accountSid: string): MessageListIns
  * @property body - The text of the message you want to send
  */
 interface MessageInstanceUpdateOptions {
-  body: string;
+  body?: string;
 }
 
 interface MessageListInstance {
@@ -353,10 +353,16 @@ declare class MessageContext {
   /**
    * update a MessageInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  /**
+   * update a MessageInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
 }
 
 
@@ -418,10 +424,16 @@ declare class MessageInstance extends SerializableClass {
   /**
    * update a MessageInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  /**
+   * update a MessageInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
   uri: string;
 }
 
