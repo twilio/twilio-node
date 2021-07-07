@@ -158,6 +158,7 @@ declare namespace Twilio {
    * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled
    * @property logLevel - Debug logs will be shown. Defaults to none
    * @property region - Twilio region to use. Defaults to us1 if edge defined
+   * @property userAgentExtensions - Additions to the user agent string
    */
   export interface TwilioClientOptions {
     accountSid?: string;
@@ -167,6 +168,7 @@ declare namespace Twilio {
     lazyLoading?: boolean;
     logLevel?: string;
     region?: string;
+    userAgentExtensions?: string[];
   }
 }
 
