@@ -33,7 +33,7 @@ Holodeck.prototype.addStandardHeaders = function(request) {
       moduleInfo.version,
       os.platform(),
       os.arch(),
-      process.version,
+      process.version
     )
   };
   if (request.method === 'POST') {
