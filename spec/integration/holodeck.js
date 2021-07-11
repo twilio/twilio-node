@@ -5,6 +5,7 @@ var util = require('util');
 var Request = require('../../lib/http/request');
 var RequestClient = require('../../lib/base/RequestClient');
 var moduleInfo = require('../../package.json');
+var os = require('os');
 
 function Hologram(request, response) {
   this.request = request;
@@ -28,8 +29,10 @@ Holodeck.prototype.addStandardHeaders = function(request) {
     'Accept': 'application/json',
     'Accept-Charset': 'utf-8',
     'User-Agent': util.format(
-      'twilio-node/%s (node.js %s)',
+      'twilio-node/%s (%s %s) node/%s',
       moduleInfo.version,
+      os.platform(),
+      os.arch(),
       process.version
     )
   };
