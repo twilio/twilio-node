@@ -98,19 +98,11 @@ describe('client', () => {
   });
 
   describe('adding user agent extensions', () => {
-    const defaultUserAgent = util.format(
-      'twilio-node/%s (%s %s) node/%s',
-      moduleInfo.version,
-      os.platform(),
-      os.arch(),
-      process.version
-    );
-
     it('sets the user-agent by default', () => {
       const client = new twilio('ACXXXXXXXX', 'test-password');
       const scope = nock('https://api.twilio.com', {
         reqheaders: {
-          'User-Agent': defaultUserAgent,
+          'User-Agent': `twilio-node/${moduleInfo.version} \(${os.platform()} ${os.arch()}\) node\/${process.version}`,
         },
       })
         .get('/')
@@ -125,7 +117,7 @@ describe('client', () => {
       });
       const scope = nock('https://api.twilio.com', {
         reqheaders: {
-          'User-Agent': `${defaultUserAgent} twilio-run/2.0.0-test @twilio-labs/plugin-serverless/1.1.0-test`,
+          'User-Agent': `twilio-node/${moduleInfo.version} \(${os.platform()} ${os.arch()}\) node\/${process.version} twilio-run\/2.0.0-test @twilio-labs\/plugin-serverless\/1.1.0-test`,
         },
       })
         .get('/')
