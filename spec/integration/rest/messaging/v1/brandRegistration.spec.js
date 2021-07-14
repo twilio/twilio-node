@@ -62,7 +62,8 @@ describe('BrandRegistration', function() {
           'status': 'PENDING',
           'tcr_id': 'BXXXXXX',
           'failure_reason': 'Registration error',
-          'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85'
+          'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85',
+          'brand_score': 42
       };
 
       holodeck.mock(new Response(200, body));
@@ -99,7 +100,8 @@ describe('BrandRegistration', function() {
                   'status': 'APPROVED',
                   'tcr_id': 'BXXXXXX',
                   'failure_reason': 'Registration error',
-                  'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85'
+                  'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85',
+                  'brand_score': 42
               }
           ]
       };
@@ -130,7 +132,8 @@ describe('BrandRegistration', function() {
                   'status': 'APPROVED',
                   'tcr_id': 'BXXXXXX',
                   'failure_reason': 'Registration error',
-                  'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85'
+                  'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85',
+                  'brand_score': 42
               }
           ]
       };
@@ -166,7 +169,8 @@ describe('BrandRegistration', function() {
                   'status': 'APPROVED',
                   'tcr_id': 'BXXXXXX',
                   'failure_reason': 'Registration error',
-                  'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85'
+                  'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85',
+                  'brand_score': 42
               }
           ]
       };
@@ -217,7 +221,8 @@ describe('BrandRegistration', function() {
                   'status': 'APPROVED',
                   'tcr_id': 'BXXXXXX',
                   'failure_reason': 'Registration error',
-                  'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85'
+                  'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85',
+                  'brand_score': 42
               }
           ]
       };
@@ -274,7 +279,8 @@ describe('BrandRegistration', function() {
           'status': 'PENDING',
           'tcr_id': 'BXXXXXX',
           'failure_reason': 'Registration error',
-          'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85'
+          'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85',
+          'brand_score': 42
       };
 
       holodeck.mock(new Response(201, body));

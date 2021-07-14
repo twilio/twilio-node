@@ -75,7 +75,10 @@ describe('User', function() {
           'is_notifiable': null,
           'date_created': '2019-12-16T22:18:37Z',
           'date_updated': '2019-12-16T22:18:38Z',
-          'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+          }
       };
 
       holodeck.mock(new Response(201, body));
@@ -131,7 +134,10 @@ describe('User', function() {
           'is_notifiable': null,
           'date_created': '2019-12-16T22:18:37Z',
           'date_updated': '2019-12-16T22:18:38Z',
-          'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+          }
       };
 
       holodeck.mock(new Response(200, body));
@@ -225,7 +231,10 @@ describe('User', function() {
           'is_notifiable': null,
           'date_created': '2019-12-16T22:18:37Z',
           'date_updated': '2019-12-16T22:18:38Z',
-          'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+          }
       };
 
       holodeck.mock(new Response(200, body));
@@ -265,7 +274,10 @@ describe('User', function() {
                   'is_notifiable': null,
                   'date_created': '2019-12-16T22:18:37Z',
                   'date_updated': '2019-12-16T22:18:38Z',
-                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+                  }
               },
               {
                   'sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -279,7 +291,10 @@ describe('User', function() {
                   'is_notifiable': null,
                   'date_created': '2020-03-24T20:38:21Z',
                   'date_updated': '2020-03-24T20:38:21Z',
-                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+                  }
               }
           ]
       };
@@ -313,7 +328,10 @@ describe('User', function() {
                   'is_notifiable': null,
                   'date_created': '2019-12-16T22:18:37Z',
                   'date_updated': '2019-12-16T22:18:38Z',
-                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+                  }
               },
               {
                   'sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -327,7 +345,10 @@ describe('User', function() {
                   'is_notifiable': null,
                   'date_created': '2020-03-24T20:38:21Z',
                   'date_updated': '2020-03-24T20:38:21Z',
-                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+                  }
               }
           ]
       };
@@ -366,7 +387,10 @@ describe('User', function() {
                   'is_notifiable': null,
                   'date_created': '2019-12-16T22:18:37Z',
                   'date_updated': '2019-12-16T22:18:38Z',
-                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+                  }
               },
               {
                   'sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -380,7 +404,10 @@ describe('User', function() {
                   'is_notifiable': null,
                   'date_created': '2020-03-24T20:38:21Z',
                   'date_updated': '2020-03-24T20:38:21Z',
-                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+                  }
               }
           ]
       };
@@ -436,7 +463,10 @@ describe('User', function() {
                   'is_notifiable': null,
                   'date_created': '2019-12-16T22:18:37Z',
                   'date_updated': '2019-12-16T22:18:38Z',
-                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+                  }
               },
               {
                   'sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -450,7 +480,10 @@ describe('User', function() {
                   'is_notifiable': null,
                   'date_created': '2020-03-24T20:38:21Z',
                   'date_updated': '2020-03-24T20:38:21Z',
-                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'user_conversations': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations'
+                  }
               }
           ]
       };
