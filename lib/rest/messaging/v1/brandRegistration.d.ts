@@ -216,6 +216,7 @@ interface BrandRegistrationPayload extends BrandRegistrationResource, Page.Twili
 interface BrandRegistrationResource {
   a2p_profile_bundle_sid: string;
   account_sid: string;
+  brand_score: number;
   customer_profile_bundle_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -271,6 +272,7 @@ declare class BrandRegistrationInstance extends SerializableClass {
   private _proxy: BrandRegistrationContext;
   a2PProfileBundleSid: string;
   accountSid: string;
+  brandScore: number;
   customerProfileBundleSid: string;
   dateCreated: Date;
   dateUpdated: Date;

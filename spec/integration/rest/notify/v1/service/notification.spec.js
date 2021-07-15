@@ -54,7 +54,7 @@ describe('Notification', function() {
   it('should generate valid create response',
     function(done) {
       var body = {
-          'sid': 'NOb8021351170b4e1286adaac3fdd6d082',
+          'sid': 'NTb8021351170b4e1286adaac3fdd6d082',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'IS699b53e02da45a1ba9d13b7d7d2766af',
           'date_created': '2016-03-24T23:42:28Z',
@@ -93,7 +93,7 @@ describe('Notification', function() {
   it('should generate valid create_direct_notification response',
     function(done) {
       var body = {
-          'sid': 'NOb8021351170b4e1286adaac3fdd6d082',
+          'sid': 'NTb8021351170b4e1286adaac3fdd6d082',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'IS699b53e02da45a1ba9d13b7d7d2766af',
           'date_created': '2016-03-24T23:42:28Z',

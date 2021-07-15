@@ -9,6 +9,8 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
+import { UserConversationList } from './user/userConversation';
+import { UserConversationListInstance } from './user/userConversation';
 
 type UserWebhookEnabledType = 'true'|'false';
 
@@ -250,6 +252,7 @@ interface UserResource {
   identity: string;
   is_notifiable: boolean;
   is_online: boolean;
+  links: string;
   role_sid: string;
   sid: string;
   url: string;
@@ -304,6 +307,7 @@ declare class UserContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
+  userConversations: UserConversationListInstance;
 }
 
 
@@ -333,6 +337,7 @@ declare class UserInstance extends SerializableClass {
   identity: string;
   isNotifiable: boolean;
   isOnline: boolean;
+  links: string;
   /**
    * remove a UserInstance
    *
@@ -366,6 +371,10 @@ declare class UserInstance extends SerializableClass {
    */
   update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
   url: string;
+  /**
+   * Access the userConversations
+   */
+  userConversations(): UserConversationListInstance;
 }
 
 
