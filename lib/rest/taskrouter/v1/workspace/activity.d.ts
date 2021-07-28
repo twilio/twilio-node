@@ -236,6 +236,7 @@ interface ActivityResource {
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
+  links: string;
   sid: string;
   url: string;
   workspace_sid: string;
@@ -311,6 +312,7 @@ declare class ActivityInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
   friendlyName: string;
+  links: string;
   /**
    * remove a ActivityInstance
    *

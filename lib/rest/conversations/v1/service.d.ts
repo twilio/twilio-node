@@ -14,6 +14,8 @@ import { ConfigurationList } from './service/configuration';
 import { ConfigurationListInstance } from './service/configuration';
 import { ConversationList } from './service/conversation';
 import { ConversationListInstance } from './service/conversation';
+import { ParticipantConversationList } from './service/participantConversation';
+import { ParticipantConversationListInstance } from './service/participantConversation';
 import { RoleList } from './service/role';
 import { RoleListInstance } from './service/role';
 import { SerializableClass } from '../../../interfaces';
@@ -248,6 +250,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  participantConversations: ParticipantConversationListInstance;
   /**
    * remove a ServiceInstance
    *
@@ -297,6 +300,10 @@ declare class ServiceInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   friendlyName: string;
   links: string;
+  /**
+   * Access the participantConversations
+   */
+  participantConversations(): ParticipantConversationListInstance;
   /**
    * remove a ServiceInstance
    *

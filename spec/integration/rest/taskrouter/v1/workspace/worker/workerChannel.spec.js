@@ -37,9 +37,9 @@ describe('WorkerChannel', function() {
               'key': 'channels',
               'next_page_url': null,
               'page': 0,
-              'page_size': 1,
+              'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0'
           },
           'channels': [
               {
@@ -48,12 +48,12 @@ describe('WorkerChannel', function() {
                   'available': true,
                   'available_capacity_percentage': 100,
                   'configured_capacity': 1,
-                  'date_created': '2014-05-14T10:50:02Z',
-                  'date_updated': '2014-05-15T16:03:42Z',
+                  'date_created': '2016-04-14T17:35:54Z',
+                  'date_updated': '2016-04-14T17:35:54Z',
                   'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_unique_name': 'default',
-                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -73,9 +73,9 @@ describe('WorkerChannel', function() {
               'key': 'channels',
               'next_page_url': null,
               'page': 0,
-              'page_size': 1,
+              'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0'
           },
           'channels': [
               {
@@ -84,12 +84,12 @@ describe('WorkerChannel', function() {
                   'available': true,
                   'available_capacity_percentage': 100,
                   'configured_capacity': 1,
-                  'date_created': '2014-05-14T10:50:02Z',
-                  'date_updated': '2014-05-15T16:03:42Z',
+                  'date_created': '2016-04-14T17:35:54Z',
+                  'date_updated': '2016-04-14T17:35:54Z',
                   'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_unique_name': 'default',
-                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -114,9 +114,9 @@ describe('WorkerChannel', function() {
               'key': 'channels',
               'next_page_url': null,
               'page': 0,
-              'page_size': 1,
+              'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0'
           },
           'channels': [
               {
@@ -125,12 +125,12 @@ describe('WorkerChannel', function() {
                   'available': true,
                   'available_capacity_percentage': 100,
                   'configured_capacity': 1,
-                  'date_created': '2014-05-14T10:50:02Z',
-                  'date_updated': '2014-05-15T16:03:42Z',
+                  'date_created': '2016-04-14T17:35:54Z',
+                  'date_updated': '2016-04-14T17:35:54Z',
                   'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_unique_name': 'default',
-                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -174,9 +174,9 @@ describe('WorkerChannel', function() {
               'key': 'channels',
               'next_page_url': null,
               'page': 0,
-              'page_size': 1,
+              'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0'
           },
           'channels': [
               {
@@ -185,12 +185,12 @@ describe('WorkerChannel', function() {
                   'available': true,
                   'available_capacity_percentage': 100,
                   'configured_capacity': 1,
-                  'date_created': '2014-05-14T10:50:02Z',
-                  'date_updated': '2014-05-15T16:03:42Z',
+                  'date_created': '2016-04-14T17:35:54Z',
+                  'date_updated': '2016-04-14T17:35:54Z',
                   'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_unique_name': 'default',
-                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -218,9 +218,9 @@ describe('WorkerChannel', function() {
               'key': 'channels',
               'next_page_url': null,
               'page': 0,
-              'page_size': 1,
+              'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0'
           },
           'channels': []
       };
@@ -263,7 +263,7 @@ describe('WorkerChannel', function() {
       }));
     }
   );
-  it('should generate valid fetch response',
+  it('should generate valid fetch_sid response',
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -271,12 +271,12 @@ describe('WorkerChannel', function() {
           'available': true,
           'available_capacity_percentage': 100,
           'configured_capacity': 1,
-          'date_created': '2014-05-14T10:50:02Z',
-          'date_updated': '2014-05-15T16:03:42Z',
+          'date_created': '2016-04-14T17:35:54Z',
+          'date_updated': '2016-04-14T17:35:54Z',
           'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_channel_unique_name': 'default',
-          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
@@ -327,8 +327,8 @@ describe('WorkerChannel', function() {
           'available': true,
           'available_capacity_percentage': 100,
           'configured_capacity': 3,
-          'date_created': '2014-05-14T10:50:02Z',
-          'date_updated': '2014-05-15T16:03:42Z',
+          'date_created': '2016-04-14T17:35:54Z',
+          'date_updated': '2016-04-14T17:35:54Z',
           'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_channel_unique_name': 'default',
