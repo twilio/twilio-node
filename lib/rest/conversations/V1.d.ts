@@ -13,6 +13,8 @@ import { ConversationList } from './v1/conversation';
 import { ConversationListInstance } from './v1/conversation';
 import { CredentialList } from './v1/credential';
 import { CredentialListInstance } from './v1/credential';
+import { ParticipantConversationList } from './v1/participantConversation';
+import { ParticipantConversationListInstance } from './v1/participantConversation';
 import { RoleList } from './v1/role';
 import { RoleListInstance } from './v1/role';
 import { ServiceList } from './v1/service';
@@ -32,6 +34,7 @@ declare class V1 extends Version {
   readonly configuration: ConfigurationListInstance;
   readonly conversations: ConversationListInstance;
   readonly credentials: CredentialListInstance;
+  readonly participantConversations: ParticipantConversationListInstance;
   readonly roles: RoleListInstance;
   readonly services: ServiceListInstance;
   readonly users: UserListInstance;

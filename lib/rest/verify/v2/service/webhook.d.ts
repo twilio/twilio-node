@@ -14,6 +14,8 @@ type WebhookMethods = 'GET'|'POST';
 
 type WebhookStatus = 'enabled'|'disabled';
 
+type WebhookVersion = 'v1'|'v2';
+
 /**
  * Initialize the WebhookList
  *
@@ -31,12 +33,14 @@ declare function WebhookList(version: V2, serviceSid: string): WebhookListInstan
  * @property eventTypes - The array of events that this Webhook is subscribed to.
  * @property friendlyName - The string that you assigned to describe the webhook
  * @property status - The webhook status
+ * @property version - The webhook version
  * @property webhookUrl - The URL associated with this Webhook.
  */
 interface WebhookInstanceUpdateOptions {
   eventTypes?: string | string[];
   friendlyName?: string;
   status?: WebhookStatus;
+  version?: WebhookVersion;
   webhookUrl?: string;
 }
 
@@ -166,12 +170,14 @@ interface WebhookListInstance {
  * @property eventTypes - The array of events that this Webhook is subscribed to.
  * @property friendlyName - The string that you assigned to describe the webhook
  * @property status - The webhook status
+ * @property version - The webhook version
  * @property webhookUrl - The URL associated with this Webhook.
  */
 interface WebhookListInstanceCreateOptions {
   eventTypes: string | string[];
   friendlyName: string;
   status?: WebhookStatus;
+  version?: WebhookVersion;
   webhookUrl: string;
 }
 
@@ -245,6 +251,7 @@ interface WebhookResource {
   sid: string;
   status: WebhookStatus;
   url: string;
+  version: WebhookVersion;
   webhook_method: WebhookMethods;
   webhook_url: string;
 }
@@ -352,6 +359,7 @@ declare class WebhookInstance extends SerializableClass {
    */
   update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   url: string;
+  version: WebhookVersion;
   webhookMethod: WebhookMethods;
   webhookUrl: string;
 }
@@ -382,4 +390,4 @@ declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, Webh
   toJSON(): any;
 }
 
-export { WebhookContext, WebhookInstance, WebhookInstanceUpdateOptions, WebhookList, WebhookListInstance, WebhookListInstanceCreateOptions, WebhookListInstanceEachOptions, WebhookListInstanceOptions, WebhookListInstancePageOptions, WebhookMethods, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution, WebhookStatus }
+export { WebhookContext, WebhookInstance, WebhookInstanceUpdateOptions, WebhookList, WebhookListInstance, WebhookListInstanceCreateOptions, WebhookListInstanceEachOptions, WebhookListInstanceOptions, WebhookListInstancePageOptions, WebhookMethods, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution, WebhookStatus, WebhookVersion }
