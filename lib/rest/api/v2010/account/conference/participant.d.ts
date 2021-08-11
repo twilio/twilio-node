@@ -209,6 +209,7 @@ interface ParticipantListInstance {
  * @property statusCallback - The URL we should call to send status information to your application
  * @property statusCallbackEvent - Set state change events that will trigger a callback
  * @property statusCallbackMethod - The HTTP method we should use to call `status_callback`
+ * @property timeLimit - The maximum duration of the call in seconds.
  * @property timeout - he number of seconds that we should wait for an answer
  * @property to - The phone number, SIP address or Client identifier that received this call.
  * @property waitMethod - The HTTP method we should use to call `wait_url`
@@ -249,6 +250,7 @@ interface ParticipantListInstanceCreateOptions {
   statusCallback?: string;
   statusCallbackEvent?: string | string[];
   statusCallbackMethod?: string;
+  timeLimit?: number;
   timeout?: number;
   to: string;
   waitMethod?: string;

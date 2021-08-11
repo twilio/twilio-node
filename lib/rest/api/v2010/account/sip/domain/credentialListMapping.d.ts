@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  *
  * @param version - Version of the resource
  * @param accountSid - The unique id of the Account that is responsible for this resource.
- * @param domainSid - The unique string that identifies the resource
+ * @param domainSid - The unique string that identifies the SipDomain resource.
  */
 declare function CredentialListMappingList(version: V2010, accountSid: string, domainSid: string): CredentialListMappingListInstance;
 
@@ -214,9 +214,9 @@ interface CredentialListMappingResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
+  domain_sid: string;
   friendly_name: string;
   sid: string;
-  subresource_uris: string;
   uri: string;
 }
 
@@ -263,7 +263,7 @@ declare class CredentialListMappingInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The unique id of the Account that is responsible for this resource.
-   * @param domainSid - The unique string that identifies the resource
+   * @param domainSid - The unique string that identifies the SipDomain resource.
    * @param sid - A string that identifies the resource to fetch
    */
   constructor(version: V2010, payload: CredentialListMappingPayload, accountSid: string, domainSid: string, sid: string);
@@ -272,6 +272,7 @@ declare class CredentialListMappingInstance extends SerializableClass {
   accountSid: string;
   dateCreated: Date;
   dateUpdated: Date;
+  domainSid: string;
   /**
    * fetch a CredentialListMappingInstance
    *
@@ -286,7 +287,6 @@ declare class CredentialListMappingInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): Promise<boolean>;
   sid: string;
-  subresourceUris: string;
   /**
    * Provide a user-friendly representation
    */

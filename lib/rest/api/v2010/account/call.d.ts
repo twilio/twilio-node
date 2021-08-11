@@ -44,6 +44,7 @@ declare function CallList(version: V2010, accountSid: string): CallListInstance;
  * @property status - The new status to update the call with.
  * @property statusCallback - The URL we should call to send status information to your application
  * @property statusCallbackMethod - HTTP Method to use to call status_callback
+ * @property timeLimit - The maximum duration of the call in seconds.
  * @property twiml - TwiML instructions for the call
  * @property url - The absolute URL that returns TwiML for this call
  */
@@ -54,6 +55,7 @@ interface CallInstanceUpdateOptions {
   status?: CallUpdateStatus;
   statusCallback?: string;
   statusCallbackMethod?: string;
+  timeLimit?: number;
   twiml?: string;
   url?: string;
 }
@@ -211,6 +213,7 @@ interface CallListInstance {
  * @property statusCallback - The URL we should call to send status information to your application
  * @property statusCallbackEvent - The call progress events that we send to the `status_callback` URL.
  * @property statusCallbackMethod - HTTP Method to use with status_callback
+ * @property timeLimit - The maximum duration of the call in seconds.
  * @property timeout - Number of seconds to wait for an answer
  * @property to - Phone number, SIP address, or client identifier to call
  * @property trim - Set this parameter to control trimming of silence on the recording.
@@ -247,6 +250,7 @@ interface CallListInstanceCreateOptions {
   statusCallback?: string;
   statusCallbackEvent?: string | string[];
   statusCallbackMethod?: string;
+  timeLimit?: number;
   timeout?: number;
   to: string;
   trim?: string;
