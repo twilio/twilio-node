@@ -9,6 +9,8 @@ import Insights = require('../Insights');
 import Version = require('../../base/Version');
 import { CallList } from './v1/call';
 import { CallListInstance } from './v1/call';
+import { CallSummariesList } from './v1/callSummaries';
+import { CallSummariesListInstance } from './v1/callSummaries';
 import { RoomList } from './v1/room';
 import { RoomListInstance } from './v1/room';
 
@@ -21,6 +23,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Insights);
 
+  readonly callSummaries: CallSummariesListInstance;
   readonly calls: CallListInstance;
   readonly rooms: RoomListInstance;
 }

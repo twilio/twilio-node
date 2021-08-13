@@ -9,6 +9,7 @@ import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./insights/V1');
 import { CallListInstance } from './insights/v1/call';
+import { CallSummariesListInstance } from './insights/v1/callSummaries';
 import { RoomListInstance } from './insights/v1/room';
 
 
@@ -20,6 +21,7 @@ declare class Insights extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly callSummaries: CallSummariesListInstance;
   readonly calls: CallListInstance;
   readonly rooms: RoomListInstance;
   readonly v1: V1;

@@ -35,8 +35,8 @@ describe('CredentialList', function() {
           'credential_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
-                  'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
+                  'date_created': 'Wed, 11 Sep 2013 17:51:38 +0000',
+                  'date_updated': 'Wed, 11 Sep 2013 17:51:38 +0000',
                   'friendly_name': 'Low Rises',
                   'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'subresource_uris': {
@@ -47,6 +47,8 @@ describe('CredentialList', function() {
           ],
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists.json?PageSize=50&Page=0',
           'next_page_uri': null,
+          'start': 0,
+          'end': 0,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
@@ -64,8 +66,8 @@ describe('CredentialList', function() {
           'credential_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
-                  'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
+                  'date_created': 'Wed, 11 Sep 2013 17:51:38 +0000',
+                  'date_updated': 'Wed, 11 Sep 2013 17:51:38 +0000',
                   'friendly_name': 'Low Rises',
                   'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'subresource_uris': {
@@ -76,6 +78,8 @@ describe('CredentialList', function() {
           ],
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists.json?PageSize=50&Page=0',
           'next_page_uri': null,
+          'start': 0,
+          'end': 0,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
@@ -98,8 +102,8 @@ describe('CredentialList', function() {
           'credential_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
-                  'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
+                  'date_created': 'Wed, 11 Sep 2013 17:51:38 +0000',
+                  'date_updated': 'Wed, 11 Sep 2013 17:51:38 +0000',
                   'friendly_name': 'Low Rises',
                   'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'subresource_uris': {
@@ -110,6 +114,8 @@ describe('CredentialList', function() {
           ],
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists.json?PageSize=50&Page=0',
           'next_page_uri': null,
+          'start': 0,
+          'end': 0,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
@@ -150,8 +156,8 @@ describe('CredentialList', function() {
           'credential_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
-                  'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
+                  'date_created': 'Wed, 11 Sep 2013 17:51:38 +0000',
+                  'date_updated': 'Wed, 11 Sep 2013 17:51:38 +0000',
                   'friendly_name': 'Low Rises',
                   'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'subresource_uris': {
@@ -162,6 +168,8 @@ describe('CredentialList', function() {
           ],
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists.json?PageSize=50&Page=0',
           'next_page_uri': null,
+          'start': 0,
+          'end': 0,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
@@ -187,6 +195,8 @@ describe('CredentialList', function() {
           'credential_lists': [],
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists.json?PageSize=50&Page=0',
           'next_page_uri': null,
+          'start': 0,
+          'end': 0,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
@@ -236,8 +246,8 @@ describe('CredentialList', function() {
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
-          'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
+          'date_created': 'Wed, 11 Sep 2013 17:51:38 +0000',
+          'date_updated': 'Wed, 11 Sep 2013 17:51:38 +0000',
           'friendly_name': 'Low Rises',
           'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'subresource_uris': {
@@ -288,8 +298,8 @@ describe('CredentialList', function() {
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
-          'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
+          'date_created': 'Wed, 11 Sep 2013 17:51:38 +0000',
+          'date_updated': 'Wed, 11 Sep 2013 17:51:38 +0000',
           'friendly_name': 'Low Rises',
           'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'subresource_uris': {
@@ -342,8 +352,8 @@ describe('CredentialList', function() {
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
-          'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
+          'date_created': 'Wed, 11 Sep 2013 17:51:38 +0000',
+          'date_updated': 'Wed, 11 Sep 2013 17:51:38 +0000',
           'friendly_name': 'Low Rises',
           'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'subresource_uris': {

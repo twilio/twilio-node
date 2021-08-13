@@ -14,9 +14,9 @@ jobs:
     - sonar-scanner
 script:
 - npm run ci
-- if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-  echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin;
-  fi
+- if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST"
+  == "false" ]; then echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
+  --password-stdin; fi
 deploy:
 - provider: script
   script: make docker-build && make docker-push
@@ -42,4 +42,4 @@ addons:
   sonarcloud:
     organization: twilio
     token:
-      secure: nCBPvVz97nV1YyOxwyHtgkWBXpICTVGk5XzMBoml2fp1EY8UP2tdik8IbhwFnFv5jyrxWSfo7hoGMciQZu65cIFl1S+3DjI0G3oyPdBkfi8kgRlt4cThK/saiJYHlFee96rvVMvcvpWX4s0XcKww8WjKVSkhvhAZ8d2NoZz+bxw=
+      secure: sbUfTjrbv95UVUpUDij2IRz5qCMvwWoLpKNHftamhyzy2v+xqxcHfn21FAwCriVPublYOv/sR1/sAcaMd+vvGd2SGGiSOMCTylvN3mLZXg5HfSfAMWLs0zDPtxKBSHZIbija3Ev7jTZtM9NuyodkJLxePSALn6DQ7ZcICZ5PCAM=

@@ -146,10 +146,12 @@ interface BrandRegistrationListInstance {
  * Options to pass to create
  *
  * @property a2PProfileBundleSid - A2P Messaging Profile Bundle Sid
+ * @property brandType - Type of brand being created. One of: "STANDARD", "STARTER".
  * @property customerProfileBundleSid - Customer Profile Bundle Sid
  */
 interface BrandRegistrationListInstanceCreateOptions {
   a2PProfileBundleSid: string;
+  brandType?: string;
   customerProfileBundleSid: string;
 }
 
@@ -217,6 +219,7 @@ interface BrandRegistrationResource {
   a2p_profile_bundle_sid: string;
   account_sid: string;
   brand_score: number;
+  brand_type: string;
   customer_profile_bundle_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -273,6 +276,7 @@ declare class BrandRegistrationInstance extends SerializableClass {
   a2PProfileBundleSid: string;
   accountSid: string;
   brandScore: number;
+  brandType: string;
   customerProfileBundleSid: string;
   dateCreated: Date;
   dateUpdated: Date;
