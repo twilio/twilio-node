@@ -147,6 +147,14 @@ describe('Request validation', () => {
 
     expect(isValid).toBeTruthy();
   });
+
+  it('should validate request body with an array parameter', () => {
+    const paramsWithArray = { 'MessagingBinding.Address': ['+1325xxxxxxx', '+1415xxxxxxx'] };
+    const signature = '83O6e2vORAoJHUNzJjDWN1jz+BA=';
+    const isValid = validateRequest(token, signature, requestUrl, paramsWithArray);
+
+    expect(isValid).toBeTruthy();
+  });
 });
 
 describe('Request validation middleware', () => {
