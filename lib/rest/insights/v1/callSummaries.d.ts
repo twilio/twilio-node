@@ -18,7 +18,7 @@ type CallSummariesCallType = 'carrier'|'sip'|'trunking'|'client';
 
 type CallSummariesProcessingState = 'complete'|'partial';
 
-type CallSummariesProcessingStateRequest = 'completed'|'started'|'all';
+type CallSummariesProcessingStateRequest = 'completed'|'started'|'partial'|'all';
 
 type CallSummariesSortBy = 'start_time'|'end_time';
 
@@ -135,6 +135,7 @@ interface CallSummariesListInstance {
 /**
  * Options to pass to each
  *
+ * @property abnormalSession - The abnormal_session
  * @property branded - The branded
  * @property callState - The call_state
  * @property callType - The call_type
@@ -168,6 +169,7 @@ interface CallSummariesListInstance {
  * @property verifiedCaller - The verified_caller
  */
 interface CallSummariesListInstanceEachOptions {
+  abnormalSession?: boolean;
   branded?: boolean;
   callState?: string | string[];
   callType?: string | string[];
@@ -194,6 +196,7 @@ interface CallSummariesListInstanceEachOptions {
 /**
  * Options to pass to list
  *
+ * @property abnormalSession - The abnormal_session
  * @property branded - The branded
  * @property callState - The call_state
  * @property callType - The call_type
@@ -223,6 +226,7 @@ interface CallSummariesListInstanceEachOptions {
  * @property verifiedCaller - The verified_caller
  */
 interface CallSummariesListInstanceOptions {
+  abnormalSession?: boolean;
   branded?: boolean;
   callState?: string | string[];
   callType?: string | string[];
@@ -247,6 +251,7 @@ interface CallSummariesListInstanceOptions {
 /**
  * Options to pass to page
  *
+ * @property abnormalSession - The abnormal_session
  * @property branded - The branded
  * @property callState - The call_state
  * @property callType - The call_type
@@ -269,6 +274,7 @@ interface CallSummariesListInstanceOptions {
  * @property verifiedCaller - The verified_caller
  */
 interface CallSummariesListInstancePageOptions {
+  abnormalSession?: boolean;
   branded?: boolean;
   callState?: string | string[];
   callType?: string | string[];

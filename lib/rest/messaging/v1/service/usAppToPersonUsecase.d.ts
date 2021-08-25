@@ -29,9 +29,25 @@ interface UsAppToPersonUsecaseListInstance {
    */
   fetch(callback?: (error: Error | null, items: UsAppToPersonUsecaseListInstance) => any): Promise<UsAppToPersonUsecaseInstance>;
   /**
+   * fetch a UsAppToPersonUsecaseInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  fetch(opts?: UsAppToPersonUsecaseListInstanceFetchOptions, callback?: (error: Error | null, items: UsAppToPersonUsecaseListInstance) => any): Promise<UsAppToPersonUsecaseInstance>;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+}
+
+/**
+ * Options to pass to fetch
+ *
+ * @property brandRegistrationSid - A2P Brand Registration SID
+ */
+interface UsAppToPersonUsecaseListInstanceFetchOptions {
+  brandRegistrationSid?: string;
 }
 
 interface UsAppToPersonUsecasePayload extends UsAppToPersonUsecaseResource, Page.TwilioResponsePayload {
@@ -92,4 +108,4 @@ declare class UsAppToPersonUsecasePage extends Page<V1, UsAppToPersonUsecasePayl
   toJSON(): any;
 }
 
-export { UsAppToPersonUsecaseInstance, UsAppToPersonUsecaseList, UsAppToPersonUsecaseListInstance, UsAppToPersonUsecasePage, UsAppToPersonUsecasePayload, UsAppToPersonUsecaseResource, UsAppToPersonUsecaseSolution }
+export { UsAppToPersonUsecaseInstance, UsAppToPersonUsecaseList, UsAppToPersonUsecaseListInstance, UsAppToPersonUsecaseListInstanceFetchOptions, UsAppToPersonUsecasePage, UsAppToPersonUsecasePayload, UsAppToPersonUsecaseResource, UsAppToPersonUsecaseSolution }

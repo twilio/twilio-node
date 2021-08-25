@@ -51,7 +51,36 @@ describe('UsAppToPersonUsecase', function() {
       }));
     }
   );
-  it('should generate valid fetch response',
+  it('should generate valid fetch_with_brand_registration_sid response',
+    function(done) {
+      var body = {
+          'us_app_to_person_usecases': [
+              {
+                  'code': 'MARKETING',
+                  'name': 'Marketing',
+                  'description': 'Send marketing messages about sales and offers to opted in customers.'
+              },
+              {
+                  'code': 'DELIVERY_NOTIFICATION',
+                  'name': 'Delivery Notification',
+                  'description': 'Information about the status of the delivery of a product or service.'
+              }
+          ]
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .usAppToPersonUsecases.fetch();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid fetch_without_brand_registration_sid response',
     function(done) {
       var body = {
           'us_app_to_person_usecases': [

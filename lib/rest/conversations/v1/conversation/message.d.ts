@@ -12,6 +12,8 @@ import { DeliveryReceiptList } from './message/deliveryReceipt';
 import { DeliveryReceiptListInstance } from './message/deliveryReceipt';
 import { SerializableClass } from '../../../../interfaces';
 
+type MessageOrderType = 'asc'|'desc';
+
 type MessageWebhookEnabledType = 'true'|'false';
 
 /**
@@ -208,6 +210,7 @@ interface MessageListInstanceCreateOptions {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property order - The sort order of the returned messages
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -219,6 +222,7 @@ interface MessageListInstanceEachOptions {
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
+  order?: MessageOrderType;
   pageSize?: number;
 }
 
@@ -229,6 +233,7 @@ interface MessageListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property order - The sort order of the returned messages
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -238,17 +243,20 @@ interface MessageListInstanceEachOptions {
  */
 interface MessageListInstanceOptions {
   limit?: number;
+  order?: MessageOrderType;
   pageSize?: number;
 }
 
 /**
  * Options to pass to page
  *
+ * @property order - The sort order of the returned messages
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface MessageListInstancePageOptions {
+  order?: MessageOrderType;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -420,4 +428,4 @@ declare class MessagePage extends Page<V1, MessagePayload, MessageResource, Mess
   toJSON(): any;
 }
 
-export { MessageContext, MessageInstance, MessageInstanceRemoveOptions, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution, MessageWebhookEnabledType }
+export { MessageContext, MessageInstance, MessageInstanceRemoveOptions, MessageInstanceUpdateOptions, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessageOrderType, MessagePage, MessagePayload, MessageResource, MessageSolution, MessageWebhookEnabledType }

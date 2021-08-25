@@ -18,6 +18,8 @@ type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
 
 type ChallengeFactorTypes = 'push'|'totp';
 
+type ChallengeListOrders = 'asc'|'desc';
+
 /**
  * Initialize the ChallengeList
  *
@@ -192,6 +194,7 @@ interface ChallengeListInstanceCreateOptions {
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property order - The sort order of the Challenges list
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -205,6 +208,7 @@ interface ChallengeListInstanceEachOptions {
   done?: Function;
   factorSid?: string;
   limit?: number;
+  order?: ChallengeListOrders;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
 }
@@ -217,6 +221,7 @@ interface ChallengeListInstanceEachOptions {
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property order - The sort order of the Challenges list
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -228,6 +233,7 @@ interface ChallengeListInstanceEachOptions {
 interface ChallengeListInstanceOptions {
   factorSid?: string;
   limit?: number;
+  order?: ChallengeListOrders;
   pageSize?: number;
   status?: ChallengeChallengeStatuses;
 }
@@ -236,6 +242,7 @@ interface ChallengeListInstanceOptions {
  * Options to pass to page
  *
  * @property factorSid - Factor Sid.
+ * @property order - The sort order of the Challenges list
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -243,6 +250,7 @@ interface ChallengeListInstanceOptions {
  */
 interface ChallengeListInstancePageOptions {
   factorSid?: string;
+  order?: ChallengeListOrders;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -407,4 +415,4 @@ declare class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource
   toJSON(): any;
 }
 
-export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
+export { ChallengeChallengeReasons, ChallengeChallengeStatuses, ChallengeContext, ChallengeFactorTypes, ChallengeInstance, ChallengeInstanceUpdateOptions, ChallengeList, ChallengeListInstance, ChallengeListInstanceCreateOptions, ChallengeListInstanceEachOptions, ChallengeListInstanceOptions, ChallengeListInstancePageOptions, ChallengeListOrders, ChallengePage, ChallengePayload, ChallengeResource, ChallengeSolution }
