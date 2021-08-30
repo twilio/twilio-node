@@ -1,21 +1,24 @@
-var mockfs = require('mock-fs');
-var proxyquire = require('proxyquire');
-var Q = require('q');
+'use strict';
+
+const mockfs = require('mock-fs');
+const proxyquire = require('proxyquire');
+const Q = require('q');
 
 describe('lastResponse and lastRequest defined', function() {
-  var client;
+  let client;
+  let response;
   beforeEach(function() {
-    RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
+    const RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
       axios: function(options) {
-        var deferred = Q.defer();
-        deferred.resolve({status: 200, data: 'voltron'});
+        const deferred = Q.defer();
+        deferred.resolve({status: 200, data: 'voltron', headers: {response: 'header'}});
         return deferred.promise;
       },
     });
 
     client = new RequestClientMock();
 
-    var options = {
+    const options = {
       method: 'GET',
       uri: 'test-uri',
       username: 'test-username',
@@ -25,8 +28,9 @@ describe('lastResponse and lastRequest defined', function() {
       data: {'test-data-key': 'test-data-value'},
     };
 
-    return client.request(options);
+    response = client.request(options);
 
+    return response;
   });
 
   it('should have lastResponse and lastRequest on success', function() {
@@ -37,8 +41,8 @@ describe('lastResponse and lastRequest defined', function() {
     expect(client.lastRequest.params).toEqual({'test-param-key': 'test-param-value'});
     expect(client.lastRequest.headers).toEqual({
       'test-header-key': 'test-header-value',
-      'Authorization': 'Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk',
-      'Connection': 'close',
+      Authorization: 'Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk',
+      Connection: 'close',
     });
     expect(client.lastRequest.data).toEqual({'test-data-key': 'test-data-value'});
     expect(client.lastResponse).toBeDefined();
@@ -46,20 +50,27 @@ describe('lastResponse and lastRequest defined', function() {
     expect(client.lastResponse.body).toEqual('voltron');
   });
 
-  it('should not include request authorization header in filtered headers', function () {
-    const filteredHeaderKeys = client.filterLoggingHeaders(client.lastRequest.headers);
-    expect(filteredHeaderKeys).toEqual(['test-header-key', 'Connection'])
+  it('should include response properties', function () {
+    response.then(function (resp) {
+      expect(resp.statusCode).toBeDefined();
+      expect(resp.body).toBeDefined();
+      expect(resp.headers).toBeDefined();
+    });
   });
 
+  it('should not include request authorization header in filtered headers', function () {
+    const filteredHeaderKeys = client.filterLoggingHeaders(client.lastRequest.headers);
+    expect(filteredHeaderKeys).toEqual(['test-header-key', 'Connection']);
+  });
 });
 
 describe('lastRequest defined, lastResponse undefined', function() {
-  var client;
-  var options;
+  let client;
+  let options;
   beforeEach(function() {
-    RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
+    const RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
       axios: function(options) {
-        var deferred = Q.defer();
+        const deferred = Q.defer();
         deferred.reject('failed');
         return deferred.promise;
       },
@@ -87,23 +98,22 @@ describe('lastRequest defined, lastResponse undefined', function() {
       expect(client.lastRequest.params).toEqual({'test-param-key': 'test-param-value'});
       expect(client.lastRequest.headers).toEqual({
         'test-header-key': 'test-header-value',
-        'Authorization': 'Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk',
-        'Connection': 'close',
+        Authorization: 'Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk',
+        Connection: 'close',
       });
       expect(client.lastRequest.data).toEqual({'test-data-key': 'test-data-value'});
       expect(client.lastResponse).toBeUndefined();
     });
   });
-
 });
 
 describe('User specified CA bundle', function() {
-  var client;
-  var options;
+  let client;
+  let options;
   beforeEach(function() {
-    RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
+    const RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
       axios: function (options) {
-        var deferred = Q.defer();
+        const deferred = Q.defer();
         deferred.reject('failed');
         return deferred.promise;
       },
@@ -118,13 +128,13 @@ describe('User specified CA bundle', function() {
       password: 'test-password',
       headers: {'test-header-key': 'test-header-value'},
       params: {'test-param-key': 'test-param-value'},
-      data: {'test-data-key': 'test-data-value'}
+      data: {'test-data-key': 'test-data-value'},
     };
 
     mockfs({
       '/path/to/ca': {
-        'test-ca.pem': 'test ca data'
-      }
+        'test-ca.pem': 'test ca data',
+      },
     });
   });
 
@@ -151,8 +161,8 @@ describe('User specified CA bundle', function() {
     return client.request(options).catch(() => {
       mockfs({
         '/path/to/ca': {
-          'test-ca.pem': null
-        }
+          'test-ca.pem': null,
+        },
       });
       return client.request(options).catch(() => {
         expect(client.lastRequest.ca.toString()).toEqual('test ca data');
