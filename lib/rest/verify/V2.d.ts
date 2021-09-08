@@ -13,6 +13,8 @@ import { ServiceList } from './v2/service';
 import { ServiceListInstance } from './v2/service';
 import { VerificationAttemptList } from './v2/verificationAttempt';
 import { VerificationAttemptListInstance } from './v2/verificationAttempt';
+import { VerificationTemplateList } from './v2/verificationTemplate';
+import { VerificationTemplateListInstance } from './v2/verificationTemplate';
 
 
 declare class V2 extends Version {
@@ -26,6 +28,7 @@ declare class V2 extends Version {
   readonly forms: FormListInstance;
   readonly services: ServiceListInstance;
   readonly verificationAttempts: VerificationAttemptListInstance;
+  readonly verificationTemplates: VerificationTemplateListInstance;
 }
 
 export = V2;

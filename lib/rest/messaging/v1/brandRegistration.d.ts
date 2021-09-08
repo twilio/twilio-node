@@ -148,11 +148,13 @@ interface BrandRegistrationListInstance {
  * @property a2PProfileBundleSid - A2P Messaging Profile Bundle Sid
  * @property brandType - Type of brand being created. One of: "STANDARD", "STARTER".
  * @property customerProfileBundleSid - Customer Profile Bundle Sid
+ * @property mock - A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
  */
 interface BrandRegistrationListInstanceCreateOptions {
   a2PProfileBundleSid: string;
   brandType?: string;
   customerProfileBundleSid: string;
+  mock?: boolean;
 }
 
 /**
@@ -224,6 +226,7 @@ interface BrandRegistrationResource {
   date_created: Date;
   date_updated: Date;
   failure_reason: string;
+  mock: boolean;
   sid: string;
   status: BrandRegistrationStatus;
   tcr_id: string;
@@ -287,6 +290,7 @@ declare class BrandRegistrationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>;
+  mock: boolean;
   sid: string;
   status: BrandRegistrationStatus;
   tcrId: string;

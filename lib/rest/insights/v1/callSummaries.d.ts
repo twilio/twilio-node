@@ -171,10 +171,10 @@ interface CallSummariesListInstance {
 interface CallSummariesListInstanceEachOptions {
   abnormalSession?: boolean;
   branded?: boolean;
-  callState?: string | string[];
-  callType?: string | string[];
+  callState?: CallSummariesCallState | CallSummariesCallState[];
+  callType?: CallSummariesCallType | CallSummariesCallType[];
   callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void;
-  direction?: CallSummariesCallDirection;
+  direction?: CallSummariesCallDirection | CallSummariesCallDirection[];
   done?: Function;
   endTime?: string;
   from?: string | string[];
@@ -228,9 +228,9 @@ interface CallSummariesListInstanceEachOptions {
 interface CallSummariesListInstanceOptions {
   abnormalSession?: boolean;
   branded?: boolean;
-  callState?: string | string[];
-  callType?: string | string[];
-  direction?: CallSummariesCallDirection;
+  callState?: CallSummariesCallState | CallSummariesCallState[];
+  callType?: CallSummariesCallType | CallSummariesCallType[];
+  direction?: CallSummariesCallDirection | CallSummariesCallDirection[];
   endTime?: string;
   from?: string | string[];
   fromCarrier?: string | string[];
@@ -276,9 +276,9 @@ interface CallSummariesListInstanceOptions {
 interface CallSummariesListInstancePageOptions {
   abnormalSession?: boolean;
   branded?: boolean;
-  callState?: string | string[];
-  callType?: string | string[];
-  direction?: CallSummariesCallDirection;
+  callState?: CallSummariesCallState | CallSummariesCallState[];
+  callType?: CallSummariesCallType | CallSummariesCallType[];
+  direction?: CallSummariesCallDirection | CallSummariesCallDirection[];
   endTime?: string;
   from?: string | string[];
   fromCarrier?: string | string[];

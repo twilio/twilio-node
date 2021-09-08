@@ -233,6 +233,7 @@ interface UsAppToPersonResource {
   is_externally_registered: boolean;
   message_samples: string[];
   messaging_service_sid: string;
+  mock: boolean;
   rate_limits: object;
   sid: string;
   url: string;
@@ -309,6 +310,7 @@ declare class UsAppToPersonInstance extends SerializableClass {
   isExternallyRegistered: boolean;
   messageSamples: string[];
   messagingServiceSid: string;
+  mock: boolean;
   rateLimits: any;
   /**
    * remove a UsAppToPersonInstance
