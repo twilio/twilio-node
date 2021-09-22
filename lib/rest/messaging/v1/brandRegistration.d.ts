@@ -10,6 +10,8 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
+type BrandRegistrationIdentityStatus = 'SELF_DECLARED'|'UNVERIFIED'|'VERIFIED'|'VETTED_VERIFIED';
+
 type BrandRegistrationStatus = 'PENDING'|'APPROVED'|'FAILED';
 
 /**
@@ -149,12 +151,14 @@ interface BrandRegistrationListInstance {
  * @property brandType - Type of brand being created. One of: "STANDARD", "STARTER".
  * @property customerProfileBundleSid - Customer Profile Bundle Sid
  * @property mock - A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+ * @property skipAutomaticSecVet - Skip Automatic Secondary Vetting
  */
 interface BrandRegistrationListInstanceCreateOptions {
   a2PProfileBundleSid: string;
   brandType?: string;
   customerProfileBundleSid: string;
   mock?: boolean;
+  skipAutomaticSecVet?: boolean;
 }
 
 /**
@@ -226,9 +230,13 @@ interface BrandRegistrationResource {
   date_created: Date;
   date_updated: Date;
   failure_reason: string;
+  identity_status: BrandRegistrationIdentityStatus;
   mock: boolean;
+  russell_3000: boolean;
   sid: string;
+  skip_automatic_sec_vet: boolean;
   status: BrandRegistrationStatus;
+  tax_exempt_status: string;
   tcr_id: string;
   url: string;
 }
@@ -290,9 +298,13 @@ declare class BrandRegistrationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>;
+  identityStatus: BrandRegistrationIdentityStatus;
   mock: boolean;
+  russell3000: boolean;
   sid: string;
+  skipAutomaticSecVet: boolean;
   status: BrandRegistrationStatus;
+  taxExemptStatus: string;
   tcrId: string;
   /**
    * Provide a user-friendly representation
@@ -327,4 +339,4 @@ declare class BrandRegistrationPage extends Page<V1, BrandRegistrationPayload, B
   toJSON(): any;
 }
 
-export { BrandRegistrationContext, BrandRegistrationInstance, BrandRegistrationList, BrandRegistrationListInstance, BrandRegistrationListInstanceCreateOptions, BrandRegistrationListInstanceEachOptions, BrandRegistrationListInstanceOptions, BrandRegistrationListInstancePageOptions, BrandRegistrationPage, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationSolution, BrandRegistrationStatus }
+export { BrandRegistrationContext, BrandRegistrationIdentityStatus, BrandRegistrationInstance, BrandRegistrationList, BrandRegistrationListInstance, BrandRegistrationListInstanceCreateOptions, BrandRegistrationListInstanceEachOptions, BrandRegistrationListInstanceOptions, BrandRegistrationListInstancePageOptions, BrandRegistrationPage, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationSolution, BrandRegistrationStatus }

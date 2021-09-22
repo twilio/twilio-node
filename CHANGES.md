@@ -1,6 +1,20 @@
 twilio-node changelog
 =====================
 
+[2021-09-22] Version 3.68.0
+---------------------------
+**Library - Feature**
+- [PR #692](https://github.com/twilio/twilio-node/pull/692): add API response headers to the returned response. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Events**
+- Add segment sink
+
+**Messaging**
+- Add post_approval_required attribute in GET us_app_to_person_usecase api response
+- Add Identity Status, Russell 3000, Tax Exempt Status and Should Skip SecVet fields for Brand Registrations
+- Add Should Skip Secondary Vetting optional flag parameter to create Brand API
+
+
 [2021-09-08] Version 3.67.2
 ---------------------------
 **Api**

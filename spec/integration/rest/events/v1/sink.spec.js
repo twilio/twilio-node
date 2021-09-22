@@ -144,6 +144,37 @@ describe('Sink', function() {
       }).done();
     }
   );
+  it('should generate valid create_segment response',
+    function(done) {
+      var body = {
+          'status': 'initialized',
+          'sink_configuration': {
+              'write_key': 'MY_WRITEKEY'
+          },
+          'description': 'My segment Sink',
+          'sid': 'DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:00:00Z',
+          'sink_type': 'segment',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'url': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'sink_test': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Test',
+              'sink_validate': 'https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Validate'
+          }
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {description: 'description', sinkConfiguration: {}, sinkType: 'kinesis'};
+      var promise = client.events.v1.sinks.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid remove request',
     function(done) {
       holodeck.mock(new Response(500, {}));
