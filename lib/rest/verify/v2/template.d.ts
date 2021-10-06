@@ -11,15 +11,15 @@ import V2 = require('../V2');
 import { SerializableClass } from '../../../interfaces';
 
 /**
- * Initialize the VerificationTemplateList
+ * Initialize the TemplateList
  *
  * @param version - Version of the resource
  */
-declare function VerificationTemplateList(version: V2): VerificationTemplateListInstance;
+declare function TemplateList(version: V2): TemplateListInstance;
 
-interface VerificationTemplateListInstance {
+interface TemplateListInstance {
   /**
-   * Streams VerificationTemplateInstance records from the API.
+   * Streams TemplateInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -32,9 +32,9 @@ interface VerificationTemplateListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: VerificationTemplateInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: TemplateInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams VerificationTemplateInstance records from the API.
+   * Streams TemplateInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -48,10 +48,9 @@ interface VerificationTemplateListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: VerificationTemplateListInstanceEachOptions, callback?: (item: VerificationTemplateInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: TemplateListInstanceEachOptions, callback?: (item: TemplateInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Retrieve a single target page of VerificationTemplateInstance records from the
-   * API.
+   * Retrieve a single target page of TemplateInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -60,10 +59,9 @@ interface VerificationTemplateListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: VerificationTemplatePage) => any): Promise<VerificationTemplatePage>;
+  getPage(callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
   /**
-   * Retrieve a single target page of VerificationTemplateInstance records from the
-   * API.
+   * Retrieve a single target page of TemplateInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -73,18 +71,18 @@ interface VerificationTemplateListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: VerificationTemplatePage) => any): Promise<VerificationTemplatePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
   /**
-   * Lists VerificationTemplateInstance records from the API as a list.
+   * Lists TemplateInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: VerificationTemplateInstance[]) => any): Promise<VerificationTemplateInstance[]>;
+  list(callback?: (error: Error | null, items: TemplateInstance[]) => any): Promise<TemplateInstance[]>;
   /**
-   * Lists VerificationTemplateInstance records from the API as a list.
+   * Lists TemplateInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -92,9 +90,9 @@ interface VerificationTemplateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: VerificationTemplateListInstanceOptions, callback?: (error: Error | null, items: VerificationTemplateInstance[]) => any): Promise<VerificationTemplateInstance[]>;
+  list(opts?: TemplateListInstanceOptions, callback?: (error: Error | null, items: TemplateInstance[]) => any): Promise<TemplateInstance[]>;
   /**
-   * Retrieve a single page of VerificationTemplateInstance records from the API.
+   * Retrieve a single page of TemplateInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -103,9 +101,9 @@ interface VerificationTemplateListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: VerificationTemplatePage) => any): Promise<VerificationTemplatePage>;
+  page(callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
   /**
-   * Retrieve a single page of VerificationTemplateInstance records from the API.
+   * Retrieve a single page of TemplateInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -115,7 +113,7 @@ interface VerificationTemplateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: VerificationTemplateListInstancePageOptions, callback?: (error: Error | null, items: VerificationTemplatePage) => any): Promise<VerificationTemplatePage>;
+  page(opts?: TemplateListInstancePageOptions, callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
   /**
    * Provide a user-friendly representation
    */
@@ -141,8 +139,8 @@ interface VerificationTemplateListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface VerificationTemplateListInstanceEachOptions {
-  callback?: (item: VerificationTemplateInstance, done: (err?: Error) => void) => void;
+interface TemplateListInstanceEachOptions {
+  callback?: (item: TemplateInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;
@@ -164,7 +162,7 @@ interface VerificationTemplateListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface VerificationTemplateListInstanceOptions {
+interface TemplateListInstanceOptions {
   friendlyName?: string;
   limit?: number;
   pageSize?: number;
@@ -178,35 +176,35 @@ interface VerificationTemplateListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface VerificationTemplateListInstancePageOptions {
+interface TemplateListInstancePageOptions {
   friendlyName?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface VerificationTemplatePayload extends VerificationTemplateResource, Page.TwilioResponsePayload {
+interface TemplatePayload extends TemplateResource, Page.TwilioResponsePayload {
 }
 
-interface VerificationTemplateResource {
+interface TemplateResource {
   account_sid: string;
   friendly_name: string;
   sid: string;
   translations: object;
 }
 
-interface VerificationTemplateSolution {
+interface TemplateSolution {
 }
 
 
-declare class VerificationTemplateInstance extends SerializableClass {
+declare class TemplateInstance extends SerializableClass {
   /**
-   * Initialize the VerificationTemplateContext
+   * Initialize the TemplateContext
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: V2, payload: VerificationTemplatePayload);
+  constructor(version: V2, payload: TemplatePayload);
 
   accountSid: string;
   friendlyName: string;
@@ -219,26 +217,26 @@ declare class VerificationTemplateInstance extends SerializableClass {
 }
 
 
-declare class VerificationTemplatePage extends Page<V2, VerificationTemplatePayload, VerificationTemplateResource, VerificationTemplateInstance> {
+declare class TemplatePage extends Page<V2, TemplatePayload, TemplateResource, TemplateInstance> {
   /**
-   * Initialize the VerificationTemplatePage
+   * Initialize the TemplatePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V2, response: Response<string>, solution: VerificationTemplateSolution);
+  constructor(version: V2, response: Response<string>, solution: TemplateSolution);
 
   /**
-   * Build an instance of VerificationTemplateInstance
+   * Build an instance of TemplateInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: VerificationTemplatePayload): VerificationTemplateInstance;
+  getInstance(payload: TemplatePayload): TemplateInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { VerificationTemplateInstance, VerificationTemplateList, VerificationTemplateListInstance, VerificationTemplateListInstanceEachOptions, VerificationTemplateListInstanceOptions, VerificationTemplateListInstancePageOptions, VerificationTemplatePage, VerificationTemplatePayload, VerificationTemplateResource, VerificationTemplateSolution }
+export { TemplateInstance, TemplateList, TemplateListInstance, TemplateListInstanceEachOptions, TemplateListInstanceOptions, TemplateListInstancePageOptions, TemplatePage, TemplatePayload, TemplateResource, TemplateSolution }

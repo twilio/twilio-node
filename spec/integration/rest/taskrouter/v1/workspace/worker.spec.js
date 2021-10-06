@@ -404,8 +404,9 @@ describe('Worker', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -417,9 +418,11 @@ describe('Worker', function() {
       var sid = 'WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Workers/${sid}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );
@@ -467,8 +470,9 @@ describe('Worker', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -480,9 +484,11 @@ describe('Worker', function() {
       var sid = 'WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Workers/${sid}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

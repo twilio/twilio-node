@@ -8,10 +8,14 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
+import { BundleCopyList } from './bundle/bundleCopy';
+import { BundleCopyListInstance } from './bundle/bundleCopy';
 import { EvaluationList } from './bundle/evaluation';
 import { EvaluationListInstance } from './bundle/evaluation';
 import { ItemAssignmentList } from './bundle/itemAssignment';
 import { ItemAssignmentListInstance } from './bundle/itemAssignment';
+import { ReplaceItemsList } from './bundle/replaceItems';
+import { ReplaceItemsListInstance } from './bundle/replaceItems';
 import { SerializableClass } from '../../../../interfaces';
 
 type BundleEndUserType = 'individual'|'business';
@@ -299,6 +303,7 @@ declare class BundleContext {
    */
   constructor(version: V2, sid: string);
 
+  bundleCopies: BundleCopyListInstance;
   evaluations: EvaluationListInstance;
   /**
    * fetch a BundleInstance
@@ -313,6 +318,7 @@ declare class BundleContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: BundleInstance) => any): Promise<boolean>;
+  replaceItems: ReplaceItemsListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -345,6 +351,10 @@ declare class BundleInstance extends SerializableClass {
 
   private _proxy: BundleContext;
   accountSid: string;
+  /**
+   * Access the bundleCopies
+   */
+  bundleCopies(): BundleCopyListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   email: string;
@@ -371,6 +381,10 @@ declare class BundleInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: BundleInstance) => any): Promise<boolean>;
+  /**
+   * Access the replaceItems
+   */
+  replaceItems(): ReplaceItemsListInstance;
   sid: string;
   status: BundleStatus;
   statusCallback: string;

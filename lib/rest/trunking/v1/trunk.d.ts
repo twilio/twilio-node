@@ -20,6 +20,8 @@ import { RecordingList } from './trunk/recording';
 import { RecordingListInstance } from './trunk/recording';
 import { SerializableClass } from '../../../interfaces';
 
+type TrunkTransferCallerId = 'from-transferee'|'from-transferor';
+
 type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
 
 /**
@@ -38,6 +40,7 @@ declare function TrunkList(version: V1): TrunkListInstance;
  * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic
  * @property friendlyName - A string to describe the resource
  * @property secure - Whether Secure Trunking is enabled for the trunk
+ * @property transferCallerId - Caller Id for transfer target
  * @property transferMode - The call transfer settings for the trunk
  */
 interface TrunkInstanceUpdateOptions {
@@ -47,6 +50,7 @@ interface TrunkInstanceUpdateOptions {
   domainName?: string;
   friendlyName?: string;
   secure?: boolean;
+  transferCallerId?: TrunkTransferCallerId;
   transferMode?: TrunkTransferSetting;
 }
 
@@ -185,6 +189,7 @@ interface TrunkListInstance {
  * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic
  * @property friendlyName - A string to describe the resource
  * @property secure - Whether Secure Trunking is enabled for the trunk
+ * @property transferCallerId - Caller Id for transfer target
  * @property transferMode - The call transfer settings for the trunk
  */
 interface TrunkListInstanceCreateOptions {
@@ -194,6 +199,7 @@ interface TrunkListInstanceCreateOptions {
   domainName?: string;
   friendlyName?: string;
   secure?: boolean;
+  transferCallerId?: TrunkTransferCallerId;
   transferMode?: TrunkTransferSetting;
 }
 
@@ -272,6 +278,7 @@ interface TrunkResource {
   recording: object;
   secure: boolean;
   sid: string;
+  transfer_caller_id: TrunkTransferCallerId;
   transfer_mode: TrunkTransferSetting;
   url: string;
 }
@@ -387,6 +394,7 @@ declare class TrunkInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  transferCallerId: TrunkTransferCallerId;
   transferMode: TrunkTransferSetting;
   /**
    * update a TrunkInstance
@@ -427,4 +435,4 @@ declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInsta
   toJSON(): any;
 }
 
-export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution, TrunkTransferSetting }
+export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution, TrunkTransferCallerId, TrunkTransferSetting }

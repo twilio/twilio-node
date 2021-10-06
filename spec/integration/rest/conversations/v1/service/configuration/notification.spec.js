@@ -60,18 +60,22 @@ describe('Notification', function() {
           'log_enabled': true,
           'added_to_conversation': {
               'enabled': false,
-              'template': 'notifications.added_to_conversation.template',
+              'template': 'You have been added to a Conversation: ${CONVERSATION}',
               'sound': 'ring'
           },
           'new_message': {
               'enabled': false,
-              'template': 'notifications.new_message.template',
+              'template': 'You have a new message in ${CONVERSATION} from ${PARTICIPANT}: ${MESSAGE}',
               'badge_count_enabled': true,
-              'sound': 'ring'
+              'sound': 'ring',
+              'with_media': {
+                  'enabled': false,
+                  'template': 'You have a new message in ${CONVERSATION} with ${MEDIA_COUNT} media files: ${MEDIA}'
+              }
           },
           'removed_from_conversation': {
               'enabled': false,
-              'template': 'notifications.removed_from_conversation.template',
+              'template': 'You have been removed from a Conversation: ${CONVERSATION}',
               'sound': 'ring'
           },
           'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configuration/Notifications'
@@ -121,18 +125,22 @@ describe('Notification', function() {
           'log_enabled': false,
           'added_to_conversation': {
               'enabled': true,
-              'template': 'notifications.added_to_conversation.template',
+              'template': 'You have been added to a Conversation: ${CONVERSATION}',
               'sound': 'ring'
           },
           'new_message': {
               'enabled': true,
-              'template': 'notifications.new_message.template',
+              'template': 'You have a new message in ${CONVERSATION} from ${PARTICIPANT}: ${MESSAGE}',
               'badge_count_enabled': false,
-              'sound': 'ring'
+              'sound': 'ring',
+              'with_media': {
+                  'enabled': false,
+                  'template': 'You have a new message in ${CONVERSATION} with ${MEDIA_COUNT} media files: ${MEDIA}'
+              }
           },
           'removed_from_conversation': {
               'enabled': true,
-              'template': 'notifications.removed_from_conversation.template',
+              'template': 'You have been removed from a Conversation: ${CONVERSATION}',
               'sound': 'ring'
           },
           'url': 'https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configuration/Notifications'

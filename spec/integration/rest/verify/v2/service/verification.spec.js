@@ -100,6 +100,52 @@ describe('Verification', function() {
       }).done();
     }
   );
+  it('should generate valid create_verification_whatsapp response',
+    function(done) {
+      var body = {
+          'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'to': '+15017122661',
+          'channel': 'whatsapp',
+          'status': 'pending',
+          'valid': false,
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'lookup': {
+              'carrier': {
+                  'error_code': null,
+                  'name': 'Carrier Name',
+                  'mobile_country_code': '310',
+                  'mobile_network_code': '150',
+                  'type': 'mobile'
+              }
+          },
+          'amount': null,
+          'payee': null,
+          'send_code_attempts': [
+              {
+                  'time': '2015-07-30T20:00:00Z',
+                  'channel': 'whatsapp',
+                  'channel_id': null
+              }
+          ],
+          'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {to: 'to', channel: 'channel'};
+      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .verifications.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid create_verification_email response',
     function(done) {
       var body = {

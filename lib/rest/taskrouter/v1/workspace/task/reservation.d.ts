@@ -57,6 +57,7 @@ declare function ReservationList(version: V1, workspaceSid: string, taskSid: str
  * @property endConferenceOnCustomerExit - Whether to end the conference when the customer leaves
  * @property endConferenceOnExit - Whether to end the conference when the agent leaves
  * @property from - The Caller ID of the call to the worker when executing a Conference instruction
+ * @property ifMatch - The If-Match HTTP request header
  * @property instruction - The assignment instruction for reservation
  * @property maxParticipants - The maximum number of agent conference participants
  * @property muted - Whether to mute the agent
@@ -112,6 +113,7 @@ interface ReservationInstanceUpdateOptions {
   endConferenceOnCustomerExit?: boolean;
   endConferenceOnExit?: boolean;
   from?: string;
+  ifMatch?: string;
   instruction?: string;
   maxParticipants?: number;
   muted?: boolean;

@@ -44,15 +44,6 @@ describe('AvailablePhoneNumberCountry', function() {
               }
           ],
           'end': 1,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/DK.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/DK.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
       };
       holodeck.mock(new Response(200, body));
@@ -75,15 +66,6 @@ describe('AvailablePhoneNumberCountry', function() {
               }
           ],
           'end': 1,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/DK.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/DK.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
       };
       holodeck.mock(new Response(200, body));
@@ -111,15 +93,6 @@ describe('AvailablePhoneNumberCountry', function() {
               }
           ],
           'end': 1,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/DK.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/DK.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
       };
       holodeck.mock(new Response(200, body));
@@ -164,15 +137,6 @@ describe('AvailablePhoneNumberCountry', function() {
               }
           ],
           'end': 1,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/DK.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/DK.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
       };
 
@@ -192,16 +156,6 @@ describe('AvailablePhoneNumberCountry', function() {
     function(done) {
       var body = {
           'countries': [],
-          'end': 1,
-          'first_page_uri': null,
-          'last_page_uri': null,
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
       };
 

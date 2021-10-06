@@ -66,6 +66,7 @@ describe('Trunk', function() {
               'trim': 'do-not-trim'
           },
           'transfer_mode': 'disable-all',
+          'transfer_caller_id': 'from-transferor',
           'auth_type': '',
           'auth_type_set': [],
           'date_created': '2015-01-02T11:23:45Z',
@@ -162,6 +163,7 @@ describe('Trunk', function() {
               'trim': 'do-not-trim'
           },
           'transfer_mode': 'disable-all',
+          'transfer_caller_id': 'from-transferee',
           'auth_type': '',
           'auth_type_set': [],
           'date_created': '2015-01-02T11:23:45Z',
@@ -213,6 +215,7 @@ describe('Trunk', function() {
                       'trim': 'do-not-trim'
                   },
                   'transfer_mode': 'disable-all',
+                  'transfer_caller_id': 'from-transferee',
                   'auth_type': '',
                   'auth_type_set': [],
                   'date_created': '2015-01-02T11:23:45Z',
@@ -258,6 +261,7 @@ describe('Trunk', function() {
                       'trim': 'do-not-trim'
                   },
                   'transfer_mode': 'disable-all',
+                  'transfer_caller_id': 'from-transferee',
                   'auth_type': '',
                   'auth_type_set': [],
                   'date_created': '2015-01-02T11:23:45Z',
@@ -308,6 +312,7 @@ describe('Trunk', function() {
                       'trim': 'do-not-trim'
                   },
                   'transfer_mode': 'disable-all',
+                  'transfer_caller_id': 'from-transferee',
                   'auth_type': '',
                   'auth_type_set': [],
                   'date_created': '2015-01-02T11:23:45Z',
@@ -373,6 +378,7 @@ describe('Trunk', function() {
                       'trim': 'do-not-trim'
                   },
                   'transfer_mode': 'disable-all',
+                  'transfer_caller_id': 'from-transferee',
                   'auth_type': '',
                   'auth_type_set': [],
                   'date_created': '2015-01-02T11:23:45Z',
@@ -462,6 +468,7 @@ describe('Trunk', function() {
               'trim': 'do-not-trim'
           },
           'transfer_mode': 'disable-all',
+          'transfer_caller_id': 'from-transferor',
           'auth_type': '',
           'auth_type_set': [],
           'date_created': '2015-01-02T11:23:45Z',

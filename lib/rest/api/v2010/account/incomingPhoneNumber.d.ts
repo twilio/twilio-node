@@ -38,7 +38,7 @@ declare function IncomingPhoneNumberList(version: V2010, accountSid: string): In
  * @property apiVersion - The API version to use for incoming calls made to the phone number
  * @property bundleSid - The SID of the Bundle resource associated with number
  * @property emergencyAddressSid - The emergency address configuration to use for emergency calling
- * @property emergencyStatus - Whether the phone number is enabled for emergency calling
+ * @property emergencyStatus - Displays if emergency calling is enabled for this number.
  * @property friendlyName - A string to describe the resource
  * @property identitySid - Unique string that identifies the identity associated with number
  * @property smsApplicationSid - Unique string that identifies the application
@@ -222,7 +222,7 @@ interface IncomingPhoneNumberListInstance {
  * @property areaCode - The desired area code for the new phone number
  * @property bundleSid - The SID of the Bundle resource associated with number
  * @property emergencyAddressSid - The emergency address configuration to use for emergency calling
- * @property emergencyStatus - Status determining whether the new phone number is enabled for emergency calling
+ * @property emergencyStatus - Displays if emergency calling is enabled for this number.
  * @property friendlyName - A string to describe the new phone number
  * @property identitySid - The SID of the Identity resource to associate with the new phone number
  * @property phoneNumber - The phone number to purchase in E.164 format

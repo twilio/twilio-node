@@ -22,7 +22,7 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('VerificationTemplate', function() {
+describe('Template', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -40,7 +40,7 @@ describe('VerificationTemplate', function() {
                   'translations': {
                       'en': {
                           'text': 'Hello, your code is {code}.',
-                          'locale': 'es',
+                          'locale': 'en',
                           'status': 'approved',
                           'date_created': '2021-07-26T22:30:13.003505841Z',
                           'date_updated': '2021-07-26T22:31:08.750971289Z'
@@ -49,17 +49,17 @@ describe('VerificationTemplate', function() {
               }
           ],
           'meta': {
-              'key': 'templates',
               'page': 0,
               'page_size': 50,
               'first_page_url': 'https://verify.twilio.com/v2/Templates?PageSize=50&Page=0',
               'previous_page_url': null,
               'url': 'https://verify.twilio.com/v2/Templates?PageSize=50&Page=0',
-              'next_page_url': null
+              'next_page_url': null,
+              'key': 'templates'
           }
       };
       holodeck.mock(new Response(200, body));
-      client.verify.v2.verificationTemplates.each(() => done());
+      client.verify.v2.templates.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
@@ -73,7 +73,7 @@ describe('VerificationTemplate', function() {
                   'translations': {
                       'en': {
                           'text': 'Hello, your code is {code}.',
-                          'locale': 'es',
+                          'locale': 'en',
                           'status': 'approved',
                           'date_created': '2021-07-26T22:30:13.003505841Z',
                           'date_updated': '2021-07-26T22:31:08.750971289Z'
@@ -82,17 +82,17 @@ describe('VerificationTemplate', function() {
               }
           ],
           'meta': {
-              'key': 'templates',
               'page': 0,
               'page_size': 50,
               'first_page_url': 'https://verify.twilio.com/v2/Templates?PageSize=50&Page=0',
               'previous_page_url': null,
               'url': 'https://verify.twilio.com/v2/Templates?PageSize=50&Page=0',
-              'next_page_url': null
+              'next_page_url': null,
+              'key': 'templates'
           }
       };
       holodeck.mock(new Response(200, body));
-      client.verify.v2.verificationTemplates.each({pageSize: 20}, () => done());
+      client.verify.v2.templates.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
           url: 'https://verify.twilio.com/v2/Templates',
@@ -111,7 +111,7 @@ describe('VerificationTemplate', function() {
                   'translations': {
                       'en': {
                           'text': 'Hello, your code is {code}.',
-                          'locale': 'es',
+                          'locale': 'en',
                           'status': 'approved',
                           'date_created': '2021-07-26T22:30:13.003505841Z',
                           'date_updated': '2021-07-26T22:31:08.750971289Z'
@@ -120,24 +120,24 @@ describe('VerificationTemplate', function() {
               }
           ],
           'meta': {
-              'key': 'templates',
               'page': 0,
               'page_size': 50,
               'first_page_url': 'https://verify.twilio.com/v2/Templates?PageSize=50&Page=0',
               'previous_page_url': null,
               'url': 'https://verify.twilio.com/v2/Templates?PageSize=50&Page=0',
-              'next_page_url': null
+              'next_page_url': null,
+              'key': 'templates'
           }
       };
       holodeck.mock(new Response(200, body));
-      client.verify.v2.verificationTemplates.each({callback: () => done()}, () => fail('wrong callback!'));
+      client.verify.v2.templates.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.verify.v2.verificationTemplates.list();
+      var promise = client.verify.v2.templates.list();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -164,7 +164,7 @@ describe('VerificationTemplate', function() {
                   'translations': {
                       'en': {
                           'text': 'Hello, your code is {code}.',
-                          'locale': 'es',
+                          'locale': 'en',
                           'status': 'approved',
                           'date_created': '2021-07-26T22:30:13.003505841Z',
                           'date_updated': '2021-07-26T22:31:08.750971289Z'
@@ -173,19 +173,19 @@ describe('VerificationTemplate', function() {
               }
           ],
           'meta': {
-              'key': 'templates',
               'page': 0,
               'page_size': 50,
               'first_page_url': 'https://verify.twilio.com/v2/Templates?PageSize=50&Page=0',
               'previous_page_url': null,
               'url': 'https://verify.twilio.com/v2/Templates?PageSize=50&Page=0',
-              'next_page_url': null
+              'next_page_url': null,
+              'key': 'templates'
           }
       };
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.verify.v2.verificationTemplates.list();
+      var promise = client.verify.v2.templates.list();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

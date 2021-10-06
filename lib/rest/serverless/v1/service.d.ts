@@ -240,6 +240,7 @@ interface ServiceResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
+  domain_base: string;
   friendly_name: string;
   include_credentials: boolean;
   links: string;
@@ -326,6 +327,7 @@ declare class ServiceInstance extends SerializableClass {
   builds(): BuildListInstance;
   dateCreated: Date;
   dateUpdated: Date;
+  domainBase: string;
   /**
    * Access the environments
    */

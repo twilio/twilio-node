@@ -53,17 +53,7 @@ describe('SharedCost', function() {
                   'region': null
               }
           ],
-          'end': 1,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=1'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json'
       };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -95,17 +85,7 @@ describe('SharedCost', function() {
                   'region': null
               }
           ],
-          'end': 1,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=1'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json'
       };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -142,17 +122,7 @@ describe('SharedCost', function() {
                   'region': null
               }
           ],
-          'end': 1,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=1'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json'
       };
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -208,17 +178,7 @@ describe('SharedCost', function() {
                   'region': null
               }
           ],
-          'end': 1,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=1'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json'
       };
 
       holodeck.mock(new Response(200, body));
@@ -238,16 +198,7 @@ describe('SharedCost', function() {
     function(done) {
       var body = {
           'available_phone_numbers': [],
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=50&Page=0',
-          'next_page_uri': null,
-          'num_pages': 1,
-          'page': 0,
-          'page_size': 50,
-          'previous_page_uri': null,
-          'start': 0,
-          'total': 1,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json?PageSize=1'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/SharedCost.json'
       };
 
       holodeck.mock(new Response(200, body));

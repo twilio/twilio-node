@@ -171,15 +171,15 @@ interface CallSummariesListInstance {
 interface CallSummariesListInstanceEachOptions {
   abnormalSession?: boolean;
   branded?: boolean;
-  callState?: CallSummariesCallState | CallSummariesCallState[];
-  callType?: CallSummariesCallType | CallSummariesCallType[];
+  callState?: string;
+  callType?: string;
   callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void;
-  direction?: CallSummariesCallDirection | CallSummariesCallDirection[];
+  direction?: string;
   done?: Function;
   endTime?: string;
-  from?: string | string[];
-  fromCarrier?: string | string[];
-  fromCountryCode?: string | string[];
+  from?: string;
+  fromCarrier?: string;
+  fromCountryCode?: string;
   hasTag?: boolean;
   limit?: number;
   pageSize?: number;
@@ -187,9 +187,9 @@ interface CallSummariesListInstanceEachOptions {
   sortBy?: CallSummariesSortBy;
   startTime?: string;
   subaccount?: string;
-  to?: string | string[];
-  toCarrier?: string | string[];
-  toCountryCode?: string | string[];
+  to?: string;
+  toCarrier?: string;
+  toCountryCode?: string;
   verifiedCaller?: boolean;
 }
 
@@ -228,13 +228,13 @@ interface CallSummariesListInstanceEachOptions {
 interface CallSummariesListInstanceOptions {
   abnormalSession?: boolean;
   branded?: boolean;
-  callState?: CallSummariesCallState | CallSummariesCallState[];
-  callType?: CallSummariesCallType | CallSummariesCallType[];
-  direction?: CallSummariesCallDirection | CallSummariesCallDirection[];
+  callState?: string;
+  callType?: string;
+  direction?: string;
   endTime?: string;
-  from?: string | string[];
-  fromCarrier?: string | string[];
-  fromCountryCode?: string | string[];
+  from?: string;
+  fromCarrier?: string;
+  fromCountryCode?: string;
   hasTag?: boolean;
   limit?: number;
   pageSize?: number;
@@ -242,9 +242,9 @@ interface CallSummariesListInstanceOptions {
   sortBy?: CallSummariesSortBy;
   startTime?: string;
   subaccount?: string;
-  to?: string | string[];
-  toCarrier?: string | string[];
-  toCountryCode?: string | string[];
+  to?: string;
+  toCarrier?: string;
+  toCountryCode?: string;
   verifiedCaller?: boolean;
 }
 
@@ -276,13 +276,13 @@ interface CallSummariesListInstanceOptions {
 interface CallSummariesListInstancePageOptions {
   abnormalSession?: boolean;
   branded?: boolean;
-  callState?: CallSummariesCallState | CallSummariesCallState[];
-  callType?: CallSummariesCallType | CallSummariesCallType[];
-  direction?: CallSummariesCallDirection | CallSummariesCallDirection[];
+  callState?: string;
+  callType?: string;
+  direction?: string;
   endTime?: string;
-  from?: string | string[];
-  fromCarrier?: string | string[];
-  fromCountryCode?: string | string[];
+  from?: string;
+  fromCarrier?: string;
+  fromCountryCode?: string;
   hasTag?: boolean;
   pageNumber?: number;
   pageSize?: number;
@@ -291,9 +291,9 @@ interface CallSummariesListInstancePageOptions {
   sortBy?: CallSummariesSortBy;
   startTime?: string;
   subaccount?: string;
-  to?: string | string[];
-  toCarrier?: string | string[];
-  toCountryCode?: string | string[];
+  to?: string;
+  toCarrier?: string;
+  toCountryCode?: string;
   verifiedCaller?: boolean;
 }
 

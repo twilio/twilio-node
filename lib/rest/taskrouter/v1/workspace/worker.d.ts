@@ -30,17 +30,28 @@ import { WorkersStatisticsListInstance } from './worker/workersStatistics';
 declare function WorkerList(version: V1, workspaceSid: string): WorkerListInstance;
 
 /**
+ * Options to pass to remove
+ *
+ * @property ifMatch - The If-Match HTTP request header
+ */
+interface WorkerInstanceRemoveOptions {
+  ifMatch?: string;
+}
+
+/**
  * Options to pass to update
  *
  * @property activitySid - The SID of the Activity that describes the Worker's initial state
  * @property attributes - The JSON string that describes the Worker
  * @property friendlyName - A string to describe the Worker
- * @property rejectPendingReservations - Whether to reject pending reservations
+ * @property ifMatch - The If-Match HTTP request header
+ * @property rejectPendingReservations - Whether to reject the Worker's pending reservations
  */
 interface WorkerInstanceUpdateOptions {
   activitySid?: string;
   attributes?: string;
   friendlyName?: string;
+  ifMatch?: string;
   rejectPendingReservations?: boolean;
 }
 
@@ -325,6 +336,13 @@ declare class WorkerContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkerInstance) => any): Promise<boolean>;
+  /**
+   * remove a WorkerInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  remove(opts?: WorkerInstanceRemoveOptions, callback?: (error: Error | null, items: WorkerInstance) => any): Promise<boolean>;
   reservations: ReservationListInstance;
   statistics: WorkerStatisticsListInstance;
   /**
@@ -391,6 +409,13 @@ declare class WorkerInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: WorkerInstance) => any): Promise<boolean>;
   /**
+   * remove a WorkerInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  remove(opts?: WorkerInstanceRemoveOptions, callback?: (error: Error | null, items: WorkerInstance) => any): Promise<boolean>;
+  /**
    * Access the reservations
    */
   reservations(): ReservationListInstance;
@@ -447,4 +472,4 @@ declare class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerI
   toJSON(): any;
 }
 
-export { WorkerContext, WorkerInstance, WorkerInstanceUpdateOptions, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }
+export { WorkerContext, WorkerInstance, WorkerInstanceRemoveOptions, WorkerInstanceUpdateOptions, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }

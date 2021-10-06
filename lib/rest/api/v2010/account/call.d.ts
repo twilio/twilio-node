@@ -20,6 +20,8 @@ import { PaymentListInstance } from './call/payment';
 import { RecordingList } from './call/recording';
 import { RecordingListInstance } from './call/recording';
 import { SerializableClass } from '../../../../interfaces';
+import { SiprecList } from './call/siprec';
+import { SiprecListInstance } from './call/siprec';
 
 type CallEvent = 'initiated'|'ringing'|'answered'|'completed';
 
@@ -440,6 +442,7 @@ declare class CallContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: CallInstance) => any): Promise<boolean>;
+  siprec: SiprecListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -524,6 +527,10 @@ declare class CallInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: CallInstance) => any): Promise<boolean>;
   sid: string;
+  /**
+   * Access the siprec
+   */
+  siprec(): SiprecListInstance;
   startTime: Date;
   status: CallStatus;
   subresourceUris: string;

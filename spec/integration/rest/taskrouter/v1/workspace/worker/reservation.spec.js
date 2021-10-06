@@ -308,9 +308,10 @@ describe('Reservation', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
+      var opts = {ifMatch: 'if_match'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                        .reservations('WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+                                        .reservations('WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -323,9 +324,11 @@ describe('Reservation', function() {
       var sid = 'WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Workers/${workerSid}/Reservations/${sid}`;
 
+      var headers = {'If-Match': 'if_match'};
       holodeck.assertHasRequest(new Request({
         method: 'POST',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

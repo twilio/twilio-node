@@ -29,6 +29,8 @@ declare function NotificationList(version: V1, chatServiceSid: string): Notifica
  * @property newMessage.enabled - Whether to send a notification when a new message is added to a conversation.
  * @property newMessage.sound - The name of the sound to play when a new message is added to a conversation.
  * @property newMessage.template - The template to use to create the notification text displayed when a new message is added to a conversation.
+ * @property newMessage.withMedia.enabled - Whether to send a notification when a new message with media/file attachments is added to a conversation.
+ * @property newMessage.withMedia.template - The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation.
  * @property removedFromConversation.enabled - Whether to send a notification to a user when they are removed from a conversation.
  * @property removedFromConversation.sound - The name of the sound to play to a user when they are removed from a conversation.
  * @property removedFromConversation.template - The template to use to create the notification text displayed to a user when they are removed.
@@ -45,6 +47,10 @@ interface NotificationInstanceUpdateOptions {
     template?: string;
     sound?: string;
     badgeCountEnabled?: boolean;
+    withMedia?: {
+      enabled?: boolean;
+      template?: string;
+    };
   };
   removedFromConversation?: {
     enabled?: boolean;
