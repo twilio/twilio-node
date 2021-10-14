@@ -256,6 +256,27 @@ describe('AccessToken', function() {
       });
     });
 
+    it('should create token with playback grant', function() {
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var playbackGrant = {
+        'requestCredentials': null,
+        'playbackUrl': 'https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx',
+        'playerStreamerSid': 'VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+      }
+
+      var grant = new twilio.jwt.AccessToken.PlaybackGrant();
+      grant.grant = playbackGrant;
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        player: playbackGrant
+      });
+    });
+
     it('should create token with multiple grants', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
@@ -516,6 +537,22 @@ describe('AccessToken', function() {
             role: 'worker'
           });
         });
+      });
+    });
+
+    describe('PlaybackGrant', function() {
+      it('should only populate set properties', function() {
+        var grant = new twilio.jwt.AccessToken.PlaybackGrant();
+        expect(grant.toPayload()).toEqual({});
+
+        var playbackGrant = {
+          'requestCredentials': null,
+          'playbackUrl': 'https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx',
+          'playerStreamerSid': 'VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        }
+
+        grant.grant = playbackGrant;
+        expect(grant.toPayload()).toEqual(playbackGrant);
       });
     });
   });
