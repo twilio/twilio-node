@@ -177,6 +177,22 @@ declare namespace AccessToken {
     endpointId?: string;
   }
 
+  export interface PlaybackGrantOptions {
+    grant?: object;
+  }
+
+  export interface PlaybackGrantPayload {
+    grant?: object;
+  }
+
+  export class PlaybackGrant extends Grant<
+    PlaybackGrantOptions,
+    PlaybackGrantPayload,
+    'player'
+  > implements PlaybackGrantOptions {
+    grant?: object
+  }
+
   export interface AccessTokenOptions {
     /**
      * Time to live in seconds
