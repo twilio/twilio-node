@@ -18,6 +18,8 @@ import { TollFreeListInstance } from './incomingPhoneNumber/tollFree';
 
 type IncomingPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
 
+type IncomingPhoneNumberEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
 type IncomingPhoneNumberEmergencyStatus = 'Active'|'Inactive';
 
 type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
@@ -364,6 +366,7 @@ interface IncomingPhoneNumberResource {
   date_created: Date;
   date_updated: Date;
   emergency_address_sid: string;
+  emergency_address_status: IncomingPhoneNumberEmergencyAddressStatus;
   emergency_status: IncomingPhoneNumberEmergencyStatus;
   friendly_name: string;
   identity_sid: string;
@@ -463,6 +466,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;
+  emergencyAddressStatus: IncomingPhoneNumberEmergencyAddressStatus;
   emergencyStatus: IncomingPhoneNumberEmergencyStatus;
   /**
    * fetch a IncomingPhoneNumberInstance
@@ -540,4 +544,4 @@ declare class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPay
   toJSON(): any;
 }
 
-export { IncomingPhoneNumberAddressRequirement, IncomingPhoneNumberContext, IncomingPhoneNumberEmergencyStatus, IncomingPhoneNumberInstance, IncomingPhoneNumberInstanceUpdateOptions, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberListInstanceCreateOptions, IncomingPhoneNumberListInstanceEachOptions, IncomingPhoneNumberListInstanceOptions, IncomingPhoneNumberListInstancePageOptions, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberSolution, IncomingPhoneNumberVoiceReceiveMode }
+export { IncomingPhoneNumberAddressRequirement, IncomingPhoneNumberContext, IncomingPhoneNumberEmergencyAddressStatus, IncomingPhoneNumberEmergencyStatus, IncomingPhoneNumberInstance, IncomingPhoneNumberInstanceUpdateOptions, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberListInstanceCreateOptions, IncomingPhoneNumberListInstanceEachOptions, IncomingPhoneNumberListInstanceOptions, IncomingPhoneNumberListInstancePageOptions, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberSolution, IncomingPhoneNumberVoiceReceiveMode }

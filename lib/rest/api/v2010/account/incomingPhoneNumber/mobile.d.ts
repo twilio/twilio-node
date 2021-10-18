@@ -13,6 +13,8 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type MobileAddressRequirement = 'none'|'any'|'local'|'foreign';
 
+type MobileEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
 type MobileEmergencyStatus = 'Active'|'Inactive';
 
 type MobileVoiceReceiveMode = 'voice'|'fax';
@@ -283,6 +285,7 @@ interface MobileResource {
   date_created: Date;
   date_updated: Date;
   emergency_address_sid: string;
+  emergency_address_status: MobileEmergencyAddressStatus;
   emergency_status: MobileEmergencyStatus;
   friendly_name: string;
   identity_sid: string;
@@ -333,6 +336,7 @@ declare class MobileInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;
+  emergencyAddressStatus: MobileEmergencyAddressStatus;
   emergencyStatus: MobileEmergencyStatus;
   friendlyName: string;
   identitySid: string;
@@ -385,4 +389,4 @@ declare class MobilePage extends Page<V2010, MobilePayload, MobileResource, Mobi
   toJSON(): any;
 }
 
-export { MobileAddressRequirement, MobileEmergencyStatus, MobileInstance, MobileList, MobileListInstance, MobileListInstanceCreateOptions, MobileListInstanceEachOptions, MobileListInstanceOptions, MobileListInstancePageOptions, MobilePage, MobilePayload, MobileResource, MobileSolution, MobileVoiceReceiveMode }
+export { MobileAddressRequirement, MobileEmergencyAddressStatus, MobileEmergencyStatus, MobileInstance, MobileList, MobileListInstance, MobileListInstanceCreateOptions, MobileListInstanceEachOptions, MobileListInstanceOptions, MobileListInstancePageOptions, MobilePage, MobilePayload, MobileResource, MobileSolution, MobileVoiceReceiveMode }

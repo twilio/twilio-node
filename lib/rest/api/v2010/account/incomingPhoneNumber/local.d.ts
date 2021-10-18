@@ -13,6 +13,8 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type LocalAddressRequirement = 'none'|'any'|'local'|'foreign';
 
+type LocalEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
 type LocalEmergencyStatus = 'Active'|'Inactive';
 
 type LocalVoiceReceiveMode = 'voice'|'fax';
@@ -283,6 +285,7 @@ interface LocalResource {
   date_created: Date;
   date_updated: Date;
   emergency_address_sid: string;
+  emergency_address_status: LocalEmergencyAddressStatus;
   emergency_status: LocalEmergencyStatus;
   friendly_name: string;
   identity_sid: string;
@@ -333,6 +336,7 @@ declare class LocalInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;
+  emergencyAddressStatus: LocalEmergencyAddressStatus;
   emergencyStatus: LocalEmergencyStatus;
   friendlyName: string;
   identitySid: string;
@@ -385,4 +389,4 @@ declare class LocalPage extends Page<V2010, LocalPayload, LocalResource, LocalIn
   toJSON(): any;
 }
 
-export { LocalAddressRequirement, LocalEmergencyStatus, LocalInstance, LocalList, LocalListInstance, LocalListInstanceCreateOptions, LocalListInstanceEachOptions, LocalListInstanceOptions, LocalListInstancePageOptions, LocalPage, LocalPayload, LocalResource, LocalSolution, LocalVoiceReceiveMode }
+export { LocalAddressRequirement, LocalEmergencyAddressStatus, LocalEmergencyStatus, LocalInstance, LocalList, LocalListInstance, LocalListInstanceCreateOptions, LocalListInstanceEachOptions, LocalListInstanceOptions, LocalListInstancePageOptions, LocalPage, LocalPayload, LocalResource, LocalSolution, LocalVoiceReceiveMode }

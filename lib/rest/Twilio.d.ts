@@ -18,6 +18,7 @@ import FrontlineApi = require('./FrontlineApi');
 import Insights = require('./Insights');
 import IpMessaging = require('./IpMessaging');
 import Lookups = require('./Lookups');
+import Media = require('./Media');
 import Messaging = require('./Messaging');
 import Monitor = require('./Monitor');
 import Notify = require('./Notify');
@@ -72,6 +73,7 @@ declare class Twilio {
   ipMessaging: IpMessaging;
   keys: (typeof Api.prototype.account.keys);
   lookups: Lookups;
+  media: Media;
   messages: (typeof Api.prototype.account.messages);
   messaging: Messaging;
   monitor: Monitor;

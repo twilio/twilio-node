@@ -49,6 +49,7 @@ declare function ServiceList(version: V1): ServiceListInstance;
  * @property stickySender - Whether to enable Sticky Sender on the Service instance
  * @property synchronousValidation - Reserved
  * @property useInboundWebhookOnNumber - If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
+ * @property usecase - A string describing the scenario in which the Messaging Service will be used
  * @property validityPeriod - How long, in seconds, messages sent from the Service are valid
  */
 interface ServiceInstanceUpdateOptions {
@@ -66,6 +67,7 @@ interface ServiceInstanceUpdateOptions {
   stickySender?: boolean;
   synchronousValidation?: boolean;
   useInboundWebhookOnNumber?: boolean;
+  usecase?: string;
   validityPeriod?: number;
 }
 
@@ -206,6 +208,7 @@ interface ServiceListInstance {
  * @property stickySender - Whether to enable Sticky Sender on the Service instance
  * @property synchronousValidation - Reserved
  * @property useInboundWebhookOnNumber - If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
+ * @property usecase - A string describing the scenario in which the Messaging Service will be used
  * @property validityPeriod - How long, in seconds, messages sent from the Service are valid
  */
 interface ServiceListInstanceCreateOptions {
@@ -223,6 +226,7 @@ interface ServiceListInstanceCreateOptions {
   stickySender?: boolean;
   synchronousValidation?: boolean;
   useInboundWebhookOnNumber?: boolean;
+  usecase?: string;
   validityPeriod?: number;
 }
 
@@ -306,7 +310,9 @@ interface ServiceResource {
   sticky_sender: boolean;
   synchronous_validation: boolean;
   url: string;
+  us_app_to_person_registered: boolean;
   use_inbound_webhook_on_number: boolean;
+  usecase: string;
   validity_period: number;
 }
 
@@ -441,11 +447,13 @@ declare class ServiceInstance extends SerializableClass {
    * Access the usAppToPerson
    */
   usAppToPerson(): UsAppToPersonListInstance;
+  usAppToPersonRegistered: boolean;
   /**
    * Access the usAppToPersonUsecases
    */
   usAppToPersonUsecases(): UsAppToPersonUsecaseListInstance;
   useInboundWebhookOnNumber: boolean;
+  usecase: string;
   validityPeriod: number;
 }
 

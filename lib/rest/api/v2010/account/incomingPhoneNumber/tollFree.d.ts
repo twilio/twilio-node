@@ -13,6 +13,8 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type TollFreeAddressRequirement = 'none'|'any'|'local'|'foreign';
 
+type TollFreeEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
 type TollFreeEmergencyStatus = 'Active'|'Inactive';
 
 type TollFreeVoiceReceiveMode = 'voice'|'fax';
@@ -283,6 +285,7 @@ interface TollFreeResource {
   date_created: Date;
   date_updated: Date;
   emergency_address_sid: string;
+  emergency_address_status: TollFreeEmergencyAddressStatus;
   emergency_status: TollFreeEmergencyStatus;
   friendly_name: string;
   identity_sid: string;
@@ -333,6 +336,7 @@ declare class TollFreeInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;
+  emergencyAddressStatus: TollFreeEmergencyAddressStatus;
   emergencyStatus: TollFreeEmergencyStatus;
   friendlyName: string;
   identitySid: string;
@@ -385,4 +389,4 @@ declare class TollFreePage extends Page<V2010, TollFreePayload, TollFreeResource
   toJSON(): any;
 }
 
-export { TollFreeAddressRequirement, TollFreeEmergencyStatus, TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreeListInstanceCreateOptions, TollFreeListInstanceEachOptions, TollFreeListInstanceOptions, TollFreeListInstancePageOptions, TollFreePage, TollFreePayload, TollFreeResource, TollFreeSolution, TollFreeVoiceReceiveMode }
+export { TollFreeAddressRequirement, TollFreeEmergencyAddressStatus, TollFreeEmergencyStatus, TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreeListInstanceCreateOptions, TollFreeListInstanceEachOptions, TollFreeListInstanceOptions, TollFreeListInstancePageOptions, TollFreePage, TollFreePayload, TollFreeResource, TollFreeSolution, TollFreeVoiceReceiveMode }

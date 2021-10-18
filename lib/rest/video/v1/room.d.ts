@@ -167,6 +167,7 @@ interface RoomListInstance {
 /**
  * Options to pass to create
  *
+ * @property audioOnly - Indicates whether the room will only contain audio track participants for group rooms.
  * @property enableTurn - Enable Twilio's Network Traversal TURN service
  * @property maxParticipants - The maximum number of concurrent Participants allowed in the room
  * @property mediaRegion - The region for the media server in Group Rooms
@@ -179,6 +180,7 @@ interface RoomListInstance {
  * @property videoCodecs - An array of the video codecs that are supported when publishing a track in the room
  */
 interface RoomListInstanceCreateOptions {
+  audioOnly?: boolean;
   enableTurn?: boolean;
   maxParticipants?: number;
   mediaRegion?: string;
@@ -277,6 +279,7 @@ interface RoomPayload extends RoomResource, Page.TwilioResponsePayload {
 
 interface RoomResource {
   account_sid: string;
+  audio_only: boolean;
   date_created: Date;
   date_updated: Date;
   duration: number;
@@ -345,6 +348,7 @@ declare class RoomInstance extends SerializableClass {
 
   private _proxy: RoomContext;
   accountSid: string;
+  audioOnly: boolean;
   dateCreated: Date;
   dateUpdated: Date;
   duration: number;

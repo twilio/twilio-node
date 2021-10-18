@@ -8,7 +8,11 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import { BrandVettingList } from './brandRegistration/brandVetting';
+import { BrandVettingListInstance } from './brandRegistration/brandVetting';
 import { SerializableClass } from '../../../interfaces';
+
+type BrandRegistrationBrandFeedback = 'TAX_ID'|'STOCK_SYMBOL'|'NONPROFIT'|'GOVERNMENT_ENTITY'|'OTHERS';
 
 type BrandRegistrationIdentityStatus = 'SELF_DECLARED'|'UNVERIFIED'|'VERIFIED'|'VETTED_VERIFIED';
 
@@ -224,6 +228,7 @@ interface BrandRegistrationPayload extends BrandRegistrationResource, Page.Twili
 interface BrandRegistrationResource {
   a2p_profile_bundle_sid: string;
   account_sid: string;
+  brand_feedback: BrandRegistrationBrandFeedback[];
   brand_score: number;
   brand_type: string;
   customer_profile_bundle_sid: string;
@@ -231,6 +236,7 @@ interface BrandRegistrationResource {
   date_updated: Date;
   failure_reason: string;
   identity_status: BrandRegistrationIdentityStatus;
+  links: string;
   mock: boolean;
   russell_3000: boolean;
   sid: string;
@@ -257,6 +263,7 @@ declare class BrandRegistrationContext {
    */
   constructor(version: V1, sid: string);
 
+  brandVettings: BrandVettingListInstance;
   /**
    * fetch a BrandRegistrationInstance
    *
@@ -286,8 +293,13 @@ declare class BrandRegistrationInstance extends SerializableClass {
   private _proxy: BrandRegistrationContext;
   a2PProfileBundleSid: string;
   accountSid: string;
+  brandFeedback: BrandRegistrationBrandFeedback[];
   brandScore: number;
   brandType: string;
+  /**
+   * Access the brandVettings
+   */
+  brandVettings(): BrandVettingListInstance;
   customerProfileBundleSid: string;
   dateCreated: Date;
   dateUpdated: Date;
@@ -299,6 +311,7 @@ declare class BrandRegistrationInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>;
   identityStatus: BrandRegistrationIdentityStatus;
+  links: string;
   mock: boolean;
   russell3000: boolean;
   sid: string;
@@ -339,4 +352,4 @@ declare class BrandRegistrationPage extends Page<V1, BrandRegistrationPayload, B
   toJSON(): any;
 }
 
-export { BrandRegistrationContext, BrandRegistrationIdentityStatus, BrandRegistrationInstance, BrandRegistrationList, BrandRegistrationListInstance, BrandRegistrationListInstanceCreateOptions, BrandRegistrationListInstanceEachOptions, BrandRegistrationListInstanceOptions, BrandRegistrationListInstancePageOptions, BrandRegistrationPage, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationSolution, BrandRegistrationStatus }
+export { BrandRegistrationBrandFeedback, BrandRegistrationContext, BrandRegistrationIdentityStatus, BrandRegistrationInstance, BrandRegistrationList, BrandRegistrationListInstance, BrandRegistrationListInstanceCreateOptions, BrandRegistrationListInstanceEachOptions, BrandRegistrationListInstanceOptions, BrandRegistrationListInstancePageOptions, BrandRegistrationPage, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationSolution, BrandRegistrationStatus }
