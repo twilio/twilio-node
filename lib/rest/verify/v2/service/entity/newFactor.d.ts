@@ -54,7 +54,7 @@ interface NewFactorListInstance {
  * @property config.appId - The ID that uniquely identifies your app in the Google or Apple store
  * @property config.codeLength - Number of digits for generated TOTP codes
  * @property config.notificationPlatform - The transport technology used to generate the Notification Token
- * @property config.notificationToken - For APN, the device token. For FCM the registration token
+ * @property config.notificationToken - For APN, the device token. For FCM, the registration token
  * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
  * @property config.skew - The number of past and future time-steps valid at a given time
  * @property config.timeStep - How often, in seconds, are TOTP codes generated

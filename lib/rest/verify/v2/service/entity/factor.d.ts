@@ -36,7 +36,7 @@ declare function FactorList(version: V2, serviceSid: string, identity: string): 
  * @property authPayload - Optional payload to verify the Factor for the first time
  * @property config.alg - The algorithm used to derive the TOTP codes
  * @property config.codeLength - Number of digits for generated TOTP codes
- * @property config.notificationToken - For APN, the device token. For FCM the registration token
+ * @property config.notificationToken - For APN, the device token. For FCM, the registration token
  * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
  * @property config.skew - The number of past and future time-steps valid at a given time
  * @property config.timeStep - How often, in seconds, are TOTP codes generated

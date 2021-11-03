@@ -42,10 +42,10 @@ declare function SimList(version: V1): SimListInstance;
  * @property smsUrl - The URL we should call when the SIM-connected device sends an SMS message that is not a Command
  * @property status - The new status of the Sim resource
  * @property uniqueName - An application-defined string that uniquely identifies the resource
- * @property voiceFallbackMethod - The HTTP method we should use to call voice_fallback_url
- * @property voiceFallbackUrl - The URL we should call when an error occurs while retrieving or executing the TwiML requested from voice_url
- * @property voiceMethod - The HTTP method we should use when we call voice_url
- * @property voiceUrl - The URL we should call when the SIM-connected device makes a voice call
+ * @property voiceFallbackMethod - Deprecated
+ * @property voiceFallbackUrl - Deprecated
+ * @property voiceMethod - Deprecated
+ * @property voiceUrl - Deprecated
  */
 interface SimInstanceUpdateOptions {
   accountSid?: string;

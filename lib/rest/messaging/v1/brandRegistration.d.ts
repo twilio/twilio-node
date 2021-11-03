@@ -16,7 +16,7 @@ type BrandRegistrationBrandFeedback = 'TAX_ID'|'STOCK_SYMBOL'|'NONPROFIT'|'GOVER
 
 type BrandRegistrationIdentityStatus = 'SELF_DECLARED'|'UNVERIFIED'|'VERIFIED'|'VETTED_VERIFIED';
 
-type BrandRegistrationStatus = 'PENDING'|'APPROVED'|'FAILED';
+type BrandRegistrationStatus = 'PENDING'|'APPROVED'|'FAILED'|'IN_REVIEW'|'DELETED';
 
 /**
  * Initialize the BrandRegistrationList

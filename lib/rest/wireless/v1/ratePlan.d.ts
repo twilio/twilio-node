@@ -169,7 +169,7 @@ interface RatePlanListInstance {
  * @property nationalRoamingDataLimit - The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
  * @property nationalRoamingEnabled - Whether SIMs can roam on networks other than the home network in the United States
  * @property uniqueName - An application-defined string that uniquely identifies the resource
- * @property voiceEnabled - Whether SIMs can make and receive voice calls
+ * @property voiceEnabled - Deprecated
  */
 interface RatePlanListInstanceCreateOptions {
   dataEnabled?: boolean;

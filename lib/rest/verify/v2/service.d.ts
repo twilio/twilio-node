@@ -36,6 +36,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  *
  * @property codeLength - The length of the verification code to generate
  * @property customCodeEnabled - Whether to allow sending verifications with a custom code.
+ * @property defaultTemplateSid - The verification template SMS messages.
  * @property doNotShareWarningEnabled - Whether to add a privacy warning at the end of an SMS.
  * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
  * @property friendlyName - A string to describe the verification service
@@ -54,6 +55,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
 interface ServiceInstanceUpdateOptions {
   codeLength?: number;
   customCodeEnabled?: boolean;
+  defaultTemplateSid?: string;
   doNotShareWarningEnabled?: boolean;
   dtmfInputRequired?: boolean;
   friendlyName?: string;
@@ -199,6 +201,7 @@ interface ServiceListInstance {
  *
  * @property codeLength - The length of the verification code to generate
  * @property customCodeEnabled - Whether to allow sending verifications with a custom code.
+ * @property defaultTemplateSid - The verification template SMS messages.
  * @property doNotShareWarningEnabled - Whether to add a security warning at the end of an SMS.
  * @property dtmfInputRequired - Whether to ask the user to press a number before delivering the verify code in a phone call
  * @property friendlyName - A string to describe the verification service
@@ -217,6 +220,7 @@ interface ServiceListInstance {
 interface ServiceListInstanceCreateOptions {
   codeLength?: number;
   customCodeEnabled?: boolean;
+  defaultTemplateSid?: string;
   doNotShareWarningEnabled?: boolean;
   dtmfInputRequired?: boolean;
   friendlyName: string;
@@ -303,6 +307,7 @@ interface ServiceResource {
   custom_code_enabled: boolean;
   date_created: Date;
   date_updated: Date;
+  default_template_sid: string;
   do_not_share_warning_enabled: boolean;
   dtmf_input_required: boolean;
   friendly_name: string;
@@ -389,6 +394,7 @@ declare class ServiceInstance extends SerializableClass {
   customCodeEnabled: boolean;
   dateCreated: Date;
   dateUpdated: Date;
+  defaultTemplateSid: string;
   doNotShareWarningEnabled: boolean;
   dtmfInputRequired: boolean;
   /**
