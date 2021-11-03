@@ -25,7 +25,6 @@ docker-build:
 	docker tag twilio/twilio-node twilio/twilio-node:latest
 
 docker-push:
-	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 	docker push twilio/twilio-node:${GITHUB_TAG}
 	docker push twilio/twilio-node:apidefs-${API_DEFINITIONS_SHA}
 	docker push twilio/twilio-node:latest
