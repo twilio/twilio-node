@@ -26,13 +26,13 @@ jobs:
       - name: Build and Push image
         run: make docker-build && make docker-push
 
+      - run: npm install
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
           node-version: 8
           registry-url: 'https://registry.npmsjs.org'
 
-      - run: npm install
       - name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
