@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2021-11-03] Version 3.71.1
+---------------------------
+**Library - Fix**
+- [PR #705](https://github.com/twilio/twilio-node/pull/705): node setup wf step. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+
 [2021-11-03] Version 3.71.0
 ---------------------------
 **Library - Chore**
