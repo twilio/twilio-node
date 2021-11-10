@@ -47,7 +47,7 @@ declare namespace ClientCapability {
   export interface ClientCapabilityOptions {
     accountSid: string;
     authToken: string;
-    ttl: number;
+    ttl?: number;
   }
 }
 
