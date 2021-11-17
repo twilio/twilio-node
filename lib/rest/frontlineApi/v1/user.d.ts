@@ -27,11 +27,13 @@ declare function UserList(version: V1): UserListInstance;
  *
  * @property avatar - The avatar URL which will be shown in Frontline application
  * @property friendlyName - The string that you assigned to describe the User
+ * @property isAvailable - Whether the User is available for new conversations
  * @property state - Current state of this user
  */
 interface UserInstanceUpdateOptions {
   avatar?: string;
   friendlyName?: string;
+  isAvailable?: boolean;
   state?: UserStateType;
 }
 
@@ -59,6 +61,7 @@ interface UserResource {
   avatar: string;
   friendly_name: string;
   identity: string;
+  is_available: boolean;
   sid: string;
   state: UserStateType;
   url: string;
@@ -129,6 +132,7 @@ declare class UserInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
   friendlyName: string;
   identity: string;
+  isAvailable: boolean;
   sid: string;
   state: UserStateType;
   /**

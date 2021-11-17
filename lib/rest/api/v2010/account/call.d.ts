@@ -192,7 +192,7 @@ interface CallListInstance {
  * @property asyncAmdStatusCallbackMethod - HTTP Method to use with async_amd_status_callback
  * @property byoc - BYOC trunk SID (Beta)
  * @property callReason - Reason for the call (Branded Calls Beta)
- * @property callToken - A token string needed to invoke a forwarded call with a caller-id recieved on a previous incoming call
+ * @property callToken - A token string needed to invoke a forwarded call with a CallerId recieved on a previous incoming call
  * @property callerId - The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
  * @property fallbackMethod - HTTP Method to use with fallback_url
  * @property fallbackUrl - Fallback URL in case of error

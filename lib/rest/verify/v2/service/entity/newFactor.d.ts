@@ -14,7 +14,7 @@ type NewFactorFactorStatuses = 'unverified'|'verified';
 
 type NewFactorFactorTypes = 'push'|'totp';
 
-type NewFactorNotificationPlatforms = 'apn'|'fcm';
+type NewFactorNotificationPlatforms = 'apn'|'fcm'|'none';
 
 type NewFactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
 

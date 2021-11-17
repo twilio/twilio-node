@@ -245,4 +245,54 @@ describe('BrandVetting', function() {
       }).done();
     }
   );
+  it('should generate valid fetch request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var promise = client.messaging.v1.brandRegistrations('BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .brandVettings('VTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var brandSid = 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var brandVettingSid = 'VTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/a2p/BrandRegistrations/${brandSid}/Vettings/${brandVettingSid}`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'GET',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid fetch response',
+    function(done) {
+      var body = {
+          'account_sid': 'AC78e8e67fc0246521490fb9907fd0c165',
+          'brand_sid': 'BN0044409f7e067e279523808d267e2d85',
+          'brand_vetting_sid': 'VT12445353',
+          'vetting_provider': 'campaign-verify',
+          'vetting_id': 'cv|1.0|tcr|10dlc|9975c339-d46f-49b7-a399-EXAMPLETOKEN|GQ3EXAMPLETOKENAXXBUNBT2AgL-LdQuPveFhEyY',
+          'vetting_class': 'POLITICAL',
+          'vetting_status': 'IN_PROGRESS',
+          'date_created': '2021-01-27T14:18:35Z',
+          'date_updated': '2021-01-27T14:18:35Z',
+          'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BN0044409f7e067e279523808d267e2d85/Vettings/VT12445353'
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.messaging.v1.brandRegistrations('BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .brandVettings('VTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
 });

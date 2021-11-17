@@ -25,6 +25,10 @@ declare function BrandVettingList(version: V1, brandSid: string): BrandVettingLi
 
 interface BrandVettingListInstance {
   /**
+   * @param sid - sid of instance
+   */
+  (sid: string): BrandVettingContext;
+  /**
    * create a BrandVettingInstance
    *
    * @param opts - Options for request
@@ -62,6 +66,12 @@ interface BrandVettingListInstance {
    * @param callback - Function to process each record
    */
   each(opts?: BrandVettingListInstanceEachOptions, callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Constructs a brand_vetting
+   *
+   * @param brandVettingSid - SID for third-party vetting record
+   */
+  get(brandVettingSid: string): BrandVettingContext;
   /**
    * Retrieve a single target page of BrandVettingInstance records from the API.
    *
@@ -228,6 +238,32 @@ interface BrandVettingSolution {
 }
 
 
+declare class BrandVettingContext {
+  /**
+   * Initialize the BrandVettingContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param brandSid - A2P BrandRegistration Sid
+   * @param brandVettingSid - SID for third-party vetting record
+   */
+  constructor(version: V1, brandSid: string, brandVettingSid: string);
+
+  /**
+   * fetch a BrandVettingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: BrandVettingInstance) => any): Promise<BrandVettingInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+}
+
+
 declare class BrandVettingInstance extends SerializableClass {
   /**
    * Initialize the BrandVettingContext
@@ -238,14 +274,22 @@ declare class BrandVettingInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param brandSid - A2P BrandRegistration Sid
+   * @param brandVettingSid - SID for third-party vetting record
    */
-  constructor(version: V1, payload: BrandVettingPayload, brandSid: string);
+  constructor(version: V1, payload: BrandVettingPayload, brandSid: string, brandVettingSid: string);
 
+  private _proxy: BrandVettingContext;
   accountSid: string;
   brandSid: string;
   brandVettingSid: string;
   dateCreated: Date;
   dateUpdated: Date;
+  /**
+   * fetch a BrandVettingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: BrandVettingInstance) => any): Promise<BrandVettingInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -283,4 +327,4 @@ declare class BrandVettingPage extends Page<V1, BrandVettingPayload, BrandVettin
   toJSON(): any;
 }
 
-export { BrandVettingInstance, BrandVettingList, BrandVettingListInstance, BrandVettingListInstanceCreateOptions, BrandVettingListInstanceEachOptions, BrandVettingListInstanceOptions, BrandVettingListInstancePageOptions, BrandVettingPage, BrandVettingPayload, BrandVettingResource, BrandVettingSolution, BrandVettingVettingProvider }
+export { BrandVettingContext, BrandVettingInstance, BrandVettingList, BrandVettingListInstance, BrandVettingListInstanceCreateOptions, BrandVettingListInstanceEachOptions, BrandVettingListInstanceOptions, BrandVettingListInstancePageOptions, BrandVettingPage, BrandVettingPayload, BrandVettingResource, BrandVettingSolution, BrandVettingVettingProvider }

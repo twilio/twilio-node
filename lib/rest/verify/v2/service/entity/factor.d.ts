@@ -14,7 +14,7 @@ type FactorFactorStatuses = 'unverified'|'verified';
 
 type FactorFactorTypes = 'push'|'totp';
 
-type FactorNotificationPlatforms = 'apn'|'fcm';
+type FactorNotificationPlatforms = 'apn'|'fcm'|'none';
 
 type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
 
@@ -36,6 +36,7 @@ declare function FactorList(version: V2, serviceSid: string, identity: string): 
  * @property authPayload - Optional payload to verify the Factor for the first time
  * @property config.alg - The algorithm used to derive the TOTP codes
  * @property config.codeLength - Number of digits for generated TOTP codes
+ * @property config.notificationPlatform - The transport technology used to generate the Notification Token
  * @property config.notificationToken - For APN, the device token. For FCM, the registration token
  * @property config.sdkVersion - The Verify Push SDK version used to configure the factor
  * @property config.skew - The number of past and future time-steps valid at a given time
@@ -51,6 +52,7 @@ interface FactorInstanceUpdateOptions {
     skew?: number;
     codeLength?: number;
     alg?: FactorTotpAlgorithms;
+    notificationPlatform?: string;
   };
   friendlyName?: string;
 }
