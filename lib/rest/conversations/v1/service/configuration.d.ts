@@ -10,6 +10,7 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { NotificationListInstance } from './configuration/notification';
 import { SerializableClass } from '../../../../interfaces';
+import { WebhookListInstance } from './configuration/webhook';
 
 /**
  * Initialize the ConfigurationList
@@ -48,6 +49,7 @@ interface ConfigurationListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  webhooks?: WebhookListInstance;
 }
 
 interface ConfigurationPayload extends ConfigurationResource, Page.TwilioResponsePayload {

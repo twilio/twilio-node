@@ -40,10 +40,12 @@ interface AccessTokenListInstance {
 /**
  * Options to pass to create
  *
+ * @property factorFriendlyName - The factor friendly name
  * @property factorType - The Type of this Factor
  * @property identity - Unique external identifier of the Entity
  */
 interface AccessTokenListInstanceCreateOptions {
+  factorFriendlyName?: string;
   factorType: AccessTokenFactorTypes;
   identity: string;
 }

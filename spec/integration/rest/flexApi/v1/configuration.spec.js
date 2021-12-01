@@ -226,7 +226,9 @@ describe('Configuration', function() {
                   }
               ]
           },
-          'url': 'https://flex-api.twilio.com/v1/Configuration'
+          'url': 'https://flex-api.twilio.com/v1/Configuration',
+          'flex_insights_drilldown': true,
+          'flex_url': 'https://flex.twilio.com'
       };
 
       holodeck.mock(new Response(200, body));
@@ -424,7 +426,9 @@ describe('Configuration', function() {
               'mode': 'readOnly'
           },
           'flex_insights_hr': null,
-          'url': 'https://flex-api.twilio.com/v1/Configuration'
+          'url': 'https://flex-api.twilio.com/v1/Configuration',
+          'flex_insights_drilldown': false,
+          'flex_url': 'https://flex.twilio.com'
       };
 
       holodeck.mock(new Response(201, body));
@@ -635,7 +639,9 @@ describe('Configuration', function() {
                   }
               ]
           },
-          'url': 'https://flex-api.twilio.com/v1/Configuration'
+          'url': 'https://flex-api.twilio.com/v1/Configuration',
+          'flex_insights_drilldown': true,
+          'flex_url': 'https://flex.twilio.com'
       };
 
       holodeck.mock(new Response(200, body));

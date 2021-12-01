@@ -11,6 +11,8 @@ import { CommandList } from './v1/command';
 import { CommandListInstance } from './v1/command';
 import { FleetList } from './v1/fleet';
 import { FleetListInstance } from './v1/fleet';
+import { IpCommandList } from './v1/ipCommand';
+import { IpCommandListInstance } from './v1/ipCommand';
 import { NetworkAccessProfileList } from './v1/networkAccessProfile';
 import { NetworkAccessProfileListInstance } from './v1/networkAccessProfile';
 import { NetworkList } from './v1/network';
@@ -33,6 +35,7 @@ declare class V1 extends Version {
 
   readonly commands: CommandListInstance;
   readonly fleets: FleetListInstance;
+  readonly ipCommands: IpCommandListInstance;
   readonly networkAccessProfiles: NetworkAccessProfileListInstance;
   readonly networks: NetworkListInstance;
   readonly sims: SimListInstance;
