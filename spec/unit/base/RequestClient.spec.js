@@ -1,8 +1,70 @@
 'use strict';
 
+const http = require('http');
 const mockfs = require('mock-fs');
 const proxyquire = require('proxyquire');
 const Q = require('q');
+
+describe('retry on 429', function() {
+  const RequestClient = require('../../../lib/base/RequestClient')
+  function makeRequestListener (errors) {
+    let reqs = 0
+    return function (req, res) {
+      reqs++
+      if (reqs <= errors) {
+        res.writeHead(429)
+        res.end(`FAIL ${reqs}`)
+        return
+      }
+      res.writeHead(200)
+      res.end(`OK: ${reqs}`)
+    }
+  }
+  function serveAndGet (listener) {
+    return new Promise(resolve => {
+      const server = http.createServer(listener)
+      server.listen(0, 'localhost', () => {
+        const client = new RequestClient()
+        return client
+          .request({
+            method: 'GET',
+            uri: `http://localhost:${server.address().port}`
+          })
+          .then(ret => {
+            server.close()
+            return resolve(ret)
+          })
+      })
+    })
+  }
+  it('OK response - no retries', function() {
+    serveAndGet(makeRequestListener(0)).then(res => {
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toEqual('OK: 1')
+    })
+  })
+
+  it('OK response - 1 retry', function() {
+    serveAndGet(makeRequestListener(1)).then(res => {
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toEqual('OK: 2')
+    })
+  })
+
+  it('OK response - 3 retries', function() {
+    serveAndGet(makeRequestListener(3)).then(res => {
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toEqual('OK: 4')
+    })
+  })
+
+  it('Fail response - 4 retries', function() {
+    serveAndGet(makeRequestListener(4)).then(res => {
+      expect(res.statusCode).toEqual(429)
+      expect(res.body).toEqual('FAIL: 5')
+    })
+  })
+})
 
 describe('lastResponse and lastRequest defined', function() {
   let client;
