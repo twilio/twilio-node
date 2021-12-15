@@ -23,7 +23,7 @@ declare function WebhookList(version: V1, chatServiceSid: string): WebhookListIn
 /**
  * Options to pass to update
  *
- * @property filters - The list of webhook event triggers that are enabled for this Service.
+ * @property filters - The list of events that your configured webhook targets will receive. Events not configured here will not fire.
  * @property method - The HTTP method to be used when sending a webhook request
  * @property postWebhookUrl - The absolute url the post-event webhook request should be sent to.
  * @property preWebhookUrl - The absolute url the pre-event webhook request should be sent to.
@@ -73,7 +73,7 @@ declare class WebhookContext {
    * Initialize the WebhookContext
    *
    * @param version - Version of the resource
-   * @param chatServiceSid - The unique ID of the Conversation Service this conversation belongs to.
+   * @param chatServiceSid - The unique ID of the {@link https://www.twilio.com/docs/conversations/api/service-resource|Conversation Service} this conversation belongs to.
    */
   constructor(version: V1, chatServiceSid: string);
 

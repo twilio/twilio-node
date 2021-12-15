@@ -180,6 +180,7 @@ interface MessageListInstance {
  * @property messagingServiceSid - The SID of the Messaging Service you want to associate with the message.
  * @property persistentAction - Rich actions for Channels Messages.
  * @property provideFeedback - Whether to confirm delivery of the message
+ * @property sendAsMms - If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media
  * @property smartEncoded - Whether to detect Unicode characters that have a similar GSM-7 character and replace them
  * @property statusCallback - The URL we should call to send status information to your application
  * @property to - The destination phone number
@@ -198,6 +199,7 @@ interface MessageListInstanceCreateOptions {
   messagingServiceSid?: string;
   persistentAction?: string | string[];
   provideFeedback?: boolean;
+  sendAsMms?: boolean;
   smartEncoded?: boolean;
   statusCallback?: string;
   to: string;

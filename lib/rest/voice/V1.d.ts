@@ -7,6 +7,8 @@
 
 import Version = require('../../base/Version');
 import Voice = require('../Voice');
+import { ArchivedCallList } from './v1/archivedCall';
+import { ArchivedCallListInstance } from './v1/archivedCall';
 import { ByocTrunkList } from './v1/byocTrunk';
 import { ByocTrunkListInstance } from './v1/byocTrunk';
 import { ConnectionPolicyList } from './v1/connectionPolicy';
@@ -27,6 +29,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Voice);
 
+  readonly archivedCalls: ArchivedCallListInstance;
   readonly byocTrunks: ByocTrunkListInstance;
   readonly connectionPolicies: ConnectionPolicyListInstance;
   readonly dialingPermissions: DialingPermissionsListInstance;
