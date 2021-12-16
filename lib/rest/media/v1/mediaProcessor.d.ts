@@ -158,6 +158,7 @@ interface MediaProcessorListInstance {
  * @property extension - The Media Extension name or URL
  * @property extensionContext - The Media Extension context
  * @property extensionEnvironment - The Media Extension environment
+ * @property maxDuration - Maximum MediaProcessor duration in minutes
  * @property statusCallback - The URL to send MediaProcessor event updates to your application
  * @property statusCallbackMethod - The HTTP method Twilio should use to call the `status_callback` URL
  */
@@ -165,6 +166,7 @@ interface MediaProcessorListInstanceCreateOptions {
   extension: string;
   extensionContext: string;
   extensionEnvironment?: object;
+  maxDuration?: number;
   statusCallback?: string;
   statusCallbackMethod?: string;
 }
@@ -248,6 +250,7 @@ interface MediaProcessorResource {
   ended_reason: string;
   extension: string;
   extension_context: string;
+  max_duration: number;
   sid: string;
   status: MediaProcessorStatus;
   status_callback: string;
@@ -311,6 +314,7 @@ declare class MediaProcessorInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: MediaProcessorInstance) => any): Promise<MediaProcessorInstance>;
+  maxDuration: number;
   sid: string;
   status: MediaProcessorStatus;
   statusCallback: string;

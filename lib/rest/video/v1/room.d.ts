@@ -168,6 +168,7 @@ interface RoomListInstance {
  * Options to pass to create
  *
  * @property audioOnly - Indicates whether the room will only contain audio track participants for group rooms.
+ * @property emptyRoomTimeout - Configures the time a room will remain active after last participant leaves.
  * @property enableTurn - Enable Twilio's Network Traversal TURN service
  * @property maxParticipantDuration - The maximum number of seconds a Participant can be connected to the room
  * @property maxParticipants - The maximum number of concurrent Participants allowed in the room
@@ -178,10 +179,12 @@ interface RoomListInstance {
  * @property statusCallbackMethod - The HTTP method we should use to call status_callback
  * @property type - The type of room
  * @property uniqueName - An application-defined string that uniquely identifies the resource
+ * @property unusedRoomTimeout - Configures the time a room will remain active when no one joins.
  * @property videoCodecs - An array of the video codecs that are supported when publishing a track in the room
  */
 interface RoomListInstanceCreateOptions {
   audioOnly?: boolean;
+  emptyRoomTimeout?: number;
   enableTurn?: boolean;
   maxParticipantDuration?: number;
   maxParticipants?: number;
@@ -192,6 +195,7 @@ interface RoomListInstanceCreateOptions {
   statusCallbackMethod?: string;
   type?: RoomRoomType;
   uniqueName?: string;
+  unusedRoomTimeout?: number;
   videoCodecs?: RoomVideoCodec | RoomVideoCodec[];
 }
 
@@ -285,6 +289,7 @@ interface RoomResource {
   date_created: Date;
   date_updated: Date;
   duration: number;
+  empty_room_timeout: number;
   enable_turn: boolean;
   end_time: Date;
   links: string;
@@ -299,6 +304,7 @@ interface RoomResource {
   status_callback_method: string;
   type: RoomRoomType;
   unique_name: string;
+  unused_room_timeout: number;
   url: string;
   video_codecs: RoomVideoCodec[];
 }
@@ -355,6 +361,7 @@ declare class RoomInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   duration: number;
+  emptyRoomTimeout: number;
   enableTurn: boolean;
   endTime: Date;
   /**
@@ -391,6 +398,7 @@ declare class RoomInstance extends SerializableClass {
   toJSON(): any;
   type: RoomRoomType;
   uniqueName: string;
+  unusedRoomTimeout: number;
   /**
    * update a RoomInstance
    *

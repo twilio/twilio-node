@@ -13,6 +13,8 @@ import { CallSummariesList } from './v1/callSummaries';
 import { CallSummariesListInstance } from './v1/callSummaries';
 import { RoomList } from './v1/room';
 import { RoomListInstance } from './v1/room';
+import { SettingList } from './v1/setting';
+import { SettingListInstance } from './v1/setting';
 
 
 declare class V1 extends Version {
@@ -26,6 +28,7 @@ declare class V1 extends Version {
   readonly callSummaries: CallSummariesListInstance;
   readonly calls: CallListInstance;
   readonly rooms: RoomListInstance;
+  readonly settings: SettingListInstance;
 }
 
 export = V1;
