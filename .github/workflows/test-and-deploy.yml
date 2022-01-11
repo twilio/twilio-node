@@ -33,14 +33,12 @@ jobs:
       - name: Run Unit Tests
         run: npm run ci
       
-      
       - name: SonarCloud Scan
         if: ${{ github.event_name == 'pull_request' || github.ref_type == 'branch' }}
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: npm run coverage
 
   deploy:
     name: Deploy
