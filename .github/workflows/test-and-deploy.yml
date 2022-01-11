@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout twilio-node
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v2
@@ -30,6 +32,7 @@ jobs:
       - run: npm install
       - name: Run Unit Tests
         run: npm run ci
+      
       
       - name: SonarCloud Scan
         if: ${{ github.event_name == 'pull_request' || github.ref_type == 'branch' }}
