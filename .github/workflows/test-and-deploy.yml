@@ -34,7 +34,7 @@ jobs:
         run: npm run ci
       
       - name: SonarCloud Scan
-        if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.node == 'lts/*' }}
+        if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.node == 'lts/*' && !github.event.pull_request.head.repo.fork }}
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
