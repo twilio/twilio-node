@@ -56,7 +56,7 @@
     "ci": "npm run nyc && npm run nsp",
     "coverage": "nyc npm test",
     "jsdoc": "jsdoc -r lib -d docs",
-    "nsp": "if [ `npm --version | cut -d'.' -f1` -ge \"6\" ]; then npm audit; else echo \"npm audit is not available for npm < 6.0\"; fi",
+    "nsp": "if [ `npm --version | cut -d'.' -f1` -ge \"6\" ]; then npm audit --production; else echo \"npm audit is not available for npm < 6.0\"; fi",
     "nyc": "if [ `node --version | cut -d'.' -f1 | cut -c2-` -ge \"8\" ]; then npm run coverage; else npm test; fi"
   },
   "files": [
