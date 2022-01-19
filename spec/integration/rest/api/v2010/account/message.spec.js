@@ -214,6 +214,126 @@ describe('Message', function() {
       }).done();
     }
   );
+  it('should generate valid create_scheduled_message_sms response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'api_version': '2010-04-01',
+          'body': 'Hello! \ud83d\udc4d',
+          'date_created': 'Mon, 29 Nov 2021 22:40:10 +0000',
+          'date_sent': null,
+          'date_updated': 'Mon, 29 Nov 2021 22:40:10 +0000',
+          'direction': 'outbound-api',
+          'error_code': null,
+          'error_message': null,
+          'from': null,
+          'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'num_media': '0',
+          'num_segments': '0',
+          'price': null,
+          'price_unit': null,
+          'sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'scheduled',
+          'subresource_uris': {
+              'media': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json'
+          },
+          'to': '+15558675310',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {to: '+15558675310'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create_scheduled_message_mms response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'api_version': '2010-04-01',
+          'body': 'Hello! \ud83d\udc4d',
+          'date_created': 'Mon, 29 Nov 2021 22:40:10 +0000',
+          'date_sent': null,
+          'date_updated': 'Mon, 29 Nov 2021 22:40:10 +0000',
+          'direction': 'outbound-api',
+          'error_code': null,
+          'error_message': null,
+          'from': null,
+          'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'num_media': '1',
+          'num_segments': '1',
+          'price': null,
+          'price_unit': null,
+          'sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'scheduled',
+          'subresource_uris': {
+              'media': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json'
+          },
+          'to': '+15558675310',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {to: '+15558675310'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create_scheduled_message_whatsapp response',
+    function(done) {
+      var body = {
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'api_version': '2010-04-01',
+          'body': 'Hello! \ud83d\udc4d',
+          'date_created': 'Mon, 29 Nov 2021 22:40:10 +0000',
+          'date_sent': null,
+          'date_updated': 'Mon, 29 Nov 2021 22:40:10 +0000',
+          'direction': 'outbound-api',
+          'error_code': null,
+          'error_message': null,
+          'from': null,
+          'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'num_media': '0',
+          'num_segments': '0',
+          'price': null,
+          'price_unit': null,
+          'sid': 'SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'scheduled',
+          'subresource_uris': {
+              'media': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json'
+          },
+          'to': 'whatsapp:+15558675310',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {to: '+15558675310'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
   it('should generate valid remove request',
     function(done) {
       holodeck.mock(new Response(500, {}));

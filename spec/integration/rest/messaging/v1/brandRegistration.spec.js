@@ -376,4 +376,65 @@ describe('BrandRegistration', function() {
       }).done();
     }
   );
+  it('should generate valid update request',
+    function(done) {
+      holodeck.mock(new Response(500, {}));
+
+      var promise = client.messaging.v1.brandRegistrations('BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+        done();
+      }).done();
+
+      var sid = 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://messaging.twilio.com/v1/a2p/BrandRegistrations/${sid}`;
+
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid update response',
+    function(done) {
+      var body = {
+          'sid': 'BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'customer_profile_bundle_sid': 'BU3344409f7e067e279523808d267e2d85',
+          'a2p_profile_bundle_sid': 'BU3344409f7e067e279523808d267e2d85',
+          'date_created': '2021-01-27T14:18:35Z',
+          'date_updated': '2021-01-27T14:18:36Z',
+          'brand_type': 'STANDARD',
+          'status': 'PENDING',
+          'tcr_id': 'BXXXXXX',
+          'failure_reason': 'Registration error',
+          'url': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'brand_score': 42,
+          'brand_feedback': [
+              'TAX_ID',
+              'NONPROFIT'
+          ],
+          'identity_status': 'VERIFIED',
+          'russell_3000': false,
+          'tax_exempt_status': '501c3',
+          'skip_automatic_sec_vet': false,
+          'mock': false,
+          'links': {
+              'brand_vettings': 'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Vettings'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.messaging.v1.brandRegistrations('BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
 });
