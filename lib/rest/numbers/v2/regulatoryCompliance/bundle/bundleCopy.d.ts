@@ -40,6 +40,102 @@ interface BundleCopyListInstance {
    */
   create(opts?: BundleCopyListInstanceCreateOptions, callback?: (error: Error | null, item: BundleCopyInstance) => any): Promise<BundleCopyInstance>;
   /**
+   * Streams BundleCopyInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Function to process each record
+   */
+  each(callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams BundleCopyInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param opts - Options for request
+   * @param callback - Function to process each record
+   */
+  each(opts?: BundleCopyListInstanceEachOptions, callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Retrieve a single target page of BundleCopyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: BundleCopyPage) => any): Promise<BundleCopyPage>;
+  /**
+   * Retrieve a single target page of BundleCopyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: BundleCopyPage) => any): Promise<BundleCopyPage>;
+  /**
+   * Lists BundleCopyInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: BundleCopyInstance[]) => any): Promise<BundleCopyInstance[]>;
+  /**
+   * Lists BundleCopyInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle list of records
+   */
+  list(opts?: BundleCopyListInstanceOptions, callback?: (error: Error | null, items: BundleCopyInstance[]) => any): Promise<BundleCopyInstance[]>;
+  /**
+   * Retrieve a single page of BundleCopyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param callback - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: BundleCopyPage) => any): Promise<BundleCopyPage>;
+  /**
+   * Retrieve a single page of BundleCopyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle list of records
+   */
+  page(opts?: BundleCopyListInstancePageOptions, callback?: (error: Error | null, items: BundleCopyPage) => any): Promise<BundleCopyPage>;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -52,6 +148,63 @@ interface BundleCopyListInstance {
  */
 interface BundleCopyListInstanceCreateOptions {
   friendlyName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ */
+interface BundleCopyListInstanceEachOptions {
+  callback?: (item: BundleCopyInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface BundleCopyListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ */
+interface BundleCopyListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 interface BundleCopyPayload extends BundleCopyResource, Page.TwilioResponsePayload {
@@ -130,4 +283,4 @@ declare class BundleCopyPage extends Page<V2, BundleCopyPayload, BundleCopyResou
   toJSON(): any;
 }
 
-export { BundleCopyEndUserType, BundleCopyInstance, BundleCopyList, BundleCopyListInstance, BundleCopyListInstanceCreateOptions, BundleCopyPage, BundleCopyPayload, BundleCopyResource, BundleCopySolution, BundleCopyStatus }
+export { BundleCopyEndUserType, BundleCopyInstance, BundleCopyList, BundleCopyListInstance, BundleCopyListInstanceCreateOptions, BundleCopyListInstanceEachOptions, BundleCopyListInstanceOptions, BundleCopyListInstancePageOptions, BundleCopyPage, BundleCopyPayload, BundleCopyResource, BundleCopySolution, BundleCopyStatus }

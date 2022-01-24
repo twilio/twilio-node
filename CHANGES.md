@@ -1,6 +1,30 @@
 twilio-node changelog
 =====================
 
+[2022-01-12] Version 3.73.0
+---------------------------
+**Library - Chore**
+- [PR #721](https://github.com/twilio/twilio-node/pull/721): add sonarcloud analysis for twilio-node. Thanks to [@beebzz](https://github.com/beebzz)!
+
+**Library - Feature**
+- [PR #720](https://github.com/twilio/twilio-node/pull/720): add GitHub release step during deploy. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #716](https://github.com/twilio/twilio-node/pull/716): done callback execution when each method limit reached. Thanks to [@Hunga1](https://github.com/Hunga1)!
+
+**Api**
+- Make fixed time scheduling parameters public **(breaking change)**
+
+**Messaging**
+- Add update brand registration API
+
+**Numbers**
+- Add API endpoint for List Bundle Copies resource
+
+**Video**
+- Enable external storage for all customers
+
+
 [2021-12-15] Version 3.72.0
 ---------------------------
 **Library - Feature**

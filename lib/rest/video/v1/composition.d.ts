@@ -261,6 +261,7 @@ interface CompositionResource {
   duration: number;
   format: CompositionFormat;
   links: string;
+  media_external_location: string;
   resolution: string;
   room_sid: string;
   sid: string;
@@ -330,6 +331,7 @@ declare class CompositionInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: CompositionInstance) => any): Promise<CompositionInstance>;
   format: CompositionFormat;
   links: string;
+  mediaExternalLocation: string;
   /**
    * remove a CompositionInstance
    *

@@ -231,6 +231,7 @@ interface RoomRecordingResource {
   duration: number;
   grouping_sids: object;
   links: string;
+  media_external_location: string;
   offset: number;
   room_sid: string;
   sid: string;
@@ -301,6 +302,7 @@ declare class RoomRecordingInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): Promise<RoomRecordingInstance>;
   groupingSids: any;
   links: string;
+  mediaExternalLocation: string;
   offset: number;
   /**
    * remove a RoomRecordingInstance

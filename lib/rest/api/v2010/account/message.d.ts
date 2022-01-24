@@ -20,7 +20,7 @@ type MessageContentRetention = 'retain';
 
 type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
 
-type MessageScheduleType = 'fixed'|'optimize';
+type MessageScheduleType = 'fixed';
 
 type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read'|'partially_delivered'|'canceled';
 
@@ -40,9 +40,11 @@ declare function MessageList(version: V2010, accountSid: string): MessageListIns
  * Options to pass to update
  *
  * @property body - The text of the message you want to send
+ * @property status - Set as `canceled` to cancel a message from being sent.
  */
 interface MessageInstanceUpdateOptions {
   body?: string;
+  status?: MessageUpdateStatus;
 }
 
 interface MessageListInstance {
@@ -180,7 +182,9 @@ interface MessageListInstance {
  * @property messagingServiceSid - The SID of the Messaging Service you want to associate with the message.
  * @property persistentAction - Rich actions for Channels Messages.
  * @property provideFeedback - Whether to confirm delivery of the message
+ * @property scheduleType - Pass the value `fixed` to schedule a message at a fixed time.
  * @property sendAsMms - If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media
+ * @property sendAt - The time that Twilio will send the message. Must be in ISO 8601 format.
  * @property smartEncoded - Whether to detect Unicode characters that have a similar GSM-7 character and replace them
  * @property statusCallback - The URL we should call to send status information to your application
  * @property to - The destination phone number
@@ -199,7 +203,9 @@ interface MessageListInstanceCreateOptions {
   messagingServiceSid?: string;
   persistentAction?: string | string[];
   provideFeedback?: boolean;
+  scheduleType?: MessageScheduleType;
   sendAsMms?: boolean;
+  sendAt?: Date;
   smartEncoded?: boolean;
   statusCallback?: string;
   to: string;

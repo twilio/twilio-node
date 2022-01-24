@@ -242,6 +242,7 @@ interface RecordingResource {
   duration: number;
   grouping_sids: object;
   links: string;
+  media_external_location: string;
   offset: number;
   sid: string;
   size: number;
@@ -308,6 +309,7 @@ declare class RecordingInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
   groupingSids: any;
   links: string;
+  mediaExternalLocation: string;
   offset: number;
   /**
    * remove a RecordingInstance
