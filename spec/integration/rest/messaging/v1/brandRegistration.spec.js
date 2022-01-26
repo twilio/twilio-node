@@ -71,6 +71,7 @@ describe('BrandRegistration', function() {
           ],
           'identity_status': 'VERIFIED',
           'russell_3000': true,
+          'government_entity': false,
           'tax_exempt_status': '501c3',
           'skip_automatic_sec_vet': false,
           'mock': false,
@@ -123,6 +124,7 @@ describe('BrandRegistration', function() {
                   'identity_status': 'VERIFIED',
                   'russell_3000': true,
                   'tax_exempt_status': '501c3',
+                  'government_entity': false,
                   'skip_automatic_sec_vet': false,
                   'mock': false,
                   'links': {
@@ -168,6 +170,7 @@ describe('BrandRegistration', function() {
                   'identity_status': 'VERIFIED',
                   'russell_3000': true,
                   'tax_exempt_status': '501c3',
+                  'government_entity': false,
                   'skip_automatic_sec_vet': false,
                   'mock': false,
                   'links': {
@@ -218,6 +221,7 @@ describe('BrandRegistration', function() {
                   'identity_status': 'VERIFIED',
                   'russell_3000': true,
                   'tax_exempt_status': '501c3',
+                  'government_entity': false,
                   'skip_automatic_sec_vet': false,
                   'mock': false,
                   'links': {
@@ -283,6 +287,7 @@ describe('BrandRegistration', function() {
                   'identity_status': 'VERIFIED',
                   'russell_3000': true,
                   'tax_exempt_status': '501c3',
+                  'government_entity': false,
                   'skip_automatic_sec_vet': false,
                   'mock': false,
                   'links': {
@@ -353,6 +358,7 @@ describe('BrandRegistration', function() {
           ],
           'identity_status': 'VERIFIED',
           'russell_3000': true,
+          'government_entity': false,
           'tax_exempt_status': '501c3',
           'skip_automatic_sec_vet': false,
           'mock': false,
@@ -418,6 +424,7 @@ describe('BrandRegistration', function() {
           ],
           'identity_status': 'VERIFIED',
           'russell_3000': false,
+          'government_entity': false,
           'tax_exempt_status': '501c3',
           'skip_automatic_sec_vet': false,
           'mock': false,

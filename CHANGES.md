@@ -1,6 +1,23 @@
 twilio-node changelog
 =====================
 
+[2022-01-26] Version 3.73.1
+---------------------------
+**Library - Chore**
+- [PR #727](https://github.com/twilio/twilio-node/pull/727): run audit only on non dev dependencies. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Insights**
+- Added new endpoint to fetch Conference Participant Summary
+- Added new endpoint to fetch Conference Summary
+
+**Messaging**
+- Add government_entity parameter to brand apis
+
+**Verify**
+- Add Access Token fetch endpoint to retrieve a previously created token.
+- Add Access Token payload to the Access Token creation endpoint, including a unique Sid, so it's addressable while it's TTL is valid.
+
+
 [2022-01-12] Version 3.73.0
 ---------------------------
 **Library - Chore**

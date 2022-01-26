@@ -33,7 +33,7 @@ declare function FlexFlowList(version: V1): FlexFlowListInstance;
  * @property integration.creationOnMessage - Whether to create a Task when the first message arrives
  * @property integration.flowSid - The SID of the Studio Flow
  * @property integration.priority - The Task priority of a new Task
- * @property integration.retryCount - The number of times to retry the webhook if the first attempt fails
+ * @property integration.retryCount - The number of times to retry the Studio Flow or webhook in case of failure
  * @property integration.timeout - The Task timeout in seconds for a new Task
  * @property integration.url - The External Webhook URL
  * @property integration.workflowSid - The Workflow SID for a new Task
@@ -196,7 +196,7 @@ interface FlexFlowListInstance {
  * @property integration.creationOnMessage - Whether to create a Task when the first message arrives
  * @property integration.flowSid - The SID of the Studio Flow
  * @property integration.priority - The Task priority of a new Task
- * @property integration.retryCount - The number of times to retry the webhook if the first attempt fails
+ * @property integration.retryCount - The number of times to retry the Studio Flow or webhook in case of failure
  * @property integration.timeout - The Task timeout in seconds for a new Task
  * @property integration.url - The External Webhook URL
  * @property integration.workflowSid - The Workflow SID for a new Task
