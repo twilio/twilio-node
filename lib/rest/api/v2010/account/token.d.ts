@@ -50,11 +50,18 @@ interface TokenListInstanceCreateOptions {
 interface TokenPayload extends TokenResource, Page.TwilioResponsePayload {
 }
 
+interface IceServer {
+  url?: string,
+  urls?: string,
+  username?: string,
+  credential?: string,
+}
+
 interface TokenResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
-  ice_servers: string[];
+  iceServers: IceServer[];
   password: string;
   ttl: string;
   username: string;
@@ -78,7 +85,7 @@ declare class TokenInstance extends SerializableClass {
   accountSid: string;
   dateCreated: Date;
   dateUpdated: Date;
-  iceServers: string[];
+  iceServers: IceServer[];
   password: string;
   /**
    * Provide a user-friendly representation
