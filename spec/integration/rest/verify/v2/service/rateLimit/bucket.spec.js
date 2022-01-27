@@ -33,7 +33,7 @@ describe('Bucket', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {max: 1, interval: 1};
+      var opts = {'max': 1, 'interval': 1};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets.create(opts);
@@ -48,7 +48,7 @@ describe('Bucket', function() {
       var rateLimitSid = 'RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/RateLimits/${rateLimitSid}/Buckets`;
 
-      var values = {Max: 1, Interval: 1, };
+      var values = {'Max': 1, 'Interval': 1, };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -72,7 +72,7 @@ describe('Bucket', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {max: 1, interval: 1};
+      var opts = {'max': 1, 'interval': 1};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits('RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .buckets.create(opts);

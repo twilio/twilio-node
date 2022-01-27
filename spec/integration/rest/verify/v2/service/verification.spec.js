@@ -33,7 +33,7 @@ describe('Verification', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('Verification', function() {
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Verifications`;
 
-      var values = {To: 'to', Channel: 'channel', };
+      var values = {'To': 'to', 'Channel': 'channel', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -89,7 +89,7 @@ describe('Verification', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function(response) {
@@ -135,7 +135,7 @@ describe('Verification', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function(response) {
@@ -181,7 +181,7 @@ describe('Verification', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function(response) {
@@ -227,7 +227,7 @@ describe('Verification', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function(response) {
@@ -242,7 +242,7 @@ describe('Verification', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'canceled'};
+      var opts = {'status': 'canceled'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications('sid').update(opts);
       promise.then(function() {
@@ -256,7 +256,7 @@ describe('Verification', function() {
       var sid = 'sid';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Verifications/${sid}`;
 
-      var values = {Status: 'canceled', };
+      var values = {'Status': 'canceled', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -299,7 +299,7 @@ describe('Verification', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'canceled'};
+      var opts = {'status': 'canceled'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications('sid').update(opts);
       promise.then(function(response) {
@@ -345,7 +345,7 @@ describe('Verification', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'canceled'};
+      var opts = {'status': 'canceled'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications('sid').update(opts);
       promise.then(function(response) {

@@ -33,7 +33,7 @@ describe('AlphaSender', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {alphaSender: 'alpha_sender'};
+      var opts = {'alphaSender': 'alpha_sender'};
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .alphaSenders.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('AlphaSender', function() {
       var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/AlphaSenders`;
 
-      var values = {AlphaSender: 'alpha_sender', };
+      var values = {'AlphaSender': 'alpha_sender', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -71,7 +71,7 @@ describe('AlphaSender', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {alphaSender: 'alpha_sender'};
+      var opts = {'alphaSender': 'alpha_sender'};
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .alphaSenders.create(opts);
       promise.then(function(response) {

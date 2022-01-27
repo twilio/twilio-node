@@ -33,7 +33,7 @@ describe('PhoneNumber', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {phoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'phoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .phoneNumbers.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('PhoneNumber', function() {
       var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/PhoneNumbers`;
 
-      var values = {PhoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'PhoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -70,7 +70,7 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'phoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .phoneNumbers.create(opts);
       promise.then(function(response) {
@@ -101,7 +101,7 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'phoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .phoneNumbers.create(opts);
       promise.then(function(response) {

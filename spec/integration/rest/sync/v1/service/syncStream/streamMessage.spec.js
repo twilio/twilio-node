@@ -35,7 +35,7 @@ describe('StreamMessage', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {data: {}};
+      var opts = {'data': {}};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncStreams('TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .streamMessages.create(opts);
@@ -50,7 +50,7 @@ describe('StreamMessage', function() {
       var streamSid = 'TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Streams/${streamSid}/Messages`;
 
-      var values = {Data: serialize.object({}), };
+      var values = {'Data': serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -67,7 +67,7 @@ describe('StreamMessage', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {data: {}};
+      var opts = {'data': {}};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncStreams('TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .streamMessages.create(opts);

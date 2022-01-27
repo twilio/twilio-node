@@ -299,9 +299,9 @@ describe('FlexFlow', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        friendlyName: 'friendly_name',
-        chatServiceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelType: 'web'
+        'friendlyName': 'friendly_name',
+        'chatServiceSid': 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'channelType': 'web'
       };
       var promise = client.flexApi.v1.flexFlow.create(opts);
       promise.then(function() {
@@ -314,9 +314,9 @@ describe('FlexFlow', function() {
       var url = 'https://flex-api.twilio.com/v1/FlexFlows';
 
       var values = {
-        FriendlyName: 'friendly_name',
-        ChatServiceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ChannelType: 'web',
+        'FriendlyName': 'friendly_name',
+        'ChatServiceSid': 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'ChannelType': 'web',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -350,9 +350,9 @@ describe('FlexFlow', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        friendlyName: 'friendly_name',
-        chatServiceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        channelType: 'web'
+        'friendlyName': 'friendly_name',
+        'chatServiceSid': 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'channelType': 'web'
       };
       var promise = client.flexApi.v1.flexFlow.create(opts);
       promise.then(function(response) {

@@ -33,7 +33,7 @@ describe('Challenge', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'factorSid': 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .challenges.create(opts);
@@ -48,7 +48,7 @@ describe('Challenge', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Challenges`;
 
-      var values = {FactorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'FactorSid': 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -93,7 +93,7 @@ describe('Challenge', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'factorSid': 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .challenges.create(opts);
@@ -142,7 +142,7 @@ describe('Challenge', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'factorSid': 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .challenges.create(opts);
@@ -191,7 +191,7 @@ describe('Challenge', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {factorSid: 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'factorSid': 'YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .challenges.create(opts);

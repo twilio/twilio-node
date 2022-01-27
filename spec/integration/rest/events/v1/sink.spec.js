@@ -88,7 +88,7 @@ describe('Sink', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {description: 'description', sinkConfiguration: {}, sinkType: 'kinesis'};
+      var opts = {'description': 'description', 'sinkConfiguration': {}, 'sinkType': 'kinesis'};
       var promise = client.events.v1.sinks.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -100,9 +100,9 @@ describe('Sink', function() {
       var url = 'https://events.twilio.com/v1/Sinks';
 
       var values = {
-        Description: 'description',
-        SinkConfiguration: serialize.object({}),
-        SinkType: 'kinesis',
+        'Description': 'description',
+        'SinkConfiguration': serialize.object({}),
+        'SinkType': 'kinesis',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -134,7 +134,7 @@ describe('Sink', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {description: 'description', sinkConfiguration: {}, sinkType: 'kinesis'};
+      var opts = {'description': 'description', 'sinkConfiguration': {}, 'sinkType': 'kinesis'};
       var promise = client.events.v1.sinks.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -165,7 +165,7 @@ describe('Sink', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {description: 'description', sinkConfiguration: {}, sinkType: 'kinesis'};
+      var opts = {'description': 'description', 'sinkConfiguration': {}, 'sinkType': 'kinesis'};
       var promise = client.events.v1.sinks.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -692,7 +692,7 @@ describe('Sink', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {description: 'description'};
+      var opts = {'description': 'description'};
       var promise = client.events.v1.sinks('DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -704,7 +704,7 @@ describe('Sink', function() {
       var sid = 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://events.twilio.com/v1/Sinks/${sid}`;
 
-      var values = {Description: 'description', };
+      var values = {'Description': 'description', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -735,7 +735,7 @@ describe('Sink', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {description: 'description'};
+      var opts = {'description': 'description'};
       var promise = client.events.v1.sinks('DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

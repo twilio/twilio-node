@@ -33,7 +33,7 @@ describe('Payment', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {idempotencyKey: 'idempotency_key', statusCallback: 'https://example.com'};
+      var opts = {'idempotencyKey': 'idempotency_key', 'statusCallback': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payments.create(opts);
@@ -48,7 +48,7 @@ describe('Payment', function() {
       var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Payments.json`;
 
-      var values = {IdempotencyKey: 'idempotency_key', StatusCallback: 'https://example.com', };
+      var values = {'IdempotencyKey': 'idempotency_key', 'StatusCallback': 'https://example.com', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -69,7 +69,7 @@ describe('Payment', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {idempotencyKey: 'idempotency_key', statusCallback: 'https://example.com'};
+      var opts = {'idempotencyKey': 'idempotency_key', 'statusCallback': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payments.create(opts);
@@ -85,7 +85,7 @@ describe('Payment', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {idempotencyKey: 'idempotency_key', statusCallback: 'https://example.com'};
+      var opts = {'idempotencyKey': 'idempotency_key', 'statusCallback': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payments('PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -101,7 +101,7 @@ describe('Payment', function() {
       var sid = 'PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Payments/${sid}.json`;
 
-      var values = {IdempotencyKey: 'idempotency_key', StatusCallback: 'https://example.com', };
+      var values = {'IdempotencyKey': 'idempotency_key', 'StatusCallback': 'https://example.com', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -122,7 +122,7 @@ describe('Payment', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {idempotencyKey: 'idempotency_key', statusCallback: 'https://example.com'};
+      var opts = {'idempotencyKey': 'idempotency_key', 'statusCallback': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payments('PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -147,7 +147,7 @@ describe('Payment', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {idempotencyKey: 'idempotency_key', statusCallback: 'https://example.com'};
+      var opts = {'idempotencyKey': 'idempotency_key', 'statusCallback': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payments('PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -172,7 +172,7 @@ describe('Payment', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {idempotencyKey: 'idempotency_key', statusCallback: 'https://example.com'};
+      var opts = {'idempotencyKey': 'idempotency_key', 'statusCallback': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payments('PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);

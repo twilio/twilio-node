@@ -33,7 +33,7 @@ describe('BrandsInformation', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifNoneMatch: 'if_none_match'};
+      var opts = {'ifNoneMatch': 'if_none_match'};
       var promise = client.preview.trusted_comms.brandsInformation().fetch(opts);
       promise.then(function() {
         throw new Error('failed');

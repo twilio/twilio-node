@@ -33,7 +33,7 @@ describe('MessagingConfiguration', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {country: 'country', messagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'country': 'country', 'messagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messagingConfigurations.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('MessagingConfiguration', function() {
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/MessagingConfigurations`;
 
-      var values = {Country: 'country', MessagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'Country': 'country', 'MessagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -68,7 +68,7 @@ describe('MessagingConfiguration', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {country: 'country', messagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'country': 'country', 'messagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messagingConfigurations.create(opts);
       promise.then(function(response) {
@@ -83,7 +83,7 @@ describe('MessagingConfiguration', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {messagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'messagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messagingConfigurations('country').update(opts);
       promise.then(function() {
@@ -97,7 +97,7 @@ describe('MessagingConfiguration', function() {
       var country = 'country';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/MessagingConfigurations/${country}`;
 
-      var values = {MessagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'MessagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -119,7 +119,7 @@ describe('MessagingConfiguration', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {messagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'messagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messagingConfigurations('country').update(opts);
       promise.then(function(response) {

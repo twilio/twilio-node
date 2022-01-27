@@ -130,7 +130,7 @@ describe('Binding', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity', bindingType: 'apn', address: 'address'};
+      var opts = {'identity': 'identity', 'bindingType': 'apn', 'address': 'address'};
       var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.create(opts);
       promise.then(function() {
@@ -143,7 +143,7 @@ describe('Binding', function() {
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://notify.twilio.com/v1/Services/${serviceSid}/Bindings`;
 
-      var values = {Identity: 'identity', BindingType: 'apn', Address: 'address', };
+      var values = {'Identity': 'identity', 'BindingType': 'apn', 'Address': 'address', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -176,7 +176,7 @@ describe('Binding', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identity: 'identity', bindingType: 'apn', address: 'address'};
+      var opts = {'identity': 'identity', 'bindingType': 'apn', 'address': 'address'};
       var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.create(opts);
       promise.then(function(response) {

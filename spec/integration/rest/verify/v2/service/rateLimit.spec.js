@@ -33,7 +33,7 @@ describe('RateLimit', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {uniqueName: 'unique_name'};
+      var opts = {'uniqueName': 'unique_name'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('RateLimit', function() {
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/RateLimits`;
 
-      var values = {UniqueName: 'unique_name', };
+      var values = {'UniqueName': 'unique_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -72,7 +72,7 @@ describe('RateLimit', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {uniqueName: 'unique_name'};
+      var opts = {'uniqueName': 'unique_name'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .rateLimits.create(opts);
       promise.then(function(response) {

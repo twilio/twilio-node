@@ -33,7 +33,7 @@ describe('EndUser', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', type: 'type'};
+      var opts = {'friendlyName': 'friendly_name', 'type': 'type'};
       var promise = client.trusthub.v1.endUsers.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('EndUser', function() {
 
       var url = 'https://trusthub.twilio.com/v1/EndUsers';
 
-      var values = {FriendlyName: 'friendly_name', Type: 'type', };
+      var values = {'FriendlyName': 'friendly_name', 'Type': 'type', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -74,7 +74,7 @@ describe('EndUser', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', type: 'type'};
+      var opts = {'friendlyName': 'friendly_name', 'type': 'type'};
       var promise = client.trusthub.v1.endUsers.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

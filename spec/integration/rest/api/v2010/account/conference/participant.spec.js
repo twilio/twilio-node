@@ -339,7 +339,7 @@ describe('Participant', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -354,7 +354,7 @@ describe('Participant', function() {
       var conferenceSid = 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Conferences/${conferenceSid}/Participants.json`;
 
-      var values = {From: '+15017122661', To: '+15558675310', };
+      var values = {'From': '+15017122661', 'To': '+15558675310', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -383,7 +383,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -416,7 +416,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -449,7 +449,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -482,7 +482,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -515,7 +515,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -548,7 +548,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -581,7 +581,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -614,7 +614,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -647,7 +647,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -680,7 +680,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
@@ -713,7 +713,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {from: '+15017122661', to: '+15558675310'};
+      var opts = {'from': '+15017122661', 'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);

@@ -33,7 +33,7 @@ describe('SmsCommand', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {sim: 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', payload: 'payload'};
+      var opts = {'sim': 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'payload': 'payload'};
       var promise = client.supersim.v1.smsCommands.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('SmsCommand', function() {
 
       var url = 'https://supersim.twilio.com/v1/SmsCommands';
 
-      var values = {Sim: 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', Payload: 'payload', };
+      var values = {'Sim': 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'Payload': 'payload', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -68,7 +68,7 @@ describe('SmsCommand', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {sim: 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', payload: 'payload'};
+      var opts = {'sim': 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'payload': 'payload'};
       var promise = client.supersim.v1.smsCommands.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -94,7 +94,7 @@ describe('SmsCommand', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {sim: 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', payload: 'payload'};
+      var opts = {'sim': 'HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'payload': 'payload'};
       var promise = client.supersim.v1.smsCommands.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

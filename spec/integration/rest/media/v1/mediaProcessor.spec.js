@@ -33,7 +33,7 @@ describe('MediaProcessor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {extension: 'extension', extensionContext: 'extension_context'};
+      var opts = {'extension': 'extension', 'extensionContext': 'extension_context'};
       var promise = client.media.v1.mediaProcessor.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('MediaProcessor', function() {
 
       var url = 'https://media.twilio.com/v1/MediaProcessors';
 
-      var values = {Extension: 'extension', ExtensionContext: 'extension_context', };
+      var values = {'Extension': 'extension', 'ExtensionContext': 'extension_context', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -71,7 +71,7 @@ describe('MediaProcessor', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {extension: 'extension', extensionContext: 'extension_context'};
+      var opts = {'extension': 'extension', 'extensionContext': 'extension_context'};
       var promise = client.media.v1.mediaProcessor.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -134,7 +134,7 @@ describe('MediaProcessor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'ended'};
+      var opts = {'status': 'ended'};
       var promise = client.media.v1.mediaProcessor('ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -146,7 +146,7 @@ describe('MediaProcessor', function() {
       var sid = 'ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://media.twilio.com/v1/MediaProcessors/${sid}`;
 
-      var values = {Status: 'ended', };
+      var values = {'Status': 'ended', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -173,7 +173,7 @@ describe('MediaProcessor', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'ended'};
+      var opts = {'status': 'ended'};
       var promise = client.media.v1.mediaProcessor('ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

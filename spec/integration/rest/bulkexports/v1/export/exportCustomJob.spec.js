@@ -227,7 +227,7 @@ describe('ExportCustomJob', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {startDay: 'start_day', endDay: 'end_day', friendlyName: 'friendly_name'};
+      var opts = {'startDay': 'start_day', 'endDay': 'end_day', 'friendlyName': 'friendly_name'};
       var promise = client.bulkexports.v1.exports('resource_type')
                                          .exportCustomJobs.create(opts);
       promise.then(function() {
@@ -240,7 +240,7 @@ describe('ExportCustomJob', function() {
       var resourceType = 'resource_type';
       var url = `https://bulkexports.twilio.com/v1/Exports/${resourceType}/Jobs`;
 
-      var values = {StartDay: 'start_day', EndDay: 'end_day', FriendlyName: 'friendly_name', };
+      var values = {'StartDay': 'start_day', 'EndDay': 'end_day', 'FriendlyName': 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -266,7 +266,7 @@ describe('ExportCustomJob', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {startDay: 'start_day', endDay: 'end_day', friendlyName: 'friendly_name'};
+      var opts = {'startDay': 'start_day', 'endDay': 'end_day', 'friendlyName': 'friendly_name'};
       var promise = client.bulkexports.v1.exports('resource_type')
                                          .exportCustomJobs.create(opts);
       promise.then(function(response) {

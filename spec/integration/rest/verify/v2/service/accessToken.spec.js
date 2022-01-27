@@ -33,7 +33,7 @@ describe('AccessToken', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity', factorType: 'push'};
+      var opts = {'identity': 'identity', 'factorType': 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .accessTokens.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('AccessToken', function() {
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/AccessTokens`;
 
-      var values = {Identity: 'identity', FactorType: 'push', };
+      var values = {'Identity': 'identity', 'FactorType': 'push', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -69,7 +69,7 @@ describe('AccessToken', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identity: 'identity', factorType: 'push'};
+      var opts = {'identity': 'identity', 'factorType': 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .accessTokens.create(opts);
       promise.then(function(response) {

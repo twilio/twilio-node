@@ -317,7 +317,7 @@ describe('SyncListPermission', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {read: true, write: true, manage: true};
+      var opts = {'read': true, 'write': true, 'manage': true};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').update(opts);
@@ -334,9 +334,9 @@ describe('SyncListPermission', function() {
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Lists/${listSid}/Permissions/${identity}`;
 
       var values = {
-        Read: serialize.bool(true),
-        Write: serialize.bool(true),
-        Manage: serialize.bool(true),
+        'Read': serialize.bool(true),
+        'Write': serialize.bool(true),
+        'Manage': serialize.bool(true),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -360,7 +360,7 @@ describe('SyncListPermission', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {read: true, write: true, manage: true};
+      var opts = {'read': true, 'write': true, 'manage': true};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').update(opts);

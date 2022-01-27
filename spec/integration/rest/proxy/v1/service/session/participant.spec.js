@@ -176,7 +176,7 @@ describe('Participant', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identifier: 'identifier'};
+      var opts = {'identifier': 'identifier'};
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.create(opts);
@@ -191,7 +191,7 @@ describe('Participant', function() {
       var sessionSid = 'KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://proxy.twilio.com/v1/Services/${serviceSid}/Sessions/${sessionSid}/Participants`;
 
-      var values = {Identifier: 'identifier', };
+      var values = {'Identifier': 'identifier', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -221,7 +221,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identifier: 'identifier'};
+      var opts = {'identifier': 'identifier'};
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.create(opts);
@@ -255,7 +255,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identifier: 'identifier'};
+      var opts = {'identifier': 'identifier'};
       var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .sessions('KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.create(opts);

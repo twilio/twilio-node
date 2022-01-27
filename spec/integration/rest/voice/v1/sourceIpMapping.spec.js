@@ -34,8 +34,8 @@ describe('SourceIpMapping', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        ipRecordSid: 'ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sipDomainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        'ipRecordSid': 'ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'sipDomainSid': 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var promise = client.voice.v1.sourceIpMappings.create(opts);
       promise.then(function() {
@@ -48,8 +48,8 @@ describe('SourceIpMapping', function() {
       var url = 'https://voice.twilio.com/v1/SourceIpMappings';
 
       var values = {
-        IpRecordSid: 'ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        SipDomainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'IpRecordSid': 'ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'SipDomainSid': 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -72,8 +72,8 @@ describe('SourceIpMapping', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        ipRecordSid: 'ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        sipDomainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        'ipRecordSid': 'ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'sipDomainSid': 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var promise = client.voice.v1.sourceIpMappings.create(opts);
       promise.then(function(response) {
@@ -298,7 +298,7 @@ describe('SourceIpMapping', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {sipDomainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'sipDomainSid': 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.voice.v1.sourceIpMappings('IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -310,7 +310,7 @@ describe('SourceIpMapping', function() {
       var sid = 'IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://voice.twilio.com/v1/SourceIpMappings/${sid}`;
 
-      var values = {SipDomainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'SipDomainSid': 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -331,7 +331,7 @@ describe('SourceIpMapping', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {sipDomainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'sipDomainSid': 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.voice.v1.sourceIpMappings('IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

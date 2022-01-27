@@ -135,7 +135,7 @@ describe('Execution', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {to: '+15558675310', from: '+15017122661'};
+      var opts = {'to': '+15558675310', 'from': '+15017122661'};
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .executions.create(opts);
       promise.then(function() {
@@ -148,7 +148,7 @@ describe('Execution', function() {
       var flowSid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://studio.twilio.com/v2/Flows/${flowSid}/Executions`;
 
-      var values = {To: '+15558675310', From: '+15017122661', };
+      var values = {'To': '+15558675310', 'From': '+15017122661', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -176,7 +176,7 @@ describe('Execution', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+15558675310', from: '+15017122661'};
+      var opts = {'to': '+15558675310', 'from': '+15017122661'};
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .executions.create(opts);
       promise.then(function(response) {
@@ -230,7 +230,7 @@ describe('Execution', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'active'};
+      var opts = {'status': 'active'};
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .executions('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -244,7 +244,7 @@ describe('Execution', function() {
       var sid = 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://studio.twilio.com/v2/Flows/${flowSid}/Executions/${sid}`;
 
-      var values = {Status: 'active', };
+      var values = {'Status': 'active', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -272,7 +272,7 @@ describe('Execution', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'active'};
+      var opts = {'status': 'active'};
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .executions('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {

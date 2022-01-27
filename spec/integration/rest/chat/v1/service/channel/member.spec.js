@@ -87,7 +87,7 @@ describe('Member', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .members.create(opts);
@@ -102,7 +102,7 @@ describe('Member', function() {
       var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v1/Services/${serviceSid}/Channels/${channelSid}/Members`;
 
-      var values = {Identity: 'identity', };
+      var values = {'Identity': 'identity', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -128,7 +128,7 @@ describe('Member', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .members.create(opts);

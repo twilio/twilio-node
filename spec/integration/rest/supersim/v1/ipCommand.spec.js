@@ -33,7 +33,7 @@ describe('IpCommand', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {sim: 'sim', payload: 'payload', devicePort: 1};
+      var opts = {'sim': 'sim', 'payload': 'payload', 'devicePort': 1};
       var promise = client.supersim.v1.ipCommands.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('IpCommand', function() {
 
       var url = 'https://supersim.twilio.com/v1/IpCommands';
 
-      var values = {Sim: 'sim', Payload: 'payload', DevicePort: 1, };
+      var values = {'Sim': 'sim', 'Payload': 'payload', 'DevicePort': 1, };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -72,7 +72,7 @@ describe('IpCommand', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {sim: 'sim', payload: 'payload', devicePort: 1};
+      var opts = {'sim': 'sim', 'payload': 'payload', 'devicePort': 1};
       var promise = client.supersim.v1.ipCommands.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -102,7 +102,7 @@ describe('IpCommand', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {sim: 'sim', payload: 'payload', devicePort: 1};
+      var opts = {'sim': 'sim', 'payload': 'payload', 'devicePort': 1};
       var promise = client.supersim.v1.ipCommands.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

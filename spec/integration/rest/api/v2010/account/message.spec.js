@@ -33,7 +33,7 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {to: '+15558675310'};
+      var opts = {'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('Message', function() {
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
 
-      var values = {To: '+15558675310', };
+      var values = {'To': '+15558675310', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -83,7 +83,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+15558675310'};
+      var opts = {'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.create(opts);
       promise.then(function(response) {
@@ -123,7 +123,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+15558675310'};
+      var opts = {'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.create(opts);
       promise.then(function(response) {
@@ -163,7 +163,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+15558675310'};
+      var opts = {'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.create(opts);
       promise.then(function(response) {
@@ -203,7 +203,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+15558675310'};
+      var opts = {'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.create(opts);
       promise.then(function(response) {
@@ -243,7 +243,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+15558675310'};
+      var opts = {'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.create(opts);
       promise.then(function(response) {
@@ -283,7 +283,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+15558675310'};
+      var opts = {'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.create(opts);
       promise.then(function(response) {
@@ -323,7 +323,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+15558675310'};
+      var opts = {'to': '+15558675310'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .messages.create(opts);
       promise.then(function(response) {

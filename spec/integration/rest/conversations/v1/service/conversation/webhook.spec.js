@@ -33,7 +33,7 @@ describe('Webhook', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {target: 'webhook'};
+      var opts = {'target': 'webhook'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .webhooks.create(opts);
@@ -48,7 +48,7 @@ describe('Webhook', function() {
       var conversationSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Services/${chatServiceSid}/Conversations/${conversationSid}/Webhooks`;
 
-      var values = {Target: 'webhook', };
+      var values = {'Target': 'webhook', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -79,7 +79,7 @@ describe('Webhook', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {target: 'webhook'};
+      var opts = {'target': 'webhook'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .webhooks.create(opts);

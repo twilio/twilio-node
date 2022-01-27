@@ -138,7 +138,7 @@ describe('Environment', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {uniqueName: 'unique_name'};
+      var opts = {'uniqueName': 'unique_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments.create(opts);
       promise.then(function() {
@@ -151,7 +151,7 @@ describe('Environment', function() {
       var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Environments`;
 
-      var values = {UniqueName: 'unique_name', };
+      var values = {'UniqueName': 'unique_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -182,7 +182,7 @@ describe('Environment', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {uniqueName: 'unique_name'};
+      var opts = {'uniqueName': 'unique_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments.create(opts);
       promise.then(function(response) {

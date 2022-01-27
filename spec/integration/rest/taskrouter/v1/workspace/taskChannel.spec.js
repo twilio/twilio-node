@@ -448,7 +448,7 @@ describe('TaskChannel', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', uniqueName: 'unique_name'};
+      var opts = {'friendlyName': 'friendly_name', 'uniqueName': 'unique_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.create(opts);
       promise.then(function() {
@@ -461,7 +461,7 @@ describe('TaskChannel', function() {
       var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/TaskChannels`;
 
-      var values = {FriendlyName: 'friendly_name', UniqueName: 'unique_name', };
+      var values = {'FriendlyName': 'friendly_name', 'UniqueName': 'unique_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -488,7 +488,7 @@ describe('TaskChannel', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', uniqueName: 'unique_name'};
+      var opts = {'friendlyName': 'friendly_name', 'uniqueName': 'unique_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.create(opts);
       promise.then(function(response) {

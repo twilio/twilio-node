@@ -36,12 +36,12 @@ describe('UsAppToPerson', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        brandRegistrationSid: 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        description: 'description',
-        messageSamples: ['message_samples'],
-        usAppToPersonUsecase: 'us_app_to_person_usecase',
-        hasEmbeddedLinks: true,
-        hasEmbeddedPhone: true
+        'brandRegistrationSid': 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'description': 'description',
+        'messageSamples': ['message_samples'],
+        'usAppToPersonUsecase': 'us_app_to_person_usecase',
+        'hasEmbeddedLinks': true,
+        'hasEmbeddedPhone': true
       };
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .usAppToPerson.create(opts);
@@ -56,12 +56,12 @@ describe('UsAppToPerson', function() {
       var url = `https://messaging.twilio.com/v1/Services/${messagingServiceSid}/Compliance/Usa2p`;
 
       var values = {
-        BrandRegistrationSid: 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        Description: 'description',
-        MessageSamples: serialize.map(['message_samples'], function(e) { return e; }),
-        UsAppToPersonUsecase: 'us_app_to_person_usecase',
-        HasEmbeddedLinks: serialize.bool(true),
-        HasEmbeddedPhone: serialize.bool(true),
+        'BrandRegistrationSid': 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'Description': 'description',
+        'MessageSamples': serialize.map(['message_samples'], function(e) { return e; }),
+        'UsAppToPersonUsecase': 'us_app_to_person_usecase',
+        'HasEmbeddedLinks': serialize.bool(true),
+        'HasEmbeddedPhone': serialize.bool(true),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -106,12 +106,12 @@ describe('UsAppToPerson', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        brandRegistrationSid: 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        description: 'description',
-        messageSamples: ['message_samples'],
-        usAppToPersonUsecase: 'us_app_to_person_usecase',
-        hasEmbeddedLinks: true,
-        hasEmbeddedPhone: true
+        'brandRegistrationSid': 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'description': 'description',
+        'messageSamples': ['message_samples'],
+        'usAppToPersonUsecase': 'us_app_to_person_usecase',
+        'hasEmbeddedLinks': true,
+        'hasEmbeddedPhone': true
       };
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .usAppToPerson.create(opts);

@@ -273,7 +273,7 @@ describe('Webhook', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {uniqueName: 'unique_name', events: 'events', webhookUrl: 'https://example.com'};
+      var opts = {'uniqueName': 'unique_name', 'events': 'events', 'webhookUrl': 'https://example.com'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .webhooks.create(opts);
       promise.then(function() {
@@ -286,7 +286,7 @@ describe('Webhook', function() {
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Webhooks`;
 
-      var values = {UniqueName: 'unique_name', Events: 'events', WebhookUrl: 'https://example.com', };
+      var values = {'UniqueName': 'unique_name', 'Events': 'events', 'WebhookUrl': 'https://example.com', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -311,7 +311,7 @@ describe('Webhook', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {uniqueName: 'unique_name', events: 'events', webhookUrl: 'https://example.com'};
+      var opts = {'uniqueName': 'unique_name', 'events': 'events', 'webhookUrl': 'https://example.com'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .webhooks.create(opts);
       promise.then(function(response) {

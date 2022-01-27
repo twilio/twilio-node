@@ -137,7 +137,7 @@ describe('Variable', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {key: 'key', value: 'value'};
+      var opts = {'key': 'key', 'value': 'value'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments('ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .variables.create(opts);
@@ -152,7 +152,7 @@ describe('Variable', function() {
       var environmentSid = 'ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Environments/${environmentSid}/Variables`;
 
-      var values = {Key: 'key', Value: 'value', };
+      var values = {'Key': 'key', 'Value': 'value', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -176,7 +176,7 @@ describe('Variable', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {key: 'key', value: 'value'};
+      var opts = {'key': 'key', 'value': 'value'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .environments('ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .variables.create(opts);

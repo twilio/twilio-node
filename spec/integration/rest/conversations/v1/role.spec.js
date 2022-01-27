@@ -35,7 +35,7 @@ describe('Role', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', type: 'conversation', permission: ['permission']};
+      var opts = {'friendlyName': 'friendly_name', 'type': 'conversation', 'permission': ['permission']};
       var promise = client.conversations.v1.roles.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -47,9 +47,9 @@ describe('Role', function() {
       var url = 'https://conversations.twilio.com/v1/Roles';
 
       var values = {
-        FriendlyName: 'friendly_name',
-        Type: 'conversation',
-        Permission: serialize.map(['permission'], function(e) { return e; }),
+        'FriendlyName': 'friendly_name',
+        'Type': 'conversation',
+        'Permission': serialize.map(['permission'], function(e) { return e; }),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -79,7 +79,7 @@ describe('Role', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', type: 'conversation', permission: ['permission']};
+      var opts = {'friendlyName': 'friendly_name', 'type': 'conversation', 'permission': ['permission']};
       var promise = client.conversations.v1.roles.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -93,7 +93,7 @@ describe('Role', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {permission: ['permission']};
+      var opts = {'permission': ['permission']};
       var promise = client.conversations.v1.roles('RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -105,7 +105,7 @@ describe('Role', function() {
       var sid = 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Roles/${sid}`;
 
-      var values = {Permission: serialize.map(['permission'], function(e) { return e; }), };
+      var values = {'Permission': serialize.map(['permission'], function(e) { return e; }), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -134,7 +134,7 @@ describe('Role', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {permission: ['permission']};
+      var opts = {'permission': ['permission']};
       var promise = client.conversations.v1.roles('RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
