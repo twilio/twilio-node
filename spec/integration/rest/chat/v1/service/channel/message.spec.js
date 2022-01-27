@@ -89,7 +89,7 @@ describe('Message', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {body: 'body'};
+      var opts = {'body': 'body'};
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .messages.create(opts);
@@ -104,7 +104,7 @@ describe('Message', function() {
       var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v1/Services/${serviceSid}/Channels/${channelSid}/Messages`;
 
-      var values = {Body: 'body', };
+      var values = {'Body': 'body', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -132,7 +132,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {body: 'body'};
+      var opts = {'body': 'body'};
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .messages.create(opts);
@@ -164,7 +164,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {body: 'body'};
+      var opts = {'body': 'body'};
       var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .messages.create(opts);

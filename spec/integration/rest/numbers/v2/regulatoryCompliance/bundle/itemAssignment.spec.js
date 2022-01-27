@@ -33,7 +33,7 @@ describe('ItemAssignment', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {objectSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'objectSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                      .itemAssignments.create(opts);
@@ -47,7 +47,7 @@ describe('ItemAssignment', function() {
       var bundleSid = 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/${bundleSid}/ItemAssignments`;
 
-      var values = {ObjectSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'ObjectSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -68,7 +68,7 @@ describe('ItemAssignment', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {objectSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'objectSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                      .itemAssignments.create(opts);

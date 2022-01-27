@@ -33,7 +33,7 @@ describe('ReplaceItems', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {fromBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'fromBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                      .replaceItems.create(opts);
@@ -47,7 +47,7 @@ describe('ReplaceItems', function() {
       var bundleSid = 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/${bundleSid}/ReplaceItems`;
 
-      var values = {FromBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'FromBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -72,7 +72,7 @@ describe('ReplaceItems', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {fromBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'fromBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                      .replaceItems.create(opts);

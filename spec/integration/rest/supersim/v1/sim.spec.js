@@ -33,7 +33,7 @@ describe('Sim', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {iccid: 'iccid', registrationCode: 'registration_code'};
+      var opts = {'iccid': 'iccid', 'registrationCode': 'registration_code'};
       var promise = client.supersim.v1.sims.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('Sim', function() {
 
       var url = 'https://supersim.twilio.com/v1/Sims';
 
-      var values = {Iccid: 'iccid', RegistrationCode: 'registration_code', };
+      var values = {'Iccid': 'iccid', 'RegistrationCode': 'registration_code', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -71,7 +71,7 @@ describe('Sim', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {iccid: 'iccid', registrationCode: 'registration_code'};
+      var opts = {'iccid': 'iccid', 'registrationCode': 'registration_code'};
       var promise = client.supersim.v1.sims.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

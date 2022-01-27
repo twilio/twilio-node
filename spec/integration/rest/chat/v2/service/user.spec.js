@@ -129,7 +129,7 @@ describe('User', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity', xTwilioWebhookEnabled: 'true'};
+      var opts = {'identity': 'identity', 'xTwilioWebhookEnabled': 'true'};
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users.create(opts);
       promise.then(function() {
@@ -142,7 +142,7 @@ describe('User', function() {
       var serviceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users`;
 
-      var values = {Identity: 'identity', };
+      var values = {'Identity': 'identity', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -181,7 +181,7 @@ describe('User', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users.create(opts);
       promise.then(function(response) {
@@ -414,7 +414,7 @@ describe('User', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {

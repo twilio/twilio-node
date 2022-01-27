@@ -85,7 +85,7 @@ describe('IpAccessControlListMapping', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ipAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'ipAccessControlListSid': 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -101,7 +101,7 @@ describe('IpAccessControlListMapping', function() {
       var domainSid = 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/Domains/${domainSid}/IpAccessControlListMappings.json`;
 
-      var values = {IpAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'IpAccessControlListSid': 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -123,7 +123,7 @@ describe('IpAccessControlListMapping', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {ipAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'ipAccessControlListSid': 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')

@@ -33,7 +33,10 @@ describe('ExternalCampaign', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {campaignId: 'campaign_id', messagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {
+        'campaignId': 'campaign_id',
+        'messagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+      };
       var promise = client.messaging.v1.externalCampaign.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +47,10 @@ describe('ExternalCampaign', function() {
 
       var url = 'https://messaging.twilio.com/v1/Services/PreregisteredUsa2p';
 
-      var values = {CampaignId: 'campaign_id', MessagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {
+        'CampaignId': 'campaign_id',
+        'MessagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+      };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -64,7 +70,10 @@ describe('ExternalCampaign', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {campaignId: 'campaign_id', messagingServiceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {
+        'campaignId': 'campaign_id',
+        'messagingServiceSid': 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+      };
       var promise = client.messaging.v1.externalCampaign.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

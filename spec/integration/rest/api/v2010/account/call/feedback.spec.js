@@ -84,7 +84,7 @@ describe('Feedback', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {qualityScore: 1};
+      var opts = {'qualityScore': 1};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .feedback().create(opts);
@@ -99,7 +99,7 @@ describe('Feedback', function() {
       var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Feedback.json`;
 
-      var values = {QualityScore: 1, };
+      var values = {'QualityScore': 1, };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -123,7 +123,7 @@ describe('Feedback', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {qualityScore: 1};
+      var opts = {'qualityScore': 1};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .feedback().create(opts);

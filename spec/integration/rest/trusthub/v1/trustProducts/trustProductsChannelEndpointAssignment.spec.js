@@ -34,8 +34,8 @@ describe('TrustProductsChannelEndpointAssignment', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        channelEndpointType: 'channel_endpoint_type',
-        channelEndpointSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        'channelEndpointType': 'channel_endpoint_type',
+        'channelEndpointSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var promise = client.trusthub.v1.trustProducts('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .trustProductsChannelEndpointAssignment.create(opts);
@@ -50,8 +50,8 @@ describe('TrustProductsChannelEndpointAssignment', function() {
       var url = `https://trusthub.twilio.com/v1/TrustProducts/${trustProductSid}/ChannelEndpointAssignments`;
 
       var values = {
-        ChannelEndpointType: 'channel_endpoint_type',
-        ChannelEndpointSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'ChannelEndpointType': 'channel_endpoint_type',
+        'ChannelEndpointSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -75,8 +75,8 @@ describe('TrustProductsChannelEndpointAssignment', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        channelEndpointType: 'channel_endpoint_type',
-        channelEndpointSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        'channelEndpointType': 'channel_endpoint_type',
+        'channelEndpointSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var promise = client.trusthub.v1.trustProducts('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .trustProductsChannelEndpointAssignment.create(opts);

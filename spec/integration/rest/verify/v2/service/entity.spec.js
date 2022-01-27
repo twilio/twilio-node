@@ -33,7 +33,7 @@ describe('Entity', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('Entity', function() {
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities`;
 
-      var values = {Identity: 'identity', };
+      var values = {'Identity': 'identity', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -73,7 +73,7 @@ describe('Entity', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities.create(opts);
       promise.then(function(response) {

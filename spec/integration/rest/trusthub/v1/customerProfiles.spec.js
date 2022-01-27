@@ -34,9 +34,9 @@ describe('CustomerProfiles', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        friendlyName: 'friendly_name',
-        email: 'email',
-        policySid: 'RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        'friendlyName': 'friendly_name',
+        'email': 'email',
+        'policySid': 'RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var promise = client.trusthub.v1.customerProfiles.create(opts);
       promise.then(function() {
@@ -49,9 +49,9 @@ describe('CustomerProfiles', function() {
       var url = 'https://trusthub.twilio.com/v1/CustomerProfiles';
 
       var values = {
-        FriendlyName: 'friendly_name',
-        Email: 'email',
-        PolicySid: 'RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'FriendlyName': 'friendly_name',
+        'Email': 'email',
+        'PolicySid': 'RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -84,9 +84,9 @@ describe('CustomerProfiles', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        friendlyName: 'friendly_name',
-        email: 'email',
-        policySid: 'RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        'friendlyName': 'friendly_name',
+        'email': 'email',
+        'policySid': 'RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var promise = client.trusthub.v1.customerProfiles.create(opts);
       promise.then(function(response) {

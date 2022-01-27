@@ -231,7 +231,7 @@ describe('SubscribedEvent', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {type: 'type'};
+      var opts = {'type': 'type'};
       var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .subscribedEvents.create(opts);
       promise.then(function() {
@@ -244,7 +244,7 @@ describe('SubscribedEvent', function() {
       var subscriptionSid = 'DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://events.twilio.com/v1/Subscriptions/${subscriptionSid}/SubscribedEvents`;
 
-      var values = {Type: 'type', };
+      var values = {'Type': 'type', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -264,7 +264,7 @@ describe('SubscribedEvent', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {type: 'type'};
+      var opts = {'type': 'type'};
       var promise = client.events.v1.subscriptions('DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .subscribedEvents.create(opts);
       promise.then(function(response) {

@@ -283,7 +283,7 @@ describe('FieldValue', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {language: 'language', value: 'value'};
+      var opts = {'language': 'language', 'value': 'value'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldValues.create(opts);
@@ -298,7 +298,7 @@ describe('FieldValue', function() {
       var fieldTypeSid = 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/FieldTypes/${fieldTypeSid}/FieldValues`;
 
-      var values = {Language: 'language', Value: 'value', };
+      var values = {'Language': 'language', 'Value': 'value', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -323,7 +323,7 @@ describe('FieldValue', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {language: 'language', value: 'value'};
+      var opts = {'language': 'language', 'value': 'value'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldValues.create(opts);

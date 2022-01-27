@@ -364,7 +364,11 @@ describe('Subscription', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {description: 'description', sinkSid: 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', types: [{}]};
+      var opts = {
+        'description': 'description',
+        'sinkSid': 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'types': [{}]
+      };
       var promise = client.events.v1.subscriptions.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -376,9 +380,9 @@ describe('Subscription', function() {
       var url = 'https://events.twilio.com/v1/Subscriptions';
 
       var values = {
-        Description: 'description',
-        SinkSid: 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        Types: serialize.map([{}], function(e) { return serialize.object(e); }),
+        'Description': 'description',
+        'SinkSid': 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'Types': serialize.map([{}], function(e) { return serialize.object(e); }),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -404,7 +408,11 @@ describe('Subscription', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {description: 'description', sinkSid: 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', types: [{}]};
+      var opts = {
+        'description': 'description',
+        'sinkSid': 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'types': [{}]
+      };
       var promise = client.events.v1.subscriptions.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

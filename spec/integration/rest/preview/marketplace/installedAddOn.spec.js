@@ -35,7 +35,10 @@ describe('InstalledAddOn', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {availableAddOnSid: 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', acceptTermsOfService: true};
+      var opts = {
+        'availableAddOnSid': 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'acceptTermsOfService': true
+      };
       var promise = client.preview.marketplace.installedAddOns.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -47,8 +50,8 @@ describe('InstalledAddOn', function() {
       var url = 'https://preview.twilio.com/marketplace/InstalledAddOns';
 
       var values = {
-        AvailableAddOnSid: 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        AcceptTermsOfService: serialize.bool(true),
+        'AvailableAddOnSid': 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'AcceptTermsOfService': serialize.bool(true),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -79,7 +82,10 @@ describe('InstalledAddOn', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {availableAddOnSid: 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', acceptTermsOfService: true};
+      var opts = {
+        'availableAddOnSid': 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'acceptTermsOfService': true
+      };
       var promise = client.preview.marketplace.installedAddOns.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

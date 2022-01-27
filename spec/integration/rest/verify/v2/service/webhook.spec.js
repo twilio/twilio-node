@@ -35,7 +35,11 @@ describe('Webhook', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', eventTypes: ['event_types'], webhookUrl: 'webhook_url'};
+      var opts = {
+        'friendlyName': 'friendly_name',
+        'eventTypes': ['event_types'],
+        'webhookUrl': 'webhook_url'
+      };
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .webhooks.create(opts);
       promise.then(function() {
@@ -49,9 +53,9 @@ describe('Webhook', function() {
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Webhooks`;
 
       var values = {
-        FriendlyName: 'friendly_name',
-        EventTypes: serialize.map(['event_types'], function(e) { return e; }),
-        WebhookUrl: 'webhook_url',
+        'FriendlyName': 'friendly_name',
+        'EventTypes': serialize.map(['event_types'], function(e) { return e; }),
+        'WebhookUrl': 'webhook_url',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -82,7 +86,11 @@ describe('Webhook', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', eventTypes: ['event_types'], webhookUrl: 'webhook_url'};
+      var opts = {
+        'friendlyName': 'friendly_name',
+        'eventTypes': ['event_types'],
+        'webhookUrl': 'webhook_url'
+      };
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .webhooks.create(opts);
       promise.then(function(response) {

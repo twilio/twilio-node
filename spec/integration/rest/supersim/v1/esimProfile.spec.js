@@ -33,7 +33,7 @@ describe('EsimProfile', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {eid: 'eid'};
+      var opts = {'eid': 'eid'};
       var promise = client.supersim.v1.esimProfiles.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('EsimProfile', function() {
 
       var url = 'https://supersim.twilio.com/v1/ESimProfiles';
 
-      var values = {Eid: 'eid', };
+      var values = {'Eid': 'eid', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -71,7 +71,7 @@ describe('EsimProfile', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {eid: 'eid'};
+      var opts = {'eid': 'eid'};
       var promise = client.supersim.v1.esimProfiles.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -100,7 +100,7 @@ describe('EsimProfile', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {eid: 'eid'};
+      var opts = {'eid': 'eid'};
       var promise = client.supersim.v1.esimProfiles.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

@@ -61,5 +61,8 @@
    */
 
   // Suppress warnings about == null comparisons.
-  "eqnull": true
+  "eqnull": true,
+
+  // Supress errors regarding the use of bracket notation over dot notation
+  "sub": true
 }

@@ -208,7 +208,7 @@ describe('Credential', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {type: 'gcm'};
+      var opts = {'type': 'gcm'};
       var promise = client.notify.v1.credentials.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -219,7 +219,7 @@ describe('Credential', function() {
 
       var url = 'https://notify.twilio.com/v1/Credentials';
 
-      var values = {Type: 'gcm', };
+      var values = {'Type': 'gcm', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -242,7 +242,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {type: 'gcm'};
+      var opts = {'type': 'gcm'};
       var promise = client.notify.v1.credentials.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

@@ -105,7 +105,7 @@ describe('Siprec', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'stopped'};
+      var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -121,7 +121,7 @@ describe('Siprec', function() {
       var sid = 'SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Siprec/${sid}.json`;
 
-      var values = {Status: 'stopped', };
+      var values = {'Status': 'stopped', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -142,7 +142,7 @@ describe('Siprec', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'stopped'};
+      var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -167,7 +167,7 @@ describe('Siprec', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'stopped'};
+      var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);

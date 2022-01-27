@@ -33,7 +33,7 @@ describe('IpRecord', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ipAddress: 'ip_address'};
+      var opts = {'ipAddress': 'ip_address'};
       var promise = client.voice.v1.ipRecords.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('IpRecord', function() {
 
       var url = 'https://voice.twilio.com/v1/IpRecords';
 
-      var values = {IpAddress: 'ip_address', };
+      var values = {'IpAddress': 'ip_address', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -67,7 +67,7 @@ describe('IpRecord', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {ipAddress: 'ip_address'};
+      var opts = {'ipAddress': 'ip_address'};
       var promise = client.voice.v1.ipRecords.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

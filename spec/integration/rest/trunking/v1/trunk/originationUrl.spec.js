@@ -126,11 +126,11 @@ describe('OriginationUrl', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        weight: 1,
-        priority: 1,
-        enabled: true,
-        friendlyName: 'friendly_name',
-        sipUrl: 'https://example.com'
+        'weight': 1,
+        'priority': 1,
+        'enabled': true,
+        'friendlyName': 'friendly_name',
+        'sipUrl': 'https://example.com'
       };
       var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.create(opts);
@@ -145,11 +145,11 @@ describe('OriginationUrl', function() {
       var url = `https://trunking.twilio.com/v1/Trunks/${trunkSid}/OriginationUrls`;
 
       var values = {
-        Weight: 1,
-        Priority: 1,
-        Enabled: serialize.bool(true),
-        FriendlyName: 'friendly_name',
-        SipUrl: 'https://example.com',
+        'Weight': 1,
+        'Priority': 1,
+        'Enabled': serialize.bool(true),
+        'FriendlyName': 'friendly_name',
+        'SipUrl': 'https://example.com',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -177,11 +177,11 @@ describe('OriginationUrl', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        weight: 1,
-        priority: 1,
-        enabled: true,
-        friendlyName: 'friendly_name',
-        sipUrl: 'https://example.com'
+        'weight': 1,
+        'priority': 1,
+        'enabled': true,
+        'friendlyName': 'friendly_name',
+        'sipUrl': 'https://example.com'
       };
       var promise = client.trunking.v1.trunks('TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.create(opts);

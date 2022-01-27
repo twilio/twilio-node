@@ -381,7 +381,7 @@ describe('Document', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {data: {}, ifMatch: 'if_match'};
+      var opts = {'data': {}, 'ifMatch': 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -395,7 +395,7 @@ describe('Document', function() {
       var sid = 'ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents/${sid}`;
 
-      var values = {Data: serialize.object({}), };
+      var values = {'Data': serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -430,7 +430,7 @@ describe('Document', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {data: {}};
+      var opts = {'data': {}};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {

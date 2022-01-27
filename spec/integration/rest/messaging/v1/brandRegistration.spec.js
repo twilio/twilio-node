@@ -313,8 +313,8 @@ describe('BrandRegistration', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        customerProfileBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        a2PProfileBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        'customerProfileBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'a2PProfileBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var promise = client.messaging.v1.brandRegistrations.create(opts);
       promise.then(function() {
@@ -327,8 +327,8 @@ describe('BrandRegistration', function() {
       var url = 'https://messaging.twilio.com/v1/a2p/BrandRegistrations';
 
       var values = {
-        CustomerProfileBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        A2PProfileBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'CustomerProfileBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'A2PProfileBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -370,8 +370,8 @@ describe('BrandRegistration', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        customerProfileBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        a2PProfileBundleSid: 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        'customerProfileBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'a2PProfileBundleSid': 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var promise = client.messaging.v1.brandRegistrations.create(opts);
       promise.then(function(response) {

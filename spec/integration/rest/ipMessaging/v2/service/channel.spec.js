@@ -93,7 +93,7 @@ describe('Channel', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
@@ -135,7 +135,7 @@ describe('Channel', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels.create(opts);
       promise.then(function() {
@@ -427,7 +427,7 @@ describe('Channel', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {

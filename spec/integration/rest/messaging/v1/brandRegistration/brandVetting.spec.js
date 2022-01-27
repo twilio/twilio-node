@@ -33,7 +33,7 @@ describe('BrandVetting', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {vettingProvider: 'campaign-verify'};
+      var opts = {'vettingProvider': 'campaign-verify'};
       var promise = client.messaging.v1.brandRegistrations('BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .brandVettings.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('BrandVetting', function() {
       var brandSid = 'BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://messaging.twilio.com/v1/a2p/BrandRegistrations/${brandSid}/Vettings`;
 
-      var values = {VettingProvider: 'campaign-verify', };
+      var values = {'VettingProvider': 'campaign-verify', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -71,7 +71,7 @@ describe('BrandVetting', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {vettingProvider: 'campaign-verify'};
+      var opts = {'vettingProvider': 'campaign-verify'};
       var promise = client.messaging.v1.brandRegistrations('BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .brandVettings.create(opts);
       promise.then(function(response) {

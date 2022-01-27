@@ -501,7 +501,7 @@ describe('CompositionHook', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.video.v1.compositionHooks.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -512,7 +512,7 @@ describe('CompositionHook', function() {
 
       var url = 'https://video.twilio.com/v1/CompositionHooks';
 
-      var values = {FriendlyName: 'friendly_name', };
+      var values = {'FriendlyName': 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -568,7 +568,7 @@ describe('CompositionHook', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.video.v1.compositionHooks.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -582,7 +582,7 @@ describe('CompositionHook', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -594,7 +594,7 @@ describe('CompositionHook', function() {
       var sid = 'HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://video.twilio.com/v1/CompositionHooks/${sid}`;
 
-      var values = {FriendlyName: 'friendly_name', };
+      var values = {'FriendlyName': 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -650,7 +650,7 @@ describe('CompositionHook', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -687,7 +687,7 @@ describe('CompositionHook', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.video.v1.compositionHooks('HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

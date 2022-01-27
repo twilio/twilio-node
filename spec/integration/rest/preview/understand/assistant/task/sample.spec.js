@@ -283,7 +283,7 @@ describe('Sample', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {language: 'language', taggedText: 'tagged_text'};
+      var opts = {'language': 'language', 'taggedText': 'tagged_text'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .samples.create(opts);
@@ -298,7 +298,7 @@ describe('Sample', function() {
       var taskSid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/understand/Assistants/${assistantSid}/Tasks/${taskSid}/Samples`;
 
-      var values = {Language: 'language', TaggedText: 'tagged_text', };
+      var values = {'Language': 'language', 'TaggedText': 'tagged_text', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -323,7 +323,7 @@ describe('Sample', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {language: 'language', taggedText: 'tagged_text'};
+      var opts = {'language': 'language', 'taggedText': 'tagged_text'};
       var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .samples.create(opts);

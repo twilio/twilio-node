@@ -34,12 +34,12 @@ describe('Address', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        customerName: 'customer_name',
-        street: 'street',
-        city: 'city',
-        region: 'region',
-        postalCode: 'postal_code',
-        isoCountry: 'US'
+        'customerName': 'customer_name',
+        'street': 'street',
+        'city': 'city',
+        'region': 'region',
+        'postalCode': 'postal_code',
+        'isoCountry': 'US'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .addresses.create(opts);
@@ -54,12 +54,12 @@ describe('Address', function() {
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Addresses.json`;
 
       var values = {
-        CustomerName: 'customer_name',
-        Street: 'street',
-        City: 'city',
-        Region: 'region',
-        PostalCode: 'postal_code',
-        IsoCountry: 'US',
+        'CustomerName': 'customer_name',
+        'Street': 'street',
+        'City': 'city',
+        'Region': 'region',
+        'PostalCode': 'postal_code',
+        'IsoCountry': 'US',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -91,12 +91,12 @@ describe('Address', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        customerName: 'customer_name',
-        street: 'street',
-        city: 'city',
-        region: 'region',
-        postalCode: 'postal_code',
-        isoCountry: 'US'
+        'customerName': 'customer_name',
+        'street': 'street',
+        'city': 'city',
+        'region': 'region',
+        'postalCode': 'postal_code',
+        'isoCountry': 'US'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .addresses.create(opts);

@@ -33,7 +33,7 @@ describe('RestoreAssistant', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {assistant: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'assistant': 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.autopilot.v1.restoreAssistant.update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('RestoreAssistant', function() {
 
       var url = 'https://autopilot.twilio.com/v1/Assistants/Restore';
 
-      var values = {Assistant: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'Assistant': 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -71,7 +71,7 @@ describe('RestoreAssistant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {assistant: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'assistant': 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.autopilot.v1.restoreAssistant.update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

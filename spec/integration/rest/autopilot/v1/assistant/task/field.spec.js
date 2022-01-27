@@ -278,7 +278,7 @@ describe('Field', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {fieldType: 'field_type', uniqueName: 'unique_name'};
+      var opts = {'fieldType': 'field_type', 'uniqueName': 'unique_name'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .fields.create(opts);
@@ -293,7 +293,7 @@ describe('Field', function() {
       var taskSid = 'UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Tasks/${taskSid}/Fields`;
 
-      var values = {FieldType: 'field_type', UniqueName: 'unique_name', };
+      var values = {'FieldType': 'field_type', 'UniqueName': 'unique_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -317,7 +317,7 @@ describe('Field', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {fieldType: 'field_type', uniqueName: 'unique_name'};
+      var opts = {'fieldType': 'field_type', 'uniqueName': 'unique_name'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .tasks('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .fields.create(opts);

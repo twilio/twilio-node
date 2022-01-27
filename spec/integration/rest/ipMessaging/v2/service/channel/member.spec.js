@@ -88,7 +88,7 @@ describe('Member', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity', xTwilioWebhookEnabled: 'true'};
+      var opts = {'identity': 'identity', 'xTwilioWebhookEnabled': 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .members.create(opts);
@@ -103,7 +103,7 @@ describe('Member', function() {
       var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://ip-messaging.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Members`;
 
-      var values = {Identity: 'identity', };
+      var values = {'Identity': 'identity', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -137,7 +137,7 @@ describe('Member', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .members.create(opts);
@@ -358,7 +358,7 @@ describe('Member', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
@@ -403,7 +403,7 @@ describe('Member', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);

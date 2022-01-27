@@ -33,7 +33,7 @@ describe('SupportingDocument', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', type: 'type'};
+      var opts = {'friendlyName': 'friendly_name', 'type': 'type'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .supportingDocuments.create(opts);
       promise.then(function() {
@@ -45,7 +45,7 @@ describe('SupportingDocument', function() {
 
       var url = 'https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments';
 
-      var values = {FriendlyName: 'friendly_name', Type: 'type', };
+      var values = {'FriendlyName': 'friendly_name', 'Type': 'type', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -73,7 +73,7 @@ describe('SupportingDocument', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', type: 'type'};
+      var opts = {'friendlyName': 'friendly_name', 'type': 'type'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .supportingDocuments.create(opts);
       promise.then(function(response) {

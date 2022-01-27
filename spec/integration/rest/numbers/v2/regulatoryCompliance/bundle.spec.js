@@ -33,7 +33,7 @@ describe('Bundle', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', email: 'email'};
+      var opts = {'friendlyName': 'friendly_name', 'email': 'email'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles.create(opts);
       promise.then(function() {
@@ -45,7 +45,7 @@ describe('Bundle', function() {
 
       var url = 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles';
 
-      var values = {FriendlyName: 'friendly_name', Email: 'email', };
+      var values = {'FriendlyName': 'friendly_name', 'Email': 'email', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -76,7 +76,7 @@ describe('Bundle', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', email: 'email'};
+      var opts = {'friendlyName': 'friendly_name', 'email': 'email'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .bundles.create(opts);
       promise.then(function(response) {

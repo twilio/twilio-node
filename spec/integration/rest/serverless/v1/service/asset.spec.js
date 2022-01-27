@@ -171,7 +171,7 @@ describe('Asset', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .assets.create(opts);
       promise.then(function() {
@@ -184,7 +184,7 @@ describe('Asset', function() {
       var serviceSid = 'ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets`;
 
-      var values = {FriendlyName: 'friendly_name', };
+      var values = {'FriendlyName': 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -209,7 +209,7 @@ describe('Asset', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .assets.create(opts);
       promise.then(function(response) {
@@ -224,7 +224,7 @@ describe('Asset', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .assets('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -238,7 +238,7 @@ describe('Asset', function() {
       var sid = 'ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://serverless.twilio.com/v1/Services/${serviceSid}/Assets/${sid}`;
 
-      var values = {FriendlyName: 'friendly_name', };
+      var values = {'FriendlyName': 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -263,7 +263,7 @@ describe('Asset', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.serverless.v1.services('ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .assets('ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {

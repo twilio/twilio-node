@@ -33,7 +33,7 @@ describe('Channel', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {phoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'phoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.preview.trusted_comms.brandedChannels('BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                 .channels.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('Channel', function() {
       var brandedChannelSid = 'BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/TrustedComms/BrandedChannels/${brandedChannelSid}/Channels`;
 
-      var values = {PhoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'PhoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -68,7 +68,7 @@ describe('Channel', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumberSid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'phoneNumberSid': 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.preview.trusted_comms.brandedChannels('BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                 .channels.create(opts);
       promise.then(function(response) {

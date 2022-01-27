@@ -134,7 +134,7 @@ describe('PlayerStreamer', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'ended'};
+      var opts = {'status': 'ended'};
       var promise = client.media.v1.playerStreamer('VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -146,7 +146,7 @@ describe('PlayerStreamer', function() {
       var sid = 'VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://media.twilio.com/v1/PlayerStreamers/${sid}`;
 
-      var values = {Status: 'ended', };
+      var values = {'Status': 'ended', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -175,7 +175,7 @@ describe('PlayerStreamer', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'ended'};
+      var opts = {'status': 'ended'};
       var promise = client.media.v1.playerStreamer('VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

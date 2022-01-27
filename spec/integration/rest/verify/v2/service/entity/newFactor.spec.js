@@ -33,7 +33,7 @@ describe('NewFactor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
+      var opts = {'friendlyName': 'friendly_name', 'factorType': 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .newFactors.create(opts);
@@ -48,7 +48,7 @@ describe('NewFactor', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-      var values = {FriendlyName: 'friendly_name', FactorType: 'push', };
+      var values = {'FriendlyName': 'friendly_name', 'FactorType': 'push', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -84,7 +84,7 @@ describe('NewFactor', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
+      var opts = {'friendlyName': 'friendly_name', 'factorType': 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .newFactors.create(opts);
@@ -124,7 +124,7 @@ describe('NewFactor', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
+      var opts = {'friendlyName': 'friendly_name', 'factorType': 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .newFactors.create(opts);

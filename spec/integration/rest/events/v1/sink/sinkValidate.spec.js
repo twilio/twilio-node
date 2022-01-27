@@ -33,7 +33,7 @@ describe('SinkValidate', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {testId: 'test_id'};
+      var opts = {'testId': 'test_id'};
       var promise = client.events.v1.sinks('DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sinkValidate.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('SinkValidate', function() {
       var sid = 'DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://events.twilio.com/v1/Sinks/${sid}/Validate`;
 
-      var values = {TestId: 'test_id', };
+      var values = {'TestId': 'test_id', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -62,7 +62,7 @@ describe('SinkValidate', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {testId: 'test_id'};
+      var opts = {'testId': 'test_id'};
       var promise = client.events.v1.sinks('DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sinkValidate.create(opts);
       promise.then(function(response) {

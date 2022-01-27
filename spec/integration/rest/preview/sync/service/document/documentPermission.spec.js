@@ -317,7 +317,7 @@ describe('DocumentPermission', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {read: true, write: true, manage: true};
+      var opts = {'read': true, 'write': true, 'manage': true};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .documentPermissions('identity').update(opts);
@@ -334,9 +334,9 @@ describe('DocumentPermission', function() {
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Documents/${documentSid}/Permissions/${identity}`;
 
       var values = {
-        Read: serialize.bool(true),
-        Write: serialize.bool(true),
-        Manage: serialize.bool(true),
+        'Read': serialize.bool(true),
+        'Write': serialize.bool(true),
+        'Manage': serialize.bool(true),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -360,7 +360,7 @@ describe('DocumentPermission', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {read: true, write: true, manage: true};
+      var opts = {'read': true, 'write': true, 'manage': true};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .documentPermissions('identity').update(opts);

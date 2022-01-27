@@ -33,7 +33,7 @@ describe('Fleet', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {networkAccessProfile: 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'networkAccessProfile': 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.supersim.v1.fleets.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('Fleet', function() {
 
       var url = 'https://supersim.twilio.com/v1/Fleets';
 
-      var values = {NetworkAccessProfile: 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'NetworkAccessProfile': 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -77,7 +77,7 @@ describe('Fleet', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {networkAccessProfile: 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'networkAccessProfile': 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.supersim.v1.fleets.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

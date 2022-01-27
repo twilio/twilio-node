@@ -200,7 +200,7 @@ describe('NetworkAccessProfileNetwork', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {network: 'HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'network': 'HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.supersim.v1.networkAccessProfiles('HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .networks.create(opts);
       promise.then(function() {
@@ -213,7 +213,7 @@ describe('NetworkAccessProfileNetwork', function() {
       var networkAccessProfileSid = 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://supersim.twilio.com/v1/NetworkAccessProfiles/${networkAccessProfileSid}/Networks`;
 
-      var values = {Network: 'HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'Network': 'HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -239,7 +239,7 @@ describe('NetworkAccessProfileNetwork', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {network: 'HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'network': 'HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.supersim.v1.networkAccessProfiles('HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .networks.create(opts);
       promise.then(function(response) {
