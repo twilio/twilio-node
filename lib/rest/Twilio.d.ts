@@ -48,6 +48,7 @@ declare class Twilio {
    * @param opts - The options argument
    */
   constructor(username: string, password: string, opts?: Twilio.TwilioClientOptions);
+  constructor();
 
   accounts: Accounts;
   addresses: (typeof Api.prototype.account.addresses);
