@@ -10,9 +10,15 @@ import Response = require('../../../http/response');
 import V2 = require('../V2');
 import { SerializableClass } from '../../../interfaces';
 
+type VerificationAttemptAttemptStatus = 'confirmed'|'unconfirmed'|'expired';
+
+type VerificationAttemptCallStatus = 'queued'|'in-progress'|'completed'|'busy'|'failed'|'no-answer'|'ringing'|'canceled';
+
 type VerificationAttemptChannels = 'sms'|'call'|'email'|'whatsapp';
 
 type VerificationAttemptConversionStatus = 'converted'|'unconverted';
+
+type VerificationAttemptMessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read'|'partially_delivered'|'canceled';
 
 /**
  * Initialize the VerificationAttemptList
@@ -142,9 +148,11 @@ interface VerificationAttemptListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property channelData.to - Destination of a verification
- * @property dateCreatedAfter - Filter verification attempts after this date
- * @property dateCreatedBefore - Filter verification attempts befor this date
+ * @property channel - Filter verification attempts by communication channel.
+ * @property channelData.to - Filters by destination of the verification attempt.
+ * @property country - Filter verification attempts by destination country.
+ * @property dateCreatedAfter - Filter verification attempts after this date.
+ * @property dateCreatedBefore - Filter verification attempts before this date.
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -156,25 +164,35 @@ interface VerificationAttemptListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property status - Filter verification attempts by conversion status.
+ * @property verificationSid - Filter attempts by verification.
+ * @property verifyServiceSid - Filter verification attempts by verify service.
  */
 interface VerificationAttemptListInstanceEachOptions {
   callback?: (item: VerificationAttemptInstance, done: (err?: Error) => void) => void;
+  channel?: VerificationAttemptChannels;
   channelData?: {
     to?: string;
   };
+  country?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;
   limit?: number;
   pageSize?: number;
+  status?: VerificationAttemptConversionStatus;
+  verificationSid?: string;
+  verifyServiceSid?: string;
 }
 
 /**
  * Options to pass to list
  *
- * @property channelData.to - Destination of a verification
- * @property dateCreatedAfter - Filter verification attempts after this date
- * @property dateCreatedBefore - Filter verification attempts befor this date
+ * @property channel - Filter verification attempts by communication channel.
+ * @property channelData.to - Filters by destination of the verification attempt.
+ * @property country - Filter verification attempts by destination country.
+ * @property dateCreatedAfter - Filter verification attempts after this date.
+ * @property dateCreatedBefore - Filter verification attempts before this date.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -185,36 +203,54 @@ interface VerificationAttemptListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - Filter verification attempts by conversion status.
+ * @property verificationSid - Filter attempts by verification.
+ * @property verifyServiceSid - Filter verification attempts by verify service.
  */
 interface VerificationAttemptListInstanceOptions {
+  channel?: VerificationAttemptChannels;
   channelData?: {
     to?: string;
   };
+  country?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   limit?: number;
   pageSize?: number;
+  status?: VerificationAttemptConversionStatus;
+  verificationSid?: string;
+  verifyServiceSid?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property channelData.to - Destination of a verification
- * @property dateCreatedAfter - Filter verification attempts after this date
- * @property dateCreatedBefore - Filter verification attempts befor this date
+ * @property channel - Filter verification attempts by communication channel.
+ * @property channelData.to - Filters by destination of the verification attempt.
+ * @property country - Filter verification attempts by destination country.
+ * @property dateCreatedAfter - Filter verification attempts after this date.
+ * @property dateCreatedBefore - Filter verification attempts before this date.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property status - Filter verification attempts by conversion status.
+ * @property verificationSid - Filter attempts by verification.
+ * @property verifyServiceSid - Filter verification attempts by verify service.
  */
 interface VerificationAttemptListInstancePageOptions {
+  channel?: VerificationAttemptChannels;
   channelData?: {
     to?: string;
   };
+  country?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  status?: VerificationAttemptConversionStatus;
+  verificationSid?: string;
+  verifyServiceSid?: string;
 }
 
 interface VerificationAttemptPayload extends VerificationAttemptResource, Page.TwilioResponsePayload {
@@ -227,9 +263,11 @@ interface VerificationAttemptResource {
   conversion_status: VerificationAttemptConversionStatus;
   date_created: Date;
   date_updated: Date;
+  price: object;
   service_sid: string;
   sid: string;
   url: string;
+  verification_sid: string;
 }
 
 interface VerificationAttemptSolution {
@@ -281,6 +319,7 @@ declare class VerificationAttemptInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: VerificationAttemptInstance) => any): Promise<VerificationAttemptInstance>;
+  price: any;
   serviceSid: string;
   sid: string;
   /**
@@ -288,6 +327,7 @@ declare class VerificationAttemptInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
+  verificationSid: string;
 }
 
 
@@ -313,4 +353,4 @@ declare class VerificationAttemptPage extends Page<V2, VerificationAttemptPayloa
   toJSON(): any;
 }
 
-export { VerificationAttemptChannels, VerificationAttemptContext, VerificationAttemptConversionStatus, VerificationAttemptInstance, VerificationAttemptList, VerificationAttemptListInstance, VerificationAttemptListInstanceEachOptions, VerificationAttemptListInstanceOptions, VerificationAttemptListInstancePageOptions, VerificationAttemptPage, VerificationAttemptPayload, VerificationAttemptResource, VerificationAttemptSolution }
+export { VerificationAttemptAttemptStatus, VerificationAttemptCallStatus, VerificationAttemptChannels, VerificationAttemptContext, VerificationAttemptConversionStatus, VerificationAttemptInstance, VerificationAttemptList, VerificationAttemptListInstance, VerificationAttemptListInstanceEachOptions, VerificationAttemptListInstanceOptions, VerificationAttemptListInstancePageOptions, VerificationAttemptMessageStatus, VerificationAttemptPage, VerificationAttemptPayload, VerificationAttemptResource, VerificationAttemptSolution }

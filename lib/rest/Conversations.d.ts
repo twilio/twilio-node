@@ -8,6 +8,7 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./conversations/V1');
+import { AddressConfigurationListInstance } from './conversations/v1/addressConfiguration';
 import { ConfigurationListInstance } from './conversations/v1/configuration';
 import { ConversationListInstance } from './conversations/v1/conversation';
 import { CredentialListInstance } from './conversations/v1/credential';
@@ -25,6 +26,7 @@ declare class Conversations extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly addressConfigurations: AddressConfigurationListInstance;
   readonly configuration: ConfigurationListInstance;
   readonly conversations: ConversationListInstance;
   readonly credentials: CredentialListInstance;

@@ -113,9 +113,9 @@ describe('Bundle', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
+              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&HasValidUntilDate=true&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
+              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&HasValidUntilDate=true&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'results'
           }
@@ -151,9 +151,9 @@ describe('Bundle', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
+              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&HasValidUntilDate=true&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
+              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&HasValidUntilDate=true&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'results'
           }
@@ -194,9 +194,9 @@ describe('Bundle', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
+              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&HasValidUntilDate=true&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
+              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&HasValidUntilDate=true&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'results'
           }
@@ -280,9 +280,9 @@ describe('Bundle', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
+              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&HasValidUntilDate=true&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
+              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles?Status=draft&RegulationSid=RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&HasValidUntilDate=true&IsoCountry=US&FriendlyName=friendly_name&NumberType=mobile&PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'results'
           }

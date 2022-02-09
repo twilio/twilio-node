@@ -7,6 +7,8 @@
 
 import Conversations = require('../Conversations');
 import Version = require('../../base/Version');
+import { AddressConfigurationList } from './v1/addressConfiguration';
+import { AddressConfigurationListInstance } from './v1/addressConfiguration';
 import { ConfigurationList } from './v1/configuration';
 import { ConfigurationListInstance } from './v1/configuration';
 import { ConversationList } from './v1/conversation';
@@ -31,6 +33,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Conversations);
 
+  readonly addressConfigurations: AddressConfigurationListInstance;
   readonly configuration: ConfigurationListInstance;
   readonly conversations: ConversationListInstance;
   readonly credentials: CredentialListInstance;

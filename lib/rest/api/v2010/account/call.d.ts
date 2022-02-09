@@ -22,6 +22,8 @@ import { RecordingListInstance } from './call/recording';
 import { SerializableClass } from '../../../../interfaces';
 import { SiprecList } from './call/siprec';
 import { SiprecListInstance } from './call/siprec';
+import { StreamList } from './call/stream';
+import { StreamListInstance } from './call/stream';
 
 type CallEvent = 'initiated'|'ringing'|'answered'|'completed';
 
@@ -443,6 +445,7 @@ declare class CallContext {
    */
   remove(callback?: (error: Error | null, items: CallInstance) => any): Promise<boolean>;
   siprec: SiprecListInstance;
+  streams: StreamListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -533,6 +536,10 @@ declare class CallInstance extends SerializableClass {
   siprec(): SiprecListInstance;
   startTime: Date;
   status: CallStatus;
+  /**
+   * Access the streams
+   */
+  streams(): StreamListInstance;
   subresourceUris: string;
   to: string;
   toFormatted: string;

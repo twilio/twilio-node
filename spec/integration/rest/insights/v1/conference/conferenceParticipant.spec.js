@@ -63,14 +63,12 @@ describe('ConferenceParticipant', function() {
           'call_direction': 'outbound',
           'from': '+10000000000',
           'to': '+1000000001',
-          'call_state': 'completed',
+          'call_status': 'completed',
           'country_code': 'US',
           'is_moderator': true,
           'join_time': '2021-10-08T02:58:59Z',
           'leave_time': '2021-10-08T03:00:02Z',
           'duration_seconds': 64,
-          'whisper': null,
-          'agent_audio': null,
           'outbound_queue_length': 0,
           'outbound_time_in_queue': 965,
           'jitter_buffer_size': null,
@@ -79,14 +77,19 @@ describe('ConferenceParticipant', function() {
           'participant_region': 'us1',
           'conference_region': 'us1',
           'call_type': 'carrier',
-          'quality_issues': 0,
+          'processing_state': 'complete',
           'properties': {
-              'start_conference_on_enter': true,
+              'start_conference_on_enter': false,
               'end_conference_on_exit': false,
-              'play_early_media': true,
-              'enter_muted': false,
+              'play_early_media': false,
+              'enter_muted': true,
               'beep_on_enter': false,
               'beep_on_exit': false
+          },
+          'events': {
+              'mute': [
+                  1633705131000
+              ]
           },
           'metrics': {
               'inbound': {
@@ -115,12 +118,9 @@ describe('ConferenceParticipant', function() {
                       'avg': 0,
                       'max': 0
                   },
-                  'mos': 4.4,
-                  'last_rtp_count': 1,
-                  'unique_ssrc_count': 1
+                  'mos': 4.4
               }
           },
-          'events': null,
           'url': 'https://insights.twilio.com/v1/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
@@ -158,14 +158,12 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000001',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:51Z',
                   'leave_time': '2021-10-08T02:59:55Z',
                   'duration_seconds': 65,
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 3361,
                   'jitter_buffer_size': null,
@@ -174,7 +172,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': true,
                       'end_conference_on_exit': false,
@@ -210,9 +208,7 @@ describe('ConferenceParticipant', function() {
                               'avg': 0,
                               'max': 0
                           },
-                          'mos': 4.4,
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          'mos': 4.4
                       }
                   },
                   'events': null,
@@ -227,14 +223,12 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000002',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:52Z',
                   'leave_time': '2021-10-08T02:59:54Z',
                   'duration_seconds': 63,
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 321,
                   'jitter_buffer_size': null,
@@ -243,7 +237,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': false,
                       'end_conference_on_exit': false,
@@ -265,9 +259,7 @@ describe('ConferenceParticipant', function() {
                               'avg': 0,
                               'max': 0
                           },
-                          'mos': 4.4,
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          'mos': 4.4
                       },
                       'outbound': {
                           'total_packets_lost': 0,
@@ -284,14 +276,12 @@ describe('ConferenceParticipant', function() {
                           'mos': 4.4,
                           'tags': [
                               'silent'
-                          ],
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          ]
                       }
                   },
                   'events': {
                       'mute': [
-                          1636007397844
+                          1633705131000
                       ]
                   },
                   'url': 'https://insights.twilio.com/v1/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
@@ -325,14 +315,12 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000001',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:51Z',
                   'leave_time': '2021-10-08T02:59:55Z',
                   'duration_seconds': 65,
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 3361,
                   'jitter_buffer_size': null,
@@ -341,7 +329,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': true,
                       'end_conference_on_exit': false,
@@ -377,9 +365,7 @@ describe('ConferenceParticipant', function() {
                               'avg': 0,
                               'max': 0
                           },
-                          'mos': 4.4,
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          'mos': 4.4
                       }
                   },
                   'events': null,
@@ -394,14 +380,12 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000002',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:52Z',
                   'leave_time': '2021-10-08T02:59:54Z',
                   'duration_seconds': 63,
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 321,
                   'jitter_buffer_size': null,
@@ -410,7 +394,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': false,
                       'end_conference_on_exit': false,
@@ -432,9 +416,7 @@ describe('ConferenceParticipant', function() {
                               'avg': 0,
                               'max': 0
                           },
-                          'mos': 4.4,
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          'mos': 4.4
                       },
                       'outbound': {
                           'total_packets_lost': 0,
@@ -451,14 +433,12 @@ describe('ConferenceParticipant', function() {
                           'mos': 4.4,
                           'tags': [
                               'silent'
-                          ],
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          ]
                       }
                   },
                   'events': {
                       'mute': [
-                          1636007397844
+                          1633705131000
                       ]
                   },
                   'url': 'https://insights.twilio.com/v1/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
@@ -497,14 +477,12 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000001',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:51Z',
                   'leave_time': '2021-10-08T02:59:55Z',
                   'duration_seconds': 65,
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 3361,
                   'jitter_buffer_size': null,
@@ -513,7 +491,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': true,
                       'end_conference_on_exit': false,
@@ -549,9 +527,7 @@ describe('ConferenceParticipant', function() {
                               'avg': 0,
                               'max': 0
                           },
-                          'mos': 4.4,
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          'mos': 4.4
                       }
                   },
                   'events': null,
@@ -566,14 +542,12 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000002',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:52Z',
                   'leave_time': '2021-10-08T02:59:54Z',
                   'duration_seconds': 63,
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 321,
                   'jitter_buffer_size': null,
@@ -582,7 +556,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': false,
                       'end_conference_on_exit': false,
@@ -604,9 +578,7 @@ describe('ConferenceParticipant', function() {
                               'avg': 0,
                               'max': 0
                           },
-                          'mos': 4.4,
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          'mos': 4.4
                       },
                       'outbound': {
                           'total_packets_lost': 0,
@@ -623,14 +595,12 @@ describe('ConferenceParticipant', function() {
                           'mos': 4.4,
                           'tags': [
                               'silent'
-                          ],
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          ]
                       }
                   },
                   'events': {
                       'mute': [
-                          1636007397844
+                          1633705131000
                       ]
                   },
                   'url': 'https://insights.twilio.com/v1/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
@@ -686,14 +656,12 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000001',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:51Z',
                   'leave_time': '2021-10-08T02:59:55Z',
                   'duration_seconds': 65,
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 3361,
                   'jitter_buffer_size': null,
@@ -702,7 +670,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': true,
                       'end_conference_on_exit': false,
@@ -738,9 +706,7 @@ describe('ConferenceParticipant', function() {
                               'avg': 0,
                               'max': 0
                           },
-                          'mos': 4.4,
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          'mos': 4.4
                       }
                   },
                   'events': null,
@@ -755,14 +721,12 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000002',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:52Z',
                   'leave_time': '2021-10-08T02:59:54Z',
                   'duration_seconds': 63,
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 321,
                   'jitter_buffer_size': null,
@@ -771,7 +735,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': false,
                       'end_conference_on_exit': false,
@@ -793,9 +757,7 @@ describe('ConferenceParticipant', function() {
                               'avg': 0,
                               'max': 0
                           },
-                          'mos': 4.4,
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          'mos': 4.4
                       },
                       'outbound': {
                           'total_packets_lost': 0,
@@ -812,14 +774,12 @@ describe('ConferenceParticipant', function() {
                           'mos': 4.4,
                           'tags': [
                               'silent'
-                          ],
-                          'last_rtp_count': 1,
-                          'unique_ssrc_count': 1
+                          ]
                       }
                   },
                   'events': {
                       'mute': [
-                          1636007397844
+                          1633705131000
                       ]
                   },
                   'url': 'https://insights.twilio.com/v1/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
@@ -860,15 +820,13 @@ describe('ConferenceParticipant', function() {
                   'call_direction': 'outbound',
                   'from': '+10000000000',
                   'to': '+10000000001',
-                  'call_state': 'completed',
+                  'call_status': 'completed',
                   'country_code': 'US',
                   'is_moderator': true,
                   'join_time': '2021-10-08T02:58:51Z',
                   'leave_time': '2021-10-08T02:59:55Z',
                   'duration_seconds': 65,
                   'label': 'client',
-                  'whisper': null,
-                  'agent_audio': null,
                   'outbound_queue_length': 0,
                   'outbound_time_in_queue': 3361,
                   'jitter_buffer_size': null,
@@ -877,7 +835,7 @@ describe('ConferenceParticipant', function() {
                   'participant_region': 'us1',
                   'conference_region': 'us1',
                   'call_type': 'carrier',
-                  'quality_issues': 0,
+                  'processing_state': 'complete',
                   'properties': {
                       'start_conference_on_enter': true,
                       'end_conference_on_exit': false,
