@@ -60,9 +60,9 @@ interface SchemaVersionListInstance {
   /**
    * Constructs a schema_version
    *
-   * @param schemaVersion - The version of the schema
+   * @param resourceVersion - The version of the schema
    */
-  get(schemaVersion: string): SchemaVersionContext;
+  get(resourceVersion: string): SchemaVersionContext;
   /**
    * Retrieve a single target page of SchemaVersionInstance records from the API.
    *
@@ -198,8 +198,8 @@ interface SchemaVersionResource {
   date_created: Date;
   id: string;
   raw: string;
-  schema_version: number;
   url: string;
+  version: number;
 }
 
 interface SchemaVersionSolution {
@@ -216,9 +216,9 @@ declare class SchemaVersionContext {
    *
    * @param version - Version of the resource
    * @param id - The unique identifier of the schema.
-   * @param schemaVersion - The version of the schema
+   * @param resourceVersion - The version of the schema
    */
-  constructor(version: V1, id: string, schemaVersion: number);
+  constructor(version: V1, id: string, resourceVersion: number);
 
   /**
    * fetch a SchemaVersionInstance
@@ -243,9 +243,9 @@ declare class SchemaVersionInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param id - The unique identifier of the schema.
-   * @param schemaVersion - The version of the schema
+   * @param resourceVersion - The version of the schema
    */
-  constructor(version: V1, payload: SchemaVersionPayload, id: string, schemaVersion: number);
+  constructor(version: V1, payload: SchemaVersionPayload, id: string, resourceVersion: number);
 
   private _proxy: SchemaVersionContext;
   dateCreated: Date;
@@ -257,12 +257,12 @@ declare class SchemaVersionInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: SchemaVersionInstance) => any): Promise<SchemaVersionInstance>;
   id: string;
   raw: string;
-  schemaVersion: number;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   url: string;
+  version: number;
 }
 
 

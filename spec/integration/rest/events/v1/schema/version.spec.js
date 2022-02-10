@@ -35,7 +35,7 @@ describe('SchemaVersion', function() {
           'schema_versions': [
               {
                   'id': 'Messaging.MessageStatus',
-                  'schema_version': 1,
+                  'version': 1,
                   'public': true,
                   'date_created': '2015-07-30T20:00:00Z',
                   'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1',
@@ -43,7 +43,7 @@ describe('SchemaVersion', function() {
               },
               {
                   'id': 'Messaging.MessageStatus',
-                  'schema_version': 2,
+                  'version': 2,
                   'public': true,
                   'date_created': '2015-07-30T20:00:00Z',
                   'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2',
@@ -71,7 +71,7 @@ describe('SchemaVersion', function() {
           'schema_versions': [
               {
                   'id': 'Messaging.MessageStatus',
-                  'schema_version': 1,
+                  'version': 1,
                   'public': true,
                   'date_created': '2015-07-30T20:00:00Z',
                   'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1',
@@ -79,7 +79,7 @@ describe('SchemaVersion', function() {
               },
               {
                   'id': 'Messaging.MessageStatus',
-                  'schema_version': 2,
+                  'version': 2,
                   'public': true,
                   'date_created': '2015-07-30T20:00:00Z',
                   'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2',
@@ -112,7 +112,7 @@ describe('SchemaVersion', function() {
           'schema_versions': [
               {
                   'id': 'Messaging.MessageStatus',
-                  'schema_version': 1,
+                  'version': 1,
                   'public': true,
                   'date_created': '2015-07-30T20:00:00Z',
                   'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1',
@@ -120,7 +120,7 @@ describe('SchemaVersion', function() {
               },
               {
                   'id': 'Messaging.MessageStatus',
-                  'schema_version': 2,
+                  'version': 2,
                   'public': true,
                   'date_created': '2015-07-30T20:00:00Z',
                   'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2',
@@ -197,7 +197,7 @@ describe('SchemaVersion', function() {
           'schema_versions': [
               {
                   'id': 'Messaging.MessageStatus',
-                  'schema_version': 1,
+                  'version': 1,
                   'public': true,
                   'date_created': '2015-07-30T20:00:00Z',
                   'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1',
@@ -205,7 +205,7 @@ describe('SchemaVersion', function() {
               },
               {
                   'id': 'Messaging.MessageStatus',
-                  'schema_version': 2,
+                  'version': 2,
                   'public': true,
                   'date_created': '2015-07-30T20:00:00Z',
                   'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2',
@@ -249,8 +249,8 @@ describe('SchemaVersion', function() {
       }).done();
 
       var id = 'id';
-      var schemaVersion = 1;
-      var url = `https://events.twilio.com/v1/Schemas/${id}/Versions/${schemaVersion}`;
+      var resourceVersion = 1;
+      var url = `https://events.twilio.com/v1/Schemas/${id}/Versions/${resourceVersion}`;
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -262,7 +262,7 @@ describe('SchemaVersion', function() {
     function(done) {
       var body = {
           'id': 'Messaging.MessageStatus',
-          'schema_version': 1,
+          'version': 1,
           'public': true,
           'date_created': '2015-07-30T20:00:00Z',
           'url': 'https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1',
