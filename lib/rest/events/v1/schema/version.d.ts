@@ -60,9 +60,9 @@ interface SchemaVersionListInstance {
   /**
    * Constructs a schema_version
    *
-   * @param resourceVersion - The version of the schema
+   * @param version - The version of the schema
    */
-  get(resourceVersion: string): SchemaVersionContext;
+  get(version: string): SchemaVersionContext;
   /**
    * Retrieve a single target page of SchemaVersionInstance records from the API.
    *
