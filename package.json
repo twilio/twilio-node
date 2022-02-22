@@ -29,7 +29,7 @@
     "qs": "^6.9.4",
     "rootpath": "^0.1.2",
     "scmp": "^2.1.0",
-    "url-parse": "^1.5.3",
+    "url-parse": "^1.5.6",
     "xmlbuilder": "^13.0.2"
   },
   "devDependencies": {
