@@ -14,7 +14,7 @@ type AddressConfigurationAutoCreationType = 'webhook'|'studio'|'default';
 
 type AddressConfigurationMethod = 'GET'|'POST';
 
-type AddressConfigurationType = 'sms'|'whatsapp'|'messenger';
+type AddressConfigurationType = 'sms'|'whatsapp'|'messenger'|'gbm';
 
 /**
  * Initialize the AddressConfigurationList
@@ -28,7 +28,7 @@ declare function AddressConfigurationList(version: V1): AddressConfigurationList
  *
  * @property autoCreation.conversationServiceSid - Conversation Service for the auto-created conversation.
  * @property autoCreation.enabled - Enable/Disable auto-creating conversations for messages to this address
- * @property autoCreation.studioFlowSid - For type `studio`, the studio flow SID, where the webhook should be sent to.
+ * @property autoCreation.studioFlowSid - For type `studio`, the studio flow SID where the webhook should be sent to.
  * @property autoCreation.studioRetryCount - For type `studio`, number of times to retry the webhook request
  * @property autoCreation.type - Type of Auto Creation.
  * @property autoCreation.webhookFilters - The list of events, firing webhook event for this Conversation.
@@ -178,7 +178,7 @@ interface AddressConfigurationListInstance {
  * @property address - The unique address to be configured.
  * @property autoCreation.conversationServiceSid - Conversation Service for the auto-created conversation.
  * @property autoCreation.enabled - Enable/Disable auto-creating conversations for messages to this address
- * @property autoCreation.studioFlowSid - For type `studio`, the studio flow SID, where the webhook should be sent to.
+ * @property autoCreation.studioFlowSid - For type `studio`, the studio flow SID where the webhook should be sent to.
  * @property autoCreation.studioRetryCount - For type `studio`, number of times to retry the webhook request
  * @property autoCreation.type - Type of Auto Creation.
  * @property autoCreation.webhookFilters - The list of events, firing webhook event for this Conversation.

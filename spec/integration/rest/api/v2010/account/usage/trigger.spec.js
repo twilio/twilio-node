@@ -193,7 +193,7 @@ describe('Trigger', function() {
       var opts = {
         'callbackUrl': 'https://example.com',
         'triggerValue': 'trigger_value',
-        'usageCategory': 'agent-conference'
+        'usageCategory': 'a2p-registration-fees'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .usage
@@ -211,7 +211,7 @@ describe('Trigger', function() {
       var values = {
         'CallbackUrl': 'https://example.com',
         'TriggerValue': 'trigger_value',
-        'UsageCategory': 'agent-conference',
+        'UsageCategory': 'a2p-registration-fees',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -246,7 +246,7 @@ describe('Trigger', function() {
       var opts = {
         'callbackUrl': 'https://example.com',
         'triggerValue': 'trigger_value',
-        'usageCategory': 'agent-conference'
+        'usageCategory': 'a2p-registration-fees'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .usage

@@ -685,6 +685,7 @@ interface StreamResource {
   name: string;
   sid: string;
   status: StreamStatus;
+  uri: string;
 }
 
 interface StreamSolution {
@@ -748,6 +749,7 @@ declare class StreamInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   update(opts: StreamInstanceUpdateOptions, callback?: (error: Error | null, items: StreamInstance) => any): Promise<StreamInstance>;
+  uri: string;
 }
 
 

@@ -20,9 +20,9 @@ import { SerializableClass } from '../../../../interfaces';
 
 type BundleEndUserType = 'individual'|'business';
 
-type BundleSortBy = 'ASC'|'DESC';
+type BundleSortBy = 'valid-until'|'date-updated';
 
-type BundleSortDirection = 'valid_until_date'|'date_updated';
+type BundleSortDirection = 'ASC'|'DESC';
 
 type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
 
@@ -211,7 +211,7 @@ interface BundleListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property regulationSid - The unique string of a regulation.
- * @property sortBy - Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`
+ * @property sortBy - Can be `valid-until` or `date-updated`. Defaults to `date-created`.
  * @property sortDirection - Default is `DESC`. Can be `ASC` or `DESC`.
  * @property status - The verification status of the Bundle resource
  * @property validUntilDate - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
@@ -254,7 +254,7 @@ interface BundleListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property regulationSid - The unique string of a regulation.
- * @property sortBy - Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`
+ * @property sortBy - Can be `valid-until` or `date-updated`. Defaults to `date-created`.
  * @property sortDirection - Default is `DESC`. Can be `ASC` or `DESC`.
  * @property status - The verification status of the Bundle resource
  * @property validUntilDate - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
@@ -288,7 +288,7 @@ interface BundleListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property regulationSid - The unique string of a regulation.
- * @property sortBy - Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`
+ * @property sortBy - Can be `valid-until` or `date-updated`. Defaults to `date-created`.
  * @property sortDirection - Default is `DESC`. Can be `ASC` or `DESC`.
  * @property status - The verification status of the Bundle resource
  * @property validUntilDate - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
