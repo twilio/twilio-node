@@ -25,8 +25,10 @@ declare function FleetList(version: V1): FleetListInstance;
 /**
  * Options to pass to update
  *
- * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
- * @property commandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
+ * @property commandsMethod - Deprecated
+ * @property commandsUrl - Deprecated
+ * @property ipCommandsMethod - A string representing the HTTP method to use when making a request to `ip_commands_url`
+ * @property ipCommandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
  * @property smsCommandsMethod - A string representing the HTTP method to use when making a request to `sms_commands_url`
  * @property smsCommandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
@@ -35,6 +37,8 @@ declare function FleetList(version: V1): FleetListInstance;
 interface FleetInstanceUpdateOptions {
   commandsMethod?: string;
   commandsUrl?: string;
+  ipCommandsMethod?: string;
+  ipCommandsUrl?: string;
   networkAccessProfile?: string;
   smsCommandsMethod?: string;
   smsCommandsUrl?: string;
@@ -164,11 +168,13 @@ interface FleetListInstance {
 /**
  * Options to pass to create
  *
- * @property commandsEnabled - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
- * @property commandsMethod - A string representing the HTTP method to use when making a request to `commands_url`
- * @property commandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
+ * @property commandsEnabled - Deprecated
+ * @property commandsMethod - Deprecated
+ * @property commandsUrl - Deprecated
  * @property dataEnabled - Defines whether SIMs in the Fleet are capable of using data connectivity
  * @property dataLimit - The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
+ * @property ipCommandsMethod - A string representing the HTTP method to use when making a request to `ip_commands_url`
+ * @property ipCommandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
  * @property smsCommandsEnabled - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
  * @property smsCommandsMethod - A string representing the HTTP method to use when making a request to `sms_commands_url`
@@ -181,6 +187,8 @@ interface FleetListInstanceCreateOptions {
   commandsUrl?: string;
   dataEnabled?: boolean;
   dataLimit?: number;
+  ipCommandsMethod?: string;
+  ipCommandsUrl?: string;
   networkAccessProfile: string;
   smsCommandsEnabled?: boolean;
   smsCommandsMethod?: string;
@@ -264,6 +272,8 @@ interface FleetResource {
   data_metering: FleetDataMetering;
   date_created: Date;
   date_updated: Date;
+  ip_commands_method: string;
+  ip_commands_url: string;
   network_access_profile_sid: string;
   sid: string;
   sms_commands_enabled: boolean;
@@ -344,6 +354,8 @@ declare class FleetInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  ipCommandsMethod: string;
+  ipCommandsUrl: string;
   networkAccessProfileSid: string;
   sid: string;
   smsCommandsEnabled: boolean;

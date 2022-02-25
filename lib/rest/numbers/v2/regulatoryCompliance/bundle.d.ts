@@ -20,6 +20,10 @@ import { SerializableClass } from '../../../../interfaces';
 
 type BundleEndUserType = 'individual'|'business';
 
+type BundleSortBy = 'valid-until'|'date-updated';
+
+type BundleSortDirection = 'ASC'|'DESC';
+
 type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
 
 /**
@@ -193,6 +197,7 @@ interface BundleListInstanceCreateOptions {
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
  * @property friendlyName - The string that you assigned to describe the resource
+ * @property hasValidUntilDate - Indicates that the Bundle is a valid Bundle until a specified expiration date.
  * @property isoCountry - The ISO country code of the country
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -206,24 +211,36 @@ interface BundleListInstanceCreateOptions {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property regulationSid - The unique string of a regulation.
+ * @property sortBy - Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+ * @property sortDirection - Default is `DESC`. Can be `ASC` or `DESC`.
  * @property status - The verification status of the Bundle resource
+ * @property validUntilDate - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
+ * @property validUntilDateAfter - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
+ * @property validUntilDateBefore - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
  */
 interface BundleListInstanceEachOptions {
   callback?: (item: BundleInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
+  hasValidUntilDate?: boolean;
   isoCountry?: string;
   limit?: number;
   numberType?: string;
   pageSize?: number;
   regulationSid?: string;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
   status?: BundleStatus;
+  validUntilDate?: Date;
+  validUntilDateAfter?: Date;
+  validUntilDateBefore?: Date;
 }
 
 /**
  * Options to pass to list
  *
  * @property friendlyName - The string that you assigned to describe the resource
+ * @property hasValidUntilDate - Indicates that the Bundle is a valid Bundle until a specified expiration date.
  * @property isoCountry - The ISO country code of the country
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -237,39 +254,62 @@ interface BundleListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property regulationSid - The unique string of a regulation.
+ * @property sortBy - Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+ * @property sortDirection - Default is `DESC`. Can be `ASC` or `DESC`.
  * @property status - The verification status of the Bundle resource
+ * @property validUntilDate - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
+ * @property validUntilDateAfter - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
+ * @property validUntilDateBefore - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
  */
 interface BundleListInstanceOptions {
   friendlyName?: string;
+  hasValidUntilDate?: boolean;
   isoCountry?: string;
   limit?: number;
   numberType?: string;
   pageSize?: number;
   regulationSid?: string;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
   status?: BundleStatus;
+  validUntilDate?: Date;
+  validUntilDateAfter?: Date;
+  validUntilDateBefore?: Date;
 }
 
 /**
  * Options to pass to page
  *
  * @property friendlyName - The string that you assigned to describe the resource
+ * @property hasValidUntilDate - Indicates that the Bundle is a valid Bundle until a specified expiration date.
  * @property isoCountry - The ISO country code of the country
  * @property numberType - The type of phone number
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property regulationSid - The unique string of a regulation.
+ * @property sortBy - Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+ * @property sortDirection - Default is `DESC`. Can be `ASC` or `DESC`.
  * @property status - The verification status of the Bundle resource
+ * @property validUntilDate - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
+ * @property validUntilDateAfter - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
+ * @property validUntilDateBefore - Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
  */
 interface BundleListInstancePageOptions {
   friendlyName?: string;
+  hasValidUntilDate?: boolean;
   isoCountry?: string;
   numberType?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
   regulationSid?: string;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
   status?: BundleStatus;
+  validUntilDate?: Date;
+  validUntilDateAfter?: Date;
+  validUntilDateBefore?: Date;
 }
 
 interface BundlePayload extends BundleResource, Page.TwilioResponsePayload {
@@ -432,4 +472,4 @@ declare class BundlePage extends Page<V2, BundlePayload, BundleResource, BundleI
   toJSON(): any;
 }
 
-export { BundleContext, BundleEndUserType, BundleInstance, BundleInstanceUpdateOptions, BundleList, BundleListInstance, BundleListInstanceCreateOptions, BundleListInstanceEachOptions, BundleListInstanceOptions, BundleListInstancePageOptions, BundlePage, BundlePayload, BundleResource, BundleSolution, BundleStatus }
+export { BundleContext, BundleEndUserType, BundleInstance, BundleInstanceUpdateOptions, BundleList, BundleListInstance, BundleListInstanceCreateOptions, BundleListInstanceEachOptions, BundleListInstanceOptions, BundleListInstancePageOptions, BundlePage, BundlePayload, BundleResource, BundleSolution, BundleSortBy, BundleSortDirection, BundleStatus }

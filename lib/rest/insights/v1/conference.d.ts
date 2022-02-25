@@ -16,6 +16,8 @@ type ConferenceConferenceEndReason = 'last_participant_left'|'conference_ended_v
 
 type ConferenceConferenceStatus = 'in_progress'|'not_started'|'completed'|'summary_timeout';
 
+type ConferenceProcessingState = 'complete'|'in_progress'|'timeout';
+
 type ConferenceRegion = 'us1'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de1';
 
 type ConferenceTag = 'invalid_requested_region'|'duplicate_identity'|'start_failure'|'region_configuration_issues'|'quality_warnings'|'participant_behavior_issues'|'high_packet_loss'|'high_jitter'|'high_latency'|'low_mos'|'detected_silence';
@@ -66,7 +68,7 @@ interface ConferenceListInstance {
   /**
    * Constructs a conference
    *
-   * @param conferenceSid - The conference_sid
+   * @param conferenceSid - Conference SID.
    */
   get(conferenceSid: string): ConferenceContext;
   /**
@@ -146,27 +148,27 @@ interface ConferenceListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property conferenceSid - The conference_sid
- * @property createdAfter - The created_after
- * @property createdBefore - The created_before
- * @property detectedIssues - The detected_issues
+ * @property conferenceSid - The SID of the conference.
+ * @property createdAfter - Conferences created after timestamp.
+ * @property createdBefore - Conferences created before timestamp.
+ * @property detectedIssues - Potential issues detected during the conference.
  * @property done - Function to be called upon completion of streaming
- * @property endReason - The end_reason
- * @property friendlyName - The friendly_name
+ * @property endReason - Conference end reason.
+ * @property friendlyName - Custom label for the conference.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property mixerRegion - The mixer_region
+ * @property mixerRegion - Region where the conference was mixed.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property status - The status
- * @property subaccount - The subaccount
- * @property tags - The tags
+ * @property status - Conference status.
+ * @property subaccount - Account SID for the subaccount.
+ * @property tags - Tags applied by Twilio for common issues.
  */
 interface ConferenceListInstanceEachOptions {
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
@@ -188,26 +190,26 @@ interface ConferenceListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property conferenceSid - The conference_sid
- * @property createdAfter - The created_after
- * @property createdBefore - The created_before
- * @property detectedIssues - The detected_issues
- * @property endReason - The end_reason
- * @property friendlyName - The friendly_name
+ * @property conferenceSid - The SID of the conference.
+ * @property createdAfter - Conferences created after timestamp.
+ * @property createdBefore - Conferences created before timestamp.
+ * @property detectedIssues - Potential issues detected during the conference.
+ * @property endReason - Conference end reason.
+ * @property friendlyName - Custom label for the conference.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property mixerRegion - The mixer_region
+ * @property mixerRegion - Region where the conference was mixed.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property status - The status
- * @property subaccount - The subaccount
- * @property tags - The tags
+ * @property status - Conference status.
+ * @property subaccount - Account SID for the subaccount.
+ * @property tags - Tags applied by Twilio for common issues.
  */
 interface ConferenceListInstanceOptions {
   conferenceSid?: string;
@@ -227,19 +229,19 @@ interface ConferenceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property conferenceSid - The conference_sid
- * @property createdAfter - The created_after
- * @property createdBefore - The created_before
- * @property detectedIssues - The detected_issues
- * @property endReason - The end_reason
- * @property friendlyName - The friendly_name
- * @property mixerRegion - The mixer_region
+ * @property conferenceSid - The SID of the conference.
+ * @property createdAfter - Conferences created after timestamp.
+ * @property createdBefore - Conferences created before timestamp.
+ * @property detectedIssues - Potential issues detected during the conference.
+ * @property endReason - Conference end reason.
+ * @property friendlyName - Custom label for the conference.
+ * @property mixerRegion - Region where the conference was mixed.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property status - The status
- * @property subaccount - The subaccount
- * @property tags - The tags
+ * @property status - Conference status.
+ * @property subaccount - Account SID for the subaccount.
+ * @property tags - Tags applied by Twilio for common issues.
  */
 interface ConferenceListInstancePageOptions {
   conferenceSid?: string;
@@ -276,6 +278,7 @@ interface ConferenceResource {
   max_participants: number;
   mixer_region: ConferenceRegion;
   mixer_region_requested: ConferenceRegion;
+  processing_state: ConferenceProcessingState;
   recording_enabled: boolean;
   start_time: Date;
   status: ConferenceConferenceStatus;
@@ -294,7 +297,7 @@ declare class ConferenceContext {
    * Initialize the ConferenceContext
    *
    * @param version - Version of the resource
-   * @param conferenceSid - The conference_sid
+   * @param conferenceSid - Conference SID.
    */
   constructor(version: V1, conferenceSid: string);
 
@@ -318,7 +321,7 @@ declare class ConferenceInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param conferenceSid - The conference_sid
+   * @param conferenceSid - Conference SID.
    */
   constructor(version: V1, payload: ConferencePayload, conferenceSid: string);
 
@@ -348,6 +351,7 @@ declare class ConferenceInstance extends SerializableClass {
   maxParticipants: number;
   mixerRegion: ConferenceRegion;
   mixerRegionRequested: ConferenceRegion;
+  processingState: ConferenceProcessingState;
   recordingEnabled: boolean;
   startTime: Date;
   status: ConferenceConferenceStatus;
@@ -384,4 +388,4 @@ declare class ConferencePage extends Page<V1, ConferencePayload, ConferenceResou
   toJSON(): any;
 }
 
-export { ConferenceConferenceEndReason, ConferenceConferenceStatus, ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceRegion, ConferenceResource, ConferenceSolution, ConferenceTag }
+export { ConferenceConferenceEndReason, ConferenceConferenceStatus, ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceProcessingState, ConferenceRegion, ConferenceResource, ConferenceSolution, ConferenceTag }

@@ -22,7 +22,7 @@ var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('Siprec', function() {
+describe('Stream', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
@@ -35,7 +35,7 @@ describe('Siprec', function() {
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .siprec.create();
+                                    .streams.create();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -45,7 +45,7 @@ describe('Siprec', function() {
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Siprec.json`;
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Streams.json`;
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -58,18 +58,18 @@ describe('Siprec', function() {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'MZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'name': null,
           'status': 'in-progress',
           'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/MZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 
       holodeck.mock(new Response(201, body));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .siprec.create();
+                                    .streams.create();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -83,18 +83,18 @@ describe('Siprec', function() {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'MZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'name': 'myName',
           'status': 'in-progress',
           'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/MZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 
       holodeck.mock(new Response(201, body));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .siprec.create();
+                                    .streams.create();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -110,7 +110,7 @@ describe('Siprec', function() {
       var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                    .streams('MZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -120,8 +120,8 @@ describe('Siprec', function() {
 
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var sid = 'SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Siprec/${sid}.json`;
+      var sid = 'MZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Streams/${sid}.json`;
 
       var values = {'Status': 'stopped', };
       holodeck.assertHasRequest(new Request({
@@ -136,11 +136,11 @@ describe('Siprec', function() {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'MZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'name': null,
           'status': 'stopped',
           'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/MZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 
       holodeck.mock(new Response(200, body));
@@ -148,7 +148,7 @@ describe('Siprec', function() {
       var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                    .streams('MZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -162,11 +162,11 @@ describe('Siprec', function() {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'name': 'mySiprec',
+          'sid': 'MZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'name': 'myStream',
           'status': 'stopped',
           'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams/MZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 
       holodeck.mock(new Response(200, body));
@@ -174,7 +174,7 @@ describe('Siprec', function() {
       var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+                                    .streams('MZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

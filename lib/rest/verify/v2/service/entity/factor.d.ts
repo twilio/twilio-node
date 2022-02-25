@@ -239,6 +239,7 @@ interface FactorResource {
   factor_type: FactorFactorTypes;
   friendly_name: string;
   identity: string;
+  metadata: object;
   service_sid: string;
   sid: string;
   status: FactorFactorStatuses;
@@ -327,6 +328,7 @@ declare class FactorInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: FactorInstance) => any): Promise<FactorInstance>;
   friendlyName: string;
   identity: string;
+  metadata: any;
   /**
    * remove a FactorInstance
    *

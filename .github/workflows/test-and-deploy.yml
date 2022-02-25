@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        node: [ 6, 8, 10, lts/* ]
+        node: [ 6, 8, 10, 12, 14, 16, lts/* ]
     steps:
       - name: Checkout twilio-node
         uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
       - run: npm install
       - name: Run Unit Tests
         run: npm run ci
-      
+
       - name: SonarCloud Scan
         if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.node == 'lts/*' && !github.event.pull_request.head.repo.fork }}
         uses: SonarSource/sonarcloud-github-action@master
@@ -54,7 +54,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
-          node-version: 8
+          node-version: lts/*
 
       - run: npm install
 

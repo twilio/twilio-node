@@ -30,27 +30,11 @@ type FaxUpdateStatus = 'canceled';
  */
 declare function FaxList(version: V1): FaxListInstance;
 
-/**
- * Options to pass to update
- *
- * @property status - The new status of the resource
- */
-interface FaxInstanceUpdateOptions {
-  status?: FaxUpdateStatus;
-}
-
 interface FaxListInstance {
   /**
    * @param sid - sid of instance
    */
   (sid: string): FaxContext;
-  /**
-   * create a FaxInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: FaxListInstanceCreateOptions, callback?: (error: Error | null, item: FaxInstance) => any): Promise<FaxInstance>;
   /**
    * Streams FaxInstance records from the API.
    *
@@ -157,31 +141,6 @@ interface FaxListInstance {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-}
-
-/**
- * Options to pass to create
- *
- * @property from - The number the fax was sent from
- * @property mediaUrl - The URL of the PDF that contains the fax
- * @property quality - The quality of this fax
- * @property sipAuthPassword - The password for SIP authentication
- * @property sipAuthUsername - The username for SIP authentication
- * @property statusCallback - The URL we should call to send status information to your application
- * @property storeMedia - Whether to store a copy of the sent media
- * @property to - The phone number to receive the fax
- * @property ttl - How long in minutes to try to send the fax
- */
-interface FaxListInstanceCreateOptions {
-  from?: string;
-  mediaUrl: string;
-  quality?: FaxQuality;
-  sipAuthPassword?: string;
-  sipAuthUsername?: string;
-  statusCallback?: string;
-  storeMedia?: boolean;
-  to: string;
-  ttl?: number;
 }
 
 /**
@@ -322,19 +281,6 @@ declare class FaxContext {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  /**
-   * update a FaxInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
-  /**
-   * update a FaxInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: FaxInstanceUpdateOptions, callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
 }
 
 
@@ -389,19 +335,6 @@ declare class FaxInstance extends SerializableClass {
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  /**
-   * update a FaxInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
-  /**
-   * update a FaxInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: FaxInstanceUpdateOptions, callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
   url: string;
 }
 
@@ -431,4 +364,4 @@ declare class FaxPage extends Page<V1, FaxPayload, FaxResource, FaxInstance> {
   toJSON(): any;
 }
 
-export { FaxContext, FaxDirection, FaxInstance, FaxInstanceUpdateOptions, FaxList, FaxListInstance, FaxListInstanceCreateOptions, FaxListInstanceEachOptions, FaxListInstanceOptions, FaxListInstancePageOptions, FaxPage, FaxPayload, FaxQuality, FaxResource, FaxSolution, FaxStatus, FaxUpdateStatus }
+export { FaxContext, FaxDirection, FaxInstance, FaxList, FaxListInstance, FaxListInstanceEachOptions, FaxListInstanceOptions, FaxListInstancePageOptions, FaxPage, FaxPayload, FaxQuality, FaxResource, FaxSolution, FaxStatus, FaxUpdateStatus }

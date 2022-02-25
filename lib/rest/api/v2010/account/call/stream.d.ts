@@ -10,54 +10,54 @@ import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import { SerializableClass } from '../../../../../interfaces';
 
-type SiprecStatus = 'in-progress'|'stopped';
+type StreamStatus = 'in-progress'|'stopped';
 
-type SiprecTrack = 'inbound_track'|'outbound_track'|'both_tracks';
+type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
-type SiprecUpdateStatus = 'stopped';
+type StreamUpdateStatus = 'stopped';
 
 /**
- * Initialize the SiprecList
+ * Initialize the StreamList
  *
  * @param version - Version of the resource
  * @param accountSid - The SID of the Account that created this resource
  * @param callSid - The SID of the Call the resource is associated with
  */
-declare function SiprecList(version: V2010, accountSid: string, callSid: string): SiprecListInstance;
+declare function StreamList(version: V2010, accountSid: string, callSid: string): StreamListInstance;
 
 /**
  * Options to pass to update
  *
  * @property status - The status. Must have the value `stopped`
  */
-interface SiprecInstanceUpdateOptions {
-  status: SiprecUpdateStatus;
+interface StreamInstanceUpdateOptions {
+  status: StreamUpdateStatus;
 }
 
-interface SiprecListInstance {
+interface StreamListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): SiprecContext;
+  (sid: string): StreamContext;
   /**
-   * create a SiprecInstance
+   * create a StreamInstance
    *
    * @param callback - Callback to handle processed record
    */
-  create(callback?: (error: Error | null, item: SiprecInstance) => any): Promise<SiprecInstance>;
+  create(callback?: (error: Error | null, item: StreamInstance) => any): Promise<StreamInstance>;
   /**
-   * create a SiprecInstance
+   * create a StreamInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: SiprecListInstanceCreateOptions, callback?: (error: Error | null, item: SiprecInstance) => any): Promise<SiprecInstance>;
+  create(opts?: StreamListInstanceCreateOptions, callback?: (error: Error | null, item: StreamInstance) => any): Promise<StreamInstance>;
   /**
-   * Constructs a siprec
+   * Constructs a stream
    *
-   * @param sid - The SID of the Siprec resource, or the `name`
+   * @param sid - The SID of the Stream resource, or the `name`
    */
-  get(sid: string): SiprecContext;
+  get(sid: string): StreamContext;
   /**
    * Provide a user-friendly representation
    */
@@ -67,7 +67,6 @@ interface SiprecListInstance {
 /**
  * Options to pass to create
  *
- * @property connectorName - Unique name used when configuring the connector via Marketplace Add-on.
  * @property name - The name of this resource
  * @property parameter1.name - Parameter name
  * @property parameter1.value - Parameter value
@@ -270,9 +269,9 @@ interface SiprecListInstance {
  * @property statusCallback - Absolute URL of the status callback.
  * @property statusCallbackMethod - The http method for the status_callback.
  * @property track - One of `inbound_track`, `outbound_track`, `both_tracks`.
+ * @property url - Url where WebSocket connection will be established.
  */
-interface SiprecListInstanceCreateOptions {
-  connectorName?: string;
+interface StreamListInstanceCreateOptions {
   name?: string;
   parameter1?: {
     name?: string;
@@ -672,36 +671,37 @@ interface SiprecListInstanceCreateOptions {
   };
   statusCallback?: string;
   statusCallbackMethod?: string;
-  track?: SiprecTrack;
+  track?: StreamTrack;
+  url?: string;
 }
 
-interface SiprecPayload extends SiprecResource, Page.TwilioResponsePayload {
+interface StreamPayload extends StreamResource, Page.TwilioResponsePayload {
 }
 
-interface SiprecResource {
+interface StreamResource {
   account_sid: string;
   call_sid: string;
   date_updated: Date;
   name: string;
   sid: string;
-  status: SiprecStatus;
+  status: StreamStatus;
   uri: string;
 }
 
-interface SiprecSolution {
+interface StreamSolution {
   accountSid?: string;
   callSid?: string;
 }
 
 
-declare class SiprecContext {
+declare class StreamContext {
   /**
-   * Initialize the SiprecContext
+   * Initialize the StreamContext
    *
    * @param version - Version of the resource
    * @param accountSid - The SID of the Account that created this resource
    * @param callSid - The SID of the Call the resource is associated with
-   * @param sid - The SID of the Siprec resource, or the `name`
+   * @param sid - The SID of the Stream resource, or the `name`
    */
   constructor(version: V2010, accountSid: string, callSid: string, sid: string);
 
@@ -710,69 +710,69 @@ declare class SiprecContext {
    */
   toJSON(): any;
   /**
-   * update a SiprecInstance
+   * update a StreamInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SiprecInstanceUpdateOptions, callback?: (error: Error | null, items: SiprecInstance) => any): Promise<SiprecInstance>;
+  update(opts: StreamInstanceUpdateOptions, callback?: (error: Error | null, items: StreamInstance) => any): Promise<StreamInstance>;
 }
 
 
-declare class SiprecInstance extends SerializableClass {
+declare class StreamInstance extends SerializableClass {
   /**
-   * Initialize the SiprecContext
+   * Initialize the StreamContext
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The SID of the Account that created this resource
    * @param callSid - The SID of the Call the resource is associated with
-   * @param sid - The SID of the Siprec resource, or the `name`
+   * @param sid - The SID of the Stream resource, or the `name`
    */
-  constructor(version: V2010, payload: SiprecPayload, accountSid: string, callSid: string, sid: string);
+  constructor(version: V2010, payload: StreamPayload, accountSid: string, callSid: string, sid: string);
 
-  private _proxy: SiprecContext;
+  private _proxy: StreamContext;
   accountSid: string;
   callSid: string;
   dateUpdated: Date;
   name: string;
   sid: string;
-  status: SiprecStatus;
+  status: StreamStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   /**
-   * update a SiprecInstance
+   * update a StreamInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SiprecInstanceUpdateOptions, callback?: (error: Error | null, items: SiprecInstance) => any): Promise<SiprecInstance>;
+  update(opts: StreamInstanceUpdateOptions, callback?: (error: Error | null, items: StreamInstance) => any): Promise<StreamInstance>;
   uri: string;
 }
 
 
-declare class SiprecPage extends Page<V2010, SiprecPayload, SiprecResource, SiprecInstance> {
+declare class StreamPage extends Page<V2010, StreamPayload, StreamResource, StreamInstance> {
   /**
-   * Initialize the SiprecPage
+   * Initialize the StreamPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V2010, response: Response<string>, solution: SiprecSolution);
+  constructor(version: V2010, response: Response<string>, solution: StreamSolution);
 
   /**
-   * Build an instance of SiprecInstance
+   * Build an instance of StreamInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SiprecPayload): SiprecInstance;
+  getInstance(payload: StreamPayload): StreamInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { SiprecContext, SiprecInstance, SiprecInstanceUpdateOptions, SiprecList, SiprecListInstance, SiprecListInstanceCreateOptions, SiprecPage, SiprecPayload, SiprecResource, SiprecSolution, SiprecStatus, SiprecTrack, SiprecUpdateStatus }
+export { StreamContext, StreamInstance, StreamInstanceUpdateOptions, StreamList, StreamListInstance, StreamListInstanceCreateOptions, StreamPage, StreamPayload, StreamResource, StreamSolution, StreamStatus, StreamTrack, StreamUpdateStatus }
