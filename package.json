@@ -20,7 +20,7 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "dayjs": "^1.8.29",
     "https-proxy-agent": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
