@@ -303,9 +303,10 @@ describe('UserChannel', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -318,9 +319,11 @@ describe('UserChannel', function() {
       var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Users/${userSid}/Channels/${channelSid}`;
 
+      var headers = {'X-Twilio-Webhook-Enabled': 'true'};
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
-        url: url
+        url: url,
+        headers: headers
       }));
     }
   );

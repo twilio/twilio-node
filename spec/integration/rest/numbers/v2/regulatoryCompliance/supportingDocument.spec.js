@@ -61,6 +61,7 @@ describe('SupportingDocument', function() {
           'friendly_name': 'friendly_name',
           'mime_type': 'mime_type',
           'status': 'draft',
+          'failure_reason': null,
           'type': 'type',
           'attributes': {
               'first_name': 'foo',
@@ -94,6 +95,7 @@ describe('SupportingDocument', function() {
                   'friendly_name': 'friendly_name',
                   'mime_type': 'mime_type',
                   'status': 'draft',
+                  'failure_reason': null,
                   'type': 'type',
                   'attributes': {
                       'first_name': 'foo',
@@ -129,6 +131,7 @@ describe('SupportingDocument', function() {
                   'friendly_name': 'friendly_name',
                   'mime_type': 'mime_type',
                   'status': 'draft',
+                  'failure_reason': null,
                   'type': 'type',
                   'attributes': {
                       'first_name': 'foo',
@@ -169,6 +172,7 @@ describe('SupportingDocument', function() {
                   'friendly_name': 'friendly_name',
                   'mime_type': 'mime_type',
                   'status': 'draft',
+                  'failure_reason': null,
                   'type': 'type',
                   'attributes': {
                       'first_name': 'foo',
@@ -252,6 +256,51 @@ describe('SupportingDocument', function() {
                   'friendly_name': 'friendly_name',
                   'mime_type': 'mime_type',
                   'status': 'draft',
+                  'failure_reason': null,
+                  'type': 'type',
+                  'attributes': {
+                      'first_name': 'foo',
+                      'last_name': 'bar'
+                  },
+                  'date_created': '2019-07-31T02:11:52Z',
+                  'date_updated': '2019-07-31T02:11:52Z',
+                  'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'results'
+          }
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.numbers.v2.regulatoryCompliance
+                                     .supportingDocuments.list();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid read_rejected_document response',
+    function(done) {
+      var body = {
+          'results': [
+              {
+                  'sid': 'RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'friendly_name',
+                  'mime_type': 'mime_type',
+                  'status': 'twilio-rejected',
+                  'failure_reason': 'Some failure reason.',
                   'type': 'type',
                   'attributes': {
                       'first_name': 'foo',
@@ -315,6 +364,7 @@ describe('SupportingDocument', function() {
           'friendly_name': 'friendly_name',
           'mime_type': 'mime_type',
           'status': 'draft',
+          'failure_reason': null,
           'type': 'type',
           'attributes': {
               'first_name': 'foo',
@@ -367,6 +417,7 @@ describe('SupportingDocument', function() {
           'friendly_name': 'friendly_name',
           'mime_type': 'mime_type',
           'status': 'draft',
+          'failure_reason': null,
           'type': 'type',
           'attributes': {
               'first_name': 'foo',
