@@ -14,6 +14,8 @@ type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
 
 type UserChannelNotificationLevel = 'default'|'muted';
 
+type UserChannelWebhookEnabledType = 'true'|'false';
+
 /**
  * Initialize the UserChannelList
  *
@@ -22,6 +24,15 @@ type UserChannelNotificationLevel = 'default'|'muted';
  * @param userSid - The SID of the User the User Channel belongs to
  */
 declare function UserChannelList(version: V2, serviceSid: string, userSid: string): UserChannelListInstance;
+
+/**
+ * Options to pass to remove
+ *
+ * @property xTwilioWebhookEnabled - The X-Twilio-Webhook-Enabled HTTP request header
+ */
+interface UserChannelInstanceRemoveOptions {
+  xTwilioWebhookEnabled?: UserChannelWebhookEnabledType;
+}
 
 /**
  * Options to pass to update
@@ -253,6 +264,13 @@ declare class UserChannelContext {
    */
   remove(callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<boolean>;
   /**
+   * remove a UserChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  remove(opts?: UserChannelInstanceRemoveOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<boolean>;
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -303,6 +321,13 @@ declare class UserChannelInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<boolean>;
+  /**
+   * remove a UserChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  remove(opts?: UserChannelInstanceRemoveOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<boolean>;
   serviceSid: string;
   status: UserChannelChannelStatus;
   /**
@@ -350,4 +375,4 @@ declare class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelRe
   toJSON(): any;
 }
 
-export { UserChannelChannelStatus, UserChannelContext, UserChannelInstance, UserChannelInstanceUpdateOptions, UserChannelList, UserChannelListInstance, UserChannelListInstanceEachOptions, UserChannelListInstanceOptions, UserChannelListInstancePageOptions, UserChannelNotificationLevel, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution }
+export { UserChannelChannelStatus, UserChannelContext, UserChannelInstance, UserChannelInstanceRemoveOptions, UserChannelInstanceUpdateOptions, UserChannelList, UserChannelListInstance, UserChannelListInstanceEachOptions, UserChannelListInstanceOptions, UserChannelListInstancePageOptions, UserChannelNotificationLevel, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution, UserChannelWebhookEnabledType }

@@ -230,6 +230,7 @@ interface SupportingDocumentResource {
   attributes: object;
   date_created: Date;
   date_updated: Date;
+  failure_reason: string;
   friendly_name: string;
   mime_type: string;
   sid: string;
@@ -298,6 +299,7 @@ declare class SupportingDocumentInstance extends SerializableClass {
   attributes: any;
   dateCreated: Date;
   dateUpdated: Date;
+  failureReason: string;
   /**
    * fetch a SupportingDocumentInstance
    *

@@ -56,7 +56,7 @@ describe('Challenge', function() {
       }));
     }
   );
-  it('should generate valid create_push_without_auth_payload response',
+  it('should generate valid create_push response',
     function(done) {
       var body = {
           'sid': 'YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -84,6 +84,7 @@ describe('Challenge', function() {
           'hidden_details': {
               'ip': '172.168.1.234'
           },
+          'metadata': null,
           'factor_type': 'push',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
@@ -133,6 +134,7 @@ describe('Challenge', function() {
           'hidden_details': {
               'ip': '172.168.1.234'
           },
+          'metadata': null,
           'factor_type': 'totp',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
@@ -182,6 +184,7 @@ describe('Challenge', function() {
           'hidden_details': {
               'ip': '172.168.1.234'
           },
+          'metadata': null,
           'factor_type': 'totp',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
@@ -241,7 +244,7 @@ describe('Challenge', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'date_responded': '2015-07-30T20:00:00Z',
           'expiration_date': '2015-07-30T20:00:00Z',
-          'status': 'pending',
+          'status': 'approved',
           'responded_reason': 'none',
           'details': {
               'message': 'Hi! Mr. John Doe, would you like to sign up?',
@@ -255,6 +258,9 @@ describe('Challenge', function() {
           },
           'hidden_details': {
               'ip': '172.168.1.234'
+          },
+          'metadata': {
+              'os': 'Android'
           },
           'factor_type': 'push',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -306,6 +312,7 @@ describe('Challenge', function() {
                   'hidden_details': {
                       'ip': '172.168.1.234'
                   },
+                  'metadata': null,
                   'factor_type': 'push',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -338,6 +345,7 @@ describe('Challenge', function() {
                   'hidden_details': {
                       'ip': '172.168.1.234'
                   },
+                  'metadata': null,
                   'factor_type': 'totp',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -391,6 +399,7 @@ describe('Challenge', function() {
                   'hidden_details': {
                       'ip': '172.168.1.234'
                   },
+                  'metadata': null,
                   'factor_type': 'push',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -423,6 +432,7 @@ describe('Challenge', function() {
                   'hidden_details': {
                       'ip': '172.168.1.234'
                   },
+                  'metadata': null,
                   'factor_type': 'totp',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -481,6 +491,7 @@ describe('Challenge', function() {
                   'hidden_details': {
                       'ip': '172.168.1.234'
                   },
+                  'metadata': null,
                   'factor_type': 'push',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -513,6 +524,7 @@ describe('Challenge', function() {
                   'hidden_details': {
                       'ip': '172.168.1.234'
                   },
+                  'metadata': null,
                   'factor_type': 'totp',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -618,6 +630,7 @@ describe('Challenge', function() {
                   'hidden_details': {
                       'ip': '172.168.1.234'
                   },
+                  'metadata': null,
                   'factor_type': 'push',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -650,6 +663,7 @@ describe('Challenge', function() {
                   'hidden_details': {
                       'ip': '172.168.1.234'
                   },
+                  'metadata': null,
                   'factor_type': 'totp',
                   'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -734,6 +748,9 @@ describe('Challenge', function() {
           'hidden_details': {
               'ip': '172.168.1.234'
           },
+          'metadata': {
+              'os': 'Android'
+          },
           'factor_type': 'push',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
@@ -782,6 +799,7 @@ describe('Challenge', function() {
           'hidden_details': {
               'ip': '172.168.1.234'
           },
+          'metadata': null,
           'factor_type': 'totp',
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
