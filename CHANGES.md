@@ -1,6 +1,38 @@
 twilio-node changelog
 =====================
 
+[2022-03-23] Version 3.76.0
+---------------------------
+**Library - Chore**
+- [PR #748](https://github.com/twilio/twilio-node/pull/748): update url-parse dependency. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #746](https://github.com/twilio/twilio-node/pull/746): Update Axios to v0.26.1. Thanks to [@stephenwade](https://github.com/stephenwade)!
+
+**Api**
+- Change `stream` url parameter to non optional
+- Add `verify-totp` and `verify-whatsapp-conversations-business-initiated` categories to `usage_record` API
+
+**Chat**
+- Added v3 Channel update endpoint to support Public to Private channel migration
+
+**Flex**
+- Private Beta release of the Interactions API to support the upcoming release of Flex Conversations at the end of Q1 2022.
+- Adding `channel_configs` object to Flex Configuration
+
+**Media**
+- Add max_duration param to PlayerStreamer
+
+**Supersim**
+- Remove Commands resource, use SmsCommands resource instead **(breaking change)**
+
+**Taskrouter**
+- Add limits to `split_by_wait_time` for Cumulative Statistics Endpoint
+
+**Video**
+- Change recording `status_callback_method` type from `enum` to `http_method` **(breaking change)**
+- Add `status_callback` and `status_callback_method` to composition
+- Add `status_callback` and `status_callback_method` to recording
+
+
 [2022-03-09] Version 3.75.1
 ---------------------------
 **Library - Chore**

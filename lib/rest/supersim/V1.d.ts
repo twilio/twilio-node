@@ -7,8 +7,6 @@
 
 import Supersim = require('../Supersim');
 import Version = require('../../base/Version');
-import { CommandList } from './v1/command';
-import { CommandListInstance } from './v1/command';
 import { EsimProfileList } from './v1/esimProfile';
 import { EsimProfileListInstance } from './v1/esimProfile';
 import { FleetList } from './v1/fleet';
@@ -35,7 +33,6 @@ declare class V1 extends Version {
    */
   constructor(domain: Supersim);
 
-  readonly commands: CommandListInstance;
   readonly esimProfiles: EsimProfileListInstance;
   readonly fleets: FleetListInstance;
   readonly ipCommands: IpCommandListInstance;

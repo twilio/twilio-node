@@ -165,11 +165,13 @@ interface PlayerStreamerListInstance {
 /**
  * Options to pass to create
  *
+ * @property maxDuration - Maximum PlayerStreamer duration in seconds
  * @property statusCallback - The URL to which Twilio will send PlayerStreamer event updates
  * @property statusCallbackMethod - The HTTP method Twilio should use to call the `status_callback` URL
  * @property video - Whether the PlayerStreamer is configured to stream video
  */
 interface PlayerStreamerListInstanceCreateOptions {
+  maxDuration?: number;
   statusCallback?: string;
   statusCallbackMethod?: string;
   video?: boolean;
@@ -253,6 +255,7 @@ interface PlayerStreamerResource {
   date_updated: Date;
   ended_reason: PlayerStreamerEndedReason;
   links: string;
+  max_duration: number;
   sid: string;
   status: PlayerStreamerStatus;
   status_callback: string;
@@ -317,6 +320,7 @@ declare class PlayerStreamerInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: PlayerStreamerInstance) => any): Promise<PlayerStreamerInstance>;
   links: string;
+  maxDuration: number;
   /**
    * Access the playbackGrant
    */

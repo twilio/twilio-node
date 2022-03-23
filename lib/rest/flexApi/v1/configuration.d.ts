@@ -51,6 +51,7 @@ interface ConfigurationResource {
   attributes: object;
   call_recording_enabled: boolean;
   call_recording_webhook_url: string;
+  channel_configs: object[];
   chat_service_instance_sid: string;
   crm_attributes: object;
   crm_callback_url: string;
@@ -149,6 +150,7 @@ declare class ConfigurationInstance extends SerializableClass {
   attributes: any;
   callRecordingEnabled: boolean;
   callRecordingWebhookUrl: string;
+  channelConfigs: object[];
   chatServiceInstanceSid: string;
   /**
    * create a ConfigurationInstance

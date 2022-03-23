@@ -42,16 +42,10 @@ interface StreamListInstance {
   /**
    * create a StreamInstance
    *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: StreamInstance) => any): Promise<StreamInstance>;
-  /**
-   * create a StreamInstance
-   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: StreamListInstanceCreateOptions, callback?: (error: Error | null, item: StreamInstance) => any): Promise<StreamInstance>;
+  create(opts: StreamListInstanceCreateOptions, callback?: (error: Error | null, item: StreamInstance) => any): Promise<StreamInstance>;
   /**
    * Constructs a stream
    *
@@ -672,7 +666,7 @@ interface StreamListInstanceCreateOptions {
   statusCallback?: string;
   statusCallbackMethod?: string;
   track?: StreamTrack;
-  url?: string;
+  url: string;
 }
 
 interface StreamPayload extends StreamResource, Page.TwilioResponsePayload {

@@ -158,6 +158,8 @@ interface MediaRecordingListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property processorSid - MediaProcessor to filter by
+ * @property sourceSid - Source SID to filter by
  * @property status - Status to filter by
  */
 interface MediaRecordingListInstanceEachOptions {
@@ -166,6 +168,8 @@ interface MediaRecordingListInstanceEachOptions {
   limit?: number;
   order?: MediaRecordingOrder;
   pageSize?: number;
+  processorSid?: string;
+  sourceSid?: string;
   status?: MediaRecordingStatus;
 }
 
@@ -183,12 +187,16 @@ interface MediaRecordingListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property processorSid - MediaProcessor to filter by
+ * @property sourceSid - Source SID to filter by
  * @property status - Status to filter by
  */
 interface MediaRecordingListInstanceOptions {
   limit?: number;
   order?: MediaRecordingOrder;
   pageSize?: number;
+  processorSid?: string;
+  sourceSid?: string;
   status?: MediaRecordingStatus;
 }
 
@@ -199,6 +207,8 @@ interface MediaRecordingListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property processorSid - MediaProcessor to filter by
+ * @property sourceSid - Source SID to filter by
  * @property status - Status to filter by
  */
 interface MediaRecordingListInstancePageOptions {
@@ -206,6 +216,8 @@ interface MediaRecordingListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  processorSid?: string;
+  sourceSid?: string;
   status?: MediaRecordingStatus;
 }
 

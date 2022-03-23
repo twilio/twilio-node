@@ -11,6 +11,7 @@ import V1 = require('./flexApi/V1');
 import { ChannelListInstance } from './flexApi/v1/channel';
 import { ConfigurationListInstance } from './flexApi/v1/configuration';
 import { FlexFlowListInstance } from './flexApi/v1/flexFlow';
+import { InteractionListInstance } from './flexApi/v1/interaction';
 import { WebChannelListInstance } from './flexApi/v1/webChannel';
 
 
@@ -25,6 +26,7 @@ declare class FlexApi extends Domain {
   readonly channel: ChannelListInstance;
   readonly configuration: ConfigurationListInstance;
   readonly flexFlow: FlexFlowListInstance;
+  readonly interaction: InteractionListInstance;
   readonly v1: V1;
   readonly webChannel: WebChannelListInstance;
 }
