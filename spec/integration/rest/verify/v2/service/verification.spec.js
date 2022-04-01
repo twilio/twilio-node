@@ -66,22 +66,14 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -112,22 +104,14 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'whatsapp',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -158,22 +142,14 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': null,
-                  'mobile_country_code': null,
-                  'mobile_network_code': null,
-                  'type': null
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'EMAIL',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -204,22 +180,14 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -276,22 +244,14 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -322,22 +282,14 @@ describe('Verification', function() {
           'valid': true,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -391,22 +343,14 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'

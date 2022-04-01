@@ -267,6 +267,8 @@ interface CompositionResource {
   sid: string;
   size: number;
   status: CompositionStatus;
+  status_callback: string;
+  status_callback_method: string;
   trim: boolean;
   url: string;
   video_layout: object;
@@ -343,6 +345,8 @@ declare class CompositionInstance extends SerializableClass {
   sid: string;
   size: number;
   status: CompositionStatus;
+  statusCallback: string;
+  statusCallbackMethod: string;
   /**
    * Provide a user-friendly representation
    */

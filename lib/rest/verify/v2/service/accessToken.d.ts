@@ -53,11 +53,13 @@ interface AccessTokenListInstance {
  * @property factorFriendlyName - The factor friendly name
  * @property factorType - The Type of this Factor
  * @property identity - Unique external identifier of the Entity
+ * @property ttl - How long, in seconds, the access token is valid.
  */
 interface AccessTokenListInstanceCreateOptions {
   factorFriendlyName?: string;
   factorType: AccessTokenFactorTypes;
   identity: string;
+  ttl?: number;
 }
 
 interface AccessTokenPayload extends AccessTokenResource, Page.TwilioResponsePayload {
@@ -65,12 +67,14 @@ interface AccessTokenPayload extends AccessTokenResource, Page.TwilioResponsePay
 
 interface AccessTokenResource {
   account_sid: string;
+  date_created: Date;
   entity_identity: string;
   factor_friendly_name: string;
   factor_type: AccessTokenFactorTypes;
   service_sid: string;
   sid: string;
   token: string;
+  ttl: number;
   url: string;
 }
 
@@ -121,6 +125,7 @@ declare class AccessTokenInstance extends SerializableClass {
 
   private _proxy: AccessTokenContext;
   accountSid: string;
+  dateCreated: Date;
   entityIdentity: string;
   factorFriendlyName: string;
   factorType: AccessTokenFactorTypes;
@@ -137,6 +142,7 @@ declare class AccessTokenInstance extends SerializableClass {
    */
   toJSON(): any;
   token: string;
+  ttl: number;
   url: string;
 }
 

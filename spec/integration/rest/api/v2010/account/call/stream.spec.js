@@ -33,9 +33,10 @@ describe('Stream', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
+      var opts = {'url': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .streams.create();
+                                    .streams.create(opts);
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -47,9 +48,11 @@ describe('Stream', function() {
       var callSid = 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Streams.json`;
 
+      var values = {'Url': 'https://example.com', };
       holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
+          method: 'POST',
+          url: url,
+          data: values
       }));
     }
   );
@@ -67,9 +70,10 @@ describe('Stream', function() {
 
       holodeck.mock(new Response(201, body));
 
+      var opts = {'url': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .streams.create();
+                                    .streams.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -92,9 +96,10 @@ describe('Stream', function() {
 
       holodeck.mock(new Response(201, body));
 
+      var opts = {'url': 'https://example.com'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .streams.create();
+                                    .streams.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

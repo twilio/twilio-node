@@ -25,8 +25,6 @@ declare function FleetList(version: V1): FleetListInstance;
 /**
  * Options to pass to update
  *
- * @property commandsMethod - Deprecated
- * @property commandsUrl - Deprecated
  * @property ipCommandsMethod - A string representing the HTTP method to use when making a request to `ip_commands_url`
  * @property ipCommandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
@@ -35,8 +33,6 @@ declare function FleetList(version: V1): FleetListInstance;
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface FleetInstanceUpdateOptions {
-  commandsMethod?: string;
-  commandsUrl?: string;
   ipCommandsMethod?: string;
   ipCommandsUrl?: string;
   networkAccessProfile?: string;
@@ -168,9 +164,6 @@ interface FleetListInstance {
 /**
  * Options to pass to create
  *
- * @property commandsEnabled - Deprecated
- * @property commandsMethod - Deprecated
- * @property commandsUrl - Deprecated
  * @property dataEnabled - Defines whether SIMs in the Fleet are capable of using data connectivity
  * @property dataLimit - The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
  * @property ipCommandsMethod - A string representing the HTTP method to use when making a request to `ip_commands_url`
@@ -182,9 +175,6 @@ interface FleetListInstance {
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface FleetListInstanceCreateOptions {
-  commandsEnabled?: boolean;
-  commandsMethod?: string;
-  commandsUrl?: string;
   dataEnabled?: boolean;
   dataLimit?: number;
   ipCommandsMethod?: string;
@@ -264,9 +254,6 @@ interface FleetPayload extends FleetResource, Page.TwilioResponsePayload {
 
 interface FleetResource {
   account_sid: string;
-  commands_enabled: boolean;
-  commands_method: string;
-  commands_url: string;
   data_enabled: boolean;
   data_limit: number;
   data_metering: FleetDataMetering;
@@ -340,9 +327,6 @@ declare class FleetInstance extends SerializableClass {
 
   private _proxy: FleetContext;
   accountSid: string;
-  commandsEnabled: boolean;
-  commandsMethod: string;
-  commandsUrl: string;
   dataEnabled: boolean;
   dataLimit: number;
   dataMetering: FleetDataMetering;

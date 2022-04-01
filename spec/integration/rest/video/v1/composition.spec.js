@@ -110,6 +110,8 @@ describe('Composition', function() {
           'media_external_location': null,
           'encryption_key': null,
           'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status_callback': 'https://mycallbackurl.com',
+          'status_callback_method': 'POST',
           'links': {
               'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
           }
@@ -184,6 +186,8 @@ describe('Composition', function() {
                   'media_external_location': null,
                   'encryption_key': null,
                   'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status_callback': 'https://mycallbackurl.com',
+                  'status_callback_method': 'POST',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
                   }
@@ -261,6 +265,8 @@ describe('Composition', function() {
                   'media_external_location': null,
                   'encryption_key': null,
                   'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status_callback': 'https://mycallbackurl.com',
+                  'status_callback_method': 'POST',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
                   }
@@ -343,6 +349,8 @@ describe('Composition', function() {
                   'media_external_location': null,
                   'encryption_key': null,
                   'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status_callback': 'https://mycallbackurl.com',
+                  'status_callback_method': 'POST',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
                   }
@@ -492,6 +500,8 @@ describe('Composition', function() {
                   'media_external_location': null,
                   'encryption_key': null,
                   'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status_callback': 'https://mycallbackurl.com',
+                  'status_callback_method': 'POST',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
                   }
@@ -626,6 +636,8 @@ describe('Composition', function() {
           'media_external_location': null,
           'encryption_key': null,
           'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status_callback': 'https://mycallbackurl.com',
+          'status_callback_method': 'POST',
           'links': {
               'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
           }

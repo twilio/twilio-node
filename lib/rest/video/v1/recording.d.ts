@@ -248,6 +248,8 @@ interface RecordingResource {
   size: number;
   source_sid: string;
   status: RecordingStatus;
+  status_callback: string;
+  status_callback_method: string;
   track_name: string;
   type: RecordingType;
   url: string;
@@ -321,6 +323,8 @@ declare class RecordingInstance extends SerializableClass {
   size: number;
   sourceSid: string;
   status: RecordingStatus;
+  statusCallback: string;
+  statusCallbackMethod: string;
   /**
    * Provide a user-friendly representation
    */

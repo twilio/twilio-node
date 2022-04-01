@@ -9,6 +9,8 @@ import Media = require('../Media');
 import Version = require('../../base/Version');
 import { MediaProcessorList } from './v1/mediaProcessor';
 import { MediaProcessorListInstance } from './v1/mediaProcessor';
+import { MediaRecordingList } from './v1/mediaRecording';
+import { MediaRecordingListInstance } from './v1/mediaRecording';
 import { PlayerStreamerList } from './v1/playerStreamer';
 import { PlayerStreamerListInstance } from './v1/playerStreamer';
 
@@ -22,6 +24,7 @@ declare class V1 extends Version {
   constructor(domain: Media);
 
   readonly mediaProcessor: MediaProcessorListInstance;
+  readonly mediaRecording: MediaRecordingListInstance;
   readonly playerStreamer: PlayerStreamerListInstance;
 }
 

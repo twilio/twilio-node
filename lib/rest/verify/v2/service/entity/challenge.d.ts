@@ -36,9 +36,11 @@ declare function ChallengeList(version: V2, serviceSid: string, identity: string
  * Options to pass to update
  *
  * @property authPayload - Optional payload to verify the Challenge
+ * @property metadata - Metadata of the challenge.
  */
 interface ChallengeInstanceUpdateOptions {
   authPayload?: string;
+  metadata?: object;
 }
 
 interface ChallengeListInstance {
@@ -273,6 +275,7 @@ interface ChallengeResource {
   hidden_details: object;
   identity: string;
   links: string;
+  metadata: object;
   responded_reason: ChallengeChallengeReasons;
   service_sid: string;
   sid: string;
@@ -361,6 +364,7 @@ declare class ChallengeInstance extends SerializableClass {
   hiddenDetails: any;
   identity: string;
   links: string;
+  metadata: any;
   /**
    * Access the notifications
    */

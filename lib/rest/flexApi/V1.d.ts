@@ -13,6 +13,8 @@ import { ConfigurationList } from './v1/configuration';
 import { ConfigurationListInstance } from './v1/configuration';
 import { FlexFlowList } from './v1/flexFlow';
 import { FlexFlowListInstance } from './v1/flexFlow';
+import { InteractionList } from './v1/interaction';
+import { InteractionListInstance } from './v1/interaction';
 import { WebChannelList } from './v1/webChannel';
 import { WebChannelListInstance } from './v1/webChannel';
 
@@ -28,6 +30,7 @@ declare class V1 extends Version {
   readonly channel: ChannelListInstance;
   readonly configuration: ConfigurationListInstance;
   readonly flexFlow: FlexFlowListInstance;
+  readonly interaction: InteractionListInstance;
   readonly webChannel: WebChannelListInstance;
 }
 
