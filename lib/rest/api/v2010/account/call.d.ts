@@ -384,7 +384,6 @@ interface CallPayload extends CallResource, Page.TwilioResponsePayload {
 
 interface CallResource {
   account_sid: string;
-  annotation: string;
   answered_by: string;
   api_version: string;
   caller_name: string;
@@ -479,7 +478,6 @@ declare class CallInstance extends SerializableClass {
 
   private _proxy: CallContext;
   accountSid: string;
-  annotation: string;
   answeredBy: string;
   apiVersion: string;
   callerName: string;
