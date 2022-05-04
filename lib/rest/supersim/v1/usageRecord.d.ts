@@ -239,8 +239,10 @@ interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePay
 
 interface UsageRecordResource {
   account_sid: string;
+  billed_unit: string;
   data_download: number;
   data_total: number;
+  data_total_billed: number;
   data_upload: number;
   fleet_sid: string;
   iso_country: string;
@@ -266,8 +268,10 @@ declare class UsageRecordInstance extends SerializableClass {
   constructor(version: V1, payload: UsageRecordPayload);
 
   accountSid: string;
+  billedUnit: string;
   dataDownload: number;
   dataTotal: number;
+  dataTotalBilled: number;
   dataUpload: number;
   fleetSid: string;
   isoCountry: string;

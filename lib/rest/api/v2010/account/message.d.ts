@@ -183,7 +183,7 @@ interface MessageListInstance {
  * @property persistentAction - Rich actions for Channels Messages.
  * @property provideFeedback - Whether to confirm delivery of the message
  * @property scheduleType - Pass the value `fixed` to schedule a message at a fixed time.
- * @property sendAsMms - If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media
+ * @property sendAsMms - If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
  * @property sendAt - The time that Twilio will send the message. Must be in ISO 8601 format.
  * @property smartEncoded - Whether to detect Unicode characters that have a similar GSM-7 character and replace them
  * @property statusCallback - The URL we should call to send status information to your application

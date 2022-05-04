@@ -44,7 +44,7 @@ declare function ServiceList(version: V2): ServiceListInstance;
  * @property psd2Enabled - Whether to pass PSD2 transaction parameters when starting a verification
  * @property push.apnCredentialSid - Optional. Set APN Credential for this service.
  * @property push.fcmCredentialSid - Optional. Set FCM Credential for this service.
- * @property push.includeDate - Optional. Include the date in the Challenge's reponse. Default: true
+ * @property push.includeDate - Optional. Include the date in the Challenge's response. Default: false. **Deprecated** do not use this parameter.
  * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
  * @property totp.codeLength - Optional. Number of digits for generated TOTP codes
  * @property totp.issuer - Optional. Set TOTP Issuer for this service.
@@ -209,7 +209,7 @@ interface ServiceListInstance {
  * @property psd2Enabled - Whether to pass PSD2 transaction parameters when starting a verification
  * @property push.apnCredentialSid - Optional. Set APN Credential for this service.
  * @property push.fcmCredentialSid - Optional. Set FCM Credential for this service.
- * @property push.includeDate - Optional. Include the date in the Challenge's reponse. Default: true
+ * @property push.includeDate - Optional. Include the date in the Challenge's response. Default: false. **Deprecated** do not use this parameter.
  * @property skipSmsToLandlines - Whether to skip sending SMS verifications to landlines
  * @property totp.codeLength - Optional. Number of digits for generated TOTP codes
  * @property totp.issuer - Optional. Set TOTP Issuer for this service.

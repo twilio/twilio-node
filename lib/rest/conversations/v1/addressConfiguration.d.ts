@@ -220,12 +220,14 @@ interface AddressConfigurationListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property type - The type of address configuration.
  */
 interface AddressConfigurationListInstanceEachOptions {
   callback?: (item: AddressConfigurationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
+  type?: string;
 }
 
 /**
@@ -241,10 +243,12 @@ interface AddressConfigurationListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property type - The type of address configuration.
  */
 interface AddressConfigurationListInstanceOptions {
   limit?: number;
   pageSize?: number;
+  type?: string;
 }
 
 /**
@@ -253,11 +257,13 @@ interface AddressConfigurationListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property type - The type of address configuration.
  */
 interface AddressConfigurationListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  type?: string;
 }
 
 interface AddressConfigurationPayload extends AddressConfigurationResource, Page.TwilioResponsePayload {

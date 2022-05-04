@@ -33,8 +33,7 @@ describe('EsimProfile', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {'eid': 'eid'};
-      var promise = client.supersim.v1.esimProfiles.create(opts);
+      var promise = client.supersim.v1.esimProfiles.create();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,11 +43,9 @@ describe('EsimProfile', function() {
 
       var url = 'https://supersim.twilio.com/v1/ESimProfiles';
 
-      var values = {'Eid': 'eid', };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -59,9 +56,11 @@ describe('EsimProfile', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'iccid': null,
           'sim_sid': null,
-          'status': 'reserving',
+          'status': 'new',
           'eid': '89049032005008882600033489aaaaaa',
           'smdp_plus_address': null,
+          'matching_id': null,
+          'activation_code': null,
           'error_code': null,
           'error_message': null,
           'date_created': '2020-09-01T20:00:00Z',
@@ -71,8 +70,37 @@ describe('EsimProfile', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {'eid': 'eid'};
-      var promise = client.supersim.v1.esimProfiles.create(opts);
+      var promise = client.supersim.v1.esimProfiles.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create_activation_code response',
+    function(done) {
+      var body = {
+          'sid': 'HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'iccid': null,
+          'sim_sid': null,
+          'status': 'new',
+          'eid': null,
+          'smdp_plus_address': null,
+          'matching_id': null,
+          'activation_code': null,
+          'error_code': null,
+          'error_message': null,
+          'date_created': '2020-09-01T20:00:00Z',
+          'date_updated': '2020-09-01T20:00:00Z',
+          'url': 'https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.supersim.v1.esimProfiles.create();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -91,6 +119,8 @@ describe('EsimProfile', function() {
           'status': 'reserving',
           'eid': '89049032005008882600033489aaaaaa',
           'smdp_plus_address': null,
+          'matching_id': null,
+          'activation_code': null,
           'error_code': null,
           'error_message': null,
           'date_created': '2020-09-01T20:00:00Z',
@@ -100,8 +130,7 @@ describe('EsimProfile', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {'eid': 'eid'};
-      var promise = client.supersim.v1.esimProfiles.create(opts);
+      var promise = client.supersim.v1.esimProfiles.create();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -131,7 +160,7 @@ describe('EsimProfile', function() {
       }));
     }
   );
-  it('should generate valid fetch response',
+  it('should generate valid fetch_default_smdp response',
     function(done) {
       var body = {
           'sid': 'HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -140,7 +169,39 @@ describe('EsimProfile', function() {
           'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'available',
           'eid': '89049032005008882600033489aaaaaa',
-          'smdp_plus_address': 'https://sm-dp-plus.twilio.com',
+          'smdp_plus_address': 'sm-dp-plus.twilio.com',
+          'matching_id': null,
+          'activation_code': null,
+          'error_code': null,
+          'error_message': null,
+          'date_created': '2020-09-01T20:00:00Z',
+          'date_updated': '2020-09-01T20:00:00Z',
+          'url': 'https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.supersim.v1.esimProfiles('HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid fetch_activation_code response',
+    function(done) {
+      var body = {
+          'sid': 'HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'iccid': '8988307aaaaaaaaaaaaa',
+          'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'available',
+          'eid': null,
+          'smdp_plus_address': 'sm-dp-plus.twilio.com',
+          'matching_id': 'AAAAA-BBBBB-CCCCC-DDDDD-EEEEE',
+          'activation_code': '1$SM-DP-PLUS.TWILIO.COM$AAAAA-BBBBB-CCCCC-DDDDD-EEEEE',
           'error_code': null,
           'error_message': null,
           'date_created': '2020-09-01T20:00:00Z',
@@ -170,7 +231,9 @@ describe('EsimProfile', function() {
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'available',
                   'eid': '89049032005008882600033489aaaaaa',
-                  'smdp_plus_address': 'https://sm-dp-plus.twilio.com',
+                  'smdp_plus_address': 'sm-dp-plus.twilio.com',
+                  'matching_id': null,
+                  'activation_code': null,
                   'error_code': null,
                   'error_message': null,
                   'date_created': '2020-09-01T20:00:00Z',
@@ -203,7 +266,9 @@ describe('EsimProfile', function() {
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'available',
                   'eid': '89049032005008882600033489aaaaaa',
-                  'smdp_plus_address': 'https://sm-dp-plus.twilio.com',
+                  'smdp_plus_address': 'sm-dp-plus.twilio.com',
+                  'matching_id': null,
+                  'activation_code': null,
                   'error_code': null,
                   'error_message': null,
                   'date_created': '2020-09-01T20:00:00Z',
@@ -241,7 +306,9 @@ describe('EsimProfile', function() {
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'available',
                   'eid': '89049032005008882600033489aaaaaa',
-                  'smdp_plus_address': 'https://sm-dp-plus.twilio.com',
+                  'smdp_plus_address': 'sm-dp-plus.twilio.com',
+                  'matching_id': null,
+                  'activation_code': null,
                   'error_code': null,
                   'error_message': null,
                   'date_created': '2020-09-01T20:00:00Z',
@@ -294,7 +361,9 @@ describe('EsimProfile', function() {
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'available',
                   'eid': '89049032005008882600033489aaaaaa',
-                  'smdp_plus_address': 'https://sm-dp-plus.twilio.com',
+                  'smdp_plus_address': 'sm-dp-plus.twilio.com',
+                  'matching_id': null,
+                  'activation_code': null,
                   'error_code': null,
                   'error_message': null,
                   'date_created': '2020-09-01T20:00:00Z',
@@ -335,7 +404,9 @@ describe('EsimProfile', function() {
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'available',
                   'eid': '89049032005008882600033489aaaaaa',
-                  'smdp_plus_address': 'https://sm-dp-plus.twilio.com',
+                  'smdp_plus_address': 'sm-dp-plus.twilio.com',
+                  'matching_id': null,
+                  'activation_code': null,
                   'error_code': null,
                   'error_message': null,
                   'date_created': '2020-09-01T20:00:00Z',
@@ -376,7 +447,9 @@ describe('EsimProfile', function() {
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'available',
                   'eid': '89049032005008882600033489aaaaaa',
-                  'smdp_plus_address': 'https://sm-dp-plus.twilio.com',
+                  'smdp_plus_address': 'sm-dp-plus.twilio.com',
+                  'matching_id': null,
+                  'activation_code': null,
                   'error_code': null,
                   'error_message': null,
                   'date_created': '2020-09-01T20:00:00Z',
@@ -417,7 +490,9 @@ describe('EsimProfile', function() {
                   'sim_sid': 'HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'downloaded',
                   'eid': '89049032005008882600033489aaaaaa',
-                  'smdp_plus_address': 'https://sm-dp-plus.twilio.com',
+                  'smdp_plus_address': 'sm-dp-plus.twilio.com',
+                  'matching_id': null,
+                  'activation_code': null,
                   'error_code': null,
                   'error_message': null,
                   'date_created': '2020-09-01T20:00:00Z',

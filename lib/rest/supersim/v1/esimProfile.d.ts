@@ -30,10 +30,16 @@ interface EsimProfileListInstance {
   /**
    * create a EsimProfileInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: EsimProfileInstance) => any): Promise<EsimProfileInstance>;
+  /**
+   * create a EsimProfileInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: EsimProfileListInstanceCreateOptions, callback?: (error: Error | null, item: EsimProfileInstance) => any): Promise<EsimProfileInstance>;
+  create(opts?: EsimProfileListInstanceCreateOptions, callback?: (error: Error | null, item: EsimProfileInstance) => any): Promise<EsimProfileInstance>;
   /**
    * Streams EsimProfileInstance records from the API.
    *
@@ -152,7 +158,7 @@ interface EsimProfileListInstance {
 interface EsimProfileListInstanceCreateOptions {
   callbackMethod?: string;
   callbackUrl?: string;
-  eid: string;
+  eid?: string;
 }
 
 /**
