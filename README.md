@@ -40,13 +40,13 @@ If your environment requires SSL decryption, you can set the path to CA bundle i
 
 ### Lazy Loading
 
-`twilio-node` supports lazy loading required modules for faster loading time. Lazy loading is disabled by default. To enable lazy loading, simply instantiate the Twilio client with the `lazyLoading` flag set to `true`:
+`twilio-node` supports lazy loading required modules for faster loading time. Lazy loading is enabled by default. To disable lazy loading, simply instantiate the Twilio client with the `lazyLoading` flag set to `false`:
 ```javascript
 var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
 var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken, {
-    lazyLoading: true
+    lazyLoading: false
 });
 ```
 
