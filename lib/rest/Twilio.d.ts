@@ -157,7 +157,7 @@ declare namespace Twilio {
    * @property edge - Twilio edge to use. Defaults to none
    * @property env - The environment object. Defaults to process.env
    * @property httpClient - The client used for http requests. Defaults to RequestClient
-   * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled
+   * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled. Defaults to true
    * @property logLevel - Debug logs will be shown. Defaults to none
    * @property region - Twilio region to use. Defaults to us1 if edge defined
    * @property userAgentExtensions - Additions to the user agent string
