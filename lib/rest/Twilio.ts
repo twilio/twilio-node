@@ -1,10 +1,234 @@
 'use strict'
 
+import RequestClient from '../base/RequestClient'; /* jshint ignore:line */
+import { HttpMethod } from '../interfaces'; /* jshint ignore:line */
+
 var os = require('os');  /* jshint ignore:line */
 var url = require('url');  /* jshint ignore:line */
 var moduleInfo = require('../../package.json');  /* jshint ignore:line */
 var util = require('util');  /* jshint ignore:line */
 var RestException = require('../base/RestException');  /* jshint ignore:line */
+
+interface opts {
+  httpClient?: RequestClient
+  accountSid?: string
+  env?: NodeJS.ProcessEnv
+  edge?: string
+  region?: string
+  lazyLoading?: boolean
+  logLevel?: string
+  userAgentExtensions?: string[]
+}
+
+interface requestOpts {
+  method?: HttpMethod
+  uri?: string
+  username?: string
+  password?: string
+  headers?: Headers
+  params?: object
+  data?: object
+  timeout?: number
+  allowRedirects?: boolean
+  logLevel?: string
+}
+
+/* jshint ignore:start */
+/**
+ * Parent class for Twilio Client that implements request & validation logic
+ *
+ * @constructor BaseTwilio
+ *
+ * @param {string} username -
+ *          The username used for authentication. This is normally account sid, but if using key/secret auth will be
+ *          the api key sid.
+ * @param {string} password -
+ *          The password used for authentication. This is normally auth token, but if using key/secret auth will be
+ *          the secret.
+ * @param {opts} [opts] - The options argument
+ *
+ * @returns {BaseTwilio} A new instance of BaseTwilio
+ */
+/* jshint ignore:end */
+
+class BaseTwilio {
+  username: string
+  password: string
+  accountSid: string
+  opts: opts
+  env: NodeJS.ProcessEnv
+  edge: string
+  region: string
+  logLevel: string
+  userAgentExtensions: string[]
+  httpClient: RequestClient
+  _httpClient: RequestClient
+
+  constructor(username: string, password: string, opts: opts) {
+    this.opts = opts;
+    this.env = this.opts.env || process.env;
+    this.username = username || this.env.TWILIO_ACCOUNT_SID;
+    this.password = password || this.env.TWILIO_AUTH_TOKEN;
+    this.accountSid = this.opts.accountSid || this.username;
+    this.edge = this.opts.edge || this.env.TWILIO_EDGE;
+    this.region = this.opts.region || this.env.TWILIO_REGION;
+    this.logLevel = this.opts.logLevel || this.env.TWILIO_LOG_LEVEL;
+    this.userAgentExtensions = this.opts.userAgentExtensions || [];
+    this._httpClient = this.opts.httpClient;
+
+    if (!this.opts.lazyLoading) {
+      this.httpClient = this.httpClient;
+    }
+
+    if (!this.username) {
+      throw new Error('username is required');
+    }
+
+    if (!this.password) {
+      throw new Error('password is required');
+    }
+
+    if (!this.accountSid.startsWith('AC')) {
+      throw new Error('accountSid must start with AC');
+    }
+  }
+
+/* jshint ignore:start */
+/**
+ * Makes a request to the Twilio API using the configured http client.
+ * Authentication information is automatically added if none is provided.
+ *
+ * @function request
+ * @memberof BaseTwilio#
+ *
+ * @param {requestOpts} opts - The options argument
+ */
+/* jshint ignore:end */
+
+  request(opts: requestOpts) {
+    opts = opts || {};
+
+    if (!opts.method) {
+      throw new Error('method is required');
+    }
+
+    if (!opts.uri) {
+      throw new Error('uri is required');
+    }
+
+    var username = opts.username || this.username;
+    var password = opts.password || this.password;
+
+    var headers = opts.headers || {};
+
+    var pkgVersion = moduleInfo.version;
+    var osName = os.platform();
+    var osArch = os.arch();
+    var nodeVersion = process.version;
+
+    headers['User-Agent'] = util.format(
+      'twilio-node/%s (%s %s) node/%s',
+      pkgVersion,
+      osName,
+      osArch,
+      nodeVersion
+    );
+    this.userAgentExtensions.forEach(extension => {
+      headers['User-Agent'] += ` ${extension}`;
+    });
+    headers['Accept-Charset'] = 'utf-8';
+
+    if (opts.method === 'post' && !headers['Content-Type']) {
+      headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    }
+
+    if (!headers['Accept']) {
+      headers['Accept'] = 'application/json';
+    }
+
+    var uri = new url.URL(opts.uri);
+    uri.hostname = this.getHostname(uri.hostname, this.edge, this.region);
+
+    return this.httpClient.request({
+      method: opts.method,
+      uri: uri.href,
+      username: username,
+      password: password,
+      headers: headers,
+      params: opts.params,
+      data: opts.data,
+      timeout: opts.timeout,
+      allowRedirects: opts.allowRedirects,
+    });
+  }
+
+/* jshint ignore:start */
+/**
+ * Adds a region and/or edge to a given hostname
+ *
+ * @function getHostname
+ * @memberof BaseTwilio#
+ *
+ * @param {string} hostname - A URI hostname (e.g. api.twilio.com)
+ * @param {string} targetEdge - The targeted edge location (e.g. sydney)
+ * @param {string} targetRegion - The targeted region location (e.g. au1)
+ */
+/* jshint ignore:end */
+
+  getHostname(hostname: string, targetEdge: string, targetRegion: string) {
+    const defaultRegion = 'us1';
+
+    const domain = hostname.split('.').slice(-2).join('.');
+    const prefix = hostname.split('.' + domain)[0];
+    let [product, edge, region] = prefix.split('.');
+    if (edge && !region) {
+      region = edge;
+      edge = undefined;
+    }
+
+    region = targetRegion || region || (targetEdge && defaultRegion);
+    if (!region) {
+      return hostname;
+    }
+    edge = targetEdge || edge;
+
+    return [product, edge, region, domain].filter(part => part).join('.');
+  }
+/* jshint ignore:start */
+/**
+ * Validates that a request to the new SSL certificate is successful.
+ *
+ * @throws {RestException} if the request fails
+ *
+ * @function validateSslCert
+ * @memberof BaseTwilio#
+ */
+/* jshint ignore:end */
+
+  validateSslCert() {
+    return this._httpClient.request({
+      method: 'get',
+      uri: 'https://api.twilio.com:8443/2010-04-01/.json',
+    }).then((response) => {
+      if (response['statusCode'] < 200 || response['statusCode'] >= 300) {
+        throw new RestException(response);
+      }
+
+      return response;
+    });
+  }
+}
+
+Object.defineProperty(BaseTwilio.prototype,
+  'httpClient', {
+    get: function() {
+      if (!this._httpClient) {
+        var RequestClient = require('../base/RequestClient');  /* jshint ignore:line */
+        this._httpClient = new RequestClient();
+      }
+      return this._httpClient;
+    }
+});
 
 /* jshint ignore:start */
 /**
@@ -52,275 +276,136 @@ var RestException = require('../base/RestException');  /* jshint ignore:line */
  *          The username used for authentication. This is normally account sid, but if using key/secret auth will be the api key sid.
  * @param {string} password -
  *          The password used for authentication. This is normally auth token, but if using key/secret auth will be the secret.
- * @param {object} [opts] - The options argument
- * @param {RequestClient} [opts.httpClient] -
- *          The client used for http requests. Defaults to RequestClient
- * @param {string} [opts.accountSid] -
- *          The default accountSid. This is set to username if not provided
- * @param {object} [opts.env] - The environment object. Defaults to process.env
- * @param {string} [opts.edge] - Twilio edge to use. Defaults to none
- * @param {string} [opts.region] -
- *          Twilio region to use. Defaults to us1 if edge defined
- * @param {boolean} [opts.lazyLoading] -
- *          Enable lazy loading, loading time will decrease if enabled
- * @param {string} [opts.logLevel] - Debug logs will be shown. Defaults to none
- * @param {string[]} [opts.userAgentExtensions] -
- *          Additions to the user agent string
+ * @param {opts} [opts] - The options argument
  *
  * @returns {Twilio} A new instance of Twilio client
  */
 /* jshint ignore:end */
 
-function Twilio(username, password, opts) {
-  opts = opts || {};
-  var env = opts.env || process.env;
 
-  this.username = username || env.TWILIO_ACCOUNT_SID;
-  this.password = password || env.TWILIO_AUTH_TOKEN;
-  this.accountSid = opts.accountSid || this.username;
-  this._httpClient = opts.httpClient;
-  if (!opts.lazyLoading) {
-    this._httpClient = this.httpClient;
-  }
-  this.edge = opts.edge || env.TWILIO_EDGE;
-  this.region = opts.region || env.TWILIO_REGION;
-  this.logLevel = opts.logLevel || env.TWILIO_LOG_LEVEL;
-  this.userAgentExtensions = opts.userAgentExtensions || [];
+class Twilio extends BaseTwilio {
+  username: string
+  password: string
+  opts: opts
+  _numbersv2: any
+  _chatv1: any
+  _conversationsv1: any
+  _bulkexportsv1: any
+  _insightsv1: any
+  _trusthubv1: any
+  _flexv1: any
+  _videov1: any
+  _frontlinev1: any
+  _trunkingv1: any
+  _notifyv1: any
+  _pricingv2: any
+  _api: any
+  _studiov1: any
+  _supersimv1: any
+  _monitorv1: any
+  _verifyv2: any
+  _eventsv1: any
+  _voicev1: any
+  _ipmessagingv1: any
+  _mediav1: any
+  _faxv1: any
+  _serverlessv1: any
+  _syncv1: any
+  _studiov2: any
+  _chatv2: any
+  _accountsv1: any
+  _chatv3: any
+  _messagingv1: any
+  _lookupsv1: any
+  _autopilotv1: any
+  _taskrouterv1: any
+  _wirelessv1: any
+  _proxyv1: any
+  _ipmessagingv2: any
+  _pricingv1: any
 
-  if (!this.username) {
-    throw new Error('username is required');
-  }
+  constructor(username: string, password: string, opts: opts) {
+    super(username, password, opts);
 
-  if (!this.password) {
-    throw new Error('password is required');
-  }
-
-  if (!this.accountSid.startsWith('AC')) {
-    throw new Error('accountSid must start with AC');
-  }
-
-    // Domains
-      this._numbersv2 = undefined
-      this._chatv1 = undefined
-      this._conversationsv1 = undefined
-      this._bulkexportsv1 = undefined
-      this._insightsv1 = undefined
-      this._trusthubv1 = undefined
-      this._flexv1 = undefined
-      this._videov1 = undefined
-      this._frontlinev1 = undefined
-      this._trunkingv1 = undefined
-      this._notifyv1 = undefined
-      this._pricingv2 = undefined
-      this._api = undefined
-      this._studiov1 = undefined
-      this._supersimv1 = undefined
-      this._monitorv1 = undefined
-      this._verifyv2 = undefined
-      this._eventsv1 = undefined
-      this._voicev1 = undefined
-      this._ipmessagingv1 = undefined
-      this._mediav1 = undefined
-      this._faxv1 = undefined
-      this._serverlessv1 = undefined
-      this._syncv1 = undefined
-      this._studiov2 = undefined
-      this._chatv2 = undefined
-      this._accountsv1 = undefined
-      this._chatv3 = undefined
-      this._messagingv1 = undefined
-      this._lookupsv1 = undefined
-      this._autopilotv1 = undefined
-      this._taskrouterv1 = undefined
-      this._wirelessv1 = undefined
-      this._proxyv1 = undefined
-      this._ipmessagingv2 = undefined
-      this._pricingv1 = undefined
+    //Domains
+    this._numbersv2 = undefined
+    this._chatv1 = undefined
+    this._conversationsv1 = undefined
+    this._bulkexportsv1 = undefined
+    this._insightsv1 = undefined
+    this._trusthubv1 = undefined
+    this._flexv1 = undefined
+    this._videov1 = undefined
+    this._frontlinev1 = undefined
+    this._trunkingv1 = undefined
+    this._notifyv1 = undefined
+    this._pricingv2 = undefined
+    this._api = undefined
+    this._studiov1 = undefined
+    this._supersimv1 = undefined
+    this._monitorv1 = undefined
+    this._verifyv2 = undefined
+    this._eventsv1 = undefined
+    this._voicev1 = undefined
+    this._ipmessagingv1 = undefined
+    this._mediav1 = undefined
+    this._faxv1 = undefined
+    this._serverlessv1 = undefined
+    this._syncv1 = undefined
+    this._studiov2 = undefined
+    this._chatv2 = undefined
+    this._accountsv1 = undefined
+    this._chatv3 = undefined
+    this._messagingv1 = undefined
+    this._lookupsv1 = undefined
+    this._autopilotv1 = undefined
+    this._taskrouterv1 = undefined
+    this._wirelessv1 = undefined
+    this._proxyv1 = undefined
+    this._ipmessagingv2 = undefined
+    this._pricingv1 = undefined
 
     if (!opts.lazyLoading) {
-          this.numbersv2
-          this.chatv1
-          this.conversationsv1
-          this.bulkexportsv1
-          this.insightsv1
-          this.trusthubv1
-          this.flexv1
-          this.videov1
-          this.frontlinev1
-          this.trunkingv1
-          this.notifyv1
-          this.pricingv2
-          this.api
-          this.studiov1
-          this.supersimv1
-          this.monitorv1
-          this.verifyv2
-          this.eventsv1
-          this.voicev1
-          this.ipmessagingv1
-          this.mediav1
-          this.faxv1
-          this.serverlessv1
-          this.syncv1
-          this.studiov2
-          this.chatv2
-          this.accountsv1
-          this.chatv3
-          this.messagingv1
-          this.lookupsv1
-          this.autopilotv1
-          this.taskrouterv1
-          this.wirelessv1
-          this.proxyv1
-          this.ipmessagingv2
-          this.pricingv1
+        this._numbersv2
+        this._chatv1
+        this._conversationsv1
+        this._bulkexportsv1
+        this._insightsv1
+        this._trusthubv1
+        this._flexv1
+        this._videov1
+        this._frontlinev1
+        this._trunkingv1
+        this._notifyv1
+        this._pricingv2
+        this._api
+        this._studiov1
+        this._supersimv1
+        this._monitorv1
+        this._verifyv2
+        this._eventsv1
+        this._voicev1
+        this._ipmessagingv1
+        this._mediav1
+        this._faxv1
+        this._serverlessv1
+        this._syncv1
+        this._studiov2
+        this._chatv2
+        this._accountsv1
+        this._chatv3
+        this._messagingv1
+        this._lookupsv1
+        this._autopilotv1
+        this._taskrouterv1
+        this._wirelessv1
+        this._proxyv1
+        this._ipmessagingv2
+        this._pricingv1
     }
+
+  }
 }
-
-/* jshint ignore:start */
-/**
- * Makes a request to the Twilio API using the configured http client.
- * Authentication information is automatically added if none is provided.
- *
- * @function request
- * @memberof Twilio#
- *
- * @param {object} opts - The options argument
- * @param {string} opts.method - The http method
- * @param {string} opts.uri - The request uri
- * @param {string} [opts.username] - The username used for auth
- * @param {string} [opts.password] - The password used for auth
- * @param {object} [opts.headers] - The request headers
- * @param {object} [opts.params] - The request params
- * @param {object} [opts.data] - The request data
- * @param {int} [opts.timeout] - The request timeout in milliseconds
- * @param {boolean} [opts.allowRedirects] - Should the client follow redirects
- * @param {string} [opts.logLevel] - Show debug logs
- */
-/* jshint ignore:end */
-Twilio.prototype.request = function request(opts) {
-  opts = opts || {};
-
-  if (!opts.method) {
-    throw new Error('method is required');
-  }
-
-  if (!opts.uri) {
-    throw new Error('uri is required');
-  }
-
-  var username = opts.username || this.username;
-  var password = opts.password || this.password;
-
-  var headers = opts.headers || {};
-
-  var pkgVersion = moduleInfo.version;
-  var osName = os.platform();
-  var osArch = os.arch();
-  var nodeVersion = process.version;
-  headers['User-Agent'] = util.format(
-    'twilio-node/%s (%s %s) node/%s',
-    pkgVersion,
-    osName,
-    osArch,
-    nodeVersion
-  );
-  this.userAgentExtensions.forEach(extension => {
-    headers['User-Agent'] += ` ${extension}`;
-  });
-  headers['Accept-Charset'] = 'utf-8';
-
-  if (opts.method === 'POST' && !headers['Content-Type']) {
-    headers['Content-Type'] = 'application/x-www-form-urlencoded';
-  }
-
-  if (!headers.Accept) {
-    headers.Accept = 'application/json';
-  }
-
-  var uri = new url.URL(opts.uri);
-  uri.hostname = this.getHostname(uri.hostname, this.edge, this.region);
-
-  return this.httpClient.request({
-    method: opts.method,
-    uri: uri.href,
-    username: username,
-    password: password,
-    headers: headers,
-    params: opts.params,
-    data: opts.data,
-    timeout: opts.timeout,
-    allowRedirects: opts.allowRedirects,
-    logLevel: opts.logLevel || this.logLevel
-  });
-};
-
-/* jshint ignore:start */
-/**
- * Adds a region and/or edge to a given hostname
- *
- * @function getHostname
- * @memberof Twilio#
- *
- * @param {string} hostname - A URI hostname (e.g. api.twilio.com)
- * @param {string} targetEdge - The targeted edge location (e.g. sydney)
- * @param {string} targetRegion - The targeted region location (e.g. au1)
- */
-/* jshint ignore:end */
-Twilio.prototype.getHostname = function getHostname(hostname, targetEdge,
-                                                     targetRegion) {
-  const defaultRegion = 'us1';
-
-  const domain = hostname.split('.').slice(-2).join('.');
-  const prefix = hostname.split('.' + domain)[0];
-  let [product, edge, region] = prefix.split('.');
-  if (edge && !region) {
-    region = edge;
-    edge = undefined;
-  }
-
-  region = targetRegion || region || (targetEdge && defaultRegion);
-  if (!region) {
-    return hostname;
-  }
-  edge = targetEdge || edge;
-
-  return [product, edge, region, domain].filter(part => part).join('.');
-};
-
-/* jshint ignore:start */
-/**
- * Validates that a request to the new SSL certificate is successful.
- *
- * @throws {RestException} if the request fails
- *
- * @function validateSslCert
- * @memberof Twilio#
- */
-/* jshint ignore:end */
-Twilio.prototype.validateSslCert = function validateSslCert() {
-  return this.httpClient.request({
-    method: 'GET',
-    uri: 'https://api.twilio.com:8443/2010-04-01/.json',
-  }).then((response) => {
-    if (response.statusCode < 200 || response.statusCode >= 300) {
-      throw new RestException(response);
-    }
-
-    return response;
-  });
-};
-
-Object.defineProperty(Twilio.prototype,
-  'httpClient', {
-    get: function() {
-      if (!this._httpClient) {
-        var RequestClient = require('../base/RequestClient');  /* jshint ignore:line */
-        this._httpClient = new RequestClient();
-      }
-      return this._httpClient;
-    }
-});
 
 Object.defineProperty(Twilio.prototype,
 'numbersv2', {
