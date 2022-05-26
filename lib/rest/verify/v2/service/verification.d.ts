@@ -10,7 +10,7 @@ import Response = require('../../../../http/response');
 import V2 = require('../../V2');
 import { SerializableClass } from '../../../../interfaces';
 
-type VerificationChannel = 'sms'|'call'|'email'|'whatsapp';
+type VerificationChannel = 'sms'|'call'|'email'|'whatsapp'|'silent';
 
 type VerificationStatus = 'canceled'|'approved';
 
