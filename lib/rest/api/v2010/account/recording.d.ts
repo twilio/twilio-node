@@ -255,7 +255,6 @@ interface RecordingResource {
   duration: string;
   encryption_details: object;
   error_code: number;
-  media_url: string;
   price: string;
   price_unit: string;
   sid: string;
@@ -348,7 +347,6 @@ declare class RecordingInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(opts?: RecordingInstanceFetchOptions, callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
-  mediaUrl: string;
   price: string;
   priceUnit: string;
   /**

@@ -9,7 +9,7 @@ var moduleInfo = require('../../package.json');  /* jshint ignore:line */
 var util = require('util');  /* jshint ignore:line */
 var RestException = require('../base/RestException');  /* jshint ignore:line */
 
-export interface opts {
+export interface clientOpts {
     httpClient?: RequestClient
     accountSid?: string
     env?: NodeJS.ProcessEnv
@@ -45,7 +45,7 @@ interface requestOpts {
  * @param {string} password -
  *          The password used for authentication. This is normally auth token, but if using key/secret auth will be
  *          the secret.
- * @param {opts} [opts] - The options argument
+ * @param {clientOpts} [opts] - The options argument
  *
  * @returns {BaseTwilio} A new instance of BaseTwilio
  */
@@ -55,7 +55,7 @@ export class BaseTwilio {
     username: string
     password: string
     accountSid: string
-    opts: opts
+    opts: clientOpts
     env: NodeJS.ProcessEnv
     edge: string
     region: string
@@ -63,7 +63,7 @@ export class BaseTwilio {
     userAgentExtensions: string[]
     _httpClient: RequestClient
 
-    constructor(username: string, password: string, opts: opts) {
+    constructor(username: string, password: string, opts: clientOpts) {
         this.opts = opts;
         this.env = this.opts.env || process.env;
         this.username = username || this.env.TWILIO_ACCOUNT_SID;
@@ -214,7 +214,7 @@ export class BaseTwilio {
     /* jshint ignore:end */
 
     validateSslCert() {
-        return this._httpClient.request({
+        return this.httpClient.request({
             method: 'get',
             uri: 'https://api.twilio.com:8443/2010-04-01/.json',
         }).then((response) => {
