@@ -20,7 +20,7 @@ export interface clientOpts {
     userAgentExtensions?: string[]
 }
 
-interface requestOpts {
+export interface requestOpts {
     method?: HttpMethod
     uri?: string
     username?: string
