@@ -3,13 +3,13 @@
 import RequestClient from '../base/RequestClient'; /* jshint ignore:line */
 import { HttpMethod } from '../interfaces'; /* jshint ignore:line */
 
-var os = require('os');  /* jshint ignore:line */
-var url = require('url');  /* jshint ignore:line */
-var moduleInfo = require('../../package.json');  /* jshint ignore:line */
-var util = require('util');  /* jshint ignore:line */
-var RestException = require('../base/RestException');  /* jshint ignore:line */
+const os = require('os');  /* jshint ignore:line */
+const url = require('url');  /* jshint ignore:line */
+const moduleInfo = require('../../package.json');  /* jshint ignore:line */
+const util = require('util');  /* jshint ignore:line */
+const RestException = require('../base/RestException');  /* jshint ignore:line */
 
-export interface clientOpts {
+export interface ClientOpts {
     httpClient?: RequestClient
     accountSid?: string
     env?: NodeJS.ProcessEnv
@@ -20,7 +20,7 @@ export interface clientOpts {
     userAgentExtensions?: string[]
 }
 
-export interface requestOpts {
+export interface RequestOpts {
     method?: HttpMethod
     uri?: string
     username?: string
@@ -45,7 +45,7 @@ export interface requestOpts {
  * @param {string} password -
  *          The password used for authentication. This is normally auth token, but if using key/secret auth will be
  *          the secret.
- * @param {clientOpts} [opts] - The options argument
+ * @param {ClientOpts} [opts] - The options argument
  *
  * @returns {BaseTwilio} A new instance of BaseTwilio
  */
@@ -55,7 +55,7 @@ export class BaseTwilio {
     username: string
     password: string
     accountSid: string
-    opts: clientOpts
+    opts: ClientOpts
     env: NodeJS.ProcessEnv
     edge: string
     region: string
@@ -63,7 +63,7 @@ export class BaseTwilio {
     userAgentExtensions: string[]
     _httpClient: RequestClient
 
-    constructor(username: string, password: string, opts: clientOpts) {
+    constructor(username: string, password: string, opts: ClientOpts) {
         this.opts = opts;
         this.env = this.opts.env || process.env;
         this.username = username || this.env.TWILIO_ACCOUNT_SID;
@@ -75,7 +75,7 @@ export class BaseTwilio {
         this.userAgentExtensions = this.opts.userAgentExtensions || [];
         this._httpClient = this.opts.httpClient;
 
-        if (!this.opts.lazyLoading) {
+        if (this.opts.lazyLoading === false) {
             this._httpClient = this.httpClient;
         }
 
@@ -94,7 +94,7 @@ export class BaseTwilio {
 
     get httpClient() {
         if (!this._httpClient) {
-            var RequestClient = require('../base/RequestClient');  /* jshint ignore:line */
+            const RequestClient = require('../base/RequestClient');  /* jshint ignore:line */
             this._httpClient = new RequestClient();
         }
         return this._httpClient;
@@ -108,11 +108,11 @@ export class BaseTwilio {
      * @function request
      * @memberof BaseTwilio#
      *
-     * @param {requestOpts} opts - The options argument
+     * @param {RequestOpts} opts - The options argument
      */
     /* jshint ignore:end */
 
-    request(opts: requestOpts) {
+    request(opts: RequestOpts) {
         opts = opts || {};
 
         if (!opts.method) {
@@ -123,15 +123,15 @@ export class BaseTwilio {
             throw new Error('uri is required');
         }
 
-        var username = opts.username || this.username;
-        var password = opts.password || this.password;
+        const username = opts.username || this.username;
+        const password = opts.password || this.password;
 
-        var headers = opts.headers || {};
+        const headers = opts.headers || {};
 
-        var pkgVersion = moduleInfo.version;
-        var osName = os.platform();
-        var osArch = os.arch();
-        var nodeVersion = process.version;
+        const pkgVersion = moduleInfo.version;
+        const osName = os.platform();
+        const osArch = os.arch();
+        const nodeVersion = process.version;
 
         headers['User-Agent'] = util.format(
             'twilio-node/%s (%s %s) node/%s',
