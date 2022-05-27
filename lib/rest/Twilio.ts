@@ -117,7 +117,7 @@ export class Twilio extends BaseTwilio {
   constructor(username: string, password: string, opts: ClientOpts) {
     super(username, password, opts);
 
-    if (!opts.lazyLoading) {
+    if (this.opts.lazyLoading === false) {
         this.accountsv1;
         this.api;
         this.autopilotv1;
