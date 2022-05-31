@@ -7,42 +7,36 @@ import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
  * Twilio Client to interact with the Rest API
  *
  * @constructor Twilio
- * @property (Twilio.AccountsV1) accountsv1 - accountsv1 domain
+ * @property (Twilio.Accounts) accounts - accounts domain
  * @property (Twilio.Api) api - api domain
- * @property (Twilio.AutopilotV1) autopilotv1 - autopilotv1 domain
- * @property (Twilio.BulkexportsV1) bulkexportsv1 - bulkexportsv1 domain
- * @property (Twilio.ChatV1) chatv1 - chatv1 domain
- * @property (Twilio.ChatV2) chatv2 - chatv2 domain
- * @property (Twilio.ChatV3) chatv3 - chatv3 domain
- * @property (Twilio.ConversationsV1) conversationsv1 - conversationsv1 domain
- * @property (Twilio.EventsV1) eventsv1 - eventsv1 domain
- * @property (Twilio.FaxV1) faxv1 - faxv1 domain
- * @property (Twilio.FlexV1) flexv1 - flexv1 domain
- * @property (Twilio.FrontlineV1) frontlinev1 - frontlinev1 domain
- * @property (Twilio.InsightsV1) insightsv1 - insightsv1 domain
- * @property (Twilio.IpMessagingV1) ipmessagingv1 - ipmessagingv1 domain
- * @property (Twilio.IpMessagingV2) ipmessagingv2 - ipmessagingv2 domain
- * @property (Twilio.LookupsV1) lookupsv1 - lookupsv1 domain
- * @property (Twilio.MediaV1) mediav1 - mediav1 domain
- * @property (Twilio.MessagingV1) messagingv1 - messagingv1 domain
- * @property (Twilio.MonitorV1) monitorv1 - monitorv1 domain
- * @property (Twilio.NotifyV1) notifyv1 - notifyv1 domain
- * @property (Twilio.NumbersV2) numbersv2 - numbersv2 domain
- * @property (Twilio.PricingV1) pricingv1 - pricingv1 domain
- * @property (Twilio.PricingV2) pricingv2 - pricingv2 domain
- * @property (Twilio.ProxyV1) proxyv1 - proxyv1 domain
- * @property (Twilio.ServerlessV1) serverlessv1 - serverlessv1 domain
- * @property (Twilio.StudioV1) studiov1 - studiov1 domain
- * @property (Twilio.StudioV2) studiov2 - studiov2 domain
- * @property (Twilio.SupersimV1) supersimv1 - supersimv1 domain
- * @property (Twilio.SyncV1) syncv1 - syncv1 domain
- * @property (Twilio.TaskrouterV1) taskrouterv1 - taskrouterv1 domain
- * @property (Twilio.TrunkingV1) trunkingv1 - trunkingv1 domain
- * @property (Twilio.TrusthubV1) trusthubv1 - trusthubv1 domain
- * @property (Twilio.VerifyV2) verifyv2 - verifyv2 domain
- * @property (Twilio.VideoV1) videov1 - videov1 domain
- * @property (Twilio.VoiceV1) voicev1 - voicev1 domain
- * @property (Twilio.WirelessV1) wirelessv1 - wirelessv1 domain
+ * @property (Twilio.Autopilot) autopilot - autopilot domain
+ * @property (Twilio.Bulkexports) bulkexports - bulkexports domain
+ * @property (Twilio.Chat) chat - chat domain
+ * @property (Twilio.Conversations) conversations - conversations domain
+ * @property (Twilio.Events) events - events domain
+ * @property (Twilio.Flex) flex - flex domain
+ * @property (Twilio.Frontline) frontline - frontline domain
+ * @property (Twilio.Insights) insights - insights domain
+ * @property (Twilio.IpMessaging) ipmessaging - ipmessaging domain
+ * @property (Twilio.Lookups) lookups - lookups domain
+ * @property (Twilio.Media) media - media domain
+ * @property (Twilio.Messaging) messaging - messaging domain
+ * @property (Twilio.Monitor) monitor - monitor domain
+ * @property (Twilio.Notify) notify - notify domain
+ * @property (Twilio.Numbers) numbers - numbers domain
+ * @property (Twilio.Pricing) pricing - pricing domain
+ * @property (Twilio.Proxy) proxy - proxy domain
+ * @property (Twilio.Serverless) serverless - serverless domain
+ * @property (Twilio.Studio) studio - studio domain
+ * @property (Twilio.Supersim) supersim - supersim domain
+ * @property (Twilio.Sync) sync - sync domain
+ * @property (Twilio.Taskrouter) taskrouter - taskrouter domain
+ * @property (Twilio.Trunking) trunking - trunking domain
+ * @property (Twilio.Trusthub) trusthub - trusthub domain
+ * @property (Twilio.Verify) verify - verify domain
+ * @property (Twilio.Video) video - video domain
+ * @property (Twilio.Voice) voice - voice domain
+ * @property (Twilio.Wireless) wireless - wireless domain
  * @property (Twilio.Api.V2010.AccountContext.AddressesList) addresses - addresses resource
  * @property (Twilio.Api.V2010.AccountContext.ApplicationsList) applications - applications resource
  * @property (Twilio.Api.V2010.AccountContext.AuthorizedConnectAppsList) authorizedConnectApps - authorizedConnectApps resource
@@ -77,94 +71,82 @@ import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
 
 
 export class Twilio extends BaseTwilio {
-  _accountsv1: any
+  _accounts: any
   _api: any
-  _autopilotv1: any
-  _bulkexportsv1: any
-  _chatv1: any
-  _chatv2: any
-  _chatv3: any
-  _conversationsv1: any
-  _eventsv1: any
-  _faxv1: any
-  _flexv1: any
-  _frontlinev1: any
-  _insightsv1: any
-  _ipmessagingv1: any
-  _ipmessagingv2: any
-  _lookupsv1: any
-  _mediav1: any
-  _messagingv1: any
-  _monitorv1: any
-  _notifyv1: any
-  _numbersv2: any
-  _pricingv1: any
-  _pricingv2: any
-  _proxyv1: any
-  _serverlessv1: any
-  _studiov1: any
-  _studiov2: any
-  _supersimv1: any
-  _syncv1: any
-  _taskrouterv1: any
-  _trunkingv1: any
-  _trusthubv1: any
-  _verifyv2: any
-  _videov1: any
-  _voicev1: any
-  _wirelessv1: any
+  _autopilot: any
+  _bulkexports: any
+  _chat: any
+  _conversations: any
+  _events: any
+  _flex: any
+  _frontline: any
+  _insights: any
+  _ipmessaging: any
+  _lookups: any
+  _media: any
+  _messaging: any
+  _monitor: any
+  _notify: any
+  _numbers: any
+  _pricing: any
+  _proxy: any
+  _serverless: any
+  _studio: any
+  _supersim: any
+  _sync: any
+  _taskrouter: any
+  _trunking: any
+  _trusthub: any
+  _verify: any
+  _video: any
+  _voice: any
+  _wireless: any
 
-  constructor(username: string, password: string, opts: ClientOpts) {
+  constructor(username?: string, password?: string, opts?: ClientOpts) {
     super(username, password, opts);
 
     if (this.opts.lazyLoading === false) {
-        this.accountsv1;
+        this.accounts;
         this.api;
-        this.autopilotv1;
-        this.bulkexportsv1;
-        this.chatv1;
-        this.chatv2;
-        this.chatv3;
-        this.conversationsv1;
-        this.eventsv1;
-        this.faxv1;
-        this.flexv1;
-        this.frontlinev1;
-        this.insightsv1;
-        this.ipmessagingv1;
-        this.ipmessagingv2;
-        this.lookupsv1;
-        this.mediav1;
-        this.messagingv1;
-        this.monitorv1;
-        this.notifyv1;
-        this.numbersv2;
-        this.pricingv1;
-        this.pricingv2;
-        this.proxyv1;
-        this.serverlessv1;
-        this.studiov1;
-        this.studiov2;
-        this.supersimv1;
-        this.syncv1;
-        this.taskrouterv1;
-        this.trunkingv1;
-        this.trusthubv1;
-        this.verifyv2;
-        this.videov1;
-        this.voicev1;
-        this.wirelessv1;
+        this.autopilot;
+        this.bulkexports;
+        this.chat;
+        this.conversations;
+        this.events;
+        this.flex;
+        this.frontline;
+        this.insights;
+        this.ipmessaging;
+        this.lookups;
+        this.media;
+        this.messaging;
+        this.monitor;
+        this.notify;
+        this.numbers;
+        this.pricing;
+        this.proxy;
+        this.serverless;
+        this.studio;
+        this.supersim;
+        this.sync;
+        this.taskrouter;
+        this.trunking;
+        this.trusthub;
+        this.verify;
+        this.video;
+        this.voice;
+        this.wireless;
     }
 
   }
 
   //Domains
-  get accountsv1() {
-    if (!this._accountsv1) {
-      const AccountsV1 = require('./AccountsV1');  /* jshint ignore:line */
-      this._accountsv1 = new AccountsV1(this);
+  get accounts() {
+    if (!this._accounts) {
+      const Accounts = require('./Accounts');  /* jshint ignore:line */
+      this._accounts = new Accounts(this);
     }
-    return this._accountsv1;
+    return this._accounts;
   }
   get api() {
     if (!this._api) {
@@ -173,243 +155,201 @@ export class Twilio extends BaseTwilio {
     }
     return this._api;
   }
-  get autopilotv1() {
-    if (!this._autopilotv1) {
-      const AutopilotV1 = require('./AutopilotV1');  /* jshint ignore:line */
-      this._autopilotv1 = new AutopilotV1(this);
+  get autopilot() {
+    if (!this._autopilot) {
+      const Autopilot = require('./Autopilot');  /* jshint ignore:line */
+      this._autopilot = new Autopilot(this);
     }
-    return this._autopilotv1;
+    return this._autopilot;
   }
-  get bulkexportsv1() {
-    if (!this._bulkexportsv1) {
-      const BulkexportsV1 = require('./BulkexportsV1');  /* jshint ignore:line */
-      this._bulkexportsv1 = new BulkexportsV1(this);
+  get bulkexports() {
+    if (!this._bulkexports) {
+      const Bulkexports = require('./Bulkexports');  /* jshint ignore:line */
+      this._bulkexports = new Bulkexports(this);
     }
-    return this._bulkexportsv1;
+    return this._bulkexports;
   }
-  get chatv1() {
-    if (!this._chatv1) {
-      const ChatV1 = require('./ChatV1');  /* jshint ignore:line */
-      this._chatv1 = new ChatV1(this);
+  get chat() {
+    if (!this._chat) {
+      const Chat = require('./Chat');  /* jshint ignore:line */
+      this._chat = new Chat(this);
     }
-    return this._chatv1;
+    return this._chat;
   }
-  get chatv2() {
-    if (!this._chatv2) {
-      const ChatV2 = require('./ChatV2');  /* jshint ignore:line */
-      this._chatv2 = new ChatV2(this);
+  get conversations() {
+    if (!this._conversations) {
+      const Conversations = require('./Conversations');  /* jshint ignore:line */
+      this._conversations = new Conversations(this);
     }
-    return this._chatv2;
+    return this._conversations;
   }
-  get chatv3() {
-    if (!this._chatv3) {
-      const ChatV3 = require('./ChatV3');  /* jshint ignore:line */
-      this._chatv3 = new ChatV3(this);
+  get events() {
+    if (!this._events) {
+      const Events = require('./Events');  /* jshint ignore:line */
+      this._events = new Events(this);
     }
-    return this._chatv3;
+    return this._events;
   }
-  get conversationsv1() {
-    if (!this._conversationsv1) {
-      const ConversationsV1 = require('./ConversationsV1');  /* jshint ignore:line */
-      this._conversationsv1 = new ConversationsV1(this);
+  get flex() {
+    if (!this._flex) {
+      const Flex = require('./Flex');  /* jshint ignore:line */
+      this._flex = new Flex(this);
     }
-    return this._conversationsv1;
+    return this._flex;
   }
-  get eventsv1() {
-    if (!this._eventsv1) {
-      const EventsV1 = require('./EventsV1');  /* jshint ignore:line */
-      this._eventsv1 = new EventsV1(this);
+  get frontline() {
+    if (!this._frontline) {
+      const Frontline = require('./Frontline');  /* jshint ignore:line */
+      this._frontline = new Frontline(this);
     }
-    return this._eventsv1;
+    return this._frontline;
   }
-  get faxv1() {
-    if (!this._faxv1) {
-      const FaxV1 = require('./FaxV1');  /* jshint ignore:line */
-      this._faxv1 = new FaxV1(this);
+  get insights() {
+    if (!this._insights) {
+      const Insights = require('./Insights');  /* jshint ignore:line */
+      this._insights = new Insights(this);
     }
-    return this._faxv1;
+    return this._insights;
   }
-  get flexv1() {
-    if (!this._flexv1) {
-      const FlexV1 = require('./FlexV1');  /* jshint ignore:line */
-      this._flexv1 = new FlexV1(this);
+  get ipmessaging() {
+    if (!this._ipmessaging) {
+      const IpMessaging = require('./IpMessaging');  /* jshint ignore:line */
+      this._ipmessaging = new IpMessaging(this);
     }
-    return this._flexv1;
+    return this._ipmessaging;
   }
-  get frontlinev1() {
-    if (!this._frontlinev1) {
-      const FrontlineV1 = require('./FrontlineV1');  /* jshint ignore:line */
-      this._frontlinev1 = new FrontlineV1(this);
+  get lookups() {
+    if (!this._lookups) {
+      const Lookups = require('./Lookups');  /* jshint ignore:line */
+      this._lookups = new Lookups(this);
     }
-    return this._frontlinev1;
+    return this._lookups;
   }
-  get insightsv1() {
-    if (!this._insightsv1) {
-      const InsightsV1 = require('./InsightsV1');  /* jshint ignore:line */
-      this._insightsv1 = new InsightsV1(this);
+  get media() {
+    if (!this._media) {
+      const Media = require('./Media');  /* jshint ignore:line */
+      this._media = new Media(this);
     }
-    return this._insightsv1;
+    return this._media;
   }
-  get ipmessagingv1() {
-    if (!this._ipmessagingv1) {
-      const IpMessagingV1 = require('./IpMessagingV1');  /* jshint ignore:line */
-      this._ipmessagingv1 = new IpMessagingV1(this);
+  get messaging() {
+    if (!this._messaging) {
+      const Messaging = require('./Messaging');  /* jshint ignore:line */
+      this._messaging = new Messaging(this);
     }
-    return this._ipmessagingv1;
+    return this._messaging;
   }
-  get ipmessagingv2() {
-    if (!this._ipmessagingv2) {
-      const IpMessagingV2 = require('./IpMessagingV2');  /* jshint ignore:line */
-      this._ipmessagingv2 = new IpMessagingV2(this);
+  get monitor() {
+    if (!this._monitor) {
+      const Monitor = require('./Monitor');  /* jshint ignore:line */
+      this._monitor = new Monitor(this);
     }
-    return this._ipmessagingv2;
+    return this._monitor;
   }
-  get lookupsv1() {
-    if (!this._lookupsv1) {
-      const LookupsV1 = require('./LookupsV1');  /* jshint ignore:line */
-      this._lookupsv1 = new LookupsV1(this);
+  get notify() {
+    if (!this._notify) {
+      const Notify = require('./Notify');  /* jshint ignore:line */
+      this._notify = new Notify(this);
     }
-    return this._lookupsv1;
+    return this._notify;
   }
-  get mediav1() {
-    if (!this._mediav1) {
-      const MediaV1 = require('./MediaV1');  /* jshint ignore:line */
-      this._mediav1 = new MediaV1(this);
+  get numbers() {
+    if (!this._numbers) {
+      const Numbers = require('./Numbers');  /* jshint ignore:line */
+      this._numbers = new Numbers(this);
     }
-    return this._mediav1;
+    return this._numbers;
   }
-  get messagingv1() {
-    if (!this._messagingv1) {
-      const MessagingV1 = require('./MessagingV1');  /* jshint ignore:line */
-      this._messagingv1 = new MessagingV1(this);
+  get pricing() {
+    if (!this._pricing) {
+      const Pricing = require('./Pricing');  /* jshint ignore:line */
+      this._pricing = new Pricing(this);
     }
-    return this._messagingv1;
+    return this._pricing;
   }
-  get monitorv1() {
-    if (!this._monitorv1) {
-      const MonitorV1 = require('./MonitorV1');  /* jshint ignore:line */
-      this._monitorv1 = new MonitorV1(this);
+  get proxy() {
+    if (!this._proxy) {
+      const Proxy = require('./Proxy');  /* jshint ignore:line */
+      this._proxy = new Proxy(this);
     }
-    return this._monitorv1;
+    return this._proxy;
   }
-  get notifyv1() {
-    if (!this._notifyv1) {
-      const NotifyV1 = require('./NotifyV1');  /* jshint ignore:line */
-      this._notifyv1 = new NotifyV1(this);
+  get serverless() {
+    if (!this._serverless) {
+      const Serverless = require('./Serverless');  /* jshint ignore:line */
+      this._serverless = new Serverless(this);
     }
-    return this._notifyv1;
+    return this._serverless;
   }
-  get numbersv2() {
-    if (!this._numbersv2) {
-      const NumbersV2 = require('./NumbersV2');  /* jshint ignore:line */
-      this._numbersv2 = new NumbersV2(this);
+  get studio() {
+    if (!this._studio) {
+      const Studio = require('./Studio');  /* jshint ignore:line */
+      this._studio = new Studio(this);
     }
-    return this._numbersv2;
+    return this._studio;
   }
-  get pricingv1() {
-    if (!this._pricingv1) {
-      const PricingV1 = require('./PricingV1');  /* jshint ignore:line */
-      this._pricingv1 = new PricingV1(this);
+  get supersim() {
+    if (!this._supersim) {
+      const Supersim = require('./Supersim');  /* jshint ignore:line */
+      this._supersim = new Supersim(this);
     }
-    return this._pricingv1;
+    return this._supersim;
   }
-  get pricingv2() {
-    if (!this._pricingv2) {
-      const PricingV2 = require('./PricingV2');  /* jshint ignore:line */
-      this._pricingv2 = new PricingV2(this);
+  get sync() {
+    if (!this._sync) {
+      const Sync = require('./Sync');  /* jshint ignore:line */
+      this._sync = new Sync(this);
     }
-    return this._pricingv2;
+    return this._sync;
   }
-  get proxyv1() {
-    if (!this._proxyv1) {
-      const ProxyV1 = require('./ProxyV1');  /* jshint ignore:line */
-      this._proxyv1 = new ProxyV1(this);
+  get taskrouter() {
+    if (!this._taskrouter) {
+      const Taskrouter = require('./Taskrouter');  /* jshint ignore:line */
+      this._taskrouter = new Taskrouter(this);
     }
-    return this._proxyv1;
+    return this._taskrouter;
   }
-  get serverlessv1() {
-    if (!this._serverlessv1) {
-      const ServerlessV1 = require('./ServerlessV1');  /* jshint ignore:line */
-      this._serverlessv1 = new ServerlessV1(this);
+  get trunking() {
+    if (!this._trunking) {
+      const Trunking = require('./Trunking');  /* jshint ignore:line */
+      this._trunking = new Trunking(this);
     }
-    return this._serverlessv1;
+    return this._trunking;
   }
-  get studiov1() {
-    if (!this._studiov1) {
-      const StudioV1 = require('./StudioV1');  /* jshint ignore:line */
-      this._studiov1 = new StudioV1(this);
+  get trusthub() {
+    if (!this._trusthub) {
+      const Trusthub = require('./Trusthub');  /* jshint ignore:line */
+      this._trusthub = new Trusthub(this);
     }
-    return this._studiov1;
+    return this._trusthub;
   }
-  get studiov2() {
-    if (!this._studiov2) {
-      const StudioV2 = require('./StudioV2');  /* jshint ignore:line */
-      this._studiov2 = new StudioV2(this);
+  get verify() {
+    if (!this._verify) {
+      const Verify = require('./Verify');  /* jshint ignore:line */
+      this._verify = new Verify(this);
     }
-    return this._studiov2;
+    return this._verify;
   }
-  get supersimv1() {
-    if (!this._supersimv1) {
-      const SupersimV1 = require('./SupersimV1');  /* jshint ignore:line */
-      this._supersimv1 = new SupersimV1(this);
+  get video() {
+    if (!this._video) {
+      const Video = require('./Video');  /* jshint ignore:line */
+      this._video = new Video(this);
     }
-    return this._supersimv1;
+    return this._video;
   }
-  get syncv1() {
-    if (!this._syncv1) {
-      const SyncV1 = require('./SyncV1');  /* jshint ignore:line */
-      this._syncv1 = new SyncV1(this);
+  get voice() {
+    if (!this._voice) {
+      const Voice = require('./Voice');  /* jshint ignore:line */
+      this._voice = new Voice(this);
     }
-    return this._syncv1;
+    return this._voice;
   }
-  get taskrouterv1() {
-    if (!this._taskrouterv1) {
-      const TaskrouterV1 = require('./TaskrouterV1');  /* jshint ignore:line */
-      this._taskrouterv1 = new TaskrouterV1(this);
+  get wireless() {
+    if (!this._wireless) {
+      const Wireless = require('./Wireless');  /* jshint ignore:line */
+      this._wireless = new Wireless(this);
     }
-    return this._taskrouterv1;
-  }
-  get trunkingv1() {
-    if (!this._trunkingv1) {
-      const TrunkingV1 = require('./TrunkingV1');  /* jshint ignore:line */
-      this._trunkingv1 = new TrunkingV1(this);
-    }
-    return this._trunkingv1;
-  }
-  get trusthubv1() {
-    if (!this._trusthubv1) {
-      const TrusthubV1 = require('./TrusthubV1');  /* jshint ignore:line */
-      this._trusthubv1 = new TrusthubV1(this);
-    }
-    return this._trusthubv1;
-  }
-  get verifyv2() {
-    if (!this._verifyv2) {
-      const VerifyV2 = require('./VerifyV2');  /* jshint ignore:line */
-      this._verifyv2 = new VerifyV2(this);
-    }
-    return this._verifyv2;
-  }
-  get videov1() {
-    if (!this._videov1) {
-      const VideoV1 = require('./VideoV1');  /* jshint ignore:line */
-      this._videov1 = new VideoV1(this);
-    }
-    return this._videov1;
-  }
-  get voicev1() {
-    if (!this._voicev1) {
-      const VoiceV1 = require('./VoiceV1');  /* jshint ignore:line */
-      this._voicev1 = new VoiceV1(this);
-    }
-    return this._voicev1;
-  }
-  get wirelessv1() {
-    if (!this._wirelessv1) {
-      const WirelessV1 = require('./WirelessV1');  /* jshint ignore:line */
-      this._wirelessv1 = new WirelessV1(this);
-    }
-    return this._wirelessv1;
+    return this._wireless;
   }
 
   get addresses() {
