@@ -10,7 +10,7 @@ import Response = require('../../../../http/response');
 import V2 = require('../../V2');
 import { SerializableClass } from '../../../../interfaces';
 
-type VerificationChannel = 'sms'|'call'|'email'|'whatsapp'|'silent';
+type VerificationChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
 
 type VerificationStatus = 'canceled'|'approved';
 
@@ -104,6 +104,7 @@ interface VerificationResource {
   send_code_attempts: object[];
   service_sid: string;
   sid: string;
+  sna: object;
   status: string;
   to: string;
   url: string;
@@ -173,6 +174,7 @@ declare class VerificationInstance extends SerializableClass {
   sendCodeAttempts: object[];
   serviceSid: string;
   sid: string;
+  sna: any;
   status: string;
   to: string;
   /**

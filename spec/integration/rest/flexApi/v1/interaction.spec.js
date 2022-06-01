@@ -57,13 +57,14 @@ describe('Interaction', function() {
       var body = {
           'sid': 'KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'channel': {
-              'type': 'email'
+              'type': 'sms',
+              'sid': 'UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           },
           'routing': {
               'properties': {
                   'workflow_sid': 'WWxx',
                   'attributes': 'WWxx',
-                  'task_channel_unique_name': 'email',
+                  'task_channel_unique_name': 'sms',
                   'routing_target': 'WKXX',
                   'queue_name': 'WQXX'
               }
@@ -113,13 +114,14 @@ describe('Interaction', function() {
       var body = {
           'sid': 'KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'channel': {
-              'type': 'email'
+              'type': 'sms',
+              'sid': 'UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           },
           'routing': {
               'properties': {
                   'workflow_sid': 'WWxx',
                   'attributes': 'WWxx',
-                  'task_channel_unique_name': 'email',
+                  'task_channel_unique_name': 'sms',
                   'routing_target': 'WKXX',
                   'queue_name': 'WQXX'
               }

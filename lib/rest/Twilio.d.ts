@@ -12,7 +12,6 @@ import Bulkexports = require('./Bulkexports');
 import Chat = require('./Chat');
 import Conversations = require('./Conversations');
 import Events = require('./Events');
-import Fax = require('./Fax');
 import FlexApi = require('./FlexApi');
 import FrontlineApi = require('./FrontlineApi');
 import Insights = require('./Insights');
@@ -64,7 +63,6 @@ declare class Twilio {
   connectApps: (typeof Api.prototype.account.connectApps);
   conversations: Conversations;
   events: Events;
-  fax: Fax;
   flexApi: FlexApi;
   frontlineApi: FrontlineApi;
   httpClient?: RequestClient;
@@ -157,7 +155,7 @@ declare namespace Twilio {
    * @property edge - Twilio edge to use. Defaults to none
    * @property env - The environment object. Defaults to process.env
    * @property httpClient - The client used for http requests. Defaults to RequestClient
-   * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled
+   * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled. Defaults to true
    * @property logLevel - Debug logs will be shown. Defaults to none
    * @property region - Twilio region to use. Defaults to us1 if edge defined
    * @property userAgentExtensions - Additions to the user agent string

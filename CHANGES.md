@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2022-06-01] Version 3.77.2
+---------------------------
+**Library - Chore**
+- [PR #755](https://github.com/twilio/twilio-node/pull/755): use Docker 'rc' tag for release candidate images. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2022-05-18] Version 3.77.1
 ---------------------------
 **Api**

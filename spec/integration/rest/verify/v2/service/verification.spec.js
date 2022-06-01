@@ -76,6 +76,7 @@ describe('Verification', function() {
                   'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
@@ -114,6 +115,7 @@ describe('Verification', function() {
                   'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
@@ -152,6 +154,7 @@ describe('Verification', function() {
                   'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
@@ -190,6 +193,7 @@ describe('Verification', function() {
                   'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
@@ -254,6 +258,7 @@ describe('Verification', function() {
                   'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
@@ -292,6 +297,7 @@ describe('Verification', function() {
                   'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
@@ -353,6 +359,7 @@ describe('Verification', function() {
                   'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 

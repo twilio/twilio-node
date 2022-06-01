@@ -22,15 +22,15 @@ type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat';
  * Initialize the InteractionChannelList
  *
  * @param version - Version of the resource
- * @param interactionSid - The Interaction Sid for this channel.
+ * @param interactionSid - The unique string that identifies the resource
  */
 declare function InteractionChannelList(version: V1, interactionSid: string): InteractionChannelListInstance;
 
 /**
  * Options to pass to update
  *
- * @property routing - The Interaction Channels's optional routing parameters
- * @property status - The Interaction Channels's status
+ * @property routing - Optional. The state of associated tasks.
+ * @property status - Required. The Interaction channels's status
  */
 interface InteractionChannelInstanceUpdateOptions {
   routing?: object;
@@ -76,7 +76,7 @@ interface InteractionChannelListInstance {
   /**
    * Constructs a interaction_channel
    *
-   * @param sid - The Channel Sid for this Participant.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): InteractionChannelContext;
   /**
@@ -230,8 +230,8 @@ declare class InteractionChannelContext {
    * Initialize the InteractionChannelContext
    *
    * @param version - Version of the resource
-   * @param interactionSid - The Interaction Sid for this channel.
-   * @param sid - The Channel Sid for this Participant.
+   * @param interactionSid - The unique string that identifies the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, interactionSid: string, sid: string);
 
@@ -263,8 +263,8 @@ declare class InteractionChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param interactionSid - The Interaction Sid for this channel.
-   * @param sid - The Channel Sid for this Participant.
+   * @param interactionSid - The unique string that identifies the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: InteractionChannelPayload, interactionSid: string, sid: string);
 
