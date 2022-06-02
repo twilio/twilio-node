@@ -1,4 +1,4 @@
-### Logs ###
+### Logs ###
 logs
 *.log
 
@@ -14,7 +14,9 @@ pids
 node_modules
 
 ### Test coverage ###
-spec/coverage
+coverage
+.nyc_output
+test-report.xml
 
 ### Custom ignores ###
 config.js
