@@ -38,7 +38,6 @@
     "eslint": "^7.28.0",
     "express": "^4.17.1",
     "jest": "^28.1.0",
-    "jest-sonar-reporter": "^2.0.0",
     "jsdoc": "^3.6.7",
     "jshint": "^2.11.0",
     "mock-fs": "^4.12.0",
@@ -60,10 +59,6 @@
     "jsdoc": "jsdoc -r lib -d docs",
     "nsp": "npm audit --production",
     "nyc": "npm run coverage"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "testResultsProcessor": "jest-sonar-reporter"
   },
   "files": [
     "lib",
