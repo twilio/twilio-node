@@ -45,7 +45,6 @@
     "mock-fs": "^4.12.0",
     "nock": "^10.0.6",
     "node-mocks-http": "^1.8.1",
-    "nyc": "^15.1.0",
     "ts-jest": "^28.0.3",
     "typescript": "^4.7.2"
   },
@@ -56,11 +55,9 @@
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "eslint lib/base/**/**.js lib/http/**/**.js --fix",
     "check": "npm run jshint && npm run jscs",
-    "ci": "npm run nyc && npm run nsp",
-    "coverage": "nyc npm test",
+    "ci": "npm run test && npm run nsp",
     "jsdoc": "jsdoc -r lib -d docs",
-    "nsp": "npm audit --production",
-    "nyc": "npm run coverage"
+    "nsp": "npm audit --production"
   },
   "files": [
     "lib",
