@@ -52,19 +52,19 @@ export interface RequestOpts {
 /* jshint ignore:end */
 
 export class BaseTwilio {
-    username: string
-    password: string
-    accountSid: string
-    opts: ClientOpts
-    env: NodeJS.ProcessEnv
-    edge: string
-    region: string
-    logLevel: string
-    userAgentExtensions: string[]
-    _httpClient: RequestClient
+    username?: string
+    password?: string
+    accountSid?: string
+    opts?: ClientOpts
+    env?: NodeJS.ProcessEnv
+    edge?: string
+    region?: string
+    logLevel?: string
+    userAgentExtensions?: string[]
+    _httpClient?: RequestClient
 
-    constructor(username: string, password: string, opts: ClientOpts) {
-        this.opts = opts;
+    constructor(username?: string, password?: string, opts?: ClientOpts) {
+        this.opts = opts || {};
         this.env = this.opts.env || process.env;
         this.username = username || this.env.TWILIO_ACCOUNT_SID;
         this.password = password || this.env.TWILIO_AUTH_TOKEN;
@@ -87,7 +87,7 @@ export class BaseTwilio {
             throw new Error('password is required');
         }
 
-        if (!this.accountSid.startsWith('AC')) {
+        if (!this.accountSid?.startsWith('AC')) {
             throw new Error('accountSid must start with AC');
         }
     }
@@ -126,7 +126,7 @@ export class BaseTwilio {
         const username = opts.username || this.username;
         const password = opts.password || this.password;
 
-        const headers = opts.headers || {};
+        const headers: any = opts.headers || {};
 
         const pkgVersion = moduleInfo.version;
         const osName = os.platform();
@@ -140,7 +140,7 @@ export class BaseTwilio {
             osArch,
             nodeVersion
         );
-        this.userAgentExtensions.forEach(extension => {
+        this.userAgentExtensions?.forEach(extension => {
             headers['User-Agent'] += ` ${extension}`;
         });
         headers['Accept-Charset'] = 'utf-8';
@@ -156,7 +156,7 @@ export class BaseTwilio {
         var uri = new url.URL(opts.uri);
         uri.hostname = this.getHostname(uri.hostname, this.edge, this.region);
 
-        return this.httpClient.request({
+        return this.httpClient?.request({
             method: opts.method,
             uri: uri.href,
             username: username,
@@ -178,17 +178,17 @@ export class BaseTwilio {
      * @memberof BaseTwilio#
      *
      * @param {string} hostname - A URI hostname (e.g. api.twilio.com)
-     * @param {string} targetEdge - The targeted edge location (e.g. sydney)
-     * @param {string} targetRegion - The targeted region location (e.g. au1)
+     * @param {string | undefined} targetEdge - The targeted edge location (e.g. sydney)
+     * @param {string | undefined} targetRegion - The targeted region location (e.g. au1)
      */
     /* jshint ignore:end */
 
-    getHostname(hostname: string, targetEdge: string, targetRegion: string) {
+    getHostname(hostname: string, targetEdge: string | undefined, targetRegion: string | undefined) {
         const defaultRegion = 'us1';
 
         const domain = hostname.split('.').slice(-2).join('.');
         const prefix = hostname.split('.' + domain)[0];
-        let [product, edge, region] = prefix.split('.');
+        let [product, edge, region]: any = prefix.split('.');
         if (edge && !region) {
             region = edge;
             edge = undefined;
@@ -214,10 +214,10 @@ export class BaseTwilio {
     /* jshint ignore:end */
 
     validateSslCert() {
-        return this.httpClient.request({
+        return this.httpClient?.request({
             method: 'get',
             uri: 'https://api.twilio.com:8443/2010-04-01/.json',
-        }).then((response) => {
+        }).then((response: any) => {
             if (response['statusCode'] < 200 || response['statusCode'] >= 300) {
                 throw new RestException(response);
             }

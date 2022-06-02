@@ -49,6 +49,7 @@ describe('IncomingPhoneNumber', function () {
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?FriendlyName=friendly_name&Beta=true&PhoneNumber=%2B19876543210&PageSize=1&Page=0'
       };
       holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
         .incomingPhoneNumbers.each({ limit: 1, done }, () => null);
     }

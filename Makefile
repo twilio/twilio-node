@@ -18,13 +18,14 @@ clean:
 	rm -rf node_modules
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
+CURRENT_TAG=$(shell [[ "${GITHUB_TAG}" == *"-rc"* ]] && echo "rc" || echo "latest")
 docker-build:
 	docker build -t twilio/twilio-node .
 	docker tag twilio/twilio-node twilio/twilio-node:${GITHUB_TAG}
 	docker tag twilio/twilio-node twilio/twilio-node:apidefs-${API_DEFINITIONS_SHA}
-	docker tag twilio/twilio-node twilio/twilio-node:latest
+	docker tag twilio/twilio-node twilio/twilio-node:${CURRENT_TAG}
 
 docker-push:
 	docker push twilio/twilio-node:${GITHUB_TAG}
 	docker push twilio/twilio-node:apidefs-${API_DEFINITIONS_SHA}
-	docker push twilio/twilio-node:latest
+	docker push twilio/twilio-node:${CURRENT_TAG}

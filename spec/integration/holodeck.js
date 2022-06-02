@@ -60,35 +60,31 @@ Holodeck.prototype.assertHasRequest = function(request) {
   throw new Error(message);
 };
 
-Holodeck.prototype.request = function(opts) {
+Holodeck.prototype.request = async function(opts) {
   opts = opts || {};
 
-  var deferred = Q.defer();
   var request = new Request(_.assign({}, opts, {
     auth: {
       username: opts.username,
-      password: opts.password
+      password: opts.password,
     }
   }));
   this.requests.push(request);
 
-  var matchedHologram = _.find(this.holograms, function(hologram) {
-    return hologram.request.isEqual(request);
-  });
+  const matchedHologramIndex = this.holograms.findIndex(hologram => hologram.request.isEqual(request));
 
-  setTimeout(function() {
-    if (!_.isUndefined(matchedHologram)) {
-      var response = matchedHologram.response;
-      deferred.resolve({
-        statusCode: response.statusCode,
-        body: response.body
-      });
-    } else {
-      deferred.reject(new Error('Failure: holodeck does not contain response'));
-    }
-  }, 1);
+  if (matchedHologramIndex >= 0) {
+    const matchedHologram = this.holograms[matchedHologramIndex];
+    this.holograms.splice(matchedHologram, 1);
 
-  return deferred.promise;
+    const response = matchedHologram.response;
+    return {
+      statusCode: response.statusCode,
+      body: response.body,
+    };
+  } else {
+    throw new Error('Failure: holodeck does not contain response');
+  }
 };
 
 module.exports = Holodeck;

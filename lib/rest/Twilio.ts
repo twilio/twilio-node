@@ -1,6 +1,6 @@
 'use strict'
 
-import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
+import { BaseTwilio, ClientOpts } from "../base/BaseTwilio";
 
 /* jshint ignore:start */
 /**
@@ -70,7 +70,7 @@ import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
 /* jshint ignore:end */
 
 
-export class Twilio extends BaseTwilio {
+export default class Twilio extends BaseTwilio {
   _accounts: any
   _api: any
   _autopilot: any
@@ -105,7 +105,7 @@ export class Twilio extends BaseTwilio {
   constructor(username?: string, password?: string, opts?: ClientOpts) {
     super(username, password, opts);
 
-    if (this.opts.lazyLoading === false) {
+    if (this.opts?.lazyLoading === false) {
         this.accounts;
         this.api;
         this.autopilot;
