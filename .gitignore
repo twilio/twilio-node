@@ -15,7 +15,6 @@ node_modules
 
 ### Test coverage ###
 coverage
-.nyc_output
 
 ### Custom ignores ###
 config.js
