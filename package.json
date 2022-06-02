@@ -49,7 +49,7 @@
   },
   "scripts": {
     "test": "npm run test:javascript && npm run test:typescript",
-    "test:javascript": "jest --coverage --detectOpenHandles spec",
+    "test:javascript": "jest --coverage --detectOpenHandles",
     "test:typescript": "tsc examples/typescript/example.ts --noEmit --strict",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "eslint lib/base/**/**.js lib/http/**/**.js --fix",

@@ -16,7 +16,6 @@ node_modules
 ### Test coverage ###
 coverage
 .nyc_output
-test-report.xml
 
 ### Custom ignores ###
 config.js
