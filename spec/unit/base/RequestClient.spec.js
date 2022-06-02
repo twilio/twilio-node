@@ -1,22 +1,18 @@
 'use strict';
 
 const mockfs = require('mock-fs');
-const proxyquire = require('proxyquire');
-const Q = require('q');
+const axios = require('axios');
+const RequestClient = require('../../../lib/base/RequestClient');
+
+jest.mock('axios');
 
 describe('lastResponse and lastRequest defined', function() {
   let client;
   let response;
   beforeEach(function() {
-    const RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
-      axios: function(options) {
-        const deferred = Q.defer();
-        deferred.resolve({status: 200, data: 'voltron', headers: {response: 'header'}});
-        return deferred.promise;
-      },
-    });
+    axios.mockResolvedValue({status: 200, data: 'voltron', headers: {response: 'header'}});
 
-    client = new RequestClientMock();
+    client = new RequestClient();
 
     const options = {
       method: 'GET',
@@ -68,15 +64,9 @@ describe('lastRequest defined, lastResponse undefined', function() {
   let client;
   let options;
   beforeEach(function() {
-    const RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
-      axios: function(options) {
-        const deferred = Q.defer();
-        deferred.reject('failed');
-        return deferred.promise;
-      },
-    });
+    axios.mockReturnValue(Promise.reject('failed'));
 
-    client = new RequestClientMock();
+    client = new RequestClient();
 
     options = {
       method: 'GET',
@@ -111,15 +101,9 @@ describe('User specified CA bundle', function() {
   let client;
   let options;
   beforeEach(function() {
-    const RequestClientMock = proxyquire('../../../lib/base/RequestClient', {
-      axios: function (options) {
-        const deferred = Q.defer();
-        deferred.reject('failed');
-        return deferred.promise;
-      },
-    });
+    axios.mockReturnValue(Promise.reject('failed'));
 
-    client = new RequestClientMock();
+    client = new RequestClient();
 
     options = {
       method: 'GET',
