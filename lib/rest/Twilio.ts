@@ -70,7 +70,7 @@ import { BaseTwilio, ClientOpts } from "../base/BaseTwilio";
 /* jshint ignore:end */
 
 
-export default class Twilio extends BaseTwilio {
+class Twilio extends BaseTwilio {
   _accounts: any
   _api: any
   _autopilot: any
@@ -416,3 +416,5 @@ export default class Twilio extends BaseTwilio {
     return this.api.account.usage;
   }
 }
+
+module.exports = Twilio;
