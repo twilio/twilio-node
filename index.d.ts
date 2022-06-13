@@ -5,6 +5,7 @@ import * as VoiceResponse from './lib/twiml/VoiceResponse';
 import * as webhookTools from './lib/webhooks/webhooks';
 
 import TwilioClient = require('./lib/rest/Twilio');
+import { ClientOpts } from "./lib/base/BaseTwilio";
 import AccessToken = require('./lib/jwt/AccessToken');
 import ClientCapability = require('./lib/jwt/ClientCapability');
 import TaskRouterCapability = require('./lib/jwt/taskrouter/TaskRouterCapability');
@@ -17,8 +18,8 @@ interface TwimlConstructor<T> {
 declare function twilio(
   accountSid?: string,
   authToken?: string,
-  opts?: TwilioClient.TwilioClientOptions
-): TwilioClient;
+  opts?: ClientOpts
+): any;
 
 declare namespace twilio {
   export import Twilio = TwilioClient;
