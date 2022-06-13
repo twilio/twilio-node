@@ -1,6 +1,6 @@
 'use strict'
 
-import RequestClient = require('../base/RequestClient'); /* jshint ignore:line */
+import * as RequestClient from './RequestClient'; /* jshint ignore:line */
 import { HttpMethod } from '../interfaces'; /* jshint ignore:line */
 
 const os = require('os');  /* jshint ignore:line */
