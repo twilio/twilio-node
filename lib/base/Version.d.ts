@@ -1,5 +1,5 @@
 import Domain = require('./Domain');
-import TwilioClient = require('../rest/Twilio');
+import { RequestOpts } from "../base/BaseTwilio";
 
 declare class Version {
   constructor(solutelydomain: Domain, version: string);
@@ -23,7 +23,7 @@ declare class Version {
    * @param  opts request options
    * @return promise that resolves to request response
    */
-  request(opts: TwilioClient.RequestOptions): Promise<any>;
+  request(opts: RequestOpts): Promise<any>;
   /**
    * Fetch a instance of a record
    * @throws {Error} If response returns non 2xx or 3xx status code
@@ -31,7 +31,7 @@ declare class Version {
    * @param  opts request options
    * @return promise that resolves to fetched result
    */
-  fetch(opts: TwilioClient.RequestOptions): Promise<any>;
+  fetch(opts: RequestOpts): Promise<any>;
   /**
    * Update a record
    * @throws {Error} If response returns non 2xx status code
@@ -39,7 +39,7 @@ declare class Version {
    * @param  opts request options
    * @return promise that resolves to updated result
    */
-  update(opts: TwilioClient.RequestOptions): Promise<any>;
+  update(opts: RequestOpts): Promise<any>;
   /**
    * Delete a record
    * @throws {Error} If response returns a 5xx status
@@ -47,7 +47,7 @@ declare class Version {
    * @param  opts request options
    * @return promise that resolves to true if record was deleted
    */
-  remove(opts: TwilioClient.RequestOptions): Promise<boolean>;
+  remove(opts: RequestOpts): Promise<boolean>;
   /**
    * Create a new record
    * @throws {Error} If response returns non 2xx or 201 status code
@@ -55,14 +55,14 @@ declare class Version {
    * @param  opts request options
    * @return promise that resolves to created record
    */
-  create(opts: TwilioClient.RequestOptions): Promise<any>;
+  create(opts: RequestOpts): Promise<any>;
   /**
    * Fetch a page of records
    *
    * @param  opts request options
    * @return promise that resolves to page of records
    */
-  page(opts: TwilioClient.RequestOptions): Promise<any>;
+  page(opts: RequestOpts): Promise<any>;
   /**
    * Process limits for list requests
    *

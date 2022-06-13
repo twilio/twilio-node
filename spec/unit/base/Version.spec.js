@@ -33,6 +33,8 @@ describe('fetch method', function () {
 });
 
 describe('streaming results', function () {
+  let holodeck;
+  let client;
   const bodyOne = {
     'next_page_uri': '/2010-04-01/Accounts/AC123/Messages.json?Page=1',
     'messages': [{'body': 'payload0'}, {'body': 'payload1'}]

@@ -42,7 +42,7 @@ declare class Api extends Domain {
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: Twilio);
+  constructor(twilio: any);
 
   readonly account: AccountContext;
   readonly accounts: AccountListInstance;

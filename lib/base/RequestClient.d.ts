@@ -52,6 +52,10 @@ declare namespace RequestClient {
      * Set to true to use the forever-agent
      */
     forever?: boolean;
+    /**
+     * Set to 'debug' to enable debug logging
+     */
+    logLevel?: string;
   }
 
   export interface Headers {

@@ -1,7 +1,8 @@
 import TwilioClient = require('../rest/Twilio');
+import { RequestOpts } from "../base/BaseTwilio";
 
 declare class Domain {
-  constructor(twilio: TwilioClient, baseUrl: string);
+  constructor(twilio: any, baseUrl: string);
 
   /**
    * Turn a uri into an absolute url
@@ -17,7 +18,7 @@ declare class Domain {
    * @param opts request options
    * @return request promise
    */
-  request(opts?: TwilioClient.RequestOptions): Promise<any>;
+  request(opts?: RequestOpts): Promise<any>;
 }
 
 export = Domain;
