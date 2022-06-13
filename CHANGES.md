@@ -10,7 +10,6 @@ twilio-node changelog
 - Include `silent` as a channel type in the verifications API.
 
 
-
 [2022-05-04] Version 3.77.0
 ---------------------------
 **Conversations**
