@@ -91,7 +91,7 @@ client.logLevel = 'debug';
 ```
 
 ## Using webhook validation
-See [example](examples/express.js) for a code sample for incoming Twilio request validation
+See [example](examples/express.js) for a code sample for incoming Twilio request validation.
 
 ## Handling Exceptions
 
