@@ -538,7 +538,7 @@ declare class CallInstance extends SerializableClass {
    * Access the streams
    */
   streams(): StreamListInstance;
-  subresourceUris: string;
+  subresourceUris: Record<string, string>;
   to: string;
   toFormatted: string;
   /**
