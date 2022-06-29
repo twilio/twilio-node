@@ -443,6 +443,7 @@ declare namespace VoiceResponse {
    * Options to pass to enqueue
    *
    * @property action - Action URL
+   * @property maxQueueSize - Maximum size of queue
    * @property method - Action URL method
    * @property waitUrl - Wait URL
    * @property waitUrlMethod - Wait URL method
@@ -450,6 +451,7 @@ declare namespace VoiceResponse {
    */
   export interface EnqueueAttributes {
     action?: string;
+    maxQueueSize?: number;
     method?: string;
     waitUrl?: string;
     waitUrlMethod?: string;

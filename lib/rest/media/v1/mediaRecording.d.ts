@@ -226,7 +226,6 @@ interface MediaRecordingPayload extends MediaRecordingResource, Page.TwilioRespo
 
 interface MediaRecordingResource {
   account_sid: string;
-  bitrate: number;
   date_created: Date;
   date_updated: Date;
   duration: number;
@@ -295,7 +294,6 @@ declare class MediaRecordingInstance extends SerializableClass {
 
   private _proxy: MediaRecordingContext;
   accountSid: string;
-  bitrate: number;
   dateCreated: Date;
   dateUpdated: Date;
   duration: number;

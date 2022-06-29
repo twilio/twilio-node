@@ -27,7 +27,7 @@ declare function VerificationAttemptsSummaryList(version: V2): VerificationAttem
  * @property dateCreatedAfter - Consider verification attempts create after this date on the summary.
  * @property dateCreatedBefore - Consider verification attempts created before this date on the summary.
  * @property destinationPrefix - Filters the attempts considered on the summary by destination prefix.
- * @property verifyServiceSid - Filter the verification attempts considered on the summary by verify service.
+ * @property serviceSid - Filter the verification attempts considered on the summary by verify service.
  */
 interface VerificationAttemptsSummaryInstanceFetchOptions {
   channel?: VerificationAttemptsSummaryChannels;
@@ -35,7 +35,7 @@ interface VerificationAttemptsSummaryInstanceFetchOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   destinationPrefix?: string;
-  verifyServiceSid?: string;
+  serviceSid?: string;
 }
 
 interface VerificationAttemptsSummaryListInstance {

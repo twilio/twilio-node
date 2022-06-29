@@ -76,6 +76,7 @@ describe('CallSummary', function() {
           'attributes': {},
           'properties': {},
           'trust': {},
+          'annotation': {},
           'url': 'https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Summary'
       };
 
