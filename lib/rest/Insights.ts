@@ -6,7 +6,7 @@ import {RoomListInstance} from "./insights/v1/room";
 import {SettingListInstance} from "./insights/v1/setting";
 import InsightsBase from "./InsightsBase";
 
-export default class Insights extends InsightsBase {
+class Insights extends InsightsBase {
     /**
      * @deprecated - Use v1.settings instead
      */
@@ -55,3 +55,5 @@ export default class Insights extends InsightsBase {
         return this.v1.rooms;
     }
 }
+
+export = Insights;

@@ -6,7 +6,7 @@ import {RecordingSettingsListInstance} from "./video/v1/recordingSettings";
 import {RoomListInstance} from "./video/v1/room";
 import VideoBase from "./VideoBase";
 
-export default class Video extends VideoBase {
+class Video extends VideoBase {
     /**
      * @deprecated - Use v1.compositions instead
      */
@@ -55,3 +55,5 @@ export default class Video extends VideoBase {
         return this.v1.rooms;
     }
 }
+
+export = Video;

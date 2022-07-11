@@ -5,8 +5,7 @@ import {ServiceListInstance} from "./messaging/v1/service";
 import {UsecaseListInstance} from "./messaging/v1/usecase";
 import MessagingBase from "./MessagingBase";
 
-
-export default class Messaging extends MessagingBase {
+class Messaging extends MessagingBase {
     /**
      * @deprecated - Use v1.brandRegistrations instead
      */
@@ -47,3 +46,5 @@ export default class Messaging extends MessagingBase {
         return this.v1.usecases;
     }
 }
+
+export = Messaging;

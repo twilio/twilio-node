@@ -2,7 +2,7 @@ import {ExportListInstance} from "./bulkexports/v1/export";
 import {ExportConfigurationListInstance} from "./bulkexports/v1/exportConfiguration";
 import BulkexportsBase from "./BulkexportsBase";
 
-export default class Bulkexports extends BulkexportsBase {
+class Bulkexports extends BulkexportsBase {
     /**
      * @deprecated - Use v1.exports instead
      */
@@ -19,3 +19,5 @@ export default class Bulkexports extends BulkexportsBase {
         return this.v1.exportConfiguration;
     }
 }
+
+export = Bulkexports;

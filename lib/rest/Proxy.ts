@@ -1,7 +1,7 @@
 import {ServiceListInstance} from "./proxy/v1/service";
 import ProxyBase from "./ProxyBase";
 
-export default class Proxy extends ProxyBase {
+class Proxy extends ProxyBase {
     /**
      * @deprecated - Use v1.services instead
      */
@@ -10,3 +10,5 @@ export default class Proxy extends ProxyBase {
         return this.v1.services;
     }
 }
+
+export = Proxy;

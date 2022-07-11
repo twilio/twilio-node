@@ -5,7 +5,7 @@ import {VerificationAttemptListInstance} from "./verify/v2/verificationAttempt";
 import {VerificationAttemptsSummaryListInstance} from "./verify/v2/verificationAttemptsSummary";
 import VerifyBase from "./VerifyBase";
 
-export default class Verify extends VerifyBase {
+class Verify extends VerifyBase {
     /**
      * @deprecated - Use v2.forms instead
      */
@@ -46,3 +46,5 @@ export default class Verify extends VerifyBase {
         return this.v2.templates;
     }
 }
+
+export = Verify;

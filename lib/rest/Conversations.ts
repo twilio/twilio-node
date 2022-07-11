@@ -8,7 +8,7 @@ import {ServiceListInstance} from './conversations/v1/service';
 import {UserListInstance} from './conversations/v1/user';
 import ConversationsBase from "./ConversationsBase";
 
-export default class Conversations extends ConversationsBase {
+class Conversations extends ConversationsBase {
     /**
      * @deprecated - Use v1.configuration instead
      */
@@ -73,3 +73,5 @@ export default class Conversations extends ConversationsBase {
         return this.v1.users;
     }
 }
+
+export = Conversations;

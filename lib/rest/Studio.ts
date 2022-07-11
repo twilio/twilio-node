@@ -2,8 +2,7 @@ import {FlowListInstance} from "./studio/v2/flow";
 import {FlowValidateListInstance} from './studio/v2/flowValidate';
 import StudioBase from "./StudioBase";
 
-
-export default class Studio extends StudioBase {
+class Studio extends StudioBase {
     /**
      * @deprecated - Use v2.flows instead
      */
@@ -20,3 +19,5 @@ export default class Studio extends StudioBase {
         return this.v2.flowValidate;
     }
 }
+
+export = Studio;

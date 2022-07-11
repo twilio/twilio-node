@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V2 from './numbers/V2';
 
-export default class NumbersBase extends Domain {
-    _v2: V2;
+class NumbersBase extends Domain {
+    _v2?: V2;
 
     /**
      * Initialize numbers domain
@@ -30,3 +29,5 @@ export default class NumbersBase extends Domain {
         return this._v2;
     }
 }
+
+export = NumbersBase;

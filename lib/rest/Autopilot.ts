@@ -2,7 +2,7 @@ import {AssistantListInstance} from './autopilot/v1/assistant';
 import {RestoreAssistantListInstance} from './autopilot/v1/restoreAssistant';
 import AutopilotBase from "./AutopilotBase";
 
-export default class Autopilot extends AutopilotBase {
+class Autopilot extends AutopilotBase {
     /**
      * @deprecated - Use v1.assistants instead
      */
@@ -19,3 +19,5 @@ export default class Autopilot extends AutopilotBase {
         return this.v1.restoreAssistant;
     }
 }
+
+export = Autopilot;

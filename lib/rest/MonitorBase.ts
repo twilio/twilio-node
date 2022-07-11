@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './monitor/V1';
 
-export default class MonitorBase extends Domain {
-    _v1: V1;
+class MonitorBase extends Domain {
+    _v1?: V1;
 
     /**
      * Initialize monitor domain
@@ -30,3 +29,5 @@ export default class MonitorBase extends Domain {
         return this._v1;
     }
 }
+
+export = MonitorBase;

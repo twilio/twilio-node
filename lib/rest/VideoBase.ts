@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './video/V1';
 
-export default class VideoBase extends Domain {
-    _v1: V1;
+class VideoBase extends Domain {
+    _v1?: V1;
 
     /**
      * Initialize video domain
@@ -30,3 +29,5 @@ export default class VideoBase extends Domain {
         return this._v1;
     }
 }
+
+export = VideoBase;

@@ -2,7 +2,7 @@ import {AlertListInstance} from "./monitor/v1/alert";
 import {EventListInstance} from "./monitor/v1/event";
 import MonitorBase from "./MonitorBase";
 
-export default class Monitor extends MonitorBase {
+class Monitor extends MonitorBase {
     /**
      * @deprecated - Use v1.alerts instead
      */
@@ -19,3 +19,5 @@ export default class Monitor extends MonitorBase {
         return this.v1.events;
     }
 }
+
+export = Monitor;

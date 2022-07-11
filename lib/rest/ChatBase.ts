@@ -8,17 +8,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './chat/V1';
 import V2 from './chat/V2';
 import V3 from './chat/V3';
 
-export default class ChatBase extends Domain {
-    _v1: V1;
-    _v2: V2;
-    _v3: V3;
+class ChatBase extends Domain {
+    _v1?: V1;
+    _v2?: V2;
+    _v3?: V3;
 
     /**
      * Initialize chat domain
@@ -42,3 +41,5 @@ export default class ChatBase extends Domain {
         return this._v3;
     }
 }
+
+export = ChatBase;

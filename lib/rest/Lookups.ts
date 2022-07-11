@@ -1,7 +1,7 @@
 import {PhoneNumberListInstance} from "./lookups/v1/phoneNumber";
 import LookupsBase from "./LookupsBase";
 
-export default class Lookups extends LookupsBase {
+class Lookups extends LookupsBase {
     /**
      * @deprecated - Use v1.phoneNumbers instead
      */
@@ -10,3 +10,5 @@ export default class Lookups extends LookupsBase {
         return this.v1.phoneNumbers;
     }
 }
+
+export = Lookups;

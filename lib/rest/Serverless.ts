@@ -1,7 +1,7 @@
 import {ServiceListInstance} from "./serverless/v1/service";
 import ServerlessBase from "./ServerlessBase";
 
-export default class Serverless extends ServerlessBase {
+class Serverless extends ServerlessBase {
     /**
      * @deprecated - Use v1.services instead
      */
@@ -10,3 +10,5 @@ export default class Serverless extends ServerlessBase {
         return this.v1.services;
     }
 }
+
+export = Serverless;

@@ -8,15 +8,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './ip_messaging/V1';
 import V2 from './ip_messaging/V2';
 
-export default class IpMessagingBase extends Domain {
-    _v1: V1;
-    _v2: V2;
+class IpMessagingBase extends Domain {
+    _v1?: V1;
+    _v2?: V2;
 
     /**
      * Initialize ip_messaging domain
@@ -36,3 +35,5 @@ export default class IpMessagingBase extends Domain {
         return this._v2;
     }
 }
+
+export = IpMessagingBase;

@@ -7,7 +7,7 @@ import {SupportingDocumentTypeListInstance} from "./trusthub/v1/supportingDocume
 import {TrustProductsListInstance} from "./trusthub/v1/trustProducts";
 import TrusthubBase from "./TrusthubBase";
 
-export default class Trusthub extends TrusthubBase {
+class Trusthub extends TrusthubBase {
     /**
      * @deprecated - Use v1.customerProfiles instead
      */
@@ -64,3 +64,5 @@ export default class Trusthub extends TrusthubBase {
         return this.v1.trustProducts;
     }
 }
+
+export = Trusthub;

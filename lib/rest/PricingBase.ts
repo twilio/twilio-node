@@ -8,15 +8,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './pricing/V1';
 import V2 from './pricing/V2';
 
-export default class PricingBase extends Domain {
-    _v1: V1;
-    _v2: V2;
+class PricingBase extends Domain {
+    _v1?: V1;
+    _v2?: V2;
 
     /**
      * Initialize pricing domain
@@ -36,3 +35,5 @@ export default class PricingBase extends Domain {
         return this._v2;
     }
 }
+
+export = PricingBase;

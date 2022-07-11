@@ -1,7 +1,7 @@
 import {TrunkListInstance} from "./trunking/v1/trunk";
 import TrunkingBase from "./TrunkingBase";
 
-export default class Trunking extends TrunkingBase {
+class Trunking extends TrunkingBase {
     /**
      * @deprecated - Use v1.trunks instead
      */
@@ -10,3 +10,5 @@ export default class Trunking extends TrunkingBase {
         return this.v1.trunks;
     }
 }
+
+export = Trunking;
