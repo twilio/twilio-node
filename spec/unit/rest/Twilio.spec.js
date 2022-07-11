@@ -102,7 +102,7 @@ describe('client', () => {
       const client = new twilio('ACXXXXXXXX', 'test-password');
       const scope = nock('https://api.twilio.com', {
         reqheaders: {
-          'User-Agent': `twilio-node/${moduleInfo.version} \(${os.platform()} ${os.arch()}\) node\/${process.version}`,
+          'User-Agent': /^twilio-node\/[0-9.]+(-rc\.[0-9])?\s\(\w+\s\w+\)\snode\/[^\s]+$/,
         },
       })
         .get('/')
