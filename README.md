@@ -30,7 +30,7 @@ TypeScript is supported for TypeScript version 2.9 and above.
 
 ## Installation
 
-`npm install twilio` or `yarn add twilio`.
+`npm install twilio` or `yarn add twilio`
 
 ## Sample Usage
 
