@@ -4,7 +4,7 @@ import {SimListInstance} from "./wireless/v1/sim";
 import {UsageRecordListInstance} from "./wireless/v1/usageRecord";
 import WirelessBase from "./WirelessBase";
 
-export default class Wireless extends WirelessBase {
+class Wireless extends WirelessBase {
     /**
      * @deprecated - Use v1.usageRecords instead
      */
@@ -37,3 +37,5 @@ export default class Wireless extends WirelessBase {
         return this.v1.sims;
     }
 }
+
+export = Wireless;

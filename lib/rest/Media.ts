@@ -3,7 +3,7 @@ import {MediaRecordingListInstance} from "./media/v1/mediaRecording";
 import {PlayerStreamerListInstance} from "./media/v1/playerStreamer";
 import MediaBase from "./MediaBase";
 
-export default class Media extends MediaBase {
+class Media extends MediaBase {
     /**
      * @deprecated - Use v1.mediaProcessor instead
      */
@@ -28,3 +28,5 @@ export default class Media extends MediaBase {
         return this.v1.playerStreamer;
     }
 }
+
+export = Media;

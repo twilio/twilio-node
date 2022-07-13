@@ -6,7 +6,7 @@ import {IpRecordListInstance} from "./voice/v1/ipRecord";
 import {SourceIpMappingListInstance} from "./voice/v1/sourceIpMapping";
 import VoiceBase from "./VoiceBase";
 
-export default class Voice extends VoiceBase {
+class Voice extends VoiceBase {
     /**
      * @deprecated - Use v1.archivedCalls instead
      */
@@ -55,3 +55,5 @@ export default class Voice extends VoiceBase {
         return this.v1.sourceIpMappings;
     }
 }
+
+export = Voice;

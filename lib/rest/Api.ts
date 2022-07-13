@@ -25,7 +25,7 @@ import {UsageListInstance} from './api/v2010/account/usage';
 import {ValidationRequestListInstance} from './api/v2010/account/validationRequest';
 import ApiBase from "./ApiBase";
 
-export default class Api extends ApiBase {
+class Api extends ApiBase {
     /**
      * @deprecated - Use v2010.account instead
      */
@@ -234,3 +234,5 @@ export default class Api extends ApiBase {
         return this.account.validationRequests;
     }
 }
+
+export = Api;

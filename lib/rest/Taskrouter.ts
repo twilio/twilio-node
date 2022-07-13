@@ -1,7 +1,7 @@
 import {WorkspaceListInstance} from "./taskrouter/v1/workspace";
 import TaskrouterBase from "./TaskrouterBase";
 
-export default class Taskrouter extends TaskrouterBase {
+class Taskrouter extends TaskrouterBase {
     /**
      * @deprecated - Use v1.workspaces instead
      */
@@ -10,3 +10,5 @@ export default class Taskrouter extends TaskrouterBase {
         return this.v1.workspaces;
     }
 }
+
+export = Taskrouter;

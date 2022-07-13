@@ -1,7 +1,7 @@
 import {RegulatoryComplianceListInstance} from "./numbers/v2/regulatoryCompliance";
 import NumbersBase from "./NumbersBase";
 
-export default class Numbers extends NumbersBase {
+class Numbers extends NumbersBase {
     /**
      * @deprecated - Use v2.regulatoryCompliance instead
      */
@@ -10,3 +10,5 @@ export default class Numbers extends NumbersBase {
         return this.v2.regulatoryCompliance;
     }
 }
+
+export = Numbers;

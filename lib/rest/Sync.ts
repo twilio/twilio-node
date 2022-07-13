@@ -1,7 +1,7 @@
 import {ServiceListInstance} from "./sync/v1/service";
 import SyncBase from "./SyncBase";
 
-export default class Sync extends SyncBase {
+class Sync extends SyncBase {
     /**
      * @deprecated - Use v1.services instead
      */
@@ -10,3 +10,5 @@ export default class Sync extends SyncBase {
         return this.v1.services;
     }
 }
+
+export = Sync;

@@ -4,7 +4,7 @@ import {SinkListInstance} from './events/v1/sink';
 import {SubscriptionListInstance} from './events/v1/subscription';
 import EventsBase from "./EventsBase";
 
-export default class Events extends EventsBase {
+class Events extends EventsBase {
     /**
      * @deprecated - Use v1.eventTypes instead
      */
@@ -37,3 +37,5 @@ export default class Events extends EventsBase {
         return this.v1.subscriptions;
     }
 }
+
+export = Events;

@@ -2,7 +2,7 @@ import {CredentialListInstance} from "./notify/v1/credential";
 import {ServiceListInstance} from "./notify/v1/service";
 import NotifyBase from "./NotifyBase";
 
-export default class Notify extends NotifyBase {
+class Notify extends NotifyBase {
     /**
      * @deprecated - Use v1.credentials instead
      */
@@ -19,3 +19,5 @@ export default class Notify extends NotifyBase {
         return this.v1.services;
     }
 }
+
+export = Notify;

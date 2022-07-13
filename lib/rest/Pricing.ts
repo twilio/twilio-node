@@ -5,7 +5,7 @@ import {CountryListInstance} from "./pricing/v2/country";
 import {NumberListInstance} from "./pricing/v2/number";
 import PricingBase from "./PricingBase";
 
-export default class Pricing extends PricingBase {
+class Pricing extends PricingBase {
     /**
      * @deprecated - Use v1.messaging instead
      */
@@ -46,3 +46,5 @@ export default class Pricing extends PricingBase {
         return this.v2.numbers;
     }
 }
+
+export = Pricing;

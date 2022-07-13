@@ -8,8 +8,7 @@ import {SmsCommandListInstance} from "./supersim/v1/smsCommand";
 import {UsageRecordListInstance} from "./supersim/v1/usageRecord";
 import SupersimBase from "./SupersimBase";
 
-
-export default class Supersim extends SupersimBase {
+class Supersim extends SupersimBase {
     /**
      * @deprecated - Use v1.esimProfiles instead
      */
@@ -74,3 +73,5 @@ export default class Supersim extends SupersimBase {
         return this.v1.usageRecords;
     }
 }
+
+export = Supersim;

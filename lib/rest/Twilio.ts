@@ -8,7 +8,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
 
@@ -363,67 +362,67 @@ class Twilio extends BaseTwilio {
   }
 
   get addresses() {
-    return this.api.account.addresses;
+    return this.api.v2010.account.addresses;
   }
   get applications() {
-    return this.api.account.applications;
+    return this.api.v2010.account.applications;
   }
   get authorizedConnectApps() {
-    return this.api.account.authorizedConnectApps;
+    return this.api.v2010.account.authorizedConnectApps;
   }
   get availablePhoneNumbers() {
-    return this.api.account.availablePhoneNumbers;
+    return this.api.v2010.account.availablePhoneNumbers;
   }
   get balance() {
-    return this.api.account.balance;
+    return this.api.v2010.account.balance;
   }
   get calls() {
-    return this.api.account.calls;
+    return this.api.v2010.account.calls;
   }
   get conferences() {
-    return this.api.account.conferences;
+    return this.api.v2010.account.conferences;
   }
   get connectApps() {
-    return this.api.account.connectApps;
+    return this.api.v2010.account.connectApps;
   }
   get incomingPhoneNumbers() {
-    return this.api.account.incomingPhoneNumbers;
+    return this.api.v2010.account.incomingPhoneNumbers;
   }
   get keys() {
-    return this.api.account.keys;
+    return this.api.v2010.account.keys;
   }
   get messages() {
-    return this.api.account.messages;
+    return this.api.v2010.account.messages;
   }
   get notifications() {
-    return this.api.account.notifications;
+    return this.api.v2010.account.notifications;
   }
   get outgoingCallerIds() {
-    return this.api.account.outgoingCallerIds;
+    return this.api.v2010.account.outgoingCallerIds;
   }
   get queues() {
-    return this.api.account.queues;
+    return this.api.v2010.account.queues;
   }
   get recordings() {
-    return this.api.account.recordings;
+    return this.api.v2010.account.recordings;
   }
   get sip() {
-    return this.api.account.sip;
+    return this.api.v2010.account.sip;
   }
   get shortCodes() {
-    return this.api.account.shortCodes;
+    return this.api.v2010.account.shortCodes;
   }
   get signingKeys() {
-    return this.api.account.signingKeys;
+    return this.api.v2010.account.signingKeys;
   }
   get tokens() {
-    return this.api.account.tokens;
+    return this.api.v2010.account.tokens;
   }
   get transcriptions() {
-    return this.api.account.transcriptions;
+    return this.api.v2010.account.transcriptions;
   }
   get usage() {
-    return this.api.account.usage;
+    return this.api.v2010.account.usage;
   }
 }
 

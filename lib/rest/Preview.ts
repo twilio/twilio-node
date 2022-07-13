@@ -15,7 +15,7 @@ import {RatePlanListInstance} from "./preview/wireless/ratePlan";
 import {SimListInstance} from "./preview/wireless/sim";
 import PreviewBase from "./PreviewBase";
 
-export default class Preview extends PreviewBase {
+class Preview extends PreviewBase {
     /**
      * @deprecated - Use bulk_exports.exports instead
      */
@@ -144,3 +144,5 @@ export default class Preview extends PreviewBase {
         return this.trusted_comms.currentCalls;
     }
 }
+
+export = Preview;

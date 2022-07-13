@@ -3,7 +3,7 @@ import {ServiceListInstance} from './chat/v2/service';
 import {ChannelListInstance} from './chat/v3/channel';
 import ChatBase from "./ChatBase";
 
-export default class Chat extends ChatBase {
+class Chat extends ChatBase {
     /**
      * @deprecated - Use v2.credentials instead
      */
@@ -28,3 +28,5 @@ export default class Chat extends ChatBase {
         return this.v3.channels;
     }
 }
+
+export = Chat;

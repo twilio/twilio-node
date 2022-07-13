@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './wireless/V1';
 
-export default class WirelessBase extends Domain {
-    _v1: V1;
+class WirelessBase extends Domain {
+    _v1?: V1;
 
     /**
      * Initialize wireless domain
@@ -30,3 +29,5 @@ export default class WirelessBase extends Domain {
         return this._v1;
     }
 }
+
+export = WirelessBase;

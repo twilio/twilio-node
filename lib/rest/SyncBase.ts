@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './sync/V1';
 
-export default class SyncBase extends Domain {
-    _v1: V1;
+class SyncBase extends Domain {
+    _v1?: V1;
 
     /**
      * Initialize sync domain
@@ -30,3 +29,5 @@ export default class SyncBase extends Domain {
         return this._v1;
     }
 }
+
+export = SyncBase;

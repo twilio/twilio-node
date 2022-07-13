@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './serverless/V1';
 
-export default class ServerlessBase extends Domain {
-    _v1: V1;
+class ServerlessBase extends Domain {
+    _v1?: V1;
 
     /**
      * Initialize serverless domain
@@ -30,3 +29,5 @@ export default class ServerlessBase extends Domain {
         return this._v1;
     }
 }
+
+export = ServerlessBase;

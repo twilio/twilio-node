@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './autopilot/V1';
 
-export default class AutopilotBase extends Domain {
-    _v1: V1;
+class AutopilotBase extends Domain {
+    _v1?: V1;
 
     /**
      * Initialize autopilot domain
@@ -30,3 +29,5 @@ export default class AutopilotBase extends Domain {
         return this._v1;
     }
 }
+
+export = AutopilotBase;

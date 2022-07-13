@@ -1,7 +1,7 @@
 import {FaxListInstance} from "./fax/v1/fax";
 import FaxBase from "./FaxBase";
 
-export default class Fax extends FaxBase {
+class Fax extends FaxBase {
     /**
      * @deprecated - Use v1.faxes instead
      */
@@ -10,3 +10,5 @@ export default class Fax extends FaxBase {
         return this.v1.faxes;
     }
 }
+
+export = Fax;

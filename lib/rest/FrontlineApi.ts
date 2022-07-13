@@ -1,7 +1,7 @@
 import {UserListInstance} from "./frontlineApi/v1/user";
 import FrontlineApiBase from "./FrontlineApiBase";
 
-export default class FrontlineApi extends FrontlineApiBase {
+class FrontlineApi extends FrontlineApiBase {
     /**
      * @deprecated - Use v1.users instead
      */
@@ -10,3 +10,5 @@ export default class FrontlineApi extends FrontlineApiBase {
         return this.v1.users;
     }
 }
+
+export = FrontlineApi;

@@ -5,7 +5,7 @@ import {InteractionListInstance} from "./flexApi/v1/interaction";
 import {WebChannelListInstance} from "./flexApi/v1/webChannel";
 import FlexApiBase from "./FlexApiBase";
 
-export default class FlexApi extends FlexApiBase {
+class FlexApi extends FlexApiBase {
     /**
      * @deprecated - Use v1.channel instead
      */
@@ -46,3 +46,5 @@ export default class FlexApi extends FlexApiBase {
         return this.v1.webChannel;
     }
 }
+
+export = FlexApi;

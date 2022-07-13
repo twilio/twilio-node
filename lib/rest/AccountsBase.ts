@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V1 from './accounts/V1';
 
-export default class AccountsBase extends Domain {
-    _v1: V1;
+class AccountsBase extends Domain {
+    _v1?: V1;
 
     /**
      * Initialize accounts domain
@@ -30,3 +29,5 @@ export default class AccountsBase extends Domain {
         return this._v1;
     }
 }
+
+export = AccountsBase;

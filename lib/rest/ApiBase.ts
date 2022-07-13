@@ -8,13 +8,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-'use strict'
 
 import Domain from '../base/Domain';
 import V2010 from './api/V2010';
 
-export default class ApiBase extends Domain {
-    _v2010: V2010;
+class ApiBase extends Domain {
+    _v2010?: V2010;
 
     /**
      * Initialize api domain
@@ -30,3 +29,5 @@ export default class ApiBase extends Domain {
         return this._v2010;
     }
 }
+
+export = ApiBase;
