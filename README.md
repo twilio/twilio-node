@@ -138,7 +138,7 @@ npm test
 To run just one specific test file instead of the whole suite, provide a JavaScript regular expression that will match your spec file's name, like:
 
 ```bash
-npm run test -- -m .\*client.\*
+npm run test:javascript -- -m .\*client.\*
 ```
 
 [apidocs]: https://www.twilio.com/docs/api
