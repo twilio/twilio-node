@@ -65,7 +65,8 @@ describe('Sim', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+              'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
           }
       };
 
@@ -115,7 +116,8 @@ describe('Sim', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+              'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
           }
       };
 
@@ -164,7 +166,8 @@ describe('Sim', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+              'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
           }
       };
 
@@ -192,7 +195,8 @@ describe('Sim', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+              'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
           }
       };
 
@@ -220,7 +224,8 @@ describe('Sim', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+              'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
           }
       };
 
@@ -248,7 +253,8 @@ describe('Sim', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+              'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
           }
       };
 
@@ -276,7 +282,8 @@ describe('Sim', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
-              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+              'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+              'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
           }
       };
 
@@ -315,7 +322,8 @@ describe('Sim', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+                      'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
                   }
               }
           ]
@@ -348,7 +356,8 @@ describe('Sim', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+                      'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
                   }
               }
           ]
@@ -386,7 +395,8 @@ describe('Sim', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+                      'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
                   }
               }
           ]
@@ -465,7 +475,8 @@ describe('Sim', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+                      'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
                   }
               }
           ]
@@ -506,7 +517,8 @@ describe('Sim', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+                      'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
                   }
               }
           ]
@@ -547,7 +559,8 @@ describe('Sim', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
-                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods'
+                      'billing_periods': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BillingPeriods',
+                      'sim_ip_addresses': 'https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAddresses'
                   }
               }
           ]

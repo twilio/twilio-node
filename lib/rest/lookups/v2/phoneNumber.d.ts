@@ -60,7 +60,6 @@ interface PhoneNumberResource {
   caller_name: object;
   calling_country_code: string;
   country_code: string;
-  enhanced_line_type: object;
   line_type_intelligence: object;
   live_activity: object;
   national_format: string;
@@ -125,7 +124,6 @@ declare class PhoneNumberInstance extends SerializableClass {
   callerName: any;
   callingCountryCode: string;
   countryCode: string;
-  enhancedLineType: any;
   /**
    * fetch a PhoneNumberInstance
    *

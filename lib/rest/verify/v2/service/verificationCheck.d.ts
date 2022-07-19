@@ -24,10 +24,16 @@ interface VerificationCheckListInstance {
   /**
    * create a VerificationCheckInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: VerificationCheckInstance) => any): Promise<VerificationCheckInstance>;
+  /**
+   * create a VerificationCheckInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: VerificationCheckListInstanceCreateOptions, callback?: (error: Error | null, item: VerificationCheckInstance) => any): Promise<VerificationCheckInstance>;
+  create(opts?: VerificationCheckListInstanceCreateOptions, callback?: (error: Error | null, item: VerificationCheckInstance) => any): Promise<VerificationCheckInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -45,7 +51,7 @@ interface VerificationCheckListInstance {
  */
 interface VerificationCheckListInstanceCreateOptions {
   amount?: string;
-  code: string;
+  code?: string;
   payee?: string;
   to?: string;
   verificationSid?: string;
