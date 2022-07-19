@@ -28,6 +28,10 @@ This library supports the following Node.js implementations:
 
 TypeScript is supported for TypeScript version 2.9 and above.
 
+## Installation
+
+`npm install twilio` or `yarn add twilio`
+
 ## Sample Usage
 
 Check out these [code examples](examples) in JavaScript and TypeScript to get up and running quickly.
