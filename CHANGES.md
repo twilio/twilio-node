@@ -17,7 +17,7 @@ twilio-node changelog
 
 **Verify**
 - Changed summary param `service_sid` to `verify_service_sid` to be consistent with list attempts API **(breaking change)**
-- Make `code` optional on Verification check to support `sna` attempts.
+- Make `code` optional on Verification check to support `sna` attempts. **(breaking change)**
 
 
 [2022-06-29] Version 3.78.0
