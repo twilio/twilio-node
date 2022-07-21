@@ -1,6 +1,26 @@
 twilio-node changelog
 =====================
 
+[2022-07-21] Version 3.80.0
+---------------------------
+**Library - Docs**
+- [PR #772](https://github.com/twilio/twilio-node/pull/772): added npm/yarn install instructions. Thanks to [@citypaul](https://github.com/citypaul)!
+
+**Library - Feature**
+- [PR #775](https://github.com/twilio/twilio-node/pull/775): add a timeout options to RequestClient that creates a custom https agent. Thanks to [@benweissmann](https://github.com/benweissmann)!
+
+**Flex**
+- Add `status`, `error_code`, and `error_message` fields to Interaction `Channel`
+- Adding `messenger` and `gbm` as supported channels for Interactions API
+
+**Messaging**
+- Update alpha_sender docs with new valid characters
+
+**Verify**
+- Reorder Verification Check parameters so `code` stays as the first parameter **(breaking change)**
+- Rollback List Attempts API V2 back to pilot stage.
+
+
 [2022-07-13] Version 3.79.0
 ---------------------------
 **Library - Test**

@@ -69,6 +69,7 @@ interface VerificationCheckResource {
   payee: string;
   service_sid: string;
   sid: string;
+  sna_attempts_error_codes: object[];
   status: string;
   to: string;
   valid: boolean;
@@ -97,6 +98,7 @@ declare class VerificationCheckInstance extends SerializableClass {
   payee: string;
   serviceSid: string;
   sid: string;
+  snaAttemptsErrorCodes: object[];
   status: string;
   to: string;
   /**

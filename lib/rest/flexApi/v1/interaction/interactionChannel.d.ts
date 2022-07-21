@@ -14,15 +14,17 @@ import { InteractionChannelParticipantList } from './interactionChannel/interact
 import { InteractionChannelParticipantListInstance } from './interactionChannel/interactionChannelParticipant';
 import { SerializableClass } from '../../../../interfaces';
 
+type InteractionChannelChannelStatus = 'setup'|'active'|'failed'|'closed';
+
 type InteractionChannelStatus = 'close'|'closed'|'wrapup';
 
-type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat';
+type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat'|'messenger'|'gbm';
 
 /**
  * Initialize the InteractionChannelList
  *
  * @param version - Version of the resource
- * @param interactionSid - The unique string that identifies the resource
+ * @param interactionSid - The unique string that identifies the resource.
  */
 declare function InteractionChannelList(version: V1, interactionSid: string): InteractionChannelListInstance;
 
@@ -213,9 +215,12 @@ interface InteractionChannelPayload extends InteractionChannelResource, Page.Twi
 }
 
 interface InteractionChannelResource {
+  error_code: number;
+  error_message: string;
   interaction_sid: string;
   links: string;
   sid: string;
+  status: InteractionChannelChannelStatus;
   type: InteractionChannelType;
   url: string;
 }
@@ -263,12 +268,14 @@ declare class InteractionChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param interactionSid - The unique string that identifies the resource
+   * @param interactionSid - The unique string that identifies the resource.
    * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: InteractionChannelPayload, interactionSid: string, sid: string);
 
   private _proxy: InteractionChannelContext;
+  errorCode: number;
+  errorMessage: string;
   /**
    * fetch a InteractionChannelInstance
    *
@@ -286,6 +293,7 @@ declare class InteractionChannelInstance extends SerializableClass {
    */
   participants(): InteractionChannelParticipantListInstance;
   sid: string;
+  status: InteractionChannelChannelStatus;
   /**
    * Provide a user-friendly representation
    */
@@ -324,4 +332,4 @@ declare class InteractionChannelPage extends Page<V1, InteractionChannelPayload,
   toJSON(): any;
 }
 
-export { InteractionChannelContext, InteractionChannelInstance, InteractionChannelInstanceUpdateOptions, InteractionChannelList, InteractionChannelListInstance, InteractionChannelListInstanceEachOptions, InteractionChannelListInstanceOptions, InteractionChannelListInstancePageOptions, InteractionChannelPage, InteractionChannelPayload, InteractionChannelResource, InteractionChannelSolution, InteractionChannelStatus, InteractionChannelType }
+export { InteractionChannelChannelStatus, InteractionChannelContext, InteractionChannelInstance, InteractionChannelInstanceUpdateOptions, InteractionChannelList, InteractionChannelListInstance, InteractionChannelListInstanceEachOptions, InteractionChannelListInstanceOptions, InteractionChannelListInstancePageOptions, InteractionChannelPage, InteractionChannelPayload, InteractionChannelResource, InteractionChannelSolution, InteractionChannelStatus, InteractionChannelType }
