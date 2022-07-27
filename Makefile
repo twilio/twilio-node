@@ -18,7 +18,7 @@ clean:
 	rm -rf node_modules
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
-CURRENT_TAG=$(shell [[ "${GITHUB_TAG}" == *"-rc"* ]] && echo "rc" || echo "latest")
+CURRENT_TAG=$(shell expr "${GITHUB_TAG}" : ".*-rc.*" >/dev/null && echo "rc" || echo "latest")
 docker-build:
 	docker build -t twilio/twilio-node .
 	docker tag twilio/twilio-node twilio/twilio-node:${GITHUB_TAG}
