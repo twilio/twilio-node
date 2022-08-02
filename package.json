@@ -37,6 +37,7 @@
     "@babel/preset-typescript": "7.17.12",
     "@types/jest": "^27.5.2",
     "@types/node": "9.6.57",
+    "babel-plugin-replace-ts-export-assignment": "^0.0.2",
     "eslint": "^7.28.0",
     "express": "^4.17.1",
     "jest": "^28.1.0",
