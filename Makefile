@@ -1,4 +1,4 @@
-.PHONY: test-install install test docs clean
+.PHONY: test-install install test test-docker docs clean
 
 test-install:
 	npm install --only=dev
@@ -10,6 +10,10 @@ install:
 
 test:
 	npm test
+
+test-docker:
+	docker build -t twilio/twilio-node .
+	docker run twilio/twilio-node npm test
 
 docs:
 	npm run jsdoc
