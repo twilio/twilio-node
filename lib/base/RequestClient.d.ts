@@ -73,15 +73,15 @@ declare namespace RequestClient {
     /**
      * https.Agent maxSockets option
      */
-    maxSockets?: boolean;
+    maxSockets?: number;
     /**
      * https.Agent maxTotalSockets option
      */
-    maxTotalSockets?: boolean;
+    maxTotalSockets?: number;
     /**
      * https.Agent maxFreeSockets option
      */
-    maxFreeSockets?: boolean;
+    maxFreeSockets?: number;
     /**
      * https.Agent scheduling option
      */
