@@ -7,8 +7,8 @@ ENV NODE_PATH /usr/local/lib/node_modules
 
 COPY lib ./lib
 COPY spec ./spec
+COPY examples ./examples
 COPY index.js .
 COPY package* ./
 
-RUN npm install . -g
-RUN npm install jasmine -g
+RUN npm install . --include=dev

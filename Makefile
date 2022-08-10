@@ -13,7 +13,7 @@ test:
 
 test-docker:
 	docker build -t twilio/twilio-node .
-	docker run twilio/twilio-node npm test
+	docker run twilio/twilio-node npm run ci
 
 docs:
 	npm run jsdoc
