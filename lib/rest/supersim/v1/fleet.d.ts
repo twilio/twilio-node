@@ -25,6 +25,7 @@ declare function FleetList(version: V1): FleetListInstance;
 /**
  * Options to pass to update
  *
+ * @property dataLimit - The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
  * @property ipCommandsMethod - A string representing the HTTP method to use when making a request to `ip_commands_url`
  * @property ipCommandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
@@ -33,6 +34,7 @@ declare function FleetList(version: V1): FleetListInstance;
  * @property uniqueName - An application-defined string that uniquely identifies the resource
  */
 interface FleetInstanceUpdateOptions {
+  dataLimit?: number;
   ipCommandsMethod?: string;
   ipCommandsUrl?: string;
   networkAccessProfile?: string;
@@ -165,7 +167,7 @@ interface FleetListInstance {
  * Options to pass to create
  *
  * @property dataEnabled - Defines whether SIMs in the Fleet are capable of using data connectivity
- * @property dataLimit - The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
+ * @property dataLimit - The total data usage (download and upload combined) in Megabytes that each Super SIM resource assigned to the Fleet can consume
  * @property ipCommandsMethod - A string representing the HTTP method to use when making a request to `ip_commands_url`
  * @property ipCommandsUrl - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
  * @property networkAccessProfile - The SID or unique name of the Network Access Profile of the Fleet
