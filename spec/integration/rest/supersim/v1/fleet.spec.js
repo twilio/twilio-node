@@ -58,7 +58,7 @@ describe('Fleet', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'data_enabled': true,
-          'data_limit': 1000,
+          'data_limit': 500,
           'data_metering': 'payg',
           'date_created': '2019-07-30T20:00:00Z',
           'date_updated': '2019-07-30T20:00:00Z',
@@ -360,13 +360,13 @@ describe('Fleet', function() {
       }));
     }
   );
-  it('should generate valid update_unique_name response',
+  it('should generate valid update_unique_name_and_data_limit response',
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'unique_name': 'unique_name',
+          'unique_name': 'GPS Trackers Fleet 5GB',
           'data_enabled': true,
-          'data_limit': 1000,
+          'data_limit': 5000,
           'data_metering': 'payg',
           'date_created': '2019-10-15T20:00:00Z',
           'date_updated': '2019-10-15T20:00:00Z',

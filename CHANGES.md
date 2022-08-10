@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2022-08-10] Version 3.80.1
+---------------------------
+**Routes**
+- Inbound Proccessing Region API - Public GA
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+
+
 [2022-07-21] Version 3.80.0
 ---------------------------
 **Library - Docs**
