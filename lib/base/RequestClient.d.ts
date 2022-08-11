@@ -5,7 +5,7 @@ declare class RequestClient {
   constructor(opts?: RequestClient.RequestClientOptions);
   /**
    * Make an HTTP request
-   * @param opts The request options
+   * @param opts The options https.Agent takes in
    */
   request<TData>(
     opts: RequestClient.RequestOptions<TData>
@@ -59,9 +59,33 @@ declare namespace RequestClient {
   export interface RequestClientOptions {
     /**
      * A timeout in milliseconds. This will be used as the HTTPS agent's socket
-     * timeout, and as the default request timeout.
+     * timeout, AND as the default request timeout.
      */
     timeout?: number;
+    /**
+     * https.Agent keepAlive option
+     */
+    keepAlive?: boolean;
+    /**
+     * https.Agent keepAliveMSecs option
+     */
+    keepAliveMsecs?: number;
+    /**
+     * https.Agent maxSockets option
+     */
+    maxSockets?: number;
+    /**
+     * https.Agent maxTotalSockets option
+     */
+    maxTotalSockets?: number;
+    /**
+     * https.Agent maxFreeSockets option
+     */
+    maxFreeSockets?: number;
+    /**
+     * https.Agent scheduling option
+     */
+    scheduling?: string;
   }
 
   export interface Headers {
