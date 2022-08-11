@@ -5,30 +5,42 @@
  *       /       /
  */
 
-import BulkExports = require('../../BulkExports');
-import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import { SerializableClass } from '../../../../interfaces';
+import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
+import V1 = require('../V1');
+import { SerializableClass } from '../../../interfaces';
 
 /**
- * Initialize the DayList
+ * Initialize the DeviceList
  *
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
  */
-declare function DayList(version: BulkExports, resourceType: string): DayListInstance;
+declare function DeviceList(version: V1): DeviceListInstance;
 
-interface DayListInstance {
+/**
+ * Options to pass to update
+ *
+ * @property loggingEnabled - Whether to enable logging.
+ * @property targetApp - The target App SID or unique name.
+ * @property uniqueName - A unique, developer-assigned name for this Device.
+ */
+interface DeviceInstanceUpdateOptions {
+  loggingEnabled?: boolean;
+  targetApp?: string;
+  uniqueName?: string;
+}
+
+interface DeviceListInstance {
   /**
    * @param sid - sid of instance
    */
-  (sid: string): DayContext;
+  (sid: string): DeviceContext;
   /**
-   * Streams DayInstance records from the API.
+   * Streams DeviceInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -41,9 +53,9 @@ interface DayListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: DayInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: DeviceInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams DayInstance records from the API.
+   * Streams DeviceInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -57,15 +69,15 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DayListInstanceEachOptions, callback?: (item: DayInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: DeviceListInstanceEachOptions, callback?: (item: DeviceInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a day
+   * Constructs a device
    *
-   * @param day - The date of the data in the file
+   * @param sid - A string that uniquely identifies this Device.
    */
-  get(day: string): DayContext;
+  get(sid: string): DeviceContext;
   /**
-   * Retrieve a single target page of DayInstance records from the API.
+   * Retrieve a single target page of DeviceInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -74,9 +86,9 @@ interface DayListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  getPage(callback?: (error: Error | null, items: DevicePage) => any): Promise<DevicePage>;
   /**
-   * Retrieve a single target page of DayInstance records from the API.
+   * Retrieve a single target page of DeviceInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -86,18 +98,18 @@ interface DayListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DevicePage) => any): Promise<DevicePage>;
   /**
-   * Lists DayInstance records from the API as a list.
+   * Lists DeviceInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: DayInstance[]) => any): Promise<DayInstance[]>;
+  list(callback?: (error: Error | null, items: DeviceInstance[]) => any): Promise<DeviceInstance[]>;
   /**
-   * Lists DayInstance records from the API as a list.
+   * Lists DeviceInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -105,9 +117,9 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DayListInstanceOptions, callback?: (error: Error | null, items: DayInstance[]) => any): Promise<DayInstance[]>;
+  list(opts?: DeviceListInstanceOptions, callback?: (error: Error | null, items: DeviceInstance[]) => any): Promise<DeviceInstance[]>;
   /**
-   * Retrieve a single page of DayInstance records from the API.
+   * Retrieve a single page of DeviceInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -116,9 +128,9 @@ interface DayListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  page(callback?: (error: Error | null, items: DevicePage) => any): Promise<DevicePage>;
   /**
-   * Retrieve a single page of DayInstance records from the API.
+   * Retrieve a single page of DeviceInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -128,7 +140,7 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DayListInstancePageOptions, callback?: (error: Error | null, items: DayPage) => any): Promise<DayPage>;
+  page(opts?: DeviceListInstancePageOptions, callback?: (error: Error | null, items: DevicePage) => any): Promise<DevicePage>;
   /**
    * Provide a user-friendly representation
    */
@@ -153,8 +165,8 @@ interface DayListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface DayListInstanceEachOptions {
-  callback?: (item: DayInstance, done: (err?: Error) => void) => void;
+interface DeviceListInstanceEachOptions {
+  callback?: (item: DeviceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -174,7 +186,7 @@ interface DayListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface DayListInstanceOptions {
+interface DeviceListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -186,59 +198,72 @@ interface DayListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface DayListInstancePageOptions {
+interface DeviceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface DayPayload extends DayResource, Page.TwilioResponsePayload {
+interface DevicePayload extends DeviceResource, Page.TwilioResponsePayload {
 }
 
-interface DayResource {
-  create_date?: string;
-  day?: string;
-  friendly_name?: string;
-  redirect_to?: string;
-  resource_type?: string;
-  size?: number;
+interface DeviceResource {
+  account_sid: string;
+  app: object;
+  date_created: Date;
+  date_updated: Date;
+  logging: object;
+  sid: string;
+  unique_name: string;
+  url: string;
 }
 
-interface DaySolution {
-  resourceType?: string;
+interface DeviceSolution {
 }
 
 
-declare class DayContext {
+declare class DeviceContext {
   /**
-   * Initialize the DayContext
+   * Initialize the DeviceContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
    * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
-   * @param day - The date of the data in the file
+   * @param sid - A string that uniquely identifies this Device.
    */
-  constructor(version: BulkExports, resourceType: string, day: string);
+  constructor(version: V1, sid: string);
 
   /**
-   * fetch a DayInstance
+   * fetch a DeviceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DayInstance) => any): Promise<DayInstance>;
+  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  /**
+   * update a DeviceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
+  /**
+   * update a DeviceInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
 }
 
 
-declare class DayInstance extends SerializableClass {
+declare class DeviceInstance extends SerializableClass {
   /**
-   * Initialize the DayContext
+   * Initialize the DeviceContext
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -246,34 +271,48 @@ declare class DayInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param resourceType - The type of communication – Messages, Calls, Conferences, and Participants
-   * @param day - The date of the data in the file
+   * @param sid - A string that uniquely identifies this Device.
    */
-  constructor(version: BulkExports, payload: DayPayload, resourceType: string, day: string);
+  constructor(version: V1, payload: DevicePayload, sid: string);
 
-  private _proxy: DayContext;
-  createDate: string;
-  day: string;
+  private _proxy: DeviceContext;
+  accountSid: string;
+  app: any;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
-   * fetch a DayInstance
+   * fetch a DeviceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DayInstance) => any): Promise<DayInstance>;
-  friendlyName: string;
-  redirectTo: string;
-  resourceType: string;
-  size: number;
+  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
+  logging: any;
+  sid: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
+  uniqueName: string;
+  /**
+   * update a DeviceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
+  /**
+   * update a DeviceInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
+  url: string;
 }
 
 
-declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInstance> {
+declare class DevicePage extends Page<V1, DevicePayload, DeviceResource, DeviceInstance> {
   /**
-   * Initialize the DayPage
+   * Initialize the DevicePage
    *
    * PLEASE NOTE that this class contains preview products that are subject to
    * change. Use them with caution. If you currently do not have developer preview
@@ -283,18 +322,18 @@ declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInst
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: BulkExports, response: Response<string>, solution: DaySolution);
+  constructor(version: V1, response: Response<string>, solution: DeviceSolution);
 
   /**
-   * Build an instance of DayInstance
+   * Build an instance of DeviceInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DayPayload): DayInstance;
+  getInstance(payload: DevicePayload): DeviceInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { DayContext, DayInstance, DayList, DayListInstance, DayListInstanceEachOptions, DayListInstanceOptions, DayListInstancePageOptions, DayPage, DayPayload, DayResource, DaySolution }
+export { DeviceContext, DeviceInstance, DeviceInstanceUpdateOptions, DeviceList, DeviceListInstance, DeviceListInstanceEachOptions, DeviceListInstanceOptions, DeviceListInstancePageOptions, DevicePage, DevicePayload, DeviceResource, DeviceSolution }

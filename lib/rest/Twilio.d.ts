@@ -19,6 +19,7 @@ import IpMessaging = require('./IpMessaging');
 import Lookups = require('./Lookups');
 import Media = require('./Media');
 import Messaging = require('./Messaging');
+import Microvisor = require('./Microvisor');
 import Monitor = require('./Monitor');
 import Notify = require('./Notify');
 import Numbers = require('./Numbers');
@@ -26,6 +27,7 @@ import Preview = require('./Preview');
 import Pricing = require('./Pricing');
 import Proxy = require('./Proxy');
 import RequestClient = require('../base/RequestClient');
+import Routes = require('./Routes');
 import Serverless = require('./Serverless');
 import Studio = require('./Studio');
 import Supersim = require('./Supersim');
@@ -74,6 +76,7 @@ declare class Twilio {
   media: Media;
   messages: (typeof Api.prototype.account.messages);
   messaging: Messaging;
+  microvisor: Microvisor;
   monitor: Monitor;
   newKeys: (typeof Api.prototype.account.newKeys);
   newSigningKeys: (typeof Api.prototype.account.newSigningKeys);
@@ -93,6 +96,7 @@ declare class Twilio {
    * @param opts - The options argument
    */
   request(opts: Twilio.RequestOptions): Promise<any>;
+  routes: Routes;
   serverless: Serverless;
   shortCodes: (typeof Api.prototype.account.shortCodes);
   signingKeys: (typeof Api.prototype.account.signingKeys);
