@@ -61,7 +61,8 @@ describe('Siprec', function() {
           'sid': 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'name': null,
           'status': 'in-progress',
-          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000'
+          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 
       holodeck.mock(new Response(201, body));
@@ -85,7 +86,8 @@ describe('Siprec', function() {
           'sid': 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'name': 'myName',
           'status': 'in-progress',
-          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000'
+          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 
       holodeck.mock(new Response(201, body));
@@ -105,7 +107,7 @@ describe('Siprec', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'stopped'};
+      var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -121,7 +123,7 @@ describe('Siprec', function() {
       var sid = 'SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${callSid}/Siprec/${sid}.json`;
 
-      var values = {Status: 'stopped', };
+      var values = {'Status': 'stopped', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -137,12 +139,13 @@ describe('Siprec', function() {
           'sid': 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'name': null,
           'status': 'stopped',
-          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000'
+          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'stopped'};
+      var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -162,12 +165,13 @@ describe('Siprec', function() {
           'sid': 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'name': 'mySiprec',
           'status': 'stopped',
-          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000'
+          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'stopped'};
+      var opts = {'status': 'stopped'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .siprec('SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);

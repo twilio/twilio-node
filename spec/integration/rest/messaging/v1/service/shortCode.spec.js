@@ -33,7 +33,7 @@ describe('ShortCode', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {shortCodeSid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'shortCodeSid': 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .shortCodes.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('ShortCode', function() {
       var serviceSid = 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://messaging.twilio.com/v1/Services/${serviceSid}/ShortCodes`;
 
-      var values = {ShortCodeSid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'ShortCodeSid': 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -72,7 +72,7 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {shortCodeSid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'shortCodeSid': 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .shortCodes.create(opts);
       promise.then(function(response) {

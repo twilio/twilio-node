@@ -244,10 +244,10 @@ describe('WebChannel', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        flexFlowSid: 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        customerFriendlyName: 'customer_friendly_name',
-        chatFriendlyName: 'chat_friendly_name'
+        'flexFlowSid': 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'identity': 'identity',
+        'customerFriendlyName': 'customer_friendly_name',
+        'chatFriendlyName': 'chat_friendly_name'
       };
       var promise = client.flexApi.v1.webChannel.create(opts);
       promise.then(function() {
@@ -260,10 +260,10 @@ describe('WebChannel', function() {
       var url = 'https://flex-api.twilio.com/v1/WebChannels';
 
       var values = {
-        FlexFlowSid: 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        Identity: 'identity',
-        CustomerFriendlyName: 'customer_friendly_name',
-        ChatFriendlyName: 'chat_friendly_name',
+        'FlexFlowSid': 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'Identity': 'identity',
+        'CustomerFriendlyName': 'customer_friendly_name',
+        'ChatFriendlyName': 'chat_friendly_name',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -286,10 +286,10 @@ describe('WebChannel', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        flexFlowSid: 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        identity: 'identity',
-        customerFriendlyName: 'customer_friendly_name',
-        chatFriendlyName: 'chat_friendly_name'
+        'flexFlowSid': 'FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'identity': 'identity',
+        'customerFriendlyName': 'customer_friendly_name',
+        'chatFriendlyName': 'chat_friendly_name'
       };
       var promise = client.flexApi.v1.webChannel.create(opts);
       promise.then(function(response) {

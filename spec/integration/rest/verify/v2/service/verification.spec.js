@@ -33,7 +33,7 @@ describe('Verification', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('Verification', function() {
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Verifications`;
 
-      var values = {To: 'to', Channel: 'channel', };
+      var values = {'To': 'to', 'Channel': 'channel', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -66,30 +66,23 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function(response) {
@@ -112,30 +105,23 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'whatsapp',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function(response) {
@@ -158,30 +144,23 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': null,
-                  'mobile_country_code': null,
-                  'mobile_network_code': null,
-                  'type': null
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'EMAIL',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function(response) {
@@ -204,13 +183,52 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
+          'lookup': {},
+          'amount': null,
+          'payee': null,
+          'send_code_attempts': [
+              {
+                  'time': '2015-07-30T20:00:00Z',
+                  'channel': 'SMS',
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'sna': null,
+          'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {'to': 'to', 'channel': 'channel'};
+      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .verifications.create(opts);
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid create_verification_sna response',
+    function(done) {
+      var body = {
+          'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'to': '+15017122661',
+          'channel': 'sna',
+          'status': 'pending',
+          'valid': false,
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
           'lookup': {
               'carrier': {
+                  'mobile_country_code': '311',
+                  'type': 'mobile',
                   'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
+                  'mobile_network_code': '180',
+                  'name': 'T-Mobile USA, Inc.'
               }
           },
           'amount': null,
@@ -218,16 +236,19 @@ describe('Verification', function() {
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
-                  'channel': 'SMS',
-                  'channel_id': null
+                  'channel': 'sna',
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': {
+              'url': 'https://mi.dnlsrv.com/m/id/ANBByzx7?data=AAAglRRdNn02iTFWfDWwdTjOzM8o%2F6JB86fH%2Bt%2FFftUPj0pFA0u8%2FibWuYwzmMeMOtdTwYlsO8V%2FXF%2BJmngMhbeGKYhHeTOF2H9VrGEYKcEEklPxHgb5GgL3XtYa33j3lIU%2By6InvoV%2FowWHBzA0QeFPBh6vmJ8LoUPJqGE7q0PRz618Z4ym1AGq%2BaomSq9PlP4rCduv9Cmtxu%2FrvPSBwocs0GCWDE8seK8t9epmPQW7gwODxkAiKr9UxhJd9KvmBVuAQPf%2BoFQVo86USXkhXqTvUzB2bNUYY9FCy3CWgZFTOa1D3H1CVxf1eHzYIswNA7SmOzP%2FBX8g6%2B0hkzwMRkcit3gBNs4evAVJiqAgYvUlrtGwwv9bFx4X7jWSHY4%3D&cipherSalt=yANeDq09bwM38SJs'
+          },
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: 'to', channel: 'channel'};
+      var opts = {'to': 'to', 'channel': 'channel'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications.create(opts);
       promise.then(function(response) {
@@ -242,7 +263,7 @@ describe('Verification', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'canceled'};
+      var opts = {'status': 'canceled'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications('sid').update(opts);
       promise.then(function() {
@@ -256,7 +277,7 @@ describe('Verification', function() {
       var sid = 'sid';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Verifications/${sid}`;
 
-      var values = {Status: 'canceled', };
+      var values = {'Status': 'canceled', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -276,30 +297,23 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'canceled'};
+      var opts = {'status': 'canceled'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications('sid').update(opts);
       promise.then(function(response) {
@@ -322,30 +336,23 @@ describe('Verification', function() {
           'valid': true,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'canceled'};
+      var opts = {'status': 'canceled'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .verifications('sid').update(opts);
       promise.then(function(response) {
@@ -391,24 +398,17 @@ describe('Verification', function() {
           'valid': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
-          'lookup': {
-              'carrier': {
-                  'error_code': null,
-                  'name': 'Carrier Name',
-                  'mobile_country_code': '310',
-                  'mobile_network_code': '150',
-                  'type': 'mobile'
-              }
-          },
+          'lookup': {},
           'amount': null,
           'payee': null,
           'send_code_attempts': [
               {
                   'time': '2015-07-30T20:00:00Z',
                   'channel': 'SMS',
-                  'channel_id': null
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
+          'sna': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 

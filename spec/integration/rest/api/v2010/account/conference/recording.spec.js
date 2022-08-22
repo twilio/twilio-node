@@ -33,7 +33,7 @@ describe('Recording', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'in-progress'};
+      var opts = {'status': 'in-progress'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -49,7 +49,7 @@ describe('Recording', function() {
       var sid = 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Conferences/${conferenceSid}/Recordings/${sid}.json`;
 
-      var values = {Status: 'in-progress', };
+      var values = {'Status': 'in-progress', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -81,7 +81,7 @@ describe('Recording', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'in-progress'};
+      var opts = {'status': 'in-progress'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);

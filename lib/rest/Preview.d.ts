@@ -5,7 +5,6 @@
  *       /       /
  */
 
-import BulkExports = require('./preview/BulkExports');
 import DeployedDevices = require('./preview/DeployedDevices');
 import Domain = require('../base/Domain');
 import HostedNumbers = require('./preview/HostedNumbers');
@@ -23,8 +22,6 @@ import { BrandsInformationListInstance } from './preview/trusted_comms/brandsInf
 import { CommandListInstance } from './preview/wireless/command';
 import { CpsListInstance } from './preview/trusted_comms/cps';
 import { CurrentCallListInstance } from './preview/trusted_comms/currentCall';
-import { ExportConfigurationListInstance } from './preview/bulk_exports/exportConfiguration';
-import { ExportListInstance } from './preview/bulk_exports/export';
 import { FleetListInstance } from './preview/deployed_devices/fleet';
 import { HostedNumberOrderListInstance } from './preview/hosted_numbers/hostedNumberOrder';
 import { InstalledAddOnListInstance } from './preview/marketplace/installedAddOn';
@@ -46,13 +43,10 @@ declare class Preview extends Domain {
   readonly availableAddOns: AvailableAddOnListInstance;
   readonly brandedChannels: BrandedChannelListInstance;
   readonly brandsInformation: BrandsInformationListInstance;
-  readonly bulk_exports: BulkExports;
   readonly commands: CommandListInstance;
   readonly cps: CpsListInstance;
   readonly currentCalls: CurrentCallListInstance;
   readonly deployed_devices: DeployedDevices;
-  readonly exportConfiguration: ExportConfigurationListInstance;
-  readonly exports: ExportListInstance;
   readonly fleets: FleetListInstance;
   readonly hostedNumberOrders: HostedNumberOrderListInstance;
   readonly hosted_numbers: HostedNumbers;

@@ -11,6 +11,8 @@ import V1 = require('../V1');
 import { BillingPeriodList } from './sim/billingPeriod';
 import { BillingPeriodListInstance } from './sim/billingPeriod';
 import { SerializableClass } from '../../../interfaces';
+import { SimIpAddressList } from './sim/simIpAddress';
+import { SimIpAddressListInstance } from './sim/simIpAddress';
 
 type SimStatus = 'new'|'ready'|'active'|'inactive'|'scheduled';
 
@@ -290,6 +292,7 @@ declare class SimContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  simIpAddresses: SimIpAddressListInstance;
   /**
    * Provide a user-friendly representation
    */
@@ -341,6 +344,10 @@ declare class SimInstance extends SerializableClass {
   iccid: string;
   links: string;
   sid: string;
+  /**
+   * Access the simIpAddresses
+   */
+  simIpAddresses(): SimIpAddressListInstance;
   status: SimStatus;
   /**
    * Provide a user-friendly representation

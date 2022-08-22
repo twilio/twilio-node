@@ -685,6 +685,7 @@ interface SiprecResource {
   name: string;
   sid: string;
   status: SiprecStatus;
+  uri: string;
 }
 
 interface SiprecSolution {
@@ -748,6 +749,7 @@ declare class SiprecInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   update(opts: SiprecInstanceUpdateOptions, callback?: (error: Error | null, items: SiprecInstance) => any): Promise<SiprecInstance>;
+  uri: string;
 }
 
 

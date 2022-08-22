@@ -33,7 +33,7 @@ describe('Conversation', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.conversations.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -127,7 +127,7 @@ describe('Conversation', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -188,7 +188,7 @@ describe('Conversation', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {
         throw new Error('failed');

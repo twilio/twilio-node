@@ -480,7 +480,7 @@ describe('HostedNumberOrder', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {phoneNumber: '+15017122661', smsCapability: true};
+      var opts = {'phoneNumber': '+15017122661', 'smsCapability': true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -491,7 +491,7 @@ describe('HostedNumberOrder', function() {
 
       var url = 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders';
 
-      var values = {PhoneNumber: '+15017122661', SmsCapability: serialize.bool(true), };
+      var values = {'PhoneNumber': '+15017122661', 'SmsCapability': serialize.bool(true), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -532,7 +532,7 @@ describe('HostedNumberOrder', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumber: '+15017122661', smsCapability: true};
+      var opts = {'phoneNumber': '+15017122661', 'smsCapability': true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -575,7 +575,7 @@ describe('HostedNumberOrder', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumber: '+15017122661', smsCapability: true};
+      var opts = {'phoneNumber': '+15017122661', 'smsCapability': true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -618,7 +618,7 @@ describe('HostedNumberOrder', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumber: '+15017122661', smsCapability: true};
+      var opts = {'phoneNumber': '+15017122661', 'smsCapability': true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

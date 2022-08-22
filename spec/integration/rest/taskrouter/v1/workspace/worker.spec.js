@@ -275,7 +275,7 @@ describe('Worker', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workers.create(opts);
       promise.then(function() {
@@ -288,7 +288,7 @@ describe('Worker', function() {
       var workspaceSid = 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://taskrouter.twilio.com/v1/Workspaces/${workspaceSid}/Workers`;
 
-      var values = {FriendlyName: 'friendly_name', };
+      var values = {'FriendlyName': 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -326,7 +326,7 @@ describe('Worker', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workers.create(opts);
       promise.then(function(response) {
@@ -404,7 +404,7 @@ describe('Worker', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -470,7 +470,7 @@ describe('Worker', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {

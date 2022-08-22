@@ -440,7 +440,7 @@ describe('Webhook', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {type: 'webhook'};
+      var opts = {'type': 'webhook'};
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .webhooks.create(opts);
@@ -455,7 +455,7 @@ describe('Webhook', function() {
       var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://chat.twilio.com/v2/Services/${serviceSid}/Channels/${channelSid}/Webhooks`;
 
-      var values = {Type: 'webhook', };
+      var values = {'Type': 'webhook', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -487,7 +487,7 @@ describe('Webhook', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {type: 'webhook'};
+      var opts = {'type': 'webhook'};
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .webhooks.create(opts);

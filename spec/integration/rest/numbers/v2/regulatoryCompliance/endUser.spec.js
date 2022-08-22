@@ -33,7 +33,7 @@ describe('EndUser', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', type: 'individual'};
+      var opts = {'friendlyName': 'friendly_name', 'type': 'individual'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .endUsers.create(opts);
       promise.then(function() {
@@ -45,7 +45,7 @@ describe('EndUser', function() {
 
       var url = 'https://numbers.twilio.com/v2/RegulatoryCompliance/EndUsers';
 
-      var values = {FriendlyName: 'friendly_name', Type: 'individual', };
+      var values = {'FriendlyName': 'friendly_name', 'Type': 'individual', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -70,7 +70,7 @@ describe('EndUser', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', type: 'individual'};
+      var opts = {'friendlyName': 'friendly_name', 'type': 'individual'};
       var promise = client.numbers.v2.regulatoryCompliance
                                      .endUsers.create(opts);
       promise.then(function(response) {

@@ -338,7 +338,7 @@ describe('Query', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {language: 'language', query: 'query'};
+      var opts = {'language': 'language', 'query': 'query'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .queries.create(opts);
       promise.then(function() {
@@ -351,7 +351,7 @@ describe('Query', function() {
       var assistantSid = 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://autopilot.twilio.com/v1/Assistants/${assistantSid}/Queries`;
 
-      var values = {Language: 'language', Query: 'query', };
+      var values = {'Language': 'language', 'Query': 'query', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -389,7 +389,7 @@ describe('Query', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {language: 'language', query: 'query'};
+      var opts = {'language': 'language', 'query': 'query'};
       var promise = client.autopilot.v1.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .queries.create(opts);
       promise.then(function(response) {

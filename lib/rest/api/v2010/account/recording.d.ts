@@ -16,7 +16,7 @@ import { TranscriptionListInstance } from './recording/transcription';
 
 type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
 
-type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent';
+type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent'|'deleted';
 
 /**
  * Initialize the RecordingList
@@ -25,6 +25,15 @@ type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'
  * @param accountSid - The SID of the Account that created the resource
  */
 declare function RecordingList(version: V2010, accountSid: string): RecordingListInstance;
+
+/**
+ * Options to pass to fetch
+ *
+ * @property includeSoftDeleted - A boolean parameter indicating whether to retrieve soft deleted recordings or not.
+ */
+interface RecordingInstanceFetchOptions {
+  includeSoftDeleted?: boolean;
+}
 
 interface RecordingListInstance {
   /**
@@ -151,6 +160,7 @@ interface RecordingListInstance {
  * @property dateCreatedAfter - Only include recordings that were created on this date
  * @property dateCreatedBefore - Only include recordings that were created on this date
  * @property done - Function to be called upon completion of streaming
+ * @property includeSoftDeleted - A boolean parameter indicating whether to retrieve soft deleted recordings or not.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -170,6 +180,7 @@ interface RecordingListInstanceEachOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;
+  includeSoftDeleted?: boolean;
   limit?: number;
   pageSize?: number;
 }
@@ -182,6 +193,7 @@ interface RecordingListInstanceEachOptions {
  * @property dateCreated - Only include recordings that were created on this date
  * @property dateCreatedAfter - Only include recordings that were created on this date
  * @property dateCreatedBefore - Only include recordings that were created on this date
+ * @property includeSoftDeleted - A boolean parameter indicating whether to retrieve soft deleted recordings or not.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -199,6 +211,7 @@ interface RecordingListInstanceOptions {
   dateCreated?: Date;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
+  includeSoftDeleted?: boolean;
   limit?: number;
   pageSize?: number;
 }
@@ -211,6 +224,7 @@ interface RecordingListInstanceOptions {
  * @property dateCreated - Only include recordings that were created on this date
  * @property dateCreatedAfter - Only include recordings that were created on this date
  * @property dateCreatedBefore - Only include recordings that were created on this date
+ * @property includeSoftDeleted - A boolean parameter indicating whether to retrieve soft deleted recordings or not.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -221,6 +235,7 @@ interface RecordingListInstancePageOptions {
   dateCreated?: Date;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
+  includeSoftDeleted?: boolean;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -240,6 +255,7 @@ interface RecordingResource {
   duration: string;
   encryption_details: object;
   error_code: number;
+  media_url: string;
   price: string;
   price_unit: string;
   sid: string;
@@ -272,6 +288,13 @@ declare class RecordingContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
+  /**
+   * fetch a RecordingInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  fetch(opts?: RecordingInstanceFetchOptions, callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
   /**
    * remove a RecordingInstance
    *
@@ -318,6 +341,14 @@ declare class RecordingInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
+  /**
+   * fetch a RecordingInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  fetch(opts?: RecordingInstanceFetchOptions, callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
+  mediaUrl: string;
   price: string;
   priceUnit: string;
   /**
@@ -365,4 +396,4 @@ declare class RecordingPage extends Page<V2010, RecordingPayload, RecordingResou
   toJSON(): any;
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution, RecordingSource, RecordingStatus }
+export { RecordingContext, RecordingInstance, RecordingInstanceFetchOptions, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution, RecordingSource, RecordingStatus }

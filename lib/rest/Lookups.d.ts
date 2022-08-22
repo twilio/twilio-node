@@ -8,6 +8,7 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./lookups/V1');
+import V2 = require('./lookups/V2');
 import { PhoneNumberListInstance } from './lookups/v1/phoneNumber';
 
 
@@ -21,6 +22,7 @@ declare class Lookups extends Domain {
 
   readonly phoneNumbers: PhoneNumberListInstance;
   readonly v1: V1;
+  readonly v2: V2;
 }
 
 export = Lookups;

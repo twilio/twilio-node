@@ -136,7 +136,7 @@ interface UsageRecordListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property endTime - Only include usage that occurred before this time.
+ * @property endTime - Only include usage that occurred before this time (exclusive).
  * @property fleet - SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
  * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
  * @property group - Dimension over which to aggregate usage records.
@@ -173,7 +173,7 @@ interface UsageRecordListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property endTime - Only include usage that occurred before this time.
+ * @property endTime - Only include usage that occurred before this time (exclusive).
  * @property fleet - SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
  * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
  * @property group - Dimension over which to aggregate usage records.
@@ -208,7 +208,7 @@ interface UsageRecordListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property endTime - Only include usage that occurred before this time.
+ * @property endTime - Only include usage that occurred before this time (exclusive).
  * @property fleet - SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
  * @property granularity - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.
  * @property group - Dimension over which to aggregate usage records.
@@ -239,8 +239,10 @@ interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePay
 
 interface UsageRecordResource {
   account_sid: string;
+  billed_unit: string;
   data_download: number;
   data_total: number;
+  data_total_billed: number;
   data_upload: number;
   fleet_sid: string;
   iso_country: string;
@@ -266,8 +268,10 @@ declare class UsageRecordInstance extends SerializableClass {
   constructor(version: V1, payload: UsageRecordPayload);
 
   accountSid: string;
+  billedUnit: string;
   dataDownload: number;
   dataTotal: number;
+  dataTotalBilled: number;
   dataUpload: number;
   fleetSid: string;
   isoCountry: string;

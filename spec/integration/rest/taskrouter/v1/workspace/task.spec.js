@@ -99,7 +99,7 @@ describe('Task', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .tasks('WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -168,7 +168,7 @@ describe('Task', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .tasks('WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {

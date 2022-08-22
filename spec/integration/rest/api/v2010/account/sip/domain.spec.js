@@ -280,7 +280,7 @@ describe('Domain', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {domainName: 'domain_name'};
+      var opts = {'domainName': 'domain_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .domains.create(opts);
@@ -294,7 +294,7 @@ describe('Domain', function() {
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/Domains.json`;
 
-      var values = {DomainName: 'domain_name', };
+      var values = {'DomainName': 'domain_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -333,7 +333,7 @@ describe('Domain', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {domainName: 'domain_name'};
+      var opts = {'domainName': 'domain_name'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .domains.create(opts);

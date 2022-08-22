@@ -337,11 +337,11 @@ describe('AuthorizationDocument', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        hostedNumberOrderSids: ['hosted_number_order_sids'],
-        addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        email: 'email',
-        contactTitle: 'contact_title',
-        contactPhoneNumber: 'contact_phone_number'
+        'hostedNumberOrderSids': ['hosted_number_order_sids'],
+        'addressSid': 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'email': 'email',
+        'contactTitle': 'contact_title',
+        'contactPhoneNumber': 'contact_phone_number'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
       promise.then(function() {
@@ -354,11 +354,11 @@ describe('AuthorizationDocument', function() {
       var url = 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments';
 
       var values = {
-        HostedNumberOrderSids: serialize.map(['hosted_number_order_sids'], function(e) { return e; }),
-        AddressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        Email: 'email',
-        ContactTitle: 'contact_title',
-        ContactPhoneNumber: 'contact_phone_number',
+        'HostedNumberOrderSids': serialize.map(['hosted_number_order_sids'], function(e) { return e; }),
+        'AddressSid': 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'Email': 'email',
+        'ContactTitle': 'contact_title',
+        'ContactPhoneNumber': 'contact_phone_number',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -389,11 +389,11 @@ describe('AuthorizationDocument', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        hostedNumberOrderSids: ['hosted_number_order_sids'],
-        addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        email: 'email',
-        contactTitle: 'contact_title',
-        contactPhoneNumber: 'contact_phone_number'
+        'hostedNumberOrderSids': ['hosted_number_order_sids'],
+        'addressSid': 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        'email': 'email',
+        'contactTitle': 'contact_title',
+        'contactPhoneNumber': 'contact_phone_number'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
       promise.then(function(response) {

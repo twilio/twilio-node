@@ -385,7 +385,7 @@ describe('Document', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {

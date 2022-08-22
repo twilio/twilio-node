@@ -33,7 +33,7 @@ describe('Cps', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xXcnamSensitivePhoneNumber: 'x_xcnam_sensitive_phone_number'};
+      var opts = {'xXcnamSensitivePhoneNumber': 'x_xcnam_sensitive_phone_number'};
       var promise = client.preview.trusted_comms.cps().fetch(opts);
       promise.then(function() {
         throw new Error('failed');

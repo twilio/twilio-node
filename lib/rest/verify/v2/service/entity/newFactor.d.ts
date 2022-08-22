@@ -60,6 +60,7 @@ interface NewFactorListInstance {
  * @property config.timeStep - How often, in seconds, are TOTP codes generated
  * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
+ * @property metadata - Metadata of the factor.
  */
 interface NewFactorListInstanceCreateOptions {
   binding?: {
@@ -79,6 +80,7 @@ interface NewFactorListInstanceCreateOptions {
   };
   factorType: NewFactorFactorTypes;
   friendlyName: string;
+  metadata?: object;
 }
 
 interface NewFactorPayload extends NewFactorResource, Page.TwilioResponsePayload {
@@ -94,6 +96,7 @@ interface NewFactorResource {
   factor_type: NewFactorFactorTypes;
   friendly_name: string;
   identity: string;
+  metadata: object;
   service_sid: string;
   sid: string;
   status: NewFactorFactorStatuses;
@@ -129,6 +132,7 @@ declare class NewFactorInstance extends SerializableClass {
   factorType: NewFactorFactorTypes;
   friendlyName: string;
   identity: string;
+  metadata: any;
   serviceSid: string;
   sid: string;
   status: NewFactorFactorStatuses;

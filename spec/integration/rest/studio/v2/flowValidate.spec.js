@@ -35,7 +35,7 @@ describe('FlowValidate', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', status: 'draft', definition: {}};
+      var opts = {'friendlyName': 'friendly_name', 'status': 'draft', 'definition': {}};
       var promise = client.studio.v2.flowValidate.update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -46,7 +46,11 @@ describe('FlowValidate', function() {
 
       var url = 'https://studio.twilio.com/v2/Flows/Validate';
 
-      var values = {FriendlyName: 'friendly_name', Status: 'draft', Definition: serialize.object({}), };
+      var values = {
+        'FriendlyName': 'friendly_name',
+        'Status': 'draft',
+        'Definition': serialize.object({}),
+      };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -62,7 +66,7 @@ describe('FlowValidate', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {friendlyName: 'friendly_name', status: 'draft', definition: {}};
+      var opts = {'friendlyName': 'friendly_name', 'status': 'draft', 'definition': {}};
       var promise = client.studio.v2.flowValidate.update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

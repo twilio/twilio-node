@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        node: [ 6, 8, 10, lts/* ]
+        node: [ 6, 8, 10, 12, 14, 16, lts/* ]
     steps:
       - name: Checkout twilio-node
         uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
       - run: npm install
       - name: Run Unit Tests
         run: npm run ci
-      
+
       - name: SonarCloud Scan
         if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.node == 'lts/*' && !github.event.pull_request.head.repo.fork }}
         uses: SonarSource/sonarcloud-github-action@master
@@ -54,7 +54,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
-          node-version: 8
+          node-version: lts/*
 
       - run: npm install
 
@@ -83,6 +83,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Submit metric to Datadog
+        uses: sendgrid/dx-automator/actions/datadog-release-metric@main
+        env:
+          DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+
   notify-on-failure:
     name: Slack notify on failure
     if: failure() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref_type == 'tag')
@@ -93,7 +98,7 @@ jobs:
         env:
           SLACK_COLOR: failure
           SLACK_ICON_EMOJI: ':github:'
-          SLACK_MESSAGE: ${{ format('Tests *{0}*, Deploy *{1}*, {2}/{3}/actions/runs/{4}', needs.test.result, needs.deploy.result, github.server_url, github.repository, github.run_id) }}
+          SLACK_MESSAGE: ${{ format('Test *{0}*, Deploy *{1}*, {2}/{3}/actions/runs/{4}', needs.test.result, needs.deploy.result, github.server_url, github.repository, github.run_id) }}
           SLACK_TITLE: Action Failure - ${{ github.repository }}
           SLACK_USERNAME: GitHub Actions
           SLACK_MSG_AUTHOR: twilio-dx

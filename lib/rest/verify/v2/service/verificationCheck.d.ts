@@ -10,7 +10,7 @@ import Response = require('../../../../http/response');
 import V2 = require('../../V2');
 import { SerializableClass } from '../../../../interfaces';
 
-type VerificationCheckChannel = 'sms'|'call'|'email'|'whatsapp';
+type VerificationCheckChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
 
 /**
  * Initialize the VerificationCheckList
@@ -24,10 +24,16 @@ interface VerificationCheckListInstance {
   /**
    * create a VerificationCheckInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  create(callback?: (error: Error | null, item: VerificationCheckInstance) => any): Promise<VerificationCheckInstance>;
+  /**
+   * create a VerificationCheckInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: VerificationCheckListInstanceCreateOptions, callback?: (error: Error | null, item: VerificationCheckInstance) => any): Promise<VerificationCheckInstance>;
+  create(opts?: VerificationCheckListInstanceCreateOptions, callback?: (error: Error | null, item: VerificationCheckInstance) => any): Promise<VerificationCheckInstance>;
   /**
    * Provide a user-friendly representation
    */
@@ -45,7 +51,7 @@ interface VerificationCheckListInstance {
  */
 interface VerificationCheckListInstanceCreateOptions {
   amount?: string;
-  code: string;
+  code?: string;
   payee?: string;
   to?: string;
   verificationSid?: string;
@@ -63,6 +69,7 @@ interface VerificationCheckResource {
   payee: string;
   service_sid: string;
   sid: string;
+  sna_attempts_error_codes: object[];
   status: string;
   to: string;
   valid: boolean;
@@ -91,6 +98,7 @@ declare class VerificationCheckInstance extends SerializableClass {
   payee: string;
   serviceSid: string;
   sid: string;
+  snaAttemptsErrorCodes: object[];
   status: string;
   to: string;
   /**

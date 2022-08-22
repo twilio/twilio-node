@@ -1,13 +1,15 @@
-import { HttpMethod } from '../interfaces';
-import Response = require('../http/response');
+import { HttpMethod } from "../interfaces";
+import Response = require("../http/response");
 
 declare class RequestClient {
-  constructor();
+  constructor(opts?: RequestClient.RequestClientOptions);
   /**
    * Make an HTTP request
-   * @param opts The request options
+   * @param opts The options https.Agent takes in
    */
-  request<TData>(opts: RequestClient.RequestOptions<TData>): Promise<Response<TData>>;
+  request<TData>(
+    opts: RequestClient.RequestOptions<TData>
+  ): Promise<Response<TData>>;
 }
 
 declare namespace RequestClient {
@@ -52,6 +54,38 @@ declare namespace RequestClient {
      * Set to true to use the forever-agent
      */
     forever?: boolean;
+  }
+
+  export interface RequestClientOptions {
+    /**
+     * A timeout in milliseconds. This will be used as the HTTPS agent's socket
+     * timeout, AND as the default request timeout.
+     */
+    timeout?: number;
+    /**
+     * https.Agent keepAlive option
+     */
+    keepAlive?: boolean;
+    /**
+     * https.Agent keepAliveMSecs option
+     */
+    keepAliveMsecs?: number;
+    /**
+     * https.Agent maxSockets option
+     */
+    maxSockets?: number;
+    /**
+     * https.Agent maxTotalSockets option
+     */
+    maxTotalSockets?: number;
+    /**
+     * https.Agent maxFreeSockets option
+     */
+    maxFreeSockets?: number;
+    /**
+     * https.Agent scheduling option
+     */
+    scheduling?: string;
   }
 
   export interface Headers {

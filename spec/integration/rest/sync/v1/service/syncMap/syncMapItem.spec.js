@@ -89,7 +89,7 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMapItems('key').remove(opts);
@@ -134,7 +134,7 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {key: 'key', data: {}};
+      var opts = {'key': 'key', 'data': {}};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMapItems.create(opts);
@@ -149,7 +149,7 @@ describe('SyncMapItem', function() {
       var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Maps/${mapSid}/Items`;
 
-      var values = {Key: 'key', Data: serialize.object({}), };
+      var values = {'Key': 'key', 'Data': serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -175,7 +175,7 @@ describe('SyncMapItem', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {key: 'key', data: {}};
+      var opts = {'key': 'key', 'data': {}};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMapItems.create(opts);
@@ -392,7 +392,7 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncMapItems('key').update(opts);

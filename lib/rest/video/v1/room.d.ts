@@ -170,6 +170,7 @@ interface RoomListInstance {
  * @property audioOnly - Indicates whether the room will only contain audio track participants for group rooms.
  * @property emptyRoomTimeout - Configures the time a room will remain active after last participant leaves.
  * @property enableTurn - Enable Twilio's Network Traversal TURN service
+ * @property largeRoom - Indicates whether this is a large room.
  * @property maxParticipantDuration - The maximum number of seconds a Participant can be connected to the room
  * @property maxParticipants - The maximum number of concurrent Participants allowed in the room
  * @property mediaRegion - The region for the media server in Group Rooms
@@ -186,6 +187,7 @@ interface RoomListInstanceCreateOptions {
   audioOnly?: boolean;
   emptyRoomTimeout?: number;
   enableTurn?: boolean;
+  largeRoom?: boolean;
   maxParticipantDuration?: number;
   maxParticipants?: number;
   mediaRegion?: string;
@@ -292,6 +294,7 @@ interface RoomResource {
   empty_room_timeout: number;
   enable_turn: boolean;
   end_time: Date;
+  large_room: boolean;
   links: string;
   max_concurrent_published_tracks: number;
   max_participant_duration: number;
@@ -370,6 +373,7 @@ declare class RoomInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
+  largeRoom: boolean;
   links: string;
   maxConcurrentPublishedTracks: number;
   maxParticipantDuration: number;

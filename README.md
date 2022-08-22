@@ -5,8 +5,6 @@
 [![Tests](https://github.com/twilio/twilio-node/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/twilio/twilio-node/actions/workflows/test-and-deploy.yml)
 [![Learn with TwilioQuest](https://img.shields.io/static/v1?label=TwilioQuest&message=Learn%20to%20contribute%21&color=F22F46&labelColor=1f243c&style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAASFBMVEUAAAAZGRkcHBwjIyMoKCgAAABgYGBoaGiAgICMjIyzs7PJycnMzMzNzc3UoBfd3d3m5ubqrhfrMEDu7u739/f4vSb/3AD///9tbdyEAAAABXRSTlMAAAAAAMJrBrEAAAKoSURBVHgB7ZrRcuI6EESdyxXGYoNFvMD//+l2bSszRgyUYpFAsXOeiJGmj4NkuWx1Qeh+Ekl9DgEXOBwOx+Px5xyQhDykfgq4wG63MxxaR4ddIkg6Ul3g84vCIcjPBA5gmUMeXESrlukuoK33+33uID8TWeLAdOWsKpJYzwVMB7bOzYSGOciyUlXSn0/ABXTosJ1M1SbypZ4O4MbZuIDMU02PMbauhhHMHXbmebmALIiEbbbbbUrpF1gwE9kFfRNAJaP+FQEXCCTGyJ4ngDrjOFo3jEL5JdqjF/pueR4cCeCGgAtwmuRS6gDwaRiGvu+DMFwSBLTE3+jF8JyuV1okPZ+AC4hDFhCHyHQjdjPHUKFDlHSJkHQXMB3KpSwXNGJPcwwTdZiXlRN0gSp0zpWxNtM0beYE0nRH6QIbO7rawwXaBYz0j78gxjokDuv12gVeUuBD0MDi0OQCLvDaAho4juP1Q/jkAncXqIcCfd+7gAu4QLMACCLxpRsSuQh0igu0C9Svhi7weAGZg50L3IE3cai4IfkNZAC8dfdhsUD3CgKBVC9JE5ABAFzg4QL/taYPAAWrHdYcgfLaIgAXWJ7OV38n1LEF8tt2TH29E+QAoDoO5Ve/LtCQDmKM9kPbvCEBApK+IXzbcSJ0cIGF6e8gpcRhUDogWZ8JnaWjPXc/fNnBBUKRngiHgTUSivSzDRDgHZQOLvBQgf8rRt+VdBUUhwkU6VpJ+xcOwQUqZr+mR0kvBUgv6cB4+37hQAkXqE8PwGisGhJtN4xAHMzrsgvI7rccXqSvKh6jltGlrOHA3Xk1At3LC4QiPdX9/0ndHpGVvTjR4bZA1ypAKgVcwE5vx74ulwIugDt8e/X7JgfkucBMIAr26ndnB4UCLnDOqvteQsHlgX9N4A+c4cW3DXSPbwAAAABJRU5ErkJggg==)](https://twil.io/learn-open-source)
 
-**The default branch name for this repository has been changed to `main` as of 07/27/2020.**
-
 ## Documentation
 
 The documentation for the Twilio API can be found [here][apidocs].
@@ -26,8 +24,13 @@ This library supports the following Node.js implementations:
 * Node.js 10
 * Node.js 12
 * Node.js 14
+* Node.js 16
 
 TypeScript is supported for TypeScript version 2.9 and above.
+
+## Installation
+
+`npm install twilio` or `yarn add twilio`
 
 ## Sample Usage
 
@@ -92,7 +95,7 @@ client.logLevel = 'debug';
 ```
 
 ## Using webhook validation
-See [example](examples/express.js) for a code sample for incoming Twilio request validation
+See [example](examples/express.js) for a code sample for incoming Twilio request validation.
 
 ## Handling Exceptions
 
@@ -139,7 +142,7 @@ npm test
 To run just one specific test file instead of the whole suite, provide a JavaScript regular expression that will match your spec file's name, like:
 
 ```bash
-npm run test -- -m .\*client.\*
+npm run test:javascript -- -m .\*client.\*
 ```
 
 [apidocs]: https://www.twilio.com/docs/api

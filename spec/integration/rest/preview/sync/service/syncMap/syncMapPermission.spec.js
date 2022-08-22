@@ -317,7 +317,7 @@ describe('SyncMapPermission', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {read: true, write: true, manage: true};
+      var opts = {'read': true, 'write': true, 'manage': true};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMapPermissions('identity').update(opts);
@@ -334,9 +334,9 @@ describe('SyncMapPermission', function() {
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Permissions/${identity}`;
 
       var values = {
-        Read: serialize.bool(true),
-        Write: serialize.bool(true),
-        Manage: serialize.bool(true),
+        'Read': serialize.bool(true),
+        'Write': serialize.bool(true),
+        'Manage': serialize.bool(true),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -360,7 +360,7 @@ describe('SyncMapPermission', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {read: true, write: true, manage: true};
+      var opts = {'read': true, 'write': true, 'manage': true};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMapPermissions('identity').update(opts);

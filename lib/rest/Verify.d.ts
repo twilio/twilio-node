@@ -12,6 +12,7 @@ import { FormListInstance } from './verify/v2/form';
 import { ServiceListInstance } from './verify/v2/service';
 import { TemplateListInstance } from './verify/v2/template';
 import { VerificationAttemptListInstance } from './verify/v2/verificationAttempt';
+import { VerificationAttemptsSummaryListInstance } from './verify/v2/verificationAttemptsSummary';
 
 
 declare class Verify extends Domain {
@@ -27,6 +28,7 @@ declare class Verify extends Domain {
   readonly templates: TemplateListInstance;
   readonly v2: V2;
   readonly verificationAttempts: VerificationAttemptListInstance;
+  readonly verificationAttemptsSummary: VerificationAttemptsSummaryListInstance;
 }
 
 export = Verify;

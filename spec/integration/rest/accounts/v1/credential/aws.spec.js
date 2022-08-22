@@ -206,7 +206,7 @@ describe('Aws', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {credentials: 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'};
+      var opts = {'credentials': 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'};
       var promise = client.accounts.v1.credentials
                                       .aws.create(opts);
       promise.then(function() {
@@ -218,7 +218,7 @@ describe('Aws', function() {
 
       var url = 'https://accounts.twilio.com/v1/Credentials/AWS';
 
-      var values = {Credentials: 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY', };
+      var values = {'Credentials': 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -239,7 +239,7 @@ describe('Aws', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {credentials: 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'};
+      var opts = {'credentials': 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'};
       var promise = client.accounts.v1.credentials
                                       .aws.create(opts);
       promise.then(function(response) {

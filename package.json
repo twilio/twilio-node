@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "3.73.0",
+  "version": "3.80.1",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -20,7 +20,7 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
-    "axios": "^0.21.4",
+    "axios": "^0.26.1",
     "dayjs": "^1.8.29",
     "https-proxy-agent": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
@@ -29,7 +29,7 @@
     "qs": "^6.9.4",
     "rootpath": "^0.1.2",
     "scmp": "^2.1.0",
-    "url-parse": "^1.5.3",
+    "url-parse": "^1.5.9",
     "xmlbuilder": "^13.0.2"
   },
   "devDependencies": {
@@ -56,7 +56,7 @@
     "ci": "npm run nyc && npm run nsp",
     "coverage": "nyc npm test",
     "jsdoc": "jsdoc -r lib -d docs",
-    "nsp": "if [ `npm --version | cut -d'.' -f1` -ge \"6\" ]; then npm audit; else echo \"npm audit is not available for npm < 6.0\"; fi",
+    "nsp": "if [ `npm --version | cut -d'.' -f1` -ge \"6\" ]; then npm audit --production; else echo \"npm audit is not available for npm < 6.0\"; fi",
     "nyc": "if [ `node --version | cut -d'.' -f1 | cut -c2-` -ge \"8\" ]; then npm run coverage; else npm test; fi"
   },
   "files": [

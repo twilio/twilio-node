@@ -33,7 +33,7 @@ describe('NewFactor', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
+      var opts = {'friendlyName': 'friendly_name', 'factorType': 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .newFactors.create(opts);
@@ -48,7 +48,7 @@ describe('NewFactor', function() {
       var identity = 'identity';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/Entities/${identity}/Factors`;
 
-      var values = {FriendlyName: 'friendly_name', FactorType: 'push', };
+      var values = {'FriendlyName': 'friendly_name', 'FactorType': 'push', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -79,12 +79,15 @@ describe('NewFactor', function() {
               'notification_platform': 'fcm',
               'notification_token': 'test_token'
           },
+          'metadata': {
+              'os': 'Android'
+          },
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
+      var opts = {'friendlyName': 'friendly_name', 'factorType': 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .newFactors.create(opts);
@@ -119,12 +122,13 @@ describe('NewFactor', function() {
               'code_length': 6,
               'time_step': 30
           },
+          'metadata': null,
           'url': 'https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name', factorType: 'push'};
+      var opts = {'friendlyName': 'friendly_name', 'factorType': 'push'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .entities('identity')
                                     .newFactors.create(opts);

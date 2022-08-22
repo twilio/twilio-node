@@ -86,7 +86,7 @@ describe('Invite', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .invites.create(opts);
@@ -101,7 +101,7 @@ describe('Invite', function() {
       var channelSid = 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://ip-messaging.twilio.com/v1/Services/${serviceSid}/Channels/${channelSid}/Invites`;
 
-      var values = {Identity: 'identity', };
+      var values = {'Identity': 'identity', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -126,7 +126,7 @@ describe('Invite', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .invites.create(opts);

@@ -33,7 +33,7 @@ describe('Service', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.verify.v2.services.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('Service', function() {
 
       var url = 'https://verify.twilio.com/v2/Services';
 
-      var values = {FriendlyName: 'friendly_name', };
+      var values = {'FriendlyName': 'friendly_name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -68,7 +68,7 @@ describe('Service', function() {
           'do_not_share_warning_enabled': false,
           'custom_code_enabled': true,
           'push': {
-              'include_date': true,
+              'include_date': false,
               'apn_credential_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
               'fcm_credential_sid': null
           },
@@ -95,7 +95,7 @@ describe('Service', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {friendlyName: 'friendly_name'};
+      var opts = {'friendlyName': 'friendly_name'};
       var promise = client.verify.v2.services.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -142,7 +142,7 @@ describe('Service', function() {
           'do_not_share_warning_enabled': false,
           'custom_code_enabled': true,
           'push': {
-              'include_date': true,
+              'include_date': false,
               'apn_credential_sid': null,
               'fcm_credential_sid': null
           },
@@ -241,7 +241,7 @@ describe('Service', function() {
                   'do_not_share_warning_enabled': false,
                   'custom_code_enabled': true,
                   'push': {
-                      'include_date': true,
+                      'include_date': false,
                       'apn_credential_sid': null,
                       'fcm_credential_sid': null
                   },
@@ -298,7 +298,7 @@ describe('Service', function() {
                   'do_not_share_warning_enabled': false,
                   'custom_code_enabled': true,
                   'push': {
-                      'include_date': true,
+                      'include_date': false,
                       'apn_credential_sid': null,
                       'fcm_credential_sid': null
                   },
@@ -360,7 +360,7 @@ describe('Service', function() {
                   'do_not_share_warning_enabled': false,
                   'custom_code_enabled': true,
                   'push': {
-                      'include_date': true,
+                      'include_date': false,
                       'apn_credential_sid': null,
                       'fcm_credential_sid': null
                   },
@@ -437,7 +437,7 @@ describe('Service', function() {
                   'do_not_share_warning_enabled': false,
                   'custom_code_enabled': true,
                   'push': {
-                      'include_date': true,
+                      'include_date': false,
                       'apn_credential_sid': null,
                       'fcm_credential_sid': null
                   },
@@ -512,7 +512,7 @@ describe('Service', function() {
           'do_not_share_warning_enabled': false,
           'custom_code_enabled': true,
           'push': {
-              'include_date': true,
+              'include_date': false,
               'apn_credential_sid': null,
               'fcm_credential_sid': 'CRbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
           },

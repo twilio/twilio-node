@@ -33,7 +33,7 @@ describe('User', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {identity: 'identity', xTwilioWebhookEnabled: 'true'};
+      var opts = {'identity': 'identity', 'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .users.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('User', function() {
       var chatServiceSid = 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://conversations.twilio.com/v1/Services/${chatServiceSid}/Users`;
 
-      var values = {Identity: 'identity', };
+      var values = {'Identity': 'identity', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -83,7 +83,7 @@ describe('User', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {identity: 'identity'};
+      var opts = {'identity': 'identity'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .users.create(opts);
       promise.then(function(response) {
@@ -98,7 +98,7 @@ describe('User', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -156,7 +156,7 @@ describe('User', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);
       promise.then(function() {

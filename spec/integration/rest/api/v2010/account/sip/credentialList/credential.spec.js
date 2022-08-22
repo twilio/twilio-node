@@ -219,7 +219,7 @@ describe('Credential', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {username: 'username', password: 'password'};
+      var opts = {'username': 'username', 'password': 'password'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
@@ -235,7 +235,7 @@ describe('Credential', function() {
       var credentialListSid = 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/SIP/CredentialLists/${credentialListSid}/Credentials.json`;
 
-      var values = {Username: 'username', Password: 'password', };
+      var values = {'Username': 'username', 'Password': 'password', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -257,7 +257,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {username: 'username', password: 'password'};
+      var opts = {'username': 'username', 'password': 'password'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
                                     .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')

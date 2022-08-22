@@ -12,7 +12,6 @@ import Bulkexports = require('./Bulkexports');
 import Chat = require('./Chat');
 import Conversations = require('./Conversations');
 import Events = require('./Events');
-import Fax = require('./Fax');
 import FlexApi = require('./FlexApi');
 import FrontlineApi = require('./FrontlineApi');
 import Insights = require('./Insights');
@@ -20,6 +19,7 @@ import IpMessaging = require('./IpMessaging');
 import Lookups = require('./Lookups');
 import Media = require('./Media');
 import Messaging = require('./Messaging');
+import Microvisor = require('./Microvisor');
 import Monitor = require('./Monitor');
 import Notify = require('./Notify');
 import Numbers = require('./Numbers');
@@ -27,6 +27,7 @@ import Preview = require('./Preview');
 import Pricing = require('./Pricing');
 import Proxy = require('./Proxy');
 import RequestClient = require('../base/RequestClient');
+import Routes = require('./Routes');
 import Serverless = require('./Serverless');
 import Studio = require('./Studio');
 import Supersim = require('./Supersim');
@@ -64,7 +65,6 @@ declare class Twilio {
   connectApps: (typeof Api.prototype.account.connectApps);
   conversations: Conversations;
   events: Events;
-  fax: Fax;
   flexApi: FlexApi;
   frontlineApi: FrontlineApi;
   httpClient?: RequestClient;
@@ -76,6 +76,7 @@ declare class Twilio {
   media: Media;
   messages: (typeof Api.prototype.account.messages);
   messaging: Messaging;
+  microvisor: Microvisor;
   monitor: Monitor;
   newKeys: (typeof Api.prototype.account.newKeys);
   newSigningKeys: (typeof Api.prototype.account.newSigningKeys);
@@ -95,6 +96,7 @@ declare class Twilio {
    * @param opts - The options argument
    */
   request(opts: Twilio.RequestOptions): Promise<any>;
+  routes: Routes;
   serverless: Serverless;
   shortCodes: (typeof Api.prototype.account.shortCodes);
   signingKeys: (typeof Api.prototype.account.signingKeys);
@@ -157,7 +159,7 @@ declare namespace Twilio {
    * @property edge - Twilio edge to use. Defaults to none
    * @property env - The environment object. Defaults to process.env
    * @property httpClient - The client used for http requests. Defaults to RequestClient
-   * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled
+   * @property lazyLoading - Enable lazy loading, loading time will decrease if enabled. Defaults to true
    * @property logLevel - Debug logs will be shown. Defaults to none
    * @property region - Twilio region to use. Defaults to us1 if edge defined
    * @property userAgentExtensions - Additions to the user agent string

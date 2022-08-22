@@ -24,7 +24,7 @@ declare function WorkflowCumulativeStatisticsList(version: V1, workspaceSid: str
  *
  * @property endDate - Only include usage that occurred on or before this date
  * @property minutes - Only calculate statistics since this many minutes in the past
- * @property splitByWaitTime - A comma separated list of values that describes the thresholds to calculate statistics on
+ * @property splitByWaitTime - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on
  * @property startDate - Only calculate statistics from on or after this date
  * @property taskChannel - Only calculate cumulative statistics on this TaskChannel
  */

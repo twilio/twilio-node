@@ -80,7 +80,7 @@ describe('FlowTestUser', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {testUsers: ['test_users']};
+      var opts = {'testUsers': ['test_users']};
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .testUsers().update(opts);
       promise.then(function() {
@@ -93,7 +93,7 @@ describe('FlowTestUser', function() {
       var sid = 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://studio.twilio.com/v2/Flows/${sid}/TestUsers`;
 
-      var values = {TestUsers: serialize.map(['test_users'], function(e) { return e; }), };
+      var values = {'TestUsers': serialize.map(['test_users'], function(e) { return e; }), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -114,7 +114,7 @@ describe('FlowTestUser', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {testUsers: ['test_users']};
+      var opts = {'testUsers': ['test_users']};
       var promise = client.studio.v2.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .testUsers().update(opts);
       promise.then(function(response) {

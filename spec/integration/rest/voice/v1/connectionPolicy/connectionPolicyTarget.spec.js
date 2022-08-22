@@ -33,7 +33,7 @@ describe('ConnectionPolicyTarget', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {target: 'https://example.com'};
+      var opts = {'target': 'https://example.com'};
       var promise = client.voice.v1.connectionPolicies('NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .targets.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('ConnectionPolicyTarget', function() {
       var connectionPolicySid = 'NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://voice.twilio.com/v1/ConnectionPolicies/${connectionPolicySid}/Targets`;
 
-      var values = {Target: 'https://example.com', };
+      var values = {'Target': 'https://example.com', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -72,7 +72,7 @@ describe('ConnectionPolicyTarget', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {target: 'https://example.com'};
+      var opts = {'target': 'https://example.com'};
       var promise = client.voice.v1.connectionPolicies('NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .targets.create(opts);
       promise.then(function(response) {

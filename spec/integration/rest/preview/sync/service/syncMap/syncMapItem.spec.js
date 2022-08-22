@@ -88,7 +88,7 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMapItems('key').remove(opts);
@@ -133,7 +133,7 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {key: 'key', data: {}};
+      var opts = {'key': 'key', 'data': {}};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMapItems.create(opts);
@@ -148,7 +148,7 @@ describe('SyncMapItem', function() {
       var mapSid = 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Items`;
 
-      var values = {Key: 'key', Data: serialize.object({}), };
+      var values = {'Key': 'key', 'Data': serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -173,7 +173,7 @@ describe('SyncMapItem', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {key: 'key', data: {}};
+      var opts = {'key': 'key', 'data': {}};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMapItems.create(opts);
@@ -386,7 +386,7 @@ describe('SyncMapItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {data: {}, ifMatch: 'if_match'};
+      var opts = {'data': {}, 'ifMatch': 'if_match'};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMapItems('key').update(opts);
@@ -402,7 +402,7 @@ describe('SyncMapItem', function() {
       var key = 'key';
       var url = `https://preview.twilio.com/Sync/Services/${serviceSid}/Maps/${mapSid}/Items/${key}`;
 
-      var values = {Data: serialize.object({}), };
+      var values = {'Data': serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -434,7 +434,7 @@ describe('SyncMapItem', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {data: {}};
+      var opts = {'data': {}};
       var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMapItems('key').update(opts);

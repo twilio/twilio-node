@@ -23,7 +23,7 @@ declare function IpAddressList(version: V2010, accountSid: string, ipAccessContr
  * Options to pass to update
  *
  * @property cidrPrefixLength - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
- * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
+ * @property friendlyName - A human readable descriptive text for this resource, up to 255 characters long.
  * @property ipAddress - An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
  */
 interface IpAddressInstanceUpdateOptions {
@@ -156,7 +156,7 @@ interface IpAddressListInstance {
  * Options to pass to create
  *
  * @property cidrPrefixLength - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
- * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
+ * @property friendlyName - A human readable descriptive text for this resource, up to 255 characters long.
  * @property ipAddress - An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
  */
 interface IpAddressListInstanceCreateOptions {

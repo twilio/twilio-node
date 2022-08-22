@@ -9,6 +9,7 @@ import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./media/V1');
 import { MediaProcessorListInstance } from './media/v1/mediaProcessor';
+import { MediaRecordingListInstance } from './media/v1/mediaRecording';
 import { PlayerStreamerListInstance } from './media/v1/playerStreamer';
 
 
@@ -21,6 +22,7 @@ declare class Media extends Domain {
   constructor(twilio: Twilio);
 
   readonly mediaProcessor: MediaProcessorListInstance;
+  readonly mediaRecording: MediaRecordingListInstance;
   readonly playerStreamer: PlayerStreamerListInstance;
   readonly v1: V1;
 }

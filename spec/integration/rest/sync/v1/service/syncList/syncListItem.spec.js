@@ -89,7 +89,7 @@ describe('SyncListItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListItems(1).remove(opts);
@@ -134,7 +134,7 @@ describe('SyncListItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {data: {}};
+      var opts = {'data': {}};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListItems.create(opts);
@@ -149,7 +149,7 @@ describe('SyncListItem', function() {
       var listSid = 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://sync.twilio.com/v1/Services/${serviceSid}/Lists/${listSid}/Items`;
 
-      var values = {Data: serialize.object({}), };
+      var values = {'Data': serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -175,7 +175,7 @@ describe('SyncListItem', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {data: {}};
+      var opts = {'data': {}};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListItems.create(opts);
@@ -392,7 +392,7 @@ describe('SyncListItem', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {ifMatch: 'if_match'};
+      var opts = {'ifMatch': 'if_match'};
       var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListItems(1).update(opts);

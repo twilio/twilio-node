@@ -191,9 +191,9 @@ describe('Trigger', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        callbackUrl: 'https://example.com',
-        triggerValue: 'trigger_value',
-        usageCategory: 'agent-conference'
+        'callbackUrl': 'https://example.com',
+        'triggerValue': 'trigger_value',
+        'usageCategory': 'a2p-registration-fees'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .usage
@@ -209,9 +209,9 @@ describe('Trigger', function() {
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Usage/Triggers.json`;
 
       var values = {
-        CallbackUrl: 'https://example.com',
-        TriggerValue: 'trigger_value',
-        UsageCategory: 'agent-conference',
+        'CallbackUrl': 'https://example.com',
+        'TriggerValue': 'trigger_value',
+        'UsageCategory': 'a2p-registration-fees',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -244,9 +244,9 @@ describe('Trigger', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        callbackUrl: 'https://example.com',
-        triggerValue: 'trigger_value',
-        usageCategory: 'agent-conference'
+        'callbackUrl': 'https://example.com',
+        'triggerValue': 'trigger_value',
+        'usageCategory': 'a2p-registration-fees'
       };
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .usage

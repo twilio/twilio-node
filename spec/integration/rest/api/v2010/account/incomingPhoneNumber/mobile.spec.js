@@ -336,7 +336,7 @@ describe('Mobile', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {phoneNumber: '+15017122661'};
+      var opts = {'phoneNumber': '+15017122661'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .incomingPhoneNumbers
                                     .mobile.create(opts);
@@ -350,7 +350,7 @@ describe('Mobile', function() {
       var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/IncomingPhoneNumbers/Mobile.json`;
 
-      var values = {PhoneNumber: '+15017122661', };
+      var values = {'PhoneNumber': '+15017122661', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -404,7 +404,7 @@ describe('Mobile', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumber: '+15017122661'};
+      var opts = {'phoneNumber': '+15017122661'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .incomingPhoneNumbers
                                     .mobile.create(opts);

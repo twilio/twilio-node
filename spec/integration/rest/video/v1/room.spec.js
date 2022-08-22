@@ -76,6 +76,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
@@ -141,6 +142,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
@@ -186,6 +188,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
@@ -231,6 +234,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
@@ -274,6 +278,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
@@ -319,6 +324,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
@@ -364,6 +370,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
@@ -407,6 +414,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
               'participants': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants',
@@ -454,6 +462,7 @@ describe('Room', function() {
                   'audio_only': false,
                   'empty_room_timeout': 5,
                   'unused_room_timeout': 5,
+                  'large_room': false,
                   'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
                   'links': {
                       'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
@@ -504,6 +513,7 @@ describe('Room', function() {
                   'audio_only': false,
                   'empty_room_timeout': 5,
                   'unused_room_timeout': 5,
+                  'large_room': false,
                   'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
                   'links': {
                       'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
@@ -559,6 +569,7 @@ describe('Room', function() {
                   'audio_only': false,
                   'empty_room_timeout': 5,
                   'unused_room_timeout': 5,
+                  'large_room': false,
                   'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
                   'links': {
                       'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
@@ -655,6 +666,7 @@ describe('Room', function() {
                   'audio_only': false,
                   'empty_room_timeout': 5,
                   'unused_room_timeout': 5,
+                  'large_room': false,
                   'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
                   'links': {
                       'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
@@ -689,7 +701,7 @@ describe('Room', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {status: 'in-progress'};
+      var opts = {'status': 'in-progress'};
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -701,7 +713,7 @@ describe('Room', function() {
       var sid = 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://video.twilio.com/v1/Rooms/${sid}`;
 
-      var values = {Status: 'in-progress', };
+      var values = {'Status': 'in-progress', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -734,6 +746,7 @@ describe('Room', function() {
           'empty_room_timeout': 5,
           'unused_room_timeout': 5,
           'end_time': '2015-07-30T20:00:00Z',
+          'large_room': false,
           'duration': 10,
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
@@ -745,7 +758,7 @@ describe('Room', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {status: 'in-progress'};
+      var opts = {'status': 'in-progress'};
       var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

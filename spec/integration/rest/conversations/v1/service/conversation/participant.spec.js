@@ -33,7 +33,7 @@ describe('Participant', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .participants.create(opts);
@@ -228,7 +228,7 @@ describe('Participant', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
@@ -325,7 +325,7 @@ describe('Participant', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {xTwilioWebhookEnabled: 'true'};
+      var opts = {'xTwilioWebhookEnabled': 'true'};
       var promise = client.conversations.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .conversations('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .participants('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove(opts);

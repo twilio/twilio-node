@@ -33,7 +33,7 @@ describe('TrustProductsEntityAssignments', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {objectSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'objectSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.trusthub.v1.trustProducts('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .trustProductsEntityAssignments.create(opts);
       promise.then(function() {
@@ -46,7 +46,7 @@ describe('TrustProductsEntityAssignments', function() {
       var trustProductSid = 'BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://trusthub.twilio.com/v1/TrustProducts/${trustProductSid}/EntityAssignments`;
 
-      var values = {ObjectSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'ObjectSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -67,7 +67,7 @@ describe('TrustProductsEntityAssignments', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {objectSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'objectSid': 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.trusthub.v1.trustProducts('BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .trustProductsEntityAssignments.create(opts);
       promise.then(function(response) {

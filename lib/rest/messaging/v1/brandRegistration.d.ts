@@ -235,6 +235,7 @@ interface BrandRegistrationResource {
   date_created: Date;
   date_updated: Date;
   failure_reason: string;
+  government_entity: boolean;
   identity_status: BrandRegistrationIdentityStatus;
   links: string;
   mock: boolean;
@@ -316,6 +317,7 @@ declare class BrandRegistrationInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: BrandRegistrationInstance) => any): Promise<BrandRegistrationInstance>;
+  governmentEntity: boolean;
   identityStatus: BrandRegistrationIdentityStatus;
   links: string;
   mock: boolean;

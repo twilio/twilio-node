@@ -110,6 +110,8 @@ describe('Composition', function() {
           'media_external_location': null,
           'encryption_key': null,
           'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status_callback': 'https://mycallbackurl.com',
+          'status_callback_method': 'POST',
           'links': {
               'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
           }
@@ -184,6 +186,8 @@ describe('Composition', function() {
                   'media_external_location': null,
                   'encryption_key': null,
                   'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status_callback': 'https://mycallbackurl.com',
+                  'status_callback_method': 'POST',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
                   }
@@ -261,6 +265,8 @@ describe('Composition', function() {
                   'media_external_location': null,
                   'encryption_key': null,
                   'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status_callback': 'https://mycallbackurl.com',
+                  'status_callback_method': 'POST',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
                   }
@@ -343,6 +349,8 @@ describe('Composition', function() {
                   'media_external_location': null,
                   'encryption_key': null,
                   'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status_callback': 'https://mycallbackurl.com',
+                  'status_callback_method': 'POST',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
                   }
@@ -492,6 +500,8 @@ describe('Composition', function() {
                   'media_external_location': null,
                   'encryption_key': null,
                   'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status_callback': 'https://mycallbackurl.com',
+                  'status_callback_method': 'POST',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
                   }
@@ -559,7 +569,7 @@ describe('Composition', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'roomSid': 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.video.v1.compositions.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -570,7 +580,7 @@ describe('Composition', function() {
 
       var url = 'https://video.twilio.com/v1/Compositions';
 
-      var values = {RoomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'RoomSid': 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -626,6 +636,8 @@ describe('Composition', function() {
           'media_external_location': null,
           'encryption_key': null,
           'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status_callback': 'https://mycallbackurl.com',
+          'status_callback_method': 'POST',
           'links': {
               'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
           }
@@ -633,7 +645,7 @@ describe('Composition', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'roomSid': 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.video.v1.compositions.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

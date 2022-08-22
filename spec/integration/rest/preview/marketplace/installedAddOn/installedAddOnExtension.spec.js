@@ -82,7 +82,7 @@ describe('InstalledAddOnExtension', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {enabled: true};
+      var opts = {'enabled': true};
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function() {
@@ -96,7 +96,7 @@ describe('InstalledAddOnExtension', function() {
       var sid = 'XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://preview.twilio.com/marketplace/InstalledAddOns/${installedAddOnSid}/Extensions/${sid}`;
 
-      var values = {Enabled: serialize.bool(true), };
+      var values = {'Enabled': serialize.bool(true), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -118,7 +118,7 @@ describe('InstalledAddOnExtension', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {enabled: true};
+      var opts = {'enabled': true};
       var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise.then(function(response) {

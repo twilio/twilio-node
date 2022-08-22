@@ -19,11 +19,15 @@ type AccessTokenFactorTypes = 'push';
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param serviceSid - The unique string that identifies the resource
+ * @param serviceSid - Verify Service Sid.
  */
 declare function AccessTokenList(version: V2, serviceSid: string): AccessTokenListInstance;
 
 interface AccessTokenListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  (sid: string): AccessTokenContext;
   /**
    * create a AccessTokenInstance
    *
@@ -31,6 +35,12 @@ interface AccessTokenListInstance {
    * @param callback - Callback to handle processed record
    */
   create(opts: AccessTokenListInstanceCreateOptions, callback?: (error: Error | null, item: AccessTokenInstance) => any): Promise<AccessTokenInstance>;
+  /**
+   * Constructs a access_token
+   *
+   * @param sid - A string that uniquely identifies this Access Token.
+   */
+  get(sid: string): AccessTokenContext;
   /**
    * Provide a user-friendly representation
    */
@@ -43,22 +53,59 @@ interface AccessTokenListInstance {
  * @property factorFriendlyName - The factor friendly name
  * @property factorType - The Type of this Factor
  * @property identity - Unique external identifier of the Entity
+ * @property ttl - How long, in seconds, the access token is valid.
  */
 interface AccessTokenListInstanceCreateOptions {
   factorFriendlyName?: string;
   factorType: AccessTokenFactorTypes;
   identity: string;
+  ttl?: number;
 }
 
 interface AccessTokenPayload extends AccessTokenResource, Page.TwilioResponsePayload {
 }
 
 interface AccessTokenResource {
+  account_sid: string;
+  date_created: Date;
+  entity_identity: string;
+  factor_friendly_name: string;
+  factor_type: AccessTokenFactorTypes;
+  service_sid: string;
+  sid: string;
   token: string;
+  ttl: number;
+  url: string;
 }
 
 interface AccessTokenSolution {
   serviceSid?: string;
+}
+
+
+declare class AccessTokenContext {
+  /**
+   * Initialize the AccessTokenContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - Service Sid.
+   * @param sid - A string that uniquely identifies this Access Token.
+   */
+  constructor(version: V2, serviceSid: string, sid: string);
+
+  /**
+   * fetch a AccessTokenInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: AccessTokenInstance) => any): Promise<AccessTokenInstance>;
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
 }
 
 
@@ -71,15 +118,32 @@ declare class AccessTokenInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The unique string that identifies the resource
+   * @param serviceSid - Verify Service Sid.
+   * @param sid - A string that uniquely identifies this Access Token.
    */
-  constructor(version: V2, payload: AccessTokenPayload, serviceSid: string);
+  constructor(version: V2, payload: AccessTokenPayload, serviceSid: string, sid: string);
 
+  private _proxy: AccessTokenContext;
+  accountSid: string;
+  dateCreated: Date;
+  entityIdentity: string;
+  factorFriendlyName: string;
+  factorType: AccessTokenFactorTypes;
+  /**
+   * fetch a AccessTokenInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: AccessTokenInstance) => any): Promise<AccessTokenInstance>;
+  serviceSid: string;
+  sid: string;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
   token: string;
+  ttl: number;
+  url: string;
 }
 
 
@@ -108,4 +172,4 @@ declare class AccessTokenPage extends Page<V2, AccessTokenPayload, AccessTokenRe
   toJSON(): any;
 }
 
-export { AccessTokenFactorTypes, AccessTokenInstance, AccessTokenList, AccessTokenListInstance, AccessTokenListInstanceCreateOptions, AccessTokenPage, AccessTokenPayload, AccessTokenResource, AccessTokenSolution }
+export { AccessTokenContext, AccessTokenFactorTypes, AccessTokenInstance, AccessTokenList, AccessTokenListInstance, AccessTokenListInstanceCreateOptions, AccessTokenPage, AccessTokenPayload, AccessTokenResource, AccessTokenSolution }

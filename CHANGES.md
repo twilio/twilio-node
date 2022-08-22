@@ -1,6 +1,263 @@
 twilio-node changelog
 =====================
 
+[2022-08-10] Version 3.80.1
+---------------------------
+**Routes**
+- Inbound Proccessing Region API - Public GA
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+
+
+[2022-07-21] Version 3.80.0
+---------------------------
+**Library - Docs**
+- [PR #772](https://github.com/twilio/twilio-node/pull/772): added npm/yarn install instructions. Thanks to [@citypaul](https://github.com/citypaul)!
+
+**Library - Feature**
+- [PR #775](https://github.com/twilio/twilio-node/pull/775): add a timeout options to RequestClient that creates a custom https agent. Thanks to [@benweissmann](https://github.com/benweissmann)!
+
+**Flex**
+- Add `status`, `error_code`, and `error_message` fields to Interaction `Channel`
+- Adding `messenger` and `gbm` as supported channels for Interactions API
+
+**Messaging**
+- Update alpha_sender docs with new valid characters
+
+**Verify**
+- Reorder Verification Check parameters so `code` stays as the first parameter **(breaking change)**
+- Rollback List Attempts API V2 back to pilot stage.
+
+
+[2022-07-13] Version 3.79.0
+---------------------------
+**Library - Test**
+- [PR #771](https://github.com/twilio/twilio-node/pull/771): Adding misc as PR type. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+**Conversations**
+- Allowed to use `identity` as part of Participant's resource **(breaking change)**
+
+**Lookups**
+- Remove `enhanced_line_type` from the lookup response **(breaking change)**
+
+**Supersim**
+- Add support for `sim_ip_addresses` resource to helper libraries
+
+**Verify**
+- Changed summary param `service_sid` to `verify_service_sid` to be consistent with list attempts API **(breaking change)**
+- Make `code` optional on Verification check to support `sna` attempts. **(breaking change)**
+
+
+[2022-06-29] Version 3.78.0
+---------------------------
+**Library - Docs**
+- [PR #767](https://github.com/twilio/twilio-node/pull/767): a full stop is added in README.md file. Thanks to [@bishal7679](https://github.com/bishal7679)!
+
+**Api**
+- Added `amazon-polly` to `usage_record` API.
+
+**Insights**
+- Added `annotation` field in call summary
+- Added new endpoint to fetch/create/update Call Annotations
+
+**Verify**
+- Remove `api.verify.totp` beta flag and set maturity to `beta` for Verify TOTP properties and parameters. **(breaking change)**
+- Changed summary param `verify_service_sid` to `service_sid` to be consistent with list attempts API **(breaking change)**
+
+**Twiml**
+- Add `maxQueueSize` to `Enqueue`
+
+
+[2022-06-15] Version 3.77.3
+---------------------------
+**Lookups**
+- Adding support for Lookup V2 API
+
+**Studio**
+- Corrected PII labels to be 30 days and added context to be PII
+
+**Twiml**
+- Add `statusCallbackMethod` attribute, nested `<Config` and `<Parameter>` elements to `<VirtualAgent>` noun.
+- Add support for new Amazon Polly voices (Q2 2022) for `Say` verb
+- Add support for `<Conversation>` noun
+
+
+[2022-06-01] Version 3.77.2
+---------------------------
+**Library - Chore**
+- [PR #755](https://github.com/twilio/twilio-node/pull/755): use Docker 'rc' tag for release candidate images. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
+[2022-05-18] Version 3.77.1
+---------------------------
+**Api**
+- Add property `media_url` to the recording resources
+
+**Verify**
+- Include `silent` as a channel type in the verifications API.
+
+
+[2022-05-04] Version 3.77.0
+---------------------------
+**Conversations**
+- Expose query parameter `type` in list operation on Address Configurations resource
+
+**Supersim**
+- Add `data_total_billed` and `billed_units` fields to Super SIM UsageRecords API response.
+- Change ESimProfiles `Eid` parameter to optional to enable Activation Code download method support **(breaking change)**
+
+**Verify**
+- Deprecate `push.include_date` parameter in create and update service.
+
+
+[2022-04-06] Version 3.76.1
+---------------------------
+**Api**
+- Updated `provider_sid` visibility to private
+
+**Verify**
+- Verify List Attempts API summary endpoint added.
+- Update PII documentation for `AccessTokens` `factor_friendly_name` property.
+
+**Voice**
+- make annotation parameter from /Calls API private
+
+
+[2022-03-23] Version 3.76.0
+---------------------------
+**Library - Chore**
+- [PR #748](https://github.com/twilio/twilio-node/pull/748): update url-parse dependency. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #746](https://github.com/twilio/twilio-node/pull/746): Update Axios to v0.26.1. Thanks to [@stephenwade](https://github.com/stephenwade)!
+
+**Api**
+- Change `stream` url parameter to non optional
+- Add `verify-totp` and `verify-whatsapp-conversations-business-initiated` categories to `usage_record` API
+
+**Chat**
+- Added v3 Channel update endpoint to support Public to Private channel migration
+
+**Flex**
+- Private Beta release of the Interactions API to support the upcoming release of Flex Conversations at the end of Q1 2022.
+- Adding `channel_configs` object to Flex Configuration
+
+**Media**
+- Add max_duration param to PlayerStreamer
+
+**Supersim**
+- Remove Commands resource, use SmsCommands resource instead **(breaking change)**
+
+**Taskrouter**
+- Add limits to `split_by_wait_time` for Cumulative Statistics Endpoint
+
+**Video**
+- Change recording `status_callback_method` type from `enum` to `http_method` **(breaking change)**
+- Add `status_callback` and `status_callback_method` to composition
+- Add `status_callback` and `status_callback_method` to recording
+
+
+[2022-03-09] Version 3.75.1
+---------------------------
+**Library - Chore**
+- [PR #742](https://github.com/twilio/twilio-node/pull/742): push Datadog Release Metric upon deploy success. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional boolean include_soft_deleted parameter to retrieve soft deleted recordings
+
+**Chat**
+- Add `X-Twilio-Wehook-Enabled` header to `delete` method in UserChannel resource
+
+**Numbers**
+- Expose `failure_reason` in the Supporting Documents resources
+
+**Verify**
+- Add optional `metadata` parameter to "verify challenge" endpoint, so the SDK/App can attach relevant information from the device when responding to challenges.
+- remove beta feature flag to list atempt api operations.
+- Add `ttl` and `date_created` properties to `AccessTokens`.
+
+
+[2022-02-23] Version 3.75.0
+---------------------------
+**Library - Chore**
+- [PR #740](https://github.com/twilio/twilio-node/pull/740): update url-parse dependency. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Api**
+- Add `uri` to `stream` resource
+- Add A2P Registration Fee category (`a2p-registration-fee`) to usage records
+- Detected a bug and removed optional boolean include_soft_deleted parameter to retrieve soft deleted recordings. **(breaking change)**
+- Add optional boolean include_soft_deleted parameter to retrieve soft deleted recordings.
+
+**Numbers**
+- Unrevert valid_until and sort filter params added to List Bundles resource
+- Revert valid_until and sort filter params added to List Bundles resource
+- Update sorting params added to List Bundles resource in the previous release
+
+**Preview**
+- Moved `web_channels` from preview to beta under `flex-api` **(breaking change)**
+
+**Taskrouter**
+- Add `ETag` as Response Header to List of Task, Reservation & Worker
+
+**Verify**
+- Remove outdated documentation commentary to contact sales. Product is already in public beta.
+- Add optional `metadata` to factors.
+
+**Twiml**
+- Add new Polly Neural voices
+
+
+[2022-02-09] Version 3.74.0
+---------------------------
+**Library - Chore**
+- [PR #736](https://github.com/twilio/twilio-node/pull/736): upgrade supported language versions. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #734](https://github.com/twilio/twilio-node/pull/734): bump axios to latest. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Feature**
+- [PR #733](https://github.com/twilio/twilio-node/pull/733): support required resource properties with names containing periods. Thanks to [@Hunga1](https://github.com/Hunga1)!
+
+**Api**
+- Add `stream` resource
+
+**Conversations**
+- Fixed DELETE request to accept "sid_like" params in Address Configuration resources **(breaking change)**
+- Expose Address Configuration resource for `sms` and `whatsapp`
+
+**Fax**
+- Removed deprecated Programmable Fax Create and Update methods **(breaking change)**
+
+**Insights**
+- Rename `call_state` to `call_status` and remove `whisper` in conference participant summary **(breaking change)**
+
+**Numbers**
+- Expose valid_until filters as part of provisionally-approved compliance feature on the List Bundles resource
+
+**Supersim**
+- Fix typo in Fleet resource docs
+- Updated documentation for the Fleet resource indicating that fields related to commands have been deprecated and to use sms_command fields instead.
+- Add support for setting and reading `ip_commands_url` and `ip_commands_method` on Fleets resource for helper libraries
+- Changed `sim` property in requests to create an SMS Command made to the /SmsCommands to accept SIM UniqueNames in addition to SIDs
+
+**Verify**
+- Update list attempts API to include new filters and response fields.
+
+
+[2022-01-26] Version 3.73.1
+---------------------------
+**Library - Chore**
+- [PR #727](https://github.com/twilio/twilio-node/pull/727): run audit only on non dev dependencies. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Insights**
+- Added new endpoint to fetch Conference Participant Summary
+- Added new endpoint to fetch Conference Summary
+
+**Messaging**
+- Add government_entity parameter to brand apis
+
+**Verify**
+- Add Access Token fetch endpoint to retrieve a previously created token.
+- Add Access Token payload to the Access Token creation endpoint, including a unique Sid, so it's addressable while it's TTL is valid.
+
+
 [2022-01-12] Version 3.73.0
 ---------------------------
 **Library - Chore**

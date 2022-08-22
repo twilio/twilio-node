@@ -46,10 +46,10 @@ describe('Credential', function() {
           ],
           'meta': {
               'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -75,10 +75,10 @@ describe('Credential', function() {
           ],
           'meta': {
               'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -109,10 +109,10 @@ describe('Credential', function() {
           ],
           'meta': {
               'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -158,10 +158,10 @@ describe('Credential', function() {
           ],
           'meta': {
               'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -184,10 +184,10 @@ describe('Credential', function() {
           'credentials': [],
           'meta': {
               'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -208,7 +208,7 @@ describe('Credential', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {type: 'gcm'};
+      var opts = {'type': 'gcm'};
       var promise = client.chat.v1.credentials.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -219,7 +219,7 @@ describe('Credential', function() {
 
       var url = 'https://chat.twilio.com/v1/Credentials';
 
-      var values = {Type: 'gcm', };
+      var values = {'Type': 'gcm', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -242,7 +242,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {type: 'gcm'};
+      var opts = {'type': 'gcm'};
       var promise = client.chat.v1.credentials.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();

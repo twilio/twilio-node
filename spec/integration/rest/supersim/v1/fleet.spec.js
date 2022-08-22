@@ -33,7 +33,7 @@ describe('Fleet', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {networkAccessProfile: 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'networkAccessProfile': 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.supersim.v1.fleets.create(opts);
       promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('Fleet', function() {
 
       var url = 'https://supersim.twilio.com/v1/Fleets';
 
-      var values = {NetworkAccessProfile: 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
+      var values = {'NetworkAccessProfile': 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -58,13 +58,10 @@ describe('Fleet', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
           'data_enabled': true,
-          'data_limit': 1000,
+          'data_limit': 500,
           'data_metering': 'payg',
           'date_created': '2019-07-30T20:00:00Z',
           'date_updated': '2019-07-30T20:00:00Z',
-          'commands_enabled': true,
-          'commands_method': 'GET',
-          'commands_url': 'https://google.com',
           'sms_commands_enabled': true,
           'sms_commands_method': 'GET',
           'sms_commands_url': 'https://google.com',
@@ -77,7 +74,7 @@ describe('Fleet', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {networkAccessProfile: 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var opts = {'networkAccessProfile': 'HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var promise = client.supersim.v1.fleets.create(opts);
       promise.then(function(response) {
         expect(response).toBeDefined();
@@ -118,9 +115,6 @@ describe('Fleet', function() {
           'data_metering': 'payg',
           'date_created': '2019-07-30T20:00:00Z',
           'date_updated': '2019-07-30T20:00:00Z',
-          'commands_enabled': true,
-          'commands_method': 'POST',
-          'commands_url': null,
           'sms_commands_enabled': true,
           'sms_commands_method': 'POST',
           'sms_commands_url': null,
@@ -163,9 +157,6 @@ describe('Fleet', function() {
                   'data_metering': 'payg',
                   'date_created': '2019-10-15T20:00:00Z',
                   'date_updated': '2019-10-15T20:00:00Z',
-                  'commands_enabled': true,
-                  'commands_method': 'POST',
-                  'commands_url': null,
                   'sms_commands_enabled': true,
                   'sms_commands_method': 'POST',
                   'sms_commands_url': null,
@@ -202,9 +193,6 @@ describe('Fleet', function() {
                   'data_metering': 'payg',
                   'date_created': '2019-10-15T20:00:00Z',
                   'date_updated': '2019-10-15T20:00:00Z',
-                  'commands_enabled': true,
-                  'commands_method': 'POST',
-                  'commands_url': null,
                   'sms_commands_enabled': true,
                   'sms_commands_method': 'POST',
                   'sms_commands_url': null,
@@ -246,9 +234,6 @@ describe('Fleet', function() {
                   'data_metering': 'payg',
                   'date_created': '2019-10-15T20:00:00Z',
                   'date_updated': '2019-10-15T20:00:00Z',
-                  'commands_enabled': true,
-                  'commands_method': 'POST',
-                  'commands_url': null,
                   'sms_commands_enabled': true,
                   'sms_commands_method': 'POST',
                   'sms_commands_url': null,
@@ -331,9 +316,6 @@ describe('Fleet', function() {
                   'data_metering': 'payg',
                   'date_created': '2019-10-15T20:00:00Z',
                   'date_updated': '2019-10-15T20:00:00Z',
-                  'commands_enabled': true,
-                  'commands_method': 'POST',
-                  'commands_url': null,
                   'sms_commands_enabled': true,
                   'sms_commands_method': 'POST',
                   'sms_commands_url': null,
@@ -378,19 +360,16 @@ describe('Fleet', function() {
       }));
     }
   );
-  it('should generate valid update_unique_name response',
+  it('should generate valid update_unique_name_and_data_limit response',
     function(done) {
       var body = {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'unique_name': 'unique_name',
+          'unique_name': 'GPS Trackers Fleet 5GB',
           'data_enabled': true,
-          'data_limit': 1000,
+          'data_limit': 5000,
           'data_metering': 'payg',
           'date_created': '2019-10-15T20:00:00Z',
           'date_updated': '2019-10-15T20:00:00Z',
-          'commands_enabled': true,
-          'commands_method': 'POST',
-          'commands_url': null,
           'sms_commands_enabled': true,
           'sms_commands_method': 'POST',
           'sms_commands_url': null,

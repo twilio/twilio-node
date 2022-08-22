@@ -15,6 +15,8 @@ import { TemplateList } from './v2/template';
 import { TemplateListInstance } from './v2/template';
 import { VerificationAttemptList } from './v2/verificationAttempt';
 import { VerificationAttemptListInstance } from './v2/verificationAttempt';
+import { VerificationAttemptsSummaryList } from './v2/verificationAttemptsSummary';
+import { VerificationAttemptsSummaryListInstance } from './v2/verificationAttemptsSummary';
 
 
 declare class V2 extends Version {
@@ -29,6 +31,7 @@ declare class V2 extends Version {
   readonly services: ServiceListInstance;
   readonly templates: TemplateListInstance;
   readonly verificationAttempts: VerificationAttemptListInstance;
+  readonly verificationAttemptsSummary: VerificationAttemptsSummaryListInstance;
 }
 
 export = V2;

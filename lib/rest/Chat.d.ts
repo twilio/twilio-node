@@ -9,6 +9,8 @@ import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./chat/V1');
 import V2 = require('./chat/V2');
+import V3 = require('./chat/V3');
+import { ChannelListInstance } from './chat/v3/channel';
 import { CredentialListInstance } from './chat/v2/credential';
 import { ServiceListInstance } from './chat/v2/service';
 
@@ -21,10 +23,12 @@ declare class Chat extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly channels: ChannelListInstance;
   readonly credentials: CredentialListInstance;
   readonly services: ServiceListInstance;
   readonly v1: V1;
   readonly v2: V2;
+  readonly v3: V3;
 }
 
 export = Chat;

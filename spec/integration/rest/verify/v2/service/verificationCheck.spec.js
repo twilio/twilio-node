@@ -33,9 +33,8 @@ describe('VerificationCheck', function() {
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var opts = {code: 'code'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .verificationChecks.create(opts);
+                                    .verificationChecks.create();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -46,11 +45,9 @@ describe('VerificationCheck', function() {
       var serviceSid = 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
       var url = `https://verify.twilio.com/v2/Services/${serviceSid}/VerificationCheck`;
 
-      var values = {Code: 'code', };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -66,15 +63,15 @@ describe('VerificationCheck', function() {
           'valid': true,
           'amount': null,
           'payee': null,
+          'sna_attempts_error_codes': [],
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {code: 'code'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .verificationChecks.create(opts);
+                                    .verificationChecks.create();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
@@ -95,15 +92,49 @@ describe('VerificationCheck', function() {
           'valid': true,
           'amount': null,
           'payee': null,
+          'sna_attempts_error_codes': [],
           'date_created': '2020-01-30T20:00:00Z',
           'date_updated': '2020-01-30T20:00:00Z'
       };
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {code: 'code'};
       var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .verificationChecks.create(opts);
+                                    .verificationChecks.create();
+      promise.then(function(response) {
+        expect(response).toBeDefined();
+        done();
+      }, function() {
+        throw new Error('failed');
+      }).done();
+    }
+  );
+  it('should generate valid sna_verification_checks response',
+    function(done) {
+      var body = {
+          'sid': 'VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'to': '+15017122661',
+          'channel': 'sna',
+          'status': 'approved',
+          'valid': true,
+          'amount': null,
+          'payee': null,
+          'sna_attempts_error_codes': [
+              {
+                  'attempt_sid': 'VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'code': 60001
+              }
+          ],
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z'
+      };
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.verify.v2.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .verificationChecks.create();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();

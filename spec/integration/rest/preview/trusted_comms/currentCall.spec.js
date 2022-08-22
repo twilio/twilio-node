@@ -34,8 +34,8 @@ describe('CurrentCall', function() {
       holodeck.mock(new Response(500, {}));
 
       var opts = {
-        xXcnamSensitivePhoneNumberFrom: 'x_xcnam_sensitive_phone_number_from',
-        xXcnamSensitivePhoneNumberTo: 'x_xcnam_sensitive_phone_number_to'
+        'xXcnamSensitivePhoneNumberFrom': 'x_xcnam_sensitive_phone_number_from',
+        'xXcnamSensitivePhoneNumberTo': 'x_xcnam_sensitive_phone_number_to'
       };
       var promise = client.preview.trusted_comms.currentCalls().fetch(opts);
       promise.then(function() {
