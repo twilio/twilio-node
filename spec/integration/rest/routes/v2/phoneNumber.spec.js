@@ -29,11 +29,11 @@ describe('PhoneNumber', function() {
       httpClient: holodeck
     });
   });
-  it('should generate valid create request',
+  it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, {}));
 
-      var promise = client.routes.v2.phoneNumbers('phone_number').create();
+      var promise = client.routes.v2.phoneNumbers('phone_number').update();
       promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -47,54 +47,6 @@ describe('PhoneNumber', function() {
       holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url
-      }));
-    }
-  );
-  it('should generate valid create response',
-    function(done) {
-      var body = {
-          'phone_number': '+18001234567',
-          'url': 'https://routes.twilio.com/v2/PhoneNumbers/+18001234567',
-          'sid': 'QQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': 'friendly_name',
-          'voice_region': 'au1',
-          'date_created': '2015-07-30T20:00:00Z',
-          'date_updated': '2015-07-30T20:00:00Z'
-      };
-
-      holodeck.mock(new Response(201, body));
-
-      var promise = client.routes.v2.phoneNumbers('phone_number').create();
-      promise.then(function(response) {
-        expect(response).toBeDefined();
-        done();
-      }, function() {
-        throw new Error('failed');
-      }).done();
-    }
-  );
-  it('should generate valid update request',
-    function(done) {
-      holodeck.mock(new Response(500, {}));
-
-      var opts = {'voiceRegion': 'voice_region', 'friendlyName': 'friendly_name'};
-      var promise = client.routes.v2.phoneNumbers('phone_number').update(opts);
-      promise.then(function() {
-        throw new Error('failed');
-      }, function(error) {
-        expect(error.constructor).toBe(RestException.prototype.constructor);
-        done();
-      }).done();
-
-      var phoneNumber = 'phone_number';
-      var url = `https://routes.twilio.com/v2/PhoneNumbers/${phoneNumber}`;
-
-      var values = {'VoiceRegion': 'voice_region', 'FriendlyName': 'friendly_name', };
-      holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
       }));
     }
   );
@@ -113,8 +65,7 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {'voiceRegion': 'voice_region', 'friendlyName': 'friendly_name'};
-      var promise = client.routes.v2.phoneNumbers('phone_number').update(opts);
+      var promise = client.routes.v2.phoneNumbers('phone_number').update();
       promise.then(function(response) {
         expect(response).toBeDefined();
         done();
