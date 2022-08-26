@@ -29,51 +29,6 @@ describe('SipDomain', function() {
       httpClient: holodeck
     });
   });
-  it('should generate valid create request',
-    function(done) {
-      holodeck.mock(new Response(500, {}));
-
-      var promise = client.routes.v2.sipDomains('sip_domain').create();
-      promise.then(function() {
-        throw new Error('failed');
-      }, function(error) {
-        expect(error.constructor).toBe(RestException.prototype.constructor);
-        done();
-      }).done();
-
-      var sipDomain = 'sip_domain';
-      var url = `https://routes.twilio.com/v2/SipDomains/${sipDomain}`;
-
-      holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
-      }));
-    }
-  );
-  it('should generate valid create response',
-    function(done) {
-      var body = {
-          'url': 'https://routes.twilio.com/v2/SipDomains/test.sip.twilio.com',
-          'sip_domain': 'test.sip.twilio.com',
-          'sid': 'QQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': 'friendly_name',
-          'voice_region': 'au1',
-          'date_created': '2020-08-07T22:29:24Z',
-          'date_updated': '2020-08-07T22:29:24Z'
-      };
-
-      holodeck.mock(new Response(201, body));
-
-      var promise = client.routes.v2.sipDomains('sip_domain').create();
-      promise.then(function(response) {
-        expect(response).toBeDefined();
-        done();
-      }, function() {
-        throw new Error('failed');
-      }).done();
-    }
-  );
   it('should generate valid update request',
     function(done) {
       holodeck.mock(new Response(500, {}));

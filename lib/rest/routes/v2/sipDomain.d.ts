@@ -18,17 +18,6 @@ import { SerializableClass } from '../../../interfaces';
 declare function SipDomainList(version: V2): SipDomainListInstance;
 
 /**
- * Options to pass to create
- *
- * @property friendlyName - The friendly_name
- * @property voiceRegion - The voice_region
- */
-interface SipDomainInstanceCreateOptions {
-  friendlyName?: string;
-  voiceRegion?: string;
-}
-
-/**
  * Options to pass to update
  *
  * @property friendlyName - The friendly_name
@@ -84,19 +73,6 @@ declare class SipDomainContext {
   constructor(version: V2, sipDomain: string);
 
   /**
-   * create a SipDomainInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: SipDomainInstance) => any): Promise<SipDomainInstance>;
-  /**
-   * create a SipDomainInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts?: SipDomainInstanceCreateOptions, callback?: (error: Error | null, item: SipDomainInstance) => any): Promise<SipDomainInstance>;
-  /**
    * fetch a SipDomainInstance
    *
    * @param callback - Callback to handle processed record
@@ -134,19 +110,6 @@ declare class SipDomainInstance extends SerializableClass {
 
   private _proxy: SipDomainContext;
   accountSid: string;
-  /**
-   * create a SipDomainInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, items: SipDomainInstance) => any): Promise<SipDomainInstance>;
-  /**
-   * create a SipDomainInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts?: SipDomainInstanceCreateOptions, callback?: (error: Error | null, items: SipDomainInstance) => any): Promise<SipDomainInstance>;
   dateCreated: Date;
   dateUpdated: Date;
   /**
@@ -202,4 +165,4 @@ declare class SipDomainPage extends Page<V2, SipDomainPayload, SipDomainResource
   toJSON(): any;
 }
 
-export { SipDomainContext, SipDomainInstance, SipDomainInstanceCreateOptions, SipDomainInstanceUpdateOptions, SipDomainList, SipDomainListInstance, SipDomainPage, SipDomainPayload, SipDomainResource, SipDomainSolution }
+export { SipDomainContext, SipDomainInstance, SipDomainInstanceUpdateOptions, SipDomainList, SipDomainListInstance, SipDomainPage, SipDomainPayload, SipDomainResource, SipDomainSolution }

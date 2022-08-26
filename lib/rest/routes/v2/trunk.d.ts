@@ -18,17 +18,6 @@ import { SerializableClass } from '../../../interfaces';
 declare function TrunkList(version: V2): TrunkListInstance;
 
 /**
- * Options to pass to create
- *
- * @property friendlyName - A human readable description of this resource.
- * @property voiceRegion - The Inbound Processing Region used for this SIP Trunk for voice
- */
-interface TrunkInstanceCreateOptions {
-  friendlyName?: string;
-  voiceRegion?: string;
-}
-
-/**
  * Options to pass to update
  *
  * @property friendlyName - A human readable description of this resource.
@@ -84,19 +73,6 @@ declare class TrunkContext {
   constructor(version: V2, sipTrunkDomain: string);
 
   /**
-   * create a TrunkInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: TrunkInstance) => any): Promise<TrunkInstance>;
-  /**
-   * create a TrunkInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts?: TrunkInstanceCreateOptions, callback?: (error: Error | null, item: TrunkInstance) => any): Promise<TrunkInstance>;
-  /**
    * fetch a TrunkInstance
    *
    * @param callback - Callback to handle processed record
@@ -134,19 +110,6 @@ declare class TrunkInstance extends SerializableClass {
 
   private _proxy: TrunkContext;
   accountSid: string;
-  /**
-   * create a TrunkInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
-  /**
-   * create a TrunkInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts?: TrunkInstanceCreateOptions, callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
   dateCreated: Date;
   dateUpdated: Date;
   /**
@@ -202,4 +165,4 @@ declare class TrunkPage extends Page<V2, TrunkPayload, TrunkResource, TrunkInsta
   toJSON(): any;
 }
 
-export { TrunkContext, TrunkInstance, TrunkInstanceCreateOptions, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution }
+export { TrunkContext, TrunkInstance, TrunkInstanceUpdateOptions, TrunkList, TrunkListInstance, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution }

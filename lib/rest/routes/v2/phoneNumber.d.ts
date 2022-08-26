@@ -18,25 +18,14 @@ import { SerializableClass } from '../../../interfaces';
 declare function PhoneNumberList(version: V2): PhoneNumberListInstance;
 
 /**
- * Options to pass to create
- *
- * @property friendlyName - A human readable description of this resource.
- * @property voiceRegion - The Inbound Processing Region used for this phone number for voice
- */
-interface PhoneNumberInstanceCreateOptions {
-  friendlyName?: string;
-  voiceRegion?: string;
-}
-
-/**
  * Options to pass to update
  *
  * @property friendlyName - A human readable description of this resource.
  * @property voiceRegion - The Inbound Processing Region used for this phone number for voice
  */
 interface PhoneNumberInstanceUpdateOptions {
-  friendlyName: string;
-  voiceRegion: string;
+  friendlyName?: string;
+  voiceRegion?: string;
 }
 
 interface PhoneNumberListInstance {
@@ -84,19 +73,6 @@ declare class PhoneNumberContext {
   constructor(version: V2, phoneNumber: string);
 
   /**
-   * create a PhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, item: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
-  /**
-   * create a PhoneNumberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts?: PhoneNumberInstanceCreateOptions, callback?: (error: Error | null, item: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
-  /**
    * fetch a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
@@ -109,10 +85,16 @@ declare class PhoneNumberContext {
   /**
    * update a PhoneNumberInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  /**
+   * update a PhoneNumberInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: PhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  update(opts?: PhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
 }
 
 
@@ -128,19 +110,6 @@ declare class PhoneNumberInstance extends SerializableClass {
 
   private _proxy: PhoneNumberContext;
   accountSid: string;
-  /**
-   * create a PhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
-  /**
-   * create a PhoneNumberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts?: PhoneNumberInstanceCreateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
   dateCreated: Date;
   dateUpdated: Date;
   /**
@@ -159,10 +128,16 @@ declare class PhoneNumberInstance extends SerializableClass {
   /**
    * update a PhoneNumberInstance
    *
+   * @param callback - Callback to handle processed record
+   */
+  update(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  /**
+   * update a PhoneNumberInstance
+   *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: PhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  update(opts?: PhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
   url: string;
   voiceRegion: string;
 }
@@ -190,4 +165,4 @@ declare class PhoneNumberPage extends Page<V2, PhoneNumberPayload, PhoneNumberRe
   toJSON(): any;
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberInstanceCreateOptions, PhoneNumberInstanceUpdateOptions, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberInstanceUpdateOptions, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }
