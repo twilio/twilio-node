@@ -100,22 +100,6 @@ declare namespace AccessToken {
     pushCredentialSid?: string;
   }
 
-  export interface ConversationsGrantOptions {
-    configurationProfileSid?: string;
-  }
-
-  export interface ConversationsGrantPayload {
-    configuration_profile_sid?: string;
-  }
-
-  export class ConversationsGrant extends Grant<
-    ConversationsGrantOptions,
-    ConversationsGrantPayload,
-    'rtc'
-  > implements ConversationsGrant {
-    configurationProfileSid?: string;
-  }
-
   export interface VideoGrantOptions {
     room?: string;
   }
