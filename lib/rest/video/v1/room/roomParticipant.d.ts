@@ -8,6 +8,8 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
+import { AnonymizeList } from './roomParticipant/roomParticipantAnonymize';
+import { AnonymizeListInstance } from './roomParticipant/roomParticipantAnonymize';
 import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTrack';
 import { PublishedTrackListInstance } from './roomParticipant/roomParticipantPublishedTrack';
 import { SerializableClass } from '../../../../interfaces';
@@ -262,6 +264,7 @@ declare class ParticipantContext {
    */
   constructor(version: V1, roomSid: string, sid: string);
 
+  anonymize: AnonymizeListInstance;
   /**
    * fetch a ParticipantInstance
    *
@@ -304,6 +307,10 @@ declare class ParticipantInstance extends SerializableClass {
 
   private _proxy: ParticipantContext;
   accountSid: string;
+  /**
+   * Access the anonymize
+   */
+  anonymize(): AnonymizeListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   duration: number;

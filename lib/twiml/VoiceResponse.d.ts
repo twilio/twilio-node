@@ -205,7 +205,7 @@ declare namespace VoiceResponse {
 
   type ConferenceTrim = 'trim-silence'|'do-not-trim';
 
-  type ConversationEvent = 'call-initiated'|'call-ringing'|'call-in-progress'|'call-completed';
+  type ConversationEvent = 'call-initiated'|'call-ringing'|'call-answered'|'call-completed';
 
   type ConversationRecord = 'do-not-record'|'record-from-answer'|'record-from-ringing'|'record-from-answer-dual'|'record-from-ringing-dual'|'true'|'false';
 

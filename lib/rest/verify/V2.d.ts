@@ -9,6 +9,8 @@ import Verify = require('../Verify');
 import Version = require('../../base/Version');
 import { FormList } from './v2/form';
 import { FormListInstance } from './v2/form';
+import { SafelistList } from './v2/safelist';
+import { SafelistListInstance } from './v2/safelist';
 import { ServiceList } from './v2/service';
 import { ServiceListInstance } from './v2/service';
 import { TemplateList } from './v2/template';
@@ -28,6 +30,7 @@ declare class V2 extends Version {
   constructor(domain: Verify);
 
   readonly forms: FormListInstance;
+  readonly safelist: SafelistListInstance;
   readonly services: ServiceListInstance;
   readonly templates: TemplateListInstance;
   readonly verificationAttempts: VerificationAttemptListInstance;

@@ -15,6 +15,8 @@ import { ExternalCampaignList } from './v1/externalCampaign';
 import { ExternalCampaignListInstance } from './v1/externalCampaign';
 import { ServiceList } from './v1/service';
 import { ServiceListInstance } from './v1/service';
+import { TollfreeVerificationList } from './v1/tollfreeVerification';
+import { TollfreeVerificationListInstance } from './v1/tollfreeVerification';
 import { UsecaseList } from './v1/usecase';
 import { UsecaseListInstance } from './v1/usecase';
 
@@ -31,6 +33,7 @@ declare class V1 extends Version {
   readonly deactivations: DeactivationsListInstance;
   readonly externalCampaign: ExternalCampaignListInstance;
   readonly services: ServiceListInstance;
+  readonly tollfreeVerifications: TollfreeVerificationListInstance;
   readonly usecases: UsecaseListInstance;
 }
 
