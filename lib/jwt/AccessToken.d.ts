@@ -89,17 +89,6 @@ declare namespace AccessToken {
     pushCredentialSid?: string;
   }
 
-  export class IpMessagingGrant extends Grant<
-    ChatGrantOptions,
-    ChatGrantPayload,
-    'ip_messaging'
-  > implements ChatGrantOptions {
-    serviceSid?: string;
-    endpointId?: string;
-    deploymentRoleSid?: string;
-    pushCredentialSid?: string;
-  }
-
   export interface VideoGrantOptions {
     room?: string;
   }
