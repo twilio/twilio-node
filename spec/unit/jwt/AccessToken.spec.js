@@ -199,23 +199,6 @@ describe('AccessToken', function() {
       });
     });
 
-    it('should create token with conversations grant', function() {
-      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
-      token.identity = 'ID@example.com';
-
-      var grant = new twilio.jwt.AccessToken.ConversationsGrant();
-      grant.configurationProfileSid = 'VSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-      token.addGrant(grant);
-
-      var decoded = jwt.verify(token.toJwt(), 'secret');
-      expect(decoded.grants).toEqual({
-        identity: 'ID@example.com',
-        rtc: {
-          configuration_profile_sid: 'VSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-        }
-      });
-    });
-
     it('should create token with sync grant', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
