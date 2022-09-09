@@ -205,6 +205,14 @@ declare namespace VoiceResponse {
 
   type ConferenceTrim = 'trim-silence'|'do-not-trim';
 
+  type ConversationEvent = 'call-initiated'|'call-ringing'|'call-answered'|'call-completed';
+
+  type ConversationRecord = 'do-not-record'|'record-from-answer'|'record-from-ringing'|'record-from-answer-dual'|'record-from-ringing-dual'|'true'|'false';
+
+  type ConversationRecordingEvent = 'in-progress'|'completed'|'absent';
+
+  type ConversationTrim = 'trim-silence'|'do-not-trim';
+
   type DialRecord = 'do-not-record'|'record-from-answer'|'record-from-ringing'|'record-from-answer-dual'|'record-from-ringing-dual';
 
   type DialRecordingEvent = 'in-progress'|'completed'|'absent';
@@ -249,9 +257,9 @@ declare namespace VoiceResponse {
 
   type RejectReason = 'rejected'|'busy';
 
-  type SayLanguage = 'arb'|'ca-ES'|'cy-GB'|'da-DK'|'de-DE'|'en-AU'|'en-CA'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-NZ'|'en-ZA'|'en-US'|'es-ES'|'es-MX'|'es-US'|'fi-FI'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR'|'zh-CN'|'zh-HK'|'zh-TW';
+  type SayLanguage = 'arb'|'ca-ES'|'cy-GB'|'da-DK'|'de-DE'|'de-AT'|'en-AU'|'en-CA'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-NZ'|'en-ZA'|'en-US'|'es-ES'|'es-MX'|'es-US'|'fi-FI'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR'|'zh-CN'|'zh-HK'|'zh-TW';
 
-  type SayVoice = 'man'|'woman'|'alice'|'Polly.Aditi'|'Polly.Amy'|'Polly.Astrid'|'Polly.Bianca'|'Polly.Brian'|'Polly.Camila'|'Polly.Carla'|'Polly.Carmen'|'Polly.Celine'|'Polly.Chantal'|'Polly.Conchita'|'Polly.Cristiano'|'Polly.Dora'|'Polly.Emma'|'Polly.Enrique'|'Polly.Ewa'|'Polly.Filiz'|'Polly.Geraint'|'Polly.Giorgio'|'Polly.Gwyneth'|'Polly.Hans'|'Polly.Ines'|'Polly.Ivy'|'Polly.Jacek'|'Polly.Jan'|'Polly.Joanna'|'Polly.Joey'|'Polly.Justin'|'Polly.Karl'|'Polly.Kendra'|'Polly.Kimberly'|'Polly.Lea'|'Polly.Liv'|'Polly.Lotte'|'Polly.Lucia'|'Polly.Lupe'|'Polly.Mads'|'Polly.Maja'|'Polly.Marlene'|'Polly.Mathieu'|'Polly.Matthew'|'Polly.Maxim'|'Polly.Mia'|'Polly.Miguel'|'Polly.Mizuki'|'Polly.Naja'|'Polly.Nicole'|'Polly.Penelope'|'Polly.Raveena'|'Polly.Ricardo'|'Polly.Ruben'|'Polly.Russell'|'Polly.Salli'|'Polly.Seoyeon'|'Polly.Takumi'|'Polly.Tatyana'|'Polly.Vicki'|'Polly.Vitoria'|'Polly.Zeina'|'Polly.Zhiyu'|'Polly.Amy-Neural'|'Polly.Emma-Neural'|'Polly.Brian-Neural'|'Polly.Salli-Neural'|'Polly.Ivy-Neural'|'Polly.Joanna-Neural'|'Polly.Kendra-Neural'|'Polly.Kimberly-Neural'|'Polly.Joey-Neural'|'Polly.Justin-Neural'|'Polly.Matthew-Neural'|'Polly.Camila-Neural'|'Polly.Lupe-Neural'|'Polly.Olivia-Neural'|'Polly.Kevin-Neural'|'Polly.Aria-Neural'|'Polly.Ayanda-Neural'|'Polly.Gabrielle-Neural'|'Polly.Lea-Neural'|'Polly.Vicki-Neural'|'Polly.Bianca-Neural'|'Polly.Takumi-Neural'|'Polly.Seoyeon-Neural'|'Polly.Lucia-Neural';
+  type SayVoice = 'man'|'woman'|'alice'|'Polly.Aditi'|'Polly.Amy'|'Polly.Astrid'|'Polly.Bianca'|'Polly.Brian'|'Polly.Camila'|'Polly.Carla'|'Polly.Carmen'|'Polly.Celine'|'Polly.Chantal'|'Polly.Conchita'|'Polly.Cristiano'|'Polly.Dora'|'Polly.Emma'|'Polly.Enrique'|'Polly.Ewa'|'Polly.Filiz'|'Polly.Geraint'|'Polly.Giorgio'|'Polly.Gwyneth'|'Polly.Hans'|'Polly.Ines'|'Polly.Ivy'|'Polly.Jacek'|'Polly.Jan'|'Polly.Joanna'|'Polly.Joey'|'Polly.Justin'|'Polly.Karl'|'Polly.Kendra'|'Polly.Kimberly'|'Polly.Lea'|'Polly.Liv'|'Polly.Lotte'|'Polly.Lucia'|'Polly.Lupe'|'Polly.Mads'|'Polly.Maja'|'Polly.Marlene'|'Polly.Mathieu'|'Polly.Matthew'|'Polly.Maxim'|'Polly.Mia'|'Polly.Miguel'|'Polly.Mizuki'|'Polly.Naja'|'Polly.Nicole'|'Polly.Penelope'|'Polly.Raveena'|'Polly.Ricardo'|'Polly.Ruben'|'Polly.Russell'|'Polly.Salli'|'Polly.Seoyeon'|'Polly.Takumi'|'Polly.Tatyana'|'Polly.Vicki'|'Polly.Vitoria'|'Polly.Zeina'|'Polly.Zhiyu'|'Polly.Amy-Neural'|'Polly.Aria-Neural'|'Polly.Arlet-Neural'|'Polly.Arthur-Neural'|'Polly.Ayanda-Neural'|'Polly.Bianca-Neural'|'Polly.Brian-Neural'|'Polly.Camila-Neural'|'Polly.Daniel-Neural'|'Polly.Emma-Neural'|'Polly.Gabrielle-Neural'|'Polly.Hannah-Neural'|'Polly.Ines-Neural'|'Polly.Ivy-Neural'|'Polly.Joanna-Neural'|'Polly.Joey-Neural'|'Polly.Justin-Neural'|'Polly.Kajal-Neural'|'Polly.Kendra-Neural'|'Polly.Kevin-Neural'|'Polly.Kimberly-Neural'|'Polly.Lea-Neural'|'Polly.Liam-Neural'|'Polly.Lucia-Neural'|'Polly.Lupe-Neural'|'Polly.Matthew-Neural'|'Polly.Mia-Neural'|'Polly.Olivia-Neural'|'Polly.Pedro-Neural'|'Polly.Salli-Neural'|'Polly.Seoyeon-Neural'|'Polly.Takumi-Neural'|'Polly.Vicki-Neural'|'Polly.Vitoria-Neural';
 
   type SipEvent = 'initiated'|'ringing'|'answered'|'completed';
 
@@ -261,7 +269,7 @@ declare namespace VoiceResponse {
 
   type SsmlEmphasisLevel = 'strong'|'moderate'|'reduced';
 
-  type SsmlLangXmlLang = 'da-DK'|'nl-NL'|'en-AU'|'en-GB'|'en-IN'|'en-US'|'en-GB-WLS'|'fr-FR'|'fr-CA'|'de-DE'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'es-ES'|'es-US'|'sv-SE'|'tr-TR'|'cy-GB';
+  type SsmlLangXmlLang = 'arb'|'ca-ES'|'cmn-CN'|'cy-GB'|'da-DK'|'de-DE'|'de-AT'|'en-AU'|'en-GB'|'en-GB-WLS'|'en-IN'|'en-NZ'|'en-US'|'en-ZA'|'es-ES'|'es-MX'|'es-US'|'fr-CA'|'fr-FR'|'hi-IN'|'is-IS'|'it-IT'|'ja-JP'|'ko-KR'|'nb-NO'|'nl-NL'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'ru-RU'|'sv-SE'|'tr-TR';
 
   type SsmlPhonemeAlphabet = 'ipa'|'x-sampa';
 
@@ -338,6 +346,17 @@ declare namespace VoiceResponse {
   }
 
   /**
+   * Options to pass to config
+   *
+   * @property name - The name of the custom config
+   * @property value - The value of the custom config
+   */
+  export interface ConfigAttributes {
+    name?: string;
+    value?: string;
+  }
+
+  /**
    * Options to pass to connect
    *
    * @property action - Action URL
@@ -346,6 +365,37 @@ declare namespace VoiceResponse {
   export interface ConnectAttributes {
     action?: string;
     method?: string;
+  }
+
+  /**
+   * Options to pass to conversation
+   *
+   * @property inboundAutocreation - Inbound autocreation
+   * @property inboundTimeout - Inbound timeout
+   * @property record - Record
+   * @property recordingStatusCallback - Recording status callback URL
+   * @property recordingStatusCallbackEvent - Recording status callback events
+   * @property recordingStatusCallbackMethod - Recording status callback URL method
+   * @property routingAssignmentTimeout - Routing assignment timeout
+   * @property serviceInstanceSid - Service instance Sid
+   * @property statusCallback - Status callback URL
+   * @property statusCallbackEvent - Events to call status callback URL
+   * @property statusCallbackMethod - Status callback URL method
+   * @property trim - Trim
+   */
+  export interface ConversationAttributes {
+    inboundAutocreation?: boolean;
+    inboundTimeout?: number;
+    record?: ConversationRecord;
+    recordingStatusCallback?: string;
+    recordingStatusCallbackEvent?: ConversationRecordingEvent[];
+    recordingStatusCallbackMethod?: string;
+    routingAssignmentTimeout?: number;
+    serviceInstanceSid?: string;
+    statusCallback?: string;
+    statusCallbackEvent?: ConversationEvent[];
+    statusCallbackMethod?: string;
+    trim?: ConversationTrim;
   }
 
   /**
@@ -393,6 +443,7 @@ declare namespace VoiceResponse {
    * Options to pass to enqueue
    *
    * @property action - Action URL
+   * @property maxQueueSize - Maximum size of queue
    * @property method - Action URL method
    * @property waitUrl - Wait URL
    * @property waitUrlMethod - Wait URL method
@@ -400,6 +451,7 @@ declare namespace VoiceResponse {
    */
   export interface EnqueueAttributes {
     action?: string;
+    maxQueueSize?: number;
     method?: string;
     waitUrl?: string;
     waitUrlMethod?: string;
@@ -646,7 +698,7 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to say
    *
-   * @property language - Message langauge
+   * @property language - Message language
    * @property loop - Times to loop message
    * @property voice - Voice to use
    */
@@ -837,12 +889,14 @@ declare namespace VoiceResponse {
    * @property language - Language to be used by Dialogflow to transcribe speech
    * @property sentimentAnalysis - Whether sentiment analysis needs to be enabled or not
    * @property statusCallback - URL to post status callbacks from Twilio
+   * @property statusCallbackMethod - HTTP method to use when requesting the status callback URL
    */
   export interface VirtualAgentAttributes {
     connectorName?: string;
     language?: string;
     sentimentAnalysis?: boolean;
     statusCallback?: string;
+    statusCallbackMethod?: string;
   }
 
 
@@ -886,6 +940,12 @@ declare namespace VoiceResponse {
      */
     autopilot(attributes: object, name: string): void;
     /**
+     * <Conversation> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    conversation(attributes?: VoiceResponse.ConversationAttributes): void;
+    /**
      * <Room> TwiML Noun
      *
      * @param name - Room name
@@ -909,7 +969,7 @@ declare namespace VoiceResponse {
      *
      * @param attributes - TwiML attributes
      */
-    virtualAgent(attributes?: VoiceResponse.VirtualAgentAttributes): void;
+    virtualAgent(attributes?: VoiceResponse.VirtualAgentAttributes): VoiceResponse.VirtualAgent;
   }
 
 
@@ -2706,6 +2766,23 @@ declare namespace VoiceResponse {
 
   class Stream {
 
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(attributes?: VoiceResponse.ParameterAttributes): void;
+  }
+
+
+  class VirtualAgent {
+
+    /**
+     * <Config> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    config(attributes?: VoiceResponse.ConfigAttributes): void;
     /**
      * <Parameter> TwiML Noun
      *
