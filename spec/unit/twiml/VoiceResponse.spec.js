@@ -216,25 +216,16 @@ describe('create voice response TwiML', function() {
 
   it('should render attributes with dashes', function() {
     var actual = new VoiceResponse();
-    actual.say().ssmlSayAs({'interpret-as': 'spell-out', role: 'yymmdd'}, 'Words to speak');
+    actual.say().sayAs({'interpret-as': 'spell-out', role: 'yymmdd'}, 'Words to speak');
 
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Say><say-as interpret-as="spell-out" role="yymmdd">Words to speak</say-as></Say></Response>');
   });
 
   it('should render namespaced attributes', function() {
     var actual = new VoiceResponse();
-    actual.say().ssmlLang({'xml:lang': 'fr-FR'}, 'Bonjour!');
+    actual.say().lang({'xml:lang': 'fr-FR'}, 'Bonjour!');
 
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Say><lang xml:lang="fr-FR">Bonjour!</lang></Say></Response>');
   });
 
-  it('should render deprecated methods', function() {
-    var legacy = new VoiceResponse();
-    legacy.refer().referSip('foo');
-
-    var renamed = new VoiceResponse();
-    renamed.refer().sip('foo');
-
-    expect(legacy.toString()).toEqual(renamed.toString());
-  });
 });
