@@ -19,10 +19,6 @@ The Node library documentation can be found [here][libdocs].
 
 This library supports the following Node.js implementations:
 
-* Node.js 6
-* Node.js 8
-* Node.js 10
-* Node.js 12
 * Node.js 14
 * Node.js 16
 

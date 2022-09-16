@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:14
 
 RUN mkdir /twilio
 WORKDIR /twilio
