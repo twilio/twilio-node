@@ -9,6 +9,7 @@ import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V2 = require('./verify/V2');
 import { FormListInstance } from './verify/v2/form';
+import { SafelistListInstance } from './verify/v2/safelist';
 import { ServiceListInstance } from './verify/v2/service';
 import { TemplateListInstance } from './verify/v2/template';
 import { VerificationAttemptListInstance } from './verify/v2/verificationAttempt';
@@ -24,6 +25,7 @@ declare class Verify extends Domain {
   constructor(twilio: Twilio);
 
   readonly forms: FormListInstance;
+  readonly safelist: SafelistListInstance;
   readonly services: ServiceListInstance;
   readonly templates: TemplateListInstance;
   readonly v2: V2;

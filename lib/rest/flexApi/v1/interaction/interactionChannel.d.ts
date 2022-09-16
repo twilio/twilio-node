@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../../interfaces';
 
 type InteractionChannelChannelStatus = 'setup'|'active'|'failed'|'closed';
 
-type InteractionChannelStatus = 'close'|'closed'|'wrapup';
+type InteractionChannelStatus = 'closed'|'wrapup';
 
 type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat'|'messenger'|'gbm';
 
