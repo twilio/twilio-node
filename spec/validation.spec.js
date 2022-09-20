@@ -165,7 +165,7 @@ describe('Request validation', () => {
   });
 
   it('should validate request body with multiple params and values', () => {
-    const paramsWithArray = { Sid: 'CA123', SidAccount: 'AC123', Digits: ['5678', '1234'] };
+    const paramsWithArray = { Sid: 'CA123', SidAccount: 'AC123', Digits: ['5678', '1234', '1234'] };
     const signature = 'IK+Dwps556ElfBT0I3Rgjkr1wJU=';
     const isValid = validateRequest(token, signature, requestUrl, paramsWithArray);
 
