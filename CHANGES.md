@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2022-09-21] Version 3.82.1
+---------------------------
+**Library - Fix**
+- [PR #782](https://github.com/twilio/twilio-node/pull/782): support duplicated query param values. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2022-09-07] Version 3.82.0
 ---------------------------
 **Library - Fix**
