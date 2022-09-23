@@ -21,6 +21,7 @@ This library supports the following Node.js implementations:
 
 * Node.js 14
 * Node.js 16
+* Node.js 18
 
 TypeScript is supported for TypeScript version 2.9 and above.
 
