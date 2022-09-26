@@ -69,6 +69,10 @@ declare class Version {
    * @param opts Page limit options passed to the request
    */
   readLimits(opts: Version.PageLimitOptions): Version.PageLimit;
+
+  isCallbackFunction(operationPromise: any, callback: any): Promise<any>;
+  each(params?: any, callback?: any): void;
+  list(params?: any, callback?: any): Promise<any>[];
 }
 
 declare namespace Version {
