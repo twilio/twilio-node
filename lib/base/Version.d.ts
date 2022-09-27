@@ -70,9 +70,9 @@ declare class Version {
    */
   readLimits(opts: Version.PageLimitOptions): Version.PageLimit;
 
-  isCallbackFunction(operationPromise: any, callback: any): Promise<any>;
-  each(params?: any, callback?: any): void;
-  list(params?: any, callback?: any): Promise<any>[];
+  setPromiseCallback(operationPromise: any, callback: any): Promise<any>;
+  each<T>(params?: any, callback?: (item: T, done: (err?: Error) => void) => void) : void;
+  list<T>(params?: any, callback?: (error: Error | null, items: T) => any): Promise<T>;
 }
 
 declare namespace Version {
