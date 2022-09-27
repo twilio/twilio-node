@@ -1,6 +1,5 @@
 'use strict';
 var _ = require('lodash');
-var Q = require('q');
 var util = require('util');
 var Request = require('../../lib/http/request');
 var RequestClient = require('../../lib/base/RequestClient');
