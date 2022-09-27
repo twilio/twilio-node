@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        node: [ 14, 16, lts/* ]
+        node: [ 14, 16, 18, lts/* ]
     steps:
       - name: Checkout twilio-node
         uses: actions/checkout@v2
