@@ -504,7 +504,14 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to number
    *
+   * @property amdStatusCallback - The URL we should call to send amd status information to your application
+   * @property amdStatusCallbackMethod - HTTP Method to use with amd_status_callback
    * @property byoc - BYOC trunk SID (Beta)
+   * @property machineDetection - Enable machine detection or end of greeting detection
+   * @property machineDetectionSilenceTimeout - Number of milliseconds of initial silence
+   * @property machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity
+   * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
+   * @property machineDetectionTimeout - Number of seconds to wait for machine detection
    * @property method - TwiML URL method
    * @property sendDigits - DTMF tones to play when the call is answered
    * @property statusCallback - Status callback URL
@@ -513,7 +520,14 @@ declare namespace VoiceResponse {
    * @property url - TwiML URL
    */
   export interface NumberAttributes {
+    amdStatusCallback?: string;
+    amdStatusCallbackMethod?: string;
     byoc?: string;
+    machineDetection?: string;
+    machineDetectionSilenceTimeout?: number;
+    machineDetectionSpeechEndThreshold?: number;
+    machineDetectionSpeechThreshold?: number;
+    machineDetectionTimeout?: number;
     method?: string;
     sendDigits?: string;
     statusCallback?: string;
@@ -711,6 +725,13 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to sip
    *
+   * @property amdStatusCallback - The URL we should call to send amd status information to your application
+   * @property amdStatusCallbackMethod - HTTP Method to use with amd_status_callback
+   * @property machineDetection - Enable machine detection or end of greeting detection
+   * @property machineDetectionSilenceTimeout - Number of milliseconds of initial silence
+   * @property machineDetectionSpeechEndThreshold - Number of milliseconds of silence after speech activity
+   * @property machineDetectionSpeechThreshold - Number of milliseconds for measuring stick for the length of the speech activity
+   * @property machineDetectionTimeout - Number of seconds to wait for machine detection
    * @property method - Action URL method
    * @property password - SIP Password
    * @property statusCallback - Status callback URL
@@ -720,6 +741,13 @@ declare namespace VoiceResponse {
    * @property username - SIP Username
    */
   export interface SipAttributes {
+    amdStatusCallback?: string;
+    amdStatusCallbackMethod?: string;
+    machineDetection?: string;
+    machineDetectionSilenceTimeout?: number;
+    machineDetectionSpeechEndThreshold?: number;
+    machineDetectionSpeechThreshold?: number;
+    machineDetectionTimeout?: number;
     method?: string;
     password?: string;
     statusCallback?: string;
