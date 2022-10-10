@@ -8,6 +8,8 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import { AnnotationList } from './call/annotation';
+import { AnnotationListInstance } from './call/annotation';
 import { CallSummaryList } from './call/summary';
 import { CallSummaryListInstance } from './call/summary';
 import { EventList } from './call/event';
@@ -18,10 +20,6 @@ import { SerializableClass } from '../../../interfaces';
 
 /**
  * Initialize the CallList
- *
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
  */
@@ -61,15 +59,12 @@ declare class CallContext {
   /**
    * Initialize the CallContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
-   *
    * @param version - Version of the resource
    * @param sid - The sid
    */
   constructor(version: V1, sid: string);
 
+  annotation: AnnotationListInstance;
   events: EventListInstance;
   /**
    * fetch a CallInstance
@@ -90,10 +85,6 @@ declare class CallInstance extends SerializableClass {
   /**
    * Initialize the CallContext
    *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
@@ -101,6 +92,10 @@ declare class CallInstance extends SerializableClass {
   constructor(version: V1, payload: CallPayload, sid: string);
 
   private _proxy: CallContext;
+  /**
+   * Access the annotation
+   */
+  annotation(): AnnotationListInstance;
   /**
    * Access the events
    */
@@ -132,10 +127,6 @@ declare class CallInstance extends SerializableClass {
 declare class CallPage extends Page<V1, CallPayload, CallResource, CallInstance> {
   /**
    * Initialize the CallPage
-   *
-   * PLEASE NOTE that this class contains preview products that are subject to
-   * change. Use them with caution. If you currently do not have developer preview
-   * access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

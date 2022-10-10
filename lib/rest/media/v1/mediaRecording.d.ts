@@ -226,16 +226,15 @@ interface MediaRecordingPayload extends MediaRecordingResource, Page.TwilioRespo
 
 interface MediaRecordingResource {
   account_sid: string;
-  bitrate: number;
   date_created: Date;
   date_updated: Date;
   duration: number;
   format: MediaRecordingFormat;
   links: string;
+  media_size: number;
   processor_sid: string;
   resolution: string;
   sid: string;
-  size: number;
   source_sid: string;
   status: MediaRecordingStatus;
   status_callback: string;
@@ -295,7 +294,6 @@ declare class MediaRecordingInstance extends SerializableClass {
 
   private _proxy: MediaRecordingContext;
   accountSid: string;
-  bitrate: number;
   dateCreated: Date;
   dateUpdated: Date;
   duration: number;
@@ -307,6 +305,7 @@ declare class MediaRecordingInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: MediaRecordingInstance) => any): Promise<MediaRecordingInstance>;
   format: MediaRecordingFormat;
   links: string;
+  mediaSize: number;
   processorSid: string;
   /**
    * remove a MediaRecordingInstance
@@ -316,7 +315,6 @@ declare class MediaRecordingInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: MediaRecordingInstance) => any): Promise<boolean>;
   resolution: string;
   sid: string;
-  size: number;
   sourceSid: string;
   status: MediaRecordingStatus;
   statusCallback: string;
