@@ -7,8 +7,6 @@
 
 import Insights = require('../Insights');
 import Version = require('../../base/Version');
-import { AnnotationList } from './v1/annotation';
-import { AnnotationListInstance } from './v1/annotation';
 import { CallList } from './v1/call';
 import { CallListInstance } from './v1/call';
 import { CallSummariesList } from './v1/callSummaries';
@@ -29,7 +27,6 @@ declare class V1 extends Version {
    */
   constructor(domain: Insights);
 
-  readonly annotation: AnnotationListInstance;
   readonly callSummaries: CallSummariesListInstance;
   readonly calls: CallListInstance;
   readonly conferences: ConferenceListInstance;

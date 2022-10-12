@@ -14,23 +14,25 @@ import { InteractionChannelParticipantList } from './interactionChannel/interact
 import { InteractionChannelParticipantListInstance } from './interactionChannel/interactionChannelParticipant';
 import { SerializableClass } from '../../../../interfaces';
 
-type InteractionChannelStatus = 'close'|'closed'|'wrapup';
+type InteractionChannelChannelStatus = 'setup'|'active'|'failed'|'closed';
 
-type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat';
+type InteractionChannelStatus = 'closed'|'wrapup';
+
+type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat'|'messenger'|'gbm';
 
 /**
  * Initialize the InteractionChannelList
  *
  * @param version - Version of the resource
- * @param interactionSid - The Interaction Sid for this channel.
+ * @param interactionSid - The unique string that identifies the resource.
  */
 declare function InteractionChannelList(version: V1, interactionSid: string): InteractionChannelListInstance;
 
 /**
  * Options to pass to update
  *
- * @property routing - The Interaction Channels's optional routing parameters
- * @property status - The Interaction Channels's status
+ * @property routing - Optional. The state of associated tasks.
+ * @property status - Required. The Interaction channels's status
  */
 interface InteractionChannelInstanceUpdateOptions {
   routing?: object;
@@ -76,7 +78,7 @@ interface InteractionChannelListInstance {
   /**
    * Constructs a interaction_channel
    *
-   * @param sid - The Channel Sid for this Participant.
+   * @param sid - The unique string that identifies the resource
    */
   get(sid: string): InteractionChannelContext;
   /**
@@ -213,9 +215,12 @@ interface InteractionChannelPayload extends InteractionChannelResource, Page.Twi
 }
 
 interface InteractionChannelResource {
+  error_code: number;
+  error_message: string;
   interaction_sid: string;
   links: string;
   sid: string;
+  status: InteractionChannelChannelStatus;
   type: InteractionChannelType;
   url: string;
 }
@@ -230,8 +235,8 @@ declare class InteractionChannelContext {
    * Initialize the InteractionChannelContext
    *
    * @param version - Version of the resource
-   * @param interactionSid - The Interaction Sid for this channel.
-   * @param sid - The Channel Sid for this Participant.
+   * @param interactionSid - The unique string that identifies the resource
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, interactionSid: string, sid: string);
 
@@ -263,12 +268,14 @@ declare class InteractionChannelInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param interactionSid - The Interaction Sid for this channel.
-   * @param sid - The Channel Sid for this Participant.
+   * @param interactionSid - The unique string that identifies the resource.
+   * @param sid - The unique string that identifies the resource
    */
   constructor(version: V1, payload: InteractionChannelPayload, interactionSid: string, sid: string);
 
   private _proxy: InteractionChannelContext;
+  errorCode: number;
+  errorMessage: string;
   /**
    * fetch a InteractionChannelInstance
    *
@@ -286,6 +293,7 @@ declare class InteractionChannelInstance extends SerializableClass {
    */
   participants(): InteractionChannelParticipantListInstance;
   sid: string;
+  status: InteractionChannelChannelStatus;
   /**
    * Provide a user-friendly representation
    */
@@ -324,4 +332,4 @@ declare class InteractionChannelPage extends Page<V1, InteractionChannelPayload,
   toJSON(): any;
 }
 
-export { InteractionChannelContext, InteractionChannelInstance, InteractionChannelInstanceUpdateOptions, InteractionChannelList, InteractionChannelListInstance, InteractionChannelListInstanceEachOptions, InteractionChannelListInstanceOptions, InteractionChannelListInstancePageOptions, InteractionChannelPage, InteractionChannelPayload, InteractionChannelResource, InteractionChannelSolution, InteractionChannelStatus, InteractionChannelType }
+export { InteractionChannelChannelStatus, InteractionChannelContext, InteractionChannelInstance, InteractionChannelInstanceUpdateOptions, InteractionChannelList, InteractionChannelListInstance, InteractionChannelListInstanceEachOptions, InteractionChannelListInstanceOptions, InteractionChannelListInstancePageOptions, InteractionChannelPage, InteractionChannelPayload, InteractionChannelResource, InteractionChannelSolution, InteractionChannelStatus, InteractionChannelType }

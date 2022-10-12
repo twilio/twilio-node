@@ -10,24 +10,22 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
+type SimIpAddressIpAddressVersion = 'IPv4'|'IPv6';
+
 /**
- * Initialize the FaxMediaList
+ * Initialize the SimIpAddressList
  *
  * PLEASE NOTE that this class contains beta products that are subject to change.
  * Use them with caution.
  *
  * @param version - Version of the resource
- * @param faxSid - The SID of the fax the FaxMedia resource is associated with
+ * @param simSid - The unique string that identifies the resource
  */
-declare function FaxMediaList(version: V1, faxSid: string): FaxMediaListInstance;
+declare function SimIpAddressList(version: V1, simSid: string): SimIpAddressListInstance;
 
-interface FaxMediaListInstance {
+interface SimIpAddressListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): FaxMediaContext;
-  /**
-   * Streams FaxMediaInstance records from the API.
+   * Streams SimIpAddressInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -40,9 +38,9 @@ interface FaxMediaListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: FaxMediaInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams FaxMediaInstance records from the API.
+   * Streams SimIpAddressInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -56,15 +54,9 @@ interface FaxMediaListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FaxMediaListInstanceEachOptions, callback?: (item: FaxMediaInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: SimIpAddressListInstanceEachOptions, callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Constructs a fax_media
-   *
-   * @param sid - The unique string that identifies the resource to fetch
-   */
-  get(sid: string): FaxMediaContext;
-  /**
-   * Retrieve a single target page of FaxMediaInstance records from the API.
+   * Retrieve a single target page of SimIpAddressInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -73,9 +65,9 @@ interface FaxMediaListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: FaxMediaPage) => any): Promise<FaxMediaPage>;
+  getPage(callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage>;
   /**
-   * Retrieve a single target page of FaxMediaInstance records from the API.
+   * Retrieve a single target page of SimIpAddressInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -85,18 +77,18 @@ interface FaxMediaListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FaxMediaPage) => any): Promise<FaxMediaPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage>;
   /**
-   * Lists FaxMediaInstance records from the API as a list.
+   * Lists SimIpAddressInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: FaxMediaInstance[]) => any): Promise<FaxMediaInstance[]>;
+  list(callback?: (error: Error | null, items: SimIpAddressInstance[]) => any): Promise<SimIpAddressInstance[]>;
   /**
-   * Lists FaxMediaInstance records from the API as a list.
+   * Lists SimIpAddressInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -104,9 +96,9 @@ interface FaxMediaListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FaxMediaListInstanceOptions, callback?: (error: Error | null, items: FaxMediaInstance[]) => any): Promise<FaxMediaInstance[]>;
+  list(opts?: SimIpAddressListInstanceOptions, callback?: (error: Error | null, items: SimIpAddressInstance[]) => any): Promise<SimIpAddressInstance[]>;
   /**
-   * Retrieve a single page of FaxMediaInstance records from the API.
+   * Retrieve a single page of SimIpAddressInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -115,9 +107,9 @@ interface FaxMediaListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: FaxMediaPage) => any): Promise<FaxMediaPage>;
+  page(callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage>;
   /**
-   * Retrieve a single page of FaxMediaInstance records from the API.
+   * Retrieve a single page of SimIpAddressInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -127,7 +119,7 @@ interface FaxMediaListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FaxMediaListInstancePageOptions, callback?: (error: Error | null, items: FaxMediaPage) => any): Promise<FaxMediaPage>;
+  page(opts?: SimIpAddressListInstancePageOptions, callback?: (error: Error | null, items: SimIpAddressPage) => any): Promise<SimIpAddressPage>;
   /**
    * Provide a user-friendly representation
    */
@@ -152,8 +144,8 @@ interface FaxMediaListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  */
-interface FaxMediaListInstanceEachOptions {
-  callback?: (item: FaxMediaInstance, done: (err?: Error) => void) => void;
+interface SimIpAddressListInstanceEachOptions {
+  callback?: (item: SimIpAddressInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -173,7 +165,7 @@ interface FaxMediaListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  */
-interface FaxMediaListInstanceOptions {
+interface SimIpAddressListInstanceOptions {
   limit?: number;
   pageSize?: number;
 }
@@ -185,106 +177,50 @@ interface FaxMediaListInstanceOptions {
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
-interface FaxMediaListInstancePageOptions {
+interface SimIpAddressListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
 }
 
-interface FaxMediaPayload extends FaxMediaResource, Page.TwilioResponsePayload {
+interface SimIpAddressPayload extends SimIpAddressResource, Page.TwilioResponsePayload {
 }
 
-interface FaxMediaResource {
-  account_sid: string;
-  content_type: string;
-  date_created: Date;
-  date_updated: Date;
-  fax_sid: string;
-  sid: string;
-  url: string;
+interface SimIpAddressResource {
+  ip_address: string;
+  ip_address_version: SimIpAddressIpAddressVersion;
 }
 
-interface FaxMediaSolution {
-  faxSid?: string;
+interface SimIpAddressSolution {
+  simSid?: string;
 }
 
 
-declare class FaxMediaContext {
+declare class SimIpAddressInstance extends SerializableClass {
   /**
-   * Initialize the FaxMediaContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
-   * @param version - Version of the resource
-   * @param faxSid - The SID of the fax with the FaxMedia resource to fetch
-   * @param sid - The unique string that identifies the resource to fetch
-   */
-  constructor(version: V1, faxSid: string, sid: string);
-
-  /**
-   * fetch a FaxMediaInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: FaxMediaInstance) => any): Promise<FaxMediaInstance>;
-  /**
-   * remove a FaxMediaInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FaxMediaInstance) => any): Promise<boolean>;
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-}
-
-
-declare class FaxMediaInstance extends SerializableClass {
-  /**
-   * Initialize the FaxMediaContext
+   * Initialize the SimIpAddressContext
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param faxSid - The SID of the fax the FaxMedia resource is associated with
-   * @param sid - The unique string that identifies the resource to fetch
+   * @param simSid - The unique string that identifies the resource
    */
-  constructor(version: V1, payload: FaxMediaPayload, faxSid: string, sid: string);
+  constructor(version: V1, payload: SimIpAddressPayload, simSid: string);
 
-  private _proxy: FaxMediaContext;
-  accountSid: string;
-  contentType: string;
-  dateCreated: Date;
-  dateUpdated: Date;
-  faxSid: string;
-  /**
-   * fetch a FaxMediaInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: FaxMediaInstance) => any): Promise<FaxMediaInstance>;
-  /**
-   * remove a FaxMediaInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FaxMediaInstance) => any): Promise<boolean>;
-  sid: string;
+  ipAddress: string;
+  ipAddressVersion: SimIpAddressIpAddressVersion;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  url: string;
 }
 
 
-declare class FaxMediaPage extends Page<V1, FaxMediaPayload, FaxMediaResource, FaxMediaInstance> {
+declare class SimIpAddressPage extends Page<V1, SimIpAddressPayload, SimIpAddressResource, SimIpAddressInstance> {
   /**
-   * Initialize the FaxMediaPage
+   * Initialize the SimIpAddressPage
    *
    * PLEASE NOTE that this class contains beta products that are subject to change.
    * Use them with caution.
@@ -293,18 +229,18 @@ declare class FaxMediaPage extends Page<V1, FaxMediaPayload, FaxMediaResource, F
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: FaxMediaSolution);
+  constructor(version: V1, response: Response<string>, solution: SimIpAddressSolution);
 
   /**
-   * Build an instance of FaxMediaInstance
+   * Build an instance of SimIpAddressInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FaxMediaPayload): FaxMediaInstance;
+  getInstance(payload: SimIpAddressPayload): SimIpAddressInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListInstance, FaxMediaListInstanceEachOptions, FaxMediaListInstanceOptions, FaxMediaListInstancePageOptions, FaxMediaPage, FaxMediaPayload, FaxMediaResource, FaxMediaSolution }
+export { SimIpAddressInstance, SimIpAddressIpAddressVersion, SimIpAddressList, SimIpAddressListInstance, SimIpAddressListInstanceEachOptions, SimIpAddressListInstanceOptions, SimIpAddressListInstancePageOptions, SimIpAddressPage, SimIpAddressPayload, SimIpAddressResource, SimIpAddressSolution }

@@ -60,9 +60,11 @@ interface ConfigurationResource {
   crm_type: string;
   date_created: Date;
   date_updated: Date;
+  debugger_integration: object;
   flex_insights_drilldown: boolean;
   flex_insights_hr: object;
   flex_service_instance_sid: string;
+  flex_ui_status_report: object;
   flex_url: string;
   integrations: object[];
   markdown: object;
@@ -165,6 +167,7 @@ declare class ConfigurationInstance extends SerializableClass {
   crmType: string;
   dateCreated: Date;
   dateUpdated: Date;
+  debuggerIntegration: any;
   /**
    * fetch a ConfigurationInstance
    *
@@ -181,6 +184,7 @@ declare class ConfigurationInstance extends SerializableClass {
   flexInsightsDrilldown: boolean;
   flexInsightsHr: any;
   flexServiceInstanceSid: string;
+  flexUiStatusReport: any;
   flexUrl: string;
   integrations: object[];
   markdown: any;

@@ -18,8 +18,8 @@ type InteractionChannelInviteType = 'taskrouter';
  * Initialize the InteractionChannelInviteList
  *
  * @param version - Version of the resource
- * @param interactionSid - The interaction_sid
- * @param channelSid - The channel_sid
+ * @param interactionSid - The Interaction SID for this Channel
+ * @param channelSid - The Channel SID for this Invite
  */
 declare function InteractionChannelInviteList(version: V1, interactionSid: string, channelSid: string): InteractionChannelInviteListInstance;
 
@@ -138,7 +138,7 @@ interface InteractionChannelInviteListInstance {
 /**
  * Options to pass to create
  *
- * @property routing - The routing
+ * @property routing - The Interaction's routing logic
  */
 interface InteractionChannelInviteListInstanceCreateOptions {
   routing: object;
@@ -224,8 +224,8 @@ declare class InteractionChannelInviteInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param interactionSid - The interaction_sid
-   * @param channelSid - The channel_sid
+   * @param interactionSid - The Interaction SID for this Channel
+   * @param channelSid - The Channel SID for this Invite
    */
   constructor(version: V1, payload: InteractionChannelInvitePayload, interactionSid: string, channelSid: string);
 

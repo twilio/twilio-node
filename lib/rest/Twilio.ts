@@ -30,11 +30,14 @@ import { BaseTwilio, ClientOpts } from '../base/BaseTwilio';
  * @property (Twilio.Lookups) lookups - lookups domain
  * @property (Twilio.Media) media - media domain
  * @property (Twilio.Messaging) messaging - messaging domain
+ * @property (Twilio.Microvisor) microvisor - microvisor domain
  * @property (Twilio.Monitor) monitor - monitor domain
  * @property (Twilio.Notify) notify - notify domain
  * @property (Twilio.Numbers) numbers - numbers domain
+ * @property (Twilio.Preview) preview - preview domain
  * @property (Twilio.Pricing) pricing - pricing domain
  * @property (Twilio.Proxy) proxy - proxy domain
+ * @property (Twilio.Routes) routes - routes domain
  * @property (Twilio.Serverless) serverless - serverless domain
  * @property (Twilio.Studio) studio - studio domain
  * @property (Twilio.Supersim) supersim - supersim domain
@@ -94,11 +97,14 @@ class Twilio extends BaseTwilio {
   _lookups: any
   _media: any
   _messaging: any
+  _microvisor: any
   _monitor: any
   _notify: any
   _numbers: any
+  _preview: any
   _pricing: any
   _proxy: any
+  _routes: any
   _serverless: any
   _studio: any
   _supersim: any
@@ -129,11 +135,14 @@ class Twilio extends BaseTwilio {
         this.lookups;
         this.media;
         this.messaging;
+        this.microvisor;
         this.monitor;
         this.notify;
         this.numbers;
+        this.preview;
         this.pricing;
         this.proxy;
+        this.routes;
         this.serverless;
         this.studio;
         this.supersim;
@@ -248,6 +257,13 @@ class Twilio extends BaseTwilio {
     }
     return this._messaging;
   }
+  get microvisor() {
+    if (!this._microvisor) {
+      const Microvisor = require('./Microvisor');  /* jshint ignore:line */
+      this._microvisor = new Microvisor(this);
+    }
+    return this._microvisor;
+  }
   get monitor() {
     if (!this._monitor) {
       const Monitor = require('./Monitor');  /* jshint ignore:line */
@@ -269,6 +285,13 @@ class Twilio extends BaseTwilio {
     }
     return this._numbers;
   }
+  get preview() {
+    if (!this._preview) {
+      const Preview = require('./Preview');  /* jshint ignore:line */
+      this._preview = new Preview(this);
+    }
+    return this._preview;
+  }
   get pricing() {
     if (!this._pricing) {
       const Pricing = require('./Pricing');  /* jshint ignore:line */
@@ -282,6 +305,13 @@ class Twilio extends BaseTwilio {
       this._proxy = new Proxy(this);
     }
     return this._proxy;
+  }
+  get routes() {
+    if (!this._routes) {
+      const Routes = require('./Routes');  /* jshint ignore:line */
+      this._routes = new Routes(this);
+    }
+    return this._routes;
   }
   get serverless() {
     if (!this._serverless) {
