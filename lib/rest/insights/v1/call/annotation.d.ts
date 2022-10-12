@@ -5,10 +5,10 @@
  *       /       /
  */
 
-import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { SerializableClass } from '../../../interfaces';
+import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
+import V1 = require('../../V1');
+import { SerializableClass } from '../../../../interfaces';
 
 type AnnotationAnsweredBy = 'unknown_answered_by'|'human'|'machine';
 
@@ -19,20 +19,24 @@ type AnnotationQualityIssues = 'unknown_quality_issue'|'no_quality_issue'|'low_v
 /**
  * Initialize the AnnotationList
  *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
+ *
  * @param version - Version of the resource
+ * @param callSid - Call SID.
  */
-declare function AnnotationList(version: V1): AnnotationListInstance;
+declare function AnnotationList(version: V1, callSid: string): AnnotationListInstance;
 
 /**
  * Options to pass to update
  *
- * @property answeredBy - The answered_by
- * @property callScore - The call_score
- * @property comment - The comment
- * @property connectivityIssue - The connectivity_issue
- * @property incident - The incident
- * @property qualityIssues - The quality_issues
- * @property spam - The spam
+ * @property answeredBy - Indicates the answering entity as determined by Answering Machine Detection.
+ * @property callScore - Call Score
+ * @property comment - User comments
+ * @property connectivityIssue - Indicates if the call had any connectivity issue
+ * @property incident - Call tag for incidents or support ticket
+ * @property qualityIssues - Indicates if the call had audio quality issues.
+ * @property spam - Call spam indicator
  */
 interface AnnotationInstanceUpdateOptions {
   answeredBy?: AnnotationAnsweredBy;
@@ -51,10 +55,8 @@ interface AnnotationListInstance {
   (sid: string): AnnotationContext;
   /**
    * Constructs a annotation
-   *
-   * @param callSid - The call_sid
    */
-  get(callSid: string): AnnotationContext;
+  get(): AnnotationContext;
   /**
    * Provide a user-friendly representation
    */
@@ -78,6 +80,7 @@ interface AnnotationResource {
 }
 
 interface AnnotationSolution {
+  callSid?: string;
 }
 
 
@@ -85,8 +88,11 @@ declare class AnnotationContext {
   /**
    * Initialize the AnnotationContext
    *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
+   *
    * @param version - Version of the resource
-   * @param callSid - The call_sid
+   * @param callSid - Call SID.
    */
   constructor(version: V1, callSid: string);
 
@@ -120,9 +126,12 @@ declare class AnnotationInstance extends SerializableClass {
   /**
    * Initialize the AnnotationContext
    *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param callSid - The call_sid
+   * @param callSid - Call SID.
    */
   constructor(version: V1, payload: AnnotationPayload, callSid: string);
 
@@ -166,6 +175,9 @@ declare class AnnotationInstance extends SerializableClass {
 declare class AnnotationPage extends Page<V1, AnnotationPayload, AnnotationResource, AnnotationInstance> {
   /**
    * Initialize the AnnotationPage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

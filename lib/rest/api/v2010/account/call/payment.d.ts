@@ -83,7 +83,7 @@ interface PaymentListInstance {
  * @property input - A list of inputs that should be accepted. Currently only `dtmf` is supported.
  * @property minPostalCodeLength - A positive integer that is used to validate the length of the `PostalCode` inputted by the user.
  * @property parameter - A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments)
- * @property paymentConnector - This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons.
+ * @property paymentConnector - This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons.
  * @property paymentMethod - Type of payment being captured.
  * @property postalCode - Indicates whether the credit card PostalCode (zip code) is a required piece of payment information that must be provided by the caller.
  * @property securityCode - Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller.

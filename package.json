@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "3.77.1",
+  "version": "3.82.2",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -50,7 +50,7 @@
     "typescript": "^4.7.2"
   },
   "scripts": {
-    "test": "npm run test:javascript && npm run test:typescript",
+    "test": "npm run test:javascript",
     "test:javascript": "jest --coverage --detectOpenHandles",
     "test:typescript": "tsc -t es5 examples/typescript/example.ts --noEmit --strict",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
