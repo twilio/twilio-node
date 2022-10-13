@@ -16,7 +16,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN
 const testClient = twilio(apiKey, apiSecret, {accountSid});
 
 afterAll(async () => {
-  await new Promise(resolve => setTimeout(resolve, 10000))
+  await new Promise(resolve => setTimeout(resolve, 5000))
 })
 
 test("Should send a Text", () => {
@@ -88,7 +88,7 @@ describe('Validating Request', function () {
         let params = new URLSearchParams(body);
         let paramObject = Object.fromEntries(params.entries());
         let requestIsValid = twilio.validateRequest(authToken, signatureHeader, url, paramObject)
-
+        console.log("validating")
         expect(requestIsValid).toBeTruthy();
       });
     });
