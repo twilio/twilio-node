@@ -15,6 +15,10 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const testClient = twilio(apiKey, apiSecret, {accountSid});
 
+afterAll(async () => {
+  await new Promise(resolve => setTimeout(resolve, 2000))
+})
+
 test("Should send a Text", () => {
   return testClient.messages.create({
     body: "hello world",
@@ -139,7 +143,7 @@ describe('Validating Request', function () {
     await testClient.studio.v2.flows(flowSid)
       .executions
       .create({to: 'to', from: 'from'});
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise(resolve => setTimeout(resolve, 5000))
   }
 
   test("Should validate incoming GET request", async () => {
@@ -151,7 +155,6 @@ describe('Validating Request', function () {
     await validateRequest('POST');
   })
 });
-
 
 test("Should list available numbers", () => {
   return testClient.availablePhoneNumbers('US')
