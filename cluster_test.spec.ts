@@ -16,7 +16,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN
 const testClient = twilio(apiKey, apiSecret, {accountSid});
 
 afterAll(async () => {
-  await new Promise(resolve => setTimeout(resolve, 2000))
+  await new Promise(resolve => setTimeout(resolve, 10000))
 })
 
 test("Should send a Text", () => {
