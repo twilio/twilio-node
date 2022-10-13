@@ -40,7 +40,7 @@ export interface ConfigurationListInstanceCreateOptions {
 
 export interface ConfigurationListInstance {
 
-  address_configuration: AddressConfigurationListInstance;
+  addressConfiguration: AddressConfigurationListInstance;
   webhooks: WebhookListInstance;
 
 
@@ -178,7 +178,7 @@ class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _solution?: ConfigurationSolution;
   _uri?: string;
 
-  _address_configuration?: AddressConfigurationListInstance;
+  _addressConfiguration?: AddressConfigurationListInstance;
   _webhooks?: WebhookListInstance;
 }
 
@@ -189,12 +189,12 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
   instance._solution = {  };
   instance._uri = `/Configuration`;
 
-  Object.defineProperty(instance, "address_configuration", {
-    get: function address_configuration() {
-      if (!this._address_configuration) {
-        this._address_configuration = AddressConfigurationListInstance(this._version);
+  Object.defineProperty(instance, "addressConfiguration", {
+    get: function addressConfiguration() {
+      if (!this._addressConfiguration) {
+        this._addressConfiguration = AddressConfigurationListInstance(this._version);
       }
-      return this._address_configuration;
+      return this._addressConfiguration;
     }
   });
 
@@ -332,10 +332,10 @@ export class ConfigurationInstance {
   links?: object | null;
 
   /**
-   * Access the address_configuration.
+   * Access the addressConfiguration.
    */
-  address_configuration(): AddressConfigurationListInstance {
-    return this._proxy.address_configuration;
+  addressConfiguration(): AddressConfigurationListInstance {
+    return this._proxy.addressConfiguration;
   }
 
   /**

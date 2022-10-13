@@ -332,7 +332,7 @@ export interface VerificationAttemptListInstance {
   (sid: string): VerificationAttemptContext;
   get(sid: string): VerificationAttemptContext;
 
-  verification_attempts_summary: VerificationAttemptsSummaryListInstance;
+  verificationAttemptsSummary: VerificationAttemptsSummaryListInstance;
 
 
   /**
@@ -449,7 +449,7 @@ class VerificationAttemptListInstanceImpl implements VerificationAttemptListInst
   _solution?: VerificationAttemptSolution;
   _uri?: string;
 
-  _verification_attempts_summary?: VerificationAttemptsSummaryListInstance;
+  _verificationAttemptsSummary?: VerificationAttemptsSummaryListInstance;
 }
 
 export function VerificationAttemptListInstance(version: V2): VerificationAttemptListInstance {
@@ -463,12 +463,12 @@ export function VerificationAttemptListInstance(version: V2): VerificationAttemp
   instance._solution = {  };
   instance._uri = `/Attempts`;
 
-  Object.defineProperty(instance, "verification_attempts_summary", {
-    get: function verification_attempts_summary() {
-      if (!this._verification_attempts_summary) {
-        this._verification_attempts_summary = VerificationAttemptsSummaryListInstance(this._version);
+  Object.defineProperty(instance, "verificationAttemptsSummary", {
+    get: function verificationAttemptsSummary() {
+      if (!this._verificationAttemptsSummary) {
+        this._verificationAttemptsSummary = VerificationAttemptsSummaryListInstance(this._version);
       }
-      return this._verification_attempts_summary;
+      return this._verificationAttemptsSummary;
     }
   });
 

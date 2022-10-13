@@ -318,7 +318,7 @@ export function ParticipantListInstance(version: V1, serviceSid: string, session
 
 export interface ParticipantContext {
 
-  message_interactions: MessageInteractionListInstance;
+  messageInteractions: MessageInteractionListInstance;
 
   /**
    * Remove a ParticipantInstance
@@ -351,16 +351,16 @@ export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantSolution;
   protected _uri: string;
 
-  protected _message_interactions?: MessageInteractionListInstance;
+  protected _messageInteractions?: MessageInteractionListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sessionSid: string, sid: string) {
     this._solution = { serviceSid, sessionSid, sid };
     this._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Participants/${sid}`;
   }
 
-  get message_interactions(): MessageInteractionListInstance {
-    this._message_interactions = this._message_interactions || MessageInteractionListInstance(this._version, this._solution.serviceSid, this._solution.sessionSid, this._solution.sid);
-    return this._message_interactions;
+  get messageInteractions(): MessageInteractionListInstance {
+    this._messageInteractions = this._messageInteractions || MessageInteractionListInstance(this._version, this._solution.serviceSid, this._solution.sessionSid, this._solution.sid);
+    return this._messageInteractions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -529,10 +529,10 @@ export class ParticipantInstance {
   }
 
   /**
-   * Access the message_interactions.
+   * Access the messageInteractions.
    */
-  message_interactions(): MessageInteractionListInstance {
-    return this._proxy.message_interactions;
+  messageInteractions(): MessageInteractionListInstance {
+    return this._proxy.messageInteractions;
   }
 
   /**

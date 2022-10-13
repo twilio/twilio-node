@@ -21,8 +21,8 @@ export default class Marketplace extends Version {
   /**
    * Initialize the Marketplace version of Preview
    *
-   * @property { Twilio.Preview.Marketplace.InstalledAddOnListInstance } installed_add_ons - installed_add_ons resource
-   * @property { Twilio.Preview.Marketplace.AvailableAddOnListInstance } available_add_ons - available_add_ons resource
+   * @property { Twilio.Preview.Marketplace.InstalledAddOnListInstance } installedAddOns - installedAddOns resource
+   * @property { Twilio.Preview.Marketplace.AvailableAddOnListInstance } availableAddOns - availableAddOns resource
    *
    * @param { Twilio.Preview } domain - The Twilio domain
    */
@@ -30,17 +30,17 @@ export default class Marketplace extends Version {
     super(domain, "marketplace");
   }
 
-  protected _installed_add_ons?: InstalledAddOnListInstance;
-  protected _available_add_ons?: AvailableAddOnListInstance;
+  protected _installedAddOns?: InstalledAddOnListInstance;
+  protected _availableAddOns?: AvailableAddOnListInstance;
 
-  get installed_add_ons(): InstalledAddOnListInstance {
-    this._installed_add_ons = this._installed_add_ons || InstalledAddOnListInstance(this);
-    return this._installed_add_ons;
+  get installedAddOns(): InstalledAddOnListInstance {
+    this._installedAddOns = this._installedAddOns || InstalledAddOnListInstance(this);
+    return this._installedAddOns;
   }
 
-  get available_add_ons(): AvailableAddOnListInstance {
-    this._available_add_ons = this._available_add_ons || AvailableAddOnListInstance(this);
-    return this._available_add_ons;
+  get availableAddOns(): AvailableAddOnListInstance {
+    this._availableAddOns = this._availableAddOns || AvailableAddOnListInstance(this);
+    return this._availableAddOns;
   }
 
 }

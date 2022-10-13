@@ -128,13 +128,13 @@ export interface WorkspaceListInstancePageOptions {
 
 export interface WorkspaceContext {
 
-  task_channels: TaskChannelListInstance;
-  workspace_real_time_statistics: WorkspaceRealTimeStatisticsListInstance;
+  taskChannels: TaskChannelListInstance;
+  workspaceRealTimeStatistics: WorkspaceRealTimeStatisticsListInstance;
   tasks: TaskListInstance;
-  workspace_statistics: WorkspaceStatisticsListInstance;
-  task_queues: TaskQueueListInstance;
+  workspaceStatistics: WorkspaceStatisticsListInstance;
+  taskQueues: TaskQueueListInstance;
   events: EventListInstance;
-  workspace_cumulative_statistics: WorkspaceCumulativeStatisticsListInstance;
+  workspaceCumulativeStatistics: WorkspaceCumulativeStatisticsListInstance;
   activities: ActivityListInstance;
   workers: WorkerListInstance;
   workflows: WorkflowListInstance;
@@ -190,13 +190,13 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   protected _solution: WorkspaceSolution;
   protected _uri: string;
 
-  protected _task_channels?: TaskChannelListInstance;
-  protected _workspace_real_time_statistics?: WorkspaceRealTimeStatisticsListInstance;
+  protected _taskChannels?: TaskChannelListInstance;
+  protected _workspaceRealTimeStatistics?: WorkspaceRealTimeStatisticsListInstance;
   protected _tasks?: TaskListInstance;
-  protected _workspace_statistics?: WorkspaceStatisticsListInstance;
-  protected _task_queues?: TaskQueueListInstance;
+  protected _workspaceStatistics?: WorkspaceStatisticsListInstance;
+  protected _taskQueues?: TaskQueueListInstance;
   protected _events?: EventListInstance;
-  protected _workspace_cumulative_statistics?: WorkspaceCumulativeStatisticsListInstance;
+  protected _workspaceCumulativeStatistics?: WorkspaceCumulativeStatisticsListInstance;
   protected _activities?: ActivityListInstance;
   protected _workers?: WorkerListInstance;
   protected _workflows?: WorkflowListInstance;
@@ -206,14 +206,14 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     this._uri = `/Workspaces/${sid}`;
   }
 
-  get task_channels(): TaskChannelListInstance {
-    this._task_channels = this._task_channels || TaskChannelListInstance(this._version, this._solution.sid);
-    return this._task_channels;
+  get taskChannels(): TaskChannelListInstance {
+    this._taskChannels = this._taskChannels || TaskChannelListInstance(this._version, this._solution.sid);
+    return this._taskChannels;
   }
 
-  get workspace_real_time_statistics(): WorkspaceRealTimeStatisticsListInstance {
-    this._workspace_real_time_statistics = this._workspace_real_time_statistics || WorkspaceRealTimeStatisticsListInstance(this._version, this._solution.sid);
-    return this._workspace_real_time_statistics;
+  get workspaceRealTimeStatistics(): WorkspaceRealTimeStatisticsListInstance {
+    this._workspaceRealTimeStatistics = this._workspaceRealTimeStatistics || WorkspaceRealTimeStatisticsListInstance(this._version, this._solution.sid);
+    return this._workspaceRealTimeStatistics;
   }
 
   get tasks(): TaskListInstance {
@@ -221,14 +221,14 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     return this._tasks;
   }
 
-  get workspace_statistics(): WorkspaceStatisticsListInstance {
-    this._workspace_statistics = this._workspace_statistics || WorkspaceStatisticsListInstance(this._version, this._solution.sid);
-    return this._workspace_statistics;
+  get workspaceStatistics(): WorkspaceStatisticsListInstance {
+    this._workspaceStatistics = this._workspaceStatistics || WorkspaceStatisticsListInstance(this._version, this._solution.sid);
+    return this._workspaceStatistics;
   }
 
-  get task_queues(): TaskQueueListInstance {
-    this._task_queues = this._task_queues || TaskQueueListInstance(this._version, this._solution.sid);
-    return this._task_queues;
+  get taskQueues(): TaskQueueListInstance {
+    this._taskQueues = this._taskQueues || TaskQueueListInstance(this._version, this._solution.sid);
+    return this._taskQueues;
   }
 
   get events(): EventListInstance {
@@ -236,9 +236,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     return this._events;
   }
 
-  get workspace_cumulative_statistics(): WorkspaceCumulativeStatisticsListInstance {
-    this._workspace_cumulative_statistics = this._workspace_cumulative_statistics || WorkspaceCumulativeStatisticsListInstance(this._version, this._solution.sid);
-    return this._workspace_cumulative_statistics;
+  get workspaceCumulativeStatistics(): WorkspaceCumulativeStatisticsListInstance {
+    this._workspaceCumulativeStatistics = this._workspaceCumulativeStatistics || WorkspaceCumulativeStatisticsListInstance(this._version, this._solution.sid);
+    return this._workspaceCumulativeStatistics;
   }
 
   get activities(): ActivityListInstance {
@@ -487,17 +487,17 @@ export class WorkspaceInstance {
   }
 
   /**
-   * Access the task_channels.
+   * Access the taskChannels.
    */
-  task_channels(): TaskChannelListInstance {
-    return this._proxy.task_channels;
+  taskChannels(): TaskChannelListInstance {
+    return this._proxy.taskChannels;
   }
 
   /**
-   * Access the workspace_real_time_statistics.
+   * Access the workspaceRealTimeStatistics.
    */
-  workspace_real_time_statistics(): WorkspaceRealTimeStatisticsListInstance {
-    return this._proxy.workspace_real_time_statistics;
+  workspaceRealTimeStatistics(): WorkspaceRealTimeStatisticsListInstance {
+    return this._proxy.workspaceRealTimeStatistics;
   }
 
   /**
@@ -508,17 +508,17 @@ export class WorkspaceInstance {
   }
 
   /**
-   * Access the workspace_statistics.
+   * Access the workspaceStatistics.
    */
-  workspace_statistics(): WorkspaceStatisticsListInstance {
-    return this._proxy.workspace_statistics;
+  workspaceStatistics(): WorkspaceStatisticsListInstance {
+    return this._proxy.workspaceStatistics;
   }
 
   /**
-   * Access the task_queues.
+   * Access the taskQueues.
    */
-  task_queues(): TaskQueueListInstance {
-    return this._proxy.task_queues;
+  taskQueues(): TaskQueueListInstance {
+    return this._proxy.taskQueues;
   }
 
   /**
@@ -529,10 +529,10 @@ export class WorkspaceInstance {
   }
 
   /**
-   * Access the workspace_cumulative_statistics.
+   * Access the workspaceCumulativeStatistics.
    */
-  workspace_cumulative_statistics(): WorkspaceCumulativeStatisticsListInstance {
-    return this._proxy.workspace_cumulative_statistics;
+  workspaceCumulativeStatistics(): WorkspaceCumulativeStatisticsListInstance {
+    return this._proxy.workspaceCumulativeStatistics;
   }
 
   /**

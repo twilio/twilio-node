@@ -26,13 +26,13 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Trusthub
    *
-   * @property { Twilio.Trusthub.V1.SupportingDocumentTypeListInstance } supporting_document_types - supporting_document_types resource
-   * @property { Twilio.Trusthub.V1.SupportingDocumentListInstance } supporting_documents - supporting_documents resource
+   * @property { Twilio.Trusthub.V1.SupportingDocumentTypeListInstance } supportingDocumentTypes - supportingDocumentTypes resource
+   * @property { Twilio.Trusthub.V1.SupportingDocumentListInstance } supportingDocuments - supportingDocuments resource
    * @property { Twilio.Trusthub.V1.PoliciesListInstance } policies - policies resource
-   * @property { Twilio.Trusthub.V1.CustomerProfilesListInstance } customer_profiles - customer_profiles resource
-   * @property { Twilio.Trusthub.V1.EndUserTypeListInstance } end_user_types - end_user_types resource
-   * @property { Twilio.Trusthub.V1.TrustProductsListInstance } trust_products - trust_products resource
-   * @property { Twilio.Trusthub.V1.EndUserListInstance } end_users - end_users resource
+   * @property { Twilio.Trusthub.V1.CustomerProfilesListInstance } customerProfiles - customerProfiles resource
+   * @property { Twilio.Trusthub.V1.EndUserTypeListInstance } endUserTypes - endUserTypes resource
+   * @property { Twilio.Trusthub.V1.TrustProductsListInstance } trustProducts - trustProducts resource
+   * @property { Twilio.Trusthub.V1.EndUserListInstance } endUsers - endUsers resource
    *
    * @param { Twilio.Trusthub } domain - The Twilio domain
    */
@@ -40,22 +40,22 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _supporting_document_types?: SupportingDocumentTypeListInstance;
-  protected _supporting_documents?: SupportingDocumentListInstance;
+  protected _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
+  protected _supportingDocuments?: SupportingDocumentListInstance;
   protected _policies?: PoliciesListInstance;
-  protected _customer_profiles?: CustomerProfilesListInstance;
-  protected _end_user_types?: EndUserTypeListInstance;
-  protected _trust_products?: TrustProductsListInstance;
-  protected _end_users?: EndUserListInstance;
+  protected _customerProfiles?: CustomerProfilesListInstance;
+  protected _endUserTypes?: EndUserTypeListInstance;
+  protected _trustProducts?: TrustProductsListInstance;
+  protected _endUsers?: EndUserListInstance;
 
-  get supporting_document_types(): SupportingDocumentTypeListInstance {
-    this._supporting_document_types = this._supporting_document_types || SupportingDocumentTypeListInstance(this);
-    return this._supporting_document_types;
+  get supportingDocumentTypes(): SupportingDocumentTypeListInstance {
+    this._supportingDocumentTypes = this._supportingDocumentTypes || SupportingDocumentTypeListInstance(this);
+    return this._supportingDocumentTypes;
   }
 
-  get supporting_documents(): SupportingDocumentListInstance {
-    this._supporting_documents = this._supporting_documents || SupportingDocumentListInstance(this);
-    return this._supporting_documents;
+  get supportingDocuments(): SupportingDocumentListInstance {
+    this._supportingDocuments = this._supportingDocuments || SupportingDocumentListInstance(this);
+    return this._supportingDocuments;
   }
 
   get policies(): PoliciesListInstance {
@@ -63,24 +63,24 @@ export default class V1 extends Version {
     return this._policies;
   }
 
-  get customer_profiles(): CustomerProfilesListInstance {
-    this._customer_profiles = this._customer_profiles || CustomerProfilesListInstance(this);
-    return this._customer_profiles;
+  get customerProfiles(): CustomerProfilesListInstance {
+    this._customerProfiles = this._customerProfiles || CustomerProfilesListInstance(this);
+    return this._customerProfiles;
   }
 
-  get end_user_types(): EndUserTypeListInstance {
-    this._end_user_types = this._end_user_types || EndUserTypeListInstance(this);
-    return this._end_user_types;
+  get endUserTypes(): EndUserTypeListInstance {
+    this._endUserTypes = this._endUserTypes || EndUserTypeListInstance(this);
+    return this._endUserTypes;
   }
 
-  get trust_products(): TrustProductsListInstance {
-    this._trust_products = this._trust_products || TrustProductsListInstance(this);
-    return this._trust_products;
+  get trustProducts(): TrustProductsListInstance {
+    this._trustProducts = this._trustProducts || TrustProductsListInstance(this);
+    return this._trustProducts;
   }
 
-  get end_users(): EndUserListInstance {
-    this._end_users = this._end_users || EndUserListInstance(this);
-    return this._end_users;
+  get endUsers(): EndUserListInstance {
+    this._endUsers = this._endUsers || EndUserListInstance(this);
+    return this._endUsers;
   }
 
 }

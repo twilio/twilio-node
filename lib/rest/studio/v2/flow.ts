@@ -108,7 +108,7 @@ export interface FlowListInstance {
   (sid: string): FlowContext;
   get(sid: string): FlowContext;
 
-  flow_validate: FlowValidateListInstance;
+  flowValidate: FlowValidateListInstance;
 
   /**
    * Create a FlowInstance
@@ -237,7 +237,7 @@ class FlowListInstanceImpl implements FlowListInstance {
   _solution?: FlowSolution;
   _uri?: string;
 
-  _flow_validate?: FlowValidateListInstance;
+  _flowValidate?: FlowValidateListInstance;
 }
 
 export function FlowListInstance(version: V2): FlowListInstance {
@@ -251,12 +251,12 @@ export function FlowListInstance(version: V2): FlowListInstance {
   instance._solution = {  };
   instance._uri = `/Flows`;
 
-  Object.defineProperty(instance, "flow_validate", {
-    get: function flow_validate() {
-      if (!this._flow_validate) {
-        this._flow_validate = FlowValidateListInstance(this._version);
+  Object.defineProperty(instance, "flowValidate", {
+    get: function flowValidate() {
+      if (!this._flowValidate) {
+        this._flowValidate = FlowValidateListInstance(this._version);
       }
-      return this._flow_validate;
+      return this._flowValidate;
     }
   });
 
@@ -353,8 +353,8 @@ export function FlowListInstance(version: V2): FlowListInstance {
 export interface FlowContext {
 
   executions: ExecutionListInstance;
-  flow_revision: FlowRevisionListInstance;
-  flow_test_user: FlowTestUserListInstance;
+  flowRevision: FlowRevisionListInstance;
+  flowTestUser: FlowTestUserListInstance;
 
   /**
    * Remove a FlowInstance
@@ -400,8 +400,8 @@ export class FlowContextImpl implements FlowContext {
   protected _uri: string;
 
   protected _executions?: ExecutionListInstance;
-  protected _flow_revision?: FlowRevisionListInstance;
-  protected _flow_test_user?: FlowTestUserListInstance;
+  protected _flowRevision?: FlowRevisionListInstance;
+  protected _flowTestUser?: FlowTestUserListInstance;
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -413,14 +413,14 @@ export class FlowContextImpl implements FlowContext {
     return this._executions;
   }
 
-  get flow_revision(): FlowRevisionListInstance {
-    this._flow_revision = this._flow_revision || FlowRevisionListInstance(this._version, this._solution.sid);
-    return this._flow_revision;
+  get flowRevision(): FlowRevisionListInstance {
+    this._flowRevision = this._flowRevision || FlowRevisionListInstance(this._version, this._solution.sid);
+    return this._flowRevision;
   }
 
-  get flow_test_user(): FlowTestUserListInstance {
-    this._flow_test_user = this._flow_test_user || FlowTestUserListInstance(this._version, this._solution.sid);
-    return this._flow_test_user;
+  get flowTestUser(): FlowTestUserListInstance {
+    this._flowTestUser = this._flowTestUser || FlowTestUserListInstance(this._version, this._solution.sid);
+    return this._flowTestUser;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -648,17 +648,17 @@ export class FlowInstance {
   }
 
   /**
-   * Access the flow_revision.
+   * Access the flowRevision.
    */
-  flow_revision(): FlowRevisionListInstance {
-    return this._proxy.flow_revision;
+  flowRevision(): FlowRevisionListInstance {
+    return this._proxy.flowRevision;
   }
 
   /**
-   * Access the flow_test_user.
+   * Access the flowTestUser.
    */
-  flow_test_user(): FlowTestUserListInstance {
-    return this._proxy.flow_test_user;
+  flowTestUser(): FlowTestUserListInstance {
+    return this._proxy.flowTestUser;
   }
 
   /**

@@ -402,12 +402,12 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
 export interface ServiceContext {
 
   entities: EntityListInstance;
-  rate_limits: RateLimitListInstance;
-  access_tokens: AccessTokenListInstance;
-  verification_check: VerificationCheckListInstance;
+  rateLimits: RateLimitListInstance;
+  accessTokens: AccessTokenListInstance;
+  verificationCheck: VerificationCheckListInstance;
   verifications: VerificationListInstance;
   webhooks: WebhookListInstance;
-  messaging_configurations: MessagingConfigurationListInstance;
+  messagingConfigurations: MessagingConfigurationListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -461,12 +461,12 @@ export class ServiceContextImpl implements ServiceContext {
   protected _uri: string;
 
   protected _entities?: EntityListInstance;
-  protected _rate_limits?: RateLimitListInstance;
-  protected _access_tokens?: AccessTokenListInstance;
-  protected _verification_check?: VerificationCheckListInstance;
+  protected _rateLimits?: RateLimitListInstance;
+  protected _accessTokens?: AccessTokenListInstance;
+  protected _verificationCheck?: VerificationCheckListInstance;
   protected _verifications?: VerificationListInstance;
   protected _webhooks?: WebhookListInstance;
-  protected _messaging_configurations?: MessagingConfigurationListInstance;
+  protected _messagingConfigurations?: MessagingConfigurationListInstance;
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -478,19 +478,19 @@ export class ServiceContextImpl implements ServiceContext {
     return this._entities;
   }
 
-  get rate_limits(): RateLimitListInstance {
-    this._rate_limits = this._rate_limits || RateLimitListInstance(this._version, this._solution.sid);
-    return this._rate_limits;
+  get rateLimits(): RateLimitListInstance {
+    this._rateLimits = this._rateLimits || RateLimitListInstance(this._version, this._solution.sid);
+    return this._rateLimits;
   }
 
-  get access_tokens(): AccessTokenListInstance {
-    this._access_tokens = this._access_tokens || AccessTokenListInstance(this._version, this._solution.sid);
-    return this._access_tokens;
+  get accessTokens(): AccessTokenListInstance {
+    this._accessTokens = this._accessTokens || AccessTokenListInstance(this._version, this._solution.sid);
+    return this._accessTokens;
   }
 
-  get verification_check(): VerificationCheckListInstance {
-    this._verification_check = this._verification_check || VerificationCheckListInstance(this._version, this._solution.sid);
-    return this._verification_check;
+  get verificationCheck(): VerificationCheckListInstance {
+    this._verificationCheck = this._verificationCheck || VerificationCheckListInstance(this._version, this._solution.sid);
+    return this._verificationCheck;
   }
 
   get verifications(): VerificationListInstance {
@@ -503,9 +503,9 @@ export class ServiceContextImpl implements ServiceContext {
     return this._webhooks;
   }
 
-  get messaging_configurations(): MessagingConfigurationListInstance {
-    this._messaging_configurations = this._messaging_configurations || MessagingConfigurationListInstance(this._version, this._solution.sid);
-    return this._messaging_configurations;
+  get messagingConfigurations(): MessagingConfigurationListInstance {
+    this._messagingConfigurations = this._messagingConfigurations || MessagingConfigurationListInstance(this._version, this._solution.sid);
+    return this._messagingConfigurations;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -774,24 +774,24 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the rate_limits.
+   * Access the rateLimits.
    */
-  rate_limits(): RateLimitListInstance {
-    return this._proxy.rate_limits;
+  rateLimits(): RateLimitListInstance {
+    return this._proxy.rateLimits;
   }
 
   /**
-   * Access the access_tokens.
+   * Access the accessTokens.
    */
-  access_tokens(): AccessTokenListInstance {
-    return this._proxy.access_tokens;
+  accessTokens(): AccessTokenListInstance {
+    return this._proxy.accessTokens;
   }
 
   /**
-   * Access the verification_check.
+   * Access the verificationCheck.
    */
-  verification_check(): VerificationCheckListInstance {
-    return this._proxy.verification_check;
+  verificationCheck(): VerificationCheckListInstance {
+    return this._proxy.verificationCheck;
   }
 
   /**
@@ -809,10 +809,10 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the messaging_configurations.
+   * Access the messagingConfigurations.
    */
-  messaging_configurations(): MessagingConfigurationListInstance {
-    return this._proxy.messaging_configurations;
+  messagingConfigurations(): MessagingConfigurationListInstance {
+    return this._proxy.messagingConfigurations;
   }
 
   /**

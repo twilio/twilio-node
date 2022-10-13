@@ -25,8 +25,8 @@ export default class V1 extends Version {
    *
    * @property { Twilio.Wireless.V1.CommandListInstance } commands - commands resource
    * @property { Twilio.Wireless.V1.SimListInstance } sims - sims resource
-   * @property { Twilio.Wireless.V1.UsageRecordListInstance } usage_records - usage_records resource
-   * @property { Twilio.Wireless.V1.RatePlanListInstance } rate_plans - rate_plans resource
+   * @property { Twilio.Wireless.V1.UsageRecordListInstance } usageRecords - usageRecords resource
+   * @property { Twilio.Wireless.V1.RatePlanListInstance } ratePlans - ratePlans resource
    *
    * @param { Twilio.Wireless } domain - The Twilio domain
    */
@@ -36,8 +36,8 @@ export default class V1 extends Version {
 
   protected _commands?: CommandListInstance;
   protected _sims?: SimListInstance;
-  protected _usage_records?: UsageRecordListInstance;
-  protected _rate_plans?: RatePlanListInstance;
+  protected _usageRecords?: UsageRecordListInstance;
+  protected _ratePlans?: RatePlanListInstance;
 
   get commands(): CommandListInstance {
     this._commands = this._commands || CommandListInstance(this);
@@ -49,14 +49,14 @@ export default class V1 extends Version {
     return this._sims;
   }
 
-  get usage_records(): UsageRecordListInstance {
-    this._usage_records = this._usage_records || UsageRecordListInstance(this);
-    return this._usage_records;
+  get usageRecords(): UsageRecordListInstance {
+    this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
+    return this._usageRecords;
   }
 
-  get rate_plans(): RatePlanListInstance {
-    this._rate_plans = this._rate_plans || RatePlanListInstance(this);
-    return this._rate_plans;
+  get ratePlans(): RatePlanListInstance {
+    this._ratePlans = this._ratePlans || RatePlanListInstance(this);
+    return this._ratePlans;
   }
 
 }

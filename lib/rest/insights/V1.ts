@@ -26,7 +26,7 @@ export default class V1 extends Version {
    *
    * @property { Twilio.Insights.V1.CallListInstance } call - call resource
    * @property { Twilio.Insights.V1.SettingListInstance } settings - settings resource
-   * @property { Twilio.Insights.V1.CallSummariesListInstance } call_summaries - call_summaries resource
+   * @property { Twilio.Insights.V1.CallSummariesListInstance } callSummaries - callSummaries resource
    * @property { Twilio.Insights.V1.ConferenceListInstance } conferences - conferences resource
    * @property { Twilio.Insights.V1.RoomListInstance } rooms - rooms resource
    *
@@ -38,7 +38,7 @@ export default class V1 extends Version {
 
   protected _call?: CallListInstance;
   protected _settings?: SettingListInstance;
-  protected _call_summaries?: CallSummariesListInstance;
+  protected _callSummaries?: CallSummariesListInstance;
   protected _conferences?: ConferenceListInstance;
   protected _rooms?: RoomListInstance;
 
@@ -52,9 +52,9 @@ export default class V1 extends Version {
     return this._settings;
   }
 
-  get call_summaries(): CallSummariesListInstance {
-    this._call_summaries = this._call_summaries || CallSummariesListInstance(this);
-    return this._call_summaries;
+  get callSummaries(): CallSummariesListInstance {
+    this._callSummaries = this._callSummaries || CallSummariesListInstance(this);
+    return this._callSummaries;
   }
 
   get conferences(): ConferenceListInstance {

@@ -350,9 +350,9 @@ export function WorkflowListInstance(version: V1, workspaceSid: string): Workflo
 
 export interface WorkflowContext {
 
-  workflow_real_time_statistics: WorkflowRealTimeStatisticsListInstance;
-  workflow_cumulative_statistics: WorkflowCumulativeStatisticsListInstance;
-  workflow_statistics: WorkflowStatisticsListInstance;
+  workflowRealTimeStatistics: WorkflowRealTimeStatisticsListInstance;
+  workflowCumulativeStatistics: WorkflowCumulativeStatisticsListInstance;
+  workflowStatistics: WorkflowStatisticsListInstance;
 
   /**
    * Remove a WorkflowInstance
@@ -405,28 +405,28 @@ export class WorkflowContextImpl implements WorkflowContext {
   protected _solution: WorkflowSolution;
   protected _uri: string;
 
-  protected _workflow_real_time_statistics?: WorkflowRealTimeStatisticsListInstance;
-  protected _workflow_cumulative_statistics?: WorkflowCumulativeStatisticsListInstance;
-  protected _workflow_statistics?: WorkflowStatisticsListInstance;
+  protected _workflowRealTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
+  protected _workflowCumulativeStatistics?: WorkflowCumulativeStatisticsListInstance;
+  protected _workflowStatistics?: WorkflowStatisticsListInstance;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
     this._solution = { workspaceSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${sid}`;
   }
 
-  get workflow_real_time_statistics(): WorkflowRealTimeStatisticsListInstance {
-    this._workflow_real_time_statistics = this._workflow_real_time_statistics || WorkflowRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._workflow_real_time_statistics;
+  get workflowRealTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
+    this._workflowRealTimeStatistics = this._workflowRealTimeStatistics || WorkflowRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._workflowRealTimeStatistics;
   }
 
-  get workflow_cumulative_statistics(): WorkflowCumulativeStatisticsListInstance {
-    this._workflow_cumulative_statistics = this._workflow_cumulative_statistics || WorkflowCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._workflow_cumulative_statistics;
+  get workflowCumulativeStatistics(): WorkflowCumulativeStatisticsListInstance {
+    this._workflowCumulativeStatistics = this._workflowCumulativeStatistics || WorkflowCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._workflowCumulativeStatistics;
   }
 
-  get workflow_statistics(): WorkflowStatisticsListInstance {
-    this._workflow_statistics = this._workflow_statistics || WorkflowStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._workflow_statistics;
+  get workflowStatistics(): WorkflowStatisticsListInstance {
+    this._workflowStatistics = this._workflowStatistics || WorkflowStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._workflowStatistics;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -650,24 +650,24 @@ export class WorkflowInstance {
   }
 
   /**
-   * Access the workflow_real_time_statistics.
+   * Access the workflowRealTimeStatistics.
    */
-  workflow_real_time_statistics(): WorkflowRealTimeStatisticsListInstance {
-    return this._proxy.workflow_real_time_statistics;
+  workflowRealTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
+    return this._proxy.workflowRealTimeStatistics;
   }
 
   /**
-   * Access the workflow_cumulative_statistics.
+   * Access the workflowCumulativeStatistics.
    */
-  workflow_cumulative_statistics(): WorkflowCumulativeStatisticsListInstance {
-    return this._proxy.workflow_cumulative_statistics;
+  workflowCumulativeStatistics(): WorkflowCumulativeStatisticsListInstance {
+    return this._proxy.workflowCumulativeStatistics;
   }
 
   /**
-   * Access the workflow_statistics.
+   * Access the workflowStatistics.
    */
-  workflow_statistics(): WorkflowStatisticsListInstance {
-    return this._proxy.workflow_statistics;
+  workflowStatistics(): WorkflowStatisticsListInstance {
+    return this._proxy.workflowStatistics;
   }
 
   /**

@@ -33,7 +33,7 @@ import { NotificationListInstance } from "./account/notification";
 import { AvailablePhoneNumberCountryListInstance } from "./account/availablePhoneNumberCountry";
 import { OutgoingCallerIdListInstance } from "./account/outgoingCallerId";
 import { RecordingListInstance } from "./account/recording";
-import { SIPListInstance } from "./account/sIP";
+import { SIPListInstance } from "./account/sip";
 import { IncomingPhoneNumberListInstance } from "./account/incomingPhoneNumber";
 import { ApplicationListInstance } from "./account/application";
 import { BalanceListInstance } from "./account/balance";
@@ -126,20 +126,20 @@ export interface AccountContext {
 
   calls: CallListInstance;
   usage: UsageListInstance;
-  connect_apps: ConnectAppListInstance;
-  authorized_connect_apps: AuthorizedConnectAppListInstance;
+  connectApps: ConnectAppListInstance;
+  authorizedConnectApps: AuthorizedConnectAppListInstance;
   messages: MessageListInstance;
   transcriptions: TranscriptionListInstance;
   addresses: AddressListInstance;
-  signing_keys: SigningKeyListInstance;
+  signingKeys: SigningKeyListInstance;
   tokens: TokenListInstance;
   conferences: ConferenceListInstance;
   notifications: NotificationListInstance;
-  available_phone_number_country: AvailablePhoneNumberCountryListInstance;
-  outgoing_caller_ids: OutgoingCallerIdListInstance;
+  availablePhoneNumberCountry: AvailablePhoneNumberCountryListInstance;
+  outgoingCallerIds: OutgoingCallerIdListInstance;
   recordings: RecordingListInstance;
   sip: SIPListInstance;
-  incoming_phone_numbers: IncomingPhoneNumberListInstance;
+  incomingPhoneNumbers: IncomingPhoneNumberListInstance;
   applications: ApplicationListInstance;
   balance: BalanceListInstance;
   queues: QueueListInstance;
@@ -188,20 +188,20 @@ export class AccountContextImpl implements AccountContext {
 
   protected _calls?: CallListInstance;
   protected _usage?: UsageListInstance;
-  protected _connect_apps?: ConnectAppListInstance;
-  protected _authorized_connect_apps?: AuthorizedConnectAppListInstance;
+  protected _connectApps?: ConnectAppListInstance;
+  protected _authorizedConnectApps?: AuthorizedConnectAppListInstance;
   protected _messages?: MessageListInstance;
   protected _transcriptions?: TranscriptionListInstance;
   protected _addresses?: AddressListInstance;
-  protected _signing_keys?: SigningKeyListInstance;
+  protected _signingKeys?: SigningKeyListInstance;
   protected _tokens?: TokenListInstance;
   protected _conferences?: ConferenceListInstance;
   protected _notifications?: NotificationListInstance;
-  protected _available_phone_number_country?: AvailablePhoneNumberCountryListInstance;
-  protected _outgoing_caller_ids?: OutgoingCallerIdListInstance;
+  protected _availablePhoneNumberCountry?: AvailablePhoneNumberCountryListInstance;
+  protected _outgoingCallerIds?: OutgoingCallerIdListInstance;
   protected _recordings?: RecordingListInstance;
   protected _sip?: SIPListInstance;
-  protected _incoming_phone_numbers?: IncomingPhoneNumberListInstance;
+  protected _incomingPhoneNumbers?: IncomingPhoneNumberListInstance;
   protected _applications?: ApplicationListInstance;
   protected _balance?: BalanceListInstance;
   protected _queues?: QueueListInstance;
@@ -222,14 +222,14 @@ export class AccountContextImpl implements AccountContext {
     return this._usage;
   }
 
-  get connect_apps(): ConnectAppListInstance {
-    this._connect_apps = this._connect_apps || ConnectAppListInstance(this._version, this._solution.sid);
-    return this._connect_apps;
+  get connectApps(): ConnectAppListInstance {
+    this._connectApps = this._connectApps || ConnectAppListInstance(this._version, this._solution.sid);
+    return this._connectApps;
   }
 
-  get authorized_connect_apps(): AuthorizedConnectAppListInstance {
-    this._authorized_connect_apps = this._authorized_connect_apps || AuthorizedConnectAppListInstance(this._version, this._solution.sid);
-    return this._authorized_connect_apps;
+  get authorizedConnectApps(): AuthorizedConnectAppListInstance {
+    this._authorizedConnectApps = this._authorizedConnectApps || AuthorizedConnectAppListInstance(this._version, this._solution.sid);
+    return this._authorizedConnectApps;
   }
 
   get messages(): MessageListInstance {
@@ -247,9 +247,9 @@ export class AccountContextImpl implements AccountContext {
     return this._addresses;
   }
 
-  get signing_keys(): SigningKeyListInstance {
-    this._signing_keys = this._signing_keys || SigningKeyListInstance(this._version, this._solution.sid);
-    return this._signing_keys;
+  get signingKeys(): SigningKeyListInstance {
+    this._signingKeys = this._signingKeys || SigningKeyListInstance(this._version, this._solution.sid);
+    return this._signingKeys;
   }
 
   get tokens(): TokenListInstance {
@@ -267,14 +267,14 @@ export class AccountContextImpl implements AccountContext {
     return this._notifications;
   }
 
-  get available_phone_number_country(): AvailablePhoneNumberCountryListInstance {
-    this._available_phone_number_country = this._available_phone_number_country || AvailablePhoneNumberCountryListInstance(this._version, this._solution.sid);
-    return this._available_phone_number_country;
+  get availablePhoneNumberCountry(): AvailablePhoneNumberCountryListInstance {
+    this._availablePhoneNumberCountry = this._availablePhoneNumberCountry || AvailablePhoneNumberCountryListInstance(this._version, this._solution.sid);
+    return this._availablePhoneNumberCountry;
   }
 
-  get outgoing_caller_ids(): OutgoingCallerIdListInstance {
-    this._outgoing_caller_ids = this._outgoing_caller_ids || OutgoingCallerIdListInstance(this._version, this._solution.sid);
-    return this._outgoing_caller_ids;
+  get outgoingCallerIds(): OutgoingCallerIdListInstance {
+    this._outgoingCallerIds = this._outgoingCallerIds || OutgoingCallerIdListInstance(this._version, this._solution.sid);
+    return this._outgoingCallerIds;
   }
 
   get recordings(): RecordingListInstance {
@@ -287,9 +287,9 @@ export class AccountContextImpl implements AccountContext {
     return this._sip;
   }
 
-  get incoming_phone_numbers(): IncomingPhoneNumberListInstance {
-    this._incoming_phone_numbers = this._incoming_phone_numbers || IncomingPhoneNumberListInstance(this._version, this._solution.sid);
-    return this._incoming_phone_numbers;
+  get incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
+    this._incomingPhoneNumbers = this._incomingPhoneNumbers || IncomingPhoneNumberListInstance(this._version, this._solution.sid);
+    return this._incomingPhoneNumbers;
   }
 
   get applications(): ApplicationListInstance {
@@ -494,17 +494,17 @@ export class AccountInstance {
   }
 
   /**
-   * Access the connect_apps.
+   * Access the connectApps.
    */
-  connect_apps(): ConnectAppListInstance {
-    return this._proxy.connect_apps;
+  connectApps(): ConnectAppListInstance {
+    return this._proxy.connectApps;
   }
 
   /**
-   * Access the authorized_connect_apps.
+   * Access the authorizedConnectApps.
    */
-  authorized_connect_apps(): AuthorizedConnectAppListInstance {
-    return this._proxy.authorized_connect_apps;
+  authorizedConnectApps(): AuthorizedConnectAppListInstance {
+    return this._proxy.authorizedConnectApps;
   }
 
   /**
@@ -529,10 +529,10 @@ export class AccountInstance {
   }
 
   /**
-   * Access the signing_keys.
+   * Access the signingKeys.
    */
-  signing_keys(): SigningKeyListInstance {
-    return this._proxy.signing_keys;
+  signingKeys(): SigningKeyListInstance {
+    return this._proxy.signingKeys;
   }
 
   /**
@@ -557,17 +557,17 @@ export class AccountInstance {
   }
 
   /**
-   * Access the available_phone_number_country.
+   * Access the availablePhoneNumberCountry.
    */
-  available_phone_number_country(): AvailablePhoneNumberCountryListInstance {
-    return this._proxy.available_phone_number_country;
+  availablePhoneNumberCountry(): AvailablePhoneNumberCountryListInstance {
+    return this._proxy.availablePhoneNumberCountry;
   }
 
   /**
-   * Access the outgoing_caller_ids.
+   * Access the outgoingCallerIds.
    */
-  outgoing_caller_ids(): OutgoingCallerIdListInstance {
-    return this._proxy.outgoing_caller_ids;
+  outgoingCallerIds(): OutgoingCallerIdListInstance {
+    return this._proxy.outgoingCallerIds;
   }
 
   /**
@@ -585,10 +585,10 @@ export class AccountInstance {
   }
 
   /**
-   * Access the incoming_phone_numbers.
+   * Access the incomingPhoneNumbers.
    */
-  incoming_phone_numbers(): IncomingPhoneNumberListInstance {
-    return this._proxy.incoming_phone_numbers;
+  incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
+    return this._proxy.incomingPhoneNumbers;
   }
 
   /**

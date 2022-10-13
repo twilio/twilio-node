@@ -318,7 +318,7 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
 export interface EngagementContext {
 
   steps: StepListInstance;
-  engagement_context: EngagementContextListInstance;
+  engagementContext: EngagementContextListInstance;
 
   /**
    * Remove a EngagementInstance
@@ -352,7 +352,7 @@ export class EngagementContextImpl implements EngagementContext {
   protected _uri: string;
 
   protected _steps?: StepListInstance;
-  protected _engagement_context?: EngagementContextListInstance;
+  protected _engagementContext?: EngagementContextListInstance;
 
   constructor(protected _version: V1, flowSid: string, sid: string) {
     this._solution = { flowSid, sid };
@@ -364,9 +364,9 @@ export class EngagementContextImpl implements EngagementContext {
     return this._steps;
   }
 
-  get engagement_context(): EngagementContextListInstance {
-    this._engagement_context = this._engagement_context || EngagementContextListInstance(this._version, this._solution.flowSid, this._solution.sid);
-    return this._engagement_context;
+  get engagementContext(): EngagementContextListInstance {
+    this._engagementContext = this._engagementContext || EngagementContextListInstance(this._version, this._solution.flowSid, this._solution.sid);
+    return this._engagementContext;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -527,10 +527,10 @@ export class EngagementInstance {
   }
 
   /**
-   * Access the engagement_context.
+   * Access the engagementContext.
    */
-  engagement_context(): EngagementContextListInstance {
-    return this._proxy.engagement_context;
+  engagementContext(): EngagementContextListInstance {
+    return this._proxy.engagementContext;
   }
 
   /**

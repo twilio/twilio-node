@@ -308,7 +308,7 @@ export function RecordingListInstance(version: V2010, accountSid: string): Recor
 
 export interface RecordingContext {
 
-  add_on_results: AddOnResultListInstance;
+  addOnResults: AddOnResultListInstance;
   transcriptions: TranscriptionListInstance;
 
   /**
@@ -352,7 +352,7 @@ export class RecordingContextImpl implements RecordingContext {
   protected _solution: RecordingSolution;
   protected _uri: string;
 
-  protected _add_on_results?: AddOnResultListInstance;
+  protected _addOnResults?: AddOnResultListInstance;
   protected _transcriptions?: TranscriptionListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
@@ -360,9 +360,9 @@ export class RecordingContextImpl implements RecordingContext {
     this._uri = `/Accounts/${accountSid}/Recordings/${sid}.json`;
   }
 
-  get add_on_results(): AddOnResultListInstance {
-    this._add_on_results = this._add_on_results || AddOnResultListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._add_on_results;
+  get addOnResults(): AddOnResultListInstance {
+    this._addOnResults = this._addOnResults || AddOnResultListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._addOnResults;
   }
 
   get transcriptions(): TranscriptionListInstance {
@@ -588,10 +588,10 @@ export class RecordingInstance {
   }
 
   /**
-   * Access the add_on_results.
+   * Access the addOnResults.
    */
-  add_on_results(): AddOnResultListInstance {
-    return this._proxy.add_on_results;
+  addOnResults(): AddOnResultListInstance {
+    return this._proxy.addOnResults;
   }
 
   /**

@@ -122,8 +122,8 @@ export interface SimListInstancePageOptions {
 
 export interface SimContext {
 
-  billing_periods: BillingPeriodListInstance;
-  sim_ip_address: SimIpAddressListInstance;
+  billingPeriods: BillingPeriodListInstance;
+  simIpAddress: SimIpAddressListInstance;
 
   /**
    * Fetch a SimInstance
@@ -166,22 +166,22 @@ export class SimContextImpl implements SimContext {
   protected _solution: SimSolution;
   protected _uri: string;
 
-  protected _billing_periods?: BillingPeriodListInstance;
-  protected _sim_ip_address?: SimIpAddressListInstance;
+  protected _billingPeriods?: BillingPeriodListInstance;
+  protected _simIpAddress?: SimIpAddressListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Sims/${sid}`;
   }
 
-  get billing_periods(): BillingPeriodListInstance {
-    this._billing_periods = this._billing_periods || BillingPeriodListInstance(this._version, this._solution.sid);
-    return this._billing_periods;
+  get billingPeriods(): BillingPeriodListInstance {
+    this._billingPeriods = this._billingPeriods || BillingPeriodListInstance(this._version, this._solution.sid);
+    return this._billingPeriods;
   }
 
-  get sim_ip_address(): SimIpAddressListInstance {
-    this._sim_ip_address = this._sim_ip_address || SimIpAddressListInstance(this._version, this._solution.sid);
-    return this._sim_ip_address;
+  get simIpAddress(): SimIpAddressListInstance {
+    this._simIpAddress = this._simIpAddress || SimIpAddressListInstance(this._version, this._solution.sid);
+    return this._simIpAddress;
   }
 
   fetch(callback?: any): Promise<SimInstance> {
@@ -356,17 +356,17 @@ export class SimInstance {
   }
 
   /**
-   * Access the billing_periods.
+   * Access the billingPeriods.
    */
-  billing_periods(): BillingPeriodListInstance {
-    return this._proxy.billing_periods;
+  billingPeriods(): BillingPeriodListInstance {
+    return this._proxy.billingPeriods;
   }
 
   /**
-   * Access the sim_ip_address.
+   * Access the simIpAddress.
    */
-  sim_ip_address(): SimIpAddressListInstance {
-    return this._proxy.sim_ip_address;
+  simIpAddress(): SimIpAddressListInstance {
+    return this._proxy.simIpAddress;
   }
 
   /**

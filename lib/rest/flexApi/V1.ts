@@ -24,11 +24,11 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of FlexApi
    *
-   * @property { Twilio.FlexApi.V1.WebChannelListInstance } web_channels - web_channels resource
+   * @property { Twilio.FlexApi.V1.WebChannelListInstance } webChannels - webChannels resource
    * @property { Twilio.FlexApi.V1.ConfigurationListInstance } configuration - configuration resource
    * @property { Twilio.FlexApi.V1.InteractionListInstance } interactions - interactions resource
    * @property { Twilio.FlexApi.V1.ChannelListInstance } channels - channels resource
-   * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flex_flows - flex_flows resource
+   * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flexFlows - flexFlows resource
    *
    * @param { Twilio.FlexApi } domain - The Twilio domain
    */
@@ -36,15 +36,15 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _web_channels?: WebChannelListInstance;
+  protected _webChannels?: WebChannelListInstance;
   protected _configuration?: ConfigurationListInstance;
   protected _interactions?: InteractionListInstance;
   protected _channels?: ChannelListInstance;
-  protected _flex_flows?: FlexFlowListInstance;
+  protected _flexFlows?: FlexFlowListInstance;
 
-  get web_channels(): WebChannelListInstance {
-    this._web_channels = this._web_channels || WebChannelListInstance(this);
-    return this._web_channels;
+  get webChannels(): WebChannelListInstance {
+    this._webChannels = this._webChannels || WebChannelListInstance(this);
+    return this._webChannels;
   }
 
   get configuration(): ConfigurationListInstance {
@@ -62,9 +62,9 @@ export default class V1 extends Version {
     return this._channels;
   }
 
-  get flex_flows(): FlexFlowListInstance {
-    this._flex_flows = this._flex_flows || FlexFlowListInstance(this);
-    return this._flex_flows;
+  get flexFlows(): FlexFlowListInstance {
+    this._flexFlows = this._flexFlows || FlexFlowListInstance(this);
+    return this._flexFlows;
   }
 
 }

@@ -33,7 +33,7 @@ export interface CallListInstance {
   get(sid: string): CallContext;
 
   settings: SettingListInstance;
-  call_summaries: CallSummariesListInstance;
+  callSummaries: CallSummariesListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -49,7 +49,7 @@ class CallListInstanceImpl implements CallListInstance {
   _uri?: string;
 
   _settings?: SettingListInstance;
-  _call_summaries?: CallSummariesListInstance;
+  _callSummaries?: CallSummariesListInstance;
 }
 
 export function CallListInstance(version: V1): CallListInstance {
@@ -72,12 +72,12 @@ export function CallListInstance(version: V1): CallListInstance {
     }
   });
 
-  Object.defineProperty(instance, "call_summaries", {
-    get: function call_summaries() {
-      if (!this._call_summaries) {
-        this._call_summaries = CallSummariesListInstance(this._version);
+  Object.defineProperty(instance, "callSummaries", {
+    get: function callSummaries() {
+      if (!this._callSummaries) {
+        this._callSummaries = CallSummariesListInstance(this._version);
       }
-      return this._call_summaries;
+      return this._callSummaries;
     }
   });
 
@@ -95,7 +95,7 @@ export function CallListInstance(version: V1): CallListInstance {
 
 export interface CallContext {
 
-  call_summary: CallSummaryListInstance;
+  callSummary: CallSummaryListInstance;
   events: EventListInstance;
   metrics: MetricListInstance;
   annotation: AnnotationListInstance;
@@ -121,7 +121,7 @@ export class CallContextImpl implements CallContext {
   protected _solution: CallSolution;
   protected _uri: string;
 
-  protected _call_summary?: CallSummaryListInstance;
+  protected _callSummary?: CallSummaryListInstance;
   protected _events?: EventListInstance;
   protected _metrics?: MetricListInstance;
   protected _annotation?: AnnotationListInstance;
@@ -131,9 +131,9 @@ export class CallContextImpl implements CallContext {
     this._uri = `/Voice/${sid}`;
   }
 
-  get call_summary(): CallSummaryListInstance {
-    this._call_summary = this._call_summary || CallSummaryListInstance(this._version, this._solution.sid);
-    return this._call_summary;
+  get callSummary(): CallSummaryListInstance {
+    this._callSummary = this._callSummary || CallSummaryListInstance(this._version, this._solution.sid);
+    return this._callSummary;
   }
 
   get events(): EventListInstance {
@@ -223,10 +223,10 @@ export class CallInstance {
   }
 
   /**
-   * Access the call_summary.
+   * Access the callSummary.
    */
-  call_summary(): CallSummaryListInstance {
-    return this._proxy.call_summary;
+  callSummary(): CallSummaryListInstance {
+    return this._proxy.callSummary;
   }
 
   /**

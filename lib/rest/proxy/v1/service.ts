@@ -352,8 +352,8 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
 export interface ServiceContext {
 
-  short_codes: ShortCodeListInstance;
-  phone_numbers: PhoneNumberListInstance;
+  shortCodes: ShortCodeListInstance;
+  phoneNumbers: PhoneNumberListInstance;
   sessions: SessionListInstance;
 
   /**
@@ -407,8 +407,8 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceSolution;
   protected _uri: string;
 
-  protected _short_codes?: ShortCodeListInstance;
-  protected _phone_numbers?: PhoneNumberListInstance;
+  protected _shortCodes?: ShortCodeListInstance;
+  protected _phoneNumbers?: PhoneNumberListInstance;
   protected _sessions?: SessionListInstance;
 
   constructor(protected _version: V1, sid: string) {
@@ -416,14 +416,14 @@ export class ServiceContextImpl implements ServiceContext {
     this._uri = `/Services/${sid}`;
   }
 
-  get short_codes(): ShortCodeListInstance {
-    this._short_codes = this._short_codes || ShortCodeListInstance(this._version, this._solution.sid);
-    return this._short_codes;
+  get shortCodes(): ShortCodeListInstance {
+    this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
+    return this._shortCodes;
   }
 
-  get phone_numbers(): PhoneNumberListInstance {
-    this._phone_numbers = this._phone_numbers || PhoneNumberListInstance(this._version, this._solution.sid);
-    return this._phone_numbers;
+  get phoneNumbers(): PhoneNumberListInstance {
+    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this._version, this._solution.sid);
+    return this._phoneNumbers;
   }
 
   get sessions(): SessionListInstance {
@@ -654,17 +654,17 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the short_codes.
+   * Access the shortCodes.
    */
-  short_codes(): ShortCodeListInstance {
-    return this._proxy.short_codes;
+  shortCodes(): ShortCodeListInstance {
+    return this._proxy.shortCodes;
   }
 
   /**
-   * Access the phone_numbers.
+   * Access the phoneNumbers.
    */
-  phone_numbers(): PhoneNumberListInstance {
-    return this._proxy.phone_numbers;
+  phoneNumbers(): PhoneNumberListInstance {
+    return this._proxy.phoneNumbers;
   }
 
   /**

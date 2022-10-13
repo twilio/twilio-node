@@ -332,7 +332,7 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
 
 export interface DocumentContext {
 
-  document_permission: DocumentPermissionListInstance;
+  documentPermission: DocumentPermissionListInstance;
 
   /**
    * Remove a DocumentInstance
@@ -385,16 +385,16 @@ export class DocumentContextImpl implements DocumentContext {
   protected _solution: DocumentSolution;
   protected _uri: string;
 
-  protected _document_permission?: DocumentPermissionListInstance;
+  protected _documentPermission?: DocumentPermissionListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Documents/${sid}`;
   }
 
-  get document_permission(): DocumentPermissionListInstance {
-    this._document_permission = this._document_permission || DocumentPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._document_permission;
+  get documentPermission(): DocumentPermissionListInstance {
+    this._documentPermission = this._documentPermission || DocumentPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._documentPermission;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -609,10 +609,10 @@ export class DocumentInstance {
   }
 
   /**
-   * Access the document_permission.
+   * Access the documentPermission.
    */
-  document_permission(): DocumentPermissionListInstance {
-    return this._proxy.document_permission;
+  documentPermission(): DocumentPermissionListInstance {
+    return this._proxy.documentPermission;
   }
 
   /**

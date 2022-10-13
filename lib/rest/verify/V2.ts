@@ -27,9 +27,9 @@ export default class V2 extends Version {
    *
    * @property { Twilio.Verify.V2.FormListInstance } forms - forms resource
    * @property { Twilio.Verify.V2.SafelistListInstance } safelist - safelist resource
-   * @property { Twilio.Verify.V2.VerificationAttemptListInstance } verification_attempt - verification_attempt resource
+   * @property { Twilio.Verify.V2.VerificationAttemptListInstance } verificationAttempt - verificationAttempt resource
    * @property { Twilio.Verify.V2.ServiceListInstance } services - services resource
-   * @property { Twilio.Verify.V2.VerificationAttemptsSummaryListInstance } verification_attempts_summary - verification_attempts_summary resource
+   * @property { Twilio.Verify.V2.VerificationAttemptsSummaryListInstance } verificationAttemptsSummary - verificationAttemptsSummary resource
    * @property { Twilio.Verify.V2.TemplateListInstance } templates - templates resource
    *
    * @param { Twilio.Verify } domain - The Twilio domain
@@ -40,9 +40,9 @@ export default class V2 extends Version {
 
   protected _forms?: FormListInstance;
   protected _safelist?: SafelistListInstance;
-  protected _verification_attempt?: VerificationAttemptListInstance;
+  protected _verificationAttempt?: VerificationAttemptListInstance;
   protected _services?: ServiceListInstance;
-  protected _verification_attempts_summary?: VerificationAttemptsSummaryListInstance;
+  protected _verificationAttemptsSummary?: VerificationAttemptsSummaryListInstance;
   protected _templates?: TemplateListInstance;
 
   get forms(): FormListInstance {
@@ -55,9 +55,9 @@ export default class V2 extends Version {
     return this._safelist;
   }
 
-  get verification_attempt(): VerificationAttemptListInstance {
-    this._verification_attempt = this._verification_attempt || VerificationAttemptListInstance(this);
-    return this._verification_attempt;
+  get verificationAttempt(): VerificationAttemptListInstance {
+    this._verificationAttempt = this._verificationAttempt || VerificationAttemptListInstance(this);
+    return this._verificationAttempt;
   }
 
   get services(): ServiceListInstance {
@@ -65,9 +65,9 @@ export default class V2 extends Version {
     return this._services;
   }
 
-  get verification_attempts_summary(): VerificationAttemptsSummaryListInstance {
-    this._verification_attempts_summary = this._verification_attempts_summary || VerificationAttemptsSummaryListInstance(this);
-    return this._verification_attempts_summary;
+  get verificationAttemptsSummary(): VerificationAttemptsSummaryListInstance {
+    this._verificationAttemptsSummary = this._verificationAttemptsSummary || VerificationAttemptsSummaryListInstance(this);
+    return this._verificationAttemptsSummary;
   }
 
   get templates(): TemplateListInstance {

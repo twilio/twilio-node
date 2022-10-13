@@ -157,7 +157,7 @@ export interface ServiceListInstance {
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
 
-  external_campaign: ExternalCampaignListInstance;
+  externalCampaign: ExternalCampaignListInstance;
   usecases: UsecaseListInstance;
 
   /**
@@ -287,7 +287,7 @@ class ServiceListInstanceImpl implements ServiceListInstance {
   _solution?: ServiceSolution;
   _uri?: string;
 
-  _external_campaign?: ExternalCampaignListInstance;
+  _externalCampaign?: ExternalCampaignListInstance;
   _usecases?: UsecaseListInstance;
 }
 
@@ -302,12 +302,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
   instance._solution = {  };
   instance._uri = `/Services`;
 
-  Object.defineProperty(instance, "external_campaign", {
-    get: function external_campaign() {
-      if (!this._external_campaign) {
-        this._external_campaign = ExternalCampaignListInstance(this._version);
+  Object.defineProperty(instance, "externalCampaign", {
+    get: function externalCampaign() {
+      if (!this._externalCampaign) {
+        this._externalCampaign = ExternalCampaignListInstance(this._version);
       }
-      return this._external_campaign;
+      return this._externalCampaign;
     }
   });
 
@@ -416,9 +416,9 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
 export interface ServiceContext {
 
-  short_codes: ShortCodeListInstance;
-  phone_numbers: PhoneNumberListInstance;
-  alpha_senders: AlphaSenderListInstance;
+  shortCodes: ShortCodeListInstance;
+  phoneNumbers: PhoneNumberListInstance;
+  alphaSenders: AlphaSenderListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -471,28 +471,28 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceSolution;
   protected _uri: string;
 
-  protected _short_codes?: ShortCodeListInstance;
-  protected _phone_numbers?: PhoneNumberListInstance;
-  protected _alpha_senders?: AlphaSenderListInstance;
+  protected _shortCodes?: ShortCodeListInstance;
+  protected _phoneNumbers?: PhoneNumberListInstance;
+  protected _alphaSenders?: AlphaSenderListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Services/${sid}`;
   }
 
-  get short_codes(): ShortCodeListInstance {
-    this._short_codes = this._short_codes || ShortCodeListInstance(this._version, this._solution.sid);
-    return this._short_codes;
+  get shortCodes(): ShortCodeListInstance {
+    this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
+    return this._shortCodes;
   }
 
-  get phone_numbers(): PhoneNumberListInstance {
-    this._phone_numbers = this._phone_numbers || PhoneNumberListInstance(this._version, this._solution.sid);
-    return this._phone_numbers;
+  get phoneNumbers(): PhoneNumberListInstance {
+    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this._version, this._solution.sid);
+    return this._phoneNumbers;
   }
 
-  get alpha_senders(): AlphaSenderListInstance {
-    this._alpha_senders = this._alpha_senders || AlphaSenderListInstance(this._version, this._solution.sid);
-    return this._alpha_senders;
+  get alphaSenders(): AlphaSenderListInstance {
+    this._alphaSenders = this._alphaSenders || AlphaSenderListInstance(this._version, this._solution.sid);
+    return this._alphaSenders;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -785,24 +785,24 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the short_codes.
+   * Access the shortCodes.
    */
-  short_codes(): ShortCodeListInstance {
-    return this._proxy.short_codes;
+  shortCodes(): ShortCodeListInstance {
+    return this._proxy.shortCodes;
   }
 
   /**
-   * Access the phone_numbers.
+   * Access the phoneNumbers.
    */
-  phone_numbers(): PhoneNumberListInstance {
-    return this._proxy.phone_numbers;
+  phoneNumbers(): PhoneNumberListInstance {
+    return this._proxy.phoneNumbers;
   }
 
   /**
-   * Access the alpha_senders.
+   * Access the alphaSenders.
    */
-  alpha_senders(): AlphaSenderListInstance {
-    return this._proxy.alpha_senders;
+  alphaSenders(): AlphaSenderListInstance {
+    return this._proxy.alphaSenders;
   }
 
   /**

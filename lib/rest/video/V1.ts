@@ -26,11 +26,11 @@ export default class V1 extends Version {
    * Initialize the V1 version of Video
    *
    * @property { Twilio.Video.V1.CompositionListInstance } compositions - compositions resource
-   * @property { Twilio.Video.V1.CompositionSettingsListInstance } composition_settings - composition_settings resource
+   * @property { Twilio.Video.V1.CompositionSettingsListInstance } compositionSettings - compositionSettings resource
    * @property { Twilio.Video.V1.RecordingListInstance } recordings - recordings resource
-   * @property { Twilio.Video.V1.RecordingSettingsListInstance } recording_settings - recording_settings resource
+   * @property { Twilio.Video.V1.RecordingSettingsListInstance } recordingSettings - recordingSettings resource
    * @property { Twilio.Video.V1.RoomListInstance } rooms - rooms resource
-   * @property { Twilio.Video.V1.CompositionHookListInstance } composition_hooks - composition_hooks resource
+   * @property { Twilio.Video.V1.CompositionHookListInstance } compositionHooks - compositionHooks resource
    *
    * @param { Twilio.Video } domain - The Twilio domain
    */
@@ -39,20 +39,20 @@ export default class V1 extends Version {
   }
 
   protected _compositions?: CompositionListInstance;
-  protected _composition_settings?: CompositionSettingsListInstance;
+  protected _compositionSettings?: CompositionSettingsListInstance;
   protected _recordings?: RecordingListInstance;
-  protected _recording_settings?: RecordingSettingsListInstance;
+  protected _recordingSettings?: RecordingSettingsListInstance;
   protected _rooms?: RoomListInstance;
-  protected _composition_hooks?: CompositionHookListInstance;
+  protected _compositionHooks?: CompositionHookListInstance;
 
   get compositions(): CompositionListInstance {
     this._compositions = this._compositions || CompositionListInstance(this);
     return this._compositions;
   }
 
-  get composition_settings(): CompositionSettingsListInstance {
-    this._composition_settings = this._composition_settings || CompositionSettingsListInstance(this);
-    return this._composition_settings;
+  get compositionSettings(): CompositionSettingsListInstance {
+    this._compositionSettings = this._compositionSettings || CompositionSettingsListInstance(this);
+    return this._compositionSettings;
   }
 
   get recordings(): RecordingListInstance {
@@ -60,9 +60,9 @@ export default class V1 extends Version {
     return this._recordings;
   }
 
-  get recording_settings(): RecordingSettingsListInstance {
-    this._recording_settings = this._recording_settings || RecordingSettingsListInstance(this);
-    return this._recording_settings;
+  get recordingSettings(): RecordingSettingsListInstance {
+    this._recordingSettings = this._recordingSettings || RecordingSettingsListInstance(this);
+    return this._recordingSettings;
   }
 
   get rooms(): RoomListInstance {
@@ -70,9 +70,9 @@ export default class V1 extends Version {
     return this._rooms;
   }
 
-  get composition_hooks(): CompositionHookListInstance {
-    this._composition_hooks = this._composition_hooks || CompositionHookListInstance(this);
-    return this._composition_hooks;
+  get compositionHooks(): CompositionHookListInstance {
+    this._compositionHooks = this._compositionHooks || CompositionHookListInstance(this);
+    return this._compositionHooks;
   }
 
 }

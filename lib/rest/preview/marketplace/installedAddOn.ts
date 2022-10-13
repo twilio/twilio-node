@@ -330,7 +330,7 @@ export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOn
 
 export interface InstalledAddOnContext {
 
-  installed_add_on_extension: InstalledAddOnExtensionListInstance;
+  installedAddOnExtension: InstalledAddOnExtensionListInstance;
 
   /**
    * Remove a InstalledAddOnInstance
@@ -383,16 +383,16 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
   protected _solution: InstalledAddOnSolution;
   protected _uri: string;
 
-  protected _installed_add_on_extension?: InstalledAddOnExtensionListInstance;
+  protected _installedAddOnExtension?: InstalledAddOnExtensionListInstance;
 
   constructor(protected _version: Marketplace, sid: string) {
     this._solution = { sid };
     this._uri = `/InstalledAddOns/${sid}`;
   }
 
-  get installed_add_on_extension(): InstalledAddOnExtensionListInstance {
-    this._installed_add_on_extension = this._installed_add_on_extension || InstalledAddOnExtensionListInstance(this._version, this._solution.sid);
-    return this._installed_add_on_extension;
+  get installedAddOnExtension(): InstalledAddOnExtensionListInstance {
+    this._installedAddOnExtension = this._installedAddOnExtension || InstalledAddOnExtensionListInstance(this._version, this._solution.sid);
+    return this._installedAddOnExtension;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -594,10 +594,10 @@ export class InstalledAddOnInstance {
   }
 
   /**
-   * Access the installed_add_on_extension.
+   * Access the installedAddOnExtension.
    */
-  installed_add_on_extension(): InstalledAddOnExtensionListInstance {
-    return this._proxy.installed_add_on_extension;
+  installedAddOnExtension(): InstalledAddOnExtensionListInstance {
+    return this._proxy.installedAddOnExtension;
   }
 
   /**

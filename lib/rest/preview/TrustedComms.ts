@@ -23,10 +23,10 @@ export default class TrustedComms extends Version {
   /**
    * Initialize the TrustedComms version of Preview
    *
-   * @property { Twilio.Preview.TrustedComms.CurrentCallListInstance } current_call - current_call resource
+   * @property { Twilio.Preview.TrustedComms.CurrentCallListInstance } currentCall - currentCall resource
    * @property { Twilio.Preview.TrustedComms.CpsListInstance } cps - cps resource
-   * @property { Twilio.Preview.TrustedComms.BrandsInformationListInstance } brands_information - brands_information resource
-   * @property { Twilio.Preview.TrustedComms.BrandedChannelListInstance } branded_channels - branded_channels resource
+   * @property { Twilio.Preview.TrustedComms.BrandsInformationListInstance } brandsInformation - brandsInformation resource
+   * @property { Twilio.Preview.TrustedComms.BrandedChannelListInstance } brandedChannels - brandedChannels resource
    *
    * @param { Twilio.Preview } domain - The Twilio domain
    */
@@ -34,14 +34,14 @@ export default class TrustedComms extends Version {
     super(domain, "TrustedComms");
   }
 
-  protected _current_call?: CurrentCallListInstance;
+  protected _currentCall?: CurrentCallListInstance;
   protected _cps?: CpsListInstance;
-  protected _brands_information?: BrandsInformationListInstance;
-  protected _branded_channels?: BrandedChannelListInstance;
+  protected _brandsInformation?: BrandsInformationListInstance;
+  protected _brandedChannels?: BrandedChannelListInstance;
 
-  get current_call(): CurrentCallListInstance {
-    this._current_call = this._current_call || CurrentCallListInstance(this);
-    return this._current_call;
+  get currentCall(): CurrentCallListInstance {
+    this._currentCall = this._currentCall || CurrentCallListInstance(this);
+    return this._currentCall;
   }
 
   get cps(): CpsListInstance {
@@ -49,14 +49,14 @@ export default class TrustedComms extends Version {
     return this._cps;
   }
 
-  get brands_information(): BrandsInformationListInstance {
-    this._brands_information = this._brands_information || BrandsInformationListInstance(this);
-    return this._brands_information;
+  get brandsInformation(): BrandsInformationListInstance {
+    this._brandsInformation = this._brandsInformation || BrandsInformationListInstance(this);
+    return this._brandsInformation;
   }
 
-  get branded_channels(): BrandedChannelListInstance {
-    this._branded_channels = this._branded_channels || BrandedChannelListInstance(this);
-    return this._branded_channels;
+  get brandedChannels(): BrandedChannelListInstance {
+    this._brandedChannels = this._brandedChannels || BrandedChannelListInstance(this);
+    return this._brandedChannels;
   }
 
 }

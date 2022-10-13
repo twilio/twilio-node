@@ -345,7 +345,7 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
 
 export interface PlayerStreamerContext {
 
-  playback_grant: PlaybackGrantListInstance;
+  playbackGrant: PlaybackGrantListInstance;
 
   /**
    * Fetch a PlayerStreamerInstance
@@ -380,16 +380,16 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
   protected _solution: PlayerStreamerSolution;
   protected _uri: string;
 
-  protected _playback_grant?: PlaybackGrantListInstance;
+  protected _playbackGrant?: PlaybackGrantListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/PlayerStreamers/${sid}`;
   }
 
-  get playback_grant(): PlaybackGrantListInstance {
-    this._playback_grant = this._playback_grant || PlaybackGrantListInstance(this._version, this._solution.sid);
-    return this._playback_grant;
+  get playbackGrant(): PlaybackGrantListInstance {
+    this._playbackGrant = this._playbackGrant || PlaybackGrantListInstance(this._version, this._solution.sid);
+    return this._playbackGrant;
   }
 
   fetch(callback?: any): Promise<PlayerStreamerInstance> {
@@ -565,10 +565,10 @@ export class PlayerStreamerInstance {
   }
 
   /**
-   * Access the playback_grant.
+   * Access the playbackGrant.
    */
-  playback_grant(): PlaybackGrantListInstance {
-    return this._proxy.playback_grant;
+  playbackGrant(): PlaybackGrantListInstance {
+    return this._proxy.playbackGrant;
   }
 
   /**

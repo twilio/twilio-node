@@ -146,8 +146,8 @@ export interface RoomListInstancePageOptions {
 export interface RoomContext {
 
   participants: ParticipantListInstance;
-  recording_rules: RecordingRulesListInstance;
-  room_recording: RoomRecordingListInstance;
+  recordingRules: RecordingRulesListInstance;
+  roomRecording: RoomRecordingListInstance;
 
   /**
    * Fetch a RoomInstance
@@ -183,8 +183,8 @@ export class RoomContextImpl implements RoomContext {
   protected _uri: string;
 
   protected _participants?: ParticipantListInstance;
-  protected _recording_rules?: RecordingRulesListInstance;
-  protected _room_recording?: RoomRecordingListInstance;
+  protected _recordingRules?: RecordingRulesListInstance;
+  protected _roomRecording?: RoomRecordingListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -196,14 +196,14 @@ export class RoomContextImpl implements RoomContext {
     return this._participants;
   }
 
-  get recording_rules(): RecordingRulesListInstance {
-    this._recording_rules = this._recording_rules || RecordingRulesListInstance(this._version, this._solution.sid);
-    return this._recording_rules;
+  get recordingRules(): RecordingRulesListInstance {
+    this._recordingRules = this._recordingRules || RecordingRulesListInstance(this._version, this._solution.sid);
+    return this._recordingRules;
   }
 
-  get room_recording(): RoomRecordingListInstance {
-    this._room_recording = this._room_recording || RoomRecordingListInstance(this._version, this._solution.sid);
-    return this._room_recording;
+  get roomRecording(): RoomRecordingListInstance {
+    this._roomRecording = this._roomRecording || RoomRecordingListInstance(this._version, this._solution.sid);
+    return this._roomRecording;
   }
 
   fetch(callback?: any): Promise<RoomInstance> {
@@ -458,17 +458,17 @@ export class RoomInstance {
   }
 
   /**
-   * Access the recording_rules.
+   * Access the recordingRules.
    */
-  recording_rules(): RecordingRulesListInstance {
-    return this._proxy.recording_rules;
+  recordingRules(): RecordingRulesListInstance {
+    return this._proxy.recordingRules;
   }
 
   /**
-   * Access the room_recording.
+   * Access the roomRecording.
    */
-  room_recording(): RoomRecordingListInstance {
-    return this._proxy.room_recording;
+  roomRecording(): RoomRecordingListInstance {
+    return this._proxy.roomRecording;
   }
 
   /**

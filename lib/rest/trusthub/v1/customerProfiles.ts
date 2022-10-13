@@ -361,9 +361,9 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
 
 export interface CustomerProfilesContext {
 
-  customer_profiles_evaluations: CustomerProfilesEvaluationsListInstance;
-  customer_profiles_entity_assignments: CustomerProfilesEntityAssignmentsListInstance;
-  customer_profiles_channel_endpoint_assignment: CustomerProfilesChannelEndpointAssignmentListInstance;
+  customerProfilesEvaluations: CustomerProfilesEvaluationsListInstance;
+  customerProfilesEntityAssignments: CustomerProfilesEntityAssignmentsListInstance;
+  customerProfilesChannelEndpointAssignment: CustomerProfilesChannelEndpointAssignmentListInstance;
 
   /**
    * Remove a CustomerProfilesInstance
@@ -416,28 +416,28 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   protected _solution: CustomerProfilesSolution;
   protected _uri: string;
 
-  protected _customer_profiles_evaluations?: CustomerProfilesEvaluationsListInstance;
-  protected _customer_profiles_entity_assignments?: CustomerProfilesEntityAssignmentsListInstance;
-  protected _customer_profiles_channel_endpoint_assignment?: CustomerProfilesChannelEndpointAssignmentListInstance;
+  protected _customerProfilesEvaluations?: CustomerProfilesEvaluationsListInstance;
+  protected _customerProfilesEntityAssignments?: CustomerProfilesEntityAssignmentsListInstance;
+  protected _customerProfilesChannelEndpointAssignment?: CustomerProfilesChannelEndpointAssignmentListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/CustomerProfiles/${sid}`;
   }
 
-  get customer_profiles_evaluations(): CustomerProfilesEvaluationsListInstance {
-    this._customer_profiles_evaluations = this._customer_profiles_evaluations || CustomerProfilesEvaluationsListInstance(this._version, this._solution.sid);
-    return this._customer_profiles_evaluations;
+  get customerProfilesEvaluations(): CustomerProfilesEvaluationsListInstance {
+    this._customerProfilesEvaluations = this._customerProfilesEvaluations || CustomerProfilesEvaluationsListInstance(this._version, this._solution.sid);
+    return this._customerProfilesEvaluations;
   }
 
-  get customer_profiles_entity_assignments(): CustomerProfilesEntityAssignmentsListInstance {
-    this._customer_profiles_entity_assignments = this._customer_profiles_entity_assignments || CustomerProfilesEntityAssignmentsListInstance(this._version, this._solution.sid);
-    return this._customer_profiles_entity_assignments;
+  get customerProfilesEntityAssignments(): CustomerProfilesEntityAssignmentsListInstance {
+    this._customerProfilesEntityAssignments = this._customerProfilesEntityAssignments || CustomerProfilesEntityAssignmentsListInstance(this._version, this._solution.sid);
+    return this._customerProfilesEntityAssignments;
   }
 
-  get customer_profiles_channel_endpoint_assignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
-    this._customer_profiles_channel_endpoint_assignment = this._customer_profiles_channel_endpoint_assignment || CustomerProfilesChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
-    return this._customer_profiles_channel_endpoint_assignment;
+  get customerProfilesChannelEndpointAssignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
+    this._customerProfilesChannelEndpointAssignment = this._customerProfilesChannelEndpointAssignment || CustomerProfilesChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
+    return this._customerProfilesChannelEndpointAssignment;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -650,24 +650,24 @@ export class CustomerProfilesInstance {
   }
 
   /**
-   * Access the customer_profiles_evaluations.
+   * Access the customerProfilesEvaluations.
    */
-  customer_profiles_evaluations(): CustomerProfilesEvaluationsListInstance {
-    return this._proxy.customer_profiles_evaluations;
+  customerProfilesEvaluations(): CustomerProfilesEvaluationsListInstance {
+    return this._proxy.customerProfilesEvaluations;
   }
 
   /**
-   * Access the customer_profiles_entity_assignments.
+   * Access the customerProfilesEntityAssignments.
    */
-  customer_profiles_entity_assignments(): CustomerProfilesEntityAssignmentsListInstance {
-    return this._proxy.customer_profiles_entity_assignments;
+  customerProfilesEntityAssignments(): CustomerProfilesEntityAssignmentsListInstance {
+    return this._proxy.customerProfilesEntityAssignments;
   }
 
   /**
-   * Access the customer_profiles_channel_endpoint_assignment.
+   * Access the customerProfilesChannelEndpointAssignment.
    */
-  customer_profiles_channel_endpoint_assignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
-    return this._proxy.customer_profiles_channel_endpoint_assignment;
+  customerProfilesChannelEndpointAssignment(): CustomerProfilesChannelEndpointAssignmentListInstance {
+    return this._proxy.customerProfilesChannelEndpointAssignment;
   }
 
   /**

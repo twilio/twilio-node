@@ -73,7 +73,7 @@ export interface StepListInstancePageOptions {
 
 export interface StepContext {
 
-  step_context: StepContextListInstance;
+  stepContext: StepContextListInstance;
 
   /**
    * Fetch a StepInstance
@@ -96,16 +96,16 @@ export class StepContextImpl implements StepContext {
   protected _solution: StepSolution;
   protected _uri: string;
 
-  protected _step_context?: StepContextListInstance;
+  protected _stepContext?: StepContextListInstance;
 
   constructor(protected _version: V1, flowSid: string, engagementSid: string, sid: string) {
     this._solution = { flowSid, engagementSid, sid };
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${sid}`;
   }
 
-  get step_context(): StepContextListInstance {
-    this._step_context = this._step_context || StepContextListInstance(this._version, this._solution.flowSid, this._solution.engagementSid, this._solution.sid);
-    return this._step_context;
+  get stepContext(): StepContextListInstance {
+    this._stepContext = this._stepContext || StepContextListInstance(this._version, this._solution.flowSid, this._solution.engagementSid, this._solution.sid);
+    return this._stepContext;
   }
 
   fetch(callback?: any): Promise<StepInstance> {
@@ -243,10 +243,10 @@ export class StepInstance {
   }
 
   /**
-   * Access the step_context.
+   * Access the stepContext.
    */
-  step_context(): StepContextListInstance {
-    return this._proxy.step_context;
+  stepContext(): StepContextListInstance {
+    return this._proxy.stepContext;
   }
 
   /**

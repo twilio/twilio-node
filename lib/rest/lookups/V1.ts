@@ -20,7 +20,7 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Lookups
    *
-   * @property { Twilio.Lookups.V1.PhoneNumberListInstance } phone_numbers - phone_numbers resource
+   * @property { Twilio.Lookups.V1.PhoneNumberListInstance } phoneNumbers - phoneNumbers resource
    *
    * @param { Twilio.Lookups } domain - The Twilio domain
    */
@@ -28,11 +28,11 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _phone_numbers?: PhoneNumberListInstance;
+  protected _phoneNumbers?: PhoneNumberListInstance;
 
-  get phone_numbers(): PhoneNumberListInstance {
-    this._phone_numbers = this._phone_numbers || PhoneNumberListInstance(this);
-    return this._phone_numbers;
+  get phoneNumbers(): PhoneNumberListInstance {
+    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
+    return this._phoneNumbers;
   }
 
 }

@@ -21,8 +21,8 @@ export default class HostedNumbers extends Version {
   /**
    * Initialize the HostedNumbers version of Preview
    *
-   * @property { Twilio.Preview.HostedNumbers.AuthorizationDocumentListInstance } authorization_documents - authorization_documents resource
-   * @property { Twilio.Preview.HostedNumbers.HostedNumberOrderListInstance } hosted_number_orders - hosted_number_orders resource
+   * @property { Twilio.Preview.HostedNumbers.AuthorizationDocumentListInstance } authorizationDocuments - authorizationDocuments resource
+   * @property { Twilio.Preview.HostedNumbers.HostedNumberOrderListInstance } hostedNumberOrders - hostedNumberOrders resource
    *
    * @param { Twilio.Preview } domain - The Twilio domain
    */
@@ -30,17 +30,17 @@ export default class HostedNumbers extends Version {
     super(domain, "HostedNumbers");
   }
 
-  protected _authorization_documents?: AuthorizationDocumentListInstance;
-  protected _hosted_number_orders?: HostedNumberOrderListInstance;
+  protected _authorizationDocuments?: AuthorizationDocumentListInstance;
+  protected _hostedNumberOrders?: HostedNumberOrderListInstance;
 
-  get authorization_documents(): AuthorizationDocumentListInstance {
-    this._authorization_documents = this._authorization_documents || AuthorizationDocumentListInstance(this);
-    return this._authorization_documents;
+  get authorizationDocuments(): AuthorizationDocumentListInstance {
+    this._authorizationDocuments = this._authorizationDocuments || AuthorizationDocumentListInstance(this);
+    return this._authorizationDocuments;
   }
 
-  get hosted_number_orders(): HostedNumberOrderListInstance {
-    this._hosted_number_orders = this._hosted_number_orders || HostedNumberOrderListInstance(this);
-    return this._hosted_number_orders;
+  get hostedNumberOrders(): HostedNumberOrderListInstance {
+    this._hostedNumberOrders = this._hostedNumberOrders || HostedNumberOrderListInstance(this);
+    return this._hostedNumberOrders;
   }
 
 }

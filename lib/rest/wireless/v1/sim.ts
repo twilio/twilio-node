@@ -147,8 +147,8 @@ export interface SimListInstancePageOptions {
 
 export interface SimContext {
 
-  usage_records: UsageRecordListInstance;
-  data_sessions: DataSessionListInstance;
+  usageRecords: UsageRecordListInstance;
+  dataSessions: DataSessionListInstance;
 
   /**
    * Remove a SimInstance
@@ -201,22 +201,22 @@ export class SimContextImpl implements SimContext {
   protected _solution: SimSolution;
   protected _uri: string;
 
-  protected _usage_records?: UsageRecordListInstance;
-  protected _data_sessions?: DataSessionListInstance;
+  protected _usageRecords?: UsageRecordListInstance;
+  protected _dataSessions?: DataSessionListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Sims/${sid}`;
   }
 
-  get usage_records(): UsageRecordListInstance {
-    this._usage_records = this._usage_records || UsageRecordListInstance(this._version, this._solution.sid);
-    return this._usage_records;
+  get usageRecords(): UsageRecordListInstance {
+    this._usageRecords = this._usageRecords || UsageRecordListInstance(this._version, this._solution.sid);
+    return this._usageRecords;
   }
 
-  get data_sessions(): DataSessionListInstance {
-    this._data_sessions = this._data_sessions || DataSessionListInstance(this._version, this._solution.sid);
-    return this._data_sessions;
+  get dataSessions(): DataSessionListInstance {
+    this._dataSessions = this._dataSessions || DataSessionListInstance(this._version, this._solution.sid);
+    return this._dataSessions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -517,17 +517,17 @@ export class SimInstance {
   }
 
   /**
-   * Access the usage_records.
+   * Access the usageRecords.
    */
-  usage_records(): UsageRecordListInstance {
-    return this._proxy.usage_records;
+  usageRecords(): UsageRecordListInstance {
+    return this._proxy.usageRecords;
   }
 
   /**
-   * Access the data_sessions.
+   * Access the dataSessions.
    */
-  data_sessions(): DataSessionListInstance {
-    return this._proxy.data_sessions;
+  dataSessions(): DataSessionListInstance {
+    return this._proxy.dataSessions;
   }
 
   /**

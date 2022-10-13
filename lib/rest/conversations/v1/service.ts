@@ -315,7 +315,7 @@ export interface ServiceContext {
   roles: RoleListInstance;
   users: UserListInstance;
   configuration: ConfigurationListInstance;
-  participant_conversations: ParticipantConversationListInstance;
+  participantConversations: ParticipantConversationListInstance;
   conversations: ConversationListInstance;
 
   /**
@@ -353,7 +353,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _roles?: RoleListInstance;
   protected _users?: UserListInstance;
   protected _configuration?: ConfigurationListInstance;
-  protected _participant_conversations?: ParticipantConversationListInstance;
+  protected _participantConversations?: ParticipantConversationListInstance;
   protected _conversations?: ConversationListInstance;
 
   constructor(protected _version: V1, sid: string) {
@@ -381,9 +381,9 @@ export class ServiceContextImpl implements ServiceContext {
     return this._configuration;
   }
 
-  get participant_conversations(): ParticipantConversationListInstance {
-    this._participant_conversations = this._participant_conversations || ParticipantConversationListInstance(this._version, this._solution.sid);
-    return this._participant_conversations;
+  get participantConversations(): ParticipantConversationListInstance {
+    this._participantConversations = this._participantConversations || ParticipantConversationListInstance(this._version, this._solution.sid);
+    return this._participantConversations;
   }
 
   get conversations(): ConversationListInstance {
@@ -549,10 +549,10 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the participant_conversations.
+   * Access the participantConversations.
    */
-  participant_conversations(): ParticipantConversationListInstance {
-    return this._proxy.participant_conversations;
+  participantConversations(): ParticipantConversationListInstance {
+    return this._proxy.participantConversations;
   }
 
   /**

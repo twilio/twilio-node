@@ -22,9 +22,9 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Media
    *
-   * @property { Twilio.Media.V1.MediaProcessorListInstance } media_processors - media_processors resource
-   * @property { Twilio.Media.V1.PlayerStreamerListInstance } player_streamers - player_streamers resource
-   * @property { Twilio.Media.V1.MediaRecordingListInstance } media_recordings - media_recordings resource
+   * @property { Twilio.Media.V1.MediaProcessorListInstance } mediaProcessors - mediaProcessors resource
+   * @property { Twilio.Media.V1.PlayerStreamerListInstance } playerStreamers - playerStreamers resource
+   * @property { Twilio.Media.V1.MediaRecordingListInstance } mediaRecordings - mediaRecordings resource
    *
    * @param { Twilio.Media } domain - The Twilio domain
    */
@@ -32,23 +32,23 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _media_processors?: MediaProcessorListInstance;
-  protected _player_streamers?: PlayerStreamerListInstance;
-  protected _media_recordings?: MediaRecordingListInstance;
+  protected _mediaProcessors?: MediaProcessorListInstance;
+  protected _playerStreamers?: PlayerStreamerListInstance;
+  protected _mediaRecordings?: MediaRecordingListInstance;
 
-  get media_processors(): MediaProcessorListInstance {
-    this._media_processors = this._media_processors || MediaProcessorListInstance(this);
-    return this._media_processors;
+  get mediaProcessors(): MediaProcessorListInstance {
+    this._mediaProcessors = this._mediaProcessors || MediaProcessorListInstance(this);
+    return this._mediaProcessors;
   }
 
-  get player_streamers(): PlayerStreamerListInstance {
-    this._player_streamers = this._player_streamers || PlayerStreamerListInstance(this);
-    return this._player_streamers;
+  get playerStreamers(): PlayerStreamerListInstance {
+    this._playerStreamers = this._playerStreamers || PlayerStreamerListInstance(this);
+    return this._playerStreamers;
   }
 
-  get media_recordings(): MediaRecordingListInstance {
-    this._media_recordings = this._media_recordings || MediaRecordingListInstance(this);
-    return this._media_recordings;
+  get mediaRecordings(): MediaRecordingListInstance {
+    this._mediaRecordings = this._mediaRecordings || MediaRecordingListInstance(this);
+    return this._mediaRecordings;
   }
 
 }

@@ -297,9 +297,9 @@ export function ParticipantListInstance(version: V1, roomSid: string): Participa
 export interface ParticipantContext {
 
   anonymize: AnonymizeListInstance;
-  subscribe_rules: SubscribeRulesListInstance;
-  published_tracks: PublishedTrackListInstance;
-  subscribed_tracks: SubscribedTrackListInstance;
+  subscribeRules: SubscribeRulesListInstance;
+  publishedTracks: PublishedTrackListInstance;
+  subscribedTracks: SubscribedTrackListInstance;
 
   /**
    * Fetch a ParticipantInstance
@@ -343,9 +343,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   protected _uri: string;
 
   protected _anonymize?: AnonymizeListInstance;
-  protected _subscribe_rules?: SubscribeRulesListInstance;
-  protected _published_tracks?: PublishedTrackListInstance;
-  protected _subscribed_tracks?: SubscribedTrackListInstance;
+  protected _subscribeRules?: SubscribeRulesListInstance;
+  protected _publishedTracks?: PublishedTrackListInstance;
+  protected _subscribedTracks?: SubscribedTrackListInstance;
 
   constructor(protected _version: V1, roomSid: string, sid: string) {
     this._solution = { roomSid, sid };
@@ -357,19 +357,19 @@ export class ParticipantContextImpl implements ParticipantContext {
     return this._anonymize;
   }
 
-  get subscribe_rules(): SubscribeRulesListInstance {
-    this._subscribe_rules = this._subscribe_rules || SubscribeRulesListInstance(this._version, this._solution.roomSid, this._solution.sid);
-    return this._subscribe_rules;
+  get subscribeRules(): SubscribeRulesListInstance {
+    this._subscribeRules = this._subscribeRules || SubscribeRulesListInstance(this._version, this._solution.roomSid, this._solution.sid);
+    return this._subscribeRules;
   }
 
-  get published_tracks(): PublishedTrackListInstance {
-    this._published_tracks = this._published_tracks || PublishedTrackListInstance(this._version, this._solution.roomSid, this._solution.sid);
-    return this._published_tracks;
+  get publishedTracks(): PublishedTrackListInstance {
+    this._publishedTracks = this._publishedTracks || PublishedTrackListInstance(this._version, this._solution.roomSid, this._solution.sid);
+    return this._publishedTracks;
   }
 
-  get subscribed_tracks(): SubscribedTrackListInstance {
-    this._subscribed_tracks = this._subscribed_tracks || SubscribedTrackListInstance(this._version, this._solution.roomSid, this._solution.sid);
-    return this._subscribed_tracks;
+  get subscribedTracks(): SubscribedTrackListInstance {
+    this._subscribedTracks = this._subscribedTracks || SubscribedTrackListInstance(this._version, this._solution.roomSid, this._solution.sid);
+    return this._subscribedTracks;
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
@@ -561,24 +561,24 @@ export class ParticipantInstance {
   }
 
   /**
-   * Access the subscribe_rules.
+   * Access the subscribeRules.
    */
-  subscribe_rules(): SubscribeRulesListInstance {
-    return this._proxy.subscribe_rules;
+  subscribeRules(): SubscribeRulesListInstance {
+    return this._proxy.subscribeRules;
   }
 
   /**
-   * Access the published_tracks.
+   * Access the publishedTracks.
    */
-  published_tracks(): PublishedTrackListInstance {
-    return this._proxy.published_tracks;
+  publishedTracks(): PublishedTrackListInstance {
+    return this._proxy.publishedTracks;
   }
 
   /**
-   * Access the subscribed_tracks.
+   * Access the subscribedTracks.
    */
-  subscribed_tracks(): SubscribedTrackListInstance {
-    return this._proxy.subscribed_tracks;
+  subscribedTracks(): SubscribedTrackListInstance {
+    return this._proxy.subscribedTracks;
   }
 
   /**

@@ -31,9 +31,9 @@ export default class V1 extends Version {
    * @property { Twilio.Conversations.V1.CredentialListInstance } credentials - credentials resource
    * @property { Twilio.Conversations.V1.UserListInstance } users - users resource
    * @property { Twilio.Conversations.V1.ConfigurationListInstance } configuration - configuration resource
-   * @property { Twilio.Conversations.V1.ParticipantConversationListInstance } participant_conversations - participant_conversations resource
+   * @property { Twilio.Conversations.V1.ParticipantConversationListInstance } participantConversations - participantConversations resource
    * @property { Twilio.Conversations.V1.ServiceListInstance } services - services resource
-   * @property { Twilio.Conversations.V1.AddressConfigurationListInstance } address_configuration - address_configuration resource
+   * @property { Twilio.Conversations.V1.AddressConfigurationListInstance } addressConfiguration - addressConfiguration resource
    * @property { Twilio.Conversations.V1.ConversationListInstance } conversations - conversations resource
    *
    * @param { Twilio.Conversations } domain - The Twilio domain
@@ -46,9 +46,9 @@ export default class V1 extends Version {
   protected _credentials?: CredentialListInstance;
   protected _users?: UserListInstance;
   protected _configuration?: ConfigurationListInstance;
-  protected _participant_conversations?: ParticipantConversationListInstance;
+  protected _participantConversations?: ParticipantConversationListInstance;
   protected _services?: ServiceListInstance;
-  protected _address_configuration?: AddressConfigurationListInstance;
+  protected _addressConfiguration?: AddressConfigurationListInstance;
   protected _conversations?: ConversationListInstance;
 
   get roles(): RoleListInstance {
@@ -71,9 +71,9 @@ export default class V1 extends Version {
     return this._configuration;
   }
 
-  get participant_conversations(): ParticipantConversationListInstance {
-    this._participant_conversations = this._participant_conversations || ParticipantConversationListInstance(this);
-    return this._participant_conversations;
+  get participantConversations(): ParticipantConversationListInstance {
+    this._participantConversations = this._participantConversations || ParticipantConversationListInstance(this);
+    return this._participantConversations;
   }
 
   get services(): ServiceListInstance {
@@ -81,9 +81,9 @@ export default class V1 extends Version {
     return this._services;
   }
 
-  get address_configuration(): AddressConfigurationListInstance {
-    this._address_configuration = this._address_configuration || AddressConfigurationListInstance(this);
-    return this._address_configuration;
+  get addressConfiguration(): AddressConfigurationListInstance {
+    this._addressConfiguration = this._addressConfiguration || AddressConfigurationListInstance(this);
+    return this._addressConfiguration;
   }
 
   get conversations(): ConversationListInstance {

@@ -210,7 +210,7 @@ export interface IncomingPhoneNumberListInstance {
   (sid: string): IncomingPhoneNumberContext;
   get(sid: string): IncomingPhoneNumberContext;
 
-  toll_free: TollFreeListInstance;
+  tollFree: TollFreeListInstance;
   local: LocalListInstance;
   mobile: MobileListInstance;
 
@@ -349,7 +349,7 @@ class IncomingPhoneNumberListInstanceImpl implements IncomingPhoneNumberListInst
   _solution?: IncomingPhoneNumberSolution;
   _uri?: string;
 
-  _toll_free?: TollFreeListInstance;
+  _tollFree?: TollFreeListInstance;
   _local?: LocalListInstance;
   _mobile?: MobileListInstance;
 }
@@ -365,12 +365,12 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers.json`;
 
-  Object.defineProperty(instance, "toll_free", {
-    get: function toll_free() {
-      if (!this._toll_free) {
-        this._toll_free = TollFreeListInstance(this._version, this._solution.accountSid);
+  Object.defineProperty(instance, "tollFree", {
+    get: function tollFree() {
+      if (!this._tollFree) {
+        this._tollFree = TollFreeListInstance(this._version, this._solution.accountSid);
       }
-      return this._toll_free;
+      return this._tollFree;
     }
   });
 
@@ -499,7 +499,7 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
 
 export interface IncomingPhoneNumberContext {
 
-  assigned_add_ons: AssignedAddOnListInstance;
+  assignedAddOns: AssignedAddOnListInstance;
 
   /**
    * Remove a IncomingPhoneNumberInstance
@@ -552,16 +552,16 @@ export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContex
   protected _solution: IncomingPhoneNumberSolution;
   protected _uri: string;
 
-  protected _assigned_add_ons?: AssignedAddOnListInstance;
+  protected _assignedAddOns?: AssignedAddOnListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${sid}.json`;
   }
 
-  get assigned_add_ons(): AssignedAddOnListInstance {
-    this._assigned_add_ons = this._assigned_add_ons || AssignedAddOnListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._assigned_add_ons;
+  get assignedAddOns(): AssignedAddOnListInstance {
+    this._assignedAddOns = this._assignedAddOns || AssignedAddOnListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._assignedAddOns;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -915,10 +915,10 @@ export class IncomingPhoneNumberInstance {
   }
 
   /**
-   * Access the assigned_add_ons.
+   * Access the assignedAddOns.
    */
-  assigned_add_ons(): AssignedAddOnListInstance {
-    return this._proxy.assigned_add_ons;
+  assignedAddOns(): AssignedAddOnListInstance {
+    return this._proxy.assignedAddOns;
   }
 
   /**

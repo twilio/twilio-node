@@ -424,9 +424,9 @@ export function BundleListInstance(version: V2): BundleListInstance {
 export interface BundleContext {
 
   evaluations: EvaluationListInstance;
-  item_assignments: ItemAssignmentListInstance;
-  bundle_copy: BundleCopyListInstance;
-  replace_items: ReplaceItemsListInstance;
+  itemAssignments: ItemAssignmentListInstance;
+  bundleCopy: BundleCopyListInstance;
+  replaceItems: ReplaceItemsListInstance;
 
   /**
    * Remove a BundleInstance
@@ -480,9 +480,9 @@ export class BundleContextImpl implements BundleContext {
   protected _uri: string;
 
   protected _evaluations?: EvaluationListInstance;
-  protected _item_assignments?: ItemAssignmentListInstance;
-  protected _bundle_copy?: BundleCopyListInstance;
-  protected _replace_items?: ReplaceItemsListInstance;
+  protected _itemAssignments?: ItemAssignmentListInstance;
+  protected _bundleCopy?: BundleCopyListInstance;
+  protected _replaceItems?: ReplaceItemsListInstance;
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -494,19 +494,19 @@ export class BundleContextImpl implements BundleContext {
     return this._evaluations;
   }
 
-  get item_assignments(): ItemAssignmentListInstance {
-    this._item_assignments = this._item_assignments || ItemAssignmentListInstance(this._version, this._solution.sid);
-    return this._item_assignments;
+  get itemAssignments(): ItemAssignmentListInstance {
+    this._itemAssignments = this._itemAssignments || ItemAssignmentListInstance(this._version, this._solution.sid);
+    return this._itemAssignments;
   }
 
-  get bundle_copy(): BundleCopyListInstance {
-    this._bundle_copy = this._bundle_copy || BundleCopyListInstance(this._version, this._solution.sid);
-    return this._bundle_copy;
+  get bundleCopy(): BundleCopyListInstance {
+    this._bundleCopy = this._bundleCopy || BundleCopyListInstance(this._version, this._solution.sid);
+    return this._bundleCopy;
   }
 
-  get replace_items(): ReplaceItemsListInstance {
-    this._replace_items = this._replace_items || ReplaceItemsListInstance(this._version, this._solution.sid);
-    return this._replace_items;
+  get replaceItems(): ReplaceItemsListInstance {
+    this._replaceItems = this._replaceItems || ReplaceItemsListInstance(this._version, this._solution.sid);
+    return this._replaceItems;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -726,24 +726,24 @@ export class BundleInstance {
   }
 
   /**
-   * Access the item_assignments.
+   * Access the itemAssignments.
    */
-  item_assignments(): ItemAssignmentListInstance {
-    return this._proxy.item_assignments;
+  itemAssignments(): ItemAssignmentListInstance {
+    return this._proxy.itemAssignments;
   }
 
   /**
-   * Access the bundle_copy.
+   * Access the bundleCopy.
    */
-  bundle_copy(): BundleCopyListInstance {
-    return this._proxy.bundle_copy;
+  bundleCopy(): BundleCopyListInstance {
+    return this._proxy.bundleCopy;
   }
 
   /**
-   * Access the replace_items.
+   * Access the replaceItems.
    */
-  replace_items(): ReplaceItemsListInstance {
-    return this._proxy.replace_items;
+  replaceItems(): ReplaceItemsListInstance {
+    return this._proxy.replaceItems;
   }
 
   /**

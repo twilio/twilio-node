@@ -355,9 +355,9 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 
 export interface ServiceContext {
 
-  sync_list: SyncListListInstance;
-  sync_stream: SyncStreamListInstance;
-  sync_map: SyncMapListInstance;
+  syncList: SyncListListInstance;
+  syncStream: SyncStreamListInstance;
+  syncMap: SyncMapListInstance;
   documents: DocumentListInstance;
 
   /**
@@ -411,9 +411,9 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceSolution;
   protected _uri: string;
 
-  protected _sync_list?: SyncListListInstance;
-  protected _sync_stream?: SyncStreamListInstance;
-  protected _sync_map?: SyncMapListInstance;
+  protected _syncList?: SyncListListInstance;
+  protected _syncStream?: SyncStreamListInstance;
+  protected _syncMap?: SyncMapListInstance;
   protected _documents?: DocumentListInstance;
 
   constructor(protected _version: V1, sid: string) {
@@ -421,19 +421,19 @@ export class ServiceContextImpl implements ServiceContext {
     this._uri = `/Services/${sid}`;
   }
 
-  get sync_list(): SyncListListInstance {
-    this._sync_list = this._sync_list || SyncListListInstance(this._version, this._solution.sid);
-    return this._sync_list;
+  get syncList(): SyncListListInstance {
+    this._syncList = this._syncList || SyncListListInstance(this._version, this._solution.sid);
+    return this._syncList;
   }
 
-  get sync_stream(): SyncStreamListInstance {
-    this._sync_stream = this._sync_stream || SyncStreamListInstance(this._version, this._solution.sid);
-    return this._sync_stream;
+  get syncStream(): SyncStreamListInstance {
+    this._syncStream = this._syncStream || SyncStreamListInstance(this._version, this._solution.sid);
+    return this._syncStream;
   }
 
-  get sync_map(): SyncMapListInstance {
-    this._sync_map = this._sync_map || SyncMapListInstance(this._version, this._solution.sid);
-    return this._sync_map;
+  get syncMap(): SyncMapListInstance {
+    this._syncMap = this._syncMap || SyncMapListInstance(this._version, this._solution.sid);
+    return this._syncMap;
   }
 
   get documents(): DocumentListInstance {
@@ -669,24 +669,24 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the sync_list.
+   * Access the syncList.
    */
-  sync_list(): SyncListListInstance {
-    return this._proxy.sync_list;
+  syncList(): SyncListListInstance {
+    return this._proxy.syncList;
   }
 
   /**
-   * Access the sync_stream.
+   * Access the syncStream.
    */
-  sync_stream(): SyncStreamListInstance {
-    return this._proxy.sync_stream;
+  syncStream(): SyncStreamListInstance {
+    return this._proxy.syncStream;
   }
 
   /**
-   * Access the sync_map.
+   * Access the syncMap.
    */
-  sync_map(): SyncMapListInstance {
-    return this._proxy.sync_map;
+  syncMap(): SyncMapListInstance {
+    return this._proxy.syncMap;
   }
 
   /**

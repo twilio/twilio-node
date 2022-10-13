@@ -361,10 +361,10 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 
 export interface TrunkContext {
 
-  ip_access_control_lists: IpAccessControlListListInstance;
-  credential_lists: CredentialListListInstance;
-  origination_urls: OriginationUrlListInstance;
-  phone_numbers: PhoneNumberListInstance;
+  ipAccessControlLists: IpAccessControlListListInstance;
+  credentialLists: CredentialListListInstance;
+  originationUrls: OriginationUrlListInstance;
+  phoneNumbers: PhoneNumberListInstance;
   recording: RecordingListInstance;
 
   /**
@@ -418,10 +418,10 @@ export class TrunkContextImpl implements TrunkContext {
   protected _solution: TrunkSolution;
   protected _uri: string;
 
-  protected _ip_access_control_lists?: IpAccessControlListListInstance;
-  protected _credential_lists?: CredentialListListInstance;
-  protected _origination_urls?: OriginationUrlListInstance;
-  protected _phone_numbers?: PhoneNumberListInstance;
+  protected _ipAccessControlLists?: IpAccessControlListListInstance;
+  protected _credentialLists?: CredentialListListInstance;
+  protected _originationUrls?: OriginationUrlListInstance;
+  protected _phoneNumbers?: PhoneNumberListInstance;
   protected _recording?: RecordingListInstance;
 
   constructor(protected _version: V1, sid: string) {
@@ -429,24 +429,24 @@ export class TrunkContextImpl implements TrunkContext {
     this._uri = `/Trunks/${sid}`;
   }
 
-  get ip_access_control_lists(): IpAccessControlListListInstance {
-    this._ip_access_control_lists = this._ip_access_control_lists || IpAccessControlListListInstance(this._version, this._solution.sid);
-    return this._ip_access_control_lists;
+  get ipAccessControlLists(): IpAccessControlListListInstance {
+    this._ipAccessControlLists = this._ipAccessControlLists || IpAccessControlListListInstance(this._version, this._solution.sid);
+    return this._ipAccessControlLists;
   }
 
-  get credential_lists(): CredentialListListInstance {
-    this._credential_lists = this._credential_lists || CredentialListListInstance(this._version, this._solution.sid);
-    return this._credential_lists;
+  get credentialLists(): CredentialListListInstance {
+    this._credentialLists = this._credentialLists || CredentialListListInstance(this._version, this._solution.sid);
+    return this._credentialLists;
   }
 
-  get origination_urls(): OriginationUrlListInstance {
-    this._origination_urls = this._origination_urls || OriginationUrlListInstance(this._version, this._solution.sid);
-    return this._origination_urls;
+  get originationUrls(): OriginationUrlListInstance {
+    this._originationUrls = this._originationUrls || OriginationUrlListInstance(this._version, this._solution.sid);
+    return this._originationUrls;
   }
 
-  get phone_numbers(): PhoneNumberListInstance {
-    this._phone_numbers = this._phone_numbers || PhoneNumberListInstance(this._version, this._solution.sid);
-    return this._phone_numbers;
+  get phoneNumbers(): PhoneNumberListInstance {
+    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this._version, this._solution.sid);
+    return this._phoneNumbers;
   }
 
   get recording(): RecordingListInstance {
@@ -696,31 +696,31 @@ export class TrunkInstance {
   }
 
   /**
-   * Access the ip_access_control_lists.
+   * Access the ipAccessControlLists.
    */
-  ip_access_control_lists(): IpAccessControlListListInstance {
-    return this._proxy.ip_access_control_lists;
+  ipAccessControlLists(): IpAccessControlListListInstance {
+    return this._proxy.ipAccessControlLists;
   }
 
   /**
-   * Access the credential_lists.
+   * Access the credentialLists.
    */
-  credential_lists(): CredentialListListInstance {
-    return this._proxy.credential_lists;
+  credentialLists(): CredentialListListInstance {
+    return this._proxy.credentialLists;
   }
 
   /**
-   * Access the origination_urls.
+   * Access the originationUrls.
    */
-  origination_urls(): OriginationUrlListInstance {
-    return this._proxy.origination_urls;
+  originationUrls(): OriginationUrlListInstance {
+    return this._proxy.originationUrls;
   }
 
   /**
-   * Access the phone_numbers.
+   * Access the phoneNumbers.
    */
-  phone_numbers(): PhoneNumberListInstance {
-    return this._proxy.phone_numbers;
+  phoneNumbers(): PhoneNumberListInstance {
+    return this._proxy.phoneNumbers;
   }
 
   /**

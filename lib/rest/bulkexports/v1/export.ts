@@ -82,8 +82,8 @@ export function ExportListInstance(version: V1): ExportListInstance {
 
 export interface ExportContext {
 
-  export_configuration: ExportConfigurationListInstance;
-  export_custom_job: ExportCustomJobListInstance;
+  exportConfiguration: ExportConfigurationListInstance;
+  exportCustomJob: ExportCustomJobListInstance;
   days: DayListInstance;
 
   /**
@@ -107,8 +107,8 @@ export class ExportContextImpl implements ExportContext {
   protected _solution: ExportSolution;
   protected _uri: string;
 
-  protected _export_configuration?: ExportConfigurationListInstance;
-  protected _export_custom_job?: ExportCustomJobListInstance;
+  protected _exportConfiguration?: ExportConfigurationListInstance;
+  protected _exportCustomJob?: ExportCustomJobListInstance;
   protected _days?: DayListInstance;
 
   constructor(protected _version: V1, resourceType: string) {
@@ -116,14 +116,14 @@ export class ExportContextImpl implements ExportContext {
     this._uri = `/Exports/${resourceType}`;
   }
 
-  get export_configuration(): ExportConfigurationListInstance {
-    this._export_configuration = this._export_configuration || ExportConfigurationListInstance(this._version, this._solution.resourceType);
-    return this._export_configuration;
+  get exportConfiguration(): ExportConfigurationListInstance {
+    this._exportConfiguration = this._exportConfiguration || ExportConfigurationListInstance(this._version, this._solution.resourceType);
+    return this._exportConfiguration;
   }
 
-  get export_custom_job(): ExportCustomJobListInstance {
-    this._export_custom_job = this._export_custom_job || ExportCustomJobListInstance(this._version, this._solution.resourceType);
-    return this._export_custom_job;
+  get exportCustomJob(): ExportCustomJobListInstance {
+    this._exportCustomJob = this._exportCustomJob || ExportCustomJobListInstance(this._version, this._solution.resourceType);
+    return this._exportCustomJob;
   }
 
   get days(): DayListInstance {
@@ -212,17 +212,17 @@ export class ExportInstance {
   }
 
   /**
-   * Access the export_configuration.
+   * Access the exportConfiguration.
    */
-  export_configuration(): ExportConfigurationListInstance {
-    return this._proxy.export_configuration;
+  exportConfiguration(): ExportConfigurationListInstance {
+    return this._proxy.exportConfiguration;
   }
 
   /**
-   * Access the export_custom_job.
+   * Access the exportCustomJob.
    */
-  export_custom_job(): ExportCustomJobListInstance {
-    return this._proxy.export_custom_job;
+  exportCustomJob(): ExportCustomJobListInstance {
+    return this._proxy.exportCustomJob;
   }
 
   /**

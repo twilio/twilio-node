@@ -22,7 +22,7 @@ export default class Wireless extends Version {
   /**
    * Initialize the Wireless version of Preview
    *
-   * @property { Twilio.Preview.Wireless.RatePlanListInstance } rate_plans - rate_plans resource
+   * @property { Twilio.Preview.Wireless.RatePlanListInstance } ratePlans - ratePlans resource
    * @property { Twilio.Preview.Wireless.CommandListInstance } commands - commands resource
    * @property { Twilio.Preview.Wireless.SimListInstance } sims - sims resource
    *
@@ -32,13 +32,13 @@ export default class Wireless extends Version {
     super(domain, "wireless");
   }
 
-  protected _rate_plans?: RatePlanListInstance;
+  protected _ratePlans?: RatePlanListInstance;
   protected _commands?: CommandListInstance;
   protected _sims?: SimListInstance;
 
-  get rate_plans(): RatePlanListInstance {
-    this._rate_plans = this._rate_plans || RatePlanListInstance(this);
-    return this._rate_plans;
+  get ratePlans(): RatePlanListInstance {
+    this._ratePlans = this._ratePlans || RatePlanListInstance(this);
+    return this._ratePlans;
   }
 
   get commands(): CommandListInstance {

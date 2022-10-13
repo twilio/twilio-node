@@ -25,7 +25,7 @@ import { CountryListInstance } from "./dialingPermissions/country";
 
 export interface DialingPermissionsListInstance {
 
-  bulk_country_updates: BulkCountryUpdateListInstance;
+  bulkCountryUpdates: BulkCountryUpdateListInstance;
   countries: CountryListInstance;
 
   /**
@@ -41,7 +41,7 @@ class DialingPermissionsListInstanceImpl implements DialingPermissionsListInstan
   _solution?: DialingPermissionsSolution;
   _uri?: string;
 
-  _bulk_country_updates?: BulkCountryUpdateListInstance;
+  _bulkCountryUpdates?: BulkCountryUpdateListInstance;
   _countries?: CountryListInstance;
 }
 
@@ -52,12 +52,12 @@ export function DialingPermissionsListInstance(version: V1): DialingPermissionsL
   instance._solution = {  };
   instance._uri = `/DialingPermissions`;
 
-  Object.defineProperty(instance, "bulk_country_updates", {
-    get: function bulk_country_updates() {
-      if (!this._bulk_country_updates) {
-        this._bulk_country_updates = BulkCountryUpdateListInstance(this._version);
+  Object.defineProperty(instance, "bulkCountryUpdates", {
+    get: function bulkCountryUpdates() {
+      if (!this._bulkCountryUpdates) {
+        this._bulkCountryUpdates = BulkCountryUpdateListInstance(this._version);
       }
-      return this._bulk_country_updates;
+      return this._bulkCountryUpdates;
     }
   });
 

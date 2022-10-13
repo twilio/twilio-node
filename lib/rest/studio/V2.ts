@@ -21,7 +21,7 @@ export default class V2 extends Version {
   /**
    * Initialize the V2 version of Studio
    *
-   * @property { Twilio.Studio.V2.FlowValidateListInstance } flow_validate - flow_validate resource
+   * @property { Twilio.Studio.V2.FlowValidateListInstance } flowValidate - flowValidate resource
    * @property { Twilio.Studio.V2.FlowListInstance } flows - flows resource
    *
    * @param { Twilio.Studio } domain - The Twilio domain
@@ -30,12 +30,12 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
-  protected _flow_validate?: FlowValidateListInstance;
+  protected _flowValidate?: FlowValidateListInstance;
   protected _flows?: FlowListInstance;
 
-  get flow_validate(): FlowValidateListInstance {
-    this._flow_validate = this._flow_validate || FlowValidateListInstance(this);
-    return this._flow_validate;
+  get flowValidate(): FlowValidateListInstance {
+    this._flowValidate = this._flowValidate || FlowValidateListInstance(this);
+    return this._flowValidate;
   }
 
   get flows(): FlowListInstance {

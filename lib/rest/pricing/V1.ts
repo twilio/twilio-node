@@ -23,7 +23,7 @@ export default class V1 extends Version {
    * Initialize the V1 version of Pricing
    *
    * @property { Twilio.Pricing.V1.MessagingListInstance } messaging - messaging resource
-   * @property { Twilio.Pricing.V1.PhoneNumberListInstance } phone_numbers - phone_numbers resource
+   * @property { Twilio.Pricing.V1.PhoneNumberListInstance } phoneNumbers - phoneNumbers resource
    * @property { Twilio.Pricing.V1.VoiceListInstance } voice - voice resource
    *
    * @param { Twilio.Pricing } domain - The Twilio domain
@@ -33,7 +33,7 @@ export default class V1 extends Version {
   }
 
   protected _messaging?: MessagingListInstance;
-  protected _phone_numbers?: PhoneNumberListInstance;
+  protected _phoneNumbers?: PhoneNumberListInstance;
   protected _voice?: VoiceListInstance;
 
   get messaging(): MessagingListInstance {
@@ -41,9 +41,9 @@ export default class V1 extends Version {
     return this._messaging;
   }
 
-  get phone_numbers(): PhoneNumberListInstance {
-    this._phone_numbers = this._phone_numbers || PhoneNumberListInstance(this);
-    return this._phone_numbers;
+  get phoneNumbers(): PhoneNumberListInstance {
+    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
+    return this._phoneNumbers;
   }
 
   get voice(): VoiceListInstance {

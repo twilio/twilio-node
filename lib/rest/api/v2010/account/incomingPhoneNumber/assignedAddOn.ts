@@ -82,7 +82,7 @@ export interface AssignedAddOnListInstancePageOptions {
 
 export interface AssignedAddOnContext {
 
-  assigned_add_on_extension: AssignedAddOnExtensionListInstance;
+  assignedAddOnExtension: AssignedAddOnExtensionListInstance;
 
   /**
    * Remove a AssignedAddOnInstance
@@ -115,16 +115,16 @@ export class AssignedAddOnContextImpl implements AssignedAddOnContext {
   protected _solution: AssignedAddOnSolution;
   protected _uri: string;
 
-  protected _assigned_add_on_extension?: AssignedAddOnExtensionListInstance;
+  protected _assignedAddOnExtension?: AssignedAddOnExtensionListInstance;
 
   constructor(protected _version: V2010, accountSid: string, resourceSid: string, sid: string) {
     this._solution = { accountSid, resourceSid, sid };
     this._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns/${sid}.json`;
   }
 
-  get assigned_add_on_extension(): AssignedAddOnExtensionListInstance {
-    this._assigned_add_on_extension = this._assigned_add_on_extension || AssignedAddOnExtensionListInstance(this._version, this._solution.accountSid, this._solution.resourceSid, this._solution.sid);
-    return this._assigned_add_on_extension;
+  get assignedAddOnExtension(): AssignedAddOnExtensionListInstance {
+    this._assignedAddOnExtension = this._assignedAddOnExtension || AssignedAddOnExtensionListInstance(this._version, this._solution.accountSid, this._solution.resourceSid, this._solution.sid);
+    return this._assignedAddOnExtension;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -281,10 +281,10 @@ export class AssignedAddOnInstance {
   }
 
   /**
-   * Access the assigned_add_on_extension.
+   * Access the assignedAddOnExtension.
    */
-  assigned_add_on_extension(): AssignedAddOnExtensionListInstance {
-    return this._proxy.assigned_add_on_extension;
+  assignedAddOnExtension(): AssignedAddOnExtensionListInstance {
+    return this._proxy.assignedAddOnExtension;
   }
 
   /**

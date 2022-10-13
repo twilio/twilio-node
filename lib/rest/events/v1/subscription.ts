@@ -338,7 +338,7 @@ export function SubscriptionListInstance(version: V1): SubscriptionListInstance 
 
 export interface SubscriptionContext {
 
-  subscribed_events: SubscribedEventListInstance;
+  subscribedEvents: SubscribedEventListInstance;
 
   /**
    * Remove a SubscriptionInstance
@@ -391,16 +391,16 @@ export class SubscriptionContextImpl implements SubscriptionContext {
   protected _solution: SubscriptionSolution;
   protected _uri: string;
 
-  protected _subscribed_events?: SubscribedEventListInstance;
+  protected _subscribedEvents?: SubscribedEventListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Subscriptions/${sid}`;
   }
 
-  get subscribed_events(): SubscribedEventListInstance {
-    this._subscribed_events = this._subscribed_events || SubscribedEventListInstance(this._version, this._solution.sid);
-    return this._subscribed_events;
+  get subscribedEvents(): SubscribedEventListInstance {
+    this._subscribedEvents = this._subscribedEvents || SubscribedEventListInstance(this._version, this._solution.sid);
+    return this._subscribedEvents;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -590,10 +590,10 @@ export class SubscriptionInstance {
   }
 
   /**
-   * Access the subscribed_events.
+   * Access the subscribedEvents.
    */
-  subscribed_events(): SubscribedEventListInstance {
-    return this._proxy.subscribed_events;
+  subscribedEvents(): SubscribedEventListInstance {
+    return this._proxy.subscribedEvents;
   }
 
   /**

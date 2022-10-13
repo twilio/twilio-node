@@ -29,12 +29,12 @@ import { EndUserListInstance } from "./regulatoryCompliance/endUser";
 
 export interface RegulatoryComplianceListInstance {
 
-  supporting_document_types: SupportingDocumentTypeListInstance;
-  supporting_documents: SupportingDocumentListInstance;
+  supportingDocumentTypes: SupportingDocumentTypeListInstance;
+  supportingDocuments: SupportingDocumentListInstance;
   bundles: BundleListInstance;
-  end_user_types: EndUserTypeListInstance;
+  endUserTypes: EndUserTypeListInstance;
   regulations: RegulationListInstance;
-  end_users: EndUserListInstance;
+  endUsers: EndUserListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -49,12 +49,12 @@ class RegulatoryComplianceListInstanceImpl implements RegulatoryComplianceListIn
   _solution?: RegulatoryComplianceSolution;
   _uri?: string;
 
-  _supporting_document_types?: SupportingDocumentTypeListInstance;
-  _supporting_documents?: SupportingDocumentListInstance;
+  _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
+  _supportingDocuments?: SupportingDocumentListInstance;
   _bundles?: BundleListInstance;
-  _end_user_types?: EndUserTypeListInstance;
+  _endUserTypes?: EndUserTypeListInstance;
   _regulations?: RegulationListInstance;
-  _end_users?: EndUserListInstance;
+  _endUsers?: EndUserListInstance;
 }
 
 export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplianceListInstance {
@@ -64,21 +64,21 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
   instance._solution = {  };
   instance._uri = `/RegulatoryCompliance`;
 
-  Object.defineProperty(instance, "supporting_document_types", {
-    get: function supporting_document_types() {
-      if (!this._supporting_document_types) {
-        this._supporting_document_types = SupportingDocumentTypeListInstance(this._version);
+  Object.defineProperty(instance, "supportingDocumentTypes", {
+    get: function supportingDocumentTypes() {
+      if (!this._supportingDocumentTypes) {
+        this._supportingDocumentTypes = SupportingDocumentTypeListInstance(this._version);
       }
-      return this._supporting_document_types;
+      return this._supportingDocumentTypes;
     }
   });
 
-  Object.defineProperty(instance, "supporting_documents", {
-    get: function supporting_documents() {
-      if (!this._supporting_documents) {
-        this._supporting_documents = SupportingDocumentListInstance(this._version);
+  Object.defineProperty(instance, "supportingDocuments", {
+    get: function supportingDocuments() {
+      if (!this._supportingDocuments) {
+        this._supportingDocuments = SupportingDocumentListInstance(this._version);
       }
-      return this._supporting_documents;
+      return this._supportingDocuments;
     }
   });
 
@@ -91,12 +91,12 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
     }
   });
 
-  Object.defineProperty(instance, "end_user_types", {
-    get: function end_user_types() {
-      if (!this._end_user_types) {
-        this._end_user_types = EndUserTypeListInstance(this._version);
+  Object.defineProperty(instance, "endUserTypes", {
+    get: function endUserTypes() {
+      if (!this._endUserTypes) {
+        this._endUserTypes = EndUserTypeListInstance(this._version);
       }
-      return this._end_user_types;
+      return this._endUserTypes;
     }
   });
 
@@ -109,12 +109,12 @@ export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplia
     }
   });
 
-  Object.defineProperty(instance, "end_users", {
-    get: function end_users() {
-      if (!this._end_users) {
-        this._end_users = EndUserListInstance(this._version);
+  Object.defineProperty(instance, "endUsers", {
+    get: function endUsers() {
+      if (!this._endUsers) {
+        this._endUsers = EndUserListInstance(this._version);
       }
-      return this._end_users;
+      return this._endUsers;
     }
   });
 

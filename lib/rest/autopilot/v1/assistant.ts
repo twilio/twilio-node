@@ -128,11 +128,11 @@ export interface AssistantContext {
   dialogues: DialogueListInstance;
   tasks: TaskListInstance;
   defaults: DefaultsListInstance;
-  style_sheet: StyleSheetListInstance;
+  styleSheet: StyleSheetListInstance;
   queries: QueryListInstance;
-  model_builds: ModelBuildListInstance;
+  modelBuilds: ModelBuildListInstance;
   webhooks: WebhookListInstance;
-  field_types: FieldTypeListInstance;
+  fieldTypes: FieldTypeListInstance;
 
   /**
    * Remove a AssistantInstance
@@ -188,11 +188,11 @@ export class AssistantContextImpl implements AssistantContext {
   protected _dialogues?: DialogueListInstance;
   protected _tasks?: TaskListInstance;
   protected _defaults?: DefaultsListInstance;
-  protected _style_sheet?: StyleSheetListInstance;
+  protected _styleSheet?: StyleSheetListInstance;
   protected _queries?: QueryListInstance;
-  protected _model_builds?: ModelBuildListInstance;
+  protected _modelBuilds?: ModelBuildListInstance;
   protected _webhooks?: WebhookListInstance;
-  protected _field_types?: FieldTypeListInstance;
+  protected _fieldTypes?: FieldTypeListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -214,9 +214,9 @@ export class AssistantContextImpl implements AssistantContext {
     return this._defaults;
   }
 
-  get style_sheet(): StyleSheetListInstance {
-    this._style_sheet = this._style_sheet || StyleSheetListInstance(this._version, this._solution.sid);
-    return this._style_sheet;
+  get styleSheet(): StyleSheetListInstance {
+    this._styleSheet = this._styleSheet || StyleSheetListInstance(this._version, this._solution.sid);
+    return this._styleSheet;
   }
 
   get queries(): QueryListInstance {
@@ -224,9 +224,9 @@ export class AssistantContextImpl implements AssistantContext {
     return this._queries;
   }
 
-  get model_builds(): ModelBuildListInstance {
-    this._model_builds = this._model_builds || ModelBuildListInstance(this._version, this._solution.sid);
-    return this._model_builds;
+  get modelBuilds(): ModelBuildListInstance {
+    this._modelBuilds = this._modelBuilds || ModelBuildListInstance(this._version, this._solution.sid);
+    return this._modelBuilds;
   }
 
   get webhooks(): WebhookListInstance {
@@ -234,9 +234,9 @@ export class AssistantContextImpl implements AssistantContext {
     return this._webhooks;
   }
 
-  get field_types(): FieldTypeListInstance {
-    this._field_types = this._field_types || FieldTypeListInstance(this._version, this._solution.sid);
-    return this._field_types;
+  get fieldTypes(): FieldTypeListInstance {
+    this._fieldTypes = this._fieldTypes || FieldTypeListInstance(this._version, this._solution.sid);
+    return this._fieldTypes;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -489,10 +489,10 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the style_sheet.
+   * Access the styleSheet.
    */
-  style_sheet(): StyleSheetListInstance {
-    return this._proxy.style_sheet;
+  styleSheet(): StyleSheetListInstance {
+    return this._proxy.styleSheet;
   }
 
   /**
@@ -503,10 +503,10 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the model_builds.
+   * Access the modelBuilds.
    */
-  model_builds(): ModelBuildListInstance {
-    return this._proxy.model_builds;
+  modelBuilds(): ModelBuildListInstance {
+    return this._proxy.modelBuilds;
   }
 
   /**
@@ -517,10 +517,10 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the field_types.
+   * Access the fieldTypes.
    */
-  field_types(): FieldTypeListInstance {
-    return this._proxy.field_types;
+  fieldTypes(): FieldTypeListInstance {
+    return this._proxy.fieldTypes;
   }
 
   /**
@@ -590,7 +590,7 @@ export interface AssistantListInstance {
   (sid: string): AssistantContext;
   get(sid: string): AssistantContext;
 
-  restore_assistant: RestoreAssistantListInstance;
+  restoreAssistant: RestoreAssistantListInstance;
 
   /**
    * Create a AssistantInstance
@@ -727,7 +727,7 @@ class AssistantListInstanceImpl implements AssistantListInstance {
   _solution?: AssistantSolution;
   _uri?: string;
 
-  _restore_assistant?: RestoreAssistantListInstance;
+  _restoreAssistant?: RestoreAssistantListInstance;
 }
 
 export function AssistantListInstance(version: V1): AssistantListInstance {
@@ -741,12 +741,12 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
   instance._solution = {  };
   instance._uri = `/Assistants`;
 
-  Object.defineProperty(instance, "restore_assistant", {
-    get: function restore_assistant() {
-      if (!this._restore_assistant) {
-        this._restore_assistant = RestoreAssistantListInstance(this._version);
+  Object.defineProperty(instance, "restoreAssistant", {
+    get: function restoreAssistant() {
+      if (!this._restoreAssistant) {
+        this._restoreAssistant = RestoreAssistantListInstance(this._version);
       }
-      return this._restore_assistant;
+      return this._restoreAssistant;
     }
   });
 

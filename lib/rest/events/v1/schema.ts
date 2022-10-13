@@ -68,7 +68,7 @@ export function SchemaListInstance(version: V1): SchemaListInstance {
 
 export interface SchemaContext {
 
-  schema_version: SchemaVersionListInstance;
+  schemaVersion: SchemaVersionListInstance;
 
   /**
    * Fetch a SchemaInstance
@@ -91,16 +91,16 @@ export class SchemaContextImpl implements SchemaContext {
   protected _solution: SchemaSolution;
   protected _uri: string;
 
-  protected _schema_version?: SchemaVersionListInstance;
+  protected _schemaVersion?: SchemaVersionListInstance;
 
   constructor(protected _version: V1, id: string) {
     this._solution = { id };
     this._uri = `/Schemas/${id}`;
   }
 
-  get schema_version(): SchemaVersionListInstance {
-    this._schema_version = this._schema_version || SchemaVersionListInstance(this._version, this._solution.id);
-    return this._schema_version;
+  get schemaVersion(): SchemaVersionListInstance {
+    this._schemaVersion = this._schemaVersion || SchemaVersionListInstance(this._version, this._solution.id);
+    return this._schemaVersion;
   }
 
   fetch(callback?: any): Promise<SchemaInstance> {
@@ -196,10 +196,10 @@ export class SchemaInstance {
   }
 
   /**
-   * Access the schema_version.
+   * Access the schemaVersion.
    */
-  schema_version(): SchemaVersionListInstance {
-    return this._proxy.schema_version;
+  schemaVersion(): SchemaVersionListInstance {
+    return this._proxy.schemaVersion;
   }
 
   /**

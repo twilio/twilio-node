@@ -24,7 +24,7 @@ export default class V1 extends Version {
    * Initialize the V1 version of Events
    *
    * @property { Twilio.Events.V1.SinkListInstance } sinks - sinks resource
-   * @property { Twilio.Events.V1.EventTypeListInstance } event_type - event_type resource
+   * @property { Twilio.Events.V1.EventTypeListInstance } eventType - eventType resource
    * @property { Twilio.Events.V1.SchemaListInstance } schemas - schemas resource
    * @property { Twilio.Events.V1.SubscriptionListInstance } subscriptions - subscriptions resource
    *
@@ -35,7 +35,7 @@ export default class V1 extends Version {
   }
 
   protected _sinks?: SinkListInstance;
-  protected _event_type?: EventTypeListInstance;
+  protected _eventType?: EventTypeListInstance;
   protected _schemas?: SchemaListInstance;
   protected _subscriptions?: SubscriptionListInstance;
 
@@ -44,9 +44,9 @@ export default class V1 extends Version {
     return this._sinks;
   }
 
-  get event_type(): EventTypeListInstance {
-    this._event_type = this._event_type || EventTypeListInstance(this);
-    return this._event_type;
+  get eventType(): EventTypeListInstance {
+    this._eventType = this._eventType || EventTypeListInstance(this);
+    return this._eventType;
   }
 
   get schemas(): SchemaListInstance {

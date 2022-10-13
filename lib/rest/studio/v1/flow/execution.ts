@@ -108,8 +108,8 @@ export interface ExecutionListInstancePageOptions {
 
 export interface ExecutionContext {
 
-  execution_step: ExecutionStepListInstance;
-  execution_context: ExecutionContextListInstance;
+  executionStep: ExecutionStepListInstance;
+  executionContext: ExecutionContextListInstance;
 
   /**
    * Remove a ExecutionInstance
@@ -154,22 +154,22 @@ export class ExecutionContextImpl implements ExecutionContext {
   protected _solution: ExecutionSolution;
   protected _uri: string;
 
-  protected _execution_step?: ExecutionStepListInstance;
-  protected _execution_context?: ExecutionContextListInstance;
+  protected _executionStep?: ExecutionStepListInstance;
+  protected _executionContext?: ExecutionContextListInstance;
 
   constructor(protected _version: V1, flowSid: string, sid: string) {
     this._solution = { flowSid, sid };
     this._uri = `/Flows/${flowSid}/Executions/${sid}`;
   }
 
-  get execution_step(): ExecutionStepListInstance {
-    this._execution_step = this._execution_step || ExecutionStepListInstance(this._version, this._solution.flowSid, this._solution.sid);
-    return this._execution_step;
+  get executionStep(): ExecutionStepListInstance {
+    this._executionStep = this._executionStep || ExecutionStepListInstance(this._version, this._solution.flowSid, this._solution.sid);
+    return this._executionStep;
   }
 
-  get execution_context(): ExecutionContextListInstance {
-    this._execution_context = this._execution_context || ExecutionContextListInstance(this._version, this._solution.flowSid, this._solution.sid);
-    return this._execution_context;
+  get executionContext(): ExecutionContextListInstance {
+    this._executionContext = this._executionContext || ExecutionContextListInstance(this._version, this._solution.flowSid, this._solution.sid);
+    return this._executionContext;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -366,17 +366,17 @@ export class ExecutionInstance {
   }
 
   /**
-   * Access the execution_step.
+   * Access the executionStep.
    */
-  execution_step(): ExecutionStepListInstance {
-    return this._proxy.execution_step;
+  executionStep(): ExecutionStepListInstance {
+    return this._proxy.executionStep;
   }
 
   /**
-   * Access the execution_context.
+   * Access the executionContext.
    */
-  execution_context(): ExecutionContextListInstance {
-    return this._proxy.execution_context;
+  executionContext(): ExecutionContextListInstance {
+    return this._proxy.executionContext;
   }
 
   /**

@@ -125,7 +125,7 @@ export interface AuthorizationDocumentListInstancePageOptions {
 
 export interface AuthorizationDocumentContext {
 
-  dependent_hosted_number_orders: DependentHostedNumberOrderListInstance;
+  dependentHostedNumberOrders: DependentHostedNumberOrderListInstance;
 
   /**
    * Fetch a AuthorizationDocumentInstance
@@ -168,16 +168,16 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
   protected _solution: AuthorizationDocumentSolution;
   protected _uri: string;
 
-  protected _dependent_hosted_number_orders?: DependentHostedNumberOrderListInstance;
+  protected _dependentHostedNumberOrders?: DependentHostedNumberOrderListInstance;
 
   constructor(protected _version: HostedNumbers, sid: string) {
     this._solution = { sid };
     this._uri = `/AuthorizationDocuments/${sid}`;
   }
 
-  get dependent_hosted_number_orders(): DependentHostedNumberOrderListInstance {
-    this._dependent_hosted_number_orders = this._dependent_hosted_number_orders || DependentHostedNumberOrderListInstance(this._version, this._solution.sid);
-    return this._dependent_hosted_number_orders;
+  get dependentHostedNumberOrders(): DependentHostedNumberOrderListInstance {
+    this._dependentHostedNumberOrders = this._dependentHostedNumberOrders || DependentHostedNumberOrderListInstance(this._version, this._solution.sid);
+    return this._dependentHostedNumberOrders;
   }
 
   fetch(callback?: any): Promise<AuthorizationDocumentInstance> {
@@ -344,10 +344,10 @@ export class AuthorizationDocumentInstance {
   }
 
   /**
-   * Access the dependent_hosted_number_orders.
+   * Access the dependentHostedNumberOrders.
    */
-  dependent_hosted_number_orders(): DependentHostedNumberOrderListInstance {
-    return this._proxy.dependent_hosted_number_orders;
+  dependentHostedNumberOrders(): DependentHostedNumberOrderListInstance {
+    return this._proxy.dependentHostedNumberOrders;
   }
 
   /**

@@ -79,13 +79,13 @@ export interface AvailablePhoneNumberCountryListInstancePageOptions {
 
 export interface AvailablePhoneNumberCountryContext {
 
-  toll_free: TollFreeListInstance;
+  tollFree: TollFreeListInstance;
   national: NationalListInstance;
   voip: VoipListInstance;
   local: LocalListInstance;
-  machine_to_machine: MachineToMachineListInstance;
+  machineToMachine: MachineToMachineListInstance;
   mobile: MobileListInstance;
-  shared_cost: SharedCostListInstance;
+  sharedCost: SharedCostListInstance;
 
   /**
    * Fetch a AvailablePhoneNumberCountryInstance
@@ -108,22 +108,22 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
   protected _solution: AvailablePhoneNumberCountrySolution;
   protected _uri: string;
 
-  protected _toll_free?: TollFreeListInstance;
+  protected _tollFree?: TollFreeListInstance;
   protected _national?: NationalListInstance;
   protected _voip?: VoipListInstance;
   protected _local?: LocalListInstance;
-  protected _machine_to_machine?: MachineToMachineListInstance;
+  protected _machineToMachine?: MachineToMachineListInstance;
   protected _mobile?: MobileListInstance;
-  protected _shared_cost?: SharedCostListInstance;
+  protected _sharedCost?: SharedCostListInstance;
 
   constructor(protected _version: V2010, accountSid: string, countryCode: string) {
     this._solution = { accountSid, countryCode };
     this._uri = `/Accounts/${accountSid}/AvailablePhoneNumbers/${countryCode}.json`;
   }
 
-  get toll_free(): TollFreeListInstance {
-    this._toll_free = this._toll_free || TollFreeListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
-    return this._toll_free;
+  get tollFree(): TollFreeListInstance {
+    this._tollFree = this._tollFree || TollFreeListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    return this._tollFree;
   }
 
   get national(): NationalListInstance {
@@ -141,9 +141,9 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
     return this._local;
   }
 
-  get machine_to_machine(): MachineToMachineListInstance {
-    this._machine_to_machine = this._machine_to_machine || MachineToMachineListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
-    return this._machine_to_machine;
+  get machineToMachine(): MachineToMachineListInstance {
+    this._machineToMachine = this._machineToMachine || MachineToMachineListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    return this._machineToMachine;
   }
 
   get mobile(): MobileListInstance {
@@ -151,9 +151,9 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
     return this._mobile;
   }
 
-  get shared_cost(): SharedCostListInstance {
-    this._shared_cost = this._shared_cost || SharedCostListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
-    return this._shared_cost;
+  get sharedCost(): SharedCostListInstance {
+    this._sharedCost = this._sharedCost || SharedCostListInstance(this._version, this._solution.accountSid, this._solution.countryCode);
+    return this._sharedCost;
   }
 
   fetch(callback?: any): Promise<AvailablePhoneNumberCountryInstance> {
@@ -249,10 +249,10 @@ export class AvailablePhoneNumberCountryInstance {
   }
 
   /**
-   * Access the toll_free.
+   * Access the tollFree.
    */
-  toll_free(): TollFreeListInstance {
-    return this._proxy.toll_free;
+  tollFree(): TollFreeListInstance {
+    return this._proxy.tollFree;
   }
 
   /**
@@ -277,10 +277,10 @@ export class AvailablePhoneNumberCountryInstance {
   }
 
   /**
-   * Access the machine_to_machine.
+   * Access the machineToMachine.
    */
-  machine_to_machine(): MachineToMachineListInstance {
-    return this._proxy.machine_to_machine;
+  machineToMachine(): MachineToMachineListInstance {
+    return this._proxy.machineToMachine;
   }
 
   /**
@@ -291,10 +291,10 @@ export class AvailablePhoneNumberCountryInstance {
   }
 
   /**
-   * Access the shared_cost.
+   * Access the sharedCost.
    */
-  shared_cost(): SharedCostListInstance {
-    return this._proxy.shared_cost;
+  sharedCost(): SharedCostListInstance {
+    return this._proxy.sharedCost;
   }
 
   /**

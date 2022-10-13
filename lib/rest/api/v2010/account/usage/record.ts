@@ -106,11 +106,11 @@ export interface RecordListInstance {
   today: TodayListInstance;
   daily: DailyListInstance;
   monthly: MonthlyListInstance;
-  all_time: AllTimeListInstance;
+  allTime: AllTimeListInstance;
   yearly: YearlyListInstance;
   yesterday: YesterdayListInstance;
-  last_month: LastMonthListInstance;
-  this_month: ThisMonthListInstance;
+  lastMonth: LastMonthListInstance;
+  thisMonth: ThisMonthListInstance;
 
 
   /**
@@ -230,11 +230,11 @@ class RecordListInstanceImpl implements RecordListInstance {
   _today?: TodayListInstance;
   _daily?: DailyListInstance;
   _monthly?: MonthlyListInstance;
-  _all_time?: AllTimeListInstance;
+  _allTime?: AllTimeListInstance;
   _yearly?: YearlyListInstance;
   _yesterday?: YesterdayListInstance;
-  _last_month?: LastMonthListInstance;
-  _this_month?: ThisMonthListInstance;
+  _lastMonth?: LastMonthListInstance;
+  _thisMonth?: ThisMonthListInstance;
 }
 
 export function RecordListInstance(version: V2010, accountSid: string): RecordListInstance {
@@ -271,12 +271,12 @@ export function RecordListInstance(version: V2010, accountSid: string): RecordLi
     }
   });
 
-  Object.defineProperty(instance, "all_time", {
-    get: function all_time() {
-      if (!this._all_time) {
-        this._all_time = AllTimeListInstance(this._version, this._solution.accountSid);
+  Object.defineProperty(instance, "allTime", {
+    get: function allTime() {
+      if (!this._allTime) {
+        this._allTime = AllTimeListInstance(this._version, this._solution.accountSid);
       }
-      return this._all_time;
+      return this._allTime;
     }
   });
 
@@ -298,21 +298,21 @@ export function RecordListInstance(version: V2010, accountSid: string): RecordLi
     }
   });
 
-  Object.defineProperty(instance, "last_month", {
-    get: function last_month() {
-      if (!this._last_month) {
-        this._last_month = LastMonthListInstance(this._version, this._solution.accountSid);
+  Object.defineProperty(instance, "lastMonth", {
+    get: function lastMonth() {
+      if (!this._lastMonth) {
+        this._lastMonth = LastMonthListInstance(this._version, this._solution.accountSid);
       }
-      return this._last_month;
+      return this._lastMonth;
     }
   });
 
-  Object.defineProperty(instance, "this_month", {
-    get: function this_month() {
-      if (!this._this_month) {
-        this._this_month = ThisMonthListInstance(this._version, this._solution.accountSid);
+  Object.defineProperty(instance, "thisMonth", {
+    get: function thisMonth() {
+      if (!this._thisMonth) {
+        this._thisMonth = ThisMonthListInstance(this._version, this._solution.accountSid);
       }
-      return this._this_month;
+      return this._thisMonth;
     }
   });
 

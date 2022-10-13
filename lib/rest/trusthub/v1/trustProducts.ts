@@ -361,9 +361,9 @@ export function TrustProductsListInstance(version: V1): TrustProductsListInstanc
 
 export interface TrustProductsContext {
 
-  trust_products_channel_endpoint_assignment: TrustProductsChannelEndpointAssignmentListInstance;
-  trust_products_evaluations: TrustProductsEvaluationsListInstance;
-  trust_products_entity_assignments: TrustProductsEntityAssignmentsListInstance;
+  trustProductsChannelEndpointAssignment: TrustProductsChannelEndpointAssignmentListInstance;
+  trustProductsEvaluations: TrustProductsEvaluationsListInstance;
+  trustProductsEntityAssignments: TrustProductsEntityAssignmentsListInstance;
 
   /**
    * Remove a TrustProductsInstance
@@ -416,28 +416,28 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   protected _solution: TrustProductsSolution;
   protected _uri: string;
 
-  protected _trust_products_channel_endpoint_assignment?: TrustProductsChannelEndpointAssignmentListInstance;
-  protected _trust_products_evaluations?: TrustProductsEvaluationsListInstance;
-  protected _trust_products_entity_assignments?: TrustProductsEntityAssignmentsListInstance;
+  protected _trustProductsChannelEndpointAssignment?: TrustProductsChannelEndpointAssignmentListInstance;
+  protected _trustProductsEvaluations?: TrustProductsEvaluationsListInstance;
+  protected _trustProductsEntityAssignments?: TrustProductsEntityAssignmentsListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/TrustProducts/${sid}`;
   }
 
-  get trust_products_channel_endpoint_assignment(): TrustProductsChannelEndpointAssignmentListInstance {
-    this._trust_products_channel_endpoint_assignment = this._trust_products_channel_endpoint_assignment || TrustProductsChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
-    return this._trust_products_channel_endpoint_assignment;
+  get trustProductsChannelEndpointAssignment(): TrustProductsChannelEndpointAssignmentListInstance {
+    this._trustProductsChannelEndpointAssignment = this._trustProductsChannelEndpointAssignment || TrustProductsChannelEndpointAssignmentListInstance(this._version, this._solution.sid);
+    return this._trustProductsChannelEndpointAssignment;
   }
 
-  get trust_products_evaluations(): TrustProductsEvaluationsListInstance {
-    this._trust_products_evaluations = this._trust_products_evaluations || TrustProductsEvaluationsListInstance(this._version, this._solution.sid);
-    return this._trust_products_evaluations;
+  get trustProductsEvaluations(): TrustProductsEvaluationsListInstance {
+    this._trustProductsEvaluations = this._trustProductsEvaluations || TrustProductsEvaluationsListInstance(this._version, this._solution.sid);
+    return this._trustProductsEvaluations;
   }
 
-  get trust_products_entity_assignments(): TrustProductsEntityAssignmentsListInstance {
-    this._trust_products_entity_assignments = this._trust_products_entity_assignments || TrustProductsEntityAssignmentsListInstance(this._version, this._solution.sid);
-    return this._trust_products_entity_assignments;
+  get trustProductsEntityAssignments(): TrustProductsEntityAssignmentsListInstance {
+    this._trustProductsEntityAssignments = this._trustProductsEntityAssignments || TrustProductsEntityAssignmentsListInstance(this._version, this._solution.sid);
+    return this._trustProductsEntityAssignments;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -650,24 +650,24 @@ export class TrustProductsInstance {
   }
 
   /**
-   * Access the trust_products_channel_endpoint_assignment.
+   * Access the trustProductsChannelEndpointAssignment.
    */
-  trust_products_channel_endpoint_assignment(): TrustProductsChannelEndpointAssignmentListInstance {
-    return this._proxy.trust_products_channel_endpoint_assignment;
+  trustProductsChannelEndpointAssignment(): TrustProductsChannelEndpointAssignmentListInstance {
+    return this._proxy.trustProductsChannelEndpointAssignment;
   }
 
   /**
-   * Access the trust_products_evaluations.
+   * Access the trustProductsEvaluations.
    */
-  trust_products_evaluations(): TrustProductsEvaluationsListInstance {
-    return this._proxy.trust_products_evaluations;
+  trustProductsEvaluations(): TrustProductsEvaluationsListInstance {
+    return this._proxy.trustProductsEvaluations;
   }
 
   /**
-   * Access the trust_products_entity_assignments.
+   * Access the trustProductsEntityAssignments.
    */
-  trust_products_entity_assignments(): TrustProductsEntityAssignmentsListInstance {
-    return this._proxy.trust_products_entity_assignments;
+  trustProductsEntityAssignments(): TrustProductsEntityAssignmentsListInstance {
+    return this._proxy.trustProductsEntityAssignments;
   }
 
   /**

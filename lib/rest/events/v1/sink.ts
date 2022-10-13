@@ -344,8 +344,8 @@ export function SinkListInstance(version: V1): SinkListInstance {
 
 export interface SinkContext {
 
-  sink_test: SinkTestListInstance;
-  sink_validate: SinkValidateListInstance;
+  sinkTest: SinkTestListInstance;
+  sinkValidate: SinkValidateListInstance;
 
   /**
    * Remove a SinkInstance
@@ -390,22 +390,22 @@ export class SinkContextImpl implements SinkContext {
   protected _solution: SinkSolution;
   protected _uri: string;
 
-  protected _sink_test?: SinkTestListInstance;
-  protected _sink_validate?: SinkValidateListInstance;
+  protected _sinkTest?: SinkTestListInstance;
+  protected _sinkValidate?: SinkValidateListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Sinks/${sid}`;
   }
 
-  get sink_test(): SinkTestListInstance {
-    this._sink_test = this._sink_test || SinkTestListInstance(this._version, this._solution.sid);
-    return this._sink_test;
+  get sinkTest(): SinkTestListInstance {
+    this._sinkTest = this._sinkTest || SinkTestListInstance(this._version, this._solution.sid);
+    return this._sinkTest;
   }
 
-  get sink_validate(): SinkValidateListInstance {
-    this._sink_validate = this._sink_validate || SinkValidateListInstance(this._version, this._solution.sid);
-    return this._sink_validate;
+  get sinkValidate(): SinkValidateListInstance {
+    this._sinkValidate = this._sinkValidate || SinkValidateListInstance(this._version, this._solution.sid);
+    return this._sinkValidate;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -587,17 +587,17 @@ export class SinkInstance {
   }
 
   /**
-   * Access the sink_test.
+   * Access the sinkTest.
    */
-  sink_test(): SinkTestListInstance {
-    return this._proxy.sink_test;
+  sinkTest(): SinkTestListInstance {
+    return this._proxy.sinkTest;
   }
 
   /**
-   * Access the sink_validate.
+   * Access the sinkValidate.
    */
-  sink_validate(): SinkValidateListInstance {
-    return this._proxy.sink_validate;
+  sinkValidate(): SinkValidateListInstance {
+    return this._proxy.sinkValidate;
   }
 
   /**

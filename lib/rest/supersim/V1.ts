@@ -27,14 +27,14 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Supersim
    *
-   * @property { Twilio.Supersim.V1.IpCommandListInstance } ip_commands - ip_commands resource
+   * @property { Twilio.Supersim.V1.IpCommandListInstance } ipCommands - ipCommands resource
    * @property { Twilio.Supersim.V1.FleetListInstance } fleets - fleets resource
    * @property { Twilio.Supersim.V1.SimListInstance } sims - sims resource
    * @property { Twilio.Supersim.V1.NetworkListInstance } networks - networks resource
-   * @property { Twilio.Supersim.V1.UsageRecordListInstance } usage_records - usage_records resource
-   * @property { Twilio.Supersim.V1.NetworkAccessProfileListInstance } network_access_profiles - network_access_profiles resource
-   * @property { Twilio.Supersim.V1.SmsCommandListInstance } sms_commands - sms_commands resource
-   * @property { Twilio.Supersim.V1.EsimProfileListInstance } e_sim_profiles - e_sim_profiles resource
+   * @property { Twilio.Supersim.V1.UsageRecordListInstance } usageRecords - usageRecords resource
+   * @property { Twilio.Supersim.V1.NetworkAccessProfileListInstance } networkAccessProfiles - networkAccessProfiles resource
+   * @property { Twilio.Supersim.V1.SmsCommandListInstance } smsCommands - smsCommands resource
+   * @property { Twilio.Supersim.V1.EsimProfileListInstance } esimProfiles - esimProfiles resource
    *
    * @param { Twilio.Supersim } domain - The Twilio domain
    */
@@ -42,18 +42,18 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _ip_commands?: IpCommandListInstance;
+  protected _ipCommands?: IpCommandListInstance;
   protected _fleets?: FleetListInstance;
   protected _sims?: SimListInstance;
   protected _networks?: NetworkListInstance;
-  protected _usage_records?: UsageRecordListInstance;
-  protected _network_access_profiles?: NetworkAccessProfileListInstance;
-  protected _sms_commands?: SmsCommandListInstance;
-  protected _e_sim_profiles?: EsimProfileListInstance;
+  protected _usageRecords?: UsageRecordListInstance;
+  protected _networkAccessProfiles?: NetworkAccessProfileListInstance;
+  protected _smsCommands?: SmsCommandListInstance;
+  protected _esimProfiles?: EsimProfileListInstance;
 
-  get ip_commands(): IpCommandListInstance {
-    this._ip_commands = this._ip_commands || IpCommandListInstance(this);
-    return this._ip_commands;
+  get ipCommands(): IpCommandListInstance {
+    this._ipCommands = this._ipCommands || IpCommandListInstance(this);
+    return this._ipCommands;
   }
 
   get fleets(): FleetListInstance {
@@ -71,24 +71,24 @@ export default class V1 extends Version {
     return this._networks;
   }
 
-  get usage_records(): UsageRecordListInstance {
-    this._usage_records = this._usage_records || UsageRecordListInstance(this);
-    return this._usage_records;
+  get usageRecords(): UsageRecordListInstance {
+    this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
+    return this._usageRecords;
   }
 
-  get network_access_profiles(): NetworkAccessProfileListInstance {
-    this._network_access_profiles = this._network_access_profiles || NetworkAccessProfileListInstance(this);
-    return this._network_access_profiles;
+  get networkAccessProfiles(): NetworkAccessProfileListInstance {
+    this._networkAccessProfiles = this._networkAccessProfiles || NetworkAccessProfileListInstance(this);
+    return this._networkAccessProfiles;
   }
 
-  get sms_commands(): SmsCommandListInstance {
-    this._sms_commands = this._sms_commands || SmsCommandListInstance(this);
-    return this._sms_commands;
+  get smsCommands(): SmsCommandListInstance {
+    this._smsCommands = this._smsCommands || SmsCommandListInstance(this);
+    return this._smsCommands;
   }
 
-  get e_sim_profiles(): EsimProfileListInstance {
-    this._e_sim_profiles = this._e_sim_profiles || EsimProfileListInstance(this);
-    return this._e_sim_profiles;
+  get esimProfiles(): EsimProfileListInstance {
+    this._esimProfiles = this._esimProfiles || EsimProfileListInstance(this);
+    return this._esimProfiles;
   }
 
 }

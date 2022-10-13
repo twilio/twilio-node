@@ -88,7 +88,7 @@ export interface BuildListInstancePageOptions {
 
 export interface BuildContext {
 
-  build_status: BuildStatusListInstance;
+  buildStatus: BuildStatusListInstance;
 
   /**
    * Remove a BuildInstance
@@ -121,16 +121,16 @@ export class BuildContextImpl implements BuildContext {
   protected _solution: BuildSolution;
   protected _uri: string;
 
-  protected _build_status?: BuildStatusListInstance;
+  protected _buildStatus?: BuildStatusListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Builds/${sid}`;
   }
 
-  get build_status(): BuildStatusListInstance {
-    this._build_status = this._build_status || BuildStatusListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._build_status;
+  get buildStatus(): BuildStatusListInstance {
+    this._buildStatus = this._buildStatus || BuildStatusListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._buildStatus;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -284,10 +284,10 @@ export class BuildInstance {
   }
 
   /**
-   * Access the build_status.
+   * Access the buildStatus.
    */
-  build_status(): BuildStatusListInstance {
-    return this._proxy.build_status;
+  buildStatus(): BuildStatusListInstance {
+    return this._proxy.buildStatus;
   }
 
   /**

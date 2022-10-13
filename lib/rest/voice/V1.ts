@@ -25,12 +25,12 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Voice
    *
-   * @property { Twilio.Voice.V1.ByocTrunkListInstance } byoc_trunks - byoc_trunks resource
-   * @property { Twilio.Voice.V1.IpRecordListInstance } ip_records - ip_records resource
-   * @property { Twilio.Voice.V1.ArchivedCallListInstance } archived_call - archived_call resource
-   * @property { Twilio.Voice.V1.ConnectionPolicyListInstance } connection_policies - connection_policies resource
-   * @property { Twilio.Voice.V1.DialingPermissionsListInstance } dialing_permissions - dialing_permissions resource
-   * @property { Twilio.Voice.V1.SourceIpMappingListInstance } source_ip_mappings - source_ip_mappings resource
+   * @property { Twilio.Voice.V1.ByocTrunkListInstance } byocTrunks - byocTrunks resource
+   * @property { Twilio.Voice.V1.IpRecordListInstance } ipRecords - ipRecords resource
+   * @property { Twilio.Voice.V1.ArchivedCallListInstance } archivedCall - archivedCall resource
+   * @property { Twilio.Voice.V1.ConnectionPolicyListInstance } connectionPolicies - connectionPolicies resource
+   * @property { Twilio.Voice.V1.DialingPermissionsListInstance } dialingPermissions - dialingPermissions resource
+   * @property { Twilio.Voice.V1.SourceIpMappingListInstance } sourceIpMappings - sourceIpMappings resource
    *
    * @param { Twilio.Voice } domain - The Twilio domain
    */
@@ -38,41 +38,41 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _byoc_trunks?: ByocTrunkListInstance;
-  protected _ip_records?: IpRecordListInstance;
-  protected _archived_call?: ArchivedCallListInstance;
-  protected _connection_policies?: ConnectionPolicyListInstance;
-  protected _dialing_permissions?: DialingPermissionsListInstance;
-  protected _source_ip_mappings?: SourceIpMappingListInstance;
+  protected _byocTrunks?: ByocTrunkListInstance;
+  protected _ipRecords?: IpRecordListInstance;
+  protected _archivedCall?: ArchivedCallListInstance;
+  protected _connectionPolicies?: ConnectionPolicyListInstance;
+  protected _dialingPermissions?: DialingPermissionsListInstance;
+  protected _sourceIpMappings?: SourceIpMappingListInstance;
 
-  get byoc_trunks(): ByocTrunkListInstance {
-    this._byoc_trunks = this._byoc_trunks || ByocTrunkListInstance(this);
-    return this._byoc_trunks;
+  get byocTrunks(): ByocTrunkListInstance {
+    this._byocTrunks = this._byocTrunks || ByocTrunkListInstance(this);
+    return this._byocTrunks;
   }
 
-  get ip_records(): IpRecordListInstance {
-    this._ip_records = this._ip_records || IpRecordListInstance(this);
-    return this._ip_records;
+  get ipRecords(): IpRecordListInstance {
+    this._ipRecords = this._ipRecords || IpRecordListInstance(this);
+    return this._ipRecords;
   }
 
-  get archived_call(): ArchivedCallListInstance {
-    this._archived_call = this._archived_call || ArchivedCallListInstance(this);
-    return this._archived_call;
+  get archivedCall(): ArchivedCallListInstance {
+    this._archivedCall = this._archivedCall || ArchivedCallListInstance(this);
+    return this._archivedCall;
   }
 
-  get connection_policies(): ConnectionPolicyListInstance {
-    this._connection_policies = this._connection_policies || ConnectionPolicyListInstance(this);
-    return this._connection_policies;
+  get connectionPolicies(): ConnectionPolicyListInstance {
+    this._connectionPolicies = this._connectionPolicies || ConnectionPolicyListInstance(this);
+    return this._connectionPolicies;
   }
 
-  get dialing_permissions(): DialingPermissionsListInstance {
-    this._dialing_permissions = this._dialing_permissions || DialingPermissionsListInstance(this);
-    return this._dialing_permissions;
+  get dialingPermissions(): DialingPermissionsListInstance {
+    this._dialingPermissions = this._dialingPermissions || DialingPermissionsListInstance(this);
+    return this._dialingPermissions;
   }
 
-  get source_ip_mappings(): SourceIpMappingListInstance {
-    this._source_ip_mappings = this._source_ip_mappings || SourceIpMappingListInstance(this);
-    return this._source_ip_mappings;
+  get sourceIpMappings(): SourceIpMappingListInstance {
+    this._sourceIpMappings = this._sourceIpMappings || SourceIpMappingListInstance(this);
+    return this._sourceIpMappings;
   }
 
 }

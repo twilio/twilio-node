@@ -256,7 +256,7 @@ export function AvailableAddOnListInstance(version: Marketplace): AvailableAddOn
 
 export interface AvailableAddOnContext {
 
-  available_add_on_extension: AvailableAddOnExtensionListInstance;
+  availableAddOnExtension: AvailableAddOnExtensionListInstance;
 
   /**
    * Fetch a AvailableAddOnInstance
@@ -279,16 +279,16 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
   protected _solution: AvailableAddOnSolution;
   protected _uri: string;
 
-  protected _available_add_on_extension?: AvailableAddOnExtensionListInstance;
+  protected _availableAddOnExtension?: AvailableAddOnExtensionListInstance;
 
   constructor(protected _version: Marketplace, sid: string) {
     this._solution = { sid };
     this._uri = `/AvailableAddOns/${sid}`;
   }
 
-  get available_add_on_extension(): AvailableAddOnExtensionListInstance {
-    this._available_add_on_extension = this._available_add_on_extension || AvailableAddOnExtensionListInstance(this._version, this._solution.sid);
-    return this._available_add_on_extension;
+  get availableAddOnExtension(): AvailableAddOnExtensionListInstance {
+    this._availableAddOnExtension = this._availableAddOnExtension || AvailableAddOnExtensionListInstance(this._version, this._solution.sid);
+    return this._availableAddOnExtension;
   }
 
   fetch(callback?: any): Promise<AvailableAddOnInstance> {
@@ -396,10 +396,10 @@ export class AvailableAddOnInstance {
   }
 
   /**
-   * Access the available_add_on_extension.
+   * Access the availableAddOnExtension.
    */
-  available_add_on_extension(): AvailableAddOnExtensionListInstance {
-    return this._proxy.available_add_on_extension;
+  availableAddOnExtension(): AvailableAddOnExtensionListInstance {
+    return this._proxy.availableAddOnExtension;
   }
 
   /**

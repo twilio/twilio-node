@@ -256,7 +256,7 @@ export function FunctionVersionListInstance(version: V1, serviceSid: string, fun
 
 export interface FunctionVersionContext {
 
-  function_version_content: FunctionVersionContentListInstance;
+  functionVersionContent: FunctionVersionContentListInstance;
 
   /**
    * Fetch a FunctionVersionInstance
@@ -279,16 +279,16 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
   protected _solution: FunctionVersionSolution;
   protected _uri: string;
 
-  protected _function_version_content?: FunctionVersionContentListInstance;
+  protected _functionVersionContent?: FunctionVersionContentListInstance;
 
   constructor(protected _version: V1, serviceSid: string, functionSid: string, sid: string) {
     this._solution = { serviceSid, functionSid, sid };
     this._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}`;
   }
 
-  get function_version_content(): FunctionVersionContentListInstance {
-    this._function_version_content = this._function_version_content || FunctionVersionContentListInstance(this._version, this._solution.serviceSid, this._solution.functionSid, this._solution.sid);
-    return this._function_version_content;
+  get functionVersionContent(): FunctionVersionContentListInstance {
+    this._functionVersionContent = this._functionVersionContent || FunctionVersionContentListInstance(this._version, this._solution.serviceSid, this._solution.functionSid, this._solution.sid);
+    return this._functionVersionContent;
   }
 
   fetch(callback?: any): Promise<FunctionVersionInstance> {
@@ -402,10 +402,10 @@ export class FunctionVersionInstance {
   }
 
   /**
-   * Access the function_version_content.
+   * Access the functionVersionContent.
    */
-  function_version_content(): FunctionVersionContentListInstance {
-    return this._proxy.function_version_content;
+  functionVersionContent(): FunctionVersionContentListInstance {
+    return this._proxy.functionVersionContent;
   }
 
   /**

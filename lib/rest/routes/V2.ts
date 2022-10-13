@@ -22,9 +22,9 @@ export default class V2 extends Version {
   /**
    * Initialize the V2 version of Routes
    *
-   * @property { Twilio.Routes.V2.SipDomainListInstance } sip_domains - sip_domains resource
+   * @property { Twilio.Routes.V2.SipDomainListInstance } sipDomains - sipDomains resource
    * @property { Twilio.Routes.V2.TrunkListInstance } trunks - trunks resource
-   * @property { Twilio.Routes.V2.PhoneNumberListInstance } phone_numbers - phone_numbers resource
+   * @property { Twilio.Routes.V2.PhoneNumberListInstance } phoneNumbers - phoneNumbers resource
    *
    * @param { Twilio.Routes } domain - The Twilio domain
    */
@@ -32,13 +32,13 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
-  protected _sip_domains?: SipDomainListInstance;
+  protected _sipDomains?: SipDomainListInstance;
   protected _trunks?: TrunkListInstance;
-  protected _phone_numbers?: PhoneNumberListInstance;
+  protected _phoneNumbers?: PhoneNumberListInstance;
 
-  get sip_domains(): SipDomainListInstance {
-    this._sip_domains = this._sip_domains || SipDomainListInstance(this);
-    return this._sip_domains;
+  get sipDomains(): SipDomainListInstance {
+    this._sipDomains = this._sipDomains || SipDomainListInstance(this);
+    return this._sipDomains;
   }
 
   get trunks(): TrunkListInstance {
@@ -46,9 +46,9 @@ export default class V2 extends Version {
     return this._trunks;
   }
 
-  get phone_numbers(): PhoneNumberListInstance {
-    this._phone_numbers = this._phone_numbers || PhoneNumberListInstance(this);
-    return this._phone_numbers;
+  get phoneNumbers(): PhoneNumberListInstance {
+    this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
+    return this._phoneNumbers;
   }
 
 }

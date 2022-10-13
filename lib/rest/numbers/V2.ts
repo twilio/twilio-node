@@ -20,7 +20,7 @@ export default class V2 extends Version {
   /**
    * Initialize the V2 version of Numbers
    *
-   * @property { Twilio.Numbers.V2.RegulatoryComplianceListInstance } regulatory_compliance - regulatory_compliance resource
+   * @property { Twilio.Numbers.V2.RegulatoryComplianceListInstance } regulatoryCompliance - regulatoryCompliance resource
    *
    * @param { Twilio.Numbers } domain - The Twilio domain
    */
@@ -28,11 +28,11 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
-  protected _regulatory_compliance?: RegulatoryComplianceListInstance;
+  protected _regulatoryCompliance?: RegulatoryComplianceListInstance;
 
-  get regulatory_compliance(): RegulatoryComplianceListInstance {
-    this._regulatory_compliance = this._regulatory_compliance || RegulatoryComplianceListInstance(this);
-    return this._regulatory_compliance;
+  get regulatoryCompliance(): RegulatoryComplianceListInstance {
+    this._regulatoryCompliance = this._regulatoryCompliance || RegulatoryComplianceListInstance(this);
+    return this._regulatoryCompliance;
   }
 
 }

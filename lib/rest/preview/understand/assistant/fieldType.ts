@@ -320,7 +320,7 @@ export function FieldTypeListInstance(version: Understand, assistantSid: string)
 
 export interface FieldTypeContext {
 
-  field_values: FieldValueListInstance;
+  fieldValues: FieldValueListInstance;
 
   /**
    * Remove a FieldTypeInstance
@@ -373,16 +373,16 @@ export class FieldTypeContextImpl implements FieldTypeContext {
   protected _solution: FieldTypeSolution;
   protected _uri: string;
 
-  protected _field_values?: FieldValueListInstance;
+  protected _fieldValues?: FieldValueListInstance;
 
   constructor(protected _version: Understand, assistantSid: string, sid: string) {
     this._solution = { assistantSid, sid };
     this._uri = `/Assistants/${assistantSid}/FieldTypes/${sid}`;
   }
 
-  get field_values(): FieldValueListInstance {
-    this._field_values = this._field_values || FieldValueListInstance(this._version, this._solution.assistantSid, this._solution.sid);
-    return this._field_values;
+  get fieldValues(): FieldValueListInstance {
+    this._fieldValues = this._fieldValues || FieldValueListInstance(this._version, this._solution.assistantSid, this._solution.sid);
+    return this._fieldValues;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -572,10 +572,10 @@ export class FieldTypeInstance {
   }
 
   /**
-   * Access the field_values.
+   * Access the fieldValues.
    */
-  field_values(): FieldValueListInstance {
-    return this._proxy.field_values;
+  fieldValues(): FieldValueListInstance {
+    return this._proxy.fieldValues;
   }
 
   /**

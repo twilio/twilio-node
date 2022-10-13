@@ -128,12 +128,12 @@ export interface AssistantContext {
 
   dialogues: DialogueListInstance;
   tasks: TaskListInstance;
-  assistant_fallback_actions: AssistantFallbackActionsListInstance;
-  assistant_initiation_actions: AssistantInitiationActionsListInstance;
-  style_sheet: StyleSheetListInstance;
+  assistantFallbackActions: AssistantFallbackActionsListInstance;
+  assistantInitiationActions: AssistantInitiationActionsListInstance;
+  styleSheet: StyleSheetListInstance;
   queries: QueryListInstance;
-  model_builds: ModelBuildListInstance;
-  field_types: FieldTypeListInstance;
+  modelBuilds: ModelBuildListInstance;
+  fieldTypes: FieldTypeListInstance;
 
   /**
    * Remove a AssistantInstance
@@ -188,12 +188,12 @@ export class AssistantContextImpl implements AssistantContext {
 
   protected _dialogues?: DialogueListInstance;
   protected _tasks?: TaskListInstance;
-  protected _assistant_fallback_actions?: AssistantFallbackActionsListInstance;
-  protected _assistant_initiation_actions?: AssistantInitiationActionsListInstance;
-  protected _style_sheet?: StyleSheetListInstance;
+  protected _assistantFallbackActions?: AssistantFallbackActionsListInstance;
+  protected _assistantInitiationActions?: AssistantInitiationActionsListInstance;
+  protected _styleSheet?: StyleSheetListInstance;
   protected _queries?: QueryListInstance;
-  protected _model_builds?: ModelBuildListInstance;
-  protected _field_types?: FieldTypeListInstance;
+  protected _modelBuilds?: ModelBuildListInstance;
+  protected _fieldTypes?: FieldTypeListInstance;
 
   constructor(protected _version: Understand, sid: string) {
     this._solution = { sid };
@@ -210,19 +210,19 @@ export class AssistantContextImpl implements AssistantContext {
     return this._tasks;
   }
 
-  get assistant_fallback_actions(): AssistantFallbackActionsListInstance {
-    this._assistant_fallback_actions = this._assistant_fallback_actions || AssistantFallbackActionsListInstance(this._version, this._solution.sid);
-    return this._assistant_fallback_actions;
+  get assistantFallbackActions(): AssistantFallbackActionsListInstance {
+    this._assistantFallbackActions = this._assistantFallbackActions || AssistantFallbackActionsListInstance(this._version, this._solution.sid);
+    return this._assistantFallbackActions;
   }
 
-  get assistant_initiation_actions(): AssistantInitiationActionsListInstance {
-    this._assistant_initiation_actions = this._assistant_initiation_actions || AssistantInitiationActionsListInstance(this._version, this._solution.sid);
-    return this._assistant_initiation_actions;
+  get assistantInitiationActions(): AssistantInitiationActionsListInstance {
+    this._assistantInitiationActions = this._assistantInitiationActions || AssistantInitiationActionsListInstance(this._version, this._solution.sid);
+    return this._assistantInitiationActions;
   }
 
-  get style_sheet(): StyleSheetListInstance {
-    this._style_sheet = this._style_sheet || StyleSheetListInstance(this._version, this._solution.sid);
-    return this._style_sheet;
+  get styleSheet(): StyleSheetListInstance {
+    this._styleSheet = this._styleSheet || StyleSheetListInstance(this._version, this._solution.sid);
+    return this._styleSheet;
   }
 
   get queries(): QueryListInstance {
@@ -230,14 +230,14 @@ export class AssistantContextImpl implements AssistantContext {
     return this._queries;
   }
 
-  get model_builds(): ModelBuildListInstance {
-    this._model_builds = this._model_builds || ModelBuildListInstance(this._version, this._solution.sid);
-    return this._model_builds;
+  get modelBuilds(): ModelBuildListInstance {
+    this._modelBuilds = this._modelBuilds || ModelBuildListInstance(this._version, this._solution.sid);
+    return this._modelBuilds;
   }
 
-  get field_types(): FieldTypeListInstance {
-    this._field_types = this._field_types || FieldTypeListInstance(this._version, this._solution.sid);
-    return this._field_types;
+  get fieldTypes(): FieldTypeListInstance {
+    this._fieldTypes = this._fieldTypes || FieldTypeListInstance(this._version, this._solution.sid);
+    return this._fieldTypes;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -465,24 +465,24 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the assistant_fallback_actions.
+   * Access the assistantFallbackActions.
    */
-  assistant_fallback_actions(): AssistantFallbackActionsListInstance {
-    return this._proxy.assistant_fallback_actions;
+  assistantFallbackActions(): AssistantFallbackActionsListInstance {
+    return this._proxy.assistantFallbackActions;
   }
 
   /**
-   * Access the assistant_initiation_actions.
+   * Access the assistantInitiationActions.
    */
-  assistant_initiation_actions(): AssistantInitiationActionsListInstance {
-    return this._proxy.assistant_initiation_actions;
+  assistantInitiationActions(): AssistantInitiationActionsListInstance {
+    return this._proxy.assistantInitiationActions;
   }
 
   /**
-   * Access the style_sheet.
+   * Access the styleSheet.
    */
-  style_sheet(): StyleSheetListInstance {
-    return this._proxy.style_sheet;
+  styleSheet(): StyleSheetListInstance {
+    return this._proxy.styleSheet;
   }
 
   /**
@@ -493,17 +493,17 @@ export class AssistantInstance {
   }
 
   /**
-   * Access the model_builds.
+   * Access the modelBuilds.
    */
-  model_builds(): ModelBuildListInstance {
-    return this._proxy.model_builds;
+  modelBuilds(): ModelBuildListInstance {
+    return this._proxy.modelBuilds;
   }
 
   /**
-   * Access the field_types.
+   * Access the fieldTypes.
    */
-  field_types(): FieldTypeListInstance {
-    return this._proxy.field_types;
+  fieldTypes(): FieldTypeListInstance {
+    return this._proxy.fieldTypes;
   }
 
   /**

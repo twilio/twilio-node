@@ -139,7 +139,7 @@ export interface AddressListInstancePageOptions {
 
 export interface AddressContext {
 
-  dependent_phone_numbers: DependentPhoneNumberListInstance;
+  dependentPhoneNumbers: DependentPhoneNumberListInstance;
 
   /**
    * Remove a AddressInstance
@@ -192,16 +192,16 @@ export class AddressContextImpl implements AddressContext {
   protected _solution: AddressSolution;
   protected _uri: string;
 
-  protected _dependent_phone_numbers?: DependentPhoneNumberListInstance;
+  protected _dependentPhoneNumbers?: DependentPhoneNumberListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/Addresses/${sid}.json`;
   }
 
-  get dependent_phone_numbers(): DependentPhoneNumberListInstance {
-    this._dependent_phone_numbers = this._dependent_phone_numbers || DependentPhoneNumberListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._dependent_phone_numbers;
+  get dependentPhoneNumbers(): DependentPhoneNumberListInstance {
+    this._dependentPhoneNumbers = this._dependentPhoneNumbers || DependentPhoneNumberListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._dependentPhoneNumbers;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -439,10 +439,10 @@ export class AddressInstance {
   }
 
   /**
-   * Access the dependent_phone_numbers.
+   * Access the dependentPhoneNumbers.
    */
-  dependent_phone_numbers(): DependentPhoneNumberListInstance {
-    return this._proxy.dependent_phone_numbers;
+  dependentPhoneNumbers(): DependentPhoneNumberListInstance {
+    return this._proxy.dependentPhoneNumbers;
   }
 
   /**

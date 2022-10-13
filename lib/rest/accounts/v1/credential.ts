@@ -20,12 +20,12 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { PublicKeyListInstance } from "./credential/publicKey";
-import { AWSListInstance } from "./credential/aWS";
+import { AWSListInstance } from "./credential/aws";
 
 
 export interface CredentialListInstance {
 
-  public_keys: PublicKeyListInstance;
+  publicKeys: PublicKeyListInstance;
   aws: AWSListInstance;
 
   /**
@@ -41,7 +41,7 @@ class CredentialListInstanceImpl implements CredentialListInstance {
   _solution?: CredentialSolution;
   _uri?: string;
 
-  _public_keys?: PublicKeyListInstance;
+  _publicKeys?: PublicKeyListInstance;
   _aws?: AWSListInstance;
 }
 
@@ -52,12 +52,12 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   instance._solution = {  };
   instance._uri = `/Credentials`;
 
-  Object.defineProperty(instance, "public_keys", {
-    get: function public_keys() {
-      if (!this._public_keys) {
-        this._public_keys = PublicKeyListInstance(this._version);
+  Object.defineProperty(instance, "publicKeys", {
+    get: function publicKeys() {
+      if (!this._publicKeys) {
+        this._publicKeys = PublicKeyListInstance(this._version);
       }
-      return this._public_keys;
+      return this._publicKeys;
     }
   });
 
