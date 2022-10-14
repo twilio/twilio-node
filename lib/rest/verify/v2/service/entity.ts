@@ -19,6 +19,7 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { NewFactorListInstance } from "./entity/newFactor";
 import { FactorListInstance } from "./entity/factor";
 import { ChallengeListInstance } from "./entity/challenge";
 
@@ -307,6 +308,7 @@ export function EntityListInstance(version: V2, serviceSid: string): EntityListI
 
 export interface EntityContext {
 
+  newFactors: NewFactorListInstance;
   factors: FactorListInstance;
   challenges: ChallengeListInstance;
 
@@ -341,12 +343,18 @@ export class EntityContextImpl implements EntityContext {
   protected _solution: EntitySolution;
   protected _uri: string;
 
+  protected _newFactors?: NewFactorListInstance;
   protected _factors?: FactorListInstance;
   protected _challenges?: ChallengeListInstance;
 
   constructor(protected _version: V2, serviceSid: string, identity: string) {
     this._solution = { serviceSid, identity };
     this._uri = `/Services/${serviceSid}/Entities/${identity}`;
+  }
+
+  get newFactors(): NewFactorListInstance {
+    this._newFactors = this._newFactors || NewFactorListInstance(this._version, this._solution.serviceSid, this._solution.identity);
+    return this._newFactors;
   }
 
   get factors(): FactorListInstance {
@@ -492,6 +500,13 @@ export class EntityInstance {
   fetch(callback?: (error: Error | null, item?: EntityInstance) => any): Promise<EntityInstance>
      {
     return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Access the newFactors.
+   */
+  newFactors(): NewFactorListInstance {
+    return this._proxy.newFactors;
   }
 
   /**

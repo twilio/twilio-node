@@ -26,12 +26,14 @@ import { AuthorizedConnectAppListInstance } from "./account/authorizedConnectApp
 import { MessageListInstance } from "./account/message";
 import { TranscriptionListInstance } from "./account/transcription";
 import { AddressListInstance } from "./account/address";
+import { ValidationRequestListInstance } from "./account/validationRequest";
 import { SigningKeyListInstance } from "./account/signingKey";
 import { TokenListInstance } from "./account/token";
 import { ConferenceListInstance } from "./account/conference";
 import { NotificationListInstance } from "./account/notification";
 import { AvailablePhoneNumberCountryListInstance } from "./account/availablePhoneNumberCountry";
 import { OutgoingCallerIdListInstance } from "./account/outgoingCallerId";
+import { NewSigningKeyListInstance } from "./account/newSigningKey";
 import { RecordingListInstance } from "./account/recording";
 import { SIPListInstance } from "./account/sip";
 import { IncomingPhoneNumberListInstance } from "./account/incomingPhoneNumber";
@@ -39,6 +41,7 @@ import { ApplicationListInstance } from "./account/application";
 import { BalanceListInstance } from "./account/balance";
 import { QueueListInstance } from "./account/queue";
 import { KeyListInstance } from "./account/key";
+import { NewKeyListInstance } from "./account/newKey";
 
 
 /**
@@ -131,12 +134,14 @@ export interface AccountContext {
   messages: MessageListInstance;
   transcriptions: TranscriptionListInstance;
   addresses: AddressListInstance;
+  validationRequests: ValidationRequestListInstance;
   signingKeys: SigningKeyListInstance;
   tokens: TokenListInstance;
   conferences: ConferenceListInstance;
   notifications: NotificationListInstance;
   availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
   outgoingCallerIds: OutgoingCallerIdListInstance;
+  newSigningKeys: NewSigningKeyListInstance;
   recordings: RecordingListInstance;
   sip: SIPListInstance;
   incomingPhoneNumbers: IncomingPhoneNumberListInstance;
@@ -144,6 +149,7 @@ export interface AccountContext {
   balance: BalanceListInstance;
   queues: QueueListInstance;
   keys: KeyListInstance;
+  newKeys: NewKeyListInstance;
 
   /**
    * Fetch a AccountInstance
@@ -193,12 +199,14 @@ export class AccountContextImpl implements AccountContext {
   protected _messages?: MessageListInstance;
   protected _transcriptions?: TranscriptionListInstance;
   protected _addresses?: AddressListInstance;
+  protected _validationRequests?: ValidationRequestListInstance;
   protected _signingKeys?: SigningKeyListInstance;
   protected _tokens?: TokenListInstance;
   protected _conferences?: ConferenceListInstance;
   protected _notifications?: NotificationListInstance;
   protected _availablePhoneNumbers?: AvailablePhoneNumberCountryListInstance;
   protected _outgoingCallerIds?: OutgoingCallerIdListInstance;
+  protected _newSigningKeys?: NewSigningKeyListInstance;
   protected _recordings?: RecordingListInstance;
   protected _sip?: SIPListInstance;
   protected _incomingPhoneNumbers?: IncomingPhoneNumberListInstance;
@@ -206,6 +214,7 @@ export class AccountContextImpl implements AccountContext {
   protected _balance?: BalanceListInstance;
   protected _queues?: QueueListInstance;
   protected _keys?: KeyListInstance;
+  protected _newKeys?: NewKeyListInstance;
 
   constructor(protected _version: V2010, sid: string) {
     this._solution = { sid };
@@ -247,6 +256,11 @@ export class AccountContextImpl implements AccountContext {
     return this._addresses;
   }
 
+  get validationRequests(): ValidationRequestListInstance {
+    this._validationRequests = this._validationRequests || ValidationRequestListInstance(this._version, this._solution.sid);
+    return this._validationRequests;
+  }
+
   get signingKeys(): SigningKeyListInstance {
     this._signingKeys = this._signingKeys || SigningKeyListInstance(this._version, this._solution.sid);
     return this._signingKeys;
@@ -275,6 +289,11 @@ export class AccountContextImpl implements AccountContext {
   get outgoingCallerIds(): OutgoingCallerIdListInstance {
     this._outgoingCallerIds = this._outgoingCallerIds || OutgoingCallerIdListInstance(this._version, this._solution.sid);
     return this._outgoingCallerIds;
+  }
+
+  get newSigningKeys(): NewSigningKeyListInstance {
+    this._newSigningKeys = this._newSigningKeys || NewSigningKeyListInstance(this._version, this._solution.sid);
+    return this._newSigningKeys;
   }
 
   get recordings(): RecordingListInstance {
@@ -310,6 +329,11 @@ export class AccountContextImpl implements AccountContext {
   get keys(): KeyListInstance {
     this._keys = this._keys || KeyListInstance(this._version, this._solution.sid);
     return this._keys;
+  }
+
+  get newKeys(): NewKeyListInstance {
+    this._newKeys = this._newKeys || NewKeyListInstance(this._version, this._solution.sid);
+    return this._newKeys;
   }
 
   fetch(callback?: any): Promise<AccountInstance> {
@@ -529,6 +553,13 @@ export class AccountInstance {
   }
 
   /**
+   * Access the validationRequests.
+   */
+  validationRequests(): ValidationRequestListInstance {
+    return this._proxy.validationRequests;
+  }
+
+  /**
    * Access the signingKeys.
    */
   signingKeys(): SigningKeyListInstance {
@@ -568,6 +599,13 @@ export class AccountInstance {
    */
   outgoingCallerIds(): OutgoingCallerIdListInstance {
     return this._proxy.outgoingCallerIds;
+  }
+
+  /**
+   * Access the newSigningKeys.
+   */
+  newSigningKeys(): NewSigningKeyListInstance {
+    return this._proxy.newSigningKeys;
   }
 
   /**
@@ -617,6 +655,13 @@ export class AccountInstance {
    */
   keys(): KeyListInstance {
     return this._proxy.keys;
+  }
+
+  /**
+   * Access the newKeys.
+   */
+  newKeys(): NewKeyListInstance {
+    return this._proxy.newKeys;
   }
 
   /**
