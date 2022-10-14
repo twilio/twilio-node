@@ -1,4 +1,3 @@
-import {AnnotationListInstance} from "./insights/v1/call/annotation";
 import {CallListInstance} from "./insights/v1/call";
 import {CallSummariesListInstance} from "./insights/v1/callSummaries";
 import {ConferenceListInstance} from "./insights/v1/conference";
@@ -13,14 +12,6 @@ class Insights extends InsightsBase {
     get settings(): SettingListInstance {
         console.warn('settings is deprecated. Use v1.settings instead.');
         return this.v1.settings;
-    }
-
-    /**
-     * @deprecated - Use v1.annotation instead
-     */
-    get annotation(): AnnotationListInstance {
-        console.warn('annotation is deprecated. Use v1.annotation instead.');
-        return this.v1.annotation;
     }
 
     /**
