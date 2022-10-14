@@ -404,7 +404,7 @@ export interface ServiceContext {
   entities: EntityListInstance;
   rateLimits: RateLimitListInstance;
   accessTokens: AccessTokenListInstance;
-  verificationCheck: VerificationCheckListInstance;
+  verificationChecks: VerificationCheckListInstance;
   verifications: VerificationListInstance;
   webhooks: WebhookListInstance;
   messagingConfigurations: MessagingConfigurationListInstance;
@@ -463,7 +463,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _entities?: EntityListInstance;
   protected _rateLimits?: RateLimitListInstance;
   protected _accessTokens?: AccessTokenListInstance;
-  protected _verificationCheck?: VerificationCheckListInstance;
+  protected _verificationChecks?: VerificationCheckListInstance;
   protected _verifications?: VerificationListInstance;
   protected _webhooks?: WebhookListInstance;
   protected _messagingConfigurations?: MessagingConfigurationListInstance;
@@ -488,9 +488,9 @@ export class ServiceContextImpl implements ServiceContext {
     return this._accessTokens;
   }
 
-  get verificationCheck(): VerificationCheckListInstance {
-    this._verificationCheck = this._verificationCheck || VerificationCheckListInstance(this._version, this._solution.sid);
-    return this._verificationCheck;
+  get verificationChecks(): VerificationCheckListInstance {
+    this._verificationChecks = this._verificationChecks || VerificationCheckListInstance(this._version, this._solution.sid);
+    return this._verificationChecks;
   }
 
   get verifications(): VerificationListInstance {
@@ -788,10 +788,10 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the verificationCheck.
+   * Access the verificationChecks.
    */
-  verificationCheck(): VerificationCheckListInstance {
-    return this._proxy.verificationCheck;
+  verificationChecks(): VerificationCheckListInstance {
+    return this._proxy.verificationChecks;
   }
 
   /**

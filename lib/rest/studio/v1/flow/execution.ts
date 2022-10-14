@@ -108,7 +108,7 @@ export interface ExecutionListInstancePageOptions {
 
 export interface ExecutionContext {
 
-  executionStep: ExecutionStepListInstance;
+  steps: ExecutionStepListInstance;
   executionContext: ExecutionContextListInstance;
 
   /**
@@ -154,7 +154,7 @@ export class ExecutionContextImpl implements ExecutionContext {
   protected _solution: ExecutionSolution;
   protected _uri: string;
 
-  protected _executionStep?: ExecutionStepListInstance;
+  protected _steps?: ExecutionStepListInstance;
   protected _executionContext?: ExecutionContextListInstance;
 
   constructor(protected _version: V1, flowSid: string, sid: string) {
@@ -162,9 +162,9 @@ export class ExecutionContextImpl implements ExecutionContext {
     this._uri = `/Flows/${flowSid}/Executions/${sid}`;
   }
 
-  get executionStep(): ExecutionStepListInstance {
-    this._executionStep = this._executionStep || ExecutionStepListInstance(this._version, this._solution.flowSid, this._solution.sid);
-    return this._executionStep;
+  get steps(): ExecutionStepListInstance {
+    this._steps = this._steps || ExecutionStepListInstance(this._version, this._solution.flowSid, this._solution.sid);
+    return this._steps;
   }
 
   get executionContext(): ExecutionContextListInstance {
@@ -366,10 +366,10 @@ export class ExecutionInstance {
   }
 
   /**
-   * Access the executionStep.
+   * Access the steps.
    */
-  executionStep(): ExecutionStepListInstance {
-    return this._proxy.executionStep;
+  steps(): ExecutionStepListInstance {
+    return this._proxy.steps;
   }
 
   /**

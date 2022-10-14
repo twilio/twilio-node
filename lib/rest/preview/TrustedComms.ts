@@ -23,7 +23,7 @@ export default class TrustedComms extends Version {
   /**
    * Initialize the TrustedComms version of Preview
    *
-   * @property { Twilio.Preview.TrustedComms.CurrentCallListInstance } currentCall - currentCall resource
+   * @property { Twilio.Preview.TrustedComms.CurrentCallListInstance } currentCalls - currentCalls resource
    * @property { Twilio.Preview.TrustedComms.CpsListInstance } cps - cps resource
    * @property { Twilio.Preview.TrustedComms.BrandsInformationListInstance } brandsInformation - brandsInformation resource
    * @property { Twilio.Preview.TrustedComms.BrandedChannelListInstance } brandedChannels - brandedChannels resource
@@ -34,14 +34,14 @@ export default class TrustedComms extends Version {
     super(domain, "TrustedComms");
   }
 
-  protected _currentCall?: CurrentCallListInstance;
+  protected _currentCalls?: CurrentCallListInstance;
   protected _cps?: CpsListInstance;
   protected _brandsInformation?: BrandsInformationListInstance;
   protected _brandedChannels?: BrandedChannelListInstance;
 
-  get currentCall(): CurrentCallListInstance {
-    this._currentCall = this._currentCall || CurrentCallListInstance(this);
-    return this._currentCall;
+  get currentCalls(): CurrentCallListInstance {
+    this._currentCalls = this._currentCalls || CurrentCallListInstance(this);
+    return this._currentCalls;
   }
 
   get cps(): CpsListInstance {

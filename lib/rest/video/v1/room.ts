@@ -147,7 +147,7 @@ export interface RoomContext {
 
   participants: ParticipantListInstance;
   recordingRules: RecordingRulesListInstance;
-  roomRecording: RoomRecordingListInstance;
+  recordings: RoomRecordingListInstance;
 
   /**
    * Fetch a RoomInstance
@@ -184,7 +184,7 @@ export class RoomContextImpl implements RoomContext {
 
   protected _participants?: ParticipantListInstance;
   protected _recordingRules?: RecordingRulesListInstance;
-  protected _roomRecording?: RoomRecordingListInstance;
+  protected _recordings?: RoomRecordingListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -201,9 +201,9 @@ export class RoomContextImpl implements RoomContext {
     return this._recordingRules;
   }
 
-  get roomRecording(): RoomRecordingListInstance {
-    this._roomRecording = this._roomRecording || RoomRecordingListInstance(this._version, this._solution.sid);
-    return this._roomRecording;
+  get recordings(): RoomRecordingListInstance {
+    this._recordings = this._recordings || RoomRecordingListInstance(this._version, this._solution.sid);
+    return this._recordings;
   }
 
   fetch(callback?: any): Promise<RoomInstance> {
@@ -465,10 +465,10 @@ export class RoomInstance {
   }
 
   /**
-   * Access the roomRecording.
+   * Access the recordings.
    */
-  roomRecording(): RoomRecordingListInstance {
-    return this._proxy.roomRecording;
+  recordings(): RoomRecordingListInstance {
+    return this._proxy.recordings;
   }
 
   /**

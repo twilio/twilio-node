@@ -322,7 +322,7 @@ export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListI
 
 export interface ConnectionPolicyContext {
 
-  connectionPolicyTarget: ConnectionPolicyTargetListInstance;
+  targets: ConnectionPolicyTargetListInstance;
 
   /**
    * Remove a ConnectionPolicyInstance
@@ -375,16 +375,16 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
   protected _solution: ConnectionPolicySolution;
   protected _uri: string;
 
-  protected _connectionPolicyTarget?: ConnectionPolicyTargetListInstance;
+  protected _targets?: ConnectionPolicyTargetListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/ConnectionPolicies/${sid}`;
   }
 
-  get connectionPolicyTarget(): ConnectionPolicyTargetListInstance {
-    this._connectionPolicyTarget = this._connectionPolicyTarget || ConnectionPolicyTargetListInstance(this._version, this._solution.sid);
-    return this._connectionPolicyTarget;
+  get targets(): ConnectionPolicyTargetListInstance {
+    this._targets = this._targets || ConnectionPolicyTargetListInstance(this._version, this._solution.sid);
+    return this._targets;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -567,10 +567,10 @@ export class ConnectionPolicyInstance {
   }
 
   /**
-   * Access the connectionPolicyTarget.
+   * Access the targets.
    */
-  connectionPolicyTarget(): ConnectionPolicyTargetListInstance {
-    return this._proxy.connectionPolicyTarget;
+  targets(): ConnectionPolicyTargetListInstance {
+    return this._proxy.targets;
   }
 
   /**

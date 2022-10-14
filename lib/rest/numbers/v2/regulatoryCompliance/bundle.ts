@@ -425,7 +425,7 @@ export interface BundleContext {
 
   evaluations: EvaluationListInstance;
   itemAssignments: ItemAssignmentListInstance;
-  bundleCopy: BundleCopyListInstance;
+  bundleCopies: BundleCopyListInstance;
   replaceItems: ReplaceItemsListInstance;
 
   /**
@@ -481,7 +481,7 @@ export class BundleContextImpl implements BundleContext {
 
   protected _evaluations?: EvaluationListInstance;
   protected _itemAssignments?: ItemAssignmentListInstance;
-  protected _bundleCopy?: BundleCopyListInstance;
+  protected _bundleCopies?: BundleCopyListInstance;
   protected _replaceItems?: ReplaceItemsListInstance;
 
   constructor(protected _version: V2, sid: string) {
@@ -499,9 +499,9 @@ export class BundleContextImpl implements BundleContext {
     return this._itemAssignments;
   }
 
-  get bundleCopy(): BundleCopyListInstance {
-    this._bundleCopy = this._bundleCopy || BundleCopyListInstance(this._version, this._solution.sid);
-    return this._bundleCopy;
+  get bundleCopies(): BundleCopyListInstance {
+    this._bundleCopies = this._bundleCopies || BundleCopyListInstance(this._version, this._solution.sid);
+    return this._bundleCopies;
   }
 
   get replaceItems(): ReplaceItemsListInstance {
@@ -733,10 +733,10 @@ export class BundleInstance {
   }
 
   /**
-   * Access the bundleCopy.
+   * Access the bundleCopies.
    */
-  bundleCopy(): BundleCopyListInstance {
-    return this._proxy.bundleCopy;
+  bundleCopies(): BundleCopyListInstance {
+    return this._proxy.bundleCopies;
   }
 
   /**

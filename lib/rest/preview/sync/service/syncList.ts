@@ -314,8 +314,8 @@ export function SyncListListInstance(version: Sync, serviceSid: string): SyncLis
 
 export interface SyncListContext {
 
-  syncListPermission: SyncListPermissionListInstance;
-  syncListItem: SyncListItemListInstance;
+  syncListPermissions: SyncListPermissionListInstance;
+  syncListItems: SyncListItemListInstance;
 
   /**
    * Remove a SyncListInstance
@@ -348,22 +348,22 @@ export class SyncListContextImpl implements SyncListContext {
   protected _solution: SyncListSolution;
   protected _uri: string;
 
-  protected _syncListPermission?: SyncListPermissionListInstance;
-  protected _syncListItem?: SyncListItemListInstance;
+  protected _syncListPermissions?: SyncListPermissionListInstance;
+  protected _syncListItems?: SyncListItemListInstance;
 
   constructor(protected _version: Sync, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Lists/${sid}`;
   }
 
-  get syncListPermission(): SyncListPermissionListInstance {
-    this._syncListPermission = this._syncListPermission || SyncListPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._syncListPermission;
+  get syncListPermissions(): SyncListPermissionListInstance {
+    this._syncListPermissions = this._syncListPermissions || SyncListPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._syncListPermissions;
   }
 
-  get syncListItem(): SyncListItemListInstance {
-    this._syncListItem = this._syncListItem || SyncListItemListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._syncListItem;
+  get syncListItems(): SyncListItemListInstance {
+    this._syncListItems = this._syncListItems || SyncListItemListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._syncListItems;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -484,17 +484,17 @@ export class SyncListInstance {
   }
 
   /**
-   * Access the syncListPermission.
+   * Access the syncListPermissions.
    */
-  syncListPermission(): SyncListPermissionListInstance {
-    return this._proxy.syncListPermission;
+  syncListPermissions(): SyncListPermissionListInstance {
+    return this._proxy.syncListPermissions;
   }
 
   /**
-   * Access the syncListItem.
+   * Access the syncListItems.
    */
-  syncListItem(): SyncListItemListInstance {
-    return this._proxy.syncListItem;
+  syncListItems(): SyncListItemListInstance {
+    return this._proxy.syncListItems;
   }
 
   /**

@@ -83,7 +83,7 @@ export function ExportListInstance(version: V1): ExportListInstance {
 export interface ExportContext {
 
   exportConfiguration: ExportConfigurationListInstance;
-  exportCustomJob: ExportCustomJobListInstance;
+  exportCustomJobs: ExportCustomJobListInstance;
   days: DayListInstance;
 
   /**
@@ -108,7 +108,7 @@ export class ExportContextImpl implements ExportContext {
   protected _uri: string;
 
   protected _exportConfiguration?: ExportConfigurationListInstance;
-  protected _exportCustomJob?: ExportCustomJobListInstance;
+  protected _exportCustomJobs?: ExportCustomJobListInstance;
   protected _days?: DayListInstance;
 
   constructor(protected _version: V1, resourceType: string) {
@@ -121,9 +121,9 @@ export class ExportContextImpl implements ExportContext {
     return this._exportConfiguration;
   }
 
-  get exportCustomJob(): ExportCustomJobListInstance {
-    this._exportCustomJob = this._exportCustomJob || ExportCustomJobListInstance(this._version, this._solution.resourceType);
-    return this._exportCustomJob;
+  get exportCustomJobs(): ExportCustomJobListInstance {
+    this._exportCustomJobs = this._exportCustomJobs || ExportCustomJobListInstance(this._version, this._solution.resourceType);
+    return this._exportCustomJobs;
   }
 
   get days(): DayListInstance {
@@ -219,10 +219,10 @@ export class ExportInstance {
   }
 
   /**
-   * Access the exportCustomJob.
+   * Access the exportCustomJobs.
    */
-  exportCustomJob(): ExportCustomJobListInstance {
-    return this._proxy.exportCustomJob;
+  exportCustomJobs(): ExportCustomJobListInstance {
+    return this._proxy.exportCustomJobs;
   }
 
   /**

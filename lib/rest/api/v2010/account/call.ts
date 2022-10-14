@@ -244,7 +244,7 @@ export interface CallListInstance {
   (sid: string): CallContext;
   get(sid: string): CallContext;
 
-  feedbackSummary: FeedbackSummaryListInstance;
+  feedbackSummaries: FeedbackSummaryListInstance;
 
   /**
    * Create a CallInstance
@@ -373,7 +373,7 @@ class CallListInstanceImpl implements CallListInstance {
   _solution?: CallSolution;
   _uri?: string;
 
-  _feedbackSummary?: FeedbackSummaryListInstance;
+  _feedbackSummaries?: FeedbackSummaryListInstance;
 }
 
 export function CallListInstance(version: V2010, accountSid: string): CallListInstance {
@@ -387,12 +387,12 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Calls.json`;
 
-  Object.defineProperty(instance, "feedbackSummary", {
-    get: function feedbackSummary() {
-      if (!this._feedbackSummary) {
-        this._feedbackSummary = FeedbackSummaryListInstance(this._version, this._solution.accountSid);
+  Object.defineProperty(instance, "feedbackSummaries", {
+    get: function feedbackSummaries() {
+      if (!this._feedbackSummaries) {
+        this._feedbackSummaries = FeedbackSummaryListInstance(this._version, this._solution.accountSid);
       }
-      return this._feedbackSummary;
+      return this._feedbackSummaries;
     }
   });
 

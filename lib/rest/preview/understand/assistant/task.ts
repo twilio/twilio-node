@@ -108,7 +108,7 @@ export interface TaskContext {
 
   fields: FieldListInstance;
   samples: SampleListInstance;
-  taskStatistics: TaskStatisticsListInstance;
+  statistics: TaskStatisticsListInstance;
   taskActions: TaskActionsListInstance;
 
   /**
@@ -164,7 +164,7 @@ export class TaskContextImpl implements TaskContext {
 
   protected _fields?: FieldListInstance;
   protected _samples?: SampleListInstance;
-  protected _taskStatistics?: TaskStatisticsListInstance;
+  protected _statistics?: TaskStatisticsListInstance;
   protected _taskActions?: TaskActionsListInstance;
 
   constructor(protected _version: Understand, assistantSid: string, sid: string) {
@@ -182,9 +182,9 @@ export class TaskContextImpl implements TaskContext {
     return this._samples;
   }
 
-  get taskStatistics(): TaskStatisticsListInstance {
-    this._taskStatistics = this._taskStatistics || TaskStatisticsListInstance(this._version, this._solution.assistantSid, this._solution.sid);
-    return this._taskStatistics;
+  get statistics(): TaskStatisticsListInstance {
+    this._statistics = this._statistics || TaskStatisticsListInstance(this._version, this._solution.assistantSid, this._solution.sid);
+    return this._statistics;
   }
 
   get taskActions(): TaskActionsListInstance {
@@ -401,10 +401,10 @@ export class TaskInstance {
   }
 
   /**
-   * Access the taskStatistics.
+   * Access the statistics.
    */
-  taskStatistics(): TaskStatisticsListInstance {
-    return this._proxy.taskStatistics;
+  statistics(): TaskStatisticsListInstance {
+    return this._proxy.statistics;
   }
 
   /**

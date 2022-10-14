@@ -135,7 +135,7 @@ export interface AccountContext {
   tokens: TokenListInstance;
   conferences: ConferenceListInstance;
   notifications: NotificationListInstance;
-  availablePhoneNumberCountry: AvailablePhoneNumberCountryListInstance;
+  availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
   outgoingCallerIds: OutgoingCallerIdListInstance;
   recordings: RecordingListInstance;
   sip: SIPListInstance;
@@ -197,7 +197,7 @@ export class AccountContextImpl implements AccountContext {
   protected _tokens?: TokenListInstance;
   protected _conferences?: ConferenceListInstance;
   protected _notifications?: NotificationListInstance;
-  protected _availablePhoneNumberCountry?: AvailablePhoneNumberCountryListInstance;
+  protected _availablePhoneNumbers?: AvailablePhoneNumberCountryListInstance;
   protected _outgoingCallerIds?: OutgoingCallerIdListInstance;
   protected _recordings?: RecordingListInstance;
   protected _sip?: SIPListInstance;
@@ -267,9 +267,9 @@ export class AccountContextImpl implements AccountContext {
     return this._notifications;
   }
 
-  get availablePhoneNumberCountry(): AvailablePhoneNumberCountryListInstance {
-    this._availablePhoneNumberCountry = this._availablePhoneNumberCountry || AvailablePhoneNumberCountryListInstance(this._version, this._solution.sid);
-    return this._availablePhoneNumberCountry;
+  get availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
+    this._availablePhoneNumbers = this._availablePhoneNumbers || AvailablePhoneNumberCountryListInstance(this._version, this._solution.sid);
+    return this._availablePhoneNumbers;
   }
 
   get outgoingCallerIds(): OutgoingCallerIdListInstance {
@@ -557,10 +557,10 @@ export class AccountInstance {
   }
 
   /**
-   * Access the availablePhoneNumberCountry.
+   * Access the availablePhoneNumbers.
    */
-  availablePhoneNumberCountry(): AvailablePhoneNumberCountryListInstance {
-    return this._proxy.availablePhoneNumberCountry;
+  availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
+    return this._proxy.availablePhoneNumbers;
   }
 
   /**

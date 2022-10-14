@@ -315,7 +315,7 @@ export function FunctionListInstance(version: V1, serviceSid: string): FunctionL
 
 export interface FunctionContext {
 
-  functionVersion: FunctionVersionListInstance;
+  functionVersions: FunctionVersionListInstance;
 
   /**
    * Remove a FunctionInstance
@@ -360,16 +360,16 @@ export class FunctionContextImpl implements FunctionContext {
   protected _solution: FunctionSolution;
   protected _uri: string;
 
-  protected _functionVersion?: FunctionVersionListInstance;
+  protected _functionVersions?: FunctionVersionListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Functions/${sid}`;
   }
 
-  get functionVersion(): FunctionVersionListInstance {
-    this._functionVersion = this._functionVersion || FunctionVersionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._functionVersion;
+  get functionVersions(): FunctionVersionListInstance {
+    this._functionVersions = this._functionVersions || FunctionVersionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._functionVersions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -551,10 +551,10 @@ export class FunctionInstance {
   }
 
   /**
-   * Access the functionVersion.
+   * Access the functionVersions.
    */
-  functionVersion(): FunctionVersionListInstance {
-    return this._proxy.functionVersion;
+  functionVersions(): FunctionVersionListInstance {
+    return this._proxy.functionVersions;
   }
 
   /**

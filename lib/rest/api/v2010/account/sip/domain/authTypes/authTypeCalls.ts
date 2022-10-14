@@ -25,8 +25,8 @@ import { AuthCallsCredentialListMappingListInstance } from "./authTypeCalls/auth
 
 export interface AuthTypeCallsListInstance {
 
-  authCallsIpAccessControlListMapping: AuthCallsIpAccessControlListMappingListInstance;
-  authCallsCredentialListMapping: AuthCallsCredentialListMappingListInstance;
+  ipAccessControlListMappings: AuthCallsIpAccessControlListMappingListInstance;
+  credentialListMappings: AuthCallsCredentialListMappingListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -41,8 +41,8 @@ class AuthTypeCallsListInstanceImpl implements AuthTypeCallsListInstance {
   _solution?: AuthTypeCallsSolution;
   _uri?: string;
 
-  _authCallsIpAccessControlListMapping?: AuthCallsIpAccessControlListMappingListInstance;
-  _authCallsCredentialListMapping?: AuthCallsCredentialListMappingListInstance;
+  _ipAccessControlListMappings?: AuthCallsIpAccessControlListMappingListInstance;
+  _credentialListMappings?: AuthCallsCredentialListMappingListInstance;
 }
 
 export function AuthTypeCallsListInstance(version: V2010, accountSid: string, domainSid: string): AuthTypeCallsListInstance {
@@ -52,21 +52,21 @@ export function AuthTypeCallsListInstance(version: V2010, accountSid: string, do
   instance._solution = { accountSid, domainSid };
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Calls.json`;
 
-  Object.defineProperty(instance, "authCallsIpAccessControlListMapping", {
-    get: function authCallsIpAccessControlListMapping() {
-      if (!this._authCallsIpAccessControlListMapping) {
-        this._authCallsIpAccessControlListMapping = AuthCallsIpAccessControlListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+  Object.defineProperty(instance, "ipAccessControlListMappings", {
+    get: function ipAccessControlListMappings() {
+      if (!this._ipAccessControlListMappings) {
+        this._ipAccessControlListMappings = AuthCallsIpAccessControlListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
       }
-      return this._authCallsIpAccessControlListMapping;
+      return this._ipAccessControlListMappings;
     }
   });
 
-  Object.defineProperty(instance, "authCallsCredentialListMapping", {
-    get: function authCallsCredentialListMapping() {
-      if (!this._authCallsCredentialListMapping) {
-        this._authCallsCredentialListMapping = AuthCallsCredentialListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+  Object.defineProperty(instance, "credentialListMappings", {
+    get: function credentialListMappings() {
+      if (!this._credentialListMappings) {
+        this._credentialListMappings = AuthCallsCredentialListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
       }
-      return this._authCallsCredentialListMapping;
+      return this._credentialListMappings;
     }
   });
 

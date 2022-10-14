@@ -25,7 +25,7 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Messaging
    *
-   * @property { Twilio.Messaging.V1.TollfreeVerificationListInstance } tollfreeVerification - tollfreeVerification resource
+   * @property { Twilio.Messaging.V1.TollfreeVerificationListInstance } tollfreeVerifications - tollfreeVerifications resource
    * @property { Twilio.Messaging.V1.DeactivationsListInstance } deactivations - deactivations resource
    * @property { Twilio.Messaging.V1.ExternalCampaignListInstance } externalCampaign - externalCampaign resource
    * @property { Twilio.Messaging.V1.ServiceListInstance } services - services resource
@@ -38,16 +38,16 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _tollfreeVerification?: TollfreeVerificationListInstance;
+  protected _tollfreeVerifications?: TollfreeVerificationListInstance;
   protected _deactivations?: DeactivationsListInstance;
   protected _externalCampaign?: ExternalCampaignListInstance;
   protected _services?: ServiceListInstance;
   protected _usecases?: UsecaseListInstance;
   protected _brandRegistrations?: BrandRegistrationListInstance;
 
-  get tollfreeVerification(): TollfreeVerificationListInstance {
-    this._tollfreeVerification = this._tollfreeVerification || TollfreeVerificationListInstance(this);
-    return this._tollfreeVerification;
+  get tollfreeVerifications(): TollfreeVerificationListInstance {
+    this._tollfreeVerifications = this._tollfreeVerifications || TollfreeVerificationListInstance(this);
+    return this._tollfreeVerifications;
   }
 
   get deactivations(): DeactivationsListInstance {

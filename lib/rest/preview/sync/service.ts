@@ -339,8 +339,8 @@ export function ServiceListInstance(version: Sync): ServiceListInstance {
 
 export interface ServiceContext {
 
-  syncList: SyncListListInstance;
-  syncMap: SyncMapListInstance;
+  syncLists: SyncListListInstance;
+  syncMaps: SyncMapListInstance;
   documents: DocumentListInstance;
 
   /**
@@ -394,8 +394,8 @@ export class ServiceContextImpl implements ServiceContext {
   protected _solution: ServiceSolution;
   protected _uri: string;
 
-  protected _syncList?: SyncListListInstance;
-  protected _syncMap?: SyncMapListInstance;
+  protected _syncLists?: SyncListListInstance;
+  protected _syncMaps?: SyncMapListInstance;
   protected _documents?: DocumentListInstance;
 
   constructor(protected _version: Sync, sid: string) {
@@ -403,14 +403,14 @@ export class ServiceContextImpl implements ServiceContext {
     this._uri = `/Services/${sid}`;
   }
 
-  get syncList(): SyncListListInstance {
-    this._syncList = this._syncList || SyncListListInstance(this._version, this._solution.sid);
-    return this._syncList;
+  get syncLists(): SyncListListInstance {
+    this._syncLists = this._syncLists || SyncListListInstance(this._version, this._solution.sid);
+    return this._syncLists;
   }
 
-  get syncMap(): SyncMapListInstance {
-    this._syncMap = this._syncMap || SyncMapListInstance(this._version, this._solution.sid);
-    return this._syncMap;
+  get syncMaps(): SyncMapListInstance {
+    this._syncMaps = this._syncMaps || SyncMapListInstance(this._version, this._solution.sid);
+    return this._syncMaps;
   }
 
   get documents(): DocumentListInstance {
@@ -589,17 +589,17 @@ export class ServiceInstance {
   }
 
   /**
-   * Access the syncList.
+   * Access the syncLists.
    */
-  syncList(): SyncListListInstance {
-    return this._proxy.syncList;
+  syncLists(): SyncListListInstance {
+    return this._proxy.syncLists;
   }
 
   /**
-   * Access the syncMap.
+   * Access the syncMaps.
    */
-  syncMap(): SyncMapListInstance {
-    return this._proxy.syncMap;
+  syncMaps(): SyncMapListInstance {
+    return this._proxy.syncMaps;
   }
 
   /**

@@ -25,7 +25,7 @@ class Routes extends RoutesBase {
      */
     get trunks(): TrunkListInstance {
         console.warn('trunks is deprecated. Use v1.trunks instead.');
-        return this.v2.devices;
+        return this.v2.trunks;
     }
 }
 

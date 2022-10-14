@@ -95,7 +95,7 @@ export function CallListInstance(version: V1): CallListInstance {
 
 export interface CallContext {
 
-  callSummary: CallSummaryListInstance;
+  summary: CallSummaryListInstance;
   events: EventListInstance;
   metrics: MetricListInstance;
   annotation: AnnotationListInstance;
@@ -121,7 +121,7 @@ export class CallContextImpl implements CallContext {
   protected _solution: CallSolution;
   protected _uri: string;
 
-  protected _callSummary?: CallSummaryListInstance;
+  protected _summary?: CallSummaryListInstance;
   protected _events?: EventListInstance;
   protected _metrics?: MetricListInstance;
   protected _annotation?: AnnotationListInstance;
@@ -131,9 +131,9 @@ export class CallContextImpl implements CallContext {
     this._uri = `/Voice/${sid}`;
   }
 
-  get callSummary(): CallSummaryListInstance {
-    this._callSummary = this._callSummary || CallSummaryListInstance(this._version, this._solution.sid);
-    return this._callSummary;
+  get summary(): CallSummaryListInstance {
+    this._summary = this._summary || CallSummaryListInstance(this._version, this._solution.sid);
+    return this._summary;
   }
 
   get events(): EventListInstance {
@@ -223,10 +223,10 @@ export class CallInstance {
   }
 
   /**
-   * Access the callSummary.
+   * Access the summary.
    */
-  callSummary(): CallSummaryListInstance {
-    return this._proxy.callSummary;
+  summary(): CallSummaryListInstance {
+    return this._proxy.summary;
   }
 
   /**

@@ -125,7 +125,7 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
 
 export interface InteractionContext {
 
-  interactionChannel: InteractionChannelListInstance;
+  channels: InteractionChannelListInstance;
 
   /**
    * Fetch a InteractionInstance
@@ -148,16 +148,16 @@ export class InteractionContextImpl implements InteractionContext {
   protected _solution: InteractionSolution;
   protected _uri: string;
 
-  protected _interactionChannel?: InteractionChannelListInstance;
+  protected _channels?: InteractionChannelListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/Interactions/${sid}`;
   }
 
-  get interactionChannel(): InteractionChannelListInstance {
-    this._interactionChannel = this._interactionChannel || InteractionChannelListInstance(this._version, this._solution.sid);
-    return this._interactionChannel;
+  get channels(): InteractionChannelListInstance {
+    this._channels = this._channels || InteractionChannelListInstance(this._version, this._solution.sid);
+    return this._channels;
   }
 
   fetch(callback?: any): Promise<InteractionInstance> {
@@ -247,10 +247,10 @@ export class InteractionInstance {
   }
 
   /**
-   * Access the interactionChannel.
+   * Access the channels.
    */
-  interactionChannel(): InteractionChannelListInstance {
-    return this._proxy.interactionChannel;
+  channels(): InteractionChannelListInstance {
+    return this._proxy.channels;
   }
 
   /**

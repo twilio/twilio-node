@@ -33,7 +33,7 @@ export default class V1 extends Version {
    * @property { Twilio.Conversations.V1.ConfigurationListInstance } configuration - configuration resource
    * @property { Twilio.Conversations.V1.ParticipantConversationListInstance } participantConversations - participantConversations resource
    * @property { Twilio.Conversations.V1.ServiceListInstance } services - services resource
-   * @property { Twilio.Conversations.V1.AddressConfigurationListInstance } addressConfiguration - addressConfiguration resource
+   * @property { Twilio.Conversations.V1.AddressConfigurationListInstance } addressConfigurations - addressConfigurations resource
    * @property { Twilio.Conversations.V1.ConversationListInstance } conversations - conversations resource
    *
    * @param { Twilio.Conversations } domain - The Twilio domain
@@ -48,7 +48,7 @@ export default class V1 extends Version {
   protected _configuration?: ConfigurationListInstance;
   protected _participantConversations?: ParticipantConversationListInstance;
   protected _services?: ServiceListInstance;
-  protected _addressConfiguration?: AddressConfigurationListInstance;
+  protected _addressConfigurations?: AddressConfigurationListInstance;
   protected _conversations?: ConversationListInstance;
 
   get roles(): RoleListInstance {
@@ -81,9 +81,9 @@ export default class V1 extends Version {
     return this._services;
   }
 
-  get addressConfiguration(): AddressConfigurationListInstance {
-    this._addressConfiguration = this._addressConfiguration || AddressConfigurationListInstance(this);
-    return this._addressConfiguration;
+  get addressConfigurations(): AddressConfigurationListInstance {
+    this._addressConfigurations = this._addressConfigurations || AddressConfigurationListInstance(this);
+    return this._addressConfigurations;
   }
 
   get conversations(): ConversationListInstance {

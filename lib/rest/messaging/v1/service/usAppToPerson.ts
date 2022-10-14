@@ -94,7 +94,7 @@ export interface UsAppToPersonListInstance {
   (sid: string): UsAppToPersonContext;
   get(sid: string): UsAppToPersonContext;
 
-  usAppToPersonUsecase: UsAppToPersonUsecaseListInstance;
+  usAppToPersonUsecases: UsAppToPersonUsecaseListInstance;
 
   /**
    * Create a UsAppToPersonInstance
@@ -223,7 +223,7 @@ class UsAppToPersonListInstanceImpl implements UsAppToPersonListInstance {
   _solution?: UsAppToPersonSolution;
   _uri?: string;
 
-  _usAppToPersonUsecase?: UsAppToPersonUsecaseListInstance;
+  _usAppToPersonUsecases?: UsAppToPersonUsecaseListInstance;
 }
 
 export function UsAppToPersonListInstance(version: V1, messagingServiceSid: string): UsAppToPersonListInstance {
@@ -237,12 +237,12 @@ export function UsAppToPersonListInstance(version: V1, messagingServiceSid: stri
   instance._solution = { messagingServiceSid };
   instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p`;
 
-  Object.defineProperty(instance, "usAppToPersonUsecase", {
-    get: function usAppToPersonUsecase() {
-      if (!this._usAppToPersonUsecase) {
-        this._usAppToPersonUsecase = UsAppToPersonUsecaseListInstance(this._version, this._solution.messagingServiceSid);
+  Object.defineProperty(instance, "usAppToPersonUsecases", {
+    get: function usAppToPersonUsecases() {
+      if (!this._usAppToPersonUsecases) {
+        this._usAppToPersonUsecases = UsAppToPersonUsecaseListInstance(this._version, this._solution.messagingServiceSid);
       }
-      return this._usAppToPersonUsecase;
+      return this._usAppToPersonUsecases;
     }
   });
 

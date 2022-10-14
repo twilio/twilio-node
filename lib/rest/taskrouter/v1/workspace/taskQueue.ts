@@ -132,9 +132,9 @@ export interface TaskQueueListInstancePageOptions {
 
 export interface TaskQueueContext {
 
-  taskQueueRealTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
-  taskQueueCumulativeStatistics: TaskQueueCumulativeStatisticsListInstance;
-  taskQueueStatistics: TaskQueueStatisticsListInstance;
+  realTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
+  cumulativeStatistics: TaskQueueCumulativeStatisticsListInstance;
+  statistics: TaskQueueStatisticsListInstance;
 
   /**
    * Remove a TaskQueueInstance
@@ -187,28 +187,28 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   protected _solution: TaskQueueSolution;
   protected _uri: string;
 
-  protected _taskQueueRealTimeStatistics?: TaskQueueRealTimeStatisticsListInstance;
-  protected _taskQueueCumulativeStatistics?: TaskQueueCumulativeStatisticsListInstance;
-  protected _taskQueueStatistics?: TaskQueueStatisticsListInstance;
+  protected _realTimeStatistics?: TaskQueueRealTimeStatisticsListInstance;
+  protected _cumulativeStatistics?: TaskQueueCumulativeStatisticsListInstance;
+  protected _statistics?: TaskQueueStatisticsListInstance;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
     this._solution = { workspaceSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/TaskQueues/${sid}`;
   }
 
-  get taskQueueRealTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
-    this._taskQueueRealTimeStatistics = this._taskQueueRealTimeStatistics || TaskQueueRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._taskQueueRealTimeStatistics;
+  get realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
+    this._realTimeStatistics = this._realTimeStatistics || TaskQueueRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._realTimeStatistics;
   }
 
-  get taskQueueCumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance {
-    this._taskQueueCumulativeStatistics = this._taskQueueCumulativeStatistics || TaskQueueCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._taskQueueCumulativeStatistics;
+  get cumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance {
+    this._cumulativeStatistics = this._cumulativeStatistics || TaskQueueCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._cumulativeStatistics;
   }
 
-  get taskQueueStatistics(): TaskQueueStatisticsListInstance {
-    this._taskQueueStatistics = this._taskQueueStatistics || TaskQueueStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._taskQueueStatistics;
+  get statistics(): TaskQueueStatisticsListInstance {
+    this._statistics = this._statistics || TaskQueueStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._statistics;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -441,24 +441,24 @@ export class TaskQueueInstance {
   }
 
   /**
-   * Access the taskQueueRealTimeStatistics.
+   * Access the realTimeStatistics.
    */
-  taskQueueRealTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
-    return this._proxy.taskQueueRealTimeStatistics;
+  realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance {
+    return this._proxy.realTimeStatistics;
   }
 
   /**
-   * Access the taskQueueCumulativeStatistics.
+   * Access the cumulativeStatistics.
    */
-  taskQueueCumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance {
-    return this._proxy.taskQueueCumulativeStatistics;
+  cumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance {
+    return this._proxy.cumulativeStatistics;
   }
 
   /**
-   * Access the taskQueueStatistics.
+   * Access the statistics.
    */
-  taskQueueStatistics(): TaskQueueStatisticsListInstance {
-    return this._proxy.taskQueueStatistics;
+  statistics(): TaskQueueStatisticsListInstance {
+    return this._proxy.statistics;
   }
 
   /**
@@ -531,7 +531,7 @@ export interface TaskQueueListInstance {
   (sid: string): TaskQueueContext;
   get(sid: string): TaskQueueContext;
 
-  taskQueuesStatistics: TaskQueuesStatisticsListInstance;
+  statistics: TaskQueuesStatisticsListInstance;
 
   /**
    * Create a TaskQueueInstance
@@ -660,7 +660,7 @@ class TaskQueueListInstanceImpl implements TaskQueueListInstance {
   _solution?: TaskQueueSolution;
   _uri?: string;
 
-  _taskQueuesStatistics?: TaskQueuesStatisticsListInstance;
+  _statistics?: TaskQueuesStatisticsListInstance;
 }
 
 export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQueueListInstance {
@@ -674,12 +674,12 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
   instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/TaskQueues`;
 
-  Object.defineProperty(instance, "taskQueuesStatistics", {
-    get: function taskQueuesStatistics() {
-      if (!this._taskQueuesStatistics) {
-        this._taskQueuesStatistics = TaskQueuesStatisticsListInstance(this._version, this._solution.workspaceSid);
+  Object.defineProperty(instance, "statistics", {
+    get: function statistics() {
+      if (!this._statistics) {
+        this._statistics = TaskQueuesStatisticsListInstance(this._version, this._solution.workspaceSid);
       }
-      return this._taskQueuesStatistics;
+      return this._statistics;
     }
   });
 

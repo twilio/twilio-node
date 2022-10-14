@@ -25,8 +25,8 @@ import { AuthTypeRegistrationsListInstance } from "./authTypes/authTypeRegistrat
 
 export interface AuthTypesListInstance {
 
-  authTypeCalls: AuthTypeCallsListInstance;
-  authTypeRegistrations: AuthTypeRegistrationsListInstance;
+  calls: AuthTypeCallsListInstance;
+  registrations: AuthTypeRegistrationsListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -41,8 +41,8 @@ class AuthTypesListInstanceImpl implements AuthTypesListInstance {
   _solution?: AuthTypesSolution;
   _uri?: string;
 
-  _authTypeCalls?: AuthTypeCallsListInstance;
-  _authTypeRegistrations?: AuthTypeRegistrationsListInstance;
+  _calls?: AuthTypeCallsListInstance;
+  _registrations?: AuthTypeRegistrationsListInstance;
 }
 
 export function AuthTypesListInstance(version: V2010, accountSid: string, domainSid: string): AuthTypesListInstance {
@@ -52,21 +52,21 @@ export function AuthTypesListInstance(version: V2010, accountSid: string, domain
   instance._solution = { accountSid, domainSid };
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth.json`;
 
-  Object.defineProperty(instance, "authTypeCalls", {
-    get: function authTypeCalls() {
-      if (!this._authTypeCalls) {
-        this._authTypeCalls = AuthTypeCallsListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+  Object.defineProperty(instance, "calls", {
+    get: function calls() {
+      if (!this._calls) {
+        this._calls = AuthTypeCallsListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
       }
-      return this._authTypeCalls;
+      return this._calls;
     }
   });
 
-  Object.defineProperty(instance, "authTypeRegistrations", {
-    get: function authTypeRegistrations() {
-      if (!this._authTypeRegistrations) {
-        this._authTypeRegistrations = AuthTypeRegistrationsListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+  Object.defineProperty(instance, "registrations", {
+    get: function registrations() {
+      if (!this._registrations) {
+        this._registrations = AuthTypeRegistrationsListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
       }
-      return this._authTypeRegistrations;
+      return this._registrations;
     }
   });
 

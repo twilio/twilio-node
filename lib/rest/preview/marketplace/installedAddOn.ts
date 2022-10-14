@@ -330,7 +330,7 @@ export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOn
 
 export interface InstalledAddOnContext {
 
-  installedAddOnExtension: InstalledAddOnExtensionListInstance;
+  extensions: InstalledAddOnExtensionListInstance;
 
   /**
    * Remove a InstalledAddOnInstance
@@ -383,16 +383,16 @@ export class InstalledAddOnContextImpl implements InstalledAddOnContext {
   protected _solution: InstalledAddOnSolution;
   protected _uri: string;
 
-  protected _installedAddOnExtension?: InstalledAddOnExtensionListInstance;
+  protected _extensions?: InstalledAddOnExtensionListInstance;
 
   constructor(protected _version: Marketplace, sid: string) {
     this._solution = { sid };
     this._uri = `/InstalledAddOns/${sid}`;
   }
 
-  get installedAddOnExtension(): InstalledAddOnExtensionListInstance {
-    this._installedAddOnExtension = this._installedAddOnExtension || InstalledAddOnExtensionListInstance(this._version, this._solution.sid);
-    return this._installedAddOnExtension;
+  get extensions(): InstalledAddOnExtensionListInstance {
+    this._extensions = this._extensions || InstalledAddOnExtensionListInstance(this._version, this._solution.sid);
+    return this._extensions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -594,10 +594,10 @@ export class InstalledAddOnInstance {
   }
 
   /**
-   * Access the installedAddOnExtension.
+   * Access the extensions.
    */
-  installedAddOnExtension(): InstalledAddOnExtensionListInstance {
-    return this._proxy.installedAddOnExtension;
+  extensions(): InstalledAddOnExtensionListInstance {
+    return this._proxy.extensions;
   }
 
   /**

@@ -353,8 +353,8 @@ export function FlowListInstance(version: V2): FlowListInstance {
 export interface FlowContext {
 
   executions: ExecutionListInstance;
-  flowRevision: FlowRevisionListInstance;
-  flowTestUser: FlowTestUserListInstance;
+  revisions: FlowRevisionListInstance;
+  testUsers: FlowTestUserListInstance;
 
   /**
    * Remove a FlowInstance
@@ -400,8 +400,8 @@ export class FlowContextImpl implements FlowContext {
   protected _uri: string;
 
   protected _executions?: ExecutionListInstance;
-  protected _flowRevision?: FlowRevisionListInstance;
-  protected _flowTestUser?: FlowTestUserListInstance;
+  protected _revisions?: FlowRevisionListInstance;
+  protected _testUsers?: FlowTestUserListInstance;
 
   constructor(protected _version: V2, sid: string) {
     this._solution = { sid };
@@ -413,14 +413,14 @@ export class FlowContextImpl implements FlowContext {
     return this._executions;
   }
 
-  get flowRevision(): FlowRevisionListInstance {
-    this._flowRevision = this._flowRevision || FlowRevisionListInstance(this._version, this._solution.sid);
-    return this._flowRevision;
+  get revisions(): FlowRevisionListInstance {
+    this._revisions = this._revisions || FlowRevisionListInstance(this._version, this._solution.sid);
+    return this._revisions;
   }
 
-  get flowTestUser(): FlowTestUserListInstance {
-    this._flowTestUser = this._flowTestUser || FlowTestUserListInstance(this._version, this._solution.sid);
-    return this._flowTestUser;
+  get testUsers(): FlowTestUserListInstance {
+    this._testUsers = this._testUsers || FlowTestUserListInstance(this._version, this._solution.sid);
+    return this._testUsers;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -648,17 +648,17 @@ export class FlowInstance {
   }
 
   /**
-   * Access the flowRevision.
+   * Access the revisions.
    */
-  flowRevision(): FlowRevisionListInstance {
-    return this._proxy.flowRevision;
+  revisions(): FlowRevisionListInstance {
+    return this._proxy.revisions;
   }
 
   /**
-   * Access the flowTestUser.
+   * Access the testUsers.
    */
-  flowTestUser(): FlowTestUserListInstance {
-    return this._proxy.flowTestUser;
+  testUsers(): FlowTestUserListInstance {
+    return this._proxy.testUsers;
   }
 
   /**

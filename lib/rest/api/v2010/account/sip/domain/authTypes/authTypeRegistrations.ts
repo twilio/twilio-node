@@ -24,7 +24,7 @@ import { AuthRegistrationsCredentialListMappingListInstance } from "./authTypeRe
 
 export interface AuthTypeRegistrationsListInstance {
 
-  authRegistrationsCredentialListMapping: AuthRegistrationsCredentialListMappingListInstance;
+  credentialListMappings: AuthRegistrationsCredentialListMappingListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -39,7 +39,7 @@ class AuthTypeRegistrationsListInstanceImpl implements AuthTypeRegistrationsList
   _solution?: AuthTypeRegistrationsSolution;
   _uri?: string;
 
-  _authRegistrationsCredentialListMapping?: AuthRegistrationsCredentialListMappingListInstance;
+  _credentialListMappings?: AuthRegistrationsCredentialListMappingListInstance;
 }
 
 export function AuthTypeRegistrationsListInstance(version: V2010, accountSid: string, domainSid: string): AuthTypeRegistrationsListInstance {
@@ -49,12 +49,12 @@ export function AuthTypeRegistrationsListInstance(version: V2010, accountSid: st
   instance._solution = { accountSid, domainSid };
   instance._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Registrations.json`;
 
-  Object.defineProperty(instance, "authRegistrationsCredentialListMapping", {
-    get: function authRegistrationsCredentialListMapping() {
-      if (!this._authRegistrationsCredentialListMapping) {
-        this._authRegistrationsCredentialListMapping = AuthRegistrationsCredentialListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
+  Object.defineProperty(instance, "credentialListMappings", {
+    get: function credentialListMappings() {
+      if (!this._credentialListMappings) {
+        this._credentialListMappings = AuthRegistrationsCredentialListMappingListInstance(this._version, this._solution.accountSid, this._solution.domainSid);
       }
-      return this._authRegistrationsCredentialListMapping;
+      return this._credentialListMappings;
     }
   });
 

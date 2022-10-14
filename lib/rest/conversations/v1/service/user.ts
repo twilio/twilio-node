@@ -114,7 +114,7 @@ export interface UserListInstancePageOptions {
 
 export interface UserContext {
 
-  userConversation: UserConversationListInstance;
+  userConversations: UserConversationListInstance;
 
   /**
    * Remove a UserInstance
@@ -177,16 +177,16 @@ export class UserContextImpl implements UserContext {
   protected _solution: UserSolution;
   protected _uri: string;
 
-  protected _userConversation?: UserConversationListInstance;
+  protected _userConversations?: UserConversationListInstance;
 
   constructor(protected _version: V1, chatServiceSid: string, sid: string) {
     this._solution = { chatServiceSid, sid };
     this._uri = `/Services/${chatServiceSid}/Users/${sid}`;
   }
 
-  get userConversation(): UserConversationListInstance {
-    this._userConversation = this._userConversation || UserConversationListInstance(this._version, this._solution.chatServiceSid, this._solution.sid);
-    return this._userConversation;
+  get userConversations(): UserConversationListInstance {
+    this._userConversations = this._userConversations || UserConversationListInstance(this._version, this._solution.chatServiceSid, this._solution.sid);
+    return this._userConversations;
   }
 
   remove(params?: any, callback?: any): Promise<boolean> {
@@ -427,10 +427,10 @@ export class UserInstance {
   }
 
   /**
-   * Access the userConversation.
+   * Access the userConversations.
    */
-  userConversation(): UserConversationListInstance {
-    return this._proxy.userConversation;
+  userConversations(): UserConversationListInstance {
+    return this._proxy.userConversations;
   }
 
   /**

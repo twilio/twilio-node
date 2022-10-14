@@ -90,7 +90,7 @@ export interface BrandRegistrationListInstancePageOptions {
 
 export interface BrandRegistrationContext {
 
-  brandVetting: BrandVettingListInstance;
+  brandVettings: BrandVettingListInstance;
 
   /**
    * Fetch a BrandRegistrationInstance
@@ -123,16 +123,16 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   protected _solution: BrandRegistrationSolution;
   protected _uri: string;
 
-  protected _brandVetting?: BrandVettingListInstance;
+  protected _brandVettings?: BrandVettingListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/a2p/BrandRegistrations/${sid}`;
   }
 
-  get brandVetting(): BrandVettingListInstance {
-    this._brandVetting = this._brandVetting || BrandVettingListInstance(this._version, this._solution.sid);
-    return this._brandVetting;
+  get brandVettings(): BrandVettingListInstance {
+    this._brandVettings = this._brandVettings || BrandVettingListInstance(this._version, this._solution.sid);
+    return this._brandVettings;
   }
 
   fetch(callback?: any): Promise<BrandRegistrationInstance> {
@@ -336,10 +336,10 @@ export class BrandRegistrationInstance {
   }
 
   /**
-   * Access the brandVetting.
+   * Access the brandVettings.
    */
-  brandVetting(): BrandVettingListInstance {
-    return this._proxy.brandVetting;
+  brandVettings(): BrandVettingListInstance {
+    return this._proxy.brandVettings;
   }
 
   /**

@@ -366,7 +366,7 @@ export function MessageListInstance(version: V1, chatServiceSid: string, convers
 
 export interface MessageContext {
 
-  deliveryReceipt: DeliveryReceiptListInstance;
+  deliveryReceipts: DeliveryReceiptListInstance;
 
   /**
    * Remove a MessageInstance
@@ -429,16 +429,16 @@ export class MessageContextImpl implements MessageContext {
   protected _solution: MessageSolution;
   protected _uri: string;
 
-  protected _deliveryReceipt?: DeliveryReceiptListInstance;
+  protected _deliveryReceipts?: DeliveryReceiptListInstance;
 
   constructor(protected _version: V1, chatServiceSid: string, conversationSid: string, sid: string) {
     this._solution = { chatServiceSid, conversationSid, sid };
     this._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages/${sid}`;
   }
 
-  get deliveryReceipt(): DeliveryReceiptListInstance {
-    this._deliveryReceipt = this._deliveryReceipt || DeliveryReceiptListInstance(this._version, this._solution.chatServiceSid, this._solution.conversationSid, this._solution.sid);
-    return this._deliveryReceipt;
+  get deliveryReceipts(): DeliveryReceiptListInstance {
+    this._deliveryReceipts = this._deliveryReceipts || DeliveryReceiptListInstance(this._version, this._solution.chatServiceSid, this._solution.conversationSid, this._solution.sid);
+    return this._deliveryReceipts;
   }
 
   remove(params?: any, callback?: any): Promise<boolean> {
@@ -696,10 +696,10 @@ export class MessageInstance {
   }
 
   /**
-   * Access the deliveryReceipt.
+   * Access the deliveryReceipts.
    */
-  deliveryReceipt(): DeliveryReceiptListInstance {
-    return this._proxy.deliveryReceipt;
+  deliveryReceipts(): DeliveryReceiptListInstance {
+    return this._proxy.deliveryReceipts;
   }
 
   /**

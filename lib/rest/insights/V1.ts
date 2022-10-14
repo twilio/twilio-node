@@ -24,7 +24,7 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of Insights
    *
-   * @property { Twilio.Insights.V1.CallListInstance } call - call resource
+   * @property { Twilio.Insights.V1.CallListInstance } calls - calls resource
    * @property { Twilio.Insights.V1.SettingListInstance } settings - settings resource
    * @property { Twilio.Insights.V1.CallSummariesListInstance } callSummaries - callSummaries resource
    * @property { Twilio.Insights.V1.ConferenceListInstance } conferences - conferences resource
@@ -36,15 +36,15 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _call?: CallListInstance;
+  protected _calls?: CallListInstance;
   protected _settings?: SettingListInstance;
   protected _callSummaries?: CallSummariesListInstance;
   protected _conferences?: ConferenceListInstance;
   protected _rooms?: RoomListInstance;
 
-  get call(): CallListInstance {
-    this._call = this._call || CallListInstance(this);
-    return this._call;
+  get calls(): CallListInstance {
+    this._calls = this._calls || CallListInstance(this);
+    return this._calls;
   }
 
   get settings(): SettingListInstance {

@@ -123,7 +123,7 @@ export interface SimListInstancePageOptions {
 export interface SimContext {
 
   billingPeriods: BillingPeriodListInstance;
-  simIpAddress: SimIpAddressListInstance;
+  simIpAddresses: SimIpAddressListInstance;
 
   /**
    * Fetch a SimInstance
@@ -167,7 +167,7 @@ export class SimContextImpl implements SimContext {
   protected _uri: string;
 
   protected _billingPeriods?: BillingPeriodListInstance;
-  protected _simIpAddress?: SimIpAddressListInstance;
+  protected _simIpAddresses?: SimIpAddressListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -179,9 +179,9 @@ export class SimContextImpl implements SimContext {
     return this._billingPeriods;
   }
 
-  get simIpAddress(): SimIpAddressListInstance {
-    this._simIpAddress = this._simIpAddress || SimIpAddressListInstance(this._version, this._solution.sid);
-    return this._simIpAddress;
+  get simIpAddresses(): SimIpAddressListInstance {
+    this._simIpAddresses = this._simIpAddresses || SimIpAddressListInstance(this._version, this._solution.sid);
+    return this._simIpAddresses;
   }
 
   fetch(callback?: any): Promise<SimInstance> {
@@ -363,10 +363,10 @@ export class SimInstance {
   }
 
   /**
-   * Access the simIpAddress.
+   * Access the simIpAddresses.
    */
-  simIpAddress(): SimIpAddressListInstance {
-    return this._proxy.simIpAddress;
+  simIpAddresses(): SimIpAddressListInstance {
+    return this._proxy.simIpAddresses;
   }
 
   /**

@@ -25,7 +25,7 @@ import { AWSListInstance } from "./credential/aws";
 
 export interface CredentialListInstance {
 
-  publicKeys: PublicKeyListInstance;
+  publicKey: PublicKeyListInstance;
   aws: AWSListInstance;
 
   /**
@@ -41,7 +41,7 @@ class CredentialListInstanceImpl implements CredentialListInstance {
   _solution?: CredentialSolution;
   _uri?: string;
 
-  _publicKeys?: PublicKeyListInstance;
+  _publicKey?: PublicKeyListInstance;
   _aws?: AWSListInstance;
 }
 
@@ -52,12 +52,12 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
   instance._solution = {  };
   instance._uri = `/Credentials`;
 
-  Object.defineProperty(instance, "publicKeys", {
-    get: function publicKeys() {
-      if (!this._publicKeys) {
-        this._publicKeys = PublicKeyListInstance(this._version);
+  Object.defineProperty(instance, "publicKey", {
+    get: function publicKey() {
+      if (!this._publicKey) {
+        this._publicKey = PublicKeyListInstance(this._version);
       }
-      return this._publicKeys;
+      return this._publicKey;
     }
   });
 

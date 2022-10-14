@@ -27,7 +27,7 @@ export default class V1 extends Version {
    *
    * @property { Twilio.Voice.V1.ByocTrunkListInstance } byocTrunks - byocTrunks resource
    * @property { Twilio.Voice.V1.IpRecordListInstance } ipRecords - ipRecords resource
-   * @property { Twilio.Voice.V1.ArchivedCallListInstance } archivedCall - archivedCall resource
+   * @property { Twilio.Voice.V1.ArchivedCallListInstance } archivedCalls - archivedCalls resource
    * @property { Twilio.Voice.V1.ConnectionPolicyListInstance } connectionPolicies - connectionPolicies resource
    * @property { Twilio.Voice.V1.DialingPermissionsListInstance } dialingPermissions - dialingPermissions resource
    * @property { Twilio.Voice.V1.SourceIpMappingListInstance } sourceIpMappings - sourceIpMappings resource
@@ -40,7 +40,7 @@ export default class V1 extends Version {
 
   protected _byocTrunks?: ByocTrunkListInstance;
   protected _ipRecords?: IpRecordListInstance;
-  protected _archivedCall?: ArchivedCallListInstance;
+  protected _archivedCalls?: ArchivedCallListInstance;
   protected _connectionPolicies?: ConnectionPolicyListInstance;
   protected _dialingPermissions?: DialingPermissionsListInstance;
   protected _sourceIpMappings?: SourceIpMappingListInstance;
@@ -55,9 +55,9 @@ export default class V1 extends Version {
     return this._ipRecords;
   }
 
-  get archivedCall(): ArchivedCallListInstance {
-    this._archivedCall = this._archivedCall || ArchivedCallListInstance(this);
-    return this._archivedCall;
+  get archivedCalls(): ArchivedCallListInstance {
+    this._archivedCalls = this._archivedCalls || ArchivedCallListInstance(this);
+    return this._archivedCalls;
   }
 
   get connectionPolicies(): ConnectionPolicyListInstance {

@@ -143,7 +143,7 @@ export interface DomainContext {
 
   ipAccessControlListMappings: IpAccessControlListMappingListInstance;
   credentialListMappings: CredentialListMappingListInstance;
-  authTypes: AuthTypesListInstance;
+  auth: AuthTypesListInstance;
 
   /**
    * Remove a DomainInstance
@@ -198,7 +198,7 @@ export class DomainContextImpl implements DomainContext {
 
   protected _ipAccessControlListMappings?: IpAccessControlListMappingListInstance;
   protected _credentialListMappings?: CredentialListMappingListInstance;
-  protected _authTypes?: AuthTypesListInstance;
+  protected _auth?: AuthTypesListInstance;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
@@ -215,9 +215,9 @@ export class DomainContextImpl implements DomainContext {
     return this._credentialListMappings;
   }
 
-  get authTypes(): AuthTypesListInstance {
-    this._authTypes = this._authTypes || AuthTypesListInstance(this._version, this._solution.accountSid, this._solution.sid);
-    return this._authTypes;
+  get auth(): AuthTypesListInstance {
+    this._auth = this._auth || AuthTypesListInstance(this._version, this._solution.accountSid, this._solution.sid);
+    return this._auth;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -513,10 +513,10 @@ export class DomainInstance {
   }
 
   /**
-   * Access the authTypes.
+   * Access the auth.
    */
-  authTypes(): AuthTypesListInstance {
-    return this._proxy.authTypes;
+  auth(): AuthTypesListInstance {
+    return this._proxy.auth;
   }
 
   /**

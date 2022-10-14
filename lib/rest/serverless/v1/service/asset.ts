@@ -315,7 +315,7 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
 
 export interface AssetContext {
 
-  assetVersion: AssetVersionListInstance;
+  assetVersions: AssetVersionListInstance;
 
   /**
    * Remove a AssetInstance
@@ -360,16 +360,16 @@ export class AssetContextImpl implements AssetContext {
   protected _solution: AssetSolution;
   protected _uri: string;
 
-  protected _assetVersion?: AssetVersionListInstance;
+  protected _assetVersions?: AssetVersionListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Assets/${sid}`;
   }
 
-  get assetVersion(): AssetVersionListInstance {
-    this._assetVersion = this._assetVersion || AssetVersionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._assetVersion;
+  get assetVersions(): AssetVersionListInstance {
+    this._assetVersions = this._assetVersions || AssetVersionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._assetVersions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -551,10 +551,10 @@ export class AssetInstance {
   }
 
   /**
-   * Access the assetVersion.
+   * Access the assetVersions.
    */
-  assetVersion(): AssetVersionListInstance {
-    return this._proxy.assetVersion;
+  assetVersions(): AssetVersionListInstance {
+    return this._proxy.assetVersions;
   }
 
   /**

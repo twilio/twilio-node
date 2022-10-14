@@ -101,7 +101,7 @@ export interface UserListInstancePageOptions {
 
 export interface UserContext {
 
-  userChannel: UserChannelListInstance;
+  userChannels: UserChannelListInstance;
 
   /**
    * Remove a UserInstance
@@ -154,16 +154,16 @@ export class UserContextImpl implements UserContext {
   protected _solution: UserSolution;
   protected _uri: string;
 
-  protected _userChannel?: UserChannelListInstance;
+  protected _userChannels?: UserChannelListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Users/${sid}`;
   }
 
-  get userChannel(): UserChannelListInstance {
-    this._userChannel = this._userChannel || UserChannelListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._userChannel;
+  get userChannels(): UserChannelListInstance {
+    this._userChannels = this._userChannels || UserChannelListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._userChannels;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -348,10 +348,10 @@ export class UserInstance {
   }
 
   /**
-   * Access the userChannel.
+   * Access the userChannels.
    */
-  userChannel(): UserChannelListInstance {
-    return this._proxy.userChannel;
+  userChannels(): UserChannelListInstance {
+    return this._proxy.userChannels;
   }
 
   /**

@@ -326,7 +326,7 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
 
 export interface ConferenceContext {
 
-  conferenceParticipant: ConferenceParticipantListInstance;
+  conferenceParticipants: ConferenceParticipantListInstance;
 
   /**
    * Fetch a ConferenceInstance
@@ -349,16 +349,16 @@ export class ConferenceContextImpl implements ConferenceContext {
   protected _solution: ConferenceSolution;
   protected _uri: string;
 
-  protected _conferenceParticipant?: ConferenceParticipantListInstance;
+  protected _conferenceParticipants?: ConferenceParticipantListInstance;
 
   constructor(protected _version: V1, conferenceSid: string) {
     this._solution = { conferenceSid };
     this._uri = `/Conferences/${conferenceSid}`;
   }
 
-  get conferenceParticipant(): ConferenceParticipantListInstance {
-    this._conferenceParticipant = this._conferenceParticipant || ConferenceParticipantListInstance(this._version, this._solution.conferenceSid);
-    return this._conferenceParticipant;
+  get conferenceParticipants(): ConferenceParticipantListInstance {
+    this._conferenceParticipants = this._conferenceParticipants || ConferenceParticipantListInstance(this._version, this._solution.conferenceSid);
+    return this._conferenceParticipants;
   }
 
   fetch(callback?: any): Promise<ConferenceInstance> {
@@ -547,10 +547,10 @@ export class ConferenceInstance {
   }
 
   /**
-   * Access the conferenceParticipant.
+   * Access the conferenceParticipants.
    */
-  conferenceParticipant(): ConferenceParticipantListInstance {
-    return this._proxy.conferenceParticipant;
+  conferenceParticipants(): ConferenceParticipantListInstance {
+    return this._proxy.conferenceParticipants;
   }
 
   /**

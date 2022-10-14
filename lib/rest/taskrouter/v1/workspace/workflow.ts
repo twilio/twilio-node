@@ -350,9 +350,9 @@ export function WorkflowListInstance(version: V1, workspaceSid: string): Workflo
 
 export interface WorkflowContext {
 
-  workflowRealTimeStatistics: WorkflowRealTimeStatisticsListInstance;
-  workflowCumulativeStatistics: WorkflowCumulativeStatisticsListInstance;
-  workflowStatistics: WorkflowStatisticsListInstance;
+  realTimeStatistics: WorkflowRealTimeStatisticsListInstance;
+  cumulativeStatistics: WorkflowCumulativeStatisticsListInstance;
+  statistics: WorkflowStatisticsListInstance;
 
   /**
    * Remove a WorkflowInstance
@@ -405,28 +405,28 @@ export class WorkflowContextImpl implements WorkflowContext {
   protected _solution: WorkflowSolution;
   protected _uri: string;
 
-  protected _workflowRealTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
-  protected _workflowCumulativeStatistics?: WorkflowCumulativeStatisticsListInstance;
-  protected _workflowStatistics?: WorkflowStatisticsListInstance;
+  protected _realTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
+  protected _cumulativeStatistics?: WorkflowCumulativeStatisticsListInstance;
+  protected _statistics?: WorkflowStatisticsListInstance;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
     this._solution = { workspaceSid, sid };
     this._uri = `/Workspaces/${workspaceSid}/Workflows/${sid}`;
   }
 
-  get workflowRealTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
-    this._workflowRealTimeStatistics = this._workflowRealTimeStatistics || WorkflowRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._workflowRealTimeStatistics;
+  get realTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
+    this._realTimeStatistics = this._realTimeStatistics || WorkflowRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._realTimeStatistics;
   }
 
-  get workflowCumulativeStatistics(): WorkflowCumulativeStatisticsListInstance {
-    this._workflowCumulativeStatistics = this._workflowCumulativeStatistics || WorkflowCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._workflowCumulativeStatistics;
+  get cumulativeStatistics(): WorkflowCumulativeStatisticsListInstance {
+    this._cumulativeStatistics = this._cumulativeStatistics || WorkflowCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._cumulativeStatistics;
   }
 
-  get workflowStatistics(): WorkflowStatisticsListInstance {
-    this._workflowStatistics = this._workflowStatistics || WorkflowStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._workflowStatistics;
+  get statistics(): WorkflowStatisticsListInstance {
+    this._statistics = this._statistics || WorkflowStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._statistics;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -650,24 +650,24 @@ export class WorkflowInstance {
   }
 
   /**
-   * Access the workflowRealTimeStatistics.
+   * Access the realTimeStatistics.
    */
-  workflowRealTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
-    return this._proxy.workflowRealTimeStatistics;
+  realTimeStatistics(): WorkflowRealTimeStatisticsListInstance {
+    return this._proxy.realTimeStatistics;
   }
 
   /**
-   * Access the workflowCumulativeStatistics.
+   * Access the cumulativeStatistics.
    */
-  workflowCumulativeStatistics(): WorkflowCumulativeStatisticsListInstance {
-    return this._proxy.workflowCumulativeStatistics;
+  cumulativeStatistics(): WorkflowCumulativeStatisticsListInstance {
+    return this._proxy.cumulativeStatistics;
   }
 
   /**
-   * Access the workflowStatistics.
+   * Access the statistics.
    */
-  workflowStatistics(): WorkflowStatisticsListInstance {
-    return this._proxy.workflowStatistics;
+  statistics(): WorkflowStatisticsListInstance {
+    return this._proxy.statistics;
   }
 
   /**

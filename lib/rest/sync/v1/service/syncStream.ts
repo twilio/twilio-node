@@ -325,7 +325,7 @@ export function SyncStreamListInstance(version: V1, serviceSid: string): SyncStr
 
 export interface SyncStreamContext {
 
-  streamMessage: StreamMessageListInstance;
+  streamMessages: StreamMessageListInstance;
 
   /**
    * Remove a SyncStreamInstance
@@ -378,16 +378,16 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   protected _solution: SyncStreamSolution;
   protected _uri: string;
 
-  protected _streamMessage?: StreamMessageListInstance;
+  protected _streamMessages?: StreamMessageListInstance;
 
   constructor(protected _version: V1, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Streams/${sid}`;
   }
 
-  get streamMessage(): StreamMessageListInstance {
-    this._streamMessage = this._streamMessage || StreamMessageListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._streamMessage;
+  get streamMessages(): StreamMessageListInstance {
+    this._streamMessages = this._streamMessages || StreamMessageListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._streamMessages;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -588,10 +588,10 @@ export class SyncStreamInstance {
   }
 
   /**
-   * Access the streamMessage.
+   * Access the streamMessages.
    */
-  streamMessage(): StreamMessageListInstance {
-    return this._proxy.streamMessage;
+  streamMessages(): StreamMessageListInstance {
+    return this._proxy.streamMessages;
   }
 
   /**

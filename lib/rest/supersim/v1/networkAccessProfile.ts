@@ -93,7 +93,7 @@ export interface NetworkAccessProfileListInstancePageOptions {
 
 export interface NetworkAccessProfileContext {
 
-  networkAccessProfileNetwork: NetworkAccessProfileNetworkListInstance;
+  networks: NetworkAccessProfileNetworkListInstance;
 
   /**
    * Fetch a NetworkAccessProfileInstance
@@ -136,16 +136,16 @@ export class NetworkAccessProfileContextImpl implements NetworkAccessProfileCont
   protected _solution: NetworkAccessProfileSolution;
   protected _uri: string;
 
-  protected _networkAccessProfileNetwork?: NetworkAccessProfileNetworkListInstance;
+  protected _networks?: NetworkAccessProfileNetworkListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
     this._uri = `/NetworkAccessProfiles/${sid}`;
   }
 
-  get networkAccessProfileNetwork(): NetworkAccessProfileNetworkListInstance {
-    this._networkAccessProfileNetwork = this._networkAccessProfileNetwork || NetworkAccessProfileNetworkListInstance(this._version, this._solution.sid);
-    return this._networkAccessProfileNetwork;
+  get networks(): NetworkAccessProfileNetworkListInstance {
+    this._networks = this._networks || NetworkAccessProfileNetworkListInstance(this._version, this._solution.sid);
+    return this._networks;
   }
 
   fetch(callback?: any): Promise<NetworkAccessProfileInstance> {
@@ -300,10 +300,10 @@ export class NetworkAccessProfileInstance {
   }
 
   /**
-   * Access the networkAccessProfileNetwork.
+   * Access the networks.
    */
-  networkAccessProfileNetwork(): NetworkAccessProfileNetworkListInstance {
-    return this._proxy.networkAccessProfileNetwork;
+  networks(): NetworkAccessProfileNetworkListInstance {
+    return this._proxy.networks;
   }
 
   /**

@@ -73,7 +73,7 @@ export interface ExecutionStepListInstancePageOptions {
 
 export interface ExecutionStepContext {
 
-  executionStepContext: ExecutionStepContextListInstance;
+  stepContext: ExecutionStepContextListInstance;
 
   /**
    * Fetch a ExecutionStepInstance
@@ -96,16 +96,16 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
   protected _solution: ExecutionStepSolution;
   protected _uri: string;
 
-  protected _executionStepContext?: ExecutionStepContextListInstance;
+  protected _stepContext?: ExecutionStepContextListInstance;
 
   constructor(protected _version: V2, flowSid: string, executionSid: string, sid: string) {
     this._solution = { flowSid, executionSid, sid };
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Steps/${sid}`;
   }
 
-  get executionStepContext(): ExecutionStepContextListInstance {
-    this._executionStepContext = this._executionStepContext || ExecutionStepContextListInstance(this._version, this._solution.flowSid, this._solution.executionSid, this._solution.sid);
-    return this._executionStepContext;
+  get stepContext(): ExecutionStepContextListInstance {
+    this._stepContext = this._stepContext || ExecutionStepContextListInstance(this._version, this._solution.flowSid, this._solution.executionSid, this._solution.sid);
+    return this._stepContext;
   }
 
   fetch(callback?: any): Promise<ExecutionStepInstance> {
@@ -243,10 +243,10 @@ export class ExecutionStepInstance {
   }
 
   /**
-   * Access the executionStepContext.
+   * Access the stepContext.
    */
-  executionStepContext(): ExecutionStepContextListInstance {
-    return this._proxy.executionStepContext;
+  stepContext(): ExecutionStepContextListInstance {
+    return this._proxy.stepContext;
   }
 
   /**

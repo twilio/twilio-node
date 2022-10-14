@@ -161,9 +161,9 @@ export interface WorkerListInstance {
   (sid: string): WorkerContext;
   get(sid: string): WorkerContext;
 
-  workersStatistics: WorkersStatisticsListInstance;
-  workersRealTimeStatistics: WorkersRealTimeStatisticsListInstance;
-  workersCumulativeStatistics: WorkersCumulativeStatisticsListInstance;
+  statistics: WorkersStatisticsListInstance;
+  realTimeStatistics: WorkersRealTimeStatisticsListInstance;
+  cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
 
   /**
    * Create a WorkerInstance
@@ -292,9 +292,9 @@ class WorkerListInstanceImpl implements WorkerListInstance {
   _solution?: WorkerSolution;
   _uri?: string;
 
-  _workersStatistics?: WorkersStatisticsListInstance;
-  _workersRealTimeStatistics?: WorkersRealTimeStatisticsListInstance;
-  _workersCumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
+  _statistics?: WorkersStatisticsListInstance;
+  _realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
+  _cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
 }
 
 export function WorkerListInstance(version: V1, workspaceSid: string): WorkerListInstance {
@@ -308,30 +308,30 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
   instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/Workers`;
 
-  Object.defineProperty(instance, "workersStatistics", {
-    get: function workersStatistics() {
-      if (!this._workersStatistics) {
-        this._workersStatistics = WorkersStatisticsListInstance(this._version, this._solution.workspaceSid);
+  Object.defineProperty(instance, "statistics", {
+    get: function statistics() {
+      if (!this._statistics) {
+        this._statistics = WorkersStatisticsListInstance(this._version, this._solution.workspaceSid);
       }
-      return this._workersStatistics;
+      return this._statistics;
     }
   });
 
-  Object.defineProperty(instance, "workersRealTimeStatistics", {
-    get: function workersRealTimeStatistics() {
-      if (!this._workersRealTimeStatistics) {
-        this._workersRealTimeStatistics = WorkersRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid);
+  Object.defineProperty(instance, "realTimeStatistics", {
+    get: function realTimeStatistics() {
+      if (!this._realTimeStatistics) {
+        this._realTimeStatistics = WorkersRealTimeStatisticsListInstance(this._version, this._solution.workspaceSid);
       }
-      return this._workersRealTimeStatistics;
+      return this._realTimeStatistics;
     }
   });
 
-  Object.defineProperty(instance, "workersCumulativeStatistics", {
-    get: function workersCumulativeStatistics() {
-      if (!this._workersCumulativeStatistics) {
-        this._workersCumulativeStatistics = WorkersCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid);
+  Object.defineProperty(instance, "cumulativeStatistics", {
+    get: function cumulativeStatistics() {
+      if (!this._cumulativeStatistics) {
+        this._cumulativeStatistics = WorkersCumulativeStatisticsListInstance(this._version, this._solution.workspaceSid);
       }
-      return this._workersCumulativeStatistics;
+      return this._cumulativeStatistics;
     }
   });
 
@@ -426,8 +426,8 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
 export interface WorkerContext {
 
   reservations: ReservationListInstance;
-  workerChannel: WorkerChannelListInstance;
-  workerStatistics: WorkerStatisticsListInstance;
+  workerChannels: WorkerChannelListInstance;
+  statistics: WorkerStatisticsListInstance;
 
   /**
    * Remove a WorkerInstance
@@ -491,8 +491,8 @@ export class WorkerContextImpl implements WorkerContext {
   protected _uri: string;
 
   protected _reservations?: ReservationListInstance;
-  protected _workerChannel?: WorkerChannelListInstance;
-  protected _workerStatistics?: WorkerStatisticsListInstance;
+  protected _workerChannels?: WorkerChannelListInstance;
+  protected _statistics?: WorkerStatisticsListInstance;
 
   constructor(protected _version: V1, workspaceSid: string, sid: string) {
     this._solution = { workspaceSid, sid };
@@ -504,14 +504,14 @@ export class WorkerContextImpl implements WorkerContext {
     return this._reservations;
   }
 
-  get workerChannel(): WorkerChannelListInstance {
-    this._workerChannel = this._workerChannel || WorkerChannelListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._workerChannel;
+  get workerChannels(): WorkerChannelListInstance {
+    this._workerChannels = this._workerChannels || WorkerChannelListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._workerChannels;
   }
 
-  get workerStatistics(): WorkerStatisticsListInstance {
-    this._workerStatistics = this._workerStatistics || WorkerStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
-    return this._workerStatistics;
+  get statistics(): WorkerStatisticsListInstance {
+    this._statistics = this._statistics || WorkerStatisticsListInstance(this._version, this._solution.workspaceSid, this._solution.sid);
+    return this._statistics;
   }
 
   remove(params?: any, callback?: any): Promise<boolean> {
@@ -763,17 +763,17 @@ export class WorkerInstance {
   }
 
   /**
-   * Access the workerChannel.
+   * Access the workerChannels.
    */
-  workerChannel(): WorkerChannelListInstance {
-    return this._proxy.workerChannel;
+  workerChannels(): WorkerChannelListInstance {
+    return this._proxy.workerChannels;
   }
 
   /**
-   * Access the workerStatistics.
+   * Access the statistics.
    */
-  workerStatistics(): WorkerStatisticsListInstance {
-    return this._proxy.workerStatistics;
+  statistics(): WorkerStatisticsListInstance {
+    return this._proxy.statistics;
   }
 
   /**

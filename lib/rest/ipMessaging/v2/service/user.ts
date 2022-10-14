@@ -106,8 +106,8 @@ export interface UserListInstancePageOptions {
 
 export interface UserContext {
 
-  userBinding: UserBindingListInstance;
-  userChannel: UserChannelListInstance;
+  userBindings: UserBindingListInstance;
+  userChannels: UserChannelListInstance;
 
   /**
    * Remove a UserInstance
@@ -160,22 +160,22 @@ export class UserContextImpl implements UserContext {
   protected _solution: UserSolution;
   protected _uri: string;
 
-  protected _userBinding?: UserBindingListInstance;
-  protected _userChannel?: UserChannelListInstance;
+  protected _userBindings?: UserBindingListInstance;
+  protected _userChannels?: UserChannelListInstance;
 
   constructor(protected _version: V2, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Users/${sid}`;
   }
 
-  get userBinding(): UserBindingListInstance {
-    this._userBinding = this._userBinding || UserBindingListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._userBinding;
+  get userBindings(): UserBindingListInstance {
+    this._userBindings = this._userBindings || UserBindingListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._userBindings;
   }
 
-  get userChannel(): UserChannelListInstance {
-    this._userChannel = this._userChannel || UserChannelListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._userChannel;
+  get userChannels(): UserChannelListInstance {
+    this._userChannels = this._userChannels || UserChannelListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._userChannels;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -361,17 +361,17 @@ export class UserInstance {
   }
 
   /**
-   * Access the userBinding.
+   * Access the userBindings.
    */
-  userBinding(): UserBindingListInstance {
-    return this._proxy.userBinding;
+  userBindings(): UserBindingListInstance {
+    return this._proxy.userBindings;
   }
 
   /**
-   * Access the userChannel.
+   * Access the userChannels.
    */
-  userChannel(): UserChannelListInstance {
-    return this._proxy.userChannel;
+  userChannels(): UserChannelListInstance {
+    return this._proxy.userChannels;
   }
 
   /**

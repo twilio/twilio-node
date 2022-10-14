@@ -314,8 +314,8 @@ export function SyncMapListInstance(version: Sync, serviceSid: string): SyncMapL
 
 export interface SyncMapContext {
 
-  syncMapItem: SyncMapItemListInstance;
-  syncMapPermission: SyncMapPermissionListInstance;
+  syncMapItems: SyncMapItemListInstance;
+  syncMapPermissions: SyncMapPermissionListInstance;
 
   /**
    * Remove a SyncMapInstance
@@ -348,22 +348,22 @@ export class SyncMapContextImpl implements SyncMapContext {
   protected _solution: SyncMapSolution;
   protected _uri: string;
 
-  protected _syncMapItem?: SyncMapItemListInstance;
-  protected _syncMapPermission?: SyncMapPermissionListInstance;
+  protected _syncMapItems?: SyncMapItemListInstance;
+  protected _syncMapPermissions?: SyncMapPermissionListInstance;
 
   constructor(protected _version: Sync, serviceSid: string, sid: string) {
     this._solution = { serviceSid, sid };
     this._uri = `/Services/${serviceSid}/Maps/${sid}`;
   }
 
-  get syncMapItem(): SyncMapItemListInstance {
-    this._syncMapItem = this._syncMapItem || SyncMapItemListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._syncMapItem;
+  get syncMapItems(): SyncMapItemListInstance {
+    this._syncMapItems = this._syncMapItems || SyncMapItemListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._syncMapItems;
   }
 
-  get syncMapPermission(): SyncMapPermissionListInstance {
-    this._syncMapPermission = this._syncMapPermission || SyncMapPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._syncMapPermission;
+  get syncMapPermissions(): SyncMapPermissionListInstance {
+    this._syncMapPermissions = this._syncMapPermissions || SyncMapPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._syncMapPermissions;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -484,17 +484,17 @@ export class SyncMapInstance {
   }
 
   /**
-   * Access the syncMapItem.
+   * Access the syncMapItems.
    */
-  syncMapItem(): SyncMapItemListInstance {
-    return this._proxy.syncMapItem;
+  syncMapItems(): SyncMapItemListInstance {
+    return this._proxy.syncMapItems;
   }
 
   /**
-   * Access the syncMapPermission.
+   * Access the syncMapPermissions.
    */
-  syncMapPermission(): SyncMapPermissionListInstance {
-    return this._proxy.syncMapPermission;
+  syncMapPermissions(): SyncMapPermissionListInstance {
+    return this._proxy.syncMapPermissions;
   }
 
   /**

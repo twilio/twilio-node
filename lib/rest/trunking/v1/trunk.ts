@@ -362,10 +362,10 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
 export interface TrunkContext {
 
   ipAccessControlLists: IpAccessControlListListInstance;
-  credentialLists: CredentialListListInstance;
+  credentialsLists: CredentialListListInstance;
   originationUrls: OriginationUrlListInstance;
   phoneNumbers: PhoneNumberListInstance;
-  recording: RecordingListInstance;
+  recordings: RecordingListInstance;
 
   /**
    * Remove a TrunkInstance
@@ -419,10 +419,10 @@ export class TrunkContextImpl implements TrunkContext {
   protected _uri: string;
 
   protected _ipAccessControlLists?: IpAccessControlListListInstance;
-  protected _credentialLists?: CredentialListListInstance;
+  protected _credentialsLists?: CredentialListListInstance;
   protected _originationUrls?: OriginationUrlListInstance;
   protected _phoneNumbers?: PhoneNumberListInstance;
-  protected _recording?: RecordingListInstance;
+  protected _recordings?: RecordingListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -434,9 +434,9 @@ export class TrunkContextImpl implements TrunkContext {
     return this._ipAccessControlLists;
   }
 
-  get credentialLists(): CredentialListListInstance {
-    this._credentialLists = this._credentialLists || CredentialListListInstance(this._version, this._solution.sid);
-    return this._credentialLists;
+  get credentialsLists(): CredentialListListInstance {
+    this._credentialsLists = this._credentialsLists || CredentialListListInstance(this._version, this._solution.sid);
+    return this._credentialsLists;
   }
 
   get originationUrls(): OriginationUrlListInstance {
@@ -449,9 +449,9 @@ export class TrunkContextImpl implements TrunkContext {
     return this._phoneNumbers;
   }
 
-  get recording(): RecordingListInstance {
-    this._recording = this._recording || RecordingListInstance(this._version, this._solution.sid);
-    return this._recording;
+  get recordings(): RecordingListInstance {
+    this._recordings = this._recordings || RecordingListInstance(this._version, this._solution.sid);
+    return this._recordings;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -703,10 +703,10 @@ export class TrunkInstance {
   }
 
   /**
-   * Access the credentialLists.
+   * Access the credentialsLists.
    */
-  credentialLists(): CredentialListListInstance {
-    return this._proxy.credentialLists;
+  credentialsLists(): CredentialListListInstance {
+    return this._proxy.credentialsLists;
   }
 
   /**
@@ -724,10 +724,10 @@ export class TrunkInstance {
   }
 
   /**
-   * Access the recording.
+   * Access the recordings.
    */
-  recording(): RecordingListInstance {
-    return this._proxy.recording;
+  recordings(): RecordingListInstance {
+    return this._proxy.recordings;
   }
 
   /**

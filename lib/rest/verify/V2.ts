@@ -27,7 +27,7 @@ export default class V2 extends Version {
    *
    * @property { Twilio.Verify.V2.FormListInstance } forms - forms resource
    * @property { Twilio.Verify.V2.SafelistListInstance } safelist - safelist resource
-   * @property { Twilio.Verify.V2.VerificationAttemptListInstance } verificationAttempt - verificationAttempt resource
+   * @property { Twilio.Verify.V2.VerificationAttemptListInstance } verificationAttempts - verificationAttempts resource
    * @property { Twilio.Verify.V2.ServiceListInstance } services - services resource
    * @property { Twilio.Verify.V2.VerificationAttemptsSummaryListInstance } verificationAttemptsSummary - verificationAttemptsSummary resource
    * @property { Twilio.Verify.V2.TemplateListInstance } templates - templates resource
@@ -40,7 +40,7 @@ export default class V2 extends Version {
 
   protected _forms?: FormListInstance;
   protected _safelist?: SafelistListInstance;
-  protected _verificationAttempt?: VerificationAttemptListInstance;
+  protected _verificationAttempts?: VerificationAttemptListInstance;
   protected _services?: ServiceListInstance;
   protected _verificationAttemptsSummary?: VerificationAttemptsSummaryListInstance;
   protected _templates?: TemplateListInstance;
@@ -55,9 +55,9 @@ export default class V2 extends Version {
     return this._safelist;
   }
 
-  get verificationAttempt(): VerificationAttemptListInstance {
-    this._verificationAttempt = this._verificationAttempt || VerificationAttemptListInstance(this);
-    return this._verificationAttempt;
+  get verificationAttempts(): VerificationAttemptListInstance {
+    this._verificationAttempts = this._verificationAttempts || VerificationAttemptListInstance(this);
+    return this._verificationAttempts;
   }
 
   get services(): ServiceListInstance {

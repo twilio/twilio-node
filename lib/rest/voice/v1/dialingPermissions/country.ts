@@ -109,7 +109,7 @@ export interface CountryListInstancePageOptions {
 
 export interface CountryContext {
 
-  highriskSpecialPrefix: HighriskSpecialPrefixListInstance;
+  highRiskSpecialPrefixes: HighriskSpecialPrefixListInstance;
 
   /**
    * Fetch a CountryInstance
@@ -132,16 +132,16 @@ export class CountryContextImpl implements CountryContext {
   protected _solution: CountrySolution;
   protected _uri: string;
 
-  protected _highriskSpecialPrefix?: HighriskSpecialPrefixListInstance;
+  protected _highRiskSpecialPrefixes?: HighriskSpecialPrefixListInstance;
 
   constructor(protected _version: V1, isoCode: string) {
     this._solution = { isoCode };
     this._uri = `/DialingPermissions/Countries/${isoCode}`;
   }
 
-  get highriskSpecialPrefix(): HighriskSpecialPrefixListInstance {
-    this._highriskSpecialPrefix = this._highriskSpecialPrefix || HighriskSpecialPrefixListInstance(this._version, this._solution.isoCode);
-    return this._highriskSpecialPrefix;
+  get highRiskSpecialPrefixes(): HighriskSpecialPrefixListInstance {
+    this._highRiskSpecialPrefixes = this._highRiskSpecialPrefixes || HighriskSpecialPrefixListInstance(this._version, this._solution.isoCode);
+    return this._highRiskSpecialPrefixes;
   }
 
   fetch(callback?: any): Promise<CountryInstance> {
@@ -261,10 +261,10 @@ export class CountryInstance {
   }
 
   /**
-   * Access the highriskSpecialPrefix.
+   * Access the highRiskSpecialPrefixes.
    */
-  highriskSpecialPrefix(): HighriskSpecialPrefixListInstance {
-    return this._proxy.highriskSpecialPrefix;
+  highRiskSpecialPrefixes(): HighriskSpecialPrefixListInstance {
+    return this._proxy.highRiskSpecialPrefixes;
   }
 
   /**

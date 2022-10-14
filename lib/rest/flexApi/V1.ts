@@ -24,11 +24,11 @@ export default class V1 extends Version {
   /**
    * Initialize the V1 version of FlexApi
    *
-   * @property { Twilio.FlexApi.V1.WebChannelListInstance } webChannels - webChannels resource
+   * @property { Twilio.FlexApi.V1.WebChannelListInstance } webChannel - webChannel resource
    * @property { Twilio.FlexApi.V1.ConfigurationListInstance } configuration - configuration resource
-   * @property { Twilio.FlexApi.V1.InteractionListInstance } interactions - interactions resource
-   * @property { Twilio.FlexApi.V1.ChannelListInstance } channels - channels resource
-   * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flexFlows - flexFlows resource
+   * @property { Twilio.FlexApi.V1.InteractionListInstance } interaction - interaction resource
+   * @property { Twilio.FlexApi.V1.ChannelListInstance } channel - channel resource
+   * @property { Twilio.FlexApi.V1.FlexFlowListInstance } flexFlow - flexFlow resource
    *
    * @param { Twilio.FlexApi } domain - The Twilio domain
    */
@@ -36,15 +36,15 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
-  protected _webChannels?: WebChannelListInstance;
+  protected _webChannel?: WebChannelListInstance;
   protected _configuration?: ConfigurationListInstance;
-  protected _interactions?: InteractionListInstance;
-  protected _channels?: ChannelListInstance;
-  protected _flexFlows?: FlexFlowListInstance;
+  protected _interaction?: InteractionListInstance;
+  protected _channel?: ChannelListInstance;
+  protected _flexFlow?: FlexFlowListInstance;
 
-  get webChannels(): WebChannelListInstance {
-    this._webChannels = this._webChannels || WebChannelListInstance(this);
-    return this._webChannels;
+  get webChannel(): WebChannelListInstance {
+    this._webChannel = this._webChannel || WebChannelListInstance(this);
+    return this._webChannel;
   }
 
   get configuration(): ConfigurationListInstance {
@@ -52,19 +52,19 @@ export default class V1 extends Version {
     return this._configuration;
   }
 
-  get interactions(): InteractionListInstance {
-    this._interactions = this._interactions || InteractionListInstance(this);
-    return this._interactions;
+  get interaction(): InteractionListInstance {
+    this._interaction = this._interaction || InteractionListInstance(this);
+    return this._interaction;
   }
 
-  get channels(): ChannelListInstance {
-    this._channels = this._channels || ChannelListInstance(this);
-    return this._channels;
+  get channel(): ChannelListInstance {
+    this._channel = this._channel || ChannelListInstance(this);
+    return this._channel;
   }
 
-  get flexFlows(): FlexFlowListInstance {
-    this._flexFlows = this._flexFlows || FlexFlowListInstance(this);
-    return this._flexFlows;
+  get flexFlow(): FlexFlowListInstance {
+    this._flexFlow = this._flexFlow || FlexFlowListInstance(this);
+    return this._flexFlow;
   }
 
 }
