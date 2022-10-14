@@ -1,8 +1,9 @@
-import TwilioClient = require('../rest/Twilio');
-import { RequestOpts } from "../base/BaseTwilio";
+import {BaseTwilio, RequestOpts} from "../base/BaseTwilio";
 
 declare class Domain {
-  constructor(twilio: any, baseUrl: string);
+  twilio?: BaseTwilio;
+
+  constructor(twilio: BaseTwilio, baseUrl: string);
 
   /**
    * Turn a uri into an absolute url

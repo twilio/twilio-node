@@ -1,4 +1,4 @@
-import {AccountContext, AccountListInstance} from './api/v2010/account';
+import {AccountContext, AccountContextImpl, AccountListInstance} from './api/v2010/account';
 import {AddressListInstance} from './api/v2010/account/address';
 import {ApplicationListInstance} from './api/v2010/account/application';
 import {AuthorizedConnectAppListInstance} from './api/v2010/account/authorizedConnectApp';
@@ -26,20 +26,15 @@ import {ValidationRequestListInstance} from './api/v2010/account/validationReque
 import ApiBase from "./ApiBase";
 
 class Api extends ApiBase {
-    /**
-     * @deprecated - Use v2010.account instead
-     */
-    get account(): AccountContext {
-        console.warn('account is deprecated. Use v2010.account instead.');
-        return this.v2010.account;
+    _account?: AccountContext;
+
+    get accounts(): AccountListInstance {
+        return this.v2010.accounts;
     }
 
-    /**
-     * @deprecated - Use v2010.accounts instead
-     */
-    get accounts(): AccountListInstance {
-        console.warn('accounts is deprecated. Use v2010.accounts instead.');
-        return this.v2010.accounts;
+    get account(): AccountContext {
+        this._account = this._account || new AccountContextImpl(this.v2010, this.twilio.accountSid);
+        return this._account;
     }
 
     /**
