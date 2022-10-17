@@ -19,6 +19,7 @@ import Response from "../../../http/response";
 import V2010 from "../V2010";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import { ShortCodeListInstance } from "./account/shortCode";
 import { CallListInstance } from "./account/call";
 import { UsageListInstance } from "./account/usage";
 import { ConnectAppListInstance } from "./account/connectApp";
@@ -127,6 +128,7 @@ export interface AccountListInstancePageOptions {
 
 export interface AccountContext {
 
+  shortCodes: ShortCodeListInstance;
   calls: CallListInstance;
   usage: UsageListInstance;
   connectApps: ConnectAppListInstance;
@@ -192,6 +194,7 @@ export class AccountContextImpl implements AccountContext {
   protected _solution: AccountSolution;
   protected _uri: string;
 
+  protected _shortCodes?: ShortCodeListInstance;
   protected _calls?: CallListInstance;
   protected _usage?: UsageListInstance;
   protected _connectApps?: ConnectAppListInstance;
@@ -219,6 +222,11 @@ export class AccountContextImpl implements AccountContext {
   constructor(protected _version: V2010, sid: string) {
     this._solution = { sid };
     this._uri = `/Accounts/${sid}.json`;
+  }
+
+  get shortCodes(): ShortCodeListInstance {
+    this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
+    return this._shortCodes;
   }
 
   get calls(): CallListInstance {
@@ -501,6 +509,13 @@ export class AccountInstance {
   update(params?: any, callback?: any): Promise<AccountInstance>
      {
     return this._proxy.update(params, callback);
+  }
+
+  /**
+   * Access the shortCodes.
+   */
+  shortCodes(): ShortCodeListInstance {
+    return this._proxy.shortCodes;
   }
 
   /**

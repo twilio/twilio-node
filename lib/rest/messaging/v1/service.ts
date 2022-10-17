@@ -22,6 +22,7 @@ const serialize = require("../../../base/serialize");
 import { ExternalCampaignListInstance } from "./service/externalCampaign";
 import { UsecaseListInstance } from "./service/usecase";
 import { ShortCodeListInstance } from "./service/shortCode";
+import { UsAppToPersonListInstance } from "./service/usAppToPerson";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { AlphaSenderListInstance } from "./service/alphaSender";
 
@@ -417,6 +418,7 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
 export interface ServiceContext {
 
   shortCodes: ShortCodeListInstance;
+  usAppToPerson: UsAppToPersonListInstance;
   phoneNumbers: PhoneNumberListInstance;
   alphaSenders: AlphaSenderListInstance;
 
@@ -472,6 +474,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _uri: string;
 
   protected _shortCodes?: ShortCodeListInstance;
+  protected _usAppToPerson?: UsAppToPersonListInstance;
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _alphaSenders?: AlphaSenderListInstance;
 
@@ -483,6 +486,11 @@ export class ServiceContextImpl implements ServiceContext {
   get shortCodes(): ShortCodeListInstance {
     this._shortCodes = this._shortCodes || ShortCodeListInstance(this._version, this._solution.sid);
     return this._shortCodes;
+  }
+
+  get usAppToPerson(): UsAppToPersonListInstance {
+    this._usAppToPerson = this._usAppToPerson || UsAppToPersonListInstance(this._version, this._solution.sid);
+    return this._usAppToPerson;
   }
 
   get phoneNumbers(): PhoneNumberListInstance {
@@ -789,6 +797,13 @@ export class ServiceInstance {
    */
   shortCodes(): ShortCodeListInstance {
     return this._proxy.shortCodes;
+  }
+
+  /**
+   * Access the usAppToPerson.
+   */
+  usAppToPerson(): UsAppToPersonListInstance {
+    return this._proxy.usAppToPerson;
   }
 
   /**
