@@ -19,7 +19,7 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-import { CredentialListInstance } from "./credentialList/credential";
+import { CredentialListInstance as CredentialListInstanceImport } from "./credentialList/credential";
 
 
 /**
@@ -315,7 +315,7 @@ export function CredentialListListInstance(version: V2010, accountSid: string): 
 
 export interface CredentialListContext {
 
-  credentials: CredentialListInstance;
+  credentials: CredentialListInstanceImport;
 
   /**
    * Remove a CredentialListInstance
@@ -360,15 +360,15 @@ export class CredentialListContextImpl implements CredentialListContext {
   protected _solution: CredentialListSolution;
   protected _uri: string;
 
-  protected _credentials?: CredentialListInstance;
+  protected _credentials?: CredentialListInstanceImport;
 
   constructor(protected _version: V2010, accountSid: string, sid: string) {
     this._solution = { accountSid, sid };
     this._uri = `/Accounts/${accountSid}/SIP/CredentialLists/${sid}.json`;
   }
 
-  get credentials(): CredentialListInstance {
-    this._credentials = this._credentials || CredentialListInstance(this._version, this._solution.accountSid, this._solution.sid);
+  get credentials(): CredentialListInstanceImport {
+    this._credentials = this._credentials || CredentialListInstanceImport(this._version, this._solution.accountSid, this._solution.sid);
     return this._credentials;
   }
 
@@ -547,7 +547,7 @@ export class CredentialListInstance {
   /**
    * Access the credentials.
    */
-  credentials(): CredentialListInstance {
+  credentials(): CredentialListInstanceImport {
     return this._proxy.credentials;
   }
 
