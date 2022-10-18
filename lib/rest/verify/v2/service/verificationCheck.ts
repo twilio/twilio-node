@@ -20,6 +20,8 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type VerificationCheckChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
+
 
 /**
  * Options to pass to create a VerificationCheckInstance
@@ -134,7 +136,7 @@ interface VerificationCheckResource {
   service_sid?: string | null;
   account_sid?: string | null;
   to?: string | null;
-  channel?: object;
+  channel?: VerificationCheckChannel;
   status?: string | null;
   valid?: boolean | null;
   amount?: string | null;
@@ -181,7 +183,7 @@ export class VerificationCheckInstance {
    * The phone number or email being verified
    */
   to?: string | null;
-  channel?: object;
+  channel?: VerificationCheckChannel;
   /**
    * The status of the verification resource
    */

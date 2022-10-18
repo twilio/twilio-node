@@ -32,7 +32,6 @@ export interface EndUserContextUpdateOptions {
   attributes?: any;
 }
 
-
 /**
  * Options to pass to create a EndUserInstance
  *

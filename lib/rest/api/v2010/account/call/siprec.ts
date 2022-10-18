@@ -20,23 +20,28 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type SiprecUpdateStatus = 'stopped';
+
+type SiprecTrack = 'inbound_track'|'outbound_track'|'both_tracks';
+
+type SiprecStatus = 'in-progress'|'stopped';
+
 
 /**
  * Options to pass to update a SiprecInstance
  *
- * @property { SiprecEnumUpdateStatus } status 
+ * @property { SiprecUpdateStatus } status 
  */
 export interface SiprecContextUpdateOptions {
-  status: SiprecEnumUpdateStatus;
+  status: SiprecUpdateStatus;
 }
-
 
 /**
  * Options to pass to create a SiprecInstance
  *
  * @property { string } [name] The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
  * @property { string } [connectorName] Unique name used when configuring the connector via Marketplace Add-on.
- * @property { SiprecEnumTrack } [track] 
+ * @property { SiprecTrack } [track] 
  * @property { string } [statusCallback] Absolute URL of the status callback.
  * @property { string } [statusCallbackMethod] The http method for the status_callback (one of GET, POST).
  * @property { string } [parameter1Name] Parameter name
@@ -241,7 +246,7 @@ export interface SiprecContextUpdateOptions {
 export interface SiprecListInstanceCreateOptions {
   name?: string;
   connectorName?: string;
-  track?: SiprecEnumTrack;
+  track?: SiprecTrack;
   statusCallback?: string;
   statusCallbackMethod?: string;
   parameter1Name?: string;
@@ -527,7 +532,7 @@ interface SiprecResource {
   account_sid?: string | null;
   call_sid?: string | null;
   name?: string | null;
-  status?: object;
+  status?: SiprecStatus;
   date_updated?: string | null;
   uri?: string | null;
 }
@@ -564,7 +569,7 @@ export class SiprecInstance {
    * The name of this resource
    */
   name?: string | null;
-  status?: object;
+  status?: SiprecStatus;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */

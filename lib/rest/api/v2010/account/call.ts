@@ -28,6 +28,10 @@ import { StreamListInstance } from "./call/stream";
 import { RecordingListInstance } from "./call/recording";
 import { NotificationListInstance } from "./call/notification";
 
+type CallStatus = 'queued'|'ringing'|'in-progress'|'completed'|'busy'|'failed'|'no-answer'|'canceled';
+
+type CallUpdateStatus = 'canceled'|'completed';
+
 
 /**
  * Options to pass to create a CallInstance
@@ -111,7 +115,7 @@ export interface CallListInstanceCreateOptions {
  * @property { string } [to] Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
  * @property { string } [from] Only include calls from this phone number, SIP address, Client identifier or SIM SID.
  * @property { string } [parentCallSid] Only include calls spawned by calls with this SID.
- * @property { CallEnumStatus } [status] The status of the calls to include. Can be: &#x60;queued&#x60;, &#x60;ringing&#x60;, &#x60;in-progress&#x60;, &#x60;canceled&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, &#x60;busy&#x60;, or &#x60;no-answer&#x60;.
+ * @property { CallStatus } [status] The status of the calls to include. Can be: &#x60;queued&#x60;, &#x60;ringing&#x60;, &#x60;in-progress&#x60;, &#x60;canceled&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, &#x60;busy&#x60;, or &#x60;no-answer&#x60;.
  * @property { Date } [startTime] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
  * @property { Date } [startTimeBefore] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
  * @property { Date } [startTimeAfter] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
@@ -132,7 +136,7 @@ export interface CallListInstanceEachOptions {
   to?: string;
   from?: string;
   parentCallSid?: string;
-  status?: CallEnumStatus;
+  status?: CallStatus;
   startTime?: Date;
   startTimeBefore?: Date;
   startTimeAfter?: Date;
@@ -151,7 +155,7 @@ export interface CallListInstanceEachOptions {
  * @property { string } [to] Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
  * @property { string } [from] Only include calls from this phone number, SIP address, Client identifier or SIM SID.
  * @property { string } [parentCallSid] Only include calls spawned by calls with this SID.
- * @property { CallEnumStatus } [status] The status of the calls to include. Can be: &#x60;queued&#x60;, &#x60;ringing&#x60;, &#x60;in-progress&#x60;, &#x60;canceled&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, &#x60;busy&#x60;, or &#x60;no-answer&#x60;.
+ * @property { CallStatus } [status] The status of the calls to include. Can be: &#x60;queued&#x60;, &#x60;ringing&#x60;, &#x60;in-progress&#x60;, &#x60;canceled&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, &#x60;busy&#x60;, or &#x60;no-answer&#x60;.
  * @property { Date } [startTime] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
  * @property { Date } [startTimeBefore] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
  * @property { Date } [startTimeAfter] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
@@ -168,7 +172,7 @@ export interface CallListInstanceOptions {
   to?: string;
   from?: string;
   parentCallSid?: string;
-  status?: CallEnumStatus;
+  status?: CallStatus;
   startTime?: Date;
   startTimeBefore?: Date;
   startTimeAfter?: Date;
@@ -185,7 +189,7 @@ export interface CallListInstanceOptions {
  * @property { string } [to] Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
  * @property { string } [from] Only include calls from this phone number, SIP address, Client identifier or SIM SID.
  * @property { string } [parentCallSid] Only include calls spawned by calls with this SID.
- * @property { CallEnumStatus } [status] The status of the calls to include. Can be: &#x60;queued&#x60;, &#x60;ringing&#x60;, &#x60;in-progress&#x60;, &#x60;canceled&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, &#x60;busy&#x60;, or &#x60;no-answer&#x60;.
+ * @property { CallStatus } [status] The status of the calls to include. Can be: &#x60;queued&#x60;, &#x60;ringing&#x60;, &#x60;in-progress&#x60;, &#x60;canceled&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, &#x60;busy&#x60;, or &#x60;no-answer&#x60;.
  * @property { Date } [startTime] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
  * @property { Date } [startTimeBefore] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
  * @property { Date } [startTimeAfter] Only include calls that started on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read only calls that started on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read calls that started on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read calls that started on or after midnight of this date.
@@ -200,7 +204,7 @@ export interface CallListInstancePageOptions {
   to?: string;
   from?: string;
   parentCallSid?: string;
-  status?: CallEnumStatus;
+  status?: CallStatus;
   startTime?: Date;
   startTimeBefore?: Date;
   startTimeAfter?: Date;
@@ -214,13 +218,12 @@ export interface CallListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a CallInstance
  *
  * @property { string } [url] The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
  * @property { string } [method] The HTTP method we should use when calling the &#x60;url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
- * @property { CallEnumUpdateStatus } [status] 
+ * @property { CallUpdateStatus } [status] 
  * @property { string } [fallbackUrl] The URL that we call using the &#x60;fallback_method&#x60; if an error occurs when requesting or executing the TwiML at &#x60;url&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
  * @property { string } [fallbackMethod] The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -231,7 +234,7 @@ export interface CallListInstancePageOptions {
 export interface CallContextUpdateOptions {
   url?: string;
   method?: string;
-  status?: CallEnumUpdateStatus;
+  status?: CallUpdateStatus;
   fallbackUrl?: string;
   fallbackMethod?: string;
   statusCallback?: string;
@@ -724,7 +727,7 @@ interface CallResource {
   from?: string | null;
   from_formatted?: string | null;
   phone_number_sid?: string | null;
-  status?: object;
+  status?: CallStatus;
   start_time?: string | null;
   end_time?: string | null;
   duration?: string | null;
@@ -817,7 +820,7 @@ export class CallInstance {
    * If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
    */
   phoneNumberSid?: string | null;
-  status?: object;
+  status?: CallStatus;
   /**
    * The start time of the call. Null if the call has not yet been dialed.
    */

@@ -20,16 +20,22 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type ConfigurationAddressType = 'sms'|'whatsapp'|'messenger'|'gbm';
+
+type ConfigurationAddressAutoCreationType = 'webhook'|'studio'|'default';
+
+type ConfigurationAddressMethod = 'GET'|'POST';
+
 
 /**
  * Options to pass to update a AddressConfigurationInstance
  *
  * @property { string } [friendlyName] The human-readable name of this configuration, limited to 256 characters. Optional.
  * @property { boolean } [autoCreationEnabled] Enable/Disable auto-creating conversations for messages to this address
- * @property { ConfigurationAddressEnumAutoCreationType } [autoCreationType] 
+ * @property { ConfigurationAddressAutoCreationType } [autoCreationType] 
  * @property { string } [autoCreationConversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
  * @property { string } [autoCreationWebhookUrl] For type &#x60;webhook&#x60;, the url for the webhook request.
- * @property { ConfigurationAddressEnumMethod } [autoCreationWebhookMethod] 
+ * @property { ConfigurationAddressMethod } [autoCreationWebhookMethod] 
  * @property { Array<string> } [autoCreationWebhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
  * @property { string } [autoCreationStudioFlowSid] For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
  * @property { number } [autoCreationStudioRetryCount] For type &#x60;studio&#x60;, number of times to retry the webhook request
@@ -37,40 +43,39 @@ const serialize = require("../../../base/serialize");
 export interface AddressConfigurationContextUpdateOptions {
   friendlyName?: string;
   autoCreationEnabled?: boolean;
-  autoCreationType?: ConfigurationAddressEnumAutoCreationType;
+  autoCreationType?: ConfigurationAddressAutoCreationType;
   autoCreationConversationServiceSid?: string;
   autoCreationWebhookUrl?: string;
-  autoCreationWebhookMethod?: ConfigurationAddressEnumMethod;
+  autoCreationWebhookMethod?: ConfigurationAddressMethod;
   autoCreationWebhookFilters?: Array<string>;
   autoCreationStudioFlowSid?: string;
   autoCreationStudioRetryCount?: number;
 }
 
-
 /**
  * Options to pass to create a AddressConfigurationInstance
  *
- * @property { ConfigurationAddressEnumType } type 
+ * @property { ConfigurationAddressType } type 
  * @property { string } address The unique address to be configured. The address can be a whatsapp address or phone number
  * @property { string } [friendlyName] The human-readable name of this configuration, limited to 256 characters. Optional.
  * @property { boolean } [autoCreationEnabled] Enable/Disable auto-creating conversations for messages to this address
- * @property { ConfigurationAddressEnumAutoCreationType } [autoCreationType] 
+ * @property { ConfigurationAddressAutoCreationType } [autoCreationType] 
  * @property { string } [autoCreationConversationServiceSid] Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
  * @property { string } [autoCreationWebhookUrl] For type &#x60;webhook&#x60;, the url for the webhook request.
- * @property { ConfigurationAddressEnumMethod } [autoCreationWebhookMethod] 
+ * @property { ConfigurationAddressMethod } [autoCreationWebhookMethod] 
  * @property { Array<string> } [autoCreationWebhookFilters] The list of events, firing webhook event for this Conversation. Values can be any of the following: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationStateUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onDeliveryUpdated&#x60;
  * @property { string } [autoCreationStudioFlowSid] For type &#x60;studio&#x60;, the studio flow SID where the webhook should be sent to.
  * @property { number } [autoCreationStudioRetryCount] For type &#x60;studio&#x60;, number of times to retry the webhook request
  */
 export interface AddressConfigurationListInstanceCreateOptions {
-  type: ConfigurationAddressEnumType;
+  type: ConfigurationAddressType;
   address: string;
   friendlyName?: string;
   autoCreationEnabled?: boolean;
-  autoCreationType?: ConfigurationAddressEnumAutoCreationType;
+  autoCreationType?: ConfigurationAddressAutoCreationType;
   autoCreationConversationServiceSid?: string;
   autoCreationWebhookUrl?: string;
-  autoCreationWebhookMethod?: ConfigurationAddressEnumMethod;
+  autoCreationWebhookMethod?: ConfigurationAddressMethod;
   autoCreationWebhookFilters?: Array<string>;
   autoCreationStudioFlowSid?: string;
   autoCreationStudioRetryCount?: number;

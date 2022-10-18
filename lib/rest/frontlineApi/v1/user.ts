@@ -20,22 +20,23 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type UserStateType = 'active'|'deactivated';
+
 
 /**
  * Options to pass to update a UserInstance
  *
  * @property { string } [friendlyName] The string that you assigned to describe the User.
  * @property { string } [avatar] The avatar URL which will be shown in Frontline application.
- * @property { UserEnumStateType } [state] 
+ * @property { UserStateType } [state] 
  * @property { boolean } [isAvailable] Whether the User is available for new conversations. Set to &#x60;false&#x60; to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
  */
 export interface UserContextUpdateOptions {
   friendlyName?: string;
   avatar?: string;
-  state?: UserEnumStateType;
+  state?: UserStateType;
   isAvailable?: boolean;
 }
-
 
 export interface UserContext {
 
@@ -155,7 +156,7 @@ interface UserResource {
   identity?: string | null;
   friendly_name?: string | null;
   avatar?: string | null;
-  state?: object;
+  state?: UserStateType;
   is_available?: boolean | null;
   url?: string | null;
 }
@@ -192,7 +193,7 @@ export class UserInstance {
    * The avatar URL which will be shown in Frontline application
    */
   avatar?: string | null;
-  state?: object;
+  state?: UserStateType;
   /**
    * Whether the User is available for new conversations
    */

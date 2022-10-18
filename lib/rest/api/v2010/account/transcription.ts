@@ -20,6 +20,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type TranscriptionStatus = 'in-progress'|'completed'|'failed';
 
 /**
  * Options to pass to each
@@ -165,7 +166,7 @@ interface TranscriptionResource {
   price_unit?: string | null;
   recording_sid?: string | null;
   sid?: string | null;
-  status?: object;
+  status?: TranscriptionStatus;
   transcription_text?: string | null;
   type?: string | null;
   uri?: string | null;
@@ -229,7 +230,7 @@ export class TranscriptionInstance {
    * The unique string that identifies the resource
    */
   sid?: string | null;
-  status?: object;
+  status?: TranscriptionStatus;
   /**
    * The text content of the transcription.
    */

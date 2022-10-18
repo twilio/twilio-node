@@ -20,6 +20,10 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type UserChannelNotificationLevel = 'default'|'muted';
+
+type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
+
 /**
  * Options to pass to each
  *
@@ -69,16 +73,15 @@ export interface UserChannelListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a UserChannelInstance
  *
- * @property { UserChannelEnumNotificationLevel } [notificationLevel] 
+ * @property { UserChannelNotificationLevel } [notificationLevel] 
  * @property { number } [lastConsumedMessageIndex] 
  * @property { Date } [lastConsumptionTimestamp] 
  */
 export interface UserChannelContextUpdateOptions {
-  notificationLevel?: UserChannelEnumNotificationLevel;
+  notificationLevel?: UserChannelNotificationLevel;
   lastConsumedMessageIndex?: number;
   lastConsumptionTimestamp?: Date;
 }
@@ -407,12 +410,12 @@ interface UserChannelResource {
   channel_sid?: string | null;
   user_sid?: string | null;
   member_sid?: string | null;
-  status?: object;
+  status?: UserChannelChannelStatus;
   last_consumed_message_index?: number | null;
   unread_messages_count?: number | null;
   links?: object | null;
   url?: string | null;
-  notification_level?: object;
+  notification_level?: UserChannelNotificationLevel;
 }
 
 export class UserChannelInstance {
@@ -440,12 +443,12 @@ export class UserChannelInstance {
   channelSid?: string | null;
   userSid?: string | null;
   memberSid?: string | null;
-  status?: object;
+  status?: UserChannelChannelStatus;
   lastConsumedMessageIndex?: number | null;
   unreadMessagesCount?: number | null;
   links?: object | null;
   url?: string | null;
-  notificationLevel?: object;
+  notificationLevel?: UserChannelNotificationLevel;
 
   private get _proxy(): UserChannelContext {
     this._context = this._context || new UserChannelContextImpl(this._version, this._solution.serviceSid, this._solution.userSid, this._solution.channelSid);

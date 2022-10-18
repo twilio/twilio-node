@@ -87,7 +87,6 @@ export interface MediaListInstancePageOptions {
 
 
 
-
 export interface MediaListInstance {
   (sid: string): MediaContext;
   get(sid: string): MediaContext;

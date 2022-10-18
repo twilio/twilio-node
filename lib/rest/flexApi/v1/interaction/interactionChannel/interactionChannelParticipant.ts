@@ -20,25 +20,28 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type InteractionChannelParticipantStatus = 'closed'|'wrapup';
+
+type InteractionChannelParticipantType = 'supervisor'|'customer'|'external'|'agent'|'unknown';
+
 
 /**
  * Options to pass to update a InteractionChannelParticipantInstance
  *
- * @property { InteractionChannelParticipantEnumStatus } status 
+ * @property { InteractionChannelParticipantStatus } status 
  */
 export interface InteractionChannelParticipantContextUpdateOptions {
-  status: InteractionChannelParticipantEnumStatus;
+  status: InteractionChannelParticipantStatus;
 }
-
 
 /**
  * Options to pass to create a InteractionChannelParticipantInstance
  *
- * @property { InteractionChannelParticipantEnumType } type 
+ * @property { InteractionChannelParticipantType } type 
  * @property { any } mediaProperties JSON representing the Media Properties for the new Participant.
  */
 export interface InteractionChannelParticipantListInstanceCreateOptions {
-  type: InteractionChannelParticipantEnumType;
+  type: InteractionChannelParticipantType;
   mediaProperties: any;
 }
 /**
@@ -170,7 +173,7 @@ interface InteractionChannelParticipantPayload extends InteractionChannelPartici
 
 interface InteractionChannelParticipantResource {
   sid?: string | null;
-  type?: object;
+  type?: InteractionChannelParticipantType;
   interaction_sid?: string | null;
   channel_sid?: string | null;
   url?: string | null;
@@ -194,7 +197,7 @@ export class InteractionChannelParticipantInstance {
    * The unique string that identifies the resource
    */
   sid?: string | null;
-  type?: object;
+  type?: InteractionChannelParticipantType;
   /**
    * The Interaction Sid for this channel.
    */

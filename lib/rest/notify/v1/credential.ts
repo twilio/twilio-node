@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type CredentialPushService = 'gcm'|'apn'|'fcm';
+
 
 /**
  * Options to pass to update a CredentialInstance
@@ -40,11 +42,10 @@ export interface CredentialContextUpdateOptions {
   secret?: string;
 }
 
-
 /**
  * Options to pass to create a CredentialInstance
  *
- * @property { CredentialEnumPushService } type 
+ * @property { CredentialPushService } type 
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  * @property { string } [certificate] [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. &#x60;-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A&#x3D;&#x3D;-----END CERTIFICATE-----&#x60;
  * @property { string } [privateKey] [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. &#x60;-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----&#x60;
@@ -53,7 +54,7 @@ export interface CredentialContextUpdateOptions {
  * @property { string } [secret] [FCM only] The &#x60;Server key&#x60; of your project from Firebase console under Settings / Cloud messaging.
  */
 export interface CredentialListInstanceCreateOptions {
-  type: CredentialEnumPushService;
+  type: CredentialPushService;
   friendlyName?: string;
   certificate?: string;
   privateKey?: string;
@@ -252,7 +253,7 @@ interface CredentialResource {
   sid?: string | null;
   account_sid?: string | null;
   friendly_name?: string | null;
-  type?: object;
+  type?: CredentialPushService;
   sandbox?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -288,7 +289,7 @@ export class CredentialInstance {
    * The string that you assigned to describe the resource
    */
   friendlyName?: string | null;
-  type?: object;
+  type?: CredentialPushService;
   /**
    * [APN only] Whether to send the credential to sandbox APNs
    */

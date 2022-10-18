@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type CompositionHookFormat = 'mp4'|'webm';
+
 
 /**
  * Options to pass to update a CompositionHookInstance
@@ -30,7 +32,7 @@ const serialize = require("../../../base/serialize");
  * @property { Array<string> } [audioSources] An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in &#x60;audio_sources&#x60; except those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, &#x60;student*&#x60; includes tracks named &#x60;student&#x60; as well as &#x60;studentTeam&#x60;.
  * @property { Array<string> } [audioSourcesExcluded] An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in &#x60;audio_sources&#x60; except for those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, &#x60;student*&#x60; excludes &#x60;student&#x60; as well as &#x60;studentTeam&#x60;. This parameter can also be empty.
  * @property { boolean } [trim] Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is &#x60;true&#x60;. Compositions with &#x60;trim&#x60; enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
- * @property { CompositionHookEnumFormat } [format] 
+ * @property { CompositionHookFormat } [format] 
  * @property { string } [resolution] A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to &#x60;640x480&#x60;.  The string\\\&#39;s format is &#x60;{width}x{height}&#x60; where:   * 16 &lt;&#x3D; &#x60;{width}&#x60; &lt;&#x3D; 1280 * 16 &lt;&#x3D; &#x60;{height}&#x60; &lt;&#x3D; 1280 * &#x60;{width}&#x60; * &#x60;{height}&#x60; &lt;&#x3D; 921,600  Typical values are:   * HD &#x3D; &#x60;1280x720&#x60; * PAL &#x3D; &#x60;1024x576&#x60; * VGA &#x3D; &#x60;640x480&#x60; * CIF &#x3D; &#x60;320x240&#x60;  Note that the &#x60;resolution&#x60; imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
@@ -42,12 +44,11 @@ export interface CompositionHookContextUpdateOptions {
   audioSources?: Array<string>;
   audioSourcesExcluded?: Array<string>;
   trim?: boolean;
-  format?: CompositionHookEnumFormat;
+  format?: CompositionHookFormat;
   resolution?: string;
   statusCallback?: string;
   statusCallbackMethod?: string;
 }
-
 
 /**
  * Options to pass to create a CompositionHookInstance
@@ -58,7 +59,7 @@ export interface CompositionHookContextUpdateOptions {
  * @property { Array<string> } [audioSources] An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in &#x60;audio_sources&#x60; except those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, &#x60;student*&#x60; includes tracks named &#x60;student&#x60; as well as &#x60;studentTeam&#x60;.
  * @property { Array<string> } [audioSourcesExcluded] An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in &#x60;audio_sources&#x60; except for those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, &#x60;student*&#x60; excludes &#x60;student&#x60; as well as &#x60;studentTeam&#x60;. This parameter can also be empty.
  * @property { string } [resolution] A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to &#x60;640x480&#x60;.  The string\\\&#39;s format is &#x60;{width}x{height}&#x60; where:   * 16 &lt;&#x3D; &#x60;{width}&#x60; &lt;&#x3D; 1280 * 16 &lt;&#x3D; &#x60;{height}&#x60; &lt;&#x3D; 1280 * &#x60;{width}&#x60; * &#x60;{height}&#x60; &lt;&#x3D; 921,600  Typical values are:   * HD &#x3D; &#x60;1280x720&#x60; * PAL &#x3D; &#x60;1024x576&#x60; * VGA &#x3D; &#x60;640x480&#x60; * CIF &#x3D; &#x60;320x240&#x60;  Note that the &#x60;resolution&#x60; imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
- * @property { CompositionHookEnumFormat } [format] 
+ * @property { CompositionHookFormat } [format] 
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
  * @property { boolean } [trim] Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is &#x60;true&#x60;. Compositions with &#x60;trim&#x60; enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
@@ -70,7 +71,7 @@ export interface CompositionHookListInstanceCreateOptions {
   audioSources?: Array<string>;
   audioSourcesExcluded?: Array<string>;
   resolution?: string;
-  format?: CompositionHookEnumFormat;
+  format?: CompositionHookFormat;
   statusCallback?: string;
   statusCallbackMethod?: string;
   trim?: boolean;
@@ -296,7 +297,7 @@ interface CompositionHookResource {
   video_layout?: any | null;
   resolution?: string | null;
   trim?: boolean | null;
-  format?: object;
+  format?: CompositionHookFormat;
   status_callback?: string | null;
   status_callback_method?: CompositionHookStatusCallbackMethod;
   url?: string | null;
@@ -370,7 +371,7 @@ export class CompositionHookInstance {
    * Whether intervals with no media are clipped
    */
   trim?: boolean | null;
-  format?: object;
+  format?: CompositionHookFormat;
   /**
    * The URL to send status information to your application
    */

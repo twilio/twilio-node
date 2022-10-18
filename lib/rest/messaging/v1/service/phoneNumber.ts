@@ -21,7 +21,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
-
 /**
  * Options to pass to create a PhoneNumberInstance
  *

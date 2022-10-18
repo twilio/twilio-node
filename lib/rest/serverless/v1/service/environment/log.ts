@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type LogLevel = 'info'|'warn'|'error';
+
 /**
  * Options to pass to each
  *
@@ -84,7 +86,6 @@ export interface LogListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -345,7 +346,7 @@ interface LogResource {
   deployment_sid?: string | null;
   function_sid?: string | null;
   request_sid?: string | null;
-  level?: object;
+  level?: LogLevel;
   message?: string | null;
   date_created?: Date | null;
   url?: string | null;
@@ -404,7 +405,7 @@ export class LogInstance {
    * The SID of the request associated with the log
    */
   requestSid?: string | null;
-  level?: object;
+  level?: LogLevel;
   /**
    * The log message
    */

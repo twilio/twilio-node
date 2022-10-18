@@ -39,7 +39,6 @@ export interface ShortCodeContextUpdateOptions {
   smsFallbackUrl?: string;
   smsFallbackMethod?: string;
 }
-
 /**
  * Options to pass to each
  *

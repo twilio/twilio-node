@@ -20,6 +20,8 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type SupportingDocumentStatus = 'draft'|'pending-review'|'rejected'|'approved'|'expired'|'provisionally-approved';
+
 
 /**
  * Options to pass to create a SupportingDocumentInstance
@@ -79,7 +81,6 @@ export interface SupportingDocumentListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -463,7 +464,7 @@ interface SupportingDocumentResource {
   account_sid?: string | null;
   friendly_name?: string | null;
   mime_type?: string | null;
-  status?: object;
+  status?: SupportingDocumentStatus;
   failure_reason?: string | null;
   type?: string | null;
   attributes?: any | null;
@@ -508,7 +509,7 @@ export class SupportingDocumentInstance {
    * The image type of the file
    */
   mimeType?: string | null;
-  status?: object;
+  status?: SupportingDocumentStatus;
   /**
    * The failure reason of the Supporting Document Resource.
    */

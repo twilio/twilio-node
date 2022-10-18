@@ -33,7 +33,6 @@ export interface InteractionListInstanceCreateOptions {
   routing: any;
 }
 
-
 export interface InteractionListInstance {
   (sid: string): InteractionContext;
   get(sid: string): InteractionContext;

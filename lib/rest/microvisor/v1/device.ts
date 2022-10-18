@@ -33,7 +33,6 @@ export interface DeviceContextUpdateOptions {
   targetApp?: string;
   loggingEnabled?: boolean;
 }
-
 /**
  * Options to pass to each
  *

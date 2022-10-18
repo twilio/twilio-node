@@ -20,18 +20,20 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type FlowValidateStatus = 'draft'|'published';
+
 
 /**
  * Options to pass to create a FlowValidateInstance
  *
  * @property { string } friendlyName The string that you assigned to describe the Flow.
- * @property { FlowValidateEnumStatus } status 
+ * @property { FlowValidateStatus } status 
  * @property { any } definition JSON representation of flow definition.
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowValidateListInstanceCreateOptions {
   friendlyName: string;
-  status: FlowValidateEnumStatus;
+  status: FlowValidateStatus;
   definition: any;
   commitMessage?: string;
 }

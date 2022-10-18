@@ -25,7 +25,6 @@ import { ExportCustomJobListInstance } from "./export/exportCustomJob";
 import { DayListInstance } from "./export/day";
 
 
-
 export interface ExportListInstance {
   (resourceType: string): ExportContext;
   get(resourceType: string): ExportContext;

@@ -20,6 +20,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type TrustProductEvaluationStatus = 'compliant'|'noncompliant';
 
 
 /**
@@ -146,7 +147,7 @@ interface TrustProductsEvaluationsResource {
   account_sid?: string | null;
   policy_sid?: string | null;
   trust_product_sid?: string | null;
-  status?: object;
+  status?: TrustProductEvaluationStatus;
   results?: Array<any> | null;
   date_created?: Date | null;
   url?: string | null;
@@ -185,7 +186,7 @@ export class TrustProductsEvaluationsInstance {
    * The unique string that identifies the resource
    */
   trustProductSid?: string | null;
-  status?: object;
+  status?: TrustProductEvaluationStatus;
   /**
    * The results of the Evaluation resource
    */

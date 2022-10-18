@@ -20,22 +20,26 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ServiceConversationScopedWebhookTarget = 'webhook'|'trigger'|'studio';
+
+type ServiceConversationScopedWebhookMethod = 'GET'|'POST';
+
 
 /**
  * Options to pass to create a WebhookInstance
  *
- * @property { ServiceConversationScopedWebhookEnumTarget } target 
+ * @property { ServiceConversationScopedWebhookTarget } target 
  * @property { string } [configurationUrl] The absolute url the webhook request should be sent to.
- * @property { ServiceConversationScopedWebhookEnumMethod } [configurationMethod] 
+ * @property { ServiceConversationScopedWebhookMethod } [configurationMethod] 
  * @property { Array<string> } [configurationFilters] The list of events, firing webhook event for this Conversation.
  * @property { Array<string> } [configurationTriggers] The list of keywords, firing webhook event for this Conversation.
  * @property { string } [configurationFlowSid] The studio flow SID, where the webhook should be sent to.
  * @property { number } [configurationReplayAfter] The message index for which and it\\\&#39;s successors the webhook will be replayed. Not set by default
  */
 export interface WebhookListInstanceCreateOptions {
-  target: ServiceConversationScopedWebhookEnumTarget;
+  target: ServiceConversationScopedWebhookTarget;
   configurationUrl?: string;
-  configurationMethod?: ServiceConversationScopedWebhookEnumMethod;
+  configurationMethod?: ServiceConversationScopedWebhookMethod;
   configurationFilters?: Array<string>;
   configurationTriggers?: Array<string>;
   configurationFlowSid?: string;
@@ -90,19 +94,18 @@ export interface WebhookListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a WebhookInstance
  *
  * @property { string } [configurationUrl] The absolute url the webhook request should be sent to.
- * @property { ServiceConversationScopedWebhookEnumMethod } [configurationMethod] 
+ * @property { ServiceConversationScopedWebhookMethod } [configurationMethod] 
  * @property { Array<string> } [configurationFilters] The list of events, firing webhook event for this Conversation.
  * @property { Array<string> } [configurationTriggers] The list of keywords, firing webhook event for this Conversation.
  * @property { string } [configurationFlowSid] The studio flow SID, where the webhook should be sent to.
  */
 export interface WebhookContextUpdateOptions {
   configurationUrl?: string;
-  configurationMethod?: ServiceConversationScopedWebhookEnumMethod;
+  configurationMethod?: ServiceConversationScopedWebhookMethod;
   configurationFilters?: Array<string>;
   configurationTriggers?: Array<string>;
   configurationFlowSid?: string;

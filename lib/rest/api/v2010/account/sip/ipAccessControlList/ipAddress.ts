@@ -34,7 +34,6 @@ export interface IpAddressContextUpdateOptions {
   cidrPrefixLength?: number;
 }
 
-
 /**
  * Options to pass to create a IpAddressInstance
  *

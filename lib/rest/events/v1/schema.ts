@@ -22,7 +22,6 @@ const serialize = require("../../../base/serialize");
 import { SchemaVersionListInstance } from "./schema/schemaVersion";
 
 
-
 export interface SchemaListInstance {
   (id: string): SchemaContext;
   get(id: string): SchemaContext;

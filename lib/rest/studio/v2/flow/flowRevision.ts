@@ -20,6 +20,7 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type FlowRevisionStatus = 'draft'|'published';
 
 /**
  * Options to pass to each
@@ -137,7 +138,7 @@ interface FlowRevisionResource {
   account_sid?: string | null;
   friendly_name?: string | null;
   definition?: any | null;
-  status?: object;
+  status?: FlowRevisionStatus;
   revision?: number | null;
   commit_message?: string | null;
   valid?: boolean | null;
@@ -184,7 +185,7 @@ export class FlowRevisionInstance {
    * JSON representation of flow definition
    */
   definition?: any | null;
-  status?: object;
+  status?: FlowRevisionStatus;
   /**
    * The latest revision number of the Flow\'s definition
    */

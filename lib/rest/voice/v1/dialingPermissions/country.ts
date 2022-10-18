@@ -21,7 +21,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { HighriskSpecialPrefixListInstance } from "./country/highriskSpecialPrefix";
 
-
 /**
  * Options to pass to each
  *

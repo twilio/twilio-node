@@ -20,22 +20,26 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ChannelWebhookType = 'webhook'|'trigger'|'studio';
+
+type ChannelWebhookMethod = 'GET'|'POST';
+
 
 /**
  * Options to pass to create a WebhookInstance
  *
- * @property { ChannelWebhookEnumType } type 
+ * @property { ChannelWebhookType } type 
  * @property { string } [configurationUrl] 
- * @property { ChannelWebhookEnumMethod } [configurationMethod] 
+ * @property { ChannelWebhookMethod } [configurationMethod] 
  * @property { Array<string> } [configurationFilters] 
  * @property { Array<string> } [configurationTriggers] 
  * @property { string } [configurationFlowSid] 
  * @property { number } [configurationRetryCount] 
  */
 export interface WebhookListInstanceCreateOptions {
-  type: ChannelWebhookEnumType;
+  type: ChannelWebhookType;
   configurationUrl?: string;
-  configurationMethod?: ChannelWebhookEnumMethod;
+  configurationMethod?: ChannelWebhookMethod;
   configurationFilters?: Array<string>;
   configurationTriggers?: Array<string>;
   configurationFlowSid?: string;
@@ -90,12 +94,11 @@ export interface WebhookListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a WebhookInstance
  *
  * @property { string } [configurationUrl] 
- * @property { ChannelWebhookEnumMethod } [configurationMethod] 
+ * @property { ChannelWebhookMethod } [configurationMethod] 
  * @property { Array<string> } [configurationFilters] 
  * @property { Array<string> } [configurationTriggers] 
  * @property { string } [configurationFlowSid] 
@@ -103,7 +106,7 @@ export interface WebhookListInstancePageOptions {
  */
 export interface WebhookContextUpdateOptions {
   configurationUrl?: string;
-  configurationMethod?: ChannelWebhookEnumMethod;
+  configurationMethod?: ChannelWebhookMethod;
   configurationFilters?: Array<string>;
   configurationTriggers?: Array<string>;
   configurationFlowSid?: string;

@@ -21,6 +21,9 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { VerificationAttemptsSummaryListInstance } from "./verificationAttempt/verificationAttemptsSummary";
 
+type VerificationAttemptChannels = 'sms'|'call'|'email'|'whatsapp';
+
+type VerificationAttemptConversionStatus = 'converted'|'unconverted';
 
 /**
  * Options to pass to each
@@ -29,10 +32,10 @@ import { VerificationAttemptsSummaryListInstance } from "./verificationAttempt/v
  * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
  * @property { string } [channelDataTo] Destination of a verification. It is phone number in E.164 format.
  * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
- * @property { VerificationAttemptEnumChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
+ * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
  * @property { string } [verificationSid] Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
- * @property { VerificationAttemptEnumConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are &#x60;UNCONVERTED&#x60;, for attempts that were not converted, and &#x60;CONVERTED&#x60;, for attempts that were confirmed.
+ * @property { VerificationAttemptConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are &#x60;UNCONVERTED&#x60;, for attempts that were not converted, and &#x60;CONVERTED&#x60;, for attempts that were confirmed.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -48,10 +51,10 @@ export interface VerificationAttemptListInstanceEachOptions {
   dateCreatedBefore?: Date;
   channelDataTo?: string;
   country?: string;
-  channel?: VerificationAttemptEnumChannels;
+  channel?: VerificationAttemptChannels;
   verifyServiceSid?: string;
   verificationSid?: string;
-  status?: VerificationAttemptEnumConversionStatus;
+  status?: VerificationAttemptConversionStatus;
   pageSize?: number;
   callback?: (item: VerificationAttemptInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -65,10 +68,10 @@ export interface VerificationAttemptListInstanceEachOptions {
  * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
  * @property { string } [channelDataTo] Destination of a verification. It is phone number in E.164 format.
  * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
- * @property { VerificationAttemptEnumChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
+ * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
  * @property { string } [verificationSid] Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
- * @property { VerificationAttemptEnumConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are &#x60;UNCONVERTED&#x60;, for attempts that were not converted, and &#x60;CONVERTED&#x60;, for attempts that were confirmed.
+ * @property { VerificationAttemptConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are &#x60;UNCONVERTED&#x60;, for attempts that were not converted, and &#x60;CONVERTED&#x60;, for attempts that were confirmed.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -80,10 +83,10 @@ export interface VerificationAttemptListInstanceOptions {
   dateCreatedBefore?: Date;
   channelDataTo?: string;
   country?: string;
-  channel?: VerificationAttemptEnumChannels;
+  channel?: VerificationAttemptChannels;
   verifyServiceSid?: string;
   verificationSid?: string;
-  status?: VerificationAttemptEnumConversionStatus;
+  status?: VerificationAttemptConversionStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -95,10 +98,10 @@ export interface VerificationAttemptListInstanceOptions {
  * @property { Date } [dateCreatedBefore] Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
  * @property { string } [channelDataTo] Destination of a verification. It is phone number in E.164 format.
  * @property { string } [country] Filter used to query Verification Attempts sent to the specified destination country.
- * @property { VerificationAttemptEnumChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
+ * @property { VerificationAttemptChannels } [channel] Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [verifyServiceSid] Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
  * @property { string } [verificationSid] Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
- * @property { VerificationAttemptEnumConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are &#x60;UNCONVERTED&#x60;, for attempts that were not converted, and &#x60;CONVERTED&#x60;, for attempts that were confirmed.
+ * @property { VerificationAttemptConversionStatus } [status] Filter used to query Verification Attempts by conversion status. Valid values are &#x60;UNCONVERTED&#x60;, for attempts that were not converted, and &#x60;CONVERTED&#x60;, for attempts that were confirmed.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
@@ -108,10 +111,10 @@ export interface VerificationAttemptListInstancePageOptions {
   dateCreatedBefore?: Date;
   channelDataTo?: string;
   country?: string;
-  channel?: VerificationAttemptEnumChannels;
+  channel?: VerificationAttemptChannels;
   verifyServiceSid?: string;
   verificationSid?: string;
-  status?: VerificationAttemptEnumConversionStatus;
+  status?: VerificationAttemptConversionStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -188,8 +191,8 @@ interface VerificationAttemptResource {
   verification_sid?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
-  conversion_status?: object;
-  channel?: object;
+  conversion_status?: VerificationAttemptConversionStatus;
+  channel?: VerificationAttemptChannels;
   price?: any | null;
   channel_data?: any | null;
   url?: string | null;
@@ -239,8 +242,8 @@ export class VerificationAttemptInstance {
    * The date this Attempt was updated
    */
   dateUpdated?: Date | null;
-  conversionStatus?: object;
-  channel?: object;
+  conversionStatus?: VerificationAttemptConversionStatus;
+  channel?: VerificationAttemptChannels;
   /**
    * An object containing the charge for this verification attempt.
    */

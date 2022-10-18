@@ -20,6 +20,14 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+export class ApiV2010AccountTokenIceServers {
+  "credential"?: string;
+  "username"?: string;
+  "url"?: string;
+  "urls"?: string;
+}
+
+
 
 /**
  * Options to pass to create a TokenInstance
@@ -121,7 +129,7 @@ interface TokenResource {
   account_sid?: string | null;
   date_created?: string | null;
   date_updated?: string | null;
-  ice_servers?: Array<object> | null;
+  ice_servers?: Array<ApiV2010AccountTokenIceServers> | null;
   password?: string | null;
   ttl?: string | null;
   username?: string | null;
@@ -158,7 +166,7 @@ export class TokenInstance {
   /**
    * An array representing the ephemeral credentials
    */
-  iceServers?: Array<object> | null;
+  iceServers?: Array<ApiV2010AccountTokenIceServers> | null;
   /**
    * The temporary password used for authenticating
    */

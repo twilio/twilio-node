@@ -38,7 +38,6 @@ export interface OriginationUrlContextUpdateOptions {
   sipUrl?: string;
 }
 
-
 /**
  * Options to pass to create a OriginationUrlInstance
  *

@@ -38,7 +38,6 @@ export interface ConnectionPolicyTargetContextUpdateOptions {
   enabled?: boolean;
 }
 
-
 /**
  * Options to pass to create a ConnectionPolicyTargetInstance
  *

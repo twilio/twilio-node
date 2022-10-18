@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ConversationMessageReceiptDeliveryStatus = 'read'|'failed'|'delivered'|'undelivered'|'sent';
+
 /**
  * Options to pass to each
  *
@@ -66,7 +68,6 @@ export interface DeliveryReceiptListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -322,7 +323,7 @@ interface DeliveryReceiptResource {
   message_sid?: string | null;
   channel_message_sid?: string | null;
   participant_sid?: string | null;
-  status?: object;
+  status?: ConversationMessageReceiptDeliveryStatus;
   error_code?: number | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -373,7 +374,7 @@ export class DeliveryReceiptInstance {
    * The unique ID of the participant the delivery receipt belongs to.
    */
   participantSid?: string | null;
-  status?: object;
+  status?: ConversationMessageReceiptDeliveryStatus;
   /**
    * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
    */

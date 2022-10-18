@@ -21,11 +21,15 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { DeliveryReceiptListInstance } from "./message/deliveryReceipt";
 
+type ConversationMessageWebhookEnabledType = 'true'|'false';
+
+type ConversationMessageOrderType = 'asc'|'desc';
+
 
 /**
  * Options to pass to create a MessageInstance
  *
- * @property { ConversationMessageEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [author] The channel specific identifier of the message\\\&#39;s author. Defaults to &#x60;system&#x60;.
  * @property { string } [body] The content of the message, can be up to 1,600 characters long.
  * @property { Date } [dateCreated] The date that this resource was created.
@@ -34,7 +38,7 @@ import { DeliveryReceiptListInstance } from "./message/deliveryReceipt";
  * @property { string } [mediaSid] The Media SID to be attached to the new Message.
  */
 export interface MessageListInstanceCreateOptions {
-  xTwilioWebhookEnabled?: ConversationMessageEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ConversationMessageWebhookEnabledType;
   author?: string;
   body?: string;
   dateCreated?: Date;
@@ -45,7 +49,7 @@ export interface MessageListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { ConversationMessageEnumOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
+ * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -57,7 +61,7 @@ export interface MessageListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MessageListInstanceEachOptions {
-  order?: ConversationMessageEnumOrderType;
+  order?: ConversationMessageOrderType;
   pageSize?: number;
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -67,7 +71,7 @@ export interface MessageListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { ConversationMessageEnumOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
+ * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -75,7 +79,7 @@ export interface MessageListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MessageListInstanceOptions {
-  order?: ConversationMessageEnumOrderType;
+  order?: ConversationMessageOrderType;
   pageSize?: number;
   limit?: number;
 }
@@ -83,13 +87,13 @@ export interface MessageListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { ConversationMessageEnumOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
+ * @property { ConversationMessageOrderType } [order] The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending), with &#x60;asc&#x60; as the default.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessageListInstancePageOptions {
-  order?: ConversationMessageEnumOrderType;
+  order?: ConversationMessageOrderType;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -97,20 +101,19 @@ export interface MessageListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to remove a MessageInstance
  *
- * @property { ConversationMessageEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface MessageContextRemoveOptions {
-  xTwilioWebhookEnabled?: ConversationMessageEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ConversationMessageWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a MessageInstance
  *
- * @property { ConversationMessageEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [author] The channel specific identifier of the message\\\&#39;s author. Defaults to &#x60;system&#x60;.
  * @property { string } [body] The content of the message, can be up to 1,600 characters long.
  * @property { Date } [dateCreated] The date that this resource was created.
@@ -118,7 +121,7 @@ export interface MessageContextRemoveOptions {
  * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
  */
 export interface MessageContextUpdateOptions {
-  xTwilioWebhookEnabled?: ConversationMessageEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ConversationMessageWebhookEnabledType;
   author?: string;
   body?: string;
   dateCreated?: Date;

@@ -53,7 +53,6 @@ export interface AssistantContextUpdateOptions {
   developmentStage?: string;
 }
 
-
 /**
  * Options to pass to create a AssistantInstance
  *

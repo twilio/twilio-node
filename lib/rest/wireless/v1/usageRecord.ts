@@ -20,12 +20,14 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type AccountUsageRecordGranularity = 'hourly'|'daily'|'all';
+
 /**
  * Options to pass to each
  *
  * @property { Date } [end] Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
  * @property { Date } [start] Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { AccountUsageRecordEnumGranularity } [granularity] How to summarize the usage by time. Can be: &#x60;daily&#x60;, &#x60;hourly&#x60;, or &#x60;all&#x60;. A value of &#x60;all&#x60; returns one Usage Record that describes the usage for the entire period.
+ * @property { AccountUsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: &#x60;daily&#x60;, &#x60;hourly&#x60;, or &#x60;all&#x60;. A value of &#x60;all&#x60; returns one Usage Record that describes the usage for the entire period.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -39,7 +41,7 @@ const serialize = require("../../../base/serialize");
 export interface UsageRecordListInstanceEachOptions {
   end?: Date;
   start?: Date;
-  granularity?: AccountUsageRecordEnumGranularity;
+  granularity?: AccountUsageRecordGranularity;
   pageSize?: number;
   callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -51,7 +53,7 @@ export interface UsageRecordListInstanceEachOptions {
  *
  * @property { Date } [end] Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
  * @property { Date } [start] Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { AccountUsageRecordEnumGranularity } [granularity] How to summarize the usage by time. Can be: &#x60;daily&#x60;, &#x60;hourly&#x60;, or &#x60;all&#x60;. A value of &#x60;all&#x60; returns one Usage Record that describes the usage for the entire period.
+ * @property { AccountUsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: &#x60;daily&#x60;, &#x60;hourly&#x60;, or &#x60;all&#x60;. A value of &#x60;all&#x60; returns one Usage Record that describes the usage for the entire period.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -61,7 +63,7 @@ export interface UsageRecordListInstanceEachOptions {
 export interface UsageRecordListInstanceOptions {
   end?: Date;
   start?: Date;
-  granularity?: AccountUsageRecordEnumGranularity;
+  granularity?: AccountUsageRecordGranularity;
   pageSize?: number;
   limit?: number;
 }
@@ -71,7 +73,7 @@ export interface UsageRecordListInstanceOptions {
  *
  * @property { Date } [end] Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
  * @property { Date } [start] Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
- * @property { AccountUsageRecordEnumGranularity } [granularity] How to summarize the usage by time. Can be: &#x60;daily&#x60;, &#x60;hourly&#x60;, or &#x60;all&#x60;. A value of &#x60;all&#x60; returns one Usage Record that describes the usage for the entire period.
+ * @property { AccountUsageRecordGranularity } [granularity] How to summarize the usage by time. Can be: &#x60;daily&#x60;, &#x60;hourly&#x60;, or &#x60;all&#x60;. A value of &#x60;all&#x60; returns one Usage Record that describes the usage for the entire period.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
@@ -79,7 +81,7 @@ export interface UsageRecordListInstanceOptions {
 export interface UsageRecordListInstancePageOptions {
   end?: Date;
   start?: Date;
-  granularity?: AccountUsageRecordEnumGranularity;
+  granularity?: AccountUsageRecordGranularity;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;

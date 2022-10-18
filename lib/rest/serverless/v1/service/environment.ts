@@ -24,7 +24,6 @@ import { LogListInstance } from "./environment/log";
 import { DeploymentListInstance } from "./environment/deployment";
 
 
-
 /**
  * Options to pass to create a EnvironmentInstance
  *

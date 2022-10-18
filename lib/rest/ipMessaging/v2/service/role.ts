@@ -20,17 +20,19 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type RoleRoleType = 'channel'|'deployment';
+
 
 /**
  * Options to pass to create a RoleInstance
  *
  * @property { string } friendlyName 
- * @property { RoleEnumRoleType } type 
+ * @property { RoleRoleType } type 
  * @property { Array<string> } permission 
  */
 export interface RoleListInstanceCreateOptions {
   friendlyName: string;
-  type: RoleEnumRoleType;
+  type: RoleRoleType;
   permission: Array<string>;
 }
 /**
@@ -79,7 +81,6 @@ export interface RoleListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -457,7 +458,7 @@ interface RoleResource {
   account_sid?: string | null;
   service_sid?: string | null;
   friendly_name?: string | null;
-  type?: object;
+  type?: RoleRoleType;
   permissions?: Array<string> | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -486,7 +487,7 @@ export class RoleInstance {
   accountSid?: string | null;
   serviceSid?: string | null;
   friendlyName?: string | null;
-  type?: object;
+  type?: RoleRoleType;
   permissions?: Array<string> | null;
   dateCreated?: Date | null;
   dateUpdated?: Date | null;

@@ -20,14 +20,16 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type MessageFeedbackOutcome = 'confirmed'|'unconfirmed';
+
 
 /**
  * Options to pass to create a FeedbackInstance
  *
- * @property { MessageFeedbackEnumOutcome } [outcome] 
+ * @property { MessageFeedbackOutcome } [outcome] 
  */
 export interface FeedbackListInstanceCreateOptions {
-  outcome?: MessageFeedbackEnumOutcome;
+  outcome?: MessageFeedbackOutcome;
 }
 
 export interface FeedbackListInstance {
@@ -120,7 +122,7 @@ interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
 interface FeedbackResource {
   account_sid?: string | null;
   message_sid?: string | null;
-  outcome?: object;
+  outcome?: MessageFeedbackOutcome;
   date_created?: string | null;
   date_updated?: string | null;
   uri?: string | null;
@@ -149,7 +151,7 @@ export class FeedbackInstance {
    * The SID of the Message resource for which the feedback was provided
    */
   messageSid?: string | null;
-  outcome?: object;
+  outcome?: MessageFeedbackOutcome;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */

@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type RoomParticipantAnonymizeStatus = 'connected'|'disconnected';
+
 
 export interface AnonymizeListInstance {
 
@@ -89,7 +91,7 @@ interface AnonymizeResource {
   sid?: string | null;
   room_sid?: string | null;
   account_sid?: string | null;
-  status?: object;
+  status?: RoomParticipantAnonymizeStatus;
   identity?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -131,7 +133,7 @@ export class AnonymizeInstance {
    * The SID of the Account that created the resource
    */
   accountSid?: string | null;
-  status?: object;
+  status?: RoomParticipantAnonymizeStatus;
   /**
    * The SID of the participant
    */

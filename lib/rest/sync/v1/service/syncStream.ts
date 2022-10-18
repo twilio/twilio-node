@@ -81,7 +81,6 @@ export interface SyncStreamListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a SyncStreamInstance
  *

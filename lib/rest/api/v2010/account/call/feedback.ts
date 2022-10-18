@@ -20,16 +20,18 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type CallFeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'imperfect-audio'|'incorrect-caller-id'|'one-way-audio'|'post-dial-delay'|'unsolicited-call';
+
 
 /**
  * Options to pass to create a FeedbackInstance
  *
  * @property { number } [qualityScore] The call quality expressed as an integer from &#x60;1&#x60; to &#x60;5&#x60; where &#x60;1&#x60; represents very poor call quality and &#x60;5&#x60; represents a perfect call.
- * @property { Array<CallFeedbackEnumIssues> } [issue] One or more issues experienced during the call. The issues can be: &#x60;imperfect-audio&#x60;, &#x60;dropped-call&#x60;, &#x60;incorrect-caller-id&#x60;, &#x60;post-dial-delay&#x60;, &#x60;digits-not-captured&#x60;, &#x60;audio-latency&#x60;, &#x60;unsolicited-call&#x60;, or &#x60;one-way-audio&#x60;.
+ * @property { Array<CallFeedbackIssues> } [issue] One or more issues experienced during the call. The issues can be: &#x60;imperfect-audio&#x60;, &#x60;dropped-call&#x60;, &#x60;incorrect-caller-id&#x60;, &#x60;post-dial-delay&#x60;, &#x60;digits-not-captured&#x60;, &#x60;audio-latency&#x60;, &#x60;unsolicited-call&#x60;, or &#x60;one-way-audio&#x60;.
  */
 export interface FeedbackListInstanceCreateOptions {
   qualityScore?: number;
-  issue?: Array<CallFeedbackEnumIssues>;
+  issue?: Array<CallFeedbackIssues>;
 }
 
 export interface FeedbackListInstance {
@@ -250,7 +252,7 @@ interface FeedbackResource {
   account_sid?: string | null;
   date_created?: string | null;
   date_updated?: string | null;
-  issues?: Array<object> | null;
+  issues?: Array<CallFeedbackIssues> | null;
   quality_score?: number | null;
   sid?: string | null;
 }
@@ -285,7 +287,7 @@ export class FeedbackInstance {
   /**
    * Issues experienced during the call
    */
-  issues?: Array<object> | null;
+  issues?: Array<CallFeedbackIssues> | null;
   /**
    * 1 to 5 quality score
    */

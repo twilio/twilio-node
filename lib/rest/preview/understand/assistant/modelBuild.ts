@@ -20,6 +20,8 @@ import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type ModelBuildStatus = 'enqueued'|'building'|'completed'|'failed'|'canceled';
+
 
 /**
  * Options to pass to update a ModelBuildInstance
@@ -29,7 +31,6 @@ const serialize = require("../../../../base/serialize");
 export interface ModelBuildContextUpdateOptions {
   uniqueName?: string;
 }
-
 
 /**
  * Options to pass to create a ModelBuildInstance
@@ -229,7 +230,7 @@ interface ModelBuildResource {
   date_updated?: Date | null;
   assistant_sid?: string | null;
   sid?: string | null;
-  status?: object;
+  status?: ModelBuildStatus;
   unique_name?: string | null;
   url?: string | null;
   build_duration?: number | null;
@@ -275,7 +276,7 @@ export class ModelBuildInstance {
    * A 34 character string that uniquely identifies this resource.
    */
   sid?: string | null;
-  status?: object;
+  status?: ModelBuildStatus;
   /**
    * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    */

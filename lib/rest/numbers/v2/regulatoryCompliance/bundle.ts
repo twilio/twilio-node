@@ -24,6 +24,14 @@ import { ItemAssignmentListInstance } from "./bundle/itemAssignment";
 import { BundleCopyListInstance } from "./bundle/bundleCopy";
 import { ReplaceItemsListInstance } from "./bundle/replaceItems";
 
+type BundleSortBy = 'valid-until'|'date-updated';
+
+type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
+
+type BundleSortDirection = 'ASC'|'DESC';
+
+type BundleEndUserType = 'individual'|'business';
+
 
 /**
  * Options to pass to create a BundleInstance
@@ -33,7 +41,7 @@ import { ReplaceItemsListInstance } from "./bundle/replaceItems";
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  * @property { string } [regulationSid] The unique string of a regulation that is associated to the Bundle resource.
  * @property { string } [isoCountry] The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\\\&#39;s phone number country ownership request.
- * @property { BundleEnumEndUserType } [endUserType] 
+ * @property { BundleEndUserType } [endUserType] 
  * @property { string } [numberType] The type of phone number of the Bundle\\\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
  */
 export interface BundleListInstanceCreateOptions {
@@ -42,20 +50,20 @@ export interface BundleListInstanceCreateOptions {
   statusCallback?: string;
   regulationSid?: string;
   isoCountry?: string;
-  endUserType?: BundleEnumEndUserType;
+  endUserType?: BundleEndUserType;
   numberType?: string;
 }
 /**
  * Options to pass to each
  *
- * @property { BundleEnumStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+ * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
  * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
  * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
  * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\&#39;s phone number country ownership request.
  * @property { string } [numberType] The type of phone number of the Bundle\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;tollfree&#x60;.
  * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleEnumSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
- * @property { BundleEnumSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
+ * @property { BundleSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
+ * @property { BundleSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
  * @property { Date } [validUntilDate] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { Date } [validUntilDateBefore] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { Date } [validUntilDateAfter] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
@@ -70,14 +78,14 @@ export interface BundleListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface BundleListInstanceEachOptions {
-  status?: BundleEnumStatus;
+  status?: BundleStatus;
   friendlyName?: string;
   regulationSid?: string;
   isoCountry?: string;
   numberType?: string;
   hasValidUntilDate?: boolean;
-  sortBy?: BundleEnumSortBy;
-  sortDirection?: BundleEnumSortDirection;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
   validUntilDate?: Date;
   validUntilDateBefore?: Date;
   validUntilDateAfter?: Date;
@@ -90,14 +98,14 @@ export interface BundleListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { BundleEnumStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+ * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
  * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
  * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
  * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\&#39;s phone number country ownership request.
  * @property { string } [numberType] The type of phone number of the Bundle\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;tollfree&#x60;.
  * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleEnumSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
- * @property { BundleEnumSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
+ * @property { BundleSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
+ * @property { BundleSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
  * @property { Date } [validUntilDate] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { Date } [validUntilDateBefore] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { Date } [validUntilDateAfter] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
@@ -108,14 +116,14 @@ export interface BundleListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BundleListInstanceOptions {
-  status?: BundleEnumStatus;
+  status?: BundleStatus;
   friendlyName?: string;
   regulationSid?: string;
   isoCountry?: string;
   numberType?: string;
   hasValidUntilDate?: boolean;
-  sortBy?: BundleEnumSortBy;
-  sortDirection?: BundleEnumSortDirection;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
   validUntilDate?: Date;
   validUntilDateBefore?: Date;
   validUntilDateAfter?: Date;
@@ -126,14 +134,14 @@ export interface BundleListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { BundleEnumStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+ * @property { BundleStatus } [status] The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
  * @property { string } [friendlyName] The string that you assigned to describe the resource. The column can contain 255 variable characters.
  * @property { string } [regulationSid] The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
  * @property { string } [isoCountry] The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle\&#39;s phone number country ownership request.
  * @property { string } [numberType] The type of phone number of the Bundle\&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;tollfree&#x60;.
  * @property { boolean } [hasValidUntilDate] Indicates that the Bundle is a valid Bundle until a specified expiration date.
- * @property { BundleEnumSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
- * @property { BundleEnumSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
+ * @property { BundleSortBy } [sortBy] Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
+ * @property { BundleSortDirection } [sortDirection] Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
  * @property { Date } [validUntilDate] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { Date } [validUntilDateBefore] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
  * @property { Date } [validUntilDateAfter] Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
@@ -142,14 +150,14 @@ export interface BundleListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BundleListInstancePageOptions {
-  status?: BundleEnumStatus;
+  status?: BundleStatus;
   friendlyName?: string;
   regulationSid?: string;
   isoCountry?: string;
   numberType?: string;
   hasValidUntilDate?: boolean;
-  sortBy?: BundleEnumSortBy;
-  sortDirection?: BundleEnumSortDirection;
+  sortBy?: BundleSortBy;
+  sortDirection?: BundleSortDirection;
   validUntilDate?: Date;
   validUntilDateBefore?: Date;
   validUntilDateAfter?: Date;
@@ -160,17 +168,16 @@ export interface BundleListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a BundleInstance
  *
- * @property { BundleEnumStatus } [status] 
+ * @property { BundleStatus } [status] 
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [email] The email address that will receive updates when the Bundle resource changes status.
  */
 export interface BundleContextUpdateOptions {
-  status?: BundleEnumStatus;
+  status?: BundleStatus;
   statusCallback?: string;
   friendlyName?: string;
   email?: string;
@@ -590,7 +597,7 @@ interface BundleResource {
   account_sid?: string | null;
   regulation_sid?: string | null;
   friendly_name?: string | null;
-  status?: object;
+  status?: BundleStatus;
   valid_until?: Date | null;
   email?: string | null;
   status_callback?: string | null;
@@ -637,7 +644,7 @@ export class BundleInstance {
    * The string that you assigned to describe the resource
    */
   friendlyName?: string | null;
-  status?: object;
+  status?: BundleStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until.
    */

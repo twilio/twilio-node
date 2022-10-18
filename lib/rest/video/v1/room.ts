@@ -23,28 +23,33 @@ import { ParticipantListInstance } from "./room/participant";
 import { RecordingRulesListInstance } from "./room/recordingRules";
 import { RoomRecordingListInstance } from "./room/roomRecording";
 
+type RoomRoomType = 'go'|'peer-to-peer'|'group'|'group-small';
+
+type RoomVideoCodec = 'VP8'|'H264';
+
+type RoomRoomStatus = 'in-progress'|'completed'|'failed';
+
 
 /**
  * Options to pass to update a RoomInstance
  *
- * @property { RoomEnumRoomStatus } status 
+ * @property { RoomRoomStatus } status 
  */
 export interface RoomContextUpdateOptions {
-  status: RoomEnumRoomStatus;
+  status: RoomRoomStatus;
 }
-
 
 /**
  * Options to pass to create a RoomInstance
  *
  * @property { boolean } [enableTurn] Deprecated, now always considered to be true.
- * @property { RoomEnumRoomType } [type] 
+ * @property { RoomRoomType } [type] 
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used as a &#x60;room_sid&#x60; in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for &#x60;in-progress&#x60; rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is &#x60;in-progress&#x60;.
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be &#x60;POST&#x60; or &#x60;GET&#x60;.
  * @property { number } [maxParticipants] The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
  * @property { boolean } [recordParticipantsOnConnect] Whether to start recording when Participants connect. ***This feature is not available in &#x60;peer-to-peer&#x60; rooms.***
- * @property { Array<RoomEnumVideoCodec> } [videoCodecs] An array of the video codecs that are supported when publishing a track in the room.  Can be: &#x60;VP8&#x60; and &#x60;H264&#x60;.  ***This feature is not available in &#x60;peer-to-peer&#x60; rooms***
+ * @property { Array<RoomVideoCodec> } [videoCodecs] An array of the video codecs that are supported when publishing a track in the room.  Can be: &#x60;VP8&#x60; and &#x60;H264&#x60;.  ***This feature is not available in &#x60;peer-to-peer&#x60; rooms***
  * @property { string } [mediaRegion] The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in &#x60;peer-to-peer&#x60; rooms.***
  * @property { any } [recordingRules] A collection of Recording Rules that describe how to include or exclude matching tracks for recording
  * @property { boolean } [audioOnly] When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
@@ -55,13 +60,13 @@ export interface RoomContextUpdateOptions {
  */
 export interface RoomListInstanceCreateOptions {
   enableTurn?: boolean;
-  type?: RoomEnumRoomType;
+  type?: RoomRoomType;
   uniqueName?: string;
   statusCallback?: string;
   statusCallbackMethod?: string;
   maxParticipants?: number;
   recordParticipantsOnConnect?: boolean;
-  videoCodecs?: Array<RoomEnumVideoCodec>;
+  videoCodecs?: Array<RoomVideoCodec>;
   mediaRegion?: string;
   recordingRules?: any;
   audioOnly?: boolean;
@@ -73,7 +78,7 @@ export interface RoomListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { RoomEnumRoomStatus } [status] Read only the rooms with this status. Can be: &#x60;in-progress&#x60; (default) or &#x60;completed&#x60;
+ * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: &#x60;in-progress&#x60; (default) or &#x60;completed&#x60;
  * @property { string } [uniqueName] Read only rooms with the this &#x60;unique_name&#x60;.
  * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as &#x60;YYYY-MM-DD&#x60;.
  * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as &#x60;YYYY-MM-DD&#x60;.
@@ -88,7 +93,7 @@ export interface RoomListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface RoomListInstanceEachOptions {
-  status?: RoomEnumRoomStatus;
+  status?: RoomRoomStatus;
   uniqueName?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -101,7 +106,7 @@ export interface RoomListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RoomEnumRoomStatus } [status] Read only the rooms with this status. Can be: &#x60;in-progress&#x60; (default) or &#x60;completed&#x60;
+ * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: &#x60;in-progress&#x60; (default) or &#x60;completed&#x60;
  * @property { string } [uniqueName] Read only rooms with the this &#x60;unique_name&#x60;.
  * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as &#x60;YYYY-MM-DD&#x60;.
  * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as &#x60;YYYY-MM-DD&#x60;.
@@ -112,7 +117,7 @@ export interface RoomListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RoomListInstanceOptions {
-  status?: RoomEnumRoomStatus;
+  status?: RoomRoomStatus;
   uniqueName?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -123,7 +128,7 @@ export interface RoomListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RoomEnumRoomStatus } [status] Read only the rooms with this status. Can be: &#x60;in-progress&#x60; (default) or &#x60;completed&#x60;
+ * @property { RoomRoomStatus } [status] Read only the rooms with this status. Can be: &#x60;in-progress&#x60; (default) or &#x60;completed&#x60;
  * @property { string } [uniqueName] Read only rooms with the this &#x60;unique_name&#x60;.
  * @property { Date } [dateCreatedAfter] Read only rooms that started on or after this date, given as &#x60;YYYY-MM-DD&#x60;.
  * @property { Date } [dateCreatedBefore] Read only rooms that started before this date, given as &#x60;YYYY-MM-DD&#x60;.
@@ -132,7 +137,7 @@ export interface RoomListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoomListInstancePageOptions {
-  status?: RoomEnumRoomStatus;
+  status?: RoomRoomStatus;
   uniqueName?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -270,7 +275,7 @@ interface RoomPayload extends RoomResource, Page.TwilioResponsePayload {
 
 interface RoomResource {
   sid?: string | null;
-  status?: object;
+  status?: RoomRoomStatus;
   date_created?: Date | null;
   date_updated?: Date | null;
   account_sid?: string | null;
@@ -280,12 +285,12 @@ interface RoomResource {
   status_callback_method?: RoomStatusCallbackMethod;
   end_time?: Date | null;
   duration?: number | null;
-  type?: object;
+  type?: RoomRoomType;
   max_participants?: number | null;
   max_participant_duration?: number | null;
   max_concurrent_published_tracks?: number | null;
   record_participants_on_connect?: boolean | null;
-  video_codecs?: Array<object> | null;
+  video_codecs?: Array<RoomVideoCodec> | null;
   media_region?: string | null;
   audio_only?: boolean | null;
   empty_room_timeout?: number | null;
@@ -332,7 +337,7 @@ export class RoomInstance {
    * The unique string that identifies the resource
    */
   sid?: string | null;
-  status?: object;
+  status?: RoomRoomStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
@@ -369,7 +374,7 @@ export class RoomInstance {
    * The duration of the room in seconds
    */
   duration?: number | null;
-  type?: object;
+  type?: RoomRoomType;
   /**
    * The maximum number of concurrent Participants allowed in the room
    */
@@ -389,7 +394,7 @@ export class RoomInstance {
   /**
    * An array of the video codecs that are supported when publishing a track in the room
    */
-  videoCodecs?: Array<object> | null;
+  videoCodecs?: Array<RoomVideoCodec> | null;
   /**
    * The region for the media server in Group Rooms
    */

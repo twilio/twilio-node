@@ -95,7 +95,6 @@ export interface WorkflowListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a WorkflowInstance
  *

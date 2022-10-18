@@ -24,18 +24,20 @@ import { ExecutionListInstance } from "./flow/execution";
 import { FlowRevisionListInstance } from "./flow/flowRevision";
 import { FlowTestUserListInstance } from "./flow/flowTestUser";
 
+type FlowStatus = 'draft'|'published';
+
 
 /**
  * Options to pass to create a FlowInstance
  *
  * @property { string } friendlyName The string that you assigned to describe the Flow.
- * @property { FlowEnumStatus } status 
+ * @property { FlowStatus } status 
  * @property { any } definition JSON representation of flow definition.
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowListInstanceCreateOptions {
   friendlyName: string;
-  status: FlowEnumStatus;
+  status: FlowStatus;
   definition: any;
   commitMessage?: string;
 }
@@ -88,17 +90,16 @@ export interface FlowListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a FlowInstance
  *
- * @property { FlowEnumStatus } status 
+ * @property { FlowStatus } status 
  * @property { string } [friendlyName] The string that you assigned to describe the Flow.
  * @property { any } [definition] JSON representation of flow definition.
  * @property { string } [commitMessage] Description of change made in the revision.
  */
 export interface FlowContextUpdateOptions {
-  status: FlowEnumStatus;
+  status: FlowStatus;
   friendlyName?: string;
   definition?: any;
   commitMessage?: string;
@@ -505,7 +506,7 @@ interface FlowResource {
   account_sid?: string | null;
   friendly_name?: string | null;
   definition?: any | null;
-  status?: object;
+  status?: FlowStatus;
   revision?: number | null;
   commit_message?: string | null;
   valid?: boolean | null;
@@ -558,7 +559,7 @@ export class FlowInstance {
    * JSON representation of flow definition
    */
   definition?: any | null;
-  status?: object;
+  status?: FlowStatus;
   /**
    * The latest revision number of the Flow\'s definition
    */

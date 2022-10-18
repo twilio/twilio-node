@@ -87,7 +87,6 @@ export interface ParticipantListInstancePageOptions {
 
 
 
-
 export interface ParticipantListInstance {
   (sid: string): ParticipantContext;
   get(sid: string): ParticipantContext;

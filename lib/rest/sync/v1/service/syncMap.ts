@@ -84,7 +84,6 @@ export interface SyncMapListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a SyncMapInstance
  *

@@ -20,6 +20,12 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type FactorFactorStatuses = 'unverified'|'verified';
+
+type FactorFactorTypes = 'push'|'totp';
+
+type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
+
 /**
  * Options to pass to each
  *
@@ -69,7 +75,6 @@ export interface FactorListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a FactorInstance
  *
@@ -80,7 +85,7 @@ export interface FactorListInstancePageOptions {
  * @property { number } [configTimeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
  * @property { number } [configSkew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
  * @property { number } [configCodeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
- * @property { FactorEnumTotpAlgorithms } [configAlg] 
+ * @property { FactorTotpAlgorithms } [configAlg] 
  * @property { string } [configNotificationPlatform] The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60;, &#x60;fcm&#x60; or &#x60;none&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
  */
 export interface FactorContextUpdateOptions {
@@ -91,7 +96,7 @@ export interface FactorContextUpdateOptions {
   configTimeStep?: number;
   configSkew?: number;
   configCodeLength?: number;
-  configAlg?: FactorEnumTotpAlgorithms;
+  configAlg?: FactorTotpAlgorithms;
   configNotificationPlatform?: string;
 }
 
@@ -428,8 +433,8 @@ interface FactorResource {
   date_created?: Date | null;
   date_updated?: Date | null;
   friendly_name?: string | null;
-  status?: object;
-  factor_type?: object;
+  status?: FactorFactorStatuses;
+  factor_type?: FactorFactorTypes;
   config?: any | null;
   metadata?: any | null;
   url?: string | null;
@@ -489,8 +494,8 @@ export class FactorInstance {
    * A human readable description of this resource.
    */
   friendlyName?: string | null;
-  status?: object;
-  factorType?: object;
+  status?: FactorFactorStatuses;
+  factorType?: FactorFactorTypes;
   /**
    * Configurations for a `factor_type`.
    */

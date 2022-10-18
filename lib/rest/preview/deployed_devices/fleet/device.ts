@@ -36,7 +36,6 @@ export interface DeviceContextUpdateOptions {
   enabled?: boolean;
 }
 
-
 /**
  * Options to pass to create a DeviceInstance
  *

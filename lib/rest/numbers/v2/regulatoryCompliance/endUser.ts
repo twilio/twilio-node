@@ -20,6 +20,8 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type EndUserType = 'individual'|'business';
+
 
 /**
  * Options to pass to update a EndUserInstance
@@ -32,17 +34,16 @@ export interface EndUserContextUpdateOptions {
   attributes?: any;
 }
 
-
 /**
  * Options to pass to create a EndUserInstance
  *
  * @property { string } friendlyName The string that you assigned to describe the resource.
- * @property { EndUserEnumType } type 
+ * @property { EndUserType } type 
  * @property { any } [attributes] The set of parameters that are the attributes of the End User resource which are derived End User Types.
  */
 export interface EndUserListInstanceCreateOptions {
   friendlyName: string;
-  type: EndUserEnumType;
+  type: EndUserType;
   attributes?: any;
 }
 /**
@@ -232,7 +233,7 @@ interface EndUserResource {
   sid?: string | null;
   account_sid?: string | null;
   friendly_name?: string | null;
-  type?: object;
+  type?: EndUserType;
   attributes?: any | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -268,7 +269,7 @@ export class EndUserInstance {
    * The string that you assigned to describe the resource
    */
   friendlyName?: string | null;
-  type?: object;
+  type?: EndUserType;
   /**
    * The set of parameters that compose the End Users resource
    */

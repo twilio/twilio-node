@@ -20,6 +20,21 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
+  "originationPrefixes"?: Array<string>;
+  "destinationPrefixes"?: Array<string>;
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "friendlyName"?: string;
+}
+
+
+export class PricingV2TrunkingCountryInstanceOriginatingCallPrices {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
+}
+
 
 /**
  * Options to pass to each
@@ -135,8 +150,8 @@ interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
 interface CountryResource {
   country?: string | null;
   iso_country?: string | null;
-  outbound_prefix_prices?: Array<object> | null;
-  inbound_call_prices?: Array<object> | null;
+  outbound_prefix_prices?: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices> | null;
+  inbound_call_prices?: Array<PricingV2TrunkingCountryInstanceOriginatingCallPrices> | null;
   price_unit?: string | null;
   url?: string | null;
 }
@@ -167,11 +182,11 @@ export class CountryInstance {
   /**
    * The list of OutboundPrefixPriceWithOrigin records
    */
-  outboundPrefixPrices?: Array<object> | null;
+  outboundPrefixPrices?: Array<PricingV2TrunkingCountryInstanceTerminatingPrefixPrices> | null;
   /**
    * The list of InboundCallPrice records
    */
-  inboundCallPrices?: Array<object> | null;
+  inboundCallPrices?: Array<PricingV2TrunkingCountryInstanceOriginatingCallPrices> | null;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */

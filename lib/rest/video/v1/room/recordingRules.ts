@@ -20,6 +20,15 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+export class VideoV1RoomRoomRecordingRuleRules {
+  "type"?: string;
+  "all"?: boolean;
+  "publisher"?: string;
+  "track"?: string;
+  "kind"?: string;
+}
+
+
 
 /**
  * Options to pass to create a RecordingRulesInstance
@@ -245,7 +254,7 @@ interface RecordingRulesPayload extends RecordingRulesResource, Page.TwilioRespo
 
 interface RecordingRulesResource {
   room_sid?: string | null;
-  rules?: Array<object> | null;
+  rules?: Array<VideoV1RoomRoomRecordingRuleRules> | null;
   date_created?: Date | null;
   date_updated?: Date | null;
 }
@@ -270,7 +279,7 @@ export class RecordingRulesInstance {
   /**
    * A collection of recording Rules that describe how to include or exclude matching tracks for recording
    */
-  rules?: Array<object> | null;
+  rules?: Array<VideoV1RoomRoomRecordingRuleRules> | null;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

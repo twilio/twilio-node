@@ -32,7 +32,6 @@ export interface BucketContextUpdateOptions {
   interval?: number;
 }
 
-
 /**
  * Options to pass to create a BucketInstance
  *

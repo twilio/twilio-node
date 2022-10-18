@@ -24,10 +24,12 @@ import { SubscribeRulesListInstance } from "./participant/subscribeRules";
 import { PublishedTrackListInstance } from "./participant/publishedTrack";
 import { SubscribedTrackListInstance } from "./participant/subscribedTrack";
 
+type RoomParticipantStatus = 'connected'|'disconnected';
+
 /**
  * Options to pass to each
  *
- * @property { RoomParticipantEnumStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
+ * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
  * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) &#x60;identity&#x60; value.
  * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -42,7 +44,7 @@ import { SubscribedTrackListInstance } from "./participant/subscribedTrack";
  *                         Default is no limit
  */
 export interface ParticipantListInstanceEachOptions {
-  status?: RoomParticipantEnumStatus;
+  status?: RoomParticipantStatus;
   identity?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -55,7 +57,7 @@ export interface ParticipantListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RoomParticipantEnumStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
+ * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
  * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) &#x60;identity&#x60; value.
  * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -66,7 +68,7 @@ export interface ParticipantListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ParticipantListInstanceOptions {
-  status?: RoomParticipantEnumStatus;
+  status?: RoomParticipantStatus;
   identity?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -77,7 +79,7 @@ export interface ParticipantListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RoomParticipantEnumStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
+ * @property { RoomParticipantStatus } [status] Read only the participants with this status. Can be: &#x60;connected&#x60; or &#x60;disconnected&#x60;. For &#x60;in-progress&#x60; Rooms the default Status is &#x60;connected&#x60;, for &#x60;completed&#x60; Rooms only &#x60;disconnected&#x60; Participants are returned.
  * @property { string } [identity] Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) &#x60;identity&#x60; value.
  * @property { Date } [dateCreatedAfter] Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
  * @property { Date } [dateCreatedBefore] Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -86,7 +88,7 @@ export interface ParticipantListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ParticipantListInstancePageOptions {
-  status?: RoomParticipantEnumStatus;
+  status?: RoomParticipantStatus;
   identity?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -97,14 +99,13 @@ export interface ParticipantListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ParticipantInstance
  *
- * @property { RoomParticipantEnumStatus } [status] 
+ * @property { RoomParticipantStatus } [status] 
  */
 export interface ParticipantContextUpdateOptions {
-  status?: RoomParticipantEnumStatus;
+  status?: RoomParticipantStatus;
 }
 
 export interface ParticipantListInstance {
@@ -436,7 +437,7 @@ interface ParticipantResource {
   sid?: string | null;
   room_sid?: string | null;
   account_sid?: string | null;
-  status?: object;
+  status?: RoomParticipantStatus;
   identity?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -480,7 +481,7 @@ export class ParticipantInstance {
    * The SID of the Account that created the resource
    */
   accountSid?: string | null;
-  status?: object;
+  status?: RoomParticipantStatus;
   /**
    * The string that identifies the resource\'s User
    */

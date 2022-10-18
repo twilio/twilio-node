@@ -80,7 +80,6 @@ export interface SyncMapListInstancePageOptions {
 
 
 
-
 export interface SyncMapListInstance {
   (sid: string): SyncMapContext;
   get(sid: string): SyncMapContext;

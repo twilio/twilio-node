@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ServiceWebhookConfigurationMethod = 'GET'|'POST';
+
 
 /**
  * Options to pass to create a WebhookInstance
@@ -258,7 +260,7 @@ interface WebhookResource {
   pre_webhook_url?: string | null;
   post_webhook_url?: string | null;
   filters?: Array<string> | null;
-  method?: object;
+  method?: ServiceWebhookConfigurationMethod;
   url?: string | null;
 }
 
@@ -298,7 +300,7 @@ export class WebhookInstance {
    * The list of events that your configured webhook targets will receive. Events not configured here will not fire.
    */
   filters?: Array<string> | null;
-  method?: object;
+  method?: ServiceWebhookConfigurationMethod;
   /**
    * An absolute URL for this webhook.
    */

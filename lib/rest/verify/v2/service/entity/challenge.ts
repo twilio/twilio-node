@@ -21,6 +21,14 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { NotificationListInstance } from "./challenge/notification";
 
+type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
+
+type ChallengeListOrders = 'asc'|'desc';
+
+type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
+
+type ChallengeFactorTypes = 'push'|'totp';
+
 
 /**
  * Options to pass to update a ChallengeInstance
@@ -32,7 +40,6 @@ export interface ChallengeContextUpdateOptions {
   authPayload?: string;
   metadata?: any;
 }
-
 
 /**
  * Options to pass to create a ChallengeInstance
@@ -56,8 +63,8 @@ export interface ChallengeListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property { string } [factorSid] The unique SID identifier of the Factor.
- * @property { ChallengeEnumChallengeStatuses } [status] The Status of the Challenges to fetch. One of &#x60;pending&#x60;, &#x60;expired&#x60;, &#x60;approved&#x60; or &#x60;denied&#x60;.
- * @property { ChallengeEnumListOrders } [order] The desired sort order of the Challenges list. One of &#x60;asc&#x60; or &#x60;desc&#x60; for ascending and descending respectively. Defaults to &#x60;asc&#x60;.
+ * @property { ChallengeChallengeStatuses } [status] The Status of the Challenges to fetch. One of &#x60;pending&#x60;, &#x60;expired&#x60;, &#x60;approved&#x60; or &#x60;denied&#x60;.
+ * @property { ChallengeListOrders } [order] The desired sort order of the Challenges list. One of &#x60;asc&#x60; or &#x60;desc&#x60; for ascending and descending respectively. Defaults to &#x60;asc&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -70,8 +77,8 @@ export interface ChallengeListInstanceCreateOptions {
  */
 export interface ChallengeListInstanceEachOptions {
   factorSid?: string;
-  status?: ChallengeEnumChallengeStatuses;
-  order?: ChallengeEnumListOrders;
+  status?: ChallengeChallengeStatuses;
+  order?: ChallengeListOrders;
   pageSize?: number;
   callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -82,8 +89,8 @@ export interface ChallengeListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [factorSid] The unique SID identifier of the Factor.
- * @property { ChallengeEnumChallengeStatuses } [status] The Status of the Challenges to fetch. One of &#x60;pending&#x60;, &#x60;expired&#x60;, &#x60;approved&#x60; or &#x60;denied&#x60;.
- * @property { ChallengeEnumListOrders } [order] The desired sort order of the Challenges list. One of &#x60;asc&#x60; or &#x60;desc&#x60; for ascending and descending respectively. Defaults to &#x60;asc&#x60;.
+ * @property { ChallengeChallengeStatuses } [status] The Status of the Challenges to fetch. One of &#x60;pending&#x60;, &#x60;expired&#x60;, &#x60;approved&#x60; or &#x60;denied&#x60;.
+ * @property { ChallengeListOrders } [order] The desired sort order of the Challenges list. One of &#x60;asc&#x60; or &#x60;desc&#x60; for ascending and descending respectively. Defaults to &#x60;asc&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -92,8 +99,8 @@ export interface ChallengeListInstanceEachOptions {
  */
 export interface ChallengeListInstanceOptions {
   factorSid?: string;
-  status?: ChallengeEnumChallengeStatuses;
-  order?: ChallengeEnumListOrders;
+  status?: ChallengeChallengeStatuses;
+  order?: ChallengeListOrders;
   pageSize?: number;
   limit?: number;
 }
@@ -102,16 +109,16 @@ export interface ChallengeListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [factorSid] The unique SID identifier of the Factor.
- * @property { ChallengeEnumChallengeStatuses } [status] The Status of the Challenges to fetch. One of &#x60;pending&#x60;, &#x60;expired&#x60;, &#x60;approved&#x60; or &#x60;denied&#x60;.
- * @property { ChallengeEnumListOrders } [order] The desired sort order of the Challenges list. One of &#x60;asc&#x60; or &#x60;desc&#x60; for ascending and descending respectively. Defaults to &#x60;asc&#x60;.
+ * @property { ChallengeChallengeStatuses } [status] The Status of the Challenges to fetch. One of &#x60;pending&#x60;, &#x60;expired&#x60;, &#x60;approved&#x60; or &#x60;denied&#x60;.
+ * @property { ChallengeListOrders } [order] The desired sort order of the Challenges list. One of &#x60;asc&#x60; or &#x60;desc&#x60; for ascending and descending respectively. Defaults to &#x60;asc&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChallengeListInstancePageOptions {
   factorSid?: string;
-  status?: ChallengeEnumChallengeStatuses;
-  order?: ChallengeEnumListOrders;
+  status?: ChallengeChallengeStatuses;
+  order?: ChallengeListOrders;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -248,12 +255,12 @@ interface ChallengeResource {
   date_updated?: Date | null;
   date_responded?: Date | null;
   expiration_date?: Date | null;
-  status?: object;
-  responded_reason?: object;
+  status?: ChallengeChallengeStatuses;
+  responded_reason?: ChallengeChallengeReasons;
   details?: any | null;
   hidden_details?: any | null;
   metadata?: any | null;
-  factor_type?: object;
+  factor_type?: ChallengeFactorTypes;
   url?: string | null;
   links?: object | null;
 }
@@ -325,8 +332,8 @@ export class ChallengeInstance {
    * The date-time when this Challenge expires
    */
   expirationDate?: Date | null;
-  status?: object;
-  respondedReason?: object;
+  status?: ChallengeChallengeStatuses;
+  respondedReason?: ChallengeChallengeReasons;
   /**
    * Details about the Challenge.
    */
@@ -339,7 +346,7 @@ export class ChallengeInstance {
    * Metadata of the challenge.
    */
   metadata?: any | null;
-  factorType?: object;
+  factorType?: ChallengeFactorTypes;
   /**
    * The URL of this resource.
    */

@@ -52,7 +52,6 @@ export interface AssistantContextUpdateOptions {
   styleSheet?: any;
 }
 
-
 /**
  * Options to pass to create a AssistantInstance
  *

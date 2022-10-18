@@ -20,6 +20,12 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+export class PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
+}
+
 
 /**
  * Options to pass to each
@@ -135,7 +141,7 @@ interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
 interface CountryResource {
   country?: string | null;
   iso_country?: string | null;
-  phone_number_prices?: Array<object> | null;
+  phone_number_prices?: Array<PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices> | null;
   price_unit?: string | null;
   url?: string | null;
 }
@@ -165,7 +171,7 @@ export class CountryInstance {
   /**
    * The list of PhoneNumberPrices records
    */
-  phoneNumberPrices?: Array<object> | null;
+  phoneNumberPrices?: Array<PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices> | null;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */

@@ -20,6 +20,10 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type SyncListItemQueryResultOrder = 'asc'|'desc';
+
+type SyncListItemQueryFromBoundType = 'inclusive'|'exclusive';
+
 
 /**
  * Options to pass to create a SyncListItemInstance
@@ -38,9 +42,9 @@ export interface SyncListItemListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { SyncListItemEnumQueryResultOrder } [order] How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending.
+ * @property { SyncListItemQueryResultOrder } [order] How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending.
  * @property { string } [from] The &#x60;index&#x60; of the first Sync List Item resource to read. See also &#x60;bounds&#x60;.
- * @property { SyncListItemEnumQueryFromBoundType } [bounds] Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;.
+ * @property { SyncListItemQueryFromBoundType } [bounds] Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -52,9 +56,9 @@ export interface SyncListItemListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SyncListItemListInstanceEachOptions {
-  order?: SyncListItemEnumQueryResultOrder;
+  order?: SyncListItemQueryResultOrder;
   from?: string;
-  bounds?: SyncListItemEnumQueryFromBoundType;
+  bounds?: SyncListItemQueryFromBoundType;
   pageSize?: number;
   callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -64,9 +68,9 @@ export interface SyncListItemListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { SyncListItemEnumQueryResultOrder } [order] How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending.
+ * @property { SyncListItemQueryResultOrder } [order] How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending.
  * @property { string } [from] The &#x60;index&#x60; of the first Sync List Item resource to read. See also &#x60;bounds&#x60;.
- * @property { SyncListItemEnumQueryFromBoundType } [bounds] Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;.
+ * @property { SyncListItemQueryFromBoundType } [bounds] Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -74,9 +78,9 @@ export interface SyncListItemListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SyncListItemListInstanceOptions {
-  order?: SyncListItemEnumQueryResultOrder;
+  order?: SyncListItemQueryResultOrder;
   from?: string;
-  bounds?: SyncListItemEnumQueryFromBoundType;
+  bounds?: SyncListItemQueryFromBoundType;
   pageSize?: number;
   limit?: number;
 }
@@ -84,22 +88,21 @@ export interface SyncListItemListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { SyncListItemEnumQueryResultOrder } [order] How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending.
+ * @property { SyncListItemQueryResultOrder } [order] How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending.
  * @property { string } [from] The &#x60;index&#x60; of the first Sync List Item resource to read. See also &#x60;bounds&#x60;.
- * @property { SyncListItemEnumQueryFromBoundType } [bounds] Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;.
+ * @property { SyncListItemQueryFromBoundType } [bounds] Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncListItemListInstancePageOptions {
-  order?: SyncListItemEnumQueryResultOrder;
+  order?: SyncListItemQueryResultOrder;
   from?: string;
-  bounds?: SyncListItemEnumQueryFromBoundType;
+  bounds?: SyncListItemQueryFromBoundType;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 

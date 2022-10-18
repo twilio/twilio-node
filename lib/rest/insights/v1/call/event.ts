@@ -20,10 +20,12 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type EventTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
+
 /**
  * Options to pass to each
  *
- * @property { EventEnumTwilioEdge } [edge] 
+ * @property { EventTwilioEdge } [edge] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -35,7 +37,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface EventListInstanceEachOptions {
-  edge?: EventEnumTwilioEdge;
+  edge?: EventTwilioEdge;
   pageSize?: number;
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -45,7 +47,7 @@ export interface EventListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { EventEnumTwilioEdge } [edge] 
+ * @property { EventTwilioEdge } [edge] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -53,7 +55,7 @@ export interface EventListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface EventListInstanceOptions {
-  edge?: EventEnumTwilioEdge;
+  edge?: EventTwilioEdge;
   pageSize?: number;
   limit?: number;
 }
@@ -61,13 +63,13 @@ export interface EventListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { EventEnumTwilioEdge } [edge] 
+ * @property { EventTwilioEdge } [edge] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface EventListInstancePageOptions {
-  edge?: EventEnumTwilioEdge;
+  edge?: EventTwilioEdge;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;

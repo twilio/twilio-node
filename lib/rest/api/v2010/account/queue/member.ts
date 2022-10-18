@@ -31,7 +31,6 @@ export interface MemberContextUpdateOptions {
   url: string;
   method?: string;
 }
-
 /**
  * Options to pass to each
  *

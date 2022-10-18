@@ -78,7 +78,6 @@ export interface CredentialListMappingListInstancePageOptions {
 
 
 
-
 export interface CredentialListMappingListInstance {
   (sid: string): CredentialListMappingContext;
   get(sid: string): CredentialListMappingContext;

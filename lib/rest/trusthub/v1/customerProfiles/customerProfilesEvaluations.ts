@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type CustomerProfileEvaluationStatus = 'compliant'|'noncompliant';
+
 
 /**
  * Options to pass to create a CustomerProfilesEvaluationsInstance
@@ -75,7 +77,6 @@ export interface CustomerProfilesEvaluationsListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -370,7 +371,7 @@ interface CustomerProfilesEvaluationsResource {
   account_sid?: string | null;
   policy_sid?: string | null;
   customer_profile_sid?: string | null;
-  status?: object;
+  status?: CustomerProfileEvaluationStatus;
   results?: Array<any> | null;
   date_created?: Date | null;
   url?: string | null;
@@ -409,7 +410,7 @@ export class CustomerProfilesEvaluationsInstance {
    * The unique string that identifies the resource
    */
   customerProfileSid?: string | null;
-  status?: object;
+  status?: CustomerProfileEvaluationStatus;
   /**
    * The results of the Evaluation resource
    */

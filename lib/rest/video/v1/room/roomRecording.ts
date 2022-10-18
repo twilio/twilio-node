@@ -20,11 +20,18 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type RoomRecordingCodec = 'VP8'|'H264'|'OPUS'|'PCMU';
+
+type RoomRecordingType = 'audio'|'video'|'data';
+
+type RoomRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
+
+type RoomRecordingFormat = 'mka'|'mkv';
 
 /**
  * Options to pass to each
  *
- * @property { RoomRecordingEnumStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
+ * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
  * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { Date } [dateCreatedBefore] Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -39,7 +46,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface RoomRecordingListInstanceEachOptions {
-  status?: RoomRecordingEnumStatus;
+  status?: RoomRecordingStatus;
   sourceSid?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -52,7 +59,7 @@ export interface RoomRecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RoomRecordingEnumStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
+ * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
  * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { Date } [dateCreatedBefore] Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -63,7 +70,7 @@ export interface RoomRecordingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RoomRecordingListInstanceOptions {
-  status?: RoomRecordingEnumStatus;
+  status?: RoomRecordingStatus;
   sourceSid?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -74,7 +81,7 @@ export interface RoomRecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RoomRecordingEnumStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
+ * @property { RoomRecordingStatus } [status] Read only the recordings with this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
  * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
  * @property { Date } [dateCreatedBefore] Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -83,7 +90,7 @@ export interface RoomRecordingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoomRecordingListInstancePageOptions {
-  status?: RoomRecordingEnumStatus;
+  status?: RoomRecordingStatus;
   sourceSid?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
@@ -181,16 +188,16 @@ interface RoomRecordingPayload extends RoomRecordingResource, Page.TwilioRespons
 
 interface RoomRecordingResource {
   account_sid?: string | null;
-  status?: object;
+  status?: RoomRecordingStatus;
   date_created?: Date | null;
   sid?: string | null;
   source_sid?: string | null;
   size?: number | null;
   url?: string | null;
-  type?: object;
+  type?: RoomRecordingType;
   duration?: number | null;
-  container_format?: object;
-  codec?: object;
+  container_format?: RoomRecordingFormat;
+  codec?: RoomRecordingCodec;
   grouping_sids?: any | null;
   track_name?: string | null;
   offset?: number | null;
@@ -229,7 +236,7 @@ export class RoomRecordingInstance {
    * The SID of the Account that created the resource
    */
   accountSid?: string | null;
-  status?: object;
+  status?: RoomRecordingStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
@@ -250,13 +257,13 @@ export class RoomRecordingInstance {
    * The absolute URL of the resource
    */
   url?: string | null;
-  type?: object;
+  type?: RoomRecordingType;
   /**
    * The duration of the recording in seconds
    */
   duration?: number | null;
-  containerFormat?: object;
-  codec?: object;
+  containerFormat?: RoomRecordingFormat;
+  codec?: RoomRecordingCodec;
   /**
    * A list of SIDs related to the Recording
    */

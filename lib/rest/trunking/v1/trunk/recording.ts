@@ -20,16 +20,20 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
+
+type RecordingRecordingMode = 'do-not-record'|'record-from-ringing'|'record-from-answer'|'record-from-ringing-dual'|'record-from-answer-dual';
+
 
 /**
  * Options to pass to create a RecordingInstance
  *
- * @property { RecordingEnumRecordingMode } [mode] 
- * @property { RecordingEnumRecordingTrim } [trim] 
+ * @property { RecordingRecordingMode } [mode] 
+ * @property { RecordingRecordingTrim } [trim] 
  */
 export interface RecordingListInstanceCreateOptions {
-  mode?: RecordingEnumRecordingMode;
-  trim?: RecordingEnumRecordingTrim;
+  mode?: RecordingRecordingMode;
+  trim?: RecordingRecordingTrim;
 }
 
 export interface RecordingListInstance {
@@ -247,8 +251,8 @@ interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload
 }
 
 interface RecordingResource {
-  mode?: object;
-  trim?: object;
+  mode?: RecordingRecordingMode;
+  trim?: RecordingRecordingTrim;
 }
 
 export class RecordingInstance {
@@ -262,8 +266,8 @@ export class RecordingInstance {
     this._solution = { trunkSid: trunkSid || this.trunkSid };
   }
 
-  mode?: object;
-  trim?: object;
+  mode?: RecordingRecordingMode;
+  trim?: RecordingRecordingTrim;
 
   /**
    * Provide a user-friendly representation

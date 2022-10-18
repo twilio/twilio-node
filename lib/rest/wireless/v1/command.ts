@@ -20,6 +20,13 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type CommandCommandMode = 'text'|'binary';
+
+type CommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
+
+type CommandDirection = 'from_sim'|'to_sim';
+
+type CommandTransport = 'sms'|'ip';
 
 
 /**
@@ -29,7 +36,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } [sim] The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
  * @property { string } [callbackMethod] The HTTP method we use to call &#x60;callback_url&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60;, and the default is &#x60;POST&#x60;.
  * @property { string } [callbackUrl] The URL we call using the &#x60;callback_url&#x60; when the Command has finished sending, whether the command was delivered or it failed.
- * @property { CommandEnumCommandMode } [commandMode] 
+ * @property { CommandCommandMode } [commandMode] 
  * @property { string } [includeSid] Whether to include the SID of the command in the message body. Can be: &#x60;none&#x60;, &#x60;start&#x60;, or &#x60;end&#x60;, and the default behavior is &#x60;none&#x60;. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of &#x60;start&#x60; will prepend the message with the Command SID, and &#x60;end&#x60; will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
  * @property { boolean } [deliveryReceiptRequested] Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to \\\&#39;delivered\\\&#39; once the server has received a delivery receipt from the device. The default value is &#x60;true&#x60;.
  */
@@ -38,7 +45,7 @@ export interface CommandListInstanceCreateOptions {
   sim?: string;
   callbackMethod?: string;
   callbackUrl?: string;
-  commandMode?: CommandEnumCommandMode;
+  commandMode?: CommandCommandMode;
   includeSid?: string;
   deliveryReceiptRequested?: boolean;
 }
@@ -46,9 +53,9 @@ export interface CommandListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property { string } [sim] The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
- * @property { CommandEnumStatus } [status] The status of the resources to read. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60;, or &#x60;failed&#x60;.
- * @property { CommandEnumDirection } [direction] Only return Commands with this direction value.
- * @property { CommandEnumTransport } [transport] Only return Commands with this transport value. Can be: &#x60;sms&#x60; or &#x60;ip&#x60;.
+ * @property { CommandStatus } [status] The status of the resources to read. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60;, or &#x60;failed&#x60;.
+ * @property { CommandDirection } [direction] Only return Commands with this direction value.
+ * @property { CommandTransport } [transport] Only return Commands with this transport value. Can be: &#x60;sms&#x60; or &#x60;ip&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -61,9 +68,9 @@ export interface CommandListInstanceCreateOptions {
  */
 export interface CommandListInstanceEachOptions {
   sim?: string;
-  status?: CommandEnumStatus;
-  direction?: CommandEnumDirection;
-  transport?: CommandEnumTransport;
+  status?: CommandStatus;
+  direction?: CommandDirection;
+  transport?: CommandTransport;
   pageSize?: number;
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -74,9 +81,9 @@ export interface CommandListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [sim] The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
- * @property { CommandEnumStatus } [status] The status of the resources to read. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60;, or &#x60;failed&#x60;.
- * @property { CommandEnumDirection } [direction] Only return Commands with this direction value.
- * @property { CommandEnumTransport } [transport] Only return Commands with this transport value. Can be: &#x60;sms&#x60; or &#x60;ip&#x60;.
+ * @property { CommandStatus } [status] The status of the resources to read. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60;, or &#x60;failed&#x60;.
+ * @property { CommandDirection } [direction] Only return Commands with this direction value.
+ * @property { CommandTransport } [transport] Only return Commands with this transport value. Can be: &#x60;sms&#x60; or &#x60;ip&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -85,9 +92,9 @@ export interface CommandListInstanceEachOptions {
  */
 export interface CommandListInstanceOptions {
   sim?: string;
-  status?: CommandEnumStatus;
-  direction?: CommandEnumDirection;
-  transport?: CommandEnumTransport;
+  status?: CommandStatus;
+  direction?: CommandDirection;
+  transport?: CommandTransport;
   pageSize?: number;
   limit?: number;
 }
@@ -96,18 +103,18 @@ export interface CommandListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [sim] The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
- * @property { CommandEnumStatus } [status] The status of the resources to read. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60;, or &#x60;failed&#x60;.
- * @property { CommandEnumDirection } [direction] Only return Commands with this direction value.
- * @property { CommandEnumTransport } [transport] Only return Commands with this transport value. Can be: &#x60;sms&#x60; or &#x60;ip&#x60;.
+ * @property { CommandStatus } [status] The status of the resources to read. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60;, or &#x60;failed&#x60;.
+ * @property { CommandDirection } [direction] Only return Commands with this direction value.
+ * @property { CommandTransport } [transport] Only return Commands with this transport value. Can be: &#x60;sms&#x60; or &#x60;ip&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CommandListInstancePageOptions {
   sim?: string;
-  status?: CommandEnumStatus;
-  direction?: CommandEnumDirection;
-  transport?: CommandEnumTransport;
+  status?: CommandStatus;
+  direction?: CommandDirection;
+  transport?: CommandTransport;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -205,11 +212,11 @@ interface CommandResource {
   account_sid?: string | null;
   sim_sid?: string | null;
   command?: string | null;
-  command_mode?: object;
-  transport?: object;
+  command_mode?: CommandCommandMode;
+  transport?: CommandTransport;
   delivery_receipt_requested?: boolean | null;
-  status?: object;
-  direction?: object;
+  status?: CommandStatus;
+  direction?: CommandDirection;
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
@@ -252,14 +259,14 @@ export class CommandInstance {
    * The message being sent to or from the SIM
    */
   command?: string | null;
-  commandMode?: object;
-  transport?: object;
+  commandMode?: CommandCommandMode;
+  transport?: CommandTransport;
   /**
    * Whether to request a delivery receipt
    */
   deliveryReceiptRequested?: boolean | null;
-  status?: object;
-  direction?: object;
+  status?: CommandStatus;
+  direction?: CommandDirection;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

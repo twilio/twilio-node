@@ -22,6 +22,12 @@ const serialize = require("../../../../base/serialize");
 import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
 import { InteractionChannelInviteListInstance } from "./interactionChannel/interactionChannelInvite";
 
+type InteractionChannelChannelStatus = 'setup'|'active'|'failed'|'closed';
+
+type InteractionChannelType = 'voice'|'sms'|'email'|'web'|'whatsapp'|'chat'|'messenger'|'gbm';
+
+type InteractionChannelStatus = 'closed'|'wrapup';
+
 /**
  * Options to pass to each
  *
@@ -71,15 +77,14 @@ export interface InteractionChannelListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a InteractionChannelInstance
  *
- * @property { InteractionChannelEnumStatus } status 
+ * @property { InteractionChannelStatus } status 
  * @property { any } [routing] Optional. The state of associated tasks. If not specified, all tasks will be set to &#x60;wrapping&#x60;.
  */
 export interface InteractionChannelContextUpdateOptions {
-  status: InteractionChannelEnumStatus;
+  status: InteractionChannelStatus;
   routing?: any;
 }
 
@@ -387,8 +392,8 @@ interface InteractionChannelPayload extends InteractionChannelResource, Page.Twi
 interface InteractionChannelResource {
   sid?: string | null;
   interaction_sid?: string | null;
-  type?: object;
-  status?: object;
+  type?: InteractionChannelType;
+  status?: InteractionChannelChannelStatus;
   error_code?: number | null;
   error_message?: string | null;
   url?: string | null;
@@ -420,8 +425,8 @@ export class InteractionChannelInstance {
    * The unique string that identifies the resource.
    */
   interactionSid?: string | null;
-  type?: object;
-  status?: object;
+  type?: InteractionChannelType;
+  status?: InteractionChannelChannelStatus;
   /**
    * The Twilio error code for a failed channel.
    */

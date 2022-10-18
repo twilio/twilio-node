@@ -20,6 +20,7 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type PhoneNumberValidationError = 'TOO_SHORT'|'TOO_LONG'|'INVALID_BUT_POSSIBLE'|'INVALID_COUNTRY_CODE'|'INVALID_LENGTH'|'NOT_A_NUMBER';
 
 
 /**
@@ -167,7 +168,7 @@ interface PhoneNumberResource {
   phone_number?: string | null;
   national_format?: string | null;
   valid?: boolean | null;
-  validation_errors?: Array<object> | null;
+  validation_errors?: Array<PhoneNumberValidationError> | null;
   caller_name?: any | null;
   sim_swap?: any | null;
   call_forwarding?: any | null;
@@ -220,7 +221,7 @@ export class PhoneNumberInstance {
   /**
    * Contains reasons why a phone number is invalid
    */
-  validationErrors?: Array<object> | null;
+  validationErrors?: Array<PhoneNumberValidationError> | null;
   /**
    * An object that contains caller name information
    */

@@ -20,6 +20,12 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type WebhookStatus = 'enabled'|'disabled';
+
+type WebhookMethods = 'GET'|'POST';
+
+type WebhookVersion = 'v1'|'v2';
+
 
 /**
  * Options to pass to create a WebhookInstance
@@ -27,15 +33,15 @@ const serialize = require("../../../../base/serialize");
  * @property { string } friendlyName The string that you assigned to describe the webhook. **This value should not contain PII.**
  * @property { Array<string> } eventTypes The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
  * @property { string } webhookUrl The URL associated with this Webhook.
- * @property { WebhookEnumStatus } [status] 
- * @property { WebhookEnumVersion } [version] 
+ * @property { WebhookStatus } [status] 
+ * @property { WebhookVersion } [version] 
  */
 export interface WebhookListInstanceCreateOptions {
   friendlyName: string;
   eventTypes: Array<string>;
   webhookUrl: string;
-  status?: WebhookEnumStatus;
-  version?: WebhookEnumVersion;
+  status?: WebhookStatus;
+  version?: WebhookVersion;
 }
 /**
  * Options to pass to each
@@ -86,22 +92,21 @@ export interface WebhookListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a WebhookInstance
  *
  * @property { string } [friendlyName] The string that you assigned to describe the webhook. **This value should not contain PII.**
  * @property { Array<string> } [eventTypes] The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
  * @property { string } [webhookUrl] The URL associated with this Webhook.
- * @property { WebhookEnumStatus } [status] 
- * @property { WebhookEnumVersion } [version] 
+ * @property { WebhookStatus } [status] 
+ * @property { WebhookVersion } [version] 
  */
 export interface WebhookContextUpdateOptions {
   friendlyName?: string;
   eventTypes?: Array<string>;
   webhookUrl?: string;
-  status?: WebhookEnumStatus;
-  version?: WebhookEnumVersion;
+  status?: WebhookStatus;
+  version?: WebhookVersion;
 }
 
 export interface WebhookListInstance {
@@ -483,10 +488,10 @@ interface WebhookResource {
   account_sid?: string | null;
   friendly_name?: string | null;
   event_types?: Array<string> | null;
-  status?: object;
-  version?: object;
+  status?: WebhookStatus;
+  version?: WebhookVersion;
   webhook_url?: string | null;
-  webhook_method?: object;
+  webhook_method?: WebhookMethods;
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
@@ -533,13 +538,13 @@ export class WebhookInstance {
    * The array of events that this Webhook is subscribed to.
    */
   eventTypes?: Array<string> | null;
-  status?: object;
-  version?: object;
+  status?: WebhookStatus;
+  version?: WebhookVersion;
   /**
    * The URL associated with this Webhook.
    */
   webhookUrl?: string | null;
-  webhookMethod?: object;
+  webhookMethod?: WebhookMethods;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

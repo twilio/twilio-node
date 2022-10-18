@@ -20,11 +20,13 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type CredentialPushType = 'apn'|'gcm'|'fcm';
+
 
 /**
  * Options to pass to update a CredentialInstance
  *
- * @property { CredentialEnumPushType } [type] 
+ * @property { CredentialPushType } [type] 
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
  * @property { string } [certificate] [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60;.
  * @property { string } [privateKey] [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----&#x60;.
@@ -33,7 +35,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } [secret] [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
  */
 export interface CredentialContextUpdateOptions {
-  type?: CredentialEnumPushType;
+  type?: CredentialPushType;
   friendlyName?: string;
   certificate?: string;
   privateKey?: string;
@@ -42,11 +44,10 @@ export interface CredentialContextUpdateOptions {
   secret?: string;
 }
 
-
 /**
  * Options to pass to create a CredentialInstance
  *
- * @property { CredentialEnumPushType } type 
+ * @property { CredentialPushType } type 
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
  * @property { string } [certificate] [APN only] The URL encoded representation of the certificate. For example,  &#x60;-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A&#x3D;&#x3D; -----END CERTIFICATE-----&#x60;.
  * @property { string } [privateKey] [APN only] The URL encoded representation of the private key. For example, &#x60;-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----&#x60;.
@@ -55,7 +56,7 @@ export interface CredentialContextUpdateOptions {
  * @property { string } [secret] [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
  */
 export interface CredentialListInstanceCreateOptions {
-  type: CredentialEnumPushType;
+  type: CredentialPushType;
   friendlyName?: string;
   certificate?: string;
   privateKey?: string;
@@ -255,7 +256,7 @@ interface CredentialResource {
   sid?: string | null;
   account_sid?: string | null;
   friendly_name?: string | null;
-  type?: object;
+  type?: CredentialPushType;
   sandbox?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -291,7 +292,7 @@ export class CredentialInstance {
    * The human-readable name of this credential.
    */
   friendlyName?: string | null;
-  type?: object;
+  type?: CredentialPushType;
   /**
    * [APN only] Whether to send the credential to sandbox APNs.
    */

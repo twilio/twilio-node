@@ -20,10 +20,12 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type SummaryProcessingState = 'complete'|'partial';
+
 /**
  * Options to pass to each
  *
- * @property { SummaryEnumProcessingState } [processingState] 
+ * @property { SummaryProcessingState } [processingState] 
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
@@ -34,7 +36,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface CallSummaryListInstanceEachOptions {
-  processingState?: SummaryEnumProcessingState;
+  processingState?: SummaryProcessingState;
   callback?: (item: CallSummaryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -43,26 +45,26 @@ export interface CallSummaryListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { SummaryEnumProcessingState } [processingState] 
+ * @property { SummaryProcessingState } [processingState] 
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
  */
 export interface CallSummaryListInstanceOptions {
-  processingState?: SummaryEnumProcessingState;
+  processingState?: SummaryProcessingState;
   limit?: number;
 }
 
 /**
  * Options to pass to page
  *
- * @property { SummaryEnumProcessingState } [processingState] 
+ * @property { SummaryProcessingState } [processingState] 
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CallSummaryListInstancePageOptions {
-  processingState?: SummaryEnumProcessingState;
+  processingState?: SummaryProcessingState;
   pageNumber?: number;
   pageToken?: string;
 }

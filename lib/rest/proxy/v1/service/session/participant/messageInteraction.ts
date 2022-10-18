@@ -20,6 +20,9 @@ import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
+type MessageInteractionType = 'message'|'voice'|'unknown';
+
+type MessageInteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
 
 
 /**
@@ -149,16 +152,16 @@ interface MessageInteractionResource {
   service_sid?: string | null;
   account_sid?: string | null;
   data?: string | null;
-  type?: object;
+  type?: MessageInteractionType;
   participant_sid?: string | null;
   inbound_participant_sid?: string | null;
   inbound_resource_sid?: string | null;
-  inbound_resource_status?: object;
+  inbound_resource_status?: MessageInteractionResourceStatus;
   inbound_resource_type?: string | null;
   inbound_resource_url?: string | null;
   outbound_participant_sid?: string | null;
   outbound_resource_sid?: string | null;
-  outbound_resource_status?: object;
+  outbound_resource_status?: MessageInteractionResourceStatus;
   outbound_resource_type?: string | null;
   outbound_resource_url?: string | null;
   date_created?: Date | null;
@@ -215,7 +218,7 @@ export class MessageInteractionInstance {
    * A JSON string that includes the message body sent to the participant
    */
   data?: string | null;
-  type?: object;
+  type?: MessageInteractionType;
   /**
    * The SID of the Participant resource
    */
@@ -228,7 +231,7 @@ export class MessageInteractionInstance {
    * Always empty for Message Interactions
    */
   inboundResourceSid?: string | null;
-  inboundResourceStatus?: object;
+  inboundResourceStatus?: MessageInteractionResourceStatus;
   /**
    * Always empty for Message Interactions
    */
@@ -245,7 +248,7 @@ export class MessageInteractionInstance {
    * The SID of the outbound Message resource
    */
   outboundResourceSid?: string | null;
-  outboundResourceStatus?: object;
+  outboundResourceStatus?: MessageInteractionResourceStatus;
   /**
    * The outbound resource type
    */

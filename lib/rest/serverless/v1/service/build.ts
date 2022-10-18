@@ -21,6 +21,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { BuildStatusListInstance } from "./build/buildStatus";
 
+type BuildStatus = 'building'|'completed'|'failed';
+
+type BuildRuntime = 'node8'|'node10'|'node12'|'node14';
 
 
 /**
@@ -182,11 +185,11 @@ interface BuildResource {
   sid?: string | null;
   account_sid?: string | null;
   service_sid?: string | null;
-  status?: object;
+  status?: BuildStatus;
   asset_versions?: Array<any> | null;
   function_versions?: Array<any> | null;
   dependencies?: Array<any> | null;
-  runtime?: object;
+  runtime?: BuildRuntime;
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
@@ -226,7 +229,7 @@ export class BuildInstance {
    * The SID of the Service that the Build resource is associated with
    */
   serviceSid?: string | null;
-  status?: object;
+  status?: BuildStatus;
   /**
    * The list of Asset Version resource SIDs that are included in the Build
    */
@@ -239,7 +242,7 @@ export class BuildInstance {
    * A list of objects that describe the Dependencies included in the Build
    */
   dependencies?: Array<any> | null;
-  runtime?: object;
+  runtime?: BuildRuntime;
   /**
    * The ISO 8601 date and time in GMT when the Build resource was created
    */

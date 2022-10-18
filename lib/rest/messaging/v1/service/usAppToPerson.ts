@@ -89,7 +89,6 @@ export interface UsAppToPersonListInstancePageOptions {
 
 
 
-
 export interface UsAppToPersonListInstance {
   (sid: string): UsAppToPersonContext;
   get(sid: string): UsAppToPersonContext;

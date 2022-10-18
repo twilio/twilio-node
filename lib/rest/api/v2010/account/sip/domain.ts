@@ -57,7 +57,6 @@ export interface DomainContextUpdateOptions {
   emergencyCallerSid?: string;
 }
 
-
 /**
  * Options to pass to create a DomainInstance
  *

@@ -79,7 +79,6 @@ export interface ConnectionPolicyListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ConnectionPolicyInstance
  *

@@ -70,7 +70,6 @@ export interface AvailableAddOnListInstancePageOptions {
 
 
 
-
 export interface AvailableAddOnListInstance {
   (sid: string): AvailableAddOnContext;
   get(sid: string): AvailableAddOnContext;

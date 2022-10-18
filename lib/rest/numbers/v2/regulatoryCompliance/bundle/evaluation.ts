@@ -20,6 +20,7 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type EvaluationStatus = 'compliant'|'noncompliant';
 
 /**
  * Options to pass to each
@@ -137,7 +138,7 @@ interface EvaluationResource {
   account_sid?: string | null;
   regulation_sid?: string | null;
   bundle_sid?: string | null;
-  status?: object;
+  status?: EvaluationStatus;
   results?: Array<any> | null;
   date_created?: Date | null;
   url?: string | null;
@@ -176,7 +177,7 @@ export class EvaluationInstance {
    * The unique string that identifies the resource
    */
   bundleSid?: string | null;
-  status?: object;
+  status?: EvaluationStatus;
   /**
    * The results of the Evaluation resource
    */

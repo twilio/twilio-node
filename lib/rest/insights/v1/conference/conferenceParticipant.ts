@@ -20,6 +20,18 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type ConferenceParticipantProcessingState = 'complete'|'in_progress'|'timeout';
+
+type ConferenceParticipantCallDirection = 'inbound'|'outbound';
+
+type ConferenceParticipantRegion = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de1';
+
+type ConferenceParticipantCallStatus = 'answered'|'completed'|'busy'|'fail'|'noanswer'|'ringing'|'canceled';
+
+type ConferenceParticipantCallType = 'carrier'|'client'|'sip';
+
+type ConferenceParticipantJitterBufferSize = 'large'|'small'|'medium'|'off';
+
 /**
  * Options to pass to each
  *
@@ -84,7 +96,6 @@ export interface ConferenceParticipantListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -376,10 +387,10 @@ interface ConferenceParticipantResource {
   conference_sid?: string | null;
   call_sid?: string | null;
   account_sid?: string | null;
-  call_direction?: object;
+  call_direction?: ConferenceParticipantCallDirection;
   from?: string | null;
   to?: string | null;
-  call_status?: object;
+  call_status?: ConferenceParticipantCallStatus;
   country_code?: string | null;
   is_moderator?: boolean | null;
   join_time?: Date | null;
@@ -387,13 +398,13 @@ interface ConferenceParticipantResource {
   duration_seconds?: number | null;
   outbound_queue_length?: number | null;
   outbound_time_in_queue?: number | null;
-  jitter_buffer_size?: object;
+  jitter_buffer_size?: ConferenceParticipantJitterBufferSize;
   is_coach?: boolean | null;
   coached_participants?: Array<string> | null;
-  participant_region?: object;
-  conference_region?: object;
-  call_type?: object;
-  processing_state?: object;
+  participant_region?: ConferenceParticipantRegion;
+  conference_region?: ConferenceParticipantRegion;
+  call_type?: ConferenceParticipantCallType;
+  processing_state?: ConferenceParticipantProcessingState;
   properties?: any | null;
   events?: any | null;
   metrics?: any | null;
@@ -456,7 +467,7 @@ export class ConferenceParticipantInstance {
    * Account SID.
    */
   accountSid?: string | null;
-  callDirection?: object;
+  callDirection?: ConferenceParticipantCallDirection;
   /**
    * Caller ID of the calling party.
    */
@@ -465,7 +476,7 @@ export class ConferenceParticipantInstance {
    * Called party.
    */
   to?: string | null;
-  callStatus?: object;
+  callStatus?: ConferenceParticipantCallStatus;
   /**
    * ISO alpha-2 country code of the participant.
    */
@@ -494,7 +505,7 @@ export class ConferenceParticipantInstance {
    * Actual time in queue (seconds).
    */
   outboundTimeInQueue?: number | null;
-  jitterBufferSize?: object;
+  jitterBufferSize?: ConferenceParticipantJitterBufferSize;
   /**
    * Boolean. Indicated whether participant was a coach.
    */
@@ -503,10 +514,10 @@ export class ConferenceParticipantInstance {
    * Call SIDs coached by this participant.
    */
   coachedParticipants?: Array<string> | null;
-  participantRegion?: object;
-  conferenceRegion?: object;
-  callType?: object;
-  processingState?: object;
+  participantRegion?: ConferenceParticipantRegion;
+  conferenceRegion?: ConferenceParticipantRegion;
+  callType?: ConferenceParticipantCallType;
+  processingState?: ConferenceParticipantProcessingState;
   /**
    * Participant properties and metadata.
    */

@@ -21,12 +21,27 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { ParticipantListInstance } from "./room/participant";
 
+type VideoRoomSummaryCreatedMethod = 'sdk'|'ad_hoc'|'api';
+
+type VideoRoomSummaryCodec = 'VP8'|'H264'|'VP9';
+
+type VideoRoomSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
+
+type VideoRoomSummaryProcessingState = 'complete'|'in_progress';
+
+type VideoRoomSummaryRoomType = 'go'|'peer_to_peer'|'group'|'group_small';
+
+type VideoRoomSummaryEndReason = 'room_ended_via_api'|'timeout';
+
+type VideoRoomSummaryRoomStatus = 'in_progress'|'completed';
+
+type VideoRoomSummaryEdgeLocation = 'ashburn'|'dublin'|'frankfurt'|'singapore'|'sydney'|'sao_paulo'|'roaming'|'umatilla'|'tokyo';
 
 /**
  * Options to pass to each
  *
- * @property { Array<VideoRoomSummaryEnumRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
- * @property { Array<VideoRoomSummaryEnumCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
+ * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
+ * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
  * @property { string } [roomName] Room friendly name.
  * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
  * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.
@@ -41,8 +56,8 @@ import { ParticipantListInstance } from "./room/participant";
  *                         Default is no limit
  */
 export interface RoomListInstanceEachOptions {
-  roomType?: Array<VideoRoomSummaryEnumRoomType>;
-  codec?: Array<VideoRoomSummaryEnumCodec>;
+  roomType?: Array<VideoRoomSummaryRoomType>;
+  codec?: Array<VideoRoomSummaryCodec>;
   roomName?: string;
   createdAfter?: Date;
   createdBefore?: Date;
@@ -55,8 +70,8 @@ export interface RoomListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<VideoRoomSummaryEnumRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
- * @property { Array<VideoRoomSummaryEnumCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
+ * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
+ * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
  * @property { string } [roomName] Room friendly name.
  * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
  * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.
@@ -67,8 +82,8 @@ export interface RoomListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RoomListInstanceOptions {
-  roomType?: Array<VideoRoomSummaryEnumRoomType>;
-  codec?: Array<VideoRoomSummaryEnumCodec>;
+  roomType?: Array<VideoRoomSummaryRoomType>;
+  codec?: Array<VideoRoomSummaryCodec>;
   roomName?: string;
   createdAfter?: Date;
   createdBefore?: Date;
@@ -79,8 +94,8 @@ export interface RoomListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<VideoRoomSummaryEnumRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
- * @property { Array<VideoRoomSummaryEnumCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
+ * @property { Array<VideoRoomSummaryRoomType> } [roomType] Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
+ * @property { Array<VideoRoomSummaryCodec> } [codec] Codecs used by participants in the room. Can be &#x60;VP8&#x60;, &#x60;H264&#x60;, or &#x60;VP9&#x60;.
  * @property { string } [roomName] Room friendly name.
  * @property { Date } [createdAfter] Only read rooms that started on or after this ISO 8601 timestamp.
  * @property { Date } [createdBefore] Only read rooms that started before this ISO 8601 timestamp.
@@ -89,8 +104,8 @@ export interface RoomListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RoomListInstancePageOptions {
-  roomType?: Array<VideoRoomSummaryEnumRoomType>;
-  codec?: Array<VideoRoomSummaryEnumCodec>;
+  roomType?: Array<VideoRoomSummaryRoomType>;
+  codec?: Array<VideoRoomSummaryCodec>;
   roomName?: string;
   createdAfter?: Date;
   createdBefore?: Date;
@@ -177,25 +192,25 @@ interface RoomResource {
   room_name?: string | null;
   create_time?: Date | null;
   end_time?: Date | null;
-  room_type?: object;
-  room_status?: object;
+  room_type?: VideoRoomSummaryRoomType;
+  room_status?: VideoRoomSummaryRoomStatus;
   status_callback?: string | null;
   status_callback_method?: RoomStatusCallbackMethod;
-  created_method?: object;
-  end_reason?: object;
+  created_method?: VideoRoomSummaryCreatedMethod;
+  end_reason?: VideoRoomSummaryEndReason;
   max_participants?: number | null;
   unique_participants?: number | null;
   unique_participant_identities?: number | null;
   concurrent_participants?: number | null;
   max_concurrent_participants?: number | null;
-  codecs?: Array<object> | null;
-  media_region?: object;
+  codecs?: Array<VideoRoomSummaryCodec> | null;
+  media_region?: VideoRoomSummaryTwilioRealm;
   duration_sec?: number | null;
   total_participant_duration_sec?: number | null;
   total_recording_duration_sec?: number | null;
-  processing_state?: object;
+  processing_state?: VideoRoomSummaryProcessingState;
   recording_enabled?: boolean | null;
-  edge_location?: object;
+  edge_location?: VideoRoomSummaryEdgeLocation;
   url?: string | null;
   links?: object | null;
 }
@@ -255,8 +270,8 @@ export class RoomInstance {
    * End time for the room.
    */
   endTime?: Date | null;
-  roomType?: object;
-  roomStatus?: object;
+  roomType?: VideoRoomSummaryRoomType;
+  roomStatus?: VideoRoomSummaryRoomStatus;
   /**
    * Webhook provided for status callbacks.
    */
@@ -265,8 +280,8 @@ export class RoomInstance {
    * HTTP method provided for status callback URL.
    */
   statusCallbackMethod?: RoomStatusCallbackMethod;
-  createdMethod?: object;
-  endReason?: object;
+  createdMethod?: VideoRoomSummaryCreatedMethod;
+  endReason?: VideoRoomSummaryEndReason;
   /**
    * Max number of total participants allowed by the application settings.
    */
@@ -290,8 +305,8 @@ export class RoomInstance {
   /**
    * Codecs used by participants in the room.
    */
-  codecs?: Array<object> | null;
-  mediaRegion?: object;
+  codecs?: Array<VideoRoomSummaryCodec> | null;
+  mediaRegion?: VideoRoomSummaryTwilioRealm;
   /**
    * Total room duration from create time to end time.
    */
@@ -304,12 +319,12 @@ export class RoomInstance {
    * Combined amount of recorded seconds for participants in the room.
    */
   totalRecordingDurationSec?: number | null;
-  processingState?: object;
+  processingState?: VideoRoomSummaryProcessingState;
   /**
    * Boolean indicating if recording is enabled for the room.
    */
   recordingEnabled?: boolean | null;
-  edgeLocation?: object;
+  edgeLocation?: VideoRoomSummaryEdgeLocation;
   /**
    * URL for the room resource.
    */

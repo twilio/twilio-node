@@ -22,22 +22,25 @@ const serialize = require("../../../../base/serialize");
 import { ParticipantListInstance } from "./session/participant";
 import { InteractionListInstance } from "./session/interaction";
 
+type SessionMode = 'message-only'|'voice-only'|'voice-and-message';
+
+type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
+
 
 /**
  * Options to pass to update a SessionInstance
  *
  * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value.
  * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\&#39;s last Interaction.
- * @property { SessionEnumStatus } [status] 
+ * @property { SessionStatus } [status] 
  * @property { boolean } [failOnParticipantConflict] [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  */
 export interface SessionContextUpdateOptions {
   dateExpiry?: Date;
   ttl?: number;
-  status?: SessionEnumStatus;
+  status?: SessionStatus;
   failOnParticipantConflict?: boolean;
 }
-
 
 /**
  * Options to pass to create a SessionInstance
@@ -45,8 +48,8 @@ export interface SessionContextUpdateOptions {
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
  * @property { Date } [dateExpiry] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the &#x60;ttl&#x60; value.
  * @property { number } [ttl] The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session\\\&#39;s last Interaction.
- * @property { SessionEnumMode } [mode] 
- * @property { SessionEnumStatus } [status] 
+ * @property { SessionMode } [mode] 
+ * @property { SessionStatus } [status] 
  * @property { Array<any> } [participants] The Participant objects to include in the new session.
  * @property { boolean } [failOnParticipantConflict] [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
  */
@@ -54,8 +57,8 @@ export interface SessionListInstanceCreateOptions {
   uniqueName?: string;
   dateExpiry?: Date;
   ttl?: number;
-  mode?: SessionEnumMode;
-  status?: SessionEnumStatus;
+  mode?: SessionMode;
+  status?: SessionStatus;
   participants?: Array<any>;
   failOnParticipantConflict?: boolean;
 }
@@ -267,10 +270,10 @@ interface SessionResource {
   date_last_interaction?: Date | null;
   date_expiry?: Date | null;
   unique_name?: string | null;
-  status?: object;
+  status?: SessionStatus;
   closed_reason?: string | null;
   ttl?: number | null;
-  mode?: object;
+  mode?: SessionMode;
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
@@ -334,7 +337,7 @@ export class SessionInstance {
    * An application-defined string that uniquely identifies the resource
    */
   uniqueName?: string | null;
-  status?: object;
+  status?: SessionStatus;
   /**
    * The reason the Session ended
    */
@@ -343,7 +346,7 @@ export class SessionInstance {
    * When the session will expire
    */
   ttl?: number | null;
-  mode?: object;
+  mode?: SessionMode;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

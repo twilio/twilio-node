@@ -22,18 +22,22 @@ const serialize = require("../../../base/serialize");
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
 
+type SinkStatus = 'initialized'|'validating'|'active'|'failed';
+
+type SinkSinkType = 'kinesis'|'webhook'|'segment';
+
 
 /**
  * Options to pass to create a SinkInstance
  *
  * @property { string } description A human readable description for the Sink **This value should not contain PII.**
  * @property { any } sinkConfiguration The information required for Twilio to connect to the provided Sink encoded as JSON.
- * @property { SinkEnumSinkType } sinkType 
+ * @property { SinkSinkType } sinkType 
  */
 export interface SinkListInstanceCreateOptions {
   description: string;
   sinkConfiguration: any;
-  sinkType: SinkEnumSinkType;
+  sinkType: SinkSinkType;
 }
 /**
  * Options to pass to each
@@ -93,7 +97,6 @@ export interface SinkListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -488,8 +491,8 @@ interface SinkResource {
   description?: string | null;
   sid?: string | null;
   sink_configuration?: any | null;
-  sink_type?: object;
-  status?: object;
+  sink_type?: SinkSinkType;
+  status?: SinkStatus;
   url?: string | null;
   links?: object | null;
 }
@@ -532,8 +535,8 @@ export class SinkInstance {
    * JSON Sink configuration.
    */
   sinkConfiguration?: any | null;
-  sinkType?: object;
-  status?: object;
+  sinkType?: SinkSinkType;
+  status?: SinkStatus;
   /**
    * The URL of this resource.
    */

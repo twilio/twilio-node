@@ -85,7 +85,6 @@ export interface InstalledAddOnListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a InstalledAddOnInstance
  *

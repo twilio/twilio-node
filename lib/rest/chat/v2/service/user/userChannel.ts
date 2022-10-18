@@ -20,6 +20,12 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type UserChannelNotificationLevel = 'default'|'muted';
+
+type UserChannelWebhookEnabledType = 'true'|'false';
+
+type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
+
 /**
  * Options to pass to each
  *
@@ -69,25 +75,24 @@ export interface UserChannelListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to remove a UserChannelInstance
  *
- * @property { UserChannelEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { UserChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface UserChannelContextRemoveOptions {
-  xTwilioWebhookEnabled?: UserChannelEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserChannelWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a UserChannelInstance
  *
- * @property { UserChannelEnumNotificationLevel } [notificationLevel] 
+ * @property { UserChannelNotificationLevel } [notificationLevel] 
  * @property { number } [lastConsumedMessageIndex] The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
  * @property { Date } [lastConsumptionTimestamp] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
  */
 export interface UserChannelContextUpdateOptions {
-  notificationLevel?: UserChannelEnumNotificationLevel;
+  notificationLevel?: UserChannelNotificationLevel;
   lastConsumedMessageIndex?: number;
   lastConsumptionTimestamp?: Date;
 }
@@ -438,12 +443,12 @@ interface UserChannelResource {
   channel_sid?: string | null;
   user_sid?: string | null;
   member_sid?: string | null;
-  status?: object;
+  status?: UserChannelChannelStatus;
   last_consumed_message_index?: number | null;
   unread_messages_count?: number | null;
   links?: object | null;
   url?: string | null;
-  notification_level?: object;
+  notification_level?: UserChannelNotificationLevel;
 }
 
 export class UserChannelInstance {
@@ -486,7 +491,7 @@ export class UserChannelInstance {
    * The SID of the User as a Member in the Channel
    */
   memberSid?: string | null;
-  status?: object;
+  status?: UserChannelChannelStatus;
   /**
    * The index of the last Message in the Channel the Member has read
    */
@@ -503,7 +508,7 @@ export class UserChannelInstance {
    * The absolute URL of the resource
    */
   url?: string | null;
-  notificationLevel?: object;
+  notificationLevel?: UserChannelNotificationLevel;
 
   private get _proxy(): UserChannelContext {
     this._context = this._context || new UserChannelContextImpl(this._version, this._solution.serviceSid, this._solution.userSid, this._solution.channelSid);

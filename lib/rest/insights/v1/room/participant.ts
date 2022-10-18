@@ -20,6 +20,14 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type VideoParticipantSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
+
+type VideoParticipantSummaryCodec = 'VP8'|'H264'|'VP9';
+
+type VideoParticipantSummaryRoomStatus = 'in_progress'|'completed';
+
+type VideoParticipantSummaryEdgeLocation = 'ashburn'|'dublin'|'frankfurt'|'singapore'|'sydney'|'sao_paulo'|'roaming'|'umatilla'|'tokyo';
+
 /**
  * Options to pass to each
  *
@@ -66,7 +74,6 @@ export interface ParticipantListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -323,14 +330,14 @@ interface ParticipantResource {
   duration_sec?: number | null;
   account_sid?: string | null;
   room_sid?: string | null;
-  status?: object;
-  codecs?: Array<object> | null;
+  status?: VideoParticipantSummaryRoomStatus;
+  codecs?: Array<VideoParticipantSummaryCodec> | null;
   end_reason?: string | null;
   error_code?: number | null;
   error_code_url?: string | null;
-  media_region?: object;
+  media_region?: VideoParticipantSummaryTwilioRealm;
   properties?: any | null;
-  edge_location?: object;
+  edge_location?: VideoParticipantSummaryEdgeLocation;
   publisher_info?: any | null;
   url?: string | null;
 }
@@ -389,11 +396,11 @@ export class ParticipantInstance {
    * Unique identifier for the room.
    */
   roomSid?: string | null;
-  status?: object;
+  status?: VideoParticipantSummaryRoomStatus;
   /**
    * Codecs detected from the participant.
    */
-  codecs?: Array<object> | null;
+  codecs?: Array<VideoParticipantSummaryCodec> | null;
   /**
    * Reason the participant left the room.
    */
@@ -406,12 +413,12 @@ export class ParticipantInstance {
    * Twilio error code dictionary link.
    */
   errorCodeUrl?: string | null;
-  mediaRegion?: object;
+  mediaRegion?: VideoParticipantSummaryTwilioRealm;
   /**
    * Object containing information about the participant\'s data from the room.
    */
   properties?: any | null;
-  edgeLocation?: object;
+  edgeLocation?: VideoParticipantSummaryEdgeLocation;
   /**
    * Object containing information about the SDK name and version.
    */

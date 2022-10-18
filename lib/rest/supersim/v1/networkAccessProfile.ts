@@ -31,7 +31,6 @@ export interface NetworkAccessProfileContextUpdateOptions {
   uniqueName?: string;
 }
 
-
 /**
  * Options to pass to create a NetworkAccessProfileInstance
  *

@@ -20,10 +20,18 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type TaskReservationConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
+
+type TaskReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded'|'wrapping'|'completed';
+
+type TaskReservationCallStatus = 'initiated'|'ringing'|'answered'|'completed';
+
+type TaskReservationSupervisorMode = 'monitor'|'whisper'|'barge';
+
 /**
  * Options to pass to each
  *
- * @property { TaskReservationEnumStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -35,7 +43,7 @@ const serialize = require("../../../../../base/serialize");
  *                         Default is no limit
  */
 export interface ReservationListInstanceEachOptions {
-  reservationStatus?: TaskReservationEnumStatus;
+  reservationStatus?: TaskReservationStatus;
   pageSize?: number;
   callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -45,7 +53,7 @@ export interface ReservationListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { TaskReservationEnumStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -53,7 +61,7 @@ export interface ReservationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ReservationListInstanceOptions {
-  reservationStatus?: TaskReservationEnumStatus;
+  reservationStatus?: TaskReservationStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -61,13 +69,13 @@ export interface ReservationListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { TaskReservationEnumStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ReservationListInstancePageOptions {
-  reservationStatus?: TaskReservationEnumStatus;
+  reservationStatus?: TaskReservationStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -75,12 +83,11 @@ export interface ReservationListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ReservationInstance
  *
  * @property { string } [ifMatch] The If-Match HTTP request header
- * @property { TaskReservationEnumStatus } [reservationStatus] 
+ * @property { TaskReservationStatus } [reservationStatus] 
  * @property { string } [workerActivitySid] The new worker activity SID if rejecting a reservation.
  * @property { string } [instruction] The assignment instruction for reservation.
  * @property { string } [dequeuePostWorkActivitySid] The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -103,7 +110,7 @@ export interface ReservationListInstancePageOptions {
  * @property { string } [from] The Caller ID of the call to the worker when executing a Conference instruction.
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
- * @property { Array<TaskReservationEnumCallStatus> } [statusCallbackEvent] The call progress events that we will send to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, or &#x60;completed&#x60;.
+ * @property { Array<TaskReservationCallStatus> } [statusCallbackEvent] The call progress events that we will send to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, or &#x60;completed&#x60;.
  * @property { number } [timeout] Timeout for call when executing a Conference instruction.
  * @property { boolean } [record] Whether to record the participant and their conferences, including the time between conferences. The default is &#x60;false&#x60;.
  * @property { boolean } [muted] Whether the agent is muted in the conference. The default is &#x60;false&#x60;.
@@ -116,7 +123,7 @@ export interface ReservationListInstancePageOptions {
  * @property { number } [maxParticipants] The maximum number of participants in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
  * @property { string } [conferenceStatusCallback] The URL we should call using the &#x60;conference_status_callback_method&#x60; when the conference events in &#x60;conference_status_callback_event&#x60; occur. Only the value set by the first participant to join the conference is used. Subsequent &#x60;conference_status_callback&#x60; values are ignored.
  * @property { string } [conferenceStatusCallbackMethod] The HTTP method we should use to call &#x60;conference_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { Array<TaskReservationEnumConferenceEvent> } [conferenceStatusCallbackEvent] The conference status events that we will send to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, &#x60;speaker&#x60;.
+ * @property { Array<TaskReservationConferenceEvent> } [conferenceStatusCallbackEvent] The conference status events that we will send to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, &#x60;speaker&#x60;.
  * @property { string } [conferenceRecord] Whether to record the conference the participant is joining or when to record the conference. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;.
  * @property { string } [conferenceTrim] How to trim the leading and trailing silence from your recorded conference audio files. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and defaults to &#x60;trim-silence&#x60;.
  * @property { string } [recordingChannels] The recording channels for the final recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;.
@@ -129,14 +136,14 @@ export interface ReservationListInstancePageOptions {
  * @property { string } [sipAuthPassword] The SIP password for authentication.
  * @property { Array<string> } [dequeueStatusCallbackEvent] The Call progress events sent via webhooks as a result of a Dequeue instruction.
  * @property { string } [postWorkActivitySid] The new worker activity SID after executing a Conference instruction.
- * @property { TaskReservationEnumSupervisorMode } [supervisorMode] 
+ * @property { TaskReservationSupervisorMode } [supervisorMode] 
  * @property { string } [supervisor] The Supervisor SID/URI when executing the Supervise instruction.
  * @property { boolean } [endConferenceOnCustomerExit] Whether to end the conference when the customer leaves.
  * @property { boolean } [beepOnCustomerEntrance] Whether to play a notification beep when the customer joins.
  */
 export interface ReservationContextUpdateOptions {
   ifMatch?: string;
-  reservationStatus?: TaskReservationEnumStatus;
+  reservationStatus?: TaskReservationStatus;
   workerActivitySid?: string;
   instruction?: string;
   dequeuePostWorkActivitySid?: string;
@@ -159,7 +166,7 @@ export interface ReservationContextUpdateOptions {
   from?: string;
   statusCallback?: string;
   statusCallbackMethod?: string;
-  statusCallbackEvent?: Array<TaskReservationEnumCallStatus>;
+  statusCallbackEvent?: Array<TaskReservationCallStatus>;
   timeout?: number;
   record?: boolean;
   muted?: boolean;
@@ -172,7 +179,7 @@ export interface ReservationContextUpdateOptions {
   maxParticipants?: number;
   conferenceStatusCallback?: string;
   conferenceStatusCallbackMethod?: string;
-  conferenceStatusCallbackEvent?: Array<TaskReservationEnumConferenceEvent>;
+  conferenceStatusCallbackEvent?: Array<TaskReservationConferenceEvent>;
   conferenceRecord?: string;
   conferenceTrim?: string;
   recordingChannels?: string;
@@ -185,7 +192,7 @@ export interface ReservationContextUpdateOptions {
   sipAuthPassword?: string;
   dequeueStatusCallbackEvent?: Array<string>;
   postWorkActivitySid?: string;
-  supervisorMode?: TaskReservationEnumSupervisorMode;
+  supervisorMode?: TaskReservationSupervisorMode;
   supervisor?: string;
   endConferenceOnCustomerExit?: boolean;
   beepOnCustomerEntrance?: boolean;
@@ -542,7 +549,7 @@ interface ReservationResource {
   account_sid?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
-  reservation_status?: object;
+  reservation_status?: TaskReservationStatus;
   sid?: string | null;
   task_sid?: string | null;
   worker_name?: string | null;
@@ -584,7 +591,7 @@ export class ReservationInstance {
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
   dateUpdated?: Date | null;
-  reservationStatus?: object;
+  reservationStatus?: TaskReservationStatus;
   /**
    * The unique string that identifies the resource
    */

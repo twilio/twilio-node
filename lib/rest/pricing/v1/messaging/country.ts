@@ -20,6 +20,20 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices {
+  "carrier"?: string;
+  "mcc"?: string;
+  "mnc"?: string;
+  "prices"?: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices>;
+}
+
+
+export class PricingV1MessagingMessagingCountryInstanceInboundSmsPrices {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
+}
+
 
 /**
  * Options to pass to each
@@ -135,8 +149,8 @@ interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
 interface CountryResource {
   country?: string | null;
   iso_country?: string | null;
-  outbound_sms_prices?: Array<object> | null;
-  inbound_sms_prices?: Array<object> | null;
+  outbound_sms_prices?: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices> | null;
+  inbound_sms_prices?: Array<PricingV1MessagingMessagingCountryInstanceInboundSmsPrices> | null;
   price_unit?: string | null;
   url?: string | null;
 }
@@ -167,11 +181,11 @@ export class CountryInstance {
   /**
    * The list of OutboundSMSPrice records
    */
-  outboundSmsPrices?: Array<object> | null;
+  outboundSmsPrices?: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices> | null;
   /**
    * The list of InboundPrice records
    */
-  inboundSmsPrices?: Array<object> | null;
+  inboundSmsPrices?: Array<PricingV1MessagingMessagingCountryInstanceInboundSmsPrices> | null;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */

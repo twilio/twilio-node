@@ -36,7 +36,6 @@ export interface FleetContextUpdateOptions {
   defaultDeploymentSid?: string;
 }
 
-
 /**
  * Options to pass to create a FleetInstance
  *

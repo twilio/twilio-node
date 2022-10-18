@@ -20,6 +20,25 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type IncomingPhoneNumberLocalAddressRequirement = 'none'|'any'|'local'|'foreign';
+
+/**
+ * Indicate if a phone can receive calls or messages
+ */
+export class ApiV2010AccountIncomingPhoneNumberCapabilities {
+  "mms"?: boolean;
+  "sms"?: boolean;
+  "voice"?: boolean;
+  "fax"?: boolean;
+}
+
+
+type IncomingPhoneNumberLocalEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
+type IncomingPhoneNumberLocalVoiceReceiveMode = 'voice'|'fax';
+
+type IncomingPhoneNumberLocalEmergencyStatus = 'Active'|'Inactive';
+
 
 /**
  * Options to pass to create a LocalInstance
@@ -42,10 +61,10 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [voiceUrl] The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
  * @property { string } [identitySid] The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
  * @property { string } [addressSid] The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
- * @property { IncomingPhoneNumberLocalEnumEmergencyStatus } [emergencyStatus] 
+ * @property { IncomingPhoneNumberLocalEmergencyStatus } [emergencyStatus] 
  * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from the new phone number.
  * @property { string } [trunkSid] The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
- * @property { IncomingPhoneNumberLocalEnumVoiceReceiveMode } [voiceReceiveMode] 
+ * @property { IncomingPhoneNumberLocalVoiceReceiveMode } [voiceReceiveMode] 
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  */
 export interface LocalListInstanceCreateOptions {
@@ -67,10 +86,10 @@ export interface LocalListInstanceCreateOptions {
   voiceUrl?: string;
   identitySid?: string;
   addressSid?: string;
-  emergencyStatus?: IncomingPhoneNumberLocalEnumEmergencyStatus;
+  emergencyStatus?: IncomingPhoneNumberLocalEmergencyStatus;
   emergencyAddressSid?: string;
   trunkSid?: string;
-  voiceReceiveMode?: IncomingPhoneNumberLocalEnumVoiceReceiveMode;
+  voiceReceiveMode?: IncomingPhoneNumberLocalVoiceReceiveMode;
   bundleSid?: string;
 }
 /**
@@ -400,10 +419,10 @@ interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {
 interface LocalResource {
   account_sid?: string | null;
   address_sid?: string | null;
-  address_requirements?: object;
+  address_requirements?: IncomingPhoneNumberLocalAddressRequirement;
   api_version?: string | null;
   beta?: boolean | null;
-  capabilities?: object | null;
+  capabilities?: ApiV2010AccountIncomingPhoneNumberCapabilities | null;
   date_created?: string | null;
   date_updated?: string | null;
   friendly_name?: string | null;
@@ -420,16 +439,16 @@ interface LocalResource {
   status_callback_method?: LocalStatusCallbackMethod;
   trunk_sid?: string | null;
   uri?: string | null;
-  voice_receive_mode?: object;
+  voice_receive_mode?: IncomingPhoneNumberLocalVoiceReceiveMode;
   voice_application_sid?: string | null;
   voice_caller_id_lookup?: boolean | null;
   voice_fallback_method?: LocalVoiceFallbackMethod;
   voice_fallback_url?: string | null;
   voice_method?: LocalVoiceMethod;
   voice_url?: string | null;
-  emergency_status?: object;
+  emergency_status?: IncomingPhoneNumberLocalEmergencyStatus;
   emergency_address_sid?: string | null;
-  emergency_address_status?: object;
+  emergency_address_status?: IncomingPhoneNumberLocalEmergencyAddressStatus;
   bundle_sid?: string | null;
   status?: string | null;
 }
@@ -485,7 +504,7 @@ export class LocalInstance {
    * The SID of the Address resource associated with the phone number
    */
   addressSid?: string | null;
-  addressRequirements?: object;
+  addressRequirements?: IncomingPhoneNumberLocalAddressRequirement;
   /**
    * The API version used to start a new TwiML session
    */
@@ -494,7 +513,7 @@ export class LocalInstance {
    * Whether the phone number is new to the Twilio platform
    */
   beta?: boolean | null;
-  capabilities?: object | null;
+  capabilities?: ApiV2010AccountIncomingPhoneNumberCapabilities | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
@@ -559,7 +578,7 @@ export class LocalInstance {
    * The URI of the resource, relative to `https://api.twilio.com`
    */
   uri?: string | null;
-  voiceReceiveMode?: object;
+  voiceReceiveMode?: IncomingPhoneNumberLocalVoiceReceiveMode;
   /**
    * The SID of the application that handles calls to the phone number
    */
@@ -584,12 +603,12 @@ export class LocalInstance {
    * The URL we call when this phone number receives a call
    */
   voiceUrl?: string | null;
-  emergencyStatus?: object;
+  emergencyStatus?: IncomingPhoneNumberLocalEmergencyStatus;
   /**
    * The emergency address configuration to use for emergency calling
    */
   emergencyAddressSid?: string | null;
-  emergencyAddressStatus?: object;
+  emergencyAddressStatus?: IncomingPhoneNumberLocalEmergencyAddressStatus;
   /**
    * The SID of the Bundle resource associated with number
    */

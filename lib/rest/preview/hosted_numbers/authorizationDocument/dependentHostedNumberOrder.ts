@@ -20,10 +20,12 @@ import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type DependentHostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
+
 /**
  * Options to pass to each
  *
- * @property { DependentHostedNumberOrderEnumStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+ * @property { DependentHostedNumberOrderStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
@@ -39,7 +41,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface DependentHostedNumberOrderListInstanceEachOptions {
-  status?: DependentHostedNumberOrderEnumStatus;
+  status?: DependentHostedNumberOrderStatus;
   phoneNumber?: string;
   incomingPhoneNumberSid?: string;
   friendlyName?: string;
@@ -53,7 +55,7 @@ export interface DependentHostedNumberOrderListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { DependentHostedNumberOrderEnumStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+ * @property { DependentHostedNumberOrderStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
@@ -65,7 +67,7 @@ export interface DependentHostedNumberOrderListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface DependentHostedNumberOrderListInstanceOptions {
-  status?: DependentHostedNumberOrderEnumStatus;
+  status?: DependentHostedNumberOrderStatus;
   phoneNumber?: string;
   incomingPhoneNumberSid?: string;
   friendlyName?: string;
@@ -77,7 +79,7 @@ export interface DependentHostedNumberOrderListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { DependentHostedNumberOrderEnumStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+ * @property { DependentHostedNumberOrderStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
@@ -87,7 +89,7 @@ export interface DependentHostedNumberOrderListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface DependentHostedNumberOrderListInstancePageOptions {
-  status?: DependentHostedNumberOrderEnumStatus;
+  status?: DependentHostedNumberOrderStatus;
   phoneNumber?: string;
   incomingPhoneNumberSid?: string;
   friendlyName?: string;

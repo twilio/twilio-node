@@ -32,7 +32,6 @@ export interface CertificateContextUpdateOptions {
   deviceSid?: string;
 }
 
-
 /**
  * Options to pass to create a CertificateInstance
  *

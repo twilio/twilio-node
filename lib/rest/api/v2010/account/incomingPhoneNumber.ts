@@ -24,6 +24,25 @@ import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
 
+/**
+ * Indicate if a phone can receive calls or messages
+ */
+export class ApiV2010AccountIncomingPhoneNumberCapabilities {
+  "mms"?: boolean;
+  "sms"?: boolean;
+  "voice"?: boolean;
+  "fax"?: boolean;
+}
+
+
+type IncomingPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
+
+type IncomingPhoneNumberEmergencyStatus = 'Active'|'Inactive';
+
+type IncomingPhoneNumberEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
+type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
+
 
 /**
  * Options to pass to create a IncomingPhoneNumberInstance
@@ -43,12 +62,12 @@ import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
  * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;.
  * @property { string } [voiceMethod] The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
  * @property { string } [voiceUrl] The URL that we should call to answer a call to the new phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
- * @property { IncomingPhoneNumberEnumEmergencyStatus } [emergencyStatus] 
+ * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus] 
  * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from the new phone number.
  * @property { string } [trunkSid] The SID of the Trunk we should use to handle calls to the new phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
  * @property { string } [identitySid] The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
  * @property { string } [addressSid] The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
- * @property { IncomingPhoneNumberEnumVoiceReceiveMode } [voiceReceiveMode] 
+ * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode] 
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
  * @property { string } [phoneNumber] The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
  * @property { string } [areaCode] The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an &#x60;area_code&#x60; or a &#x60;phone_number&#x60;.** (US and Canada only).
@@ -69,12 +88,12 @@ export interface IncomingPhoneNumberListInstanceCreateOptions {
   voiceFallbackUrl?: string;
   voiceMethod?: string;
   voiceUrl?: string;
-  emergencyStatus?: IncomingPhoneNumberEnumEmergencyStatus;
+  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
   emergencyAddressSid?: string;
   trunkSid?: string;
   identitySid?: string;
   addressSid?: string;
-  voiceReceiveMode?: IncomingPhoneNumberEnumVoiceReceiveMode;
+  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
   bundleSid?: string;
   phoneNumber?: string;
   areaCode?: string;
@@ -152,7 +171,6 @@ export interface IncomingPhoneNumberListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a IncomingPhoneNumberInstance
  *
@@ -172,10 +190,10 @@ export interface IncomingPhoneNumberListInstancePageOptions {
  * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;.
  * @property { string } [voiceMethod] The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
  * @property { string } [voiceUrl] The URL that we should call to answer a call to the phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
- * @property { IncomingPhoneNumberEnumEmergencyStatus } [emergencyStatus] 
+ * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus] 
  * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from this phone number.
  * @property { string } [trunkSid] The SID of the Trunk we should use to handle phone calls to the phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
- * @property { IncomingPhoneNumberEnumVoiceReceiveMode } [voiceReceiveMode] 
+ * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode] 
  * @property { string } [identitySid] The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
  * @property { string } [addressSid] The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
  * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
@@ -197,10 +215,10 @@ export interface IncomingPhoneNumberContextUpdateOptions {
   voiceFallbackUrl?: string;
   voiceMethod?: string;
   voiceUrl?: string;
-  emergencyStatus?: IncomingPhoneNumberEnumEmergencyStatus;
+  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
   emergencyAddressSid?: string;
   trunkSid?: string;
-  voiceReceiveMode?: IncomingPhoneNumberEnumVoiceReceiveMode;
+  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
   identitySid?: string;
   addressSid?: string;
   bundleSid?: string;
@@ -667,10 +685,10 @@ interface IncomingPhoneNumberPayload extends IncomingPhoneNumberResource, Page.T
 interface IncomingPhoneNumberResource {
   account_sid?: string | null;
   address_sid?: string | null;
-  address_requirements?: object;
+  address_requirements?: IncomingPhoneNumberAddressRequirement;
   api_version?: string | null;
   beta?: boolean | null;
-  capabilities?: object | null;
+  capabilities?: ApiV2010AccountIncomingPhoneNumberCapabilities | null;
   date_created?: string | null;
   date_updated?: string | null;
   friendly_name?: string | null;
@@ -687,16 +705,16 @@ interface IncomingPhoneNumberResource {
   status_callback_method?: IncomingPhoneNumberStatusCallbackMethod;
   trunk_sid?: string | null;
   uri?: string | null;
-  voice_receive_mode?: object;
+  voice_receive_mode?: IncomingPhoneNumberVoiceReceiveMode;
   voice_application_sid?: string | null;
   voice_caller_id_lookup?: boolean | null;
   voice_fallback_method?: IncomingPhoneNumberVoiceFallbackMethod;
   voice_fallback_url?: string | null;
   voice_method?: IncomingPhoneNumberVoiceMethod;
   voice_url?: string | null;
-  emergency_status?: object;
+  emergency_status?: IncomingPhoneNumberEmergencyStatus;
   emergency_address_sid?: string | null;
-  emergency_address_status?: object;
+  emergency_address_status?: IncomingPhoneNumberEmergencyAddressStatus;
   bundle_sid?: string | null;
   status?: string | null;
 }
@@ -752,7 +770,7 @@ export class IncomingPhoneNumberInstance {
    * The SID of the Address resource associated with the phone number
    */
   addressSid?: string | null;
-  addressRequirements?: object;
+  addressRequirements?: IncomingPhoneNumberAddressRequirement;
   /**
    * The API version used to start a new TwiML session
    */
@@ -761,7 +779,7 @@ export class IncomingPhoneNumberInstance {
    * Whether the phone number is new to the Twilio platform
    */
   beta?: boolean | null;
-  capabilities?: object | null;
+  capabilities?: ApiV2010AccountIncomingPhoneNumberCapabilities | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
@@ -826,7 +844,7 @@ export class IncomingPhoneNumberInstance {
    * The URI of the resource, relative to `https://api.twilio.com`
    */
   uri?: string | null;
-  voiceReceiveMode?: object;
+  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
   /**
    * The SID of the application that handles calls to the phone number
    */
@@ -851,12 +869,12 @@ export class IncomingPhoneNumberInstance {
    * The URL we call when the phone number receives a call
    */
   voiceUrl?: string | null;
-  emergencyStatus?: object;
+  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
   /**
    * The emergency address configuration to use for emergency calling
    */
   emergencyAddressSid?: string | null;
-  emergencyAddressStatus?: object;
+  emergencyAddressStatus?: IncomingPhoneNumberEmergencyAddressStatus;
   /**
    * The SID of the Bundle resource associated with number
    */

@@ -23,6 +23,8 @@ import { MessageListInstance } from "./channel/message";
 import { MemberListInstance } from "./channel/member";
 import { InviteListInstance } from "./channel/invite";
 
+type ChannelChannelType = 'public'|'private';
+
 
 /**
  * Options to pass to update a ChannelInstance
@@ -37,25 +39,24 @@ export interface ChannelContextUpdateOptions {
   attributes?: string;
 }
 
-
 /**
  * Options to pass to create a ChannelInstance
  *
  * @property { string } [friendlyName] 
  * @property { string } [uniqueName] 
  * @property { string } [attributes] 
- * @property { ChannelEnumChannelType } [type] 
+ * @property { ChannelChannelType } [type] 
  */
 export interface ChannelListInstanceCreateOptions {
   friendlyName?: string;
   uniqueName?: string;
   attributes?: string;
-  type?: ChannelEnumChannelType;
+  type?: ChannelChannelType;
 }
 /**
  * Options to pass to each
  *
- * @property { Array<ChannelEnumChannelType> } [type] 
+ * @property { Array<ChannelChannelType> } [type] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -67,7 +68,7 @@ export interface ChannelListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceEachOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -77,7 +78,7 @@ export interface ChannelListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<ChannelEnumChannelType> } [type] 
+ * @property { Array<ChannelChannelType> } [type] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -85,7 +86,7 @@ export interface ChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   limit?: number;
 }
@@ -93,13 +94,13 @@ export interface ChannelListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<ChannelEnumChannelType> } [type] 
+ * @property { Array<ChannelChannelType> } [type] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChannelListInstancePageOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -270,7 +271,7 @@ interface ChannelResource {
   friendly_name?: string | null;
   unique_name?: string | null;
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   date_created?: Date | null;
   date_updated?: Date | null;
   created_by?: string | null;
@@ -309,7 +310,7 @@ export class ChannelInstance {
   friendlyName?: string | null;
   uniqueName?: string | null;
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   dateCreated?: Date | null;
   dateUpdated?: Date | null;
   createdBy?: string | null;

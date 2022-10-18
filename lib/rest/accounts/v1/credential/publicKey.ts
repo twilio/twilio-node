@@ -30,7 +30,6 @@ export interface PublicKeyContextUpdateOptions {
   friendlyName?: string;
 }
 
-
 /**
  * Options to pass to create a PublicKeyInstance
  *

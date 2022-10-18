@@ -20,18 +20,21 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type CallRecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
+
+type CallRecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent';
+
 
 /**
  * Options to pass to update a RecordingInstance
  *
- * @property { CallRecordingEnumStatus } status 
+ * @property { CallRecordingStatus } status 
  * @property { string } [pauseBehavior] Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;.
  */
 export interface RecordingContextUpdateOptions {
-  status: CallRecordingEnumStatus;
+  status: CallRecordingStatus;
   pauseBehavior?: string;
 }
-
 
 /**
  * Options to pass to create a RecordingInstance
@@ -259,9 +262,9 @@ interface RecordingResource {
   uri?: string | null;
   encryption_details?: any | null;
   price_unit?: string | null;
-  status?: object;
+  status?: CallRecordingStatus;
   channels?: number | null;
-  source?: object;
+  source?: CallRecordingSource;
   error_code?: number | null;
   track?: string | null;
 }
@@ -345,12 +348,12 @@ export class RecordingInstance {
    * The currency used in the price property.
    */
   priceUnit?: string | null;
-  status?: object;
+  status?: CallRecordingStatus;
   /**
    * The number of channels in the final recording file
    */
   channels?: number | null;
-  source?: object;
+  source?: CallRecordingSource;
   /**
    * More information about why the recording is missing, if status is `absent`.
    */

@@ -78,7 +78,6 @@ export interface IpAccessControlListListInstancePageOptions {
 
 
 
-
 export interface IpAccessControlListListInstance {
   (sid: string): IpAccessControlListContext;
   get(sid: string): IpAccessControlListContext;

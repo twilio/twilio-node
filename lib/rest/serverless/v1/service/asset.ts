@@ -79,7 +79,6 @@ export interface AssetListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a AssetInstance
  *

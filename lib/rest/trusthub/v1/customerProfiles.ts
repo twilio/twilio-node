@@ -23,6 +23,8 @@ import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/cust
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./customerProfiles/customerProfilesChannelEndpointAssignment";
 
+type CustomerProfileStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
+
 
 /**
  * Options to pass to create a CustomerProfilesInstance
@@ -41,7 +43,7 @@ export interface CustomerProfilesListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { CustomerProfileEnumStatus } [status] The verification status of the Customer-Profile resource.
+ * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -55,7 +57,7 @@ export interface CustomerProfilesListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceEachOptions {
-  status?: CustomerProfileEnumStatus;
+  status?: CustomerProfileStatus;
   friendlyName?: string;
   policySid?: string;
   pageSize?: number;
@@ -67,7 +69,7 @@ export interface CustomerProfilesListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { CustomerProfileEnumStatus } [status] The verification status of the Customer-Profile resource.
+ * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -77,7 +79,7 @@ export interface CustomerProfilesListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface CustomerProfilesListInstanceOptions {
-  status?: CustomerProfileEnumStatus;
+  status?: CustomerProfileStatus;
   friendlyName?: string;
   policySid?: string;
   pageSize?: number;
@@ -87,7 +89,7 @@ export interface CustomerProfilesListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { CustomerProfileEnumStatus } [status] The verification status of the Customer-Profile resource.
+ * @property { CustomerProfileStatus } [status] The verification status of the Customer-Profile resource.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -95,7 +97,7 @@ export interface CustomerProfilesListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface CustomerProfilesListInstancePageOptions {
-  status?: CustomerProfileEnumStatus;
+  status?: CustomerProfileStatus;
   friendlyName?: string;
   policySid?: string;
   pageSize?: number;
@@ -105,17 +107,16 @@ export interface CustomerProfilesListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a CustomerProfilesInstance
  *
- * @property { CustomerProfileEnumStatus } [status] 
+ * @property { CustomerProfileStatus } [status] 
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
  */
 export interface CustomerProfilesContextUpdateOptions {
-  status?: CustomerProfileEnumStatus;
+  status?: CustomerProfileStatus;
   statusCallback?: string;
   friendlyName?: string;
   email?: string;
@@ -521,7 +522,7 @@ interface CustomerProfilesResource {
   account_sid?: string | null;
   policy_sid?: string | null;
   friendly_name?: string | null;
-  status?: object;
+  status?: CustomerProfileStatus;
   valid_until?: Date | null;
   email?: string | null;
   status_callback?: string | null;
@@ -568,7 +569,7 @@ export class CustomerProfilesInstance {
    * The string that you assigned to describe the resource
    */
   friendlyName?: string | null;
-  status?: object;
+  status?: CustomerProfileStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until.
    */

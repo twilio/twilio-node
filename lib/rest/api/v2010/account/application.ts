@@ -58,7 +58,6 @@ export interface ApplicationContextUpdateOptions {
   messageStatusCallback?: string;
 }
 
-
 /**
  * Options to pass to create a ApplicationInstance
  *

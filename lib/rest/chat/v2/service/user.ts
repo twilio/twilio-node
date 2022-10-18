@@ -22,35 +22,36 @@ const serialize = require("../../../../base/serialize");
 import { UserBindingListInstance } from "./user/userBinding";
 import { UserChannelListInstance } from "./user/userChannel";
 
+type UserWebhookEnabledType = 'true'|'false';
+
 
 /**
  * Options to pass to update a UserInstance
  *
- * @property { UserEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is often used for display purposes.
  */
 export interface UserContextUpdateOptions {
-  xTwilioWebhookEnabled?: UserEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
   roleSid?: string;
   attributes?: string;
   friendlyName?: string;
 }
 
-
 /**
  * Options to pass to create a UserInstance
  *
  * @property { string } identity The &#x60;identity&#x60; value that uniquely identifies the new resource\\\&#39;s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info.
- * @property { UserEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the new User.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. This value is often used for display purposes.
  */
 export interface UserListInstanceCreateOptions {
   identity: string;
-  xTwilioWebhookEnabled?: UserEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
   roleSid?: string;
   attributes?: string;
   friendlyName?: string;

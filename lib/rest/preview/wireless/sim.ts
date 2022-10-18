@@ -60,7 +60,6 @@ export interface SimContextUpdateOptions {
   voiceMethod?: string;
   voiceUrl?: string;
 }
-
 /**
  * Options to pass to each
  *

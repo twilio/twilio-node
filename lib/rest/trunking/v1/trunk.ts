@@ -25,6 +25,10 @@ import { OriginationUrlListInstance } from "./trunk/originationUrl";
 import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
 
+type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
+
+type TrunkTransferCallerId = 'from-transferee'|'from-transferor';
+
 
 /**
  * Options to pass to create a TrunkInstance
@@ -33,20 +37,20 @@ import { RecordingListInstance } from "./trunk/recording";
  * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
  * @property { string } [disasterRecoveryUrl] The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
  * @property { string } [disasterRecoveryMethod] The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
- * @property { TrunkEnumTransferSetting } [transferMode] 
+ * @property { TrunkTransferSetting } [transferMode] 
  * @property { boolean } [secure] Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
  * @property { boolean } [cnamLookupEnabled] Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
- * @property { TrunkEnumTransferCallerId } [transferCallerId] 
+ * @property { TrunkTransferCallerId } [transferCallerId] 
  */
 export interface TrunkListInstanceCreateOptions {
   friendlyName?: string;
   domainName?: string;
   disasterRecoveryUrl?: string;
   disasterRecoveryMethod?: string;
-  transferMode?: TrunkEnumTransferSetting;
+  transferMode?: TrunkTransferSetting;
   secure?: boolean;
   cnamLookupEnabled?: boolean;
-  transferCallerId?: TrunkEnumTransferCallerId;
+  transferCallerId?: TrunkTransferCallerId;
 }
 /**
  * Options to pass to each
@@ -97,7 +101,6 @@ export interface TrunkListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a TrunkInstance
  *
@@ -105,20 +108,20 @@ export interface TrunkListInstancePageOptions {
  * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
  * @property { string } [disasterRecoveryUrl] The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
  * @property { string } [disasterRecoveryMethod] The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
- * @property { TrunkEnumTransferSetting } [transferMode] 
+ * @property { TrunkTransferSetting } [transferMode] 
  * @property { boolean } [secure] Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
  * @property { boolean } [cnamLookupEnabled] Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
- * @property { TrunkEnumTransferCallerId } [transferCallerId] 
+ * @property { TrunkTransferCallerId } [transferCallerId] 
  */
 export interface TrunkContextUpdateOptions {
   friendlyName?: string;
   domainName?: string;
   disasterRecoveryUrl?: string;
   disasterRecoveryMethod?: string;
-  transferMode?: TrunkEnumTransferSetting;
+  transferMode?: TrunkTransferSetting;
   secure?: boolean;
   cnamLookupEnabled?: boolean;
-  transferCallerId?: TrunkEnumTransferCallerId;
+  transferCallerId?: TrunkTransferCallerId;
 }
 
 export interface TrunkListInstance {
@@ -543,8 +546,8 @@ interface TrunkResource {
   friendly_name?: string | null;
   secure?: boolean | null;
   recording?: any | null;
-  transfer_mode?: object;
-  transfer_caller_id?: object;
+  transfer_mode?: TrunkTransferSetting;
+  transfer_caller_id?: TrunkTransferCallerId;
   cnam_lookup_enabled?: boolean | null;
   auth_type?: string | null;
   auth_type_set?: Array<string> | null;
@@ -609,8 +612,8 @@ export class TrunkInstance {
    * The recording settings for the trunk
    */
   recording?: any | null;
-  transferMode?: object;
-  transferCallerId?: object;
+  transferMode?: TrunkTransferSetting;
+  transferCallerId?: TrunkTransferCallerId;
   /**
    * Whether Caller ID Name (CNAM) lookup is enabled for the trunk
    */

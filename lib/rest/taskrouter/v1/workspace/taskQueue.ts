@@ -24,6 +24,8 @@ import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueue
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
 
+type TaskQueueTaskOrder = 'FIFO'|'LIFO';
+
 
 /**
  * Options to pass to update a TaskQueueInstance
@@ -33,7 +35,7 @@ import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatisti
  * @property { string } [reservationActivitySid] The SID of the Activity to assign Workers when a task is reserved for them.
  * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned for them.
  * @property { number } [maxReservedWorkers] The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
- * @property { TaskQueueEnumTaskOrder } [taskOrder] 
+ * @property { TaskQueueTaskOrder } [taskOrder] 
  */
 export interface TaskQueueContextUpdateOptions {
   friendlyName?: string;
@@ -41,9 +43,8 @@ export interface TaskQueueContextUpdateOptions {
   reservationActivitySid?: string;
   assignmentActivitySid?: string;
   maxReservedWorkers?: number;
-  taskOrder?: TaskQueueEnumTaskOrder;
+  taskOrder?: TaskQueueTaskOrder;
 }
-
 
 /**
  * Options to pass to create a TaskQueueInstance
@@ -51,7 +52,7 @@ export interface TaskQueueContextUpdateOptions {
  * @property { string } friendlyName A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
  * @property { string } [targetWorkers] A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, &#x60;\\\&#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;\\\&#39;&#x60;. The default value is &#x60;1&#x3D;&#x3D;1&#x60;. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
  * @property { number } [maxReservedWorkers] The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
- * @property { TaskQueueEnumTaskOrder } [taskOrder] 
+ * @property { TaskQueueTaskOrder } [taskOrder] 
  * @property { string } [reservationActivitySid] The SID of the Activity to assign Workers when a task is reserved for them.
  * @property { string } [assignmentActivitySid] The SID of the Activity to assign Workers when a task is assigned to them.
  */
@@ -59,7 +60,7 @@ export interface TaskQueueListInstanceCreateOptions {
   friendlyName: string;
   targetWorkers?: string;
   maxReservedWorkers?: number;
-  taskOrder?: TaskQueueEnumTaskOrder;
+  taskOrder?: TaskQueueTaskOrder;
   reservationActivitySid?: string;
   assignmentActivitySid?: string;
 }
@@ -301,7 +302,7 @@ interface TaskQueueResource {
   reservation_activity_name?: string | null;
   sid?: string | null;
   target_workers?: string | null;
-  task_order?: object;
+  task_order?: TaskQueueTaskOrder;
   url?: string | null;
   workspace_sid?: string | null;
   links?: object | null;
@@ -375,7 +376,7 @@ export class TaskQueueInstance {
    * A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
    */
   targetWorkers?: string | null;
-  taskOrder?: object;
+  taskOrder?: TaskQueueTaskOrder;
   /**
    * The absolute URL of the TaskQueue resource
    */

@@ -20,11 +20,13 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ServiceConversationParticipantWebhookEnabledType = 'true'|'false';
+
 
 /**
  * Options to pass to create a ParticipantInstance
  *
- * @property { ServiceConversationParticipantEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
  * @property { string } [messagingBindingAddress] The address of the participant\\\&#39;s device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the \\\&#39;identity\\\&#39; field).
  * @property { string } [messagingBindingProxyAddress] The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the \\\&#39;identity\\\&#39; field).
@@ -35,7 +37,7 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [roleSid] The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
  */
 export interface ParticipantListInstanceCreateOptions {
-  xTwilioWebhookEnabled?: ServiceConversationParticipantEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
   identity?: string;
   messagingBindingAddress?: string;
   messagingBindingProxyAddress?: string;
@@ -94,20 +96,19 @@ export interface ParticipantListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to remove a ParticipantInstance
  *
- * @property { ServiceConversationParticipantEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ParticipantContextRemoveOptions {
-  xTwilioWebhookEnabled?: ServiceConversationParticipantEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a ParticipantInstance
  *
- * @property { ServiceConversationParticipantEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ServiceConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { Date } [dateCreated] The date that this resource was created.
  * @property { Date } [dateUpdated] The date that this resource was last updated.
  * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
@@ -119,7 +120,7 @@ export interface ParticipantContextRemoveOptions {
  * @property { string } [lastReadTimestamp] Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
  */
 export interface ParticipantContextUpdateOptions {
-  xTwilioWebhookEnabled?: ServiceConversationParticipantEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ServiceConversationParticipantWebhookEnabledType;
   dateCreated?: Date;
   dateUpdated?: Date;
   identity?: string;

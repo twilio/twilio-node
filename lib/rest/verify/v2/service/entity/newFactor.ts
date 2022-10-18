@@ -20,39 +20,47 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type NewFactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
+
+type NewFactorNotificationPlatforms = 'apn'|'fcm'|'none';
+
+type NewFactorFactorStatuses = 'unverified'|'verified';
+
+type NewFactorFactorTypes = 'push'|'totp';
+
 
 /**
  * Options to pass to create a NewFactorInstance
  *
  * @property { string } friendlyName The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For &#x60;factor_type&#x60; &#x60;push&#x60;, this could be a device name. For &#x60;factor_type&#x60; &#x60;totp&#x60;, this value is used as the “account name” in constructing the &#x60;binding.uri&#x60; property. At the same time, we recommend avoiding providing PII.
- * @property { NewFactorEnumFactorTypes } factorType 
+ * @property { NewFactorFactorTypes } factorType 
  * @property { string } [bindingAlg] The algorithm used when &#x60;factor_type&#x60; is &#x60;push&#x60;. Algorithm supported: &#x60;ES256&#x60;
  * @property { string } [bindingPublicKey] The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
  * @property { string } [configAppId] The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;. It can be up to 100 characters long.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
- * @property { NewFactorEnumNotificationPlatforms } [configNotificationPlatform] 
+ * @property { NewFactorNotificationPlatforms } [configNotificationPlatform] 
  * @property { string } [configNotificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
  * @property { string } [configSdkVersion] The Verify Push SDK version used to configure the factor  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
  * @property { string } [bindingSecret] The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
  * @property { number } [configTimeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property &#x60;totp.time_step&#x60;. Defaults to 30 seconds if not configured.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
  * @property { number } [configSkew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property &#x60;totp.skew&#x60;. If not configured defaults to 1.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
  * @property { number } [configCodeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property &#x60;totp.code_length&#x60;. If not configured defaults to 6.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
- * @property { NewFactorEnumTotpAlgorithms } [configAlg] 
+ * @property { NewFactorTotpAlgorithms } [configAlg] 
  * @property { any } [metadata] Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;os\\\&quot;: \\\&quot;Android\\\&quot;}&#x60;. Can be up to 1024 characters in length.
  */
 export interface NewFactorListInstanceCreateOptions {
   friendlyName: string;
-  factorType: NewFactorEnumFactorTypes;
+  factorType: NewFactorFactorTypes;
   bindingAlg?: string;
   bindingPublicKey?: string;
   configAppId?: string;
-  configNotificationPlatform?: NewFactorEnumNotificationPlatforms;
+  configNotificationPlatform?: NewFactorNotificationPlatforms;
   configNotificationToken?: string;
   configSdkVersion?: string;
   bindingSecret?: string;
   configTimeStep?: number;
   configSkew?: number;
   configCodeLength?: number;
-  configAlg?: NewFactorEnumTotpAlgorithms;
+  configAlg?: NewFactorTotpAlgorithms;
   metadata?: any;
 }
 
@@ -163,8 +171,8 @@ interface NewFactorResource {
   date_created?: Date | null;
   date_updated?: Date | null;
   friendly_name?: string | null;
-  status?: object;
-  factor_type?: object;
+  status?: NewFactorFactorStatuses;
+  factor_type?: NewFactorFactorTypes;
   config?: any | null;
   metadata?: any | null;
   url?: string | null;
@@ -229,8 +237,8 @@ export class NewFactorInstance {
    * A human readable description of this resource.
    */
   friendlyName?: string | null;
-  status?: object;
-  factorType?: object;
+  status?: NewFactorFactorStatuses;
+  factorType?: NewFactorFactorTypes;
   /**
    * Configurations for a `factor_type`.
    */

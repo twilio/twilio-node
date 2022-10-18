@@ -20,6 +20,8 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type AuthorizedConnectAppPermission = 'get-all'|'post-all';
+
 /**
  * Options to pass to each
  *
@@ -66,7 +68,6 @@ export interface AuthorizedConnectAppListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -324,7 +325,7 @@ interface AuthorizedConnectAppResource {
   connect_app_sid?: string | null;
   date_created?: string | null;
   date_updated?: string | null;
-  permissions?: Array<object> | null;
+  permissions?: Array<AuthorizedConnectAppPermission> | null;
   uri?: string | null;
 }
 
@@ -382,7 +383,7 @@ export class AuthorizedConnectAppInstance {
   /**
    * Permissions authorized to the app
    */
-  permissions?: Array<object> | null;
+  permissions?: Array<AuthorizedConnectAppPermission> | null;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */

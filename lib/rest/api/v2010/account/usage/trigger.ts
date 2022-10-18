@@ -20,6 +20,12 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type UsageTriggerUsageCategory = 'a2p-registration-fees'|'agent-conference'|'amazon-polly'|'answering-machine-detection'|'authy-authentications'|'authy-calls-outbound'|'authy-monthly-fees'|'authy-phone-intelligence'|'authy-phone-verifications'|'authy-sms-outbound'|'call-progess-events'|'calleridlookups'|'calls'|'calls-client'|'calls-globalconference'|'calls-inbound'|'calls-inbound-local'|'calls-inbound-mobile'|'calls-inbound-tollfree'|'calls-outbound'|'calls-pay-verb-transactions'|'calls-recordings'|'calls-sip'|'calls-sip-inbound'|'calls-sip-outbound'|'calls-transfers'|'carrier-lookups'|'conversations'|'conversations-api-requests'|'conversations-conversation-events'|'conversations-endpoint-connectivity'|'conversations-events'|'conversations-participant-events'|'conversations-participants'|'cps'|'flex-usage'|'fraud-lookups'|'group-rooms'|'group-rooms-data-track'|'group-rooms-encrypted-media-recorded'|'group-rooms-media-downloaded'|'group-rooms-media-recorded'|'group-rooms-media-routed'|'group-rooms-media-stored'|'group-rooms-participant-minutes'|'group-rooms-recorded-minutes'|'imp-v1-usage'|'lookups'|'marketplace'|'marketplace-algorithmia-named-entity-recognition'|'marketplace-cadence-transcription'|'marketplace-cadence-translation'|'marketplace-capio-speech-to-text'|'marketplace-convriza-ababa'|'marketplace-deepgram-phrase-detector'|'marketplace-digital-segment-business-info'|'marketplace-facebook-offline-conversions'|'marketplace-google-speech-to-text'|'marketplace-ibm-watson-message-insights'|'marketplace-ibm-watson-message-sentiment'|'marketplace-ibm-watson-recording-analysis'|'marketplace-ibm-watson-tone-analyzer'|'marketplace-icehook-systems-scout'|'marketplace-infogroup-dataaxle-bizinfo'|'marketplace-keen-io-contact-center-analytics'|'marketplace-marchex-cleancall'|'marketplace-marchex-sentiment-analysis-for-sms'|'marketplace-marketplace-nextcaller-social-id'|'marketplace-mobile-commons-opt-out-classifier'|'marketplace-nexiwave-voicemail-to-text'|'marketplace-nextcaller-advanced-caller-identification'|'marketplace-nomorobo-spam-score'|'marketplace-payfone-tcpa-compliance'|'marketplace-remeeting-automatic-speech-recognition'|'marketplace-tcpa-defense-solutions-blacklist-feed'|'marketplace-telo-opencnam'|'marketplace-truecnam-true-spam'|'marketplace-twilio-caller-name-lookup-us'|'marketplace-twilio-carrier-information-lookup'|'marketplace-voicebase-pci'|'marketplace-voicebase-transcription'|'marketplace-voicebase-transcription-custom-vocabulary'|'marketplace-whitepages-pro-caller-identification'|'marketplace-whitepages-pro-phone-intelligence'|'marketplace-whitepages-pro-phone-reputation'|'marketplace-wolfarm-spoken-results'|'marketplace-wolfram-short-answer'|'marketplace-ytica-contact-center-reporting-analytics'|'mediastorage'|'mms'|'mms-inbound'|'mms-inbound-longcode'|'mms-inbound-shortcode'|'mms-messages-carrierfees'|'mms-outbound'|'mms-outbound-longcode'|'mms-outbound-shortcode'|'monitor-reads'|'monitor-storage'|'monitor-writes'|'notify'|'notify-actions-attempts'|'notify-channels'|'number-format-lookups'|'pchat'|'pchat-users'|'peer-to-peer-rooms-participant-minutes'|'pfax'|'pfax-minutes'|'pfax-minutes-inbound'|'pfax-minutes-outbound'|'pfax-pages'|'phonenumbers'|'phonenumbers-cps'|'phonenumbers-emergency'|'phonenumbers-local'|'phonenumbers-mobile'|'phonenumbers-setups'|'phonenumbers-tollfree'|'premiumsupport'|'proxy'|'proxy-active-sessions'|'pstnconnectivity'|'pv'|'pv-composition-media-downloaded'|'pv-composition-media-encrypted'|'pv-composition-media-stored'|'pv-composition-minutes'|'pv-recording-compositions'|'pv-room-participants'|'pv-room-participants-au1'|'pv-room-participants-br1'|'pv-room-participants-ie1'|'pv-room-participants-jp1'|'pv-room-participants-sg1'|'pv-room-participants-us1'|'pv-room-participants-us2'|'pv-rooms'|'pv-sip-endpoint-registrations'|'recordings'|'recordingstorage'|'rooms-group-bandwidth'|'rooms-group-minutes'|'rooms-peer-to-peer-minutes'|'shortcodes'|'shortcodes-customerowned'|'shortcodes-mms-enablement'|'shortcodes-mps'|'shortcodes-random'|'shortcodes-uk'|'shortcodes-vanity'|'small-group-rooms'|'small-group-rooms-data-track'|'small-group-rooms-participant-minutes'|'sms'|'sms-inbound'|'sms-inbound-longcode'|'sms-inbound-shortcode'|'sms-messages-carrierfees'|'sms-messages-features'|'sms-messages-features-senderid'|'sms-outbound'|'sms-outbound-content-inspection'|'sms-outbound-longcode'|'sms-outbound-shortcode'|'speech-recognition'|'studio-engagements'|'sync'|'sync-actions'|'sync-endpoint-hours'|'sync-endpoint-hours-above-daily-cap'|'taskrouter-tasks'|'totalprice'|'transcriptions'|'trunking-cps'|'trunking-emergency-calls'|'trunking-origination'|'trunking-origination-local'|'trunking-origination-mobile'|'trunking-origination-tollfree'|'trunking-recordings'|'trunking-secure'|'trunking-termination'|'turnmegabytes'|'turnmegabytes-australia'|'turnmegabytes-brasil'|'turnmegabytes-germany'|'turnmegabytes-india'|'turnmegabytes-ireland'|'turnmegabytes-japan'|'turnmegabytes-singapore'|'turnmegabytes-useast'|'turnmegabytes-uswest'|'twilio-interconnect'|'verify-push'|'verify-totp'|'verify-whatsapp-conversations-business-initiated'|'video-recordings'|'virtual-agent'|'voice-insights'|'voice-insights-client-insights-on-demand-minute'|'voice-insights-ptsn-insights-on-demand-minute'|'voice-insights-sip-interface-insights-on-demand-minute'|'voice-insights-sip-trunking-insights-on-demand-minute'|'wireless'|'wireless-orders'|'wireless-orders-artwork'|'wireless-orders-bulk'|'wireless-orders-esim'|'wireless-orders-starter'|'wireless-usage'|'wireless-usage-commands'|'wireless-usage-commands-africa'|'wireless-usage-commands-asia'|'wireless-usage-commands-centralandsouthamerica'|'wireless-usage-commands-europe'|'wireless-usage-commands-home'|'wireless-usage-commands-northamerica'|'wireless-usage-commands-oceania'|'wireless-usage-commands-roaming'|'wireless-usage-data'|'wireless-usage-data-africa'|'wireless-usage-data-asia'|'wireless-usage-data-centralandsouthamerica'|'wireless-usage-data-custom-additionalmb'|'wireless-usage-data-custom-first5mb'|'wireless-usage-data-domestic-roaming'|'wireless-usage-data-europe'|'wireless-usage-data-individual-additionalgb'|'wireless-usage-data-individual-firstgb'|'wireless-usage-data-international-roaming-canada'|'wireless-usage-data-international-roaming-india'|'wireless-usage-data-international-roaming-mexico'|'wireless-usage-data-northamerica'|'wireless-usage-data-oceania'|'wireless-usage-data-pooled'|'wireless-usage-data-pooled-downlink'|'wireless-usage-data-pooled-uplink'|'wireless-usage-mrc'|'wireless-usage-mrc-custom'|'wireless-usage-mrc-individual'|'wireless-usage-mrc-pooled'|'wireless-usage-mrc-suspended'|'wireless-usage-sms'|'wireless-usage-voice';
+
+type UsageTriggerRecurring = 'daily'|'monthly'|'yearly'|'alltime';
+
+type UsageTriggerTriggerField = 'count'|'usage'|'price';
+
 
 /**
  * Options to pass to update a TriggerInstance
@@ -34,33 +40,32 @@ export interface TriggerContextUpdateOptions {
   friendlyName?: string;
 }
 
-
 /**
  * Options to pass to create a TriggerInstance
  *
  * @property { string } callbackUrl The URL we should call using &#x60;callback_method&#x60; when the trigger fires.
  * @property { string } triggerValue The usage value at which the trigger should fire.  For convenience, you can use an offset value such as &#x60;+30&#x60; to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a &#x60;+&#x60; as &#x60;%2B&#x60;.
- * @property { UsageTriggerEnumUsageCategory } usageCategory 
+ * @property { UsageTriggerUsageCategory } usageCategory 
  * @property { string } [callbackMethod] The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { UsageTriggerEnumRecurring } [recurring] 
- * @property { UsageTriggerEnumTriggerField } [triggerBy] 
+ * @property { UsageTriggerRecurring } [recurring] 
+ * @property { UsageTriggerTriggerField } [triggerBy] 
  */
 export interface TriggerListInstanceCreateOptions {
   callbackUrl: string;
   triggerValue: string;
-  usageCategory: UsageTriggerEnumUsageCategory;
+  usageCategory: UsageTriggerUsageCategory;
   callbackMethod?: string;
   friendlyName?: string;
-  recurring?: UsageTriggerEnumRecurring;
-  triggerBy?: UsageTriggerEnumTriggerField;
+  recurring?: UsageTriggerRecurring;
+  triggerBy?: UsageTriggerTriggerField;
 }
 /**
  * Options to pass to each
  *
- * @property { UsageTriggerEnumRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers.
- * @property { UsageTriggerEnumTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerEnumUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers.
+ * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+ * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -72,9 +77,9 @@ export interface TriggerListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TriggerListInstanceEachOptions {
-  recurring?: UsageTriggerEnumRecurring;
-  triggerBy?: UsageTriggerEnumTriggerField;
-  usageCategory?: UsageTriggerEnumUsageCategory;
+  recurring?: UsageTriggerRecurring;
+  triggerBy?: UsageTriggerTriggerField;
+  usageCategory?: UsageTriggerUsageCategory;
   pageSize?: number;
   callback?: (item: TriggerInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -84,9 +89,9 @@ export interface TriggerListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { UsageTriggerEnumRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers.
- * @property { UsageTriggerEnumTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerEnumUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers.
+ * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+ * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -94,9 +99,9 @@ export interface TriggerListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TriggerListInstanceOptions {
-  recurring?: UsageTriggerEnumRecurring;
-  triggerBy?: UsageTriggerEnumTriggerField;
-  usageCategory?: UsageTriggerEnumUsageCategory;
+  recurring?: UsageTriggerRecurring;
+  triggerBy?: UsageTriggerTriggerField;
+  usageCategory?: UsageTriggerUsageCategory;
   pageSize?: number;
   limit?: number;
 }
@@ -104,17 +109,17 @@ export interface TriggerListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { UsageTriggerEnumRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers.
- * @property { UsageTriggerEnumTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
- * @property { UsageTriggerEnumUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+ * @property { UsageTriggerRecurring } [recurring] The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers.
+ * @property { UsageTriggerTriggerField } [triggerBy] The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+ * @property { UsageTriggerUsageCategory } [usageCategory] The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TriggerListInstancePageOptions {
-  recurring?: UsageTriggerEnumRecurring;
-  triggerBy?: UsageTriggerEnumTriggerField;
-  usageCategory?: UsageTriggerEnumUsageCategory;
+  recurring?: UsageTriggerRecurring;
+  triggerBy?: UsageTriggerTriggerField;
+  usageCategory?: UsageTriggerUsageCategory;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -268,12 +273,12 @@ interface TriggerResource {
   date_fired?: string | null;
   date_updated?: string | null;
   friendly_name?: string | null;
-  recurring?: object;
+  recurring?: UsageTriggerRecurring;
   sid?: string | null;
-  trigger_by?: object;
+  trigger_by?: UsageTriggerTriggerField;
   trigger_value?: string | null;
   uri?: string | null;
-  usage_category?: object;
+  usage_category?: UsageTriggerUsageCategory;
   usage_record_uri?: string | null;
 }
 
@@ -338,12 +343,12 @@ export class TriggerInstance {
    * The string that you assigned to describe the trigger
    */
   friendlyName?: string | null;
-  recurring?: object;
+  recurring?: UsageTriggerRecurring;
   /**
    * The unique string that identifies the resource
    */
   sid?: string | null;
-  triggerBy?: object;
+  triggerBy?: UsageTriggerTriggerField;
   /**
    * The value at which the trigger will fire
    */
@@ -352,7 +357,7 @@ export class TriggerInstance {
    * The URI of the resource, relative to `https://api.twilio.com`
    */
   uri?: string | null;
-  usageCategory?: object;
+  usageCategory?: UsageTriggerUsageCategory;
   /**
    * The URI of the UsageRecord resource this trigger watches
    */

@@ -20,6 +20,7 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type PhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
 
 
 /**
@@ -171,7 +172,7 @@ interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePay
 
 interface PhoneNumberResource {
   account_sid?: string | null;
-  address_requirements?: object;
+  address_requirements?: PhoneNumberAddressRequirement;
   api_version?: string | null;
   beta?: boolean | null;
   capabilities?: object | null;
@@ -237,7 +238,7 @@ export class PhoneNumberInstance {
    * The SID of the Account that created the resource
    */
   accountSid?: string | null;
-  addressRequirements?: object;
+  addressRequirements?: PhoneNumberAddressRequirement;
   /**
    * The API version used to start a new TwiML session
    */

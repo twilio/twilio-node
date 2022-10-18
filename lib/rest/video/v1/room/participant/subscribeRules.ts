@@ -20,6 +20,16 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
+  "type"?: string;
+  "all"?: boolean;
+  "publisher"?: string;
+  "track"?: string;
+  "kind"?: string;
+  "priority"?: string;
+}
+
+
 
 /**
  * Options to pass to create a SubscribeRulesInstance
@@ -246,7 +256,7 @@ interface SubscribeRulesPayload extends SubscribeRulesResource, Page.TwilioRespo
 interface SubscribeRulesResource {
   participant_sid?: string | null;
   room_sid?: string | null;
-  rules?: Array<object> | null;
+  rules?: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules> | null;
   date_created?: Date | null;
   date_updated?: Date | null;
 }
@@ -276,7 +286,7 @@ export class SubscribeRulesInstance {
   /**
    * A collection of Subscribe Rules that describe how to include or exclude matching tracks
    */
-  rules?: Array<object> | null;
+  rules?: Array<VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules> | null;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

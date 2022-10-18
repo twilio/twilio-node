@@ -30,7 +30,6 @@ export interface ActivityContextUpdateOptions {
   friendlyName?: string;
 }
 
-
 /**
  * Options to pass to create a ActivityInstance
  *

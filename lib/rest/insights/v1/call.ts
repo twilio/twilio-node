@@ -27,7 +27,6 @@ import { MetricListInstance } from "./call/metric";
 import { AnnotationListInstance } from "./call/annotation";
 
 
-
 export interface CallListInstance {
   (sid: string): CallContext;
   get(sid: string): CallContext;

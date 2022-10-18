@@ -33,7 +33,6 @@ export interface SyncListPermissionContextUpdateOptions {
   write: boolean;
   manage: boolean;
 }
-
 /**
  * Options to pass to each
  *

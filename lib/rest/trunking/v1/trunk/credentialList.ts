@@ -78,7 +78,6 @@ export interface CredentialListListInstancePageOptions {
 
 
 
-
 export interface CredentialListListInstance {
   (sid: string): CredentialListContext;
   get(sid: string): CredentialListContext;

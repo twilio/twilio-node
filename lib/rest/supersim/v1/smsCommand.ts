@@ -20,6 +20,9 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type SmsCommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
+
+type SmsCommandDirection = 'to_sim'|'from_sim';
 
 
 /**
@@ -40,8 +43,8 @@ export interface SmsCommandListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property { string } [sim] The SID or unique name of the Sim resource that SMS Command was sent to or from.
- * @property { SmsCommandEnumStatus } [status] The status of the SMS Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
- * @property { SmsCommandEnumDirection } [direction] The direction of the SMS Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
+ * @property { SmsCommandStatus } [status] The status of the SMS Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
+ * @property { SmsCommandDirection } [direction] The direction of the SMS Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -54,8 +57,8 @@ export interface SmsCommandListInstanceCreateOptions {
  */
 export interface SmsCommandListInstanceEachOptions {
   sim?: string;
-  status?: SmsCommandEnumStatus;
-  direction?: SmsCommandEnumDirection;
+  status?: SmsCommandStatus;
+  direction?: SmsCommandDirection;
   pageSize?: number;
   callback?: (item: SmsCommandInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -66,8 +69,8 @@ export interface SmsCommandListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [sim] The SID or unique name of the Sim resource that SMS Command was sent to or from.
- * @property { SmsCommandEnumStatus } [status] The status of the SMS Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
- * @property { SmsCommandEnumDirection } [direction] The direction of the SMS Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
+ * @property { SmsCommandStatus } [status] The status of the SMS Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
+ * @property { SmsCommandDirection } [direction] The direction of the SMS Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -76,8 +79,8 @@ export interface SmsCommandListInstanceEachOptions {
  */
 export interface SmsCommandListInstanceOptions {
   sim?: string;
-  status?: SmsCommandEnumStatus;
-  direction?: SmsCommandEnumDirection;
+  status?: SmsCommandStatus;
+  direction?: SmsCommandDirection;
   pageSize?: number;
   limit?: number;
 }
@@ -86,16 +89,16 @@ export interface SmsCommandListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [sim] The SID or unique name of the Sim resource that SMS Command was sent to or from.
- * @property { SmsCommandEnumStatus } [status] The status of the SMS Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
- * @property { SmsCommandEnumDirection } [direction] The direction of the SMS Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
+ * @property { SmsCommandStatus } [status] The status of the SMS Command. Can be: &#x60;queued&#x60;, &#x60;sent&#x60;, &#x60;delivered&#x60;, &#x60;received&#x60; or &#x60;failed&#x60;. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
+ * @property { SmsCommandDirection } [direction] The direction of the SMS Command. Can be &#x60;to_sim&#x60; or &#x60;from_sim&#x60;. The value of &#x60;to_sim&#x60; is synonymous with the term &#x60;mobile terminated&#x60;, and &#x60;from_sim&#x60; is synonymous with the term &#x60;mobile originated&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SmsCommandListInstancePageOptions {
   sim?: string;
-  status?: SmsCommandEnumStatus;
-  direction?: SmsCommandEnumDirection;
+  status?: SmsCommandStatus;
+  direction?: SmsCommandDirection;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -170,8 +173,8 @@ interface SmsCommandResource {
   account_sid?: string | null;
   sim_sid?: string | null;
   payload?: string | null;
-  status?: object;
-  direction?: object;
+  status?: SmsCommandStatus;
+  direction?: SmsCommandDirection;
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
@@ -211,8 +214,8 @@ export class SmsCommandInstance {
    * The message body of the SMS Command sent to or from the SIM
    */
   payload?: string | null;
-  status?: object;
-  direction?: object;
+  status?: SmsCommandStatus;
+  direction?: SmsCommandDirection;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

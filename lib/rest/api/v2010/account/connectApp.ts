@@ -20,6 +20,8 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type ConnectAppPermission = 'get-all'|'post-all';
+
 /**
  * Options to pass to each
  *
@@ -69,7 +71,6 @@ export interface ConnectAppListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ConnectAppInstance
  *
@@ -80,7 +81,7 @@ export interface ConnectAppListInstancePageOptions {
  * @property { string } [description] A description of the Connect App.
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
  * @property { string } [homepageUrl] A public URL where users can obtain more information about this Connect App.
- * @property { Array<ConnectAppEnumPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
+ * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
  */
 export interface ConnectAppContextUpdateOptions {
   authorizeRedirectUrl?: string;
@@ -90,7 +91,7 @@ export interface ConnectAppContextUpdateOptions {
   description?: string;
   friendlyName?: string;
   homepageUrl?: string;
-  permissions?: Array<ConnectAppEnumPermission>;
+  permissions?: Array<ConnectAppPermission>;
 }
 
 export interface ConnectAppListInstance {
@@ -426,7 +427,7 @@ interface ConnectAppResource {
   description?: string | null;
   friendly_name?: string | null;
   homepage_url?: string | null;
-  permissions?: Array<object> | null;
+  permissions?: Array<ConnectAppPermission> | null;
   sid?: string | null;
   uri?: string | null;
 }
@@ -486,7 +487,7 @@ export class ConnectAppInstance {
   /**
    * The set of permissions that your ConnectApp requests
    */
-  permissions?: Array<object> | null;
+  permissions?: Array<ConnectAppPermission> | null;
   /**
    * The unique string that identifies the resource
    */

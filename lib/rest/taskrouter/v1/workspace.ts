@@ -30,6 +30,8 @@ import { ActivityListInstance } from "./workspace/activity";
 import { WorkerListInstance } from "./workspace/worker";
 import { WorkflowListInstance } from "./workspace/workflow";
 
+type WorkspaceQueueOrder = 'FIFO'|'LIFO';
+
 
 /**
  * Options to pass to update a WorkspaceInstance
@@ -40,7 +42,7 @@ import { WorkflowListInstance } from "./workspace/workflow";
  * @property { string } [friendlyName] A descriptive string that you create to describe the Workspace resource. For example: &#x60;Sales Call Center&#x60; or &#x60;Customer Support Team&#x60;.
  * @property { boolean } [multiTaskEnabled] Whether to enable multi-tasking. Can be: &#x60;true&#x60; to enable multi-tasking, or &#x60;false&#x60; to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can\\\&#39;t be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
  * @property { string } [timeoutActivitySid] The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
- * @property { WorkspaceEnumQueueOrder } [prioritizeQueueOrder] 
+ * @property { WorkspaceQueueOrder } [prioritizeQueueOrder] 
  */
 export interface WorkspaceContextUpdateOptions {
   defaultActivitySid?: string;
@@ -49,9 +51,8 @@ export interface WorkspaceContextUpdateOptions {
   friendlyName?: string;
   multiTaskEnabled?: boolean;
   timeoutActivitySid?: string;
-  prioritizeQueueOrder?: WorkspaceEnumQueueOrder;
+  prioritizeQueueOrder?: WorkspaceQueueOrder;
 }
-
 
 /**
  * Options to pass to create a WorkspaceInstance
@@ -61,7 +62,7 @@ export interface WorkspaceContextUpdateOptions {
  * @property { string } [eventsFilter] The list of Workspace events for which to call event_callback_url. For example, if &#x60;EventsFilter&#x3D;task.created, task.canceled, worker.activity.update&#x60;, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
  * @property { boolean } [multiTaskEnabled] Whether to enable multi-tasking. Can be: &#x60;true&#x60; to enable multi-tasking, or &#x60;false&#x60; to disable it. However, all workspaces should be created as multi-tasking. The default is &#x60;true&#x60;. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (&#x60;true&#x60;), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
  * @property { string } [template] An available template name. Can be: &#x60;NONE&#x60; or &#x60;FIFO&#x60; and the default is &#x60;NONE&#x60;. Pre-configures the Workspace with the Workflow and Activities specified in the template. &#x60;NONE&#x60; will create a Workspace with only a set of default activities. &#x60;FIFO&#x60; will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
- * @property { WorkspaceEnumQueueOrder } [prioritizeQueueOrder] 
+ * @property { WorkspaceQueueOrder } [prioritizeQueueOrder] 
  */
 export interface WorkspaceListInstanceCreateOptions {
   friendlyName: string;
@@ -69,7 +70,7 @@ export interface WorkspaceListInstanceCreateOptions {
   eventsFilter?: string;
   multiTaskEnabled?: boolean;
   template?: string;
-  prioritizeQueueOrder?: WorkspaceEnumQueueOrder;
+  prioritizeQueueOrder?: WorkspaceQueueOrder;
 }
 /**
  * Options to pass to each
@@ -348,7 +349,7 @@ interface WorkspaceResource {
   sid?: string | null;
   timeout_activity_name?: string | null;
   timeout_activity_sid?: string | null;
-  prioritize_queue_order?: object;
+  prioritize_queue_order?: WorkspaceQueueOrder;
   url?: string | null;
   links?: object | null;
 }
@@ -425,7 +426,7 @@ export class WorkspaceInstance {
    * The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response
    */
   timeoutActivitySid?: string | null;
-  prioritizeQueueOrder?: object;
+  prioritizeQueueOrder?: WorkspaceQueueOrder;
   /**
    * The absolute URL of the Workspace resource
    */

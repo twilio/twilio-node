@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type EsimProfileStatus = 'new'|'reserving'|'available'|'downloaded'|'installed'|'failed';
+
 
 /**
  * Options to pass to create a EsimProfileInstance
@@ -38,7 +40,7 @@ export interface EsimProfileListInstanceCreateOptions {
  *
  * @property { string } [eid] List the eSIM Profiles that have been associated with an EId.
  * @property { string } [simSid] Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
- * @property { EsimProfileEnumStatus } [status] List the eSIM Profiles that are in a given status.
+ * @property { EsimProfileStatus } [status] List the eSIM Profiles that are in a given status.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -52,7 +54,7 @@ export interface EsimProfileListInstanceCreateOptions {
 export interface EsimProfileListInstanceEachOptions {
   eid?: string;
   simSid?: string;
-  status?: EsimProfileEnumStatus;
+  status?: EsimProfileStatus;
   pageSize?: number;
   callback?: (item: EsimProfileInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -64,7 +66,7 @@ export interface EsimProfileListInstanceEachOptions {
  *
  * @property { string } [eid] List the eSIM Profiles that have been associated with an EId.
  * @property { string } [simSid] Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
- * @property { EsimProfileEnumStatus } [status] List the eSIM Profiles that are in a given status.
+ * @property { EsimProfileStatus } [status] List the eSIM Profiles that are in a given status.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -74,7 +76,7 @@ export interface EsimProfileListInstanceEachOptions {
 export interface EsimProfileListInstanceOptions {
   eid?: string;
   simSid?: string;
-  status?: EsimProfileEnumStatus;
+  status?: EsimProfileStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -84,7 +86,7 @@ export interface EsimProfileListInstanceOptions {
  *
  * @property { string } [eid] List the eSIM Profiles that have been associated with an EId.
  * @property { string } [simSid] Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
- * @property { EsimProfileEnumStatus } [status] List the eSIM Profiles that are in a given status.
+ * @property { EsimProfileStatus } [status] List the eSIM Profiles that are in a given status.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
@@ -92,12 +94,11 @@ export interface EsimProfileListInstanceOptions {
 export interface EsimProfileListInstancePageOptions {
   eid?: string;
   simSid?: string;
-  status?: EsimProfileEnumStatus;
+  status?: EsimProfileStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -404,7 +405,7 @@ interface EsimProfileResource {
   account_sid?: string | null;
   iccid?: string | null;
   sim_sid?: string | null;
-  status?: object;
+  status?: EsimProfileStatus;
   eid?: string | null;
   smdp_plus_address?: string | null;
   error_code?: string | null;
@@ -451,7 +452,7 @@ export class EsimProfileInstance {
    * The SID of the Sim resource that this eSIM Profile controls
    */
   simSid?: string | null;
-  status?: object;
+  status?: EsimProfileStatus;
   /**
    * Identifier of the eUICC that can claim the eSIM Profile
    */

@@ -22,6 +22,12 @@ const serialize = require("../../../../base/serialize");
 import { ParticipantListInstance } from "./conference/participant";
 import { RecordingListInstance } from "./conference/recording";
 
+type ConferenceUpdateStatus = 'completed';
+
+type ConferenceStatus = 'init'|'in-progress'|'completed';
+
+type ConferenceReasonConferenceEnded = 'conference-ended-via-api'|'participant-with-end-conference-on-exit-left'|'participant-with-end-conference-on-exit-kicked'|'last-participant-kicked'|'last-participant-left';
+
 /**
  * Options to pass to each
  *
@@ -32,7 +38,7 @@ import { RecordingListInstance } from "./conference/recording";
  * @property { string } [dateUpdatedBefore] The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;.
  * @property { string } [dateUpdatedAfter] The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;.
  * @property { string } [friendlyName] The string that identifies the Conference resources to read.
- * @property { ConferenceEnumStatus } [status] The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;.
+ * @property { ConferenceStatus } [status] The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -51,7 +57,7 @@ export interface ConferenceListInstanceEachOptions {
   dateUpdatedBefore?: string;
   dateUpdatedAfter?: string;
   friendlyName?: string;
-  status?: ConferenceEnumStatus;
+  status?: ConferenceStatus;
   pageSize?: number;
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -68,7 +74,7 @@ export interface ConferenceListInstanceEachOptions {
  * @property { string } [dateUpdatedBefore] The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;.
  * @property { string } [dateUpdatedAfter] The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;.
  * @property { string } [friendlyName] The string that identifies the Conference resources to read.
- * @property { ConferenceEnumStatus } [status] The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;.
+ * @property { ConferenceStatus } [status] The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -83,7 +89,7 @@ export interface ConferenceListInstanceOptions {
   dateUpdatedBefore?: string;
   dateUpdatedAfter?: string;
   friendlyName?: string;
-  status?: ConferenceEnumStatus;
+  status?: ConferenceStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -98,7 +104,7 @@ export interface ConferenceListInstanceOptions {
  * @property { string } [dateUpdatedBefore] The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;.
  * @property { string } [dateUpdatedAfter] The &#x60;date_updated&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that were last updated on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify conferences that were last updated on or after midnight on a given date, use  &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;.
  * @property { string } [friendlyName] The string that identifies the Conference resources to read.
- * @property { ConferenceEnumStatus } [status] The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;.
+ * @property { ConferenceStatus } [status] The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
@@ -111,7 +117,7 @@ export interface ConferenceListInstancePageOptions {
   dateUpdatedBefore?: string;
   dateUpdatedAfter?: string;
   friendlyName?: string;
-  status?: ConferenceEnumStatus;
+  status?: ConferenceStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -119,16 +125,15 @@ export interface ConferenceListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ConferenceInstance
  *
- * @property { ConferenceEnumUpdateStatus } [status] 
+ * @property { ConferenceUpdateStatus } [status] 
  * @property { string } [announceUrl] The URL we should call to announce something into the conference. The URL can return an MP3, a WAV, or a TwiML document with &#x60;&lt;Play&gt;&#x60; or &#x60;&lt;Say&gt;&#x60;.
  * @property { string } [announceMethod] The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;
  */
 export interface ConferenceContextUpdateOptions {
-  status?: ConferenceEnumUpdateStatus;
+  status?: ConferenceUpdateStatus;
   announceUrl?: string;
   announceMethod?: string;
 }
@@ -458,10 +463,10 @@ interface ConferenceResource {
   friendly_name?: string | null;
   region?: string | null;
   sid?: string | null;
-  status?: object;
+  status?: ConferenceStatus;
   uri?: string | null;
   subresource_uris?: object | null;
-  reason_conference_ended?: object;
+  reason_conference_ended?: ConferenceReasonConferenceEnded;
   call_sid_ending_conference?: string | null;
 }
 
@@ -514,7 +519,7 @@ export class ConferenceInstance {
    * The unique string that identifies this resource
    */
   sid?: string | null;
-  status?: object;
+  status?: ConferenceStatus;
   /**
    * The URI of this resource, relative to `https://api.twilio.com`
    */
@@ -523,7 +528,7 @@ export class ConferenceInstance {
    * A list of related resources identified by their relative URIs
    */
   subresourceUris?: object | null;
-  reasonConferenceEnded?: object;
+  reasonConferenceEnded?: ConferenceReasonConferenceEnded;
   /**
    * The call SID that caused the conference to end
    */

@@ -30,7 +30,6 @@ export interface SubscribedEventContextUpdateOptions {
   schemaVersion?: number;
 }
 
-
 /**
  * Options to pass to create a SubscribedEventInstance
  *

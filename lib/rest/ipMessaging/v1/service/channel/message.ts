@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type MessageOrderType = 'asc'|'desc';
+
 
 /**
  * Options to pass to create a MessageInstance
@@ -36,7 +38,7 @@ export interface MessageListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { MessageEnumOrderType } [order] 
+ * @property { MessageOrderType } [order] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -48,7 +50,7 @@ export interface MessageListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MessageListInstanceEachOptions {
-  order?: MessageEnumOrderType;
+  order?: MessageOrderType;
   pageSize?: number;
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -58,7 +60,7 @@ export interface MessageListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { MessageEnumOrderType } [order] 
+ * @property { MessageOrderType } [order] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -66,7 +68,7 @@ export interface MessageListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MessageListInstanceOptions {
-  order?: MessageEnumOrderType;
+  order?: MessageOrderType;
   pageSize?: number;
   limit?: number;
 }
@@ -74,18 +76,17 @@ export interface MessageListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { MessageEnumOrderType } [order] 
+ * @property { MessageOrderType } [order] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MessageListInstancePageOptions {
-  order?: MessageEnumOrderType;
+  order?: MessageOrderType;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 

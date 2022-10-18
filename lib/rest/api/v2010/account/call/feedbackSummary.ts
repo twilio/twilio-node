@@ -20,6 +20,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type CallFeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
 
 
 /**
@@ -138,7 +139,7 @@ interface FeedbackSummaryResource {
   quality_score_standard_deviation?: number | null;
   sid?: string | null;
   start_date?: string | null;
-  status?: object;
+  status?: CallFeedbackSummaryStatus;
 }
 
 export class FeedbackSummaryInstance {
@@ -216,7 +217,7 @@ export class FeedbackSummaryInstance {
    * The earliest feedback entry date in the summary
    */
   startDate?: string | null;
-  status?: object;
+  status?: CallFeedbackSummaryStatus;
 
   private get _proxy(): FeedbackSummaryContext {
     this._context = this._context || new FeedbackSummaryContextImpl(this._version, this._solution.accountSid, this._solution.sid);

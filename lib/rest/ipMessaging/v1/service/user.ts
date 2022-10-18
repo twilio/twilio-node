@@ -35,7 +35,6 @@ export interface UserContextUpdateOptions {
   friendlyName?: string;
 }
 
-
 /**
  * Options to pass to create a UserInstance
  *

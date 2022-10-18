@@ -20,15 +20,23 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type RecordingFormat = 'mka'|'mkv';
+
+type RecordingType = 'audio'|'video'|'data';
+
+type RecordingStatus = 'processing'|'completed'|'deleted'|'failed';
+
+type RecordingCodec = 'VP8'|'H264'|'OPUS'|'PCMU';
+
 /**
  * Options to pass to each
  *
- * @property { RecordingEnumStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
+ * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
  * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
  * @property { Array<string> } [groupingSid] Read only recordings with this &#x60;grouping_sid&#x60;, which may include a &#x60;participant_sid&#x60; and/or a &#x60;room_sid&#x60;.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
  * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as &#x60;YYYY-MM-DDThh:mm:ss+|-hh:mm&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;.
- * @property { RecordingEnumType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
+ * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -40,12 +48,12 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface RecordingListInstanceEachOptions {
-  status?: RecordingEnumStatus;
+  status?: RecordingStatus;
   sourceSid?: string;
   groupingSid?: Array<string>;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  mediaType?: RecordingEnumType;
+  mediaType?: RecordingType;
   pageSize?: number;
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -55,12 +63,12 @@ export interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RecordingEnumStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
+ * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
  * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
  * @property { Array<string> } [groupingSid] Read only recordings with this &#x60;grouping_sid&#x60;, which may include a &#x60;participant_sid&#x60; and/or a &#x60;room_sid&#x60;.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
  * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as &#x60;YYYY-MM-DDThh:mm:ss+|-hh:mm&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;.
- * @property { RecordingEnumType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
+ * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -68,12 +76,12 @@ export interface RecordingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RecordingListInstanceOptions {
-  status?: RecordingEnumStatus;
+  status?: RecordingStatus;
   sourceSid?: string;
   groupingSid?: Array<string>;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  mediaType?: RecordingEnumType;
+  mediaType?: RecordingType;
   pageSize?: number;
   limit?: number;
 }
@@ -81,28 +89,27 @@ export interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RecordingEnumStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
+ * @property { RecordingStatus } [status] Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
  * @property { string } [sourceSid] Read only the recordings that have this &#x60;source_sid&#x60;.
  * @property { Array<string> } [groupingSid] Read only recordings with this &#x60;grouping_sid&#x60;, which may include a &#x60;participant_sid&#x60; and/or a &#x60;room_sid&#x60;.
  * @property { Date } [dateCreatedAfter] Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
  * @property { Date } [dateCreatedBefore] Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as &#x60;YYYY-MM-DDThh:mm:ss+|-hh:mm&#x60; or &#x60;YYYY-MM-DDThh:mm:ssZ&#x60;.
- * @property { RecordingEnumType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
+ * @property { RecordingType } [mediaType] Read only recordings that have this media type. Can be either &#x60;audio&#x60; or &#x60;video&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RecordingListInstancePageOptions {
-  status?: RecordingEnumStatus;
+  status?: RecordingStatus;
   sourceSid?: string;
   groupingSid?: Array<string>;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  mediaType?: RecordingEnumType;
+  mediaType?: RecordingType;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -383,16 +390,16 @@ interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload
 
 interface RecordingResource {
   account_sid?: string | null;
-  status?: object;
+  status?: RecordingStatus;
   date_created?: Date | null;
   sid?: string | null;
   source_sid?: string | null;
   size?: number | null;
   url?: string | null;
-  type?: object;
+  type?: RecordingType;
   duration?: number | null;
-  container_format?: object;
-  codec?: object;
+  container_format?: RecordingFormat;
+  codec?: RecordingCodec;
   grouping_sids?: any | null;
   track_name?: string | null;
   offset?: number | null;
@@ -433,7 +440,7 @@ export class RecordingInstance {
    * The SID of the Account that created the resource
    */
   accountSid?: string | null;
-  status?: object;
+  status?: RecordingStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */
@@ -454,13 +461,13 @@ export class RecordingInstance {
    * The absolute URL of the resource
    */
   url?: string | null;
-  type?: object;
+  type?: RecordingType;
   /**
    * The duration of the recording in seconds
    */
   duration?: number | null;
-  containerFormat?: object;
-  codec?: object;
+  containerFormat?: RecordingFormat;
+  codec?: RecordingCodec;
   /**
    * A list of SIDs related to the recording
    */

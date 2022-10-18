@@ -69,7 +69,6 @@ export interface AssignedAddOnExtensionListInstancePageOptions {
 
 
 
-
 export interface AssignedAddOnExtensionListInstance {
   (sid: string): AssignedAddOnExtensionContext;
   get(sid: string): AssignedAddOnExtensionContext;

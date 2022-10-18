@@ -20,6 +20,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type RoomParticipantPublishedTrackKind = 'audio'|'video'|'data';
 
 /**
  * Options to pass to each
@@ -140,7 +141,7 @@ interface PublishedTrackResource {
   date_created?: Date | null;
   date_updated?: Date | null;
   enabled?: boolean | null;
-  kind?: object;
+  kind?: RoomParticipantPublishedTrackKind;
   url?: string | null;
 }
 
@@ -190,7 +191,7 @@ export class PublishedTrackInstance {
    * Whether the track is enabled
    */
   enabled?: boolean | null;
-  kind?: object;
+  kind?: RoomParticipantPublishedTrackKind;
   /**
    * The absolute URL of the resource
    */

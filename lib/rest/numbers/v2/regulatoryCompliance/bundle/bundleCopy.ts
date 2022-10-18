@@ -20,6 +20,8 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type BundleCopyStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
+
 
 /**
  * Options to pass to create a BundleCopyInstance
@@ -310,7 +312,7 @@ interface BundleCopyResource {
   account_sid?: string | null;
   regulation_sid?: string | null;
   friendly_name?: string | null;
-  status?: object;
+  status?: BundleCopyStatus;
   valid_until?: Date | null;
   email?: string | null;
   status_callback?: string | null;
@@ -353,7 +355,7 @@ export class BundleCopyInstance {
    * The string that you assigned to describe the resource
    */
   friendlyName?: string | null;
-  status?: object;
+  status?: BundleCopyStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until
    */

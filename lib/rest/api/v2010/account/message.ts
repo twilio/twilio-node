@@ -22,6 +22,18 @@ const serialize = require("../../../../base/serialize");
 import { FeedbackListInstance } from "./message/feedback";
 import { MediaListInstance } from "./message/media";
 
+type MessageContentRetention = 'retain';
+
+type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read'|'partially_delivered'|'canceled';
+
+type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
+
+type MessageAddressRetention = 'retain';
+
+type MessageScheduleType = 'fixed';
+
+type MessageUpdateStatus = 'canceled';
+
 
 /**
  * Options to pass to create a MessageInstance
@@ -34,11 +46,11 @@ import { MediaListInstance } from "./message/media";
  * @property { number } [attempt] Total number of attempts made ( including this ) to send out the message regardless of the provider used
  * @property { number } [validityPeriod] How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
  * @property { boolean } [forceDelivery] Reserved
- * @property { MessageEnumContentRetention } [contentRetention] 
- * @property { MessageEnumAddressRetention } [addressRetention] 
+ * @property { MessageContentRetention } [contentRetention] 
+ * @property { MessageAddressRetention } [addressRetention] 
  * @property { boolean } [smartEncoded] Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
  * @property { Array<string> } [persistentAction] Rich actions for Channels Messages.
- * @property { MessageEnumScheduleType } [scheduleType] 
+ * @property { MessageScheduleType } [scheduleType] 
  * @property { Date } [sendAt] The time that Twilio will send the message. Must be in ISO 8601 format.
  * @property { boolean } [sendAsMms] If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
  * @property { string } [from] A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using &#x60;messaging_service_sid&#x60;, this parameter must be empty.
@@ -55,11 +67,11 @@ export interface MessageListInstanceCreateOptions {
   attempt?: number;
   validityPeriod?: number;
   forceDelivery?: boolean;
-  contentRetention?: MessageEnumContentRetention;
-  addressRetention?: MessageEnumAddressRetention;
+  contentRetention?: MessageContentRetention;
+  addressRetention?: MessageAddressRetention;
   smartEncoded?: boolean;
   persistentAction?: Array<string>;
-  scheduleType?: MessageEnumScheduleType;
+  scheduleType?: MessageScheduleType;
   sendAt?: Date;
   sendAsMms?: boolean;
   from?: string;
@@ -146,16 +158,15 @@ export interface MessageListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a MessageInstance
  *
  * @property { string } [body] The text of the message you want to send. Can be up to 1,600 characters long.
- * @property { MessageEnumUpdateStatus } [status] 
+ * @property { MessageUpdateStatus } [status] 
  */
 export interface MessageContextUpdateOptions {
   body?: string;
-  status?: MessageEnumUpdateStatus;
+  status?: MessageUpdateStatus;
 }
 
 export interface MessageListInstance {
@@ -556,7 +567,7 @@ interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
 interface MessageResource {
   body?: string | null;
   num_segments?: string | null;
-  direction?: object;
+  direction?: MessageDirection;
   from?: string | null;
   to?: string | null;
   date_updated?: string | null;
@@ -565,7 +576,7 @@ interface MessageResource {
   uri?: string | null;
   account_sid?: string | null;
   num_media?: string | null;
-  status?: object;
+  status?: MessageStatus;
   messaging_service_sid?: string | null;
   sid?: string | null;
   date_sent?: string | null;
@@ -613,7 +624,7 @@ export class MessageInstance {
    * The number of messages used to deliver the message body
    */
   numSegments?: string | null;
-  direction?: object;
+  direction?: MessageDirection;
   /**
    * The phone number that initiated the message
    */
@@ -646,7 +657,7 @@ export class MessageInstance {
    * The number of media files associated with the message
    */
   numMedia?: string | null;
-  status?: object;
+  status?: MessageStatus;
   /**
    * The SID of the Messaging Service used with the message.
    */

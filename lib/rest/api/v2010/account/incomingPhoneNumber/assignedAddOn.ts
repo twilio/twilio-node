@@ -22,7 +22,6 @@ const serialize = require("../../../../../base/serialize");
 import { AssignedAddOnExtensionListInstance } from "./assignedAddOn/assignedAddOnExtension";
 
 
-
 /**
  * Options to pass to create a AssignedAddOnInstance
  *

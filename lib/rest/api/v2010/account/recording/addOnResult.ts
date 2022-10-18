@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { PayloadListInstance } from "./addOnResult/payload";
 
+type RecordingAddOnResultStatus = 'canceled'|'completed'|'deleted'|'failed'|'in-progress'|'init'|'processing'|'queued';
+
 /**
  * Options to pass to each
  *
@@ -67,7 +69,6 @@ export interface AddOnResultListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -349,7 +350,7 @@ interface AddOnResultPayload extends AddOnResultResource, Page.TwilioResponsePay
 interface AddOnResultResource {
   sid?: string | null;
   account_sid?: string | null;
-  status?: object;
+  status?: RecordingAddOnResultStatus;
   add_on_sid?: string | null;
   add_on_configuration_sid?: string | null;
   date_created?: string | null;
@@ -386,7 +387,7 @@ export class AddOnResultInstance {
    * The SID of the Account that created the resource
    */
   accountSid?: string | null;
-  status?: object;
+  status?: RecordingAddOnResultStatus;
   /**
    * The SID of the Add-on to which the result belongs
    */

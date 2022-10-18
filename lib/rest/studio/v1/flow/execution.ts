@@ -22,16 +22,17 @@ const serialize = require("../../../../base/serialize");
 import { ExecutionStepListInstance } from "./execution/executionStep";
 import { ExecutionContextListInstance } from "./execution/executionContext";
 
+type ExecutionStatus = 'active'|'ended';
+
 
 /**
  * Options to pass to update a ExecutionInstance
  *
- * @property { ExecutionEnumStatus } status 
+ * @property { ExecutionStatus } status 
  */
 export interface ExecutionContextUpdateOptions {
-  status: ExecutionEnumStatus;
+  status: ExecutionStatus;
 }
-
 
 /**
  * Options to pass to create a ExecutionInstance
@@ -253,7 +254,7 @@ interface ExecutionResource {
   contact_sid?: string | null;
   contact_channel_address?: string | null;
   context?: any | null;
-  status?: object;
+  status?: ExecutionStatus;
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
@@ -304,7 +305,7 @@ export class ExecutionInstance {
    * The current state of the flow
    */
   context?: any | null;
-  status?: object;
+  status?: ExecutionStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

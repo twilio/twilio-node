@@ -22,6 +22,8 @@ const serialize = require("../../../base/serialize");
 import { EngagementListInstance } from "./flow/engagement";
 import { ExecutionListInstance } from "./flow/execution";
 
+type FlowStatus = 'draft'|'published';
+
 /**
  * Options to pass to each
  *
@@ -68,7 +70,6 @@ export interface FlowListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -358,7 +359,7 @@ interface FlowResource {
   sid?: string | null;
   account_sid?: string | null;
   friendly_name?: string | null;
-  status?: object;
+  status?: FlowStatus;
   version?: number | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -396,7 +397,7 @@ export class FlowInstance {
    * The string that you assigned to describe the Flow
    */
   friendlyName?: string | null;
-  status?: object;
+  status?: FlowStatus;
   /**
    * The latest version number of the Flow\'s definition
    */

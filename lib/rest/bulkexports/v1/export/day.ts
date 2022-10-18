@@ -69,7 +69,6 @@ export interface DayListInstancePageOptions {
 
 
 
-
 export interface DayListInstance {
   (day: string): DayContext;
   get(day: string): DayContext;

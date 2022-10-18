@@ -32,7 +32,6 @@ export interface MemberContextUpdateOptions {
   lastConsumedMessageIndex?: number;
 }
 
-
 /**
  * Options to pass to create a MemberInstance
  *

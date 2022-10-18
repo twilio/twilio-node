@@ -20,16 +20,19 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type VerificationStatus = 'canceled'|'approved';
+
+type VerificationChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
+
 
 /**
  * Options to pass to update a VerificationInstance
  *
- * @property { VerificationEnumStatus } status 
+ * @property { VerificationStatus } status 
  */
 export interface VerificationContextUpdateOptions {
-  status: VerificationEnumStatus;
+  status: VerificationStatus;
 }
-
 
 /**
  * Options to pass to create a VerificationInstance
@@ -174,7 +177,7 @@ interface VerificationResource {
   service_sid?: string | null;
   account_sid?: string | null;
   to?: string | null;
-  channel?: object;
+  channel?: VerificationChannel;
   status?: string | null;
   valid?: boolean | null;
   lookup?: any | null;
@@ -227,7 +230,7 @@ export class VerificationInstance {
    * The phone number or email being verified
    */
   to?: string | null;
-  channel?: object;
+  channel?: VerificationChannel;
   /**
    * The status of the verification resource
    */

@@ -69,7 +69,6 @@ export interface SyncMapPermissionListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a SyncMapPermissionInstance
  *

@@ -21,6 +21,11 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
 
+type BrandRegistrationsIdentityStatus = 'SELF_DECLARED'|'UNVERIFIED'|'VERIFIED'|'VETTED_VERIFIED';
+
+type BrandRegistrationsStatus = 'PENDING'|'APPROVED'|'FAILED'|'IN_REVIEW'|'DELETED';
+
+type BrandRegistrationsBrandFeedback = 'TAX_ID'|'STOCK_SYMBOL'|'NONPROFIT'|'GOVERNMENT_ENTITY'|'OTHERS';
 
 
 /**
@@ -190,13 +195,13 @@ interface BrandRegistrationResource {
   date_created?: Date | null;
   date_updated?: Date | null;
   brand_type?: string | null;
-  status?: object;
+  status?: BrandRegistrationsStatus;
   tcr_id?: string | null;
   failure_reason?: string | null;
   url?: string | null;
   brand_score?: number | null;
-  brand_feedback?: Array<object> | null;
-  identity_status?: object;
+  brand_feedback?: Array<BrandRegistrationsBrandFeedback> | null;
+  identity_status?: BrandRegistrationsIdentityStatus;
   russell_3000?: boolean | null;
   government_entity?: boolean | null;
   tax_exempt_status?: string | null;
@@ -262,7 +267,7 @@ export class BrandRegistrationInstance {
    * Type of brand. One of: \"STANDARD\", \"STARTER\".
    */
   brandType?: string | null;
-  status?: object;
+  status?: BrandRegistrationsStatus;
   /**
    * Campaign Registry (TCR) Brand ID
    */
@@ -282,8 +287,8 @@ export class BrandRegistrationInstance {
   /**
    * Brand feedback
    */
-  brandFeedback?: Array<object> | null;
-  identityStatus?: object;
+  brandFeedback?: Array<BrandRegistrationsBrandFeedback> | null;
+  identityStatus?: BrandRegistrationsIdentityStatus;
   /**
    * Russell 3000
    */

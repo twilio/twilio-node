@@ -20,11 +20,15 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type MetricStreamDirection = 'unknown'|'inbound'|'outbound'|'both';
+
+type MetricTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
+
 /**
  * Options to pass to each
  *
- * @property { MetricEnumTwilioEdge } [edge] 
- * @property { MetricEnumStreamDirection } [direction] 
+ * @property { MetricTwilioEdge } [edge] 
+ * @property { MetricStreamDirection } [direction] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -36,8 +40,8 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface MetricListInstanceEachOptions {
-  edge?: MetricEnumTwilioEdge;
-  direction?: MetricEnumStreamDirection;
+  edge?: MetricTwilioEdge;
+  direction?: MetricStreamDirection;
   pageSize?: number;
   callback?: (item: MetricInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -47,8 +51,8 @@ export interface MetricListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { MetricEnumTwilioEdge } [edge] 
- * @property { MetricEnumStreamDirection } [direction] 
+ * @property { MetricTwilioEdge } [edge] 
+ * @property { MetricStreamDirection } [direction] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -56,8 +60,8 @@ export interface MetricListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MetricListInstanceOptions {
-  edge?: MetricEnumTwilioEdge;
-  direction?: MetricEnumStreamDirection;
+  edge?: MetricTwilioEdge;
+  direction?: MetricStreamDirection;
   pageSize?: number;
   limit?: number;
 }
@@ -65,15 +69,15 @@ export interface MetricListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { MetricEnumTwilioEdge } [edge] 
- * @property { MetricEnumStreamDirection } [direction] 
+ * @property { MetricTwilioEdge } [edge] 
+ * @property { MetricStreamDirection } [direction] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MetricListInstancePageOptions {
-  edge?: MetricEnumTwilioEdge;
-  direction?: MetricEnumStreamDirection;
+  edge?: MetricTwilioEdge;
+  direction?: MetricStreamDirection;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;

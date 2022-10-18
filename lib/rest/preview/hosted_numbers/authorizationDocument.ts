@@ -21,6 +21,8 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { DependentHostedNumberOrderListInstance } from "./authorizationDocument/dependentHostedNumberOrder";
 
+type AuthorizationDocumentStatus = 'opened'|'signing'|'signed'|'canceled'|'failed';
+
 
 /**
  * Options to pass to update a AuthorizationDocumentInstance
@@ -29,7 +31,7 @@ import { DependentHostedNumberOrderListInstance } from "./authorizationDocument/
  * @property { string } [addressSid] A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
  * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
  * @property { Array<string> } [ccEmails] Email recipients who will be informed when an Authorization Document has been sent and signed
- * @property { AuthorizationDocumentEnumStatus } [status] 
+ * @property { AuthorizationDocumentStatus } [status] 
  * @property { string } [contactTitle] The title of the person authorized to sign the Authorization Document for this phone number.
  * @property { string } [contactPhoneNumber] The contact phone number of the person authorized to sign the Authorization Document.
  */
@@ -38,11 +40,10 @@ export interface AuthorizationDocumentContextUpdateOptions {
   addressSid?: string;
   email?: string;
   ccEmails?: Array<string>;
-  status?: AuthorizationDocumentEnumStatus;
+  status?: AuthorizationDocumentStatus;
   contactTitle?: string;
   contactPhoneNumber?: string;
 }
-
 
 /**
  * Options to pass to create a AuthorizationDocumentInstance
@@ -66,7 +67,7 @@ export interface AuthorizationDocumentListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
- * @property { AuthorizationDocumentEnumStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+ * @property { AuthorizationDocumentStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -79,7 +80,7 @@ export interface AuthorizationDocumentListInstanceCreateOptions {
  */
 export interface AuthorizationDocumentListInstanceEachOptions {
   email?: string;
-  status?: AuthorizationDocumentEnumStatus;
+  status?: AuthorizationDocumentStatus;
   pageSize?: number;
   callback?: (item: AuthorizationDocumentInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -90,7 +91,7 @@ export interface AuthorizationDocumentListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
- * @property { AuthorizationDocumentEnumStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+ * @property { AuthorizationDocumentStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -99,7 +100,7 @@ export interface AuthorizationDocumentListInstanceEachOptions {
  */
 export interface AuthorizationDocumentListInstanceOptions {
   email?: string;
-  status?: AuthorizationDocumentEnumStatus;
+  status?: AuthorizationDocumentStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -108,14 +109,14 @@ export interface AuthorizationDocumentListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [email] Email that this AuthorizationDocument will be sent to for signing.
- * @property { AuthorizationDocumentEnumStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+ * @property { AuthorizationDocumentStatus } [status] Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AuthorizationDocumentListInstancePageOptions {
   email?: string;
-  status?: AuthorizationDocumentEnumStatus;
+  status?: AuthorizationDocumentStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -249,7 +250,7 @@ interface AuthorizationDocumentPayload extends AuthorizationDocumentResource, Pa
 interface AuthorizationDocumentResource {
   sid?: string | null;
   address_sid?: string | null;
-  status?: object;
+  status?: AuthorizationDocumentStatus;
   email?: string | null;
   cc_emails?: Array<string> | null;
   date_created?: Date | null;
@@ -284,7 +285,7 @@ export class AuthorizationDocumentInstance {
    * Address sid.
    */
   addressSid?: string | null;
-  status?: object;
+  status?: AuthorizationDocumentStatus;
   /**
    * Email.
    */

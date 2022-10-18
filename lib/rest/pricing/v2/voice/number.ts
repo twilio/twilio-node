@@ -20,6 +20,22 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+export class PricingV2VoiceVoiceNumberOutboundCallPrices {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "originationPrefixes"?: Array<string>;
+}
+
+
+/**
+ * The InboundCallPrice record
+ */
+export class PricingV2VoiceVoiceNumberInboundCallPrice {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
+}
+
 
 
 /**
@@ -163,8 +179,8 @@ interface NumberResource {
   origination_number?: string | null;
   country?: string | null;
   iso_country?: string | null;
-  outbound_call_prices?: Array<object> | null;
-  inbound_call_price?: object | null;
+  outbound_call_prices?: Array<PricingV2VoiceVoiceNumberOutboundCallPrices> | null;
+  inbound_call_price?: PricingV2VoiceVoiceNumberInboundCallPrice | null;
   price_unit?: string | null;
   url?: string | null;
 }
@@ -205,8 +221,8 @@ export class NumberInstance {
   /**
    * The list of OutboundCallPriceWithOrigin records
    */
-  outboundCallPrices?: Array<object> | null;
-  inboundCallPrice?: object | null;
+  outboundCallPrices?: Array<PricingV2VoiceVoiceNumberOutboundCallPrices> | null;
+  inboundCallPrice?: PricingV2VoiceVoiceNumberInboundCallPrice | null;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */

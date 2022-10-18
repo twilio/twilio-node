@@ -32,7 +32,6 @@ export interface VariableContextUpdateOptions {
   value?: string;
 }
 
-
 /**
  * Options to pass to create a VariableInstance
  *

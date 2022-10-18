@@ -20,6 +20,17 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+/**
+ * The capabilities of the short code
+ */
+export class ProxyV1ServiceShortCodeCapabilities {
+  "mms"?: boolean;
+  "sms"?: boolean;
+  "voice"?: boolean;
+  "fax"?: boolean;
+}
+
+
 
 /**
  * Options to pass to update a ShortCodeInstance
@@ -29,7 +40,6 @@ const serialize = require("../../../../base/serialize");
 export interface ShortCodeContextUpdateOptions {
   isReserved?: boolean;
 }
-
 
 /**
  * Options to pass to create a ShortCodeInstance
@@ -229,7 +239,7 @@ interface ShortCodeResource {
   date_updated?: Date | null;
   short_code?: string | null;
   iso_country?: string | null;
-  capabilities?: object | null;
+  capabilities?: ProxyV1ServiceShortCodeCapabilities | null;
   url?: string | null;
   is_reserved?: boolean | null;
 }
@@ -281,7 +291,7 @@ export class ShortCodeInstance {
    * The ISO Country Code
    */
   isoCountry?: string | null;
-  capabilities?: object | null;
+  capabilities?: ProxyV1ServiceShortCodeCapabilities | null;
   /**
    * The absolute URL of the ShortCode resource
    */

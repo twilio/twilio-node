@@ -22,6 +22,10 @@ const serialize = require("../../../../base/serialize");
 import { AddOnResultListInstance } from "./recording/addOnResult";
 import { TranscriptionListInstance } from "./recording/transcription";
 
+type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
+
+type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent'|'deleted';
+
 /**
  * Options to pass to each
  *
@@ -104,7 +108,6 @@ export interface RecordingListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -439,9 +442,9 @@ interface RecordingResource {
   sid?: string | null;
   price?: string | null;
   price_unit?: string | null;
-  status?: object;
+  status?: RecordingStatus;
   channels?: number | null;
-  source?: object;
+  source?: RecordingSource;
   error_code?: number | null;
   uri?: string | null;
   encryption_details?: any | null;
@@ -521,12 +524,12 @@ export class RecordingInstance {
    * The currency used in the price property.
    */
   priceUnit?: string | null;
-  status?: object;
+  status?: RecordingStatus;
   /**
    * The number of channels in the final recording file as an integer.
    */
   channels?: number | null;
-  source?: object;
+  source?: RecordingSource;
   /**
    * More information about why the recording is missing, if status is `absent`.
    */

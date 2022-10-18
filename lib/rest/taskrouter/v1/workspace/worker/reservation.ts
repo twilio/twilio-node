@@ -20,10 +20,16 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type WorkerReservationCallStatus = 'initiated'|'ringing'|'answered'|'completed';
+
+type WorkerReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded'|'wrapping'|'completed';
+
+type WorkerReservationConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
+
 /**
  * Options to pass to each
  *
- * @property { WorkerReservationEnumStatus } [reservationStatus] Returns the list of reservations for a worker with a specified ReservationStatus. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, &#x60;timeout&#x60;, &#x60;canceled&#x60;, or &#x60;rescinded&#x60;.
+ * @property { WorkerReservationStatus } [reservationStatus] Returns the list of reservations for a worker with a specified ReservationStatus. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, &#x60;timeout&#x60;, &#x60;canceled&#x60;, or &#x60;rescinded&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -35,7 +41,7 @@ const serialize = require("../../../../../base/serialize");
  *                         Default is no limit
  */
 export interface ReservationListInstanceEachOptions {
-  reservationStatus?: WorkerReservationEnumStatus;
+  reservationStatus?: WorkerReservationStatus;
   pageSize?: number;
   callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -45,7 +51,7 @@ export interface ReservationListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { WorkerReservationEnumStatus } [reservationStatus] Returns the list of reservations for a worker with a specified ReservationStatus. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, &#x60;timeout&#x60;, &#x60;canceled&#x60;, or &#x60;rescinded&#x60;.
+ * @property { WorkerReservationStatus } [reservationStatus] Returns the list of reservations for a worker with a specified ReservationStatus. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, &#x60;timeout&#x60;, &#x60;canceled&#x60;, or &#x60;rescinded&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -53,7 +59,7 @@ export interface ReservationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ReservationListInstanceOptions {
-  reservationStatus?: WorkerReservationEnumStatus;
+  reservationStatus?: WorkerReservationStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -61,13 +67,13 @@ export interface ReservationListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { WorkerReservationEnumStatus } [reservationStatus] Returns the list of reservations for a worker with a specified ReservationStatus. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, &#x60;timeout&#x60;, &#x60;canceled&#x60;, or &#x60;rescinded&#x60;.
+ * @property { WorkerReservationStatus } [reservationStatus] Returns the list of reservations for a worker with a specified ReservationStatus. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, &#x60;timeout&#x60;, &#x60;canceled&#x60;, or &#x60;rescinded&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ReservationListInstancePageOptions {
-  reservationStatus?: WorkerReservationEnumStatus;
+  reservationStatus?: WorkerReservationStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -75,12 +81,11 @@ export interface ReservationListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ReservationInstance
  *
  * @property { string } [ifMatch] The If-Match HTTP request header
- * @property { WorkerReservationEnumStatus } [reservationStatus] 
+ * @property { WorkerReservationStatus } [reservationStatus] 
  * @property { string } [workerActivitySid] The new worker activity SID if rejecting a reservation.
  * @property { string } [instruction] The assignment instruction for the reservation.
  * @property { string } [dequeuePostWorkActivitySid] The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -103,7 +108,7 @@ export interface ReservationListInstancePageOptions {
  * @property { string } [from] The caller ID of the call to the worker when executing a Conference instruction.
  * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
  * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
- * @property { Array<WorkerReservationEnumCallStatus> } [statusCallbackEvent] The call progress events that we will send to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, or &#x60;completed&#x60;.
+ * @property { Array<WorkerReservationCallStatus> } [statusCallbackEvent] The call progress events that we will send to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, or &#x60;completed&#x60;.
  * @property { number } [timeout] The timeout for a call when executing a Conference instruction.
  * @property { boolean } [record] Whether to record the participant and their conferences, including the time between conferences. Can be &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
  * @property { boolean } [muted] Whether the agent is muted in the conference. Defaults to &#x60;false&#x60;.
@@ -116,7 +121,7 @@ export interface ReservationListInstancePageOptions {
  * @property { number } [maxParticipants] The maximum number of participants allowed in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
  * @property { string } [conferenceStatusCallback] The URL we should call using the &#x60;conference_status_callback_method&#x60; when the conference events in &#x60;conference_status_callback_event&#x60; occur. Only the value set by the first participant to join the conference is used. Subsequent &#x60;conference_status_callback&#x60; values are ignored.
  * @property { string } [conferenceStatusCallbackMethod] The HTTP method we should use to call &#x60;conference_status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { Array<WorkerReservationEnumConferenceEvent> } [conferenceStatusCallbackEvent] The conference status events that we will send to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, &#x60;speaker&#x60;.
+ * @property { Array<WorkerReservationConferenceEvent> } [conferenceStatusCallbackEvent] The conference status events that we will send to &#x60;conference_status_callback&#x60;. Can be: &#x60;start&#x60;, &#x60;end&#x60;, &#x60;join&#x60;, &#x60;leave&#x60;, &#x60;mute&#x60;, &#x60;hold&#x60;, &#x60;speaker&#x60;.
  * @property { string } [conferenceRecord] Whether to record the conference the participant is joining or when to record the conference. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;.
  * @property { string } [conferenceTrim] Whether to trim leading and trailing silence from your recorded conference audio files. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and defaults to &#x60;trim-silence&#x60;.
  * @property { string } [recordingChannels] The recording channels for the final recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;.
@@ -134,7 +139,7 @@ export interface ReservationListInstancePageOptions {
  */
 export interface ReservationContextUpdateOptions {
   ifMatch?: string;
-  reservationStatus?: WorkerReservationEnumStatus;
+  reservationStatus?: WorkerReservationStatus;
   workerActivitySid?: string;
   instruction?: string;
   dequeuePostWorkActivitySid?: string;
@@ -157,7 +162,7 @@ export interface ReservationContextUpdateOptions {
   from?: string;
   statusCallback?: string;
   statusCallbackMethod?: string;
-  statusCallbackEvent?: Array<WorkerReservationEnumCallStatus>;
+  statusCallbackEvent?: Array<WorkerReservationCallStatus>;
   timeout?: number;
   record?: boolean;
   muted?: boolean;
@@ -170,7 +175,7 @@ export interface ReservationContextUpdateOptions {
   maxParticipants?: number;
   conferenceStatusCallback?: string;
   conferenceStatusCallbackMethod?: string;
-  conferenceStatusCallbackEvent?: Array<WorkerReservationEnumConferenceEvent>;
+  conferenceStatusCallbackEvent?: Array<WorkerReservationConferenceEvent>;
   conferenceRecord?: string;
   conferenceTrim?: string;
   recordingChannels?: string;
@@ -536,7 +541,7 @@ interface ReservationResource {
   account_sid?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
-  reservation_status?: object;
+  reservation_status?: WorkerReservationStatus;
   sid?: string | null;
   task_sid?: string | null;
   worker_name?: string | null;
@@ -578,7 +583,7 @@ export class ReservationInstance {
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
   dateUpdated?: Date | null;
-  reservationStatus?: object;
+  reservationStatus?: WorkerReservationStatus;
   /**
    * The unique string that identifies the resource
    */

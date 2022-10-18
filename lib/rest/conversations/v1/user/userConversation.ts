@@ -20,20 +20,23 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type UserConversationNotificationLevel = 'default'|'muted';
+
+type UserConversationState = 'inactive'|'active'|'closed';
+
 
 /**
  * Options to pass to update a UserConversationInstance
  *
- * @property { UserConversationEnumNotificationLevel } [notificationLevel] 
+ * @property { UserConversationNotificationLevel } [notificationLevel] 
  * @property { Date } [lastReadTimestamp] The date of the last message read in conversation by the user, given in ISO 8601 format.
  * @property { number } [lastReadMessageIndex] The index of the last Message in the Conversation that the Participant has read.
  */
 export interface UserConversationContextUpdateOptions {
-  notificationLevel?: UserConversationEnumNotificationLevel;
+  notificationLevel?: UserConversationNotificationLevel;
   lastReadTimestamp?: Date;
   lastReadMessageIndex?: number;
 }
-
 /**
  * Options to pass to each
  *
@@ -227,13 +230,13 @@ interface UserConversationResource {
   participant_sid?: string | null;
   user_sid?: string | null;
   friendly_name?: string | null;
-  conversation_state?: object;
+  conversation_state?: UserConversationState;
   timers?: any | null;
   attributes?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
   created_by?: string | null;
-  notification_level?: object;
+  notification_level?: UserConversationNotificationLevel;
   unique_name?: string | null;
   url?: string | null;
   links?: object | null;
@@ -298,7 +301,7 @@ export class UserConversationInstance {
    * The human-readable name of this conversation.
    */
   friendlyName?: string | null;
-  conversationState?: object;
+  conversationState?: UserConversationState;
   /**
    * Timer date values for this conversation.
    */
@@ -319,7 +322,7 @@ export class UserConversationInstance {
    * Creator of this conversation.
    */
   createdBy?: string | null;
-  notificationLevel?: object;
+  notificationLevel?: UserConversationNotificationLevel;
   /**
    * An application-defined string that uniquely identifies the Conversation resource.
    */

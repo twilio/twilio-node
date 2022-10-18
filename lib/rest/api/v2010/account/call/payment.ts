@@ -20,13 +20,23 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type PaymentsTokenType = 'one-time'|'reusable';
+
+type PaymentsBankAccountType = 'consumer-checking'|'consumer-savings'|'commercial-checking';
+
+type PaymentsPaymentMethod = 'credit-card'|'ach-debit';
+
+type PaymentsStatus = 'complete'|'cancel';
+
+type PaymentsCapture = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'bank-routing-number'|'bank-account-number';
+
 
 /**
  * Options to pass to create a PaymentInstance
  *
  * @property { string } idempotencyKey A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
  * @property { string } statusCallback Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
- * @property { PaymentsEnumBankAccountType } [bankAccountType] 
+ * @property { PaymentsBankAccountType } [bankAccountType] 
  * @property { number } [chargeAmount] A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with &#x60;currency&#x60; field. Leave blank or set to 0 to tokenize.
  * @property { string } [currency] The currency of the &#x60;charge_amount&#x60;, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is &#x60;USD&#x60; and all values allowed from the Pay Connector are accepted.
  * @property { string } [description] The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
@@ -34,17 +44,17 @@ const serialize = require("../../../../../base/serialize");
  * @property { number } [minPostalCodeLength] A positive integer that is used to validate the length of the &#x60;PostalCode&#x60; inputted by the user. User must enter this many digits.
  * @property { any } [parameter] A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the &lt;Pay&gt; Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
  * @property { string } [paymentConnector] This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [&lt;Pay&gt; Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is &#x60;Default&#x60;.
- * @property { PaymentsEnumPaymentMethod } [paymentMethod] 
+ * @property { PaymentsPaymentMethod } [paymentMethod] 
  * @property { boolean } [postalCode] Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is &#x60;true&#x60;.
  * @property { boolean } [securityCode] Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is &#x60;true&#x60;.
  * @property { number } [timeout] The number of seconds that &lt;Pay&gt; should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is &#x60;5&#x60;, maximum is &#x60;600&#x60;.
- * @property { PaymentsEnumTokenType } [tokenType] 
+ * @property { PaymentsTokenType } [tokenType] 
  * @property { string } [validCardTypes] Credit card types separated by space that Pay should accept. The default value is &#x60;visa mastercard amex&#x60;
  */
 export interface PaymentListInstanceCreateOptions {
   idempotencyKey: string;
   statusCallback: string;
-  bankAccountType?: PaymentsEnumBankAccountType;
+  bankAccountType?: PaymentsBankAccountType;
   chargeAmount?: number;
   currency?: string;
   description?: string;
@@ -52,28 +62,27 @@ export interface PaymentListInstanceCreateOptions {
   minPostalCodeLength?: number;
   parameter?: any;
   paymentConnector?: string;
-  paymentMethod?: PaymentsEnumPaymentMethod;
+  paymentMethod?: PaymentsPaymentMethod;
   postalCode?: boolean;
   securityCode?: boolean;
   timeout?: number;
-  tokenType?: PaymentsEnumTokenType;
+  tokenType?: PaymentsTokenType;
   validCardTypes?: string;
 }
-
 
 /**
  * Options to pass to update a PaymentInstance
  *
  * @property { string } idempotencyKey A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
  * @property { string } statusCallback Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
- * @property { PaymentsEnumCapture } [capture] 
- * @property { PaymentsEnumStatus } [status] 
+ * @property { PaymentsCapture } [capture] 
+ * @property { PaymentsStatus } [status] 
  */
 export interface PaymentContextUpdateOptions {
   idempotencyKey: string;
   statusCallback: string;
-  capture?: PaymentsEnumCapture;
-  status?: PaymentsEnumStatus;
+  capture?: PaymentsCapture;
+  status?: PaymentsStatus;
 }
 
 export interface PaymentListInstance {

@@ -84,7 +84,6 @@ export interface ServiceListInstancePageOptions {
 
 
 
-
 export interface ServiceListInstance {
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;

@@ -30,7 +30,6 @@ export interface MessagingConfigurationContextUpdateOptions {
   messagingServiceSid: string;
 }
 
-
 /**
  * Options to pass to create a MessagingConfigurationInstance
  *

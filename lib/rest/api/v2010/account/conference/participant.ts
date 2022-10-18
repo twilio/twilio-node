@@ -20,6 +20,8 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|'failed';
+
 
 /**
  * Options to pass to create a ParticipantInstance
@@ -183,7 +185,6 @@ export interface ParticipantListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -651,7 +652,7 @@ interface ParticipantResource {
   muted?: boolean | null;
   hold?: boolean | null;
   start_conference_on_enter?: boolean | null;
-  status?: object;
+  status?: ParticipantStatus;
   uri?: string | null;
 }
 
@@ -726,7 +727,7 @@ export class ParticipantInstance {
    * Whether the conference starts when the participant joins the conference
    */
   startConferenceOnEnter?: boolean | null;
-  status?: object;
+  status?: ParticipantStatus;
   /**
    * The URI of the resource, relative to `https://api.twilio.com`
    */

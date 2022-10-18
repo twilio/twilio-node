@@ -20,6 +20,10 @@ import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type SyncMapItemQueryResultOrder = 'asc'|'desc';
+
+type SyncMapItemQueryFromBoundType = 'inclusive'|'exclusive';
+
 
 /**
  * Options to pass to remove a SyncMapItemInstance
@@ -41,7 +45,6 @@ export interface SyncMapItemContextUpdateOptions {
   ifMatch?: string;
 }
 
-
 /**
  * Options to pass to create a SyncMapItemInstance
  *
@@ -55,9 +58,9 @@ export interface SyncMapItemListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { SyncMapItemEnumQueryResultOrder } [order] 
+ * @property { SyncMapItemQueryResultOrder } [order] 
  * @property { string } [from] 
- * @property { SyncMapItemEnumQueryFromBoundType } [bounds] 
+ * @property { SyncMapItemQueryFromBoundType } [bounds] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -69,9 +72,9 @@ export interface SyncMapItemListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SyncMapItemListInstanceEachOptions {
-  order?: SyncMapItemEnumQueryResultOrder;
+  order?: SyncMapItemQueryResultOrder;
   from?: string;
-  bounds?: SyncMapItemEnumQueryFromBoundType;
+  bounds?: SyncMapItemQueryFromBoundType;
   pageSize?: number;
   callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -81,9 +84,9 @@ export interface SyncMapItemListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { SyncMapItemEnumQueryResultOrder } [order] 
+ * @property { SyncMapItemQueryResultOrder } [order] 
  * @property { string } [from] 
- * @property { SyncMapItemEnumQueryFromBoundType } [bounds] 
+ * @property { SyncMapItemQueryFromBoundType } [bounds] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -91,9 +94,9 @@ export interface SyncMapItemListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SyncMapItemListInstanceOptions {
-  order?: SyncMapItemEnumQueryResultOrder;
+  order?: SyncMapItemQueryResultOrder;
   from?: string;
-  bounds?: SyncMapItemEnumQueryFromBoundType;
+  bounds?: SyncMapItemQueryFromBoundType;
   pageSize?: number;
   limit?: number;
 }
@@ -101,17 +104,17 @@ export interface SyncMapItemListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { SyncMapItemEnumQueryResultOrder } [order] 
+ * @property { SyncMapItemQueryResultOrder } [order] 
  * @property { string } [from] 
- * @property { SyncMapItemEnumQueryFromBoundType } [bounds] 
+ * @property { SyncMapItemQueryFromBoundType } [bounds] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncMapItemListInstancePageOptions {
-  order?: SyncMapItemEnumQueryResultOrder;
+  order?: SyncMapItemQueryResultOrder;
   from?: string;
-  bounds?: SyncMapItemEnumQueryFromBoundType;
+  bounds?: SyncMapItemQueryFromBoundType;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;

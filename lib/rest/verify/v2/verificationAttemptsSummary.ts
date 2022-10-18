@@ -20,6 +20,8 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type VerificationAttemptsSummaryChannels = 'sms'|'call'|'email'|'whatsapp';
+
 /**
  * Options to pass to each
  *
@@ -27,7 +29,7 @@ const serialize = require("../../../base/serialize");
  * @property { Date } [dateCreatedAfter] Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
  * @property { Date } [dateCreatedBefore] Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
  * @property { string } [country] Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
- * @property { VerificationAttemptsSummaryEnumChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
+ * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -43,7 +45,7 @@ export interface VerificationAttemptsSummaryListInstanceEachOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   country?: string;
-  channel?: VerificationAttemptsSummaryEnumChannels;
+  channel?: VerificationAttemptsSummaryChannels;
   destinationPrefix?: string;
   callback?: (item: VerificationAttemptsSummaryInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -57,7 +59,7 @@ export interface VerificationAttemptsSummaryListInstanceEachOptions {
  * @property { Date } [dateCreatedAfter] Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
  * @property { Date } [dateCreatedBefore] Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
  * @property { string } [country] Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
- * @property { VerificationAttemptsSummaryEnumChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
+ * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -69,7 +71,7 @@ export interface VerificationAttemptsSummaryListInstanceOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   country?: string;
-  channel?: VerificationAttemptsSummaryEnumChannels;
+  channel?: VerificationAttemptsSummaryChannels;
   destinationPrefix?: string;
   limit?: number;
 }
@@ -81,7 +83,7 @@ export interface VerificationAttemptsSummaryListInstanceOptions {
  * @property { Date } [dateCreatedAfter] Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
  * @property { Date } [dateCreatedBefore] Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
  * @property { string } [country] Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
- * @property { VerificationAttemptsSummaryEnumChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
+ * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
@@ -91,7 +93,7 @@ export interface VerificationAttemptsSummaryListInstancePageOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   country?: string;
-  channel?: VerificationAttemptsSummaryEnumChannels;
+  channel?: VerificationAttemptsSummaryChannels;
   destinationPrefix?: string;
   pageNumber?: number;
   pageToken?: string;

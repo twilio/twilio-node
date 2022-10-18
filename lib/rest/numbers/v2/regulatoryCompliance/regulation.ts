@@ -20,10 +20,12 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type RegulationEndUserType = 'individual'|'business';
+
 /**
  * Options to pass to each
  *
- * @property { RegulationEnumEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
+ * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
  * @property { string } [isoCountry] The ISO country code of the phone number\&#39;s country.
  * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -37,7 +39,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface RegulationListInstanceEachOptions {
-  endUserType?: RegulationEnumEndUserType;
+  endUserType?: RegulationEndUserType;
   isoCountry?: string;
   numberType?: string;
   pageSize?: number;
@@ -49,7 +51,7 @@ export interface RegulationListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { RegulationEnumEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
+ * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
  * @property { string } [isoCountry] The ISO country code of the phone number\&#39;s country.
  * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -59,7 +61,7 @@ export interface RegulationListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RegulationListInstanceOptions {
-  endUserType?: RegulationEnumEndUserType;
+  endUserType?: RegulationEndUserType;
   isoCountry?: string;
   numberType?: string;
   pageSize?: number;
@@ -69,7 +71,7 @@ export interface RegulationListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { RegulationEnumEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
+ * @property { RegulationEndUserType } [endUserType] The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
  * @property { string } [isoCountry] The ISO country code of the phone number\&#39;s country.
  * @property { string } [numberType] The type of phone number that the regulatory requiremnt is restricting.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -77,14 +79,13 @@ export interface RegulationListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RegulationListInstancePageOptions {
-  endUserType?: RegulationEnumEndUserType;
+  endUserType?: RegulationEndUserType;
   isoCountry?: string;
   numberType?: string;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -341,7 +342,7 @@ interface RegulationResource {
   friendly_name?: string | null;
   iso_country?: string | null;
   number_type?: string | null;
-  end_user_type?: object;
+  end_user_type?: RegulationEndUserType;
   requirements?: any | null;
   url?: string | null;
 }
@@ -378,7 +379,7 @@ export class RegulationInstance {
    * The type of phone number restricted by the regulatory requirement
    */
   numberType?: string | null;
-  endUserType?: object;
+  endUserType?: RegulationEndUserType;
   /**
    * The sid of a regulation object that dictates requirements
    */

@@ -96,7 +96,6 @@ export interface ByocTrunkListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ByocTrunkInstance
  *

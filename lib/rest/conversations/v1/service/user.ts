@@ -21,44 +21,45 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { UserConversationListInstance } from "./user/userConversation";
 
+type ServiceUserWebhookEnabledType = 'true'|'false';
+
 
 /**
  * Options to pass to remove a UserInstance
  *
- * @property { ServiceUserEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ServiceUserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface UserContextRemoveOptions {
-  xTwilioWebhookEnabled?: ServiceUserEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ServiceUserWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a UserInstance
  *
- * @property { ServiceUserEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ServiceUserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [attributes] The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned.
  * @property { string } [roleSid] The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
  */
 export interface UserContextUpdateOptions {
-  xTwilioWebhookEnabled?: ServiceUserEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ServiceUserWebhookEnabledType;
   friendlyName?: string;
   attributes?: string;
   roleSid?: string;
 }
 
-
 /**
  * Options to pass to create a UserInstance
  *
  * @property { string } identity The application-defined string that uniquely identifies the resource\\\&#39;s User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
- * @property { ServiceUserEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ServiceUserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [attributes] The JSON Object string that stores application-specific data. If attributes have not been set, &#x60;{}&#x60; is returned.
  * @property { string } [roleSid] The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
  */
 export interface UserListInstanceCreateOptions {
   identity: string;
-  xTwilioWebhookEnabled?: ServiceUserEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ServiceUserWebhookEnabledType;
   friendlyName?: string;
   attributes?: string;
   roleSid?: string;

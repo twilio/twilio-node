@@ -21,7 +21,6 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { StepContextListInstance } from "./step/stepContext";
 
-
 /**
  * Options to pass to each
  *

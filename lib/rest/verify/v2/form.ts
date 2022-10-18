@@ -20,7 +20,17 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type FormFormTypes = 'form-push';
 
+
+/**
+ * Options to pass to fetch a FormInstance
+ *
+ * @property { FormFormTypes } formType The Type of this Form. Currently only &#x60;form-push&#x60; is supported.
+ */
+export interface FormContextFetchOptions {
+  formType: FormFormTypes;
+}
 
 export interface FormContext {
 
@@ -32,7 +42,17 @@ export interface FormContext {
    *
    * @returns { Promise } Resolves to processed FormInstance
    */
-  fetch(callback?: (error: Error | null, item?: FormInstance) => any): Promise<FormInstance>
+  fetch(callback?: (error: Error | null, item?: FormInstance) => any): Promise<FormInstance>;
+  /**
+   * Fetch a FormInstance
+   *
+   * @param { FormContextFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FormInstance
+   */
+  fetch(params: FormContextFetchOptions, callback?: (error: Error | null, item?: FormInstance) => any): Promise<FormInstance>;
+  fetch(params?: any, callback?: any): Promise<FormInstance>
 
 
   /**
@@ -52,10 +72,21 @@ export class FormContextImpl implements FormContext {
     this._uri = `/Forms/${formType}`;
   }
 
-  fetch(callback?: any): Promise<FormInstance> {
-  
+  fetch(params?: any, callback?: any): Promise<FormInstance> {
+      if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+
+    const headers: any = {};
+
     let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FormInstance(operationVersion, payload, this._solution.formType));
     
@@ -85,7 +116,7 @@ interface FormPayload extends FormResource, Page.TwilioResponsePayload {
 }
 
 interface FormResource {
-  form_type?: object;
+  form_type?: FormFormTypes;
   forms?: any | null;
   form_meta?: any | null;
   url?: string | null;
@@ -104,7 +135,7 @@ export class FormInstance {
     this._solution = { formType: formType || this.formType };
   }
 
-  formType?: object;
+  formType?: FormFormTypes;
   /**
    * Object that contains the available forms for this type.
    */
@@ -130,9 +161,19 @@ export class FormInstance {
    *
    * @returns { Promise } Resolves to processed FormInstance
    */
-  fetch(callback?: (error: Error | null, item?: FormInstance) => any): Promise<FormInstance>
+  fetch(callback?: (error: Error | null, item?: FormInstance) => any): Promise<FormInstance>;
+  /**
+   * Fetch a FormInstance
+   *
+   * @param { FormContextFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FormInstance
+   */
+  fetch(params: FormContextFetchOptions, callback?: (error: Error | null, item?: FormInstance) => any): Promise<FormInstance>;
+  fetch(params?: any, callback?: any): Promise<FormInstance>
      {
-    return this._proxy.fetch(callback);
+    return this._proxy.fetch(params, callback);
   }
 
   /**

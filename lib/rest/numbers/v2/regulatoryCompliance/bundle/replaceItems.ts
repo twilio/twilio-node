@@ -20,6 +20,8 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ReplaceItemsStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
+
 
 /**
  * Options to pass to create a ReplaceItemsInstance
@@ -115,7 +117,7 @@ interface ReplaceItemsResource {
   account_sid?: string | null;
   regulation_sid?: string | null;
   friendly_name?: string | null;
-  status?: object;
+  status?: ReplaceItemsStatus;
   valid_until?: Date | null;
   email?: string | null;
   status_callback?: string | null;
@@ -158,7 +160,7 @@ export class ReplaceItemsInstance {
    * The string that you assigned to describe the resource
    */
   friendlyName?: string | null;
-  status?: object;
+  status?: ReplaceItemsStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until
    */

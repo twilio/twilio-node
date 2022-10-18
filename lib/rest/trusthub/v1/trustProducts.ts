@@ -23,6 +23,8 @@ import { TrustProductsChannelEndpointAssignmentListInstance } from "./trustProdu
 import { TrustProductsEvaluationsListInstance } from "./trustProducts/trustProductsEvaluations";
 import { TrustProductsEntityAssignmentsListInstance } from "./trustProducts/trustProductsEntityAssignments";
 
+type TrustProductStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
+
 
 /**
  * Options to pass to create a TrustProductsInstance
@@ -41,7 +43,7 @@ export interface TrustProductsListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { TrustProductEnumStatus } [status] The verification status of the Customer-Profile resource.
+ * @property { TrustProductStatus } [status] The verification status of the Customer-Profile resource.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -55,7 +57,7 @@ export interface TrustProductsListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface TrustProductsListInstanceEachOptions {
-  status?: TrustProductEnumStatus;
+  status?: TrustProductStatus;
   friendlyName?: string;
   policySid?: string;
   pageSize?: number;
@@ -67,7 +69,7 @@ export interface TrustProductsListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { TrustProductEnumStatus } [status] The verification status of the Customer-Profile resource.
+ * @property { TrustProductStatus } [status] The verification status of the Customer-Profile resource.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -77,7 +79,7 @@ export interface TrustProductsListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface TrustProductsListInstanceOptions {
-  status?: TrustProductEnumStatus;
+  status?: TrustProductStatus;
   friendlyName?: string;
   policySid?: string;
   pageSize?: number;
@@ -87,7 +89,7 @@ export interface TrustProductsListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { TrustProductEnumStatus } [status] The verification status of the Customer-Profile resource.
+ * @property { TrustProductStatus } [status] The verification status of the Customer-Profile resource.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [policySid] The unique string of a policy that is associated to the Customer-Profile resource.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -95,7 +97,7 @@ export interface TrustProductsListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TrustProductsListInstancePageOptions {
-  status?: TrustProductEnumStatus;
+  status?: TrustProductStatus;
   friendlyName?: string;
   policySid?: string;
   pageSize?: number;
@@ -105,17 +107,16 @@ export interface TrustProductsListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a TrustProductsInstance
  *
- * @property { TrustProductEnumStatus } [status] 
+ * @property { TrustProductStatus } [status] 
  * @property { string } [statusCallback] The URL we call to inform your application of status changes.
  * @property { string } [friendlyName] The string that you assigned to describe the resource.
  * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
  */
 export interface TrustProductsContextUpdateOptions {
-  status?: TrustProductEnumStatus;
+  status?: TrustProductStatus;
   statusCallback?: string;
   friendlyName?: string;
   email?: string;
@@ -521,7 +522,7 @@ interface TrustProductsResource {
   account_sid?: string | null;
   policy_sid?: string | null;
   friendly_name?: string | null;
-  status?: object;
+  status?: TrustProductStatus;
   valid_until?: Date | null;
   email?: string | null;
   status_callback?: string | null;
@@ -568,7 +569,7 @@ export class TrustProductsInstance {
    * The string that you assigned to describe the resource
    */
   friendlyName?: string | null;
-  status?: object;
+  status?: TrustProductStatus;
   /**
    * The ISO 8601 date and time in GMT when the resource will be valid until.
    */

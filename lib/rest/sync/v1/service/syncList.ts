@@ -84,7 +84,6 @@ export interface SyncListListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a SyncListInstance
  *

@@ -69,7 +69,6 @@ export interface DocumentPermissionListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a DocumentPermissionInstance
  *

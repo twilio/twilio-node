@@ -29,7 +29,6 @@ const serialize = require("../../../../base/serialize");
 export interface SigningKeyContextUpdateOptions {
   friendlyName?: string;
 }
-
 /**
  * Options to pass to each
  *

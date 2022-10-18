@@ -21,6 +21,14 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { PlaybackGrantListInstance } from "./playerStreamer/playbackGrant";
 
+type PlayerStreamerEndedReason = 'ended-via-api'|'max-duration-exceeded'|'stream-disconnected-by-source'|'unexpected-failure';
+
+type PlayerStreamerOrder = 'asc'|'desc';
+
+type PlayerStreamerUpdateStatus = 'ended';
+
+type PlayerStreamerStatus = 'created'|'started'|'ended'|'failed';
+
 
 /**
  * Options to pass to create a PlayerStreamerInstance
@@ -39,8 +47,8 @@ export interface PlayerStreamerListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { PlayerStreamerEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { PlayerStreamerEnumStatus } [status] Status to filter by, with possible values &#x60;created&#x60;, &#x60;started&#x60;, &#x60;ended&#x60;, or &#x60;failed&#x60;.
+ * @property { PlayerStreamerOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { PlayerStreamerStatus } [status] Status to filter by, with possible values &#x60;created&#x60;, &#x60;started&#x60;, &#x60;ended&#x60;, or &#x60;failed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -52,8 +60,8 @@ export interface PlayerStreamerListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface PlayerStreamerListInstanceEachOptions {
-  order?: PlayerStreamerEnumOrder;
-  status?: PlayerStreamerEnumStatus;
+  order?: PlayerStreamerOrder;
+  status?: PlayerStreamerStatus;
   pageSize?: number;
   callback?: (item: PlayerStreamerInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -63,8 +71,8 @@ export interface PlayerStreamerListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { PlayerStreamerEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { PlayerStreamerEnumStatus } [status] Status to filter by, with possible values &#x60;created&#x60;, &#x60;started&#x60;, &#x60;ended&#x60;, or &#x60;failed&#x60;.
+ * @property { PlayerStreamerOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { PlayerStreamerStatus } [status] Status to filter by, with possible values &#x60;created&#x60;, &#x60;started&#x60;, &#x60;ended&#x60;, or &#x60;failed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -72,8 +80,8 @@ export interface PlayerStreamerListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface PlayerStreamerListInstanceOptions {
-  order?: PlayerStreamerEnumOrder;
-  status?: PlayerStreamerEnumStatus;
+  order?: PlayerStreamerOrder;
+  status?: PlayerStreamerStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -81,15 +89,15 @@ export interface PlayerStreamerListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { PlayerStreamerEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { PlayerStreamerEnumStatus } [status] Status to filter by, with possible values &#x60;created&#x60;, &#x60;started&#x60;, &#x60;ended&#x60;, or &#x60;failed&#x60;.
+ * @property { PlayerStreamerOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { PlayerStreamerStatus } [status] Status to filter by, with possible values &#x60;created&#x60;, &#x60;started&#x60;, &#x60;ended&#x60;, or &#x60;failed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface PlayerStreamerListInstancePageOptions {
-  order?: PlayerStreamerEnumOrder;
-  status?: PlayerStreamerEnumStatus;
+  order?: PlayerStreamerOrder;
+  status?: PlayerStreamerStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -97,14 +105,13 @@ export interface PlayerStreamerListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a PlayerStreamerInstance
  *
- * @property { PlayerStreamerEnumUpdateStatus } status 
+ * @property { PlayerStreamerUpdateStatus } status 
  */
 export interface PlayerStreamerContextUpdateOptions {
-  status: PlayerStreamerEnumUpdateStatus;
+  status: PlayerStreamerUpdateStatus;
 }
 
 export interface PlayerStreamerListInstance {
@@ -461,11 +468,11 @@ interface PlayerStreamerResource {
   video?: boolean | null;
   links?: object | null;
   sid?: string | null;
-  status?: object;
+  status?: PlayerStreamerStatus;
   url?: string | null;
   status_callback?: string | null;
   status_callback_method?: PlayerStreamerStatusCallbackMethod;
-  ended_reason?: object;
+  ended_reason?: PlayerStreamerEndedReason;
   max_duration?: number | null;
 }
 
@@ -514,7 +521,7 @@ export class PlayerStreamerInstance {
    * The unique string that identifies the resource
    */
   sid?: string | null;
-  status?: object;
+  status?: PlayerStreamerStatus;
   /**
    * The absolute URL of the resource
    */
@@ -527,7 +534,7 @@ export class PlayerStreamerInstance {
    * The HTTP method Twilio should use to call the `status_callback` URL
    */
   statusCallbackMethod?: PlayerStreamerStatusCallbackMethod;
-  endedReason?: object;
+  endedReason?: PlayerStreamerEndedReason;
   /**
    * Maximum PlayerStreamer duration in seconds
    */

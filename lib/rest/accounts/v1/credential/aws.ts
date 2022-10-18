@@ -30,7 +30,6 @@ export interface AWSContextUpdateOptions {
   friendlyName?: string;
 }
 
-
 /**
  * Options to pass to create a AWSInstance
  *

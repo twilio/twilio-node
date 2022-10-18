@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { FunctionVersionContentListInstance } from "./functionVersion/functionVersionContent";
 
+type FunctionVersionVisibility = 'public'|'private'|'protected';
+
 /**
  * Options to pass to each
  *
@@ -67,7 +69,6 @@ export interface FunctionVersionListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -329,7 +330,7 @@ interface FunctionVersionResource {
   service_sid?: string | null;
   function_sid?: string | null;
   path?: string | null;
-  visibility?: object;
+  visibility?: FunctionVersionVisibility;
   date_created?: Date | null;
   url?: string | null;
   links?: object | null;
@@ -373,7 +374,7 @@ export class FunctionVersionInstance {
    * The URL-friendly string by which the Function Version resource can be referenced
    */
   path?: string | null;
-  visibility?: object;
+  visibility?: FunctionVersionVisibility;
   /**
    * The ISO 8601 date and time in GMT when the Function Version resource was created
    */

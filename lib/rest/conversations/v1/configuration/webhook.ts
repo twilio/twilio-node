@@ -20,6 +20,10 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type ConfigurationWebhookMethod = 'GET'|'POST';
+
+type ConfigurationWebhookTarget = 'webhook'|'flex';
+
 
 /**
  * Options to pass to create a WebhookInstance
@@ -28,14 +32,14 @@ const serialize = require("../../../../base/serialize");
  * @property { Array<string> } [filters] The list of webhook event triggers that are enabled for this Service: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;
  * @property { string } [preWebhookUrl] The absolute url the pre-event webhook request should be sent to.
  * @property { string } [postWebhookUrl] The absolute url the post-event webhook request should be sent to.
- * @property { ConfigurationWebhookEnumTarget } [target] 
+ * @property { ConfigurationWebhookTarget } [target] 
  */
 export interface WebhookListInstanceCreateOptions {
   method?: string;
   filters?: Array<string>;
   preWebhookUrl?: string;
   postWebhookUrl?: string;
-  target?: ConfigurationWebhookEnumTarget;
+  target?: ConfigurationWebhookTarget;
 }
 
 export interface WebhookListInstance {
@@ -257,11 +261,11 @@ interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
 
 interface WebhookResource {
   account_sid?: string | null;
-  method?: object;
+  method?: ConfigurationWebhookMethod;
   filters?: Array<string> | null;
   pre_webhook_url?: string | null;
   post_webhook_url?: string | null;
-  target?: object;
+  target?: ConfigurationWebhookTarget;
   url?: string | null;
 }
 
@@ -285,7 +289,7 @@ export class WebhookInstance {
    * The unique ID of the Account responsible for this conversation.
    */
   accountSid?: string | null;
-  method?: object;
+  method?: ConfigurationWebhookMethod;
   /**
    * The list of webhook event triggers that are enabled for this Service.
    */
@@ -298,7 +302,7 @@ export class WebhookInstance {
    * The absolute url the post-event webhook request should be sent to.
    */
   postWebhookUrl?: string | null;
-  target?: object;
+  target?: ConfigurationWebhookTarget;
   /**
    * An absolute URL for this webhook.
    */

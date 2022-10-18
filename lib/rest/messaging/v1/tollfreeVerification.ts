@@ -20,6 +20,10 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type TollfreeVerificationOptInType = 'VERBAL'|'WEB_FORM'|'PAPER_FORM'|'VIA_TEXT'|'MOBILE_QR_CODE';
+
+type TollfreeVerificationStatus = 'PENDING_REVIEW'|'IN_REVIEW'|'TWILIO_APPROVED'|'TWILIO_REJECTED';
+
 
 /**
  * Options to pass to create a TollfreeVerificationInstance
@@ -31,7 +35,7 @@ const serialize = require("../../../base/serialize");
  * @property { string } useCaseSummary Use this to further explain how messaging is used by the business or organization.
  * @property { string } productionMessageSample An example of message content, i.e. a sample message.
  * @property { Array<string> } optInImageUrls Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
- * @property { TollfreeVerificationEnumOptInType } optInType 
+ * @property { TollfreeVerificationOptInType } optInType 
  * @property { string } messageVolume Estimate monthly volume of messages from the Tollfree Number.
  * @property { string } tollfreePhoneNumberSid The SID of the Phone Number associated with the Tollfree Verification.
  * @property { string } [customerProfileSid] Customer\\\&#39;s Profile Bundle BundleSid.
@@ -55,7 +59,7 @@ export interface TollfreeVerificationListInstanceCreateOptions {
   useCaseSummary: string;
   productionMessageSample: string;
   optInImageUrls: Array<string>;
-  optInType: TollfreeVerificationEnumOptInType;
+  optInType: TollfreeVerificationOptInType;
   messageVolume: string;
   tollfreePhoneNumberSid: string;
   customerProfileSid?: string;
@@ -75,7 +79,7 @@ export interface TollfreeVerificationListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property { string } [tollfreePhoneNumberSid] The SID of the Phone Number associated with the Tollfree Verification.
- * @property { TollfreeVerificationEnumStatus } [status] The compliance status of the Tollfree Verification record.
+ * @property { TollfreeVerificationStatus } [status] The compliance status of the Tollfree Verification record.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -88,7 +92,7 @@ export interface TollfreeVerificationListInstanceCreateOptions {
  */
 export interface TollfreeVerificationListInstanceEachOptions {
   tollfreePhoneNumberSid?: string;
-  status?: TollfreeVerificationEnumStatus;
+  status?: TollfreeVerificationStatus;
   pageSize?: number;
   callback?: (item: TollfreeVerificationInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -99,7 +103,7 @@ export interface TollfreeVerificationListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [tollfreePhoneNumberSid] The SID of the Phone Number associated with the Tollfree Verification.
- * @property { TollfreeVerificationEnumStatus } [status] The compliance status of the Tollfree Verification record.
+ * @property { TollfreeVerificationStatus } [status] The compliance status of the Tollfree Verification record.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -108,7 +112,7 @@ export interface TollfreeVerificationListInstanceEachOptions {
  */
 export interface TollfreeVerificationListInstanceOptions {
   tollfreePhoneNumberSid?: string;
-  status?: TollfreeVerificationEnumStatus;
+  status?: TollfreeVerificationStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -117,19 +121,18 @@ export interface TollfreeVerificationListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [tollfreePhoneNumberSid] The SID of the Phone Number associated with the Tollfree Verification.
- * @property { TollfreeVerificationEnumStatus } [status] The compliance status of the Tollfree Verification record.
+ * @property { TollfreeVerificationStatus } [status] The compliance status of the Tollfree Verification record.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface TollfreeVerificationListInstancePageOptions {
   tollfreePhoneNumberSid?: string;
-  status?: TollfreeVerificationEnumStatus;
+  status?: TollfreeVerificationStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -503,11 +506,11 @@ interface TollfreeVerificationResource {
   use_case_summary?: string | null;
   production_message_sample?: string | null;
   opt_in_image_urls?: Array<string> | null;
-  opt_in_type?: object;
+  opt_in_type?: TollfreeVerificationOptInType;
   message_volume?: string | null;
   additional_information?: string | null;
   tollfree_phone_number_sid?: string | null;
-  status?: object;
+  status?: TollfreeVerificationStatus;
   url?: string | null;
   resource_links?: any | null;
 }
@@ -648,7 +651,7 @@ export class TollfreeVerificationInstance {
    * Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL
    */
   optInImageUrls?: Array<string> | null;
-  optInType?: object;
+  optInType?: TollfreeVerificationOptInType;
   /**
    * Estimate monthly volume of messages from the Tollfree Number
    */
@@ -661,7 +664,7 @@ export class TollfreeVerificationInstance {
    * The SID of the Phone Number associated with the Tollfree Verification
    */
   tollfreePhoneNumberSid?: string | null;
-  status?: object;
+  status?: TollfreeVerificationStatus;
   /**
    * The absolute URL of the Tollfree Verification
    */

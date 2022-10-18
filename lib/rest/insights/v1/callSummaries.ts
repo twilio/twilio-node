@@ -20,6 +20,10 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type CallSummariesProcessingStateRequest = 'completed'|'started'|'partial'|'all';
+
+type CallSummariesSortBy = 'start_time'|'end_time';
+
 /**
  * Options to pass to each
  *
@@ -37,8 +41,8 @@ const serialize = require("../../../base/serialize");
  * @property { string } [callType] 
  * @property { string } [callState] 
  * @property { string } [direction] 
- * @property { CallSummariesEnumProcessingStateRequest } [processingState] 
- * @property { CallSummariesEnumSortBy } [sortBy] 
+ * @property { CallSummariesProcessingStateRequest } [processingState] 
+ * @property { CallSummariesSortBy } [sortBy] 
  * @property { string } [subaccount] 
  * @property { boolean } [abnormalSession] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -66,8 +70,8 @@ export interface CallSummariesListInstanceEachOptions {
   callType?: string;
   callState?: string;
   direction?: string;
-  processingState?: CallSummariesEnumProcessingStateRequest;
-  sortBy?: CallSummariesEnumSortBy;
+  processingState?: CallSummariesProcessingStateRequest;
+  sortBy?: CallSummariesSortBy;
   subaccount?: string;
   abnormalSession?: boolean;
   pageSize?: number;
@@ -93,8 +97,8 @@ export interface CallSummariesListInstanceEachOptions {
  * @property { string } [callType] 
  * @property { string } [callState] 
  * @property { string } [direction] 
- * @property { CallSummariesEnumProcessingStateRequest } [processingState] 
- * @property { CallSummariesEnumSortBy } [sortBy] 
+ * @property { CallSummariesProcessingStateRequest } [processingState] 
+ * @property { CallSummariesSortBy } [sortBy] 
  * @property { string } [subaccount] 
  * @property { boolean } [abnormalSession] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -118,8 +122,8 @@ export interface CallSummariesListInstanceOptions {
   callType?: string;
   callState?: string;
   direction?: string;
-  processingState?: CallSummariesEnumProcessingStateRequest;
-  sortBy?: CallSummariesEnumSortBy;
+  processingState?: CallSummariesProcessingStateRequest;
+  sortBy?: CallSummariesSortBy;
   subaccount?: string;
   abnormalSession?: boolean;
   pageSize?: number;
@@ -143,8 +147,8 @@ export interface CallSummariesListInstanceOptions {
  * @property { string } [callType] 
  * @property { string } [callState] 
  * @property { string } [direction] 
- * @property { CallSummariesEnumProcessingStateRequest } [processingState] 
- * @property { CallSummariesEnumSortBy } [sortBy] 
+ * @property { CallSummariesProcessingStateRequest } [processingState] 
+ * @property { CallSummariesSortBy } [sortBy] 
  * @property { string } [subaccount] 
  * @property { boolean } [abnormalSession] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -166,8 +170,8 @@ export interface CallSummariesListInstancePageOptions {
   callType?: string;
   callState?: string;
   direction?: string;
-  processingState?: CallSummariesEnumProcessingStateRequest;
-  sortBy?: CallSummariesEnumSortBy;
+  processingState?: CallSummariesProcessingStateRequest;
+  sortBy?: CallSummariesSortBy;
   subaccount?: string;
   abnormalSession?: boolean;
   pageSize?: number;

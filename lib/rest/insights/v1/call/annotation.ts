@@ -20,12 +20,16 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type AnnotationAnsweredBy = 'unknown_answered_by'|'human'|'machine';
+
+type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity_issue'|'invalid_number'|'caller_id'|'dropped_call'|'number_reachability';
+
 
 /**
  * Options to pass to create a AnnotationInstance
  *
- * @property { AnnotationEnumAnsweredBy } [answeredBy] 
- * @property { AnnotationEnumConnectivityIssue } [connectivityIssue] 
+ * @property { AnnotationAnsweredBy } [answeredBy] 
+ * @property { AnnotationConnectivityIssue } [connectivityIssue] 
  * @property { string } [qualityIssues] Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
  * @property { boolean } [spam] Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
  * @property { number } [callScore] Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
@@ -33,8 +37,8 @@ const serialize = require("../../../../base/serialize");
  * @property { string } [incident] Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
  */
 export interface AnnotationListInstanceCreateOptions {
-  answeredBy?: AnnotationEnumAnsweredBy;
-  connectivityIssue?: AnnotationEnumConnectivityIssue;
+  answeredBy?: AnnotationAnsweredBy;
+  connectivityIssue?: AnnotationConnectivityIssue;
   qualityIssues?: string;
   spam?: boolean;
   callScore?: number;
@@ -264,8 +268,8 @@ interface AnnotationPayload extends AnnotationResource, Page.TwilioResponsePaylo
 interface AnnotationResource {
   call_sid?: string | null;
   account_sid?: string | null;
-  answered_by?: object;
-  connectivity_issue?: object;
+  answered_by?: AnnotationAnsweredBy;
+  connectivity_issue?: AnnotationConnectivityIssue;
   quality_issues?: Array<string> | null;
   spam?: boolean | null;
   call_score?: number | null;
@@ -301,8 +305,8 @@ export class AnnotationInstance {
    * Account SID.
    */
   accountSid?: string | null;
-  answeredBy?: object;
-  connectivityIssue?: object;
+  answeredBy?: AnnotationAnsweredBy;
+  connectivityIssue?: AnnotationConnectivityIssue;
   /**
    * Indicates if the call had audio quality issues.
    */

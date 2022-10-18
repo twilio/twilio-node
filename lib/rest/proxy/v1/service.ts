@@ -23,6 +23,10 @@ import { ShortCodeListInstance } from "./service/shortCode";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { SessionListInstance } from "./service/session";
 
+type ServiceNumberSelectionBehavior = 'avoid-sticky'|'prefer-sticky';
+
+type ServiceGeoMatchLevel = 'area-code'|'overlay'|'radius'|'country';
+
 
 /**
  * Options to pass to create a ServiceInstance
@@ -30,8 +34,8 @@ import { SessionListInstance } from "./service/session";
  * @property { string } uniqueName An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
  * @property { number } [defaultTtl] The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session\\\&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session\\\&#39;s default TTL value by setting its &#x60;ttl&#x60; value.
  * @property { string } [callbackUrl] The URL we should call when the interaction status changes.
- * @property { ServiceEnumGeoMatchLevel } [geoMatchLevel] 
- * @property { ServiceEnumNumberSelectionBehavior } [numberSelectionBehavior] 
+ * @property { ServiceGeoMatchLevel } [geoMatchLevel] 
+ * @property { ServiceNumberSelectionBehavior } [numberSelectionBehavior] 
  * @property { string } [interceptCallbackUrl] The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
  * @property { string } [outOfSessionCallbackUrl] The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
  * @property { string } [chatInstanceSid] The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
@@ -40,8 +44,8 @@ export interface ServiceListInstanceCreateOptions {
   uniqueName: string;
   defaultTtl?: number;
   callbackUrl?: string;
-  geoMatchLevel?: ServiceEnumGeoMatchLevel;
-  numberSelectionBehavior?: ServiceEnumNumberSelectionBehavior;
+  geoMatchLevel?: ServiceGeoMatchLevel;
+  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
   interceptCallbackUrl?: string;
   outOfSessionCallbackUrl?: string;
   chatInstanceSid?: string;
@@ -95,15 +99,14 @@ export interface ServiceListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ServiceInstance
  *
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
  * @property { number } [defaultTtl] The default &#x60;ttl&#x60; value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session\\\&#39;s last create or last Interaction. The default value of &#x60;0&#x60; indicates an unlimited Session length. You can override a Session\\\&#39;s default TTL value by setting its &#x60;ttl&#x60; value.
  * @property { string } [callbackUrl] The URL we should call when the interaction status changes.
- * @property { ServiceEnumGeoMatchLevel } [geoMatchLevel] 
- * @property { ServiceEnumNumberSelectionBehavior } [numberSelectionBehavior] 
+ * @property { ServiceGeoMatchLevel } [geoMatchLevel] 
+ * @property { ServiceNumberSelectionBehavior } [numberSelectionBehavior] 
  * @property { string } [interceptCallbackUrl] The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
  * @property { string } [outOfSessionCallbackUrl] The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
  * @property { string } [chatInstanceSid] The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
@@ -112,8 +115,8 @@ export interface ServiceContextUpdateOptions {
   uniqueName?: string;
   defaultTtl?: number;
   callbackUrl?: string;
-  geoMatchLevel?: ServiceEnumGeoMatchLevel;
-  numberSelectionBehavior?: ServiceEnumNumberSelectionBehavior;
+  geoMatchLevel?: ServiceGeoMatchLevel;
+  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
   interceptCallbackUrl?: string;
   outOfSessionCallbackUrl?: string;
   chatInstanceSid?: string;
@@ -518,8 +521,8 @@ interface ServiceResource {
   chat_instance_sid?: string | null;
   callback_url?: string | null;
   default_ttl?: number | null;
-  number_selection_behavior?: object;
-  geo_match_level?: object;
+  number_selection_behavior?: ServiceNumberSelectionBehavior;
+  geo_match_level?: ServiceGeoMatchLevel;
   intercept_callback_url?: string | null;
   out_of_session_callback_url?: string | null;
   date_created?: Date | null;
@@ -575,8 +578,8 @@ export class ServiceInstance {
    * Default TTL for a Session, in seconds
    */
   defaultTtl?: number | null;
-  numberSelectionBehavior?: object;
-  geoMatchLevel?: object;
+  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
+  geoMatchLevel?: ServiceGeoMatchLevel;
   /**
    * The URL we call on each interaction
    */

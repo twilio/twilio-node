@@ -20,7 +20,6 @@ import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
-
 /**
  * Options to pass to each
  *

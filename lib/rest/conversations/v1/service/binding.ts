@@ -20,10 +20,12 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type ServiceBindingBindingType = 'apn'|'gcm'|'fcm';
+
 /**
  * Options to pass to each
  *
- * @property { Array<ServiceBindingEnumBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+ * @property { Array<ServiceBindingBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
  * @property { Array<string> } [identity] The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
@@ -36,7 +38,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface BindingListInstanceEachOptions {
-  bindingType?: Array<ServiceBindingEnumBindingType>;
+  bindingType?: Array<ServiceBindingBindingType>;
   identity?: Array<string>;
   pageSize?: number;
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
@@ -47,7 +49,7 @@ export interface BindingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<ServiceBindingEnumBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+ * @property { Array<ServiceBindingBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
  * @property { Array<string> } [identity] The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
@@ -56,7 +58,7 @@ export interface BindingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BindingListInstanceOptions {
-  bindingType?: Array<ServiceBindingEnumBindingType>;
+  bindingType?: Array<ServiceBindingBindingType>;
   identity?: Array<string>;
   pageSize?: number;
   limit?: number;
@@ -65,20 +67,19 @@ export interface BindingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<ServiceBindingEnumBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+ * @property { Array<ServiceBindingBindingType> } [bindingType] The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
  * @property { Array<string> } [identity] The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BindingListInstancePageOptions {
-  bindingType?: Array<ServiceBindingEnumBindingType>;
+  bindingType?: Array<ServiceBindingBindingType>;
   identity?: Array<string>;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -361,7 +362,7 @@ interface BindingResource {
   date_updated?: Date | null;
   endpoint?: string | null;
   identity?: string | null;
-  binding_type?: object;
+  binding_type?: ServiceBindingBindingType;
   message_types?: Array<string> | null;
   url?: string | null;
 }
@@ -418,7 +419,7 @@ export class BindingInstance {
    * The identity of Conversation User associated with this binding.
    */
   identity?: string | null;
-  bindingType?: object;
+  bindingType?: ServiceBindingBindingType;
   /**
    * The Conversation message types the binding is subscribed to.
    */

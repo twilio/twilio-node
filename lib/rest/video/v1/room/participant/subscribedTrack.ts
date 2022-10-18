@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type RoomParticipantSubscribedTrackKind = 'audio'|'video'|'data';
+
 /**
  * Options to pass to each
  *
@@ -66,7 +68,6 @@ export interface SubscribedTrackListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -324,7 +325,7 @@ interface SubscribedTrackResource {
   date_created?: Date | null;
   date_updated?: Date | null;
   enabled?: boolean | null;
-  kind?: object;
+  kind?: RoomParticipantSubscribedTrackKind;
   url?: string | null;
 }
 
@@ -379,7 +380,7 @@ export class SubscribedTrackInstance {
    * Whether the track is enabled
    */
   enabled?: boolean | null;
-  kind?: object;
+  kind?: RoomParticipantSubscribedTrackKind;
   /**
    * The absolute URL of the resource
    */

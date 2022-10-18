@@ -78,7 +78,6 @@ export interface AuthCallsCredentialListMappingListInstancePageOptions {
 
 
 
-
 export interface AuthCallsCredentialListMappingListInstance {
   (sid: string): AuthCallsCredentialListMappingContext;
   get(sid: string): AuthCallsCredentialListMappingContext;

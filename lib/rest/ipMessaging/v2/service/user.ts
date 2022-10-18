@@ -22,35 +22,36 @@ const serialize = require("../../../../base/serialize");
 import { UserBindingListInstance } from "./user/userBinding";
 import { UserChannelListInstance } from "./user/userChannel";
 
+type UserWebhookEnabledType = 'true'|'false';
+
 
 /**
  * Options to pass to update a UserInstance
  *
- * @property { UserEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [roleSid] 
  * @property { string } [attributes] 
  * @property { string } [friendlyName] 
  */
 export interface UserContextUpdateOptions {
-  xTwilioWebhookEnabled?: UserEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
   roleSid?: string;
   attributes?: string;
   friendlyName?: string;
 }
 
-
 /**
  * Options to pass to create a UserInstance
  *
  * @property { string } identity 
- * @property { UserEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { UserWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [roleSid] 
  * @property { string } [attributes] 
  * @property { string } [friendlyName] 
  */
 export interface UserListInstanceCreateOptions {
   identity: string;
-  xTwilioWebhookEnabled?: UserEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: UserWebhookEnabledType;
   roleSid?: string;
   attributes?: string;
   friendlyName?: string;

@@ -22,6 +22,8 @@ const serialize = require("../../../../base/serialize");
 import { StepListInstance } from "./engagement/step";
 import { EngagementContextListInstance } from "./engagement/engagementContext";
 
+type EngagementStatus = 'active'|'ended';
+
 
 /**
  * Options to pass to create a EngagementInstance
@@ -81,7 +83,6 @@ export interface EngagementListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -421,7 +422,7 @@ interface EngagementResource {
   contact_sid?: string | null;
   contact_channel_address?: string | null;
   context?: any | null;
-  status?: object;
+  status?: EngagementStatus;
   date_created?: Date | null;
   date_updated?: Date | null;
   url?: string | null;
@@ -472,7 +473,7 @@ export class EngagementInstance {
    * The current state of the execution flow
    */
   context?: any | null;
-  status?: object;
+  status?: EngagementStatus;
   /**
    * The ISO 8601 date and time in GMT when the Engagement was created
    */

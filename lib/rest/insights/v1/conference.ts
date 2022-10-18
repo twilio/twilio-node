@@ -21,6 +21,16 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { ConferenceParticipantListInstance } from "./conference/conferenceParticipant";
 
+type ConferenceConferenceEndReason = 'last_participant_left'|'conference_ended_via_api'|'participant_with_end_conference_on_exit_left'|'last_participant_kicked'|'participant_with_end_conference_on_exit_kicked';
+
+type ConferenceTag = 'invalid_requested_region'|'duplicate_identity'|'start_failure'|'region_configuration_issues'|'quality_warnings'|'participant_behavior_issues'|'high_packet_loss'|'high_jitter'|'high_latency'|'low_mos'|'detected_silence';
+
+type ConferenceConferenceStatus = 'in_progress'|'not_started'|'completed'|'summary_timeout';
+
+type ConferenceRegion = 'us1'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'de1';
+
+type ConferenceProcessingState = 'complete'|'in_progress'|'timeout';
+
 /**
  * Options to pass to each
  *
@@ -127,7 +137,6 @@ export interface ConferenceListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -402,19 +411,19 @@ interface ConferenceResource {
   end_time?: Date | null;
   duration_seconds?: number | null;
   connect_duration_seconds?: number | null;
-  status?: object;
+  status?: ConferenceConferenceStatus;
   max_participants?: number | null;
   max_concurrent_participants?: number | null;
   unique_participants?: number | null;
-  end_reason?: object;
+  end_reason?: ConferenceConferenceEndReason;
   ended_by?: string | null;
-  mixer_region?: object;
-  mixer_region_requested?: object;
+  mixer_region?: ConferenceRegion;
+  mixer_region_requested?: ConferenceRegion;
   recording_enabled?: boolean | null;
   detected_issues?: any | null;
-  tags?: Array<object> | null;
+  tags?: Array<ConferenceTag> | null;
   tag_info?: any | null;
-  processing_state?: object;
+  processing_state?: ConferenceProcessingState;
   url?: string | null;
   links?: object | null;
 }
@@ -483,7 +492,7 @@ export class ConferenceInstance {
    * Duration of the conference in seconds.
    */
   connectDurationSeconds?: number | null;
-  status?: object;
+  status?: ConferenceConferenceStatus;
   /**
    * Max participants specified in config.
    */
@@ -496,13 +505,13 @@ export class ConferenceInstance {
    * Unique conference participants.
    */
   uniqueParticipants?: number | null;
-  endReason?: object;
+  endReason?: ConferenceConferenceEndReason;
   /**
    * Call SID that ended the conference.
    */
   endedBy?: string | null;
-  mixerRegion?: object;
-  mixerRegionRequested?: object;
+  mixerRegion?: ConferenceRegion;
+  mixerRegionRequested?: ConferenceRegion;
   /**
    * Boolean. Indicates whether recording was enabled.
    */
@@ -514,12 +523,12 @@ export class ConferenceInstance {
   /**
    * Tags for detected conference conditions and participant behaviors.
    */
-  tags?: Array<object> | null;
+  tags?: Array<ConferenceTag> | null;
   /**
    * Object. Contains details about conference tags.
    */
   tagInfo?: any | null;
-  processingState?: object;
+  processingState?: ConferenceProcessingState;
   /**
    * The URL of this resource.
    */

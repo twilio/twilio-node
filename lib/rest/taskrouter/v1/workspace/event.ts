@@ -135,7 +135,6 @@ export interface EventListInstancePageOptions {
 
 
 
-
 export interface EventListInstance {
   (sid: string): EventContext;
   get(sid: string): EventContext;

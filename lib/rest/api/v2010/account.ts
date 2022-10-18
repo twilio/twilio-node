@@ -44,18 +44,21 @@ import { QueueListInstance } from "./account/queue";
 import { KeyListInstance } from "./account/key";
 import { NewKeyListInstance } from "./account/newKey";
 
+type AccountStatus = 'active'|'suspended'|'closed';
+
+type AccountType = 'Trial'|'Full';
+
 
 /**
  * Options to pass to update a AccountInstance
  *
  * @property { string } [friendlyName] Update the human-readable description of this Account
- * @property { AccountEnumStatus } [status] 
+ * @property { AccountStatus } [status] 
  */
 export interface AccountContextUpdateOptions {
   friendlyName?: string;
-  status?: AccountEnumStatus;
+  status?: AccountStatus;
 }
-
 
 /**
  * Options to pass to create a AccountInstance
@@ -69,7 +72,7 @@ export interface AccountListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountEnumStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
+ * @property { AccountStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -82,7 +85,7 @@ export interface AccountListInstanceCreateOptions {
  */
 export interface AccountListInstanceEachOptions {
   friendlyName?: string;
-  status?: AccountEnumStatus;
+  status?: AccountStatus;
   pageSize?: number;
   callback?: (item: AccountInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -93,7 +96,7 @@ export interface AccountListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountEnumStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
+ * @property { AccountStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -102,7 +105,7 @@ export interface AccountListInstanceEachOptions {
  */
 export interface AccountListInstanceOptions {
   friendlyName?: string;
-  status?: AccountEnumStatus;
+  status?: AccountStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -111,14 +114,14 @@ export interface AccountListInstanceOptions {
  * Options to pass to page
  *
  * @property { string } [friendlyName] Only return the Account resources with friendly names that exactly match this name.
- * @property { AccountEnumStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
+ * @property { AccountStatus } [status] Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface AccountListInstancePageOptions {
   friendlyName?: string;
-  status?: AccountEnumStatus;
+  status?: AccountStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -412,9 +415,9 @@ interface AccountResource {
   friendly_name?: string | null;
   owner_account_sid?: string | null;
   sid?: string | null;
-  status?: object;
+  status?: AccountStatus;
   subresource_uris?: object | null;
-  type?: object;
+  type?: AccountType;
   uri?: string | null;
 }
 
@@ -461,12 +464,12 @@ export class AccountInstance {
    * A 34 character string that uniquely identifies this resource.
    */
   sid?: string | null;
-  status?: object;
+  status?: AccountStatus;
   /**
    * Account Instance Subresources
    */
   subresourceUris?: object | null;
-  type?: object;
+  type?: AccountType;
   /**
    * The URI for this resource, relative to `https://api.twilio.com`
    */

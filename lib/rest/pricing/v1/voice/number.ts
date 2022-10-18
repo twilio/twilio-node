@@ -20,6 +20,24 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+/**
+ * The InboundCallPrice record
+ */
+export class PricingV1VoiceVoiceNumberInboundCallPrice {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
+}
+
+
+/**
+ * The OutboundCallPrice record
+ */
+export class PricingV1VoiceVoiceNumberOutboundCallPrice {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+}
+
 
 
 export interface NumberListInstance {
@@ -131,8 +149,8 @@ interface NumberResource {
   number?: string | null;
   country?: string | null;
   iso_country?: string | null;
-  outbound_call_price?: object | null;
-  inbound_call_price?: object | null;
+  outbound_call_price?: PricingV1VoiceVoiceNumberOutboundCallPrice | null;
+  inbound_call_price?: PricingV1VoiceVoiceNumberInboundCallPrice | null;
   price_unit?: string | null;
   url?: string | null;
 }
@@ -165,8 +183,8 @@ export class NumberInstance {
    * The ISO country code
    */
   isoCountry?: string | null;
-  outboundCallPrice?: object | null;
-  inboundCallPrice?: object | null;
+  outboundCallPrice?: PricingV1VoiceVoiceNumberOutboundCallPrice | null;
+  inboundCallPrice?: PricingV1VoiceVoiceNumberInboundCallPrice | null;
   /**
    * The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
    */

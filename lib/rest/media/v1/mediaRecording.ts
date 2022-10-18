@@ -20,11 +20,17 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type MediaRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
+
+type MediaRecordingOrder = 'asc'|'desc';
+
+type MediaRecordingFormat = 'mp4'|'webm';
+
 /**
  * Options to pass to each
  *
- * @property { MediaRecordingEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaRecordingEnumStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
+ * @property { MediaRecordingOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { MediaRecordingStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
  * @property { string } [processorSid] SID of a MediaProcessor to filter by.
  * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -38,8 +44,8 @@ const serialize = require("../../../base/serialize");
  *                         Default is no limit
  */
 export interface MediaRecordingListInstanceEachOptions {
-  order?: MediaRecordingEnumOrder;
-  status?: MediaRecordingEnumStatus;
+  order?: MediaRecordingOrder;
+  status?: MediaRecordingStatus;
   processorSid?: string;
   sourceSid?: string;
   pageSize?: number;
@@ -51,8 +57,8 @@ export interface MediaRecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { MediaRecordingEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaRecordingEnumStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
+ * @property { MediaRecordingOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { MediaRecordingStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
  * @property { string } [processorSid] SID of a MediaProcessor to filter by.
  * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -62,8 +68,8 @@ export interface MediaRecordingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MediaRecordingListInstanceOptions {
-  order?: MediaRecordingEnumOrder;
-  status?: MediaRecordingEnumStatus;
+  order?: MediaRecordingOrder;
+  status?: MediaRecordingStatus;
   processorSid?: string;
   sourceSid?: string;
   pageSize?: number;
@@ -73,8 +79,8 @@ export interface MediaRecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { MediaRecordingEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaRecordingEnumStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
+ * @property { MediaRecordingOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { MediaRecordingStatus } [status] Status to filter by, with possible values &#x60;processing&#x60;, &#x60;completed&#x60;, &#x60;deleted&#x60;, or &#x60;failed&#x60;.
  * @property { string } [processorSid] SID of a MediaProcessor to filter by.
  * @property { string } [sourceSid] SID of a MediaRecording source to filter by.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -82,15 +88,14 @@ export interface MediaRecordingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MediaRecordingListInstancePageOptions {
-  order?: MediaRecordingEnumOrder;
-  status?: MediaRecordingEnumStatus;
+  order?: MediaRecordingOrder;
+  status?: MediaRecordingStatus;
   processorSid?: string;
   sourceSid?: string;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -372,14 +377,14 @@ interface MediaRecordingResource {
   date_created?: Date | null;
   date_updated?: Date | null;
   duration?: number | null;
-  format?: object;
+  format?: MediaRecordingFormat;
   links?: object | null;
   processor_sid?: string | null;
   resolution?: string | null;
   source_sid?: string | null;
   sid?: string | null;
   media_size?: number | null;
-  status?: object;
+  status?: MediaRecordingStatus;
   status_callback?: string | null;
   status_callback_method?: MediaRecordingStatusCallbackMethod;
   url?: string | null;
@@ -425,7 +430,7 @@ export class MediaRecordingInstance {
    * The duration of the MediaRecording
    */
   duration?: number | null;
-  format?: object;
+  format?: MediaRecordingFormat;
   /**
    * The URLs of related resources
    */
@@ -450,7 +455,7 @@ export class MediaRecordingInstance {
    * The size of the recording media
    */
   mediaSize?: number | null;
-  status?: object;
+  status?: MediaRecordingStatus;
   /**
    * The URL to which Twilio will send MediaRecording event updates
    */

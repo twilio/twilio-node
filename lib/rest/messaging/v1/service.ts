@@ -26,6 +26,8 @@ import { UsAppToPersonListInstance } from "./service/usAppToPerson";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { AlphaSenderListInstance } from "./service/alphaSender";
 
+type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
+
 
 /**
  * Options to pass to create a ServiceInstance
@@ -39,7 +41,7 @@ import { AlphaSenderListInstance } from "./service/alphaSender";
  * @property { boolean } [stickySender] Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
  * @property { boolean } [mmsConverter] Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
  * @property { boolean } [smartEncoding] Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
- * @property { ServiceEnumScanMessageContent } [scanMessageContent] 
+ * @property { ServiceScanMessageContent } [scanMessageContent] 
  * @property { boolean } [fallbackToLongCode] Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
  * @property { boolean } [areaCodeGeomatch] Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
  * @property { number } [validityPeriod] How long, in seconds, messages sent from the Service are valid. Can be an integer from &#x60;1&#x60; to &#x60;14,400&#x60;.
@@ -57,7 +59,7 @@ export interface ServiceListInstanceCreateOptions {
   stickySender?: boolean;
   mmsConverter?: boolean;
   smartEncoding?: boolean;
-  scanMessageContent?: ServiceEnumScanMessageContent;
+  scanMessageContent?: ServiceScanMessageContent;
   fallbackToLongCode?: boolean;
   areaCodeGeomatch?: boolean;
   validityPeriod?: number;
@@ -114,7 +116,6 @@ export interface ServiceListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a ServiceInstance
  *
@@ -127,7 +128,7 @@ export interface ServiceListInstancePageOptions {
  * @property { boolean } [stickySender] Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
  * @property { boolean } [mmsConverter] Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
  * @property { boolean } [smartEncoding] Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
- * @property { ServiceEnumScanMessageContent } [scanMessageContent] 
+ * @property { ServiceScanMessageContent } [scanMessageContent] 
  * @property { boolean } [fallbackToLongCode] Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
  * @property { boolean } [areaCodeGeomatch] Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
  * @property { number } [validityPeriod] How long, in seconds, messages sent from the Service are valid. Can be an integer from &#x60;1&#x60; to &#x60;14,400&#x60;.
@@ -145,7 +146,7 @@ export interface ServiceContextUpdateOptions {
   stickySender?: boolean;
   mmsConverter?: boolean;
   smartEncoding?: boolean;
-  scanMessageContent?: ServiceEnumScanMessageContent;
+  scanMessageContent?: ServiceScanMessageContent;
   fallbackToLongCode?: boolean;
   areaCodeGeomatch?: boolean;
   validityPeriod?: number;
@@ -607,7 +608,7 @@ interface ServiceResource {
   sticky_sender?: boolean | null;
   mms_converter?: boolean | null;
   smart_encoding?: boolean | null;
-  scan_message_content?: object;
+  scan_message_content?: ServiceScanMessageContent;
   fallback_to_long_code?: boolean | null;
   area_code_geomatch?: boolean | null;
   synchronous_validation?: boolean | null;
@@ -703,7 +704,7 @@ export class ServiceInstance {
    * Whether to enable Encoding for messages sent through the Service instance
    */
   smartEncoding?: boolean | null;
-  scanMessageContent?: object;
+  scanMessageContent?: ServiceScanMessageContent;
   /**
    * Whether to enable Fallback to Long Code for messages sent through the Service instance
    */

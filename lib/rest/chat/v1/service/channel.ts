@@ -23,6 +23,8 @@ import { MessageListInstance } from "./channel/message";
 import { MemberListInstance } from "./channel/member";
 import { InviteListInstance } from "./channel/invite";
 
+type ChannelChannelType = 'public'|'private';
+
 
 /**
  * Options to pass to update a ChannelInstance
@@ -37,25 +39,24 @@ export interface ChannelContextUpdateOptions {
   attributes?: string;
 }
 
-
 /**
  * Options to pass to create a ChannelInstance
  *
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { ChannelEnumChannelType } [type] 
+ * @property { ChannelChannelType } [type] 
  */
 export interface ChannelListInstanceCreateOptions {
   friendlyName?: string;
   uniqueName?: string;
   attributes?: string;
-  type?: ChannelEnumChannelType;
+  type?: ChannelChannelType;
 }
 /**
  * Options to pass to each
  *
- * @property { Array<ChannelEnumChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -67,7 +68,7 @@ export interface ChannelListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceEachOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -77,7 +78,7 @@ export interface ChannelListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<ChannelEnumChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -85,7 +86,7 @@ export interface ChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   limit?: number;
 }
@@ -93,13 +94,13 @@ export interface ChannelListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<ChannelEnumChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChannelListInstancePageOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -270,7 +271,7 @@ interface ChannelResource {
   friendly_name?: string | null;
   unique_name?: string | null;
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   date_created?: Date | null;
   date_updated?: Date | null;
   created_by?: string | null;
@@ -327,7 +328,7 @@ export class ChannelInstance {
    * The JSON string that stores application-specific data
    */
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   /**
    * The RFC 2822 date and time in GMT when the resource was created
    */

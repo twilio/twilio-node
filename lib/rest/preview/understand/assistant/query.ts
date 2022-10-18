@@ -32,7 +32,6 @@ export interface QueryContextUpdateOptions {
   status?: string;
 }
 
-
 /**
  * Options to pass to create a QueryInstance
  *

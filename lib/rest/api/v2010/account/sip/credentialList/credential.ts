@@ -30,7 +30,6 @@ export interface CredentialContextUpdateOptions {
   password?: string;
 }
 
-
 /**
  * Options to pass to create a CredentialInstance
  *

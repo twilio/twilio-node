@@ -20,6 +20,17 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+/**
+ * The capabilities of the phone number
+ */
+export class ProxyV1ServicePhoneNumberCapabilities {
+  "mms"?: boolean;
+  "sms"?: boolean;
+  "voice"?: boolean;
+  "fax"?: boolean;
+}
+
+
 
 /**
  * Options to pass to update a PhoneNumberInstance
@@ -29,7 +40,6 @@ const serialize = require("../../../../base/serialize");
 export interface PhoneNumberContextUpdateOptions {
   isReserved?: boolean;
 }
-
 
 /**
  * Options to pass to create a PhoneNumberInstance
@@ -234,7 +244,7 @@ interface PhoneNumberResource {
   phone_number?: string | null;
   friendly_name?: string | null;
   iso_country?: string | null;
-  capabilities?: object | null;
+  capabilities?: ProxyV1ServicePhoneNumberCapabilities | null;
   url?: string | null;
   is_reserved?: boolean | null;
   in_use?: number | null;
@@ -293,7 +303,7 @@ export class PhoneNumberInstance {
    * The ISO Country Code
    */
   isoCountry?: string | null;
-  capabilities?: object | null;
+  capabilities?: ProxyV1ServicePhoneNumberCapabilities | null;
   /**
    * The absolute URL of the PhoneNumber resource
    */

@@ -80,7 +80,6 @@ export interface SyncListListInstancePageOptions {
 
 
 
-
 export interface SyncListListInstance {
   (sid: string): SyncListContext;
   get(sid: string): SyncListContext;

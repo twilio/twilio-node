@@ -81,7 +81,6 @@ export interface EntityListInstancePageOptions {
 
 
 
-
 export interface EntityListInstance {
   (identity: string): EntityContext;
   get(identity: string): EntityContext;

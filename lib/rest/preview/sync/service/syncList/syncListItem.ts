@@ -20,6 +20,10 @@ import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type SyncListItemQueryResultOrder = 'asc'|'desc';
+
+type SyncListItemQueryFromBoundType = 'inclusive'|'exclusive';
+
 
 /**
  * Options to pass to create a SyncListItemInstance
@@ -32,9 +36,9 @@ export interface SyncListItemListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { SyncListItemEnumQueryResultOrder } [order] 
+ * @property { SyncListItemQueryResultOrder } [order] 
  * @property { string } [from] 
- * @property { SyncListItemEnumQueryFromBoundType } [bounds] 
+ * @property { SyncListItemQueryFromBoundType } [bounds] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -46,9 +50,9 @@ export interface SyncListItemListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SyncListItemListInstanceEachOptions {
-  order?: SyncListItemEnumQueryResultOrder;
+  order?: SyncListItemQueryResultOrder;
   from?: string;
-  bounds?: SyncListItemEnumQueryFromBoundType;
+  bounds?: SyncListItemQueryFromBoundType;
   pageSize?: number;
   callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -58,9 +62,9 @@ export interface SyncListItemListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { SyncListItemEnumQueryResultOrder } [order] 
+ * @property { SyncListItemQueryResultOrder } [order] 
  * @property { string } [from] 
- * @property { SyncListItemEnumQueryFromBoundType } [bounds] 
+ * @property { SyncListItemQueryFromBoundType } [bounds] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -68,9 +72,9 @@ export interface SyncListItemListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SyncListItemListInstanceOptions {
-  order?: SyncListItemEnumQueryResultOrder;
+  order?: SyncListItemQueryResultOrder;
   from?: string;
-  bounds?: SyncListItemEnumQueryFromBoundType;
+  bounds?: SyncListItemQueryFromBoundType;
   pageSize?: number;
   limit?: number;
 }
@@ -78,22 +82,21 @@ export interface SyncListItemListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { SyncListItemEnumQueryResultOrder } [order] 
+ * @property { SyncListItemQueryResultOrder } [order] 
  * @property { string } [from] 
- * @property { SyncListItemEnumQueryFromBoundType } [bounds] 
+ * @property { SyncListItemQueryFromBoundType } [bounds] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SyncListItemListInstancePageOptions {
-  order?: SyncListItemEnumQueryResultOrder;
+  order?: SyncListItemQueryResultOrder;
   from?: string;
-  bounds?: SyncListItemEnumQueryFromBoundType;
+  bounds?: SyncListItemQueryFromBoundType;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 

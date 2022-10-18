@@ -24,20 +24,24 @@ import { WebhookListInstance } from "./channel/webhook";
 import { MemberListInstance } from "./channel/member";
 import { InviteListInstance } from "./channel/invite";
 
+type ChannelWebhookEnabledType = 'true'|'false';
+
+type ChannelChannelType = 'public'|'private';
+
 
 /**
  * Options to pass to remove a ChannelInstance
  *
- * @property { ChannelEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ChannelContextRemoveOptions {
-  xTwilioWebhookEnabled?: ChannelEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a ChannelInstance
  *
- * @property { ChannelEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] 
  * @property { string } [uniqueName] 
  * @property { string } [attributes] 
@@ -46,7 +50,7 @@ export interface ChannelContextRemoveOptions {
  * @property { string } [createdBy] 
  */
 export interface ChannelContextUpdateOptions {
-  xTwilioWebhookEnabled?: ChannelEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
   friendlyName?: string;
   uniqueName?: string;
   attributes?: string;
@@ -55,25 +59,24 @@ export interface ChannelContextUpdateOptions {
   createdBy?: string;
 }
 
-
 /**
  * Options to pass to create a ChannelInstance
  *
- * @property { ChannelEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] 
  * @property { string } [uniqueName] 
  * @property { string } [attributes] 
- * @property { ChannelEnumChannelType } [type] 
+ * @property { ChannelChannelType } [type] 
  * @property { Date } [dateCreated] 
  * @property { Date } [dateUpdated] 
  * @property { string } [createdBy] 
  */
 export interface ChannelListInstanceCreateOptions {
-  xTwilioWebhookEnabled?: ChannelEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
   friendlyName?: string;
   uniqueName?: string;
   attributes?: string;
-  type?: ChannelEnumChannelType;
+  type?: ChannelChannelType;
   dateCreated?: Date;
   dateUpdated?: Date;
   createdBy?: string;
@@ -81,7 +84,7 @@ export interface ChannelListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { Array<ChannelEnumChannelType> } [type] 
+ * @property { Array<ChannelChannelType> } [type] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -93,7 +96,7 @@ export interface ChannelListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceEachOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -103,7 +106,7 @@ export interface ChannelListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<ChannelEnumChannelType> } [type] 
+ * @property { Array<ChannelChannelType> } [type] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -111,7 +114,7 @@ export interface ChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   limit?: number;
 }
@@ -119,13 +122,13 @@ export interface ChannelListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<ChannelEnumChannelType> } [type] 
+ * @property { Array<ChannelChannelType> } [type] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChannelListInstancePageOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -329,7 +332,7 @@ interface ChannelResource {
   friendly_name?: string | null;
   unique_name?: string | null;
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   date_created?: Date | null;
   date_updated?: Date | null;
   created_by?: string | null;
@@ -368,7 +371,7 @@ export class ChannelInstance {
   friendlyName?: string | null;
   uniqueName?: string | null;
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   dateCreated?: Date | null;
   dateUpdated?: Date | null;
   createdBy?: string | null;

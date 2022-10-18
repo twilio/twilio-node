@@ -40,7 +40,6 @@ export interface TaskContextUpdateOptions {
   actionsUrl?: string;
 }
 
-
 /**
  * Options to pass to create a TaskInstance
  *

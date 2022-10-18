@@ -78,7 +78,6 @@ export interface AuthCallsIpAccessControlListMappingListInstancePageOptions {
 
 
 
-
 export interface AuthCallsIpAccessControlListMappingListInstance {
   (sid: string): AuthCallsIpAccessControlListMappingContext;
   get(sid: string): AuthCallsIpAccessControlListMappingContext;

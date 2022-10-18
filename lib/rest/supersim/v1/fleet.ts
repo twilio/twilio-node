@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type FleetDataMetering = 'payg';
+
 
 /**
  * Options to pass to update a FleetInstance
@@ -41,7 +43,6 @@ export interface FleetContextUpdateOptions {
   smsCommandsMethod?: string;
   dataLimit?: number;
 }
-
 
 /**
  * Options to pass to create a FleetInstance
@@ -249,7 +250,7 @@ interface FleetResource {
   url?: string | null;
   data_enabled?: boolean | null;
   data_limit?: number | null;
-  data_metering?: object;
+  data_metering?: FleetDataMetering;
   sms_commands_enabled?: boolean | null;
   sms_commands_url?: string | null;
   sms_commands_method?: FleetSmsCommandsMethod;
@@ -314,7 +315,7 @@ export class FleetInstance {
    * The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
    */
   dataLimit?: number | null;
-  dataMetering?: object;
+  dataMetering?: FleetDataMetering;
   /**
    * Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
    */

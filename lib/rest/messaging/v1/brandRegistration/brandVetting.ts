@@ -20,22 +20,23 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type BrandVettingVettingProvider = 'campaign-verify';
 
 
 /**
  * Options to pass to create a BrandVettingInstance
  *
- * @property { BrandVettingEnumVettingProvider } vettingProvider 
+ * @property { BrandVettingVettingProvider } vettingProvider 
  * @property { string } [vettingId] The unique ID of the vetting
  */
 export interface BrandVettingListInstanceCreateOptions {
-  vettingProvider: BrandVettingEnumVettingProvider;
+  vettingProvider: BrandVettingVettingProvider;
   vettingId?: string;
 }
 /**
  * Options to pass to each
  *
- * @property { BrandVettingEnumVettingProvider } [vettingProvider] The third-party provider of the vettings to read
+ * @property { BrandVettingVettingProvider } [vettingProvider] The third-party provider of the vettings to read
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -47,7 +48,7 @@ export interface BrandVettingListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface BrandVettingListInstanceEachOptions {
-  vettingProvider?: BrandVettingEnumVettingProvider;
+  vettingProvider?: BrandVettingVettingProvider;
   pageSize?: number;
   callback?: (item: BrandVettingInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -57,7 +58,7 @@ export interface BrandVettingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { BrandVettingEnumVettingProvider } [vettingProvider] The third-party provider of the vettings to read
+ * @property { BrandVettingVettingProvider } [vettingProvider] The third-party provider of the vettings to read
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -65,7 +66,7 @@ export interface BrandVettingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BrandVettingListInstanceOptions {
-  vettingProvider?: BrandVettingEnumVettingProvider;
+  vettingProvider?: BrandVettingVettingProvider;
   pageSize?: number;
   limit?: number;
 }
@@ -73,13 +74,13 @@ export interface BrandVettingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { BrandVettingEnumVettingProvider } [vettingProvider] The third-party provider of the vettings to read
+ * @property { BrandVettingVettingProvider } [vettingProvider] The third-party provider of the vettings to read
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BrandVettingListInstancePageOptions {
-  vettingProvider?: BrandVettingEnumVettingProvider;
+  vettingProvider?: BrandVettingVettingProvider;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -158,7 +159,7 @@ interface BrandVettingResource {
   vetting_id?: string | null;
   vetting_class?: string | null;
   vetting_status?: string | null;
-  vetting_provider?: object;
+  vetting_provider?: BrandVettingVettingProvider;
   url?: string | null;
 }
 
@@ -213,7 +214,7 @@ export class BrandVettingInstance {
    * Status of vetting attempt
    */
   vettingStatus?: string | null;
-  vettingProvider?: object;
+  vettingProvider?: BrandVettingVettingProvider;
   /**
    * The absolute URL of the Brand Vetting
    */

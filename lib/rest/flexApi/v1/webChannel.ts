@@ -20,18 +20,19 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type WebChannelChatStatus = 'inactive';
+
 
 /**
  * Options to pass to update a WebChannelInstance
  *
- * @property { WebChannelEnumChatStatus } [chatStatus] 
+ * @property { WebChannelChatStatus } [chatStatus] 
  * @property { string } [postEngagementData] The post-engagement data.
  */
 export interface WebChannelContextUpdateOptions {
-  chatStatus?: WebChannelEnumChatStatus;
+  chatStatus?: WebChannelChatStatus;
   postEngagementData?: string;
 }
-
 
 /**
  * Options to pass to create a WebChannelInstance

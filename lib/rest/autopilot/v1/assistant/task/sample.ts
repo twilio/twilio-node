@@ -34,7 +34,6 @@ export interface SampleContextUpdateOptions {
   sourceChannel?: string;
 }
 
-
 /**
  * Options to pass to create a SampleInstance
  *

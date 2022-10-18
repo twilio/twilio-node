@@ -22,6 +22,10 @@ const serialize = require("../../../base/serialize");
 import { UsageRecordListInstance } from "./sim/usageRecord";
 import { DataSessionListInstance } from "./sim/dataSession";
 
+type SimResetStatus = 'resetting';
+
+type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'scheduled'|'updating';
+
 
 /**
  * Options to pass to update a SimInstance
@@ -31,7 +35,7 @@ import { DataSessionListInstance } from "./sim/dataSession";
  * @property { string } [callbackUrl] The URL we should call using the &#x60;callback_url&#x60; when the SIM has finished updating. When the SIM transitions from &#x60;new&#x60; to &#x60;ready&#x60; or from any status to &#x60;deactivated&#x60;, we call this URL when the status changes to an intermediate status (&#x60;ready&#x60; or &#x60;deactivated&#x60;) and again when the status changes to its final status (&#x60;active&#x60; or &#x60;canceled&#x60;).
  * @property { string } [friendlyName] A descriptive string that you create to describe the Sim resource. It does not need to be unique.
  * @property { string } [ratePlan] The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
- * @property { SimEnumStatus } [status] 
+ * @property { SimStatus } [status] 
  * @property { string } [commandsCallbackMethod] The HTTP method we should use to call &#x60;commands_callback_url&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60;. The default is &#x60;POST&#x60;.
  * @property { string } [commandsCallbackUrl] The URL we should call using the &#x60;commands_callback_method&#x60; when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
  * @property { string } [smsFallbackMethod] The HTTP method we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;. Default is &#x60;POST&#x60;.
@@ -42,7 +46,7 @@ import { DataSessionListInstance } from "./sim/dataSession";
  * @property { string } [voiceFallbackUrl] Deprecated.
  * @property { string } [voiceMethod] Deprecated.
  * @property { string } [voiceUrl] Deprecated.
- * @property { SimEnumResetStatus } [resetStatus] 
+ * @property { SimResetStatus } [resetStatus] 
  * @property { string } [accountSid] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource\\\&#39;s status is &#x60;new&#x60;. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
  */
 export interface SimContextUpdateOptions {
@@ -51,7 +55,7 @@ export interface SimContextUpdateOptions {
   callbackUrl?: string;
   friendlyName?: string;
   ratePlan?: string;
-  status?: SimEnumStatus;
+  status?: SimStatus;
   commandsCallbackMethod?: string;
   commandsCallbackUrl?: string;
   smsFallbackMethod?: string;
@@ -62,14 +66,13 @@ export interface SimContextUpdateOptions {
   voiceFallbackUrl?: string;
   voiceMethod?: string;
   voiceUrl?: string;
-  resetStatus?: SimEnumResetStatus;
+  resetStatus?: SimResetStatus;
   accountSid?: string;
 }
-
 /**
  * Options to pass to each
  *
- * @property { SimEnumStatus } [status] Only return Sim resources with this status.
+ * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
  * @property { string } [eId] Deprecated.
@@ -85,7 +88,7 @@ export interface SimContextUpdateOptions {
  *                         Default is no limit
  */
 export interface SimListInstanceEachOptions {
-  status?: SimEnumStatus;
+  status?: SimStatus;
   iccid?: string;
   ratePlan?: string;
   eId?: string;
@@ -99,7 +102,7 @@ export interface SimListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { SimEnumStatus } [status] Only return Sim resources with this status.
+ * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
  * @property { string } [eId] Deprecated.
@@ -111,7 +114,7 @@ export interface SimListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SimListInstanceOptions {
-  status?: SimEnumStatus;
+  status?: SimStatus;
   iccid?: string;
   ratePlan?: string;
   eId?: string;
@@ -123,7 +126,7 @@ export interface SimListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { SimEnumStatus } [status] Only return Sim resources with this status.
+ * @property { SimStatus } [status] Only return Sim resources with this status.
  * @property { string } [iccid] Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
  * @property { string } [ratePlan] The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
  * @property { string } [eId] Deprecated.
@@ -133,7 +136,7 @@ export interface SimListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SimListInstancePageOptions {
-  status?: SimEnumStatus;
+  status?: SimStatus;
   iccid?: string;
   ratePlan?: string;
   eId?: string;
@@ -322,8 +325,8 @@ interface SimResource {
   friendly_name?: string | null;
   iccid?: string | null;
   e_id?: string | null;
-  status?: object;
-  reset_status?: object;
+  status?: SimStatus;
+  reset_status?: SimResetStatus;
   commands_callback_url?: string | null;
   commands_callback_method?: SimCommandsCallbackMethod;
   sms_fallback_method?: SimSmsFallbackMethod;
@@ -402,8 +405,8 @@ export class SimInstance {
    * Deprecated
    */
   eId?: string | null;
-  status?: object;
-  resetStatus?: object;
+  status?: SimStatus;
+  resetStatus?: SimResetStatus;
   /**
    * The URL we call when the SIM originates a machine-to-machine Command
    */

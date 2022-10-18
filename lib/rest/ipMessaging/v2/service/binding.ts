@@ -20,10 +20,12 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type BindingBindingType = 'gcm'|'apn'|'fcm';
+
 /**
  * Options to pass to each
  *
- * @property { Array<BindingEnumBindingType> } [bindingType] 
+ * @property { Array<BindingBindingType> } [bindingType] 
  * @property { Array<string> } [identity] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
@@ -36,7 +38,7 @@ const serialize = require("../../../../base/serialize");
  *                         Default is no limit
  */
 export interface BindingListInstanceEachOptions {
-  bindingType?: Array<BindingEnumBindingType>;
+  bindingType?: Array<BindingBindingType>;
   identity?: Array<string>;
   pageSize?: number;
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
@@ -47,7 +49,7 @@ export interface BindingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<BindingEnumBindingType> } [bindingType] 
+ * @property { Array<BindingBindingType> } [bindingType] 
  * @property { Array<string> } [identity] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
@@ -56,7 +58,7 @@ export interface BindingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BindingListInstanceOptions {
-  bindingType?: Array<BindingEnumBindingType>;
+  bindingType?: Array<BindingBindingType>;
   identity?: Array<string>;
   pageSize?: number;
   limit?: number;
@@ -65,20 +67,19 @@ export interface BindingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<BindingEnumBindingType> } [bindingType] 
+ * @property { Array<BindingBindingType> } [bindingType] 
  * @property { Array<string> } [identity] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BindingListInstancePageOptions {
-  bindingType?: Array<BindingEnumBindingType>;
+  bindingType?: Array<BindingBindingType>;
   identity?: Array<string>;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -361,7 +362,7 @@ interface BindingResource {
   endpoint?: string | null;
   identity?: string | null;
   credential_sid?: string | null;
-  binding_type?: object;
+  binding_type?: BindingBindingType;
   message_types?: Array<string> | null;
   url?: string | null;
   links?: object | null;
@@ -396,7 +397,7 @@ export class BindingInstance {
   endpoint?: string | null;
   identity?: string | null;
   credentialSid?: string | null;
-  bindingType?: object;
+  bindingType?: BindingBindingType;
   messageTypes?: Array<string> | null;
   url?: string | null;
   links?: object | null;

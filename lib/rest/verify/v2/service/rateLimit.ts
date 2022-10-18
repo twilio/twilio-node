@@ -31,7 +31,6 @@ export interface RateLimitContextUpdateOptions {
   description?: string;
 }
 
-
 /**
  * Options to pass to create a RateLimitInstance
  *

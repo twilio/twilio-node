@@ -45,7 +45,6 @@ export interface AddressContextUpdateOptions {
   autoCorrectAddress?: boolean;
 }
 
-
 /**
  * Options to pass to create a AddressInstance
  *

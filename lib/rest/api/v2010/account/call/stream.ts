@@ -20,23 +20,28 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
+
+type StreamStatus = 'in-progress'|'stopped';
+
+type StreamUpdateStatus = 'stopped';
+
 
 /**
  * Options to pass to update a StreamInstance
  *
- * @property { StreamEnumUpdateStatus } status 
+ * @property { StreamUpdateStatus } status 
  */
 export interface StreamContextUpdateOptions {
-  status: StreamEnumUpdateStatus;
+  status: StreamUpdateStatus;
 }
-
 
 /**
  * Options to pass to create a StreamInstance
  *
  * @property { string } url Relative or absolute url where WebSocket connection will be established.
  * @property { string } [name] The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
- * @property { StreamEnumTrack } [track] 
+ * @property { StreamTrack } [track] 
  * @property { string } [statusCallback] Absolute URL of the status callback.
  * @property { string } [statusCallbackMethod] The http method for the status_callback (one of GET, POST).
  * @property { string } [parameter1Name] Parameter name
@@ -241,7 +246,7 @@ export interface StreamContextUpdateOptions {
 export interface StreamListInstanceCreateOptions {
   url: string;
   name?: string;
-  track?: StreamEnumTrack;
+  track?: StreamTrack;
   statusCallback?: string;
   statusCallbackMethod?: string;
   parameter1Name?: string;
@@ -527,7 +532,7 @@ interface StreamResource {
   account_sid?: string | null;
   call_sid?: string | null;
   name?: string | null;
-  status?: object;
+  status?: StreamStatus;
   date_updated?: string | null;
   uri?: string | null;
 }
@@ -564,7 +569,7 @@ export class StreamInstance {
    * The name of this resource
    */
   name?: string | null;
-  status?: object;
+  status?: StreamStatus;
   /**
    * The RFC 2822 date and time in GMT that this resource was last updated
    */

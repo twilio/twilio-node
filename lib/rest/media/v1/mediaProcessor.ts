@@ -20,16 +20,21 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type MediaProcessorUpdateStatus = 'ended';
+
+type MediaProcessorOrder = 'asc'|'desc';
+
+type MediaProcessorStatus = 'failed'|'started'|'ended';
+
 
 /**
  * Options to pass to update a MediaProcessorInstance
  *
- * @property { MediaProcessorEnumUpdateStatus } status 
+ * @property { MediaProcessorUpdateStatus } status 
  */
 export interface MediaProcessorContextUpdateOptions {
-  status: MediaProcessorEnumUpdateStatus;
+  status: MediaProcessorUpdateStatus;
 }
-
 
 /**
  * Options to pass to create a MediaProcessorInstance
@@ -52,8 +57,8 @@ export interface MediaProcessorListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { MediaProcessorEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaProcessorEnumStatus } [status] Status to filter by, with possible values &#x60;started&#x60;, &#x60;ended&#x60; or &#x60;failed&#x60;.
+ * @property { MediaProcessorOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { MediaProcessorStatus } [status] Status to filter by, with possible values &#x60;started&#x60;, &#x60;ended&#x60; or &#x60;failed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -65,8 +70,8 @@ export interface MediaProcessorListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface MediaProcessorListInstanceEachOptions {
-  order?: MediaProcessorEnumOrder;
-  status?: MediaProcessorEnumStatus;
+  order?: MediaProcessorOrder;
+  status?: MediaProcessorStatus;
   pageSize?: number;
   callback?: (item: MediaProcessorInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -76,8 +81,8 @@ export interface MediaProcessorListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { MediaProcessorEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaProcessorEnumStatus } [status] Status to filter by, with possible values &#x60;started&#x60;, &#x60;ended&#x60; or &#x60;failed&#x60;.
+ * @property { MediaProcessorOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { MediaProcessorStatus } [status] Status to filter by, with possible values &#x60;started&#x60;, &#x60;ended&#x60; or &#x60;failed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -85,8 +90,8 @@ export interface MediaProcessorListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface MediaProcessorListInstanceOptions {
-  order?: MediaProcessorEnumOrder;
-  status?: MediaProcessorEnumStatus;
+  order?: MediaProcessorOrder;
+  status?: MediaProcessorStatus;
   pageSize?: number;
   limit?: number;
 }
@@ -94,15 +99,15 @@ export interface MediaProcessorListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { MediaProcessorEnumOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
- * @property { MediaProcessorEnumStatus } [status] Status to filter by, with possible values &#x60;started&#x60;, &#x60;ended&#x60; or &#x60;failed&#x60;.
+ * @property { MediaProcessorOrder } [order] The sort order of the list by &#x60;date_created&#x60;. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;desc&#x60; as the default.
+ * @property { MediaProcessorStatus } [status] Status to filter by, with possible values &#x60;started&#x60;, &#x60;ended&#x60; or &#x60;failed&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface MediaProcessorListInstancePageOptions {
-  order?: MediaProcessorEnumOrder;
-  status?: MediaProcessorEnumStatus;
+  order?: MediaProcessorOrder;
+  status?: MediaProcessorStatus;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -221,7 +226,7 @@ interface MediaProcessorResource {
   date_updated?: Date | null;
   extension?: string | null;
   extension_context?: string | null;
-  status?: object;
+  status?: MediaProcessorStatus;
   url?: string | null;
   ended_reason?: string | null;
   status_callback?: string | null;
@@ -274,7 +279,7 @@ export class MediaProcessorInstance {
    * The Media Extension context
    */
   extensionContext?: string | null;
-  status?: object;
+  status?: MediaProcessorStatus;
   /**
    * The absolute URL of the resource
    */

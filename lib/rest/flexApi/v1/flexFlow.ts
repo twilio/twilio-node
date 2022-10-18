@@ -20,16 +20,20 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type FlexFlowIntegrationType = 'studio'|'external'|'task';
+
+type FlexFlowChannelType = 'web'|'sms'|'facebook'|'whatsapp'|'line'|'custom';
+
 
 /**
  * Options to pass to update a FlexFlowInstance
  *
  * @property { string } [friendlyName] A descriptive string that you create to describe the Flex Flow resource.
  * @property { string } [chatServiceSid] The SID of the chat service.
- * @property { FlexFlowEnumChannelType } [channelType] 
+ * @property { FlexFlowChannelType } [channelType] 
  * @property { string } [contactIdentity] The channel contact\\\&#39;s Identity.
  * @property { boolean } [enabled] Whether the new Flex Flow is enabled.
- * @property { FlexFlowEnumIntegrationType } [integrationType] 
+ * @property { FlexFlowIntegrationType } [integrationType] 
  * @property { string } [integrationFlowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
  * @property { string } [integrationUrl] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
  * @property { string } [integrationWorkspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
@@ -45,10 +49,10 @@ const serialize = require("../../../base/serialize");
 export interface FlexFlowContextUpdateOptions {
   friendlyName?: string;
   chatServiceSid?: string;
-  channelType?: FlexFlowEnumChannelType;
+  channelType?: FlexFlowChannelType;
   contactIdentity?: string;
   enabled?: boolean;
-  integrationType?: FlexFlowEnumIntegrationType;
+  integrationType?: FlexFlowIntegrationType;
   integrationFlowSid?: string;
   integrationUrl?: string;
   integrationWorkspaceSid?: string;
@@ -62,16 +66,15 @@ export interface FlexFlowContextUpdateOptions {
   integrationRetryCount?: number;
 }
 
-
 /**
  * Options to pass to create a FlexFlowInstance
  *
  * @property { string } friendlyName A descriptive string that you create to describe the Flex Flow resource.
  * @property { string } chatServiceSid The SID of the chat service.
- * @property { FlexFlowEnumChannelType } channelType 
+ * @property { FlexFlowChannelType } channelType 
  * @property { string } [contactIdentity] The channel contact\\\&#39;s Identity.
  * @property { boolean } [enabled] Whether the new Flex Flow is enabled.
- * @property { FlexFlowEnumIntegrationType } [integrationType] 
+ * @property { FlexFlowIntegrationType } [integrationType] 
  * @property { string } [integrationFlowSid] The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
  * @property { string } [integrationUrl] The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
  * @property { string } [integrationWorkspaceSid] The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
@@ -87,10 +90,10 @@ export interface FlexFlowContextUpdateOptions {
 export interface FlexFlowListInstanceCreateOptions {
   friendlyName: string;
   chatServiceSid: string;
-  channelType: FlexFlowEnumChannelType;
+  channelType: FlexFlowChannelType;
   contactIdentity?: string;
   enabled?: boolean;
-  integrationType?: FlexFlowEnumIntegrationType;
+  integrationType?: FlexFlowIntegrationType;
   integrationFlowSid?: string;
   integrationUrl?: string;
   integrationWorkspaceSid?: string;
@@ -314,10 +317,10 @@ interface FlexFlowResource {
   sid?: string | null;
   friendly_name?: string | null;
   chat_service_sid?: string | null;
-  channel_type?: object;
+  channel_type?: FlexFlowChannelType;
   contact_identity?: string | null;
   enabled?: boolean | null;
-  integration_type?: object;
+  integration_type?: FlexFlowIntegrationType;
   integration?: any | null;
   long_lived?: boolean | null;
   janitor_enabled?: boolean | null;
@@ -371,7 +374,7 @@ export class FlexFlowInstance {
    * The SID of the chat service
    */
   chatServiceSid?: string | null;
-  channelType?: object;
+  channelType?: FlexFlowChannelType;
   /**
    * The channel contact\'s Identity
    */
@@ -380,7 +383,7 @@ export class FlexFlowInstance {
    * Whether the Flex Flow is enabled
    */
   enabled?: boolean | null;
-  integrationType?: object;
+  integrationType?: FlexFlowIntegrationType;
   /**
    * An object that contains specific parameters for the integration
    */

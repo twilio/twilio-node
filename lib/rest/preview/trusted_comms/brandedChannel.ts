@@ -22,7 +22,6 @@ const serialize = require("../../../base/serialize");
 import { ChannelListInstance } from "./brandedChannel/channel";
 
 
-
 export interface BrandedChannelContext {
 
   channels: ChannelListInstance;

@@ -92,7 +92,6 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstancePageOption
 
 
 
-
 export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   (sid: string): CustomerProfilesChannelEndpointAssignmentContext;
   get(sid: string): CustomerProfilesChannelEndpointAssignmentContext;

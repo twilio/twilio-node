@@ -20,6 +20,10 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type ConferenceRecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent';
+
+type ConferenceRecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
+
 /**
  * Options to pass to each
  *
@@ -87,15 +91,14 @@ export interface RecordingListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a RecordingInstance
  *
- * @property { ConferenceRecordingEnumStatus } status 
+ * @property { ConferenceRecordingStatus } status 
  * @property { string } [pauseBehavior] Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;.
  */
 export interface RecordingContextUpdateOptions {
-  status: ConferenceRecordingEnumStatus;
+  status: ConferenceRecordingStatus;
   pauseBehavior?: string;
 }
 
@@ -424,9 +427,9 @@ interface RecordingResource {
   sid?: string | null;
   price?: string | null;
   price_unit?: string | null;
-  status?: object;
+  status?: ConferenceRecordingStatus;
   channels?: number | null;
-  source?: object;
+  source?: ConferenceRecordingSource;
   error_code?: number | null;
   encryption_details?: any | null;
   uri?: string | null;
@@ -502,12 +505,12 @@ export class RecordingInstance {
    * The currency used in the price property.
    */
   priceUnit?: string | null;
-  status?: object;
+  status?: ConferenceRecordingStatus;
   /**
    * The number of channels in the final recording file as an integer
    */
   channels?: number | null;
-  source?: object;
+  source?: ConferenceRecordingSource;
   /**
    * More information about why the recording is missing, if status is `absent`.
    */

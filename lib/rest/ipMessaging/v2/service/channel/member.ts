@@ -20,20 +20,22 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type MemberWebhookEnabledType = 'true'|'false';
+
 
 /**
  * Options to pass to remove a MemberInstance
  *
- * @property { MemberEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { MemberWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface MemberContextRemoveOptions {
-  xTwilioWebhookEnabled?: MemberEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a MemberInstance
  *
- * @property { MemberEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { MemberWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [roleSid] 
  * @property { number } [lastConsumedMessageIndex] 
  * @property { Date } [lastConsumptionTimestamp] 
@@ -42,7 +44,7 @@ export interface MemberContextRemoveOptions {
  * @property { string } [attributes] 
  */
 export interface MemberContextUpdateOptions {
-  xTwilioWebhookEnabled?: MemberEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
   roleSid?: string;
   lastConsumedMessageIndex?: number;
   lastConsumptionTimestamp?: Date;
@@ -51,12 +53,11 @@ export interface MemberContextUpdateOptions {
   attributes?: string;
 }
 
-
 /**
  * Options to pass to create a MemberInstance
  *
  * @property { string } identity 
- * @property { MemberEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { MemberWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [roleSid] 
  * @property { number } [lastConsumedMessageIndex] 
  * @property { Date } [lastConsumptionTimestamp] 
@@ -66,7 +67,7 @@ export interface MemberContextUpdateOptions {
  */
 export interface MemberListInstanceCreateOptions {
   identity: string;
-  xTwilioWebhookEnabled?: MemberEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
   roleSid?: string;
   lastConsumedMessageIndex?: number;
   lastConsumptionTimestamp?: Date;

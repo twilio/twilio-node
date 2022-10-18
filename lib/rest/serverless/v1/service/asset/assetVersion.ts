@@ -20,6 +20,7 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type AssetVersionVisibility = 'public'|'private'|'protected';
 
 /**
  * Options to pass to each
@@ -138,7 +139,7 @@ interface AssetVersionResource {
   service_sid?: string | null;
   asset_sid?: string | null;
   path?: string | null;
-  visibility?: object;
+  visibility?: AssetVersionVisibility;
   date_created?: Date | null;
   url?: string | null;
 }
@@ -180,7 +181,7 @@ export class AssetVersionInstance {
    * The URL-friendly string by which the Asset Version can be referenced
    */
   path?: string | null;
-  visibility?: object;
+  visibility?: AssetVersionVisibility;
   /**
    * The ISO 8601 date and time in GMT when the Asset Version resource was created
    */

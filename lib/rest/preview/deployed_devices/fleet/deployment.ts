@@ -32,7 +32,6 @@ export interface DeploymentContextUpdateOptions {
   syncServiceSid?: string;
 }
 
-
 /**
  * Options to pass to create a DeploymentInstance
  *

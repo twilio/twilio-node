@@ -20,20 +20,22 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type MemberWebhookEnabledType = 'true'|'false';
+
 
 /**
  * Options to pass to remove a MemberInstance
  *
- * @property { MemberEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { MemberWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface MemberContextRemoveOptions {
-  xTwilioWebhookEnabled?: MemberEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a MemberInstance
  *
- * @property { MemberEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { MemberWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
  * @property { number } [lastConsumedMessageIndex] The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the Member has read within the [Channel](https://www.twilio.com/docs/chat/channels).
  * @property { Date } [lastConsumptionTimestamp] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
@@ -42,7 +44,7 @@ export interface MemberContextRemoveOptions {
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
  */
 export interface MemberContextUpdateOptions {
-  xTwilioWebhookEnabled?: MemberEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
   roleSid?: string;
   lastConsumedMessageIndex?: number;
   lastConsumptionTimestamp?: Date;
@@ -51,12 +53,11 @@ export interface MemberContextUpdateOptions {
   attributes?: string;
 }
 
-
 /**
  * Options to pass to create a MemberInstance
  *
  * @property { string } identity The &#x60;identity&#x60; value that uniquely identifies the new resource\\\&#39;s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
- * @property { MemberEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { MemberWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [roleSid] The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
  * @property { number } [lastConsumedMessageIndex] The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read. This parameter should only be used when recreating a Member from a backup/separate source.
  * @property { Date } [lastConsumptionTimestamp] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
@@ -66,7 +67,7 @@ export interface MemberContextUpdateOptions {
  */
 export interface MemberListInstanceCreateOptions {
   identity: string;
-  xTwilioWebhookEnabled?: MemberEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: MemberWebhookEnabledType;
   roleSid?: string;
   lastConsumedMessageIndex?: number;
   lastConsumptionTimestamp?: Date;

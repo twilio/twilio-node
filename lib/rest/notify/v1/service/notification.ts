@@ -20,12 +20,14 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type NotificationPriority = 'high'|'low';
+
 
 /**
  * Options to pass to create a NotificationInstance
  *
  * @property { string } [body] The notification text. For FCM and GCM, translates to &#x60;data.twi_body&#x60;. For APNS, translates to &#x60;aps.alert.body&#x60;. For SMS, translates to &#x60;body&#x60;. SMS requires either this &#x60;body&#x60; value, or &#x60;media_urls&#x60; attribute defined in the &#x60;sms&#x60; parameter of the notification.
- * @property { NotificationEnumPriority } [priority] 
+ * @property { NotificationPriority } [priority] 
  * @property { number } [ttl] How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
  * @property { string } [title] The notification title. For FCM and GCM, this translates to the &#x60;data.twi_title&#x60; value. For APNS, this translates to the &#x60;aps.alert.title&#x60; value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
  * @property { string } [sound] The name of the sound to be played for the notification. For FCM and GCM, this Translates to &#x60;data.twi_sound&#x60;.  For APNS, this translates to &#x60;aps.sound&#x60;.  SMS does not support this property.
@@ -45,7 +47,7 @@ const serialize = require("../../../../base/serialize");
  */
 export interface NotificationListInstanceCreateOptions {
   body?: string;
-  priority?: NotificationEnumPriority;
+  priority?: NotificationPriority;
   ttl?: number;
   title?: string;
   sound?: string;
@@ -176,7 +178,7 @@ interface NotificationResource {
   identities?: Array<string> | null;
   tags?: Array<string> | null;
   segments?: Array<string> | null;
-  priority?: object;
+  priority?: NotificationPriority;
   ttl?: number | null;
   title?: string | null;
   body?: string | null;
@@ -248,7 +250,7 @@ export class NotificationInstance {
    * The list of Segments to notify
    */
   segments?: Array<string> | null;
-  priority?: object;
+  priority?: NotificationPriority;
   /**
    * How long, in seconds, the notification is valid
    */

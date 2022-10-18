@@ -24,20 +24,24 @@ import { WebhookListInstance } from "./channel/webhook";
 import { MemberListInstance } from "./channel/member";
 import { InviteListInstance } from "./channel/invite";
 
+type ChannelWebhookEnabledType = 'true'|'false';
+
+type ChannelChannelType = 'public'|'private';
+
 
 /**
  * Options to pass to remove a ChannelInstance
  *
- * @property { ChannelEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  */
 export interface ChannelContextRemoveOptions {
-  xTwilioWebhookEnabled?: ChannelEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
 }
 
 /**
  * Options to pass to update a ChannelInstance
  *
- * @property { ChannelEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 256 characters long.
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL. This value must be 256 characters or less in length and unique within the Service.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
@@ -46,7 +50,7 @@ export interface ChannelContextRemoveOptions {
  * @property { string } [createdBy] The &#x60;identity&#x60; of the User that created the channel. Default is: &#x60;system&#x60;.
  */
 export interface ChannelContextUpdateOptions {
-  xTwilioWebhookEnabled?: ChannelEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
   friendlyName?: string;
   uniqueName?: string;
   attributes?: string;
@@ -55,25 +59,24 @@ export interface ChannelContextUpdateOptions {
   createdBy?: string;
 }
 
-
 /**
  * Options to pass to create a ChannelInstance
  *
- * @property { ChannelEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
  * @property { string } [friendlyName] A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource\\\&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
  * @property { string } [attributes] A valid JSON string that contains application-specific data.
- * @property { ChannelEnumChannelType } [type] 
+ * @property { ChannelChannelType } [type] 
  * @property { Date } [dateCreated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
  * @property { Date } [dateUpdated] The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is &#x60;null&#x60;. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
  * @property { string } [createdBy] The &#x60;identity&#x60; of the User that created the channel. Default is: &#x60;system&#x60;.
  */
 export interface ChannelListInstanceCreateOptions {
-  xTwilioWebhookEnabled?: ChannelEnumWebhookEnabledType;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
   friendlyName?: string;
   uniqueName?: string;
   attributes?: string;
-  type?: ChannelEnumChannelType;
+  type?: ChannelChannelType;
   dateCreated?: Date;
   dateUpdated?: Date;
   createdBy?: string;
@@ -81,7 +84,7 @@ export interface ChannelListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { Array<ChannelEnumChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -93,7 +96,7 @@ export interface ChannelListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceEachOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -103,7 +106,7 @@ export interface ChannelListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<ChannelEnumChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -111,7 +114,7 @@ export interface ChannelListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface ChannelListInstanceOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   limit?: number;
 }
@@ -119,13 +122,13 @@ export interface ChannelListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<ChannelEnumChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+ * @property { Array<ChannelChannelType> } [type] The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface ChannelListInstancePageOptions {
-  type?: Array<ChannelEnumChannelType>;
+  type?: Array<ChannelChannelType>;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -329,7 +332,7 @@ interface ChannelResource {
   friendly_name?: string | null;
   unique_name?: string | null;
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   date_created?: Date | null;
   date_updated?: Date | null;
   created_by?: string | null;
@@ -386,7 +389,7 @@ export class ChannelInstance {
    * The JSON string that stores application-specific data
    */
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

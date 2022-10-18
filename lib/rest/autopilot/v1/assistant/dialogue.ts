@@ -21,7 +21,6 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
-
 export interface DialogueListInstance {
   (sid: string): DialogueContext;
   get(sid: string): DialogueContext;

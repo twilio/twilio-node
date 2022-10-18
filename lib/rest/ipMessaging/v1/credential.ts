@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type CredentialPushService = 'gcm'|'apn'|'fcm';
+
 
 /**
  * Options to pass to update a CredentialInstance
@@ -40,11 +42,10 @@ export interface CredentialContextUpdateOptions {
   secret?: string;
 }
 
-
 /**
  * Options to pass to create a CredentialInstance
  *
- * @property { CredentialEnumPushService } type 
+ * @property { CredentialPushService } type 
  * @property { string } [friendlyName] 
  * @property { string } [certificate] 
  * @property { string } [privateKey] 
@@ -53,7 +54,7 @@ export interface CredentialContextUpdateOptions {
  * @property { string } [secret] 
  */
 export interface CredentialListInstanceCreateOptions {
-  type: CredentialEnumPushService;
+  type: CredentialPushService;
   friendlyName?: string;
   certificate?: string;
   privateKey?: string;
@@ -252,7 +253,7 @@ interface CredentialResource {
   sid?: string | null;
   account_sid?: string | null;
   friendly_name?: string | null;
-  type?: object;
+  type?: CredentialPushService;
   sandbox?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -279,7 +280,7 @@ export class CredentialInstance {
   sid?: string | null;
   accountSid?: string | null;
   friendlyName?: string | null;
-  type?: object;
+  type?: CredentialPushService;
   sandbox?: string | null;
   dateCreated?: Date | null;
   dateUpdated?: Date | null;

@@ -22,12 +22,16 @@ const serialize = require("../../../base/serialize");
 import { BillingPeriodListInstance } from "./sim/billingPeriod";
 import { SimIpAddressListInstance } from "./sim/simIpAddress";
 
+type SimStatus = 'new'|'ready'|'active'|'inactive'|'scheduled';
+
+type SimStatusUpdate = 'ready'|'active'|'inactive';
+
 
 /**
  * Options to pass to update a SimInstance
  *
  * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. It can be used in place of the resource\\\&#39;s &#x60;sid&#x60; in the URL to address the resource.
- * @property { SimEnumStatusUpdate } [status] 
+ * @property { SimStatusUpdate } [status] 
  * @property { string } [fleet] The SID or unique name of the Fleet to which the SIM resource should be assigned.
  * @property { string } [callbackUrl] The URL we should call using the &#x60;callback_method&#x60; after an asynchronous update has finished.
  * @property { string } [callbackMethod] The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is POST.
@@ -35,13 +39,12 @@ import { SimIpAddressListInstance } from "./sim/simIpAddress";
  */
 export interface SimContextUpdateOptions {
   uniqueName?: string;
-  status?: SimEnumStatusUpdate;
+  status?: SimStatusUpdate;
   fleet?: string;
   callbackUrl?: string;
   callbackMethod?: string;
   accountSid?: string;
 }
-
 
 /**
  * Options to pass to create a SimInstance
@@ -56,7 +59,7 @@ export interface SimListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { SimEnumStatus } [status] The status of the Sim resources to read. Can be &#x60;new&#x60;, &#x60;ready&#x60;, &#x60;active&#x60;, &#x60;inactive&#x60;, or &#x60;scheduled&#x60;.
+ * @property { SimStatus } [status] The status of the Sim resources to read. Can be &#x60;new&#x60;, &#x60;ready&#x60;, &#x60;active&#x60;, &#x60;inactive&#x60;, or &#x60;scheduled&#x60;.
  * @property { string } [fleet] The SID or unique name of the Fleet to which a list of Sims are assigned.
  * @property { string } [iccid] The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -70,7 +73,7 @@ export interface SimListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface SimListInstanceEachOptions {
-  status?: SimEnumStatus;
+  status?: SimStatus;
   fleet?: string;
   iccid?: string;
   pageSize?: number;
@@ -82,7 +85,7 @@ export interface SimListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { SimEnumStatus } [status] The status of the Sim resources to read. Can be &#x60;new&#x60;, &#x60;ready&#x60;, &#x60;active&#x60;, &#x60;inactive&#x60;, or &#x60;scheduled&#x60;.
+ * @property { SimStatus } [status] The status of the Sim resources to read. Can be &#x60;new&#x60;, &#x60;ready&#x60;, &#x60;active&#x60;, &#x60;inactive&#x60;, or &#x60;scheduled&#x60;.
  * @property { string } [fleet] The SID or unique name of the Fleet to which a list of Sims are assigned.
  * @property { string } [iccid] The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -92,7 +95,7 @@ export interface SimListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface SimListInstanceOptions {
-  status?: SimEnumStatus;
+  status?: SimStatus;
   fleet?: string;
   iccid?: string;
   pageSize?: number;
@@ -102,7 +105,7 @@ export interface SimListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { SimEnumStatus } [status] The status of the Sim resources to read. Can be &#x60;new&#x60;, &#x60;ready&#x60;, &#x60;active&#x60;, &#x60;inactive&#x60;, or &#x60;scheduled&#x60;.
+ * @property { SimStatus } [status] The status of the Sim resources to read. Can be &#x60;new&#x60;, &#x60;ready&#x60;, &#x60;active&#x60;, &#x60;inactive&#x60;, or &#x60;scheduled&#x60;.
  * @property { string } [fleet] The SID or unique name of the Fleet to which a list of Sims are assigned.
  * @property { string } [iccid] The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -110,7 +113,7 @@ export interface SimListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface SimListInstancePageOptions {
-  status?: SimEnumStatus;
+  status?: SimStatus;
   fleet?: string;
   iccid?: string;
   pageSize?: number;
@@ -254,7 +257,7 @@ interface SimResource {
   unique_name?: string | null;
   account_sid?: string | null;
   iccid?: string | null;
-  status?: object;
+  status?: SimStatus;
   fleet_sid?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -297,7 +300,7 @@ export class SimInstance {
    * The ICCID associated with the SIM
    */
   iccid?: string | null;
-  status?: object;
+  status?: SimStatus;
   /**
    * The unique ID of the Fleet configured for this SIM
    */

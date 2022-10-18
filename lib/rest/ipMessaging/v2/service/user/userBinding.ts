@@ -20,11 +20,12 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+type UserBindingBindingType = 'gcm'|'apn'|'fcm';
 
 /**
  * Options to pass to each
  *
- * @property { Array<UserBindingEnumBindingType> } [bindingType] 
+ * @property { Array<UserBindingBindingType> } [bindingType] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -36,7 +37,7 @@ const serialize = require("../../../../../base/serialize");
  *                         Default is no limit
  */
 export interface UserBindingListInstanceEachOptions {
-  bindingType?: Array<UserBindingEnumBindingType>;
+  bindingType?: Array<UserBindingBindingType>;
   pageSize?: number;
   callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -46,7 +47,7 @@ export interface UserBindingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { Array<UserBindingEnumBindingType> } [bindingType] 
+ * @property { Array<UserBindingBindingType> } [bindingType] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -54,7 +55,7 @@ export interface UserBindingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface UserBindingListInstanceOptions {
-  bindingType?: Array<UserBindingEnumBindingType>;
+  bindingType?: Array<UserBindingBindingType>;
   pageSize?: number;
   limit?: number;
 }
@@ -62,13 +63,13 @@ export interface UserBindingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { Array<UserBindingEnumBindingType> } [bindingType] 
+ * @property { Array<UserBindingBindingType> } [bindingType] 
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface UserBindingListInstancePageOptions {
-  bindingType?: Array<UserBindingEnumBindingType>;
+  bindingType?: Array<UserBindingBindingType>;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -171,7 +172,7 @@ interface UserBindingResource {
   identity?: string | null;
   user_sid?: string | null;
   credential_sid?: string | null;
-  binding_type?: object;
+  binding_type?: UserBindingBindingType;
   message_types?: Array<string> | null;
   url?: string | null;
 }
@@ -206,7 +207,7 @@ export class UserBindingInstance {
   identity?: string | null;
   userSid?: string | null;
   credentialSid?: string | null;
-  bindingType?: object;
+  bindingType?: UserBindingBindingType;
   messageTypes?: Array<string> | null;
   url?: string | null;
 

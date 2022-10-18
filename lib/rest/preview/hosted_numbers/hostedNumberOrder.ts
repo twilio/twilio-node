@@ -20,6 +20,21 @@ import HostedNumbers from "../HostedNumbers";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+/**
+ * A mapping of phone number capabilities.
+ */
+export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities {
+  "mms"?: boolean;
+  "sms"?: boolean;
+  "voice"?: boolean;
+  "fax"?: boolean;
+}
+
+
+type HostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
+
+type HostedNumberOrderVerificationType = 'phone-call'|'phone-bill';
+
 
 /**
  * Options to pass to update a HostedNumberOrderInstance
@@ -28,9 +43,9 @@ const serialize = require("../../../base/serialize");
  * @property { string } [uniqueName] Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
  * @property { string } [email] Email of the owner of this phone number that is being hosted.
  * @property { Array<string> } [ccEmails] Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
- * @property { HostedNumberOrderEnumStatus } [status] 
+ * @property { HostedNumberOrderStatus } [status] 
  * @property { string } [verificationCode] A verification code that is given to the user via a phone call to the phone number that is being hosted.
- * @property { HostedNumberOrderEnumVerificationType } [verificationType] 
+ * @property { HostedNumberOrderVerificationType } [verificationType] 
  * @property { string } [verificationDocumentSid] Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
  * @property { string } [extension] Digits to dial after connecting the verification call.
  * @property { number } [callDelay] The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
@@ -40,14 +55,13 @@ export interface HostedNumberOrderContextUpdateOptions {
   uniqueName?: string;
   email?: string;
   ccEmails?: Array<string>;
-  status?: HostedNumberOrderEnumStatus;
+  status?: HostedNumberOrderStatus;
   verificationCode?: string;
-  verificationType?: HostedNumberOrderEnumVerificationType;
+  verificationType?: HostedNumberOrderVerificationType;
   verificationDocumentSid?: string;
   extension?: string;
   callDelay?: number;
 }
-
 
 /**
  * Options to pass to create a HostedNumberOrderInstance
@@ -67,7 +81,7 @@ export interface HostedNumberOrderContextUpdateOptions {
  * @property { string } [smsApplicationSid] Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a &#x60;SmsApplicationSid&#x60; is present, Twilio will ignore all of the SMS urls above and use those set on the application.
  * @property { string } [addressSid] Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
  * @property { string } [email] Optional. Email of the owner of this phone number that is being hosted.
- * @property { HostedNumberOrderEnumVerificationType } [verificationType] 
+ * @property { HostedNumberOrderVerificationType } [verificationType] 
  * @property { string } [verificationDocumentSid] Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
  */
 export interface HostedNumberOrderListInstanceCreateOptions {
@@ -86,13 +100,13 @@ export interface HostedNumberOrderListInstanceCreateOptions {
   smsApplicationSid?: string;
   addressSid?: string;
   email?: string;
-  verificationType?: HostedNumberOrderEnumVerificationType;
+  verificationType?: HostedNumberOrderVerificationType;
   verificationDocumentSid?: string;
 }
 /**
  * Options to pass to each
  *
- * @property { HostedNumberOrderEnumStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
+ * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
@@ -108,7 +122,7 @@ export interface HostedNumberOrderListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface HostedNumberOrderListInstanceEachOptions {
-  status?: HostedNumberOrderEnumStatus;
+  status?: HostedNumberOrderStatus;
   phoneNumber?: string;
   incomingPhoneNumberSid?: string;
   friendlyName?: string;
@@ -122,7 +136,7 @@ export interface HostedNumberOrderListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { HostedNumberOrderEnumStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
+ * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
@@ -134,7 +148,7 @@ export interface HostedNumberOrderListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface HostedNumberOrderListInstanceOptions {
-  status?: HostedNumberOrderEnumStatus;
+  status?: HostedNumberOrderStatus;
   phoneNumber?: string;
   incomingPhoneNumberSid?: string;
   friendlyName?: string;
@@ -146,7 +160,7 @@ export interface HostedNumberOrderListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { HostedNumberOrderEnumStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
+ * @property { HostedNumberOrderStatus } [status] The Status of this HostedNumberOrder. One of &#x60;received&#x60;, &#x60;pending-verification&#x60;, &#x60;verified&#x60;, &#x60;pending-loa&#x60;, &#x60;carrier-processing&#x60;, &#x60;testing&#x60;, &#x60;completed&#x60;, &#x60;failed&#x60;, or &#x60;action-required&#x60;.
  * @property { string } [phoneNumber] An E164 formatted phone number hosted by this HostedNumberOrder.
  * @property { string } [incomingPhoneNumberSid] A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
  * @property { string } [friendlyName] A human readable description of this resource, up to 64 characters.
@@ -156,7 +170,7 @@ export interface HostedNumberOrderListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface HostedNumberOrderListInstancePageOptions {
-  status?: HostedNumberOrderEnumStatus;
+  status?: HostedNumberOrderStatus;
   phoneNumber?: string;
   incomingPhoneNumberSid?: string;
   friendlyName?: string;
@@ -317,10 +331,10 @@ interface HostedNumberOrderResource {
   address_sid?: string | null;
   signing_document_sid?: string | null;
   phone_number?: string | null;
-  capabilities?: object | null;
+  capabilities?: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities | null;
   friendly_name?: string | null;
   unique_name?: string | null;
-  status?: object;
+  status?: HostedNumberOrderStatus;
   failure_reason?: string | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -328,7 +342,7 @@ interface HostedNumberOrderResource {
   email?: string | null;
   cc_emails?: Array<string> | null;
   url?: string | null;
-  verification_type?: object;
+  verification_type?: HostedNumberOrderVerificationType;
   verification_document_sid?: string | null;
   extension?: string | null;
   call_delay?: number | null;
@@ -392,7 +406,7 @@ export class HostedNumberOrderInstance {
    * An E164 formatted phone number.
    */
   phoneNumber?: string | null;
-  capabilities?: object | null;
+  capabilities?: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities | null;
   /**
    * A human readable description of this resource.
    */
@@ -401,7 +415,7 @@ export class HostedNumberOrderInstance {
    * A unique, developer assigned name of this HostedNumberOrder.
    */
   uniqueName?: string | null;
-  status?: object;
+  status?: HostedNumberOrderStatus;
   /**
    * Why a hosted_number_order reached status \"action-required\"
    */
@@ -430,7 +444,7 @@ export class HostedNumberOrderInstance {
    * The URL of this HostedNumberOrder.
    */
   url?: string | null;
-  verificationType?: object;
+  verificationType?: HostedNumberOrderVerificationType;
   /**
    * Verification Document Sid.
    */

@@ -20,20 +20,23 @@ import V3 from "../V3";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+type ChannelWebhookEnabledType = 'true'|'false';
+
+type ChannelChannelType = 'public'|'private';
+
 
 /**
  * Options to pass to update a ChannelInstance
  *
- * @property { ChannelEnumWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { ChannelEnumChannelType } [type] 
+ * @property { ChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { ChannelChannelType } [type] 
  * @property { string } [messagingServiceSid] The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
  */
 export interface ChannelContextUpdateOptions {
-  xTwilioWebhookEnabled?: ChannelEnumWebhookEnabledType;
-  type?: ChannelEnumChannelType;
+  xTwilioWebhookEnabled?: ChannelWebhookEnabledType;
+  type?: ChannelChannelType;
   messagingServiceSid?: string;
 }
-
 
 export interface ChannelContext {
 
@@ -129,7 +132,7 @@ interface ChannelResource {
   friendly_name?: string | null;
   unique_name?: string | null;
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   date_created?: Date | null;
   date_updated?: Date | null;
   created_by?: string | null;
@@ -186,7 +189,7 @@ export class ChannelInstance {
    * The JSON string that stores application-specific data
    */
   attributes?: string | null;
-  type?: object;
+  type?: ChannelChannelType;
   /**
    * The ISO 8601 date and time in GMT when the resource was created
    */

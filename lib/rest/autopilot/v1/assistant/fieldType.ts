@@ -81,7 +81,6 @@ export interface FieldTypeListInstancePageOptions {
 
 
 
-
 /**
  * Options to pass to update a FieldTypeInstance
  *

@@ -20,17 +20,19 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+type RoleRoleType = 'channel'|'deployment';
+
 
 /**
  * Options to pass to create a RoleInstance
  *
  * @property { string } friendlyName A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
- * @property { RoleEnumRoleType } type 
+ * @property { RoleRoleType } type 
  * @property { Array<string> } permission A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role\\\&#39;s &#x60;type&#x60; and are described in the documentation.
  */
 export interface RoleListInstanceCreateOptions {
   friendlyName: string;
-  type: RoleEnumRoleType;
+  type: RoleRoleType;
   permission: Array<string>;
 }
 /**
@@ -79,7 +81,6 @@ export interface RoleListInstancePageOptions {
   pageNumber?: number;
   pageToken?: string;
 }
-
 
 
 
@@ -457,7 +458,7 @@ interface RoleResource {
   account_sid?: string | null;
   service_sid?: string | null;
   friendly_name?: string | null;
-  type?: object;
+  type?: RoleRoleType;
   permissions?: Array<string> | null;
   date_created?: Date | null;
   date_updated?: Date | null;
@@ -498,7 +499,7 @@ export class RoleInstance {
    * The string that you assigned to describe the resource
    */
   friendlyName?: string | null;
-  type?: object;
+  type?: RoleRoleType;
   /**
    * An array of the permissions the role has been granted
    */
