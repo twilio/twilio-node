@@ -182,7 +182,7 @@ export interface TaskContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a TaskInstance
    *
@@ -486,7 +486,7 @@ export class TaskInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a TaskInstance
    *

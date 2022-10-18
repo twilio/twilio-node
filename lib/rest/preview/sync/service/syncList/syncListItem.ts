@@ -357,7 +357,7 @@ export interface SyncListItemContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: SyncListItemInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a SyncListItemInstance
    *
@@ -551,7 +551,7 @@ export class SyncListItemInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: SyncListItemInstance) => any): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>;
   /**
    * Remove a SyncListItemInstance
    *

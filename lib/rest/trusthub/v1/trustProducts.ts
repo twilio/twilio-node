@@ -373,7 +373,7 @@ export interface TrustProductsContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
 
   /**
@@ -611,7 +611,7 @@ export class TrustProductsInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: TrustProductsInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
      {
     return this._proxy.remove(callback);
   }

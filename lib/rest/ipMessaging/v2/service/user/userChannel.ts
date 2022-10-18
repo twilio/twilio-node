@@ -279,7 +279,7 @@ export interface UserChannelContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: UserChannelInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
 
   /**
@@ -462,7 +462,7 @@ export class UserChannelInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: UserChannelInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
      {
     return this._proxy.remove(callback);
   }

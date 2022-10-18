@@ -90,7 +90,7 @@ export interface FieldContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: FieldInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
 
   /**
@@ -241,7 +241,7 @@ export class FieldInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: FieldInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
      {
     return this._proxy.remove(callback);
   }

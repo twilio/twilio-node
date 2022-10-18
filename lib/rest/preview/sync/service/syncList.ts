@@ -323,7 +323,7 @@ export interface SyncListContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: SyncListInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
 
   /**
@@ -465,7 +465,7 @@ export class SyncListInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: SyncListInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
      {
     return this._proxy.remove(callback);
   }

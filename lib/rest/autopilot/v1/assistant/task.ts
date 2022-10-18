@@ -117,7 +117,7 @@ export interface TaskContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
 
   /**
@@ -352,7 +352,7 @@ export class TaskInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: TaskInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
      {
     return this._proxy.remove(callback);
   }

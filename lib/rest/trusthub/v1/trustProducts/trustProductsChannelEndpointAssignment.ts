@@ -102,7 +102,7 @@ export interface TrustProductsChannelEndpointAssignmentContext {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: TrustProductsChannelEndpointAssignmentInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
 
   /**
@@ -244,7 +244,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
    *
    * @returns { Promise } Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: TrustProductsChannelEndpointAssignmentInstance) => any): Promise<boolean>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
      {
     return this._proxy.remove(callback);
   }
