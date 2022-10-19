@@ -97,8 +97,8 @@ describe('Validating Request', function () {
     validationServer.listen(portNumber);
     console.log("server listening to port")
     console.log("setting up localtunnel")
-    tunnel = await localtunnel({port: portNumber});
-    //tunnel.on('error', (er) => console.log("err: ", ++count, " => ", er))
+    tunnel = await localtunnel({port: portNumber, subdomain:'twilio-node-cluster-test'});
+    tunnel.on('error', (er) => console.log("err: ", ++count, " => ", er))
     console.log(tunnel.url)
   });
 
@@ -130,7 +130,7 @@ describe('Validating Request', function () {
             properties: {
               method: method,
               content_type: "application/x-www-form-urlencoded;charset=utf-8",
-              url: url
+              url: "https://twilio-node-cluster-test.loca.lt"
             }
           }
         ],
