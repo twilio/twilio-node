@@ -74,7 +74,7 @@ describe('Validating Request', function () {
   let tunnel;
   let flowSid;
   let validationServer;
-  let portNumber = 8080;
+  let portNumber = 7777;
   beforeAll(async () => {
     validationServer = await http.createServer((req, res) => {
       let url = req.headers["x-forwarded-proto"] + "://" + req.headers["host"] + req.url
