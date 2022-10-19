@@ -5,7 +5,7 @@ jest.setTimeout(10000);
 
 const twilio = require('./lib/index.js');
 const http = require('http');
-const localtunnel = require('localtunnel');
+const mytunnel = require('mytunnel');
 
 const fromNumber = process.env.TWILIO_FROM_NUMBER;
 const toNumber = process.env.TWILIO_TO_NUMBER;
@@ -75,7 +75,6 @@ describe('Validating Request', function () {
   let flowSid;
   let validationServer;
   let portNumber = 7777;
-  let count = 0;
   beforeAll(async () => {
     validationServer = await http.createServer((req, res) => {
       let url = req.headers["x-forwarded-proto"] + "://" + req.headers["host"] + req.url
@@ -97,8 +96,7 @@ describe('Validating Request', function () {
     validationServer.listen(portNumber);
     console.log("server listening to port")
     console.log("setting up localtunnel")
-    tunnel = await localtunnel({port: portNumber, subdomain:'twilio-node-cluster-test'});
-    tunnel.on('error', (er) => console.log("err: ", ++count, " => ", er))
+    tunnel = await mytunnel({port: portNumber});
     console.log(tunnel.url)
   });
 
