@@ -1,7 +1,7 @@
 'use strict';
 
 import {FlowInstance} from "./lib/rest/studio/v2/flow";
-jest.setTimeout(100000);
+jest.setTimeout(10000);
 
 const twilio = require('./lib/index.js');
 const http = require('http');
@@ -98,8 +98,8 @@ describe('Validating Request', function () {
     console.log("server listening to port")
     console.log("setting up localtunnel")
     tunnel = await localtunnel({port: portNumber});
-    await tunnel.on('error', (er) => console.log("callback err: ", ++count ," => ", er))
-  });
+    tunnel.on('error', (er) => console.log("callback err: ", ++count ," => ", er))
+    console.log(tunnel.url)
 
   afterAll(() => {
     tunnel.close();
