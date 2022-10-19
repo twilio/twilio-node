@@ -98,7 +98,7 @@ describe('Validating Request', function () {
     console.log("server listening to port")
     console.log("setting up localtunnel")
     tunnel = await localtunnel({port: portNumber});
-    tunnel.on('error', (er) => console.log("callback err: ", ++count, " => ", er))
+    //tunnel.on('error', (er) => console.log("err: ", ++count, " => ", er))
     console.log(tunnel.url)
   });
 
