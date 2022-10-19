@@ -95,9 +95,9 @@ describe('Validating Request', function () {
 
     validationServer.listen(portNumber);
     console.log("server listening to port")
-      console.log("setting up localtunnel")
-      tunnel = await localtunnel({port: portNumber}).catch(e => console.log("I have caught an err : ", e));
-  }).catch(e => console.log("I have caught an err outside: ", e));
+    console.log("setting up localtunnel")
+    tunnel = await localtunnel({port: portNumber}).catch(e => console.log("I have caught an err : ", e));
+  });
 
   afterAll(() => {
     tunnel.close();
