@@ -88,13 +88,19 @@ describe('Validating Request', function () {
         let params = new URLSearchParams(body);
         let paramObject = Object.fromEntries(params.entries());
         let requestIsValid = twilio.validateRequest(authToken, signatureHeader, url, paramObject)
-        console.log("validating")
+        console.log("validating request")
         expect(requestIsValid).toBeTruthy();
       });
     });
 
     validationServer.listen(portNumber);
-    tunnel = await localtunnel({port: portNumber});
+    console.log("server listening to port")
+    try {
+      console.log("setting up localtunnel")
+      tunnel = await localtunnel({port: portNumber});
+    } catch (e) {
+      console.log("I have caught an err : ", e )
+    }
   });
 
   afterAll(() => {
@@ -148,7 +154,6 @@ describe('Validating Request', function () {
 
   test("Should validate incoming GET request", async () => {
     await validateRequest('GET');
-
   })
 
   test("Should validate incoming POST request", async () => {
