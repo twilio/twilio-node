@@ -154,6 +154,10 @@ export interface FlowTestUserListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FlowTestUserSolution {
+  sid?: string;
+}
+
 interface FlowTestUserListInstanceImpl extends FlowTestUserListInstance {}
 class FlowTestUserListInstanceImpl implements FlowTestUserListInstance {
   _version?: V2;
@@ -243,15 +247,12 @@ interface FlowTestUserResource {
 }
 
 export class FlowTestUserInstance {
-  protected _solution: FlowTestUserSolution;
-  protected _context?: FlowTestUserListInstance;
 
   constructor(protected _version: V2, payload: FlowTestUserPayload, sid?: string) {
     this.sid = payload.sid;
     this.testUsers = payload.test_users;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
   }
 
   /**
@@ -283,9 +284,6 @@ export class FlowTestUserInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FlowTestUserSolution {
-  sid?: string;
 }
 
 export class FlowTestUserPage extends Page<V2, FlowTestUserPayload, FlowTestUserResource, FlowTestUserInstance> {

@@ -60,6 +60,12 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NotificationSolution {
+  serviceSid?: string;
+  identity?: string;
+  challengeSid?: string;
+}
+
 interface NotificationListInstanceImpl extends NotificationListInstance {}
 class NotificationListInstanceImpl implements NotificationListInstance {
   _version?: V2;
@@ -130,8 +136,6 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
-  protected _solution: NotificationSolution;
-  protected _context?: NotificationListInstance;
 
   constructor(protected _version: V2, payload: NotificationPayload, serviceSid: string, identity: string, challengeSid?: string) {
     this.sid = payload.sid;
@@ -144,7 +148,6 @@ export class NotificationInstance {
     this.ttl = deserialize.integer(payload.ttl);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
-    this._solution = { serviceSid, identity, challengeSid: challengeSid || this.challengeSid };
   }
 
   /**
@@ -206,11 +209,6 @@ export class NotificationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NotificationSolution {
-  serviceSid?: string;
-  identity?: string;
-  challengeSid?: string;
 }
 
 export class NotificationPage extends Page<V2, NotificationPayload, NotificationResource, NotificationInstance> {

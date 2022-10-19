@@ -244,6 +244,9 @@ export interface IpCommandListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpCommandSolution {
+}
+
 interface IpCommandListInstanceImpl extends IpCommandListInstance {}
 class IpCommandListInstanceImpl implements IpCommandListInstance {
   _version?: V1;
@@ -379,8 +382,12 @@ export interface IpCommandContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpCommandContextSolution {
+  sid?: string;
+}
+
 export class IpCommandContextImpl implements IpCommandContext {
-  protected _solution: IpCommandSolution;
+  protected _solution: IpCommandContextSolution;
   protected _uri: string;
 
 
@@ -438,7 +445,7 @@ interface IpCommandResource {
 }
 
 export class IpCommandInstance {
-  protected _solution: IpCommandSolution;
+  protected _solution: IpCommandContextSolution;
   protected _context?: IpCommandContext;
 
   constructor(protected _version: V1, payload: IpCommandPayload, sid?: string) {
@@ -546,9 +553,6 @@ export class IpCommandInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface IpCommandSolution {
-  sid?: string;
 }
 
 export class IpCommandPage extends Page<V1, IpCommandPayload, IpCommandResource, IpCommandInstance> {

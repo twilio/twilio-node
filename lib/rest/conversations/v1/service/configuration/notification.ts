@@ -186,6 +186,10 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NotificationSolution {
+  chatServiceSid?: string;
+}
+
 interface NotificationListInstanceImpl extends NotificationListInstance {}
 class NotificationListInstanceImpl implements NotificationListInstance {
   _version?: V1;
@@ -290,8 +294,6 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
-  protected _solution: NotificationSolution;
-  protected _context?: NotificationListInstance;
 
   constructor(protected _version: V1, payload: NotificationPayload, chatServiceSid?: string) {
     this.accountSid = payload.account_sid;
@@ -302,7 +304,6 @@ export class NotificationInstance {
     this.logEnabled = payload.log_enabled;
     this.url = payload.url;
 
-    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
   }
 
   /**
@@ -354,9 +355,6 @@ export class NotificationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NotificationSolution {
-  chatServiceSid?: string;
 }
 
 export class NotificationPage extends Page<V1, NotificationPayload, NotificationResource, NotificationInstance> {

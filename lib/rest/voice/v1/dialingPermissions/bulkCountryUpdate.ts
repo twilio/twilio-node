@@ -52,6 +52,9 @@ export interface BulkCountryUpdateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BulkCountryUpdateSolution {
+}
+
 interface BulkCountryUpdateListInstanceImpl extends BulkCountryUpdateListInstance {}
 class BulkCountryUpdateListInstanceImpl implements BulkCountryUpdateListInstance {
   _version?: V1;
@@ -116,14 +119,11 @@ interface BulkCountryUpdateResource {
 }
 
 export class BulkCountryUpdateInstance {
-  protected _solution: BulkCountryUpdateSolution;
-  protected _context?: BulkCountryUpdateListInstance;
 
   constructor(protected _version: V1, payload: BulkCountryUpdatePayload) {
     this.updateCount = deserialize.integer(payload.update_count);
     this.updateRequest = payload.update_request;
 
-    this._solution = {  };
   }
 
   /**
@@ -150,8 +150,6 @@ export class BulkCountryUpdateInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface BulkCountryUpdateSolution {
 }
 
 export class BulkCountryUpdatePage extends Page<V1, BulkCountryUpdatePayload, BulkCountryUpdateResource, BulkCountryUpdateInstance> {

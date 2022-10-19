@@ -172,6 +172,11 @@ export interface SubscribeRulesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SubscribeRulesSolution {
+  roomSid?: string;
+  participantSid?: string;
+}
+
 interface SubscribeRulesListInstanceImpl extends SubscribeRulesListInstance {}
 class SubscribeRulesListInstanceImpl implements SubscribeRulesListInstance {
   _version?: V1;
@@ -262,8 +267,6 @@ interface SubscribeRulesResource {
 }
 
 export class SubscribeRulesInstance {
-  protected _solution: SubscribeRulesSolution;
-  protected _context?: SubscribeRulesListInstance;
 
   constructor(protected _version: V1, payload: SubscribeRulesPayload, roomSid: string, participantSid?: string) {
     this.participantSid = payload.participant_sid;
@@ -272,7 +275,6 @@ export class SubscribeRulesInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { roomSid, participantSid: participantSid || this.participantSid };
   }
 
   /**
@@ -314,10 +316,6 @@ export class SubscribeRulesInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SubscribeRulesSolution {
-  roomSid?: string;
-  participantSid?: string;
 }
 
 export class SubscribeRulesPage extends Page<V1, SubscribeRulesPayload, SubscribeRulesResource, SubscribeRulesInstance> {

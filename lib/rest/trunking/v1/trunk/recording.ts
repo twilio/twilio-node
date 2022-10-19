@@ -168,6 +168,10 @@ export interface RecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RecordingSolution {
+  trunkSid?: string;
+}
+
 interface RecordingListInstanceImpl extends RecordingListInstance {}
 class RecordingListInstanceImpl implements RecordingListInstance {
   _version?: V1;
@@ -256,14 +260,11 @@ interface RecordingResource {
 }
 
 export class RecordingInstance {
-  protected _solution: RecordingSolution;
-  protected _context?: RecordingListInstance;
 
   constructor(protected _version: V1, payload: RecordingPayload, trunkSid?: string) {
     this.mode = payload.mode;
     this.trim = payload.trim;
 
-    this._solution = { trunkSid: trunkSid || this.trunkSid };
   }
 
   mode?: RecordingRecordingMode;
@@ -284,9 +285,6 @@ export class RecordingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RecordingSolution {
-  trunkSid?: string;
 }
 
 export class RecordingPage extends Page<V1, RecordingPayload, RecordingResource, RecordingInstance> {

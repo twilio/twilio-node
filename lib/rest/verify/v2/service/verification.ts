@@ -101,8 +101,13 @@ export interface VerificationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface VerificationContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class VerificationContextImpl implements VerificationContext {
-  protected _solution: VerificationSolution;
+  protected _solution: VerificationContextSolution;
   protected _uri: string;
 
 
@@ -191,7 +196,7 @@ interface VerificationResource {
 }
 
 export class VerificationInstance {
-  protected _solution: VerificationSolution;
+  protected _solution: VerificationContextSolution;
   protected _context?: VerificationContext;
 
   constructor(protected _version: V2, payload: VerificationPayload, serviceSid: string, sid?: string) {
@@ -332,10 +337,6 @@ export class VerificationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface VerificationSolution {
-  serviceSid?: string;
-  sid?: string;
-}
 
 export class VerificationPage extends Page<V2, VerificationPayload, VerificationResource, VerificationInstance> {
   /**
@@ -391,6 +392,10 @@ export interface VerificationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface VerificationSolution {
+  serviceSid?: string;
 }
 
 interface VerificationListInstanceImpl extends VerificationListInstance {}

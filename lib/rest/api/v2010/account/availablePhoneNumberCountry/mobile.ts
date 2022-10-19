@@ -289,6 +289,11 @@ export interface MobileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MobileSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 interface MobileListInstanceImpl extends MobileListInstance {}
 class MobileListInstanceImpl implements MobileListInstance {
   _version?: V2010;

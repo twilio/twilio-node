@@ -223,6 +223,10 @@ export interface RecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RecordSolution {
+  accountSid?: string;
+}
+
 interface RecordListInstanceImpl extends RecordListInstance {}
 class RecordListInstanceImpl implements RecordListInstance {
   _version?: V2010;

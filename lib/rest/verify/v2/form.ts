@@ -62,8 +62,12 @@ export interface FormContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FormContextSolution {
+  formType?: FormEnumFormTypes;
+}
+
 export class FormContextImpl implements FormContext {
-  protected _solution: FormSolution;
+  protected _solution: FormContextSolution;
   protected _uri: string;
 
 
@@ -123,7 +127,7 @@ interface FormResource {
 }
 
 export class FormInstance {
-  protected _solution: FormSolution;
+  protected _solution: FormContextSolution;
   protected _context?: FormContext;
 
   constructor(protected _version: V2, payload: FormPayload, formType?: FormEnumFormTypes) {
@@ -194,9 +198,6 @@ export class FormInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface FormSolution {
-  formType?: FormEnumFormTypes;
-}
 
 export class FormPage extends Page<V2, FormPayload, FormResource, FormInstance> {
   /**
@@ -239,6 +240,9 @@ export interface FormListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FormSolution {
 }
 
 interface FormListInstanceImpl extends FormListInstance {}

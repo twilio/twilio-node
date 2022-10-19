@@ -166,6 +166,10 @@ export interface ExportConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ExportConfigurationSolution {
+  resourceType?: string;
+}
+
 interface ExportConfigurationListInstanceImpl extends ExportConfigurationListInstance {}
 class ExportConfigurationListInstanceImpl implements ExportConfigurationListInstance {
   _version?: V1;
@@ -258,8 +262,6 @@ interface ExportConfigurationResource {
 }
 
 export class ExportConfigurationInstance {
-  protected _solution: ExportConfigurationSolution;
-  protected _context?: ExportConfigurationListInstance;
 
   constructor(protected _version: V1, payload: ExportConfigurationPayload, resourceType?: string) {
     this.enabled = payload.enabled;
@@ -268,7 +270,6 @@ export class ExportConfigurationInstance {
     this.resourceType = payload.resource_type;
     this.url = payload.url;
 
-    this._solution = { resourceType: resourceType || this.resourceType };
   }
 
   /**
@@ -310,9 +311,6 @@ export class ExportConfigurationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ExportConfigurationSolution {
-  resourceType?: string;
 }
 
 export class ExportConfigurationPage extends Page<V1, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationInstance> {

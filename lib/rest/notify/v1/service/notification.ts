@@ -96,6 +96,10 @@ export interface NotificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NotificationSolution {
+  serviceSid?: string;
+}
+
 interface NotificationListInstanceImpl extends NotificationListInstance {}
 class NotificationListInstanceImpl implements NotificationListInstance {
   _version?: V1;
@@ -194,8 +198,6 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
-  protected _solution: NotificationSolution;
-  protected _context?: NotificationListInstance;
 
   constructor(protected _version: V1, payload: NotificationPayload, serviceSid?: string) {
     this.sid = payload.sid;
@@ -219,7 +221,6 @@ export class NotificationInstance {
     this.facebookMessenger = payload.facebook_messenger;
     this.alexa = payload.alexa;
 
-    this._solution = { serviceSid: serviceSid || this.serviceSid };
   }
 
   /**
@@ -333,9 +334,6 @@ export class NotificationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NotificationSolution {
-  serviceSid?: string;
 }
 
 export class NotificationPage extends Page<V1, NotificationPayload, NotificationResource, NotificationInstance> {

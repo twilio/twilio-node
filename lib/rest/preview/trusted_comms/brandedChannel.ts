@@ -43,8 +43,12 @@ export interface BrandedChannelContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BrandedChannelContextSolution {
+  sid?: string;
+}
+
 export class BrandedChannelContextImpl implements BrandedChannelContext {
-  protected _solution: BrandedChannelSolution;
+  protected _solution: BrandedChannelContextSolution;
   protected _uri: string;
 
   protected _channels?: ChannelListInstance;
@@ -101,7 +105,7 @@ interface BrandedChannelResource {
 }
 
 export class BrandedChannelInstance {
-  protected _solution: BrandedChannelSolution;
+  protected _solution: BrandedChannelContextSolution;
   protected _context?: BrandedChannelContext;
 
   constructor(protected _version: TrustedComms, payload: BrandedChannelPayload, sid?: string) {
@@ -184,9 +188,6 @@ export class BrandedChannelInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface BrandedChannelSolution {
-  sid?: string;
-}
 
 export class BrandedChannelPage extends Page<TrustedComms, BrandedChannelPayload, BrandedChannelResource, BrandedChannelInstance> {
   /**
@@ -229,6 +230,9 @@ export interface BrandedChannelListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface BrandedChannelSolution {
 }
 
 interface BrandedChannelListInstanceImpl extends BrandedChannelListInstance {}

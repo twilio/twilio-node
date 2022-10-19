@@ -133,6 +133,9 @@ export interface UsecaseListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UsecaseSolution {
+}
+
 interface UsecaseListInstanceImpl extends UsecaseListInstance {}
 class UsecaseListInstanceImpl implements UsecaseListInstance {
   _version?: V1;

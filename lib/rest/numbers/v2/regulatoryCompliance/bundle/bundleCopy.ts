@@ -212,6 +212,10 @@ export interface BundleCopyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BundleCopySolution {
+  bundleSid?: string;
+}
+
 interface BundleCopyListInstanceImpl extends BundleCopyListInstance {}
 class BundleCopyListInstanceImpl implements BundleCopyListInstance {
   _version?: V2;
@@ -321,8 +325,6 @@ interface BundleCopyResource {
 }
 
 export class BundleCopyInstance {
-  protected _solution: BundleCopySolution;
-  protected _context?: BundleCopyListInstance;
 
   constructor(protected _version: V2, payload: BundleCopyPayload, bundleSid?: string) {
     this.sid = payload.sid;
@@ -336,7 +338,6 @@ export class BundleCopyInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { bundleSid: bundleSid || this.bundleSid };
   }
 
   /**
@@ -400,9 +401,6 @@ export class BundleCopyInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface BundleCopySolution {
-  bundleSid?: string;
 }
 
 export class BundleCopyPage extends Page<V2, BundleCopyPayload, BundleCopyResource, BundleCopyInstance> {

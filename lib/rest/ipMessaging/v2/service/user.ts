@@ -157,8 +157,13 @@ export interface UserContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UserContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class UserContextImpl implements UserContext {
-  protected _solution: UserSolution;
+  protected _solution: UserContextSolution;
   protected _uri: string;
 
   protected _userBindings?: UserBindingListInstance;
@@ -273,7 +278,7 @@ interface UserResource {
 }
 
 export class UserInstance {
-  protected _solution: UserSolution;
+  protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
   constructor(protected _version: V2, payload: UserPayload, serviceSid: string, sid?: string) {
@@ -402,10 +407,6 @@ export class UserInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface UserSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class UserPage extends Page<V2, UserPayload, UserResource, UserInstance> {
@@ -564,6 +565,10 @@ export interface UserListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface UserSolution {
+  serviceSid?: string;
 }
 
 interface UserListInstanceImpl extends UserListInstance {}

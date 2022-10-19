@@ -91,8 +91,14 @@ export interface StepContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface StepContextSolution {
+  flowSid?: string;
+  engagementSid?: string;
+  sid?: string;
+}
+
 export class StepContextImpl implements StepContext {
-  protected _solution: StepSolution;
+  protected _solution: StepContextSolution;
   protected _uri: string;
 
   protected _stepContext?: StepContextListInstance;
@@ -155,7 +161,7 @@ interface StepResource {
 }
 
 export class StepInstance {
-  protected _solution: StepSolution;
+  protected _solution: StepContextSolution;
   protected _context?: StepContext;
 
   constructor(protected _version: V1, payload: StepPayload, flowSid: string, engagementSid: string, sid?: string) {
@@ -273,11 +279,6 @@ export class StepInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface StepSolution {
-  flowSid?: string;
-  engagementSid?: string;
-  sid?: string;
 }
 
 export class StepPage extends Page<V1, StepPayload, StepResource, StepInstance> {
@@ -425,6 +426,11 @@ export interface StepListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface StepSolution {
+  flowSid?: string;
+  engagementSid?: string;
 }
 
 interface StepListInstanceImpl extends StepListInstance {}

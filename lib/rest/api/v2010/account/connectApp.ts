@@ -208,6 +208,10 @@ export interface ConnectAppListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ConnectAppSolution {
+  accountSid?: string;
+}
+
 interface ConnectAppListInstanceImpl extends ConnectAppListInstance {}
 class ConnectAppListInstanceImpl implements ConnectAppListInstance {
   _version?: V2010;
@@ -327,8 +331,13 @@ export interface ConnectAppContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ConnectAppContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class ConnectAppContextImpl implements ConnectAppContext {
-  protected _solution: ConnectAppSolution;
+  protected _solution: ConnectAppContextSolution;
   protected _uri: string;
 
 
@@ -433,7 +442,7 @@ interface ConnectAppResource {
 }
 
 export class ConnectAppInstance {
-  protected _solution: ConnectAppSolution;
+  protected _solution: ConnectAppContextSolution;
   protected _context?: ConnectAppContext;
 
   constructor(protected _version: V2010, payload: ConnectAppPayload, accountSid: string, sid?: string) {
@@ -572,10 +581,6 @@ export class ConnectAppInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ConnectAppSolution {
-  accountSid?: string;
-  sid?: string;
 }
 
 export class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppResource, ConnectAppInstance> {

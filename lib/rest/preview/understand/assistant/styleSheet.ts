@@ -162,6 +162,10 @@ export interface StyleSheetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface StyleSheetSolution {
+  assistantSid?: string;
+}
+
 interface StyleSheetListInstanceImpl extends StyleSheetListInstance {}
 class StyleSheetListInstanceImpl implements StyleSheetListInstance {
   _version?: Understand;
@@ -251,8 +255,6 @@ interface StyleSheetResource {
 }
 
 export class StyleSheetInstance {
-  protected _solution: StyleSheetSolution;
-  protected _context?: StyleSheetListInstance;
 
   constructor(protected _version: Understand, payload: StyleSheetPayload, assistantSid?: string) {
     this.accountSid = payload.account_sid;
@@ -260,7 +262,6 @@ export class StyleSheetInstance {
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid: assistantSid || this.assistantSid };
   }
 
   /**
@@ -294,9 +295,6 @@ export class StyleSheetInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface StyleSheetSolution {
-  assistantSid?: string;
 }
 
 export class StyleSheetPage extends Page<Understand, StyleSheetPayload, StyleSheetResource, StyleSheetInstance> {

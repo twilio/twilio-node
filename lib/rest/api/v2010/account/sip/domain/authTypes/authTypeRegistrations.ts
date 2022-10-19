@@ -33,6 +33,11 @@ export interface AuthTypeRegistrationsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthTypeRegistrationsSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 interface AuthTypeRegistrationsListInstanceImpl extends AuthTypeRegistrationsListInstance {}
 class AuthTypeRegistrationsListInstanceImpl implements AuthTypeRegistrationsListInstance {
   _version?: V2010;

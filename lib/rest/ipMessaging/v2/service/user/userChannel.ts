@@ -200,6 +200,11 @@ export interface UserChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UserChannelSolution {
+  serviceSid?: string;
+  userSid?: string;
+}
+
 interface UserChannelListInstanceImpl extends UserChannelListInstance {}
 class UserChannelListInstanceImpl implements UserChannelListInstance {
   _version?: V2;
@@ -319,8 +324,14 @@ export interface UserChannelContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UserChannelContextSolution {
+  serviceSid?: string;
+  userSid?: string;
+  channelSid?: string;
+}
+
 export class UserChannelContextImpl implements UserChannelContext {
-  protected _solution: UserChannelSolution;
+  protected _solution: UserChannelContextSolution;
   protected _uri: string;
 
 
@@ -419,7 +430,7 @@ interface UserChannelResource {
 }
 
 export class UserChannelInstance {
-  protected _solution: UserChannelSolution;
+  protected _solution: UserChannelContextSolution;
   protected _context?: UserChannelContext;
 
   constructor(protected _version: V2, payload: UserChannelPayload, serviceSid: string, userSid: string, channelSid?: string) {
@@ -525,11 +536,6 @@ export class UserChannelInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
-  channelSid?: string;
 }
 
 export class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelResource, UserChannelInstance> {

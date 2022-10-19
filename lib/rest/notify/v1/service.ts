@@ -281,6 +281,9 @@ export interface ServiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ServiceSolution {
+}
+
 interface ServiceListInstanceImpl extends ServiceListInstance {}
 class ServiceListInstanceImpl implements ServiceListInstance {
   _version?: V1;
@@ -444,8 +447,12 @@ export interface ServiceContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ServiceContextSolution {
+  sid?: string;
+}
+
 export class ServiceContextImpl implements ServiceContext {
-  protected _solution: ServiceSolution;
+  protected _solution: ServiceContextSolution;
   protected _uri: string;
 
   protected _bindings?: BindingListInstance;
@@ -576,7 +583,7 @@ interface ServiceResource {
 }
 
 export class ServiceInstance {
-  protected _solution: ServiceSolution;
+  protected _solution: ServiceContextSolution;
   protected _context?: ServiceContext;
 
   constructor(protected _version: V1, payload: ServicePayload, sid?: string) {
@@ -783,9 +790,6 @@ export class ServiceInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ServiceSolution {
-  sid?: string;
 }
 
 export class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {

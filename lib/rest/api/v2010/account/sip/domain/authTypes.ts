@@ -35,6 +35,11 @@ export interface AuthTypesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthTypesSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 interface AuthTypesListInstanceImpl extends AuthTypesListInstance {}
 class AuthTypesListInstanceImpl implements AuthTypesListInstance {
   _version?: V2010;

@@ -289,6 +289,11 @@ export interface LocalListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface LocalSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 interface LocalListInstanceImpl extends LocalListInstance {}
 class LocalListInstanceImpl implements LocalListInstance {
   _version?: V2010;

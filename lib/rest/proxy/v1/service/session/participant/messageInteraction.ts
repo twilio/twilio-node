@@ -104,8 +104,15 @@ export interface MessageInteractionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MessageInteractionContextSolution {
+  serviceSid?: string;
+  sessionSid?: string;
+  participantSid?: string;
+  sid?: string;
+}
+
 export class MessageInteractionContextImpl implements MessageInteractionContext {
-  protected _solution: MessageInteractionSolution;
+  protected _solution: MessageInteractionContextSolution;
   protected _uri: string;
 
 
@@ -170,7 +177,7 @@ interface MessageInteractionResource {
 }
 
 export class MessageInteractionInstance {
-  protected _solution: MessageInteractionSolution;
+  protected _solution: MessageInteractionContextSolution;
   protected _context?: MessageInteractionContext;
 
   constructor(protected _version: V1, payload: MessageInteractionPayload, serviceSid: string, sessionSid: string, participantSid: string, sid?: string) {
@@ -320,12 +327,6 @@ export class MessageInteractionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface MessageInteractionSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-  participantSid?: string;
-  sid?: string;
 }
 
 export class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
@@ -494,6 +495,12 @@ export interface MessageInteractionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface MessageInteractionSolution {
+  serviceSid?: string;
+  sessionSid?: string;
+  participantSid?: string;
 }
 
 interface MessageInteractionListInstanceImpl extends MessageInteractionListInstance {}

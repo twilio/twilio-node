@@ -108,8 +108,13 @@ export interface PhoneNumberContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PhoneNumberContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class PhoneNumberContextImpl implements PhoneNumberContext {
-  protected _solution: PhoneNumberSolution;
+  protected _solution: PhoneNumberContextSolution;
   protected _uri: string;
 
 
@@ -176,7 +181,7 @@ interface PhoneNumberResource {
 }
 
 export class PhoneNumberInstance {
-  protected _solution: PhoneNumberSolution;
+  protected _solution: PhoneNumberContextSolution;
   protected _context?: PhoneNumberContext;
 
   constructor(protected _version: V1, payload: PhoneNumberPayload, serviceSid: string, sid?: string) {
@@ -281,10 +286,6 @@ export class PhoneNumberInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface PhoneNumberSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
@@ -443,6 +444,10 @@ export interface PhoneNumberListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PhoneNumberSolution {
+  serviceSid?: string;
 }
 
 interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}

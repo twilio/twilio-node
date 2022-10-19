@@ -60,6 +60,9 @@ export interface FlowValidateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FlowValidateSolution {
+}
+
 interface FlowValidateListInstanceImpl extends FlowValidateListInstance {}
 class FlowValidateListInstanceImpl implements FlowValidateListInstance {
   _version?: V2;
@@ -134,13 +137,10 @@ interface FlowValidateResource {
 }
 
 export class FlowValidateInstance {
-  protected _solution: FlowValidateSolution;
-  protected _context?: FlowValidateListInstance;
 
   constructor(protected _version: V2, payload: FlowValidatePayload) {
     this.valid = payload.valid;
 
-    this._solution = {  };
   }
 
   /**
@@ -162,8 +162,6 @@ export class FlowValidateInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FlowValidateSolution {
 }
 
 export class FlowValidatePage extends Page<V2, FlowValidatePayload, FlowValidateResource, FlowValidateInstance> {

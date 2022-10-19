@@ -35,6 +35,9 @@ export interface DialingPermissionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DialingPermissionsSolution {
+}
+
 interface DialingPermissionsListInstanceImpl extends DialingPermissionsListInstance {}
 class DialingPermissionsListInstanceImpl implements DialingPermissionsListInstance {
   _version?: V1;

@@ -116,8 +116,13 @@ export interface EnvironmentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EnvironmentContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class EnvironmentContextImpl implements EnvironmentContext {
-  protected _solution: EnvironmentSolution;
+  protected _solution: EnvironmentContextSolution;
   protected _uri: string;
 
   protected _variables?: VariableListInstance;
@@ -204,7 +209,7 @@ interface EnvironmentResource {
 }
 
 export class EnvironmentInstance {
-  protected _solution: EnvironmentSolution;
+  protected _solution: EnvironmentContextSolution;
   protected _context?: EnvironmentContext;
 
   constructor(protected _version: V1, payload: EnvironmentPayload, serviceSid: string, sid?: string) {
@@ -342,10 +347,6 @@ export class EnvironmentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface EnvironmentSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class EnvironmentPage extends Page<V1, EnvironmentPayload, EnvironmentResource, EnvironmentInstance> {
@@ -504,6 +505,10 @@ export interface EnvironmentListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface EnvironmentSolution {
+  serviceSid?: string;
 }
 
 interface EnvironmentListInstanceImpl extends EnvironmentListInstance {}

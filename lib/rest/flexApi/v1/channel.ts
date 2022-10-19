@@ -126,8 +126,12 @@ export interface ChannelContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ChannelContextSolution {
+  sid?: string;
+}
+
 export class ChannelContextImpl implements ChannelContext {
-  protected _solution: ChannelSolution;
+  protected _solution: ChannelContextSolution;
   protected _uri: string;
 
 
@@ -193,7 +197,7 @@ interface ChannelResource {
 }
 
 export class ChannelInstance {
-  protected _solution: ChannelSolution;
+  protected _solution: ChannelContextSolution;
   protected _context?: ChannelContext;
 
   constructor(protected _version: V1, payload: ChannelPayload, sid?: string) {
@@ -292,9 +296,6 @@ export class ChannelInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ChannelSolution {
-  sid?: string;
 }
 
 export class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, ChannelInstance> {
@@ -452,6 +453,9 @@ export interface ChannelListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ChannelSolution {
 }
 
 interface ChannelListInstanceImpl extends ChannelListInstance {}

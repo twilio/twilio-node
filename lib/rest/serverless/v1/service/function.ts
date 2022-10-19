@@ -214,6 +214,10 @@ export interface FunctionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FunctionSolution {
+  serviceSid?: string;
+}
+
 interface FunctionListInstanceImpl extends FunctionListInstance {}
 class FunctionListInstanceImpl implements FunctionListInstance {
   _version?: V1;
@@ -355,8 +359,13 @@ export interface FunctionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FunctionContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class FunctionContextImpl implements FunctionContext {
-  protected _solution: FunctionSolution;
+  protected _solution: FunctionContextSolution;
   protected _uri: string;
 
   protected _functionVersions?: FunctionVersionListInstance;
@@ -457,7 +466,7 @@ interface FunctionResource {
 }
 
 export class FunctionInstance {
-  protected _solution: FunctionSolution;
+  protected _solution: FunctionContextSolution;
   protected _context?: FunctionContext;
 
   constructor(protected _version: V1, payload: FunctionPayload, serviceSid: string, sid?: string) {
@@ -577,10 +586,6 @@ export class FunctionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FunctionSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class FunctionPage extends Page<V1, FunctionPayload, FunctionResource, FunctionInstance> {

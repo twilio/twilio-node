@@ -162,6 +162,10 @@ export interface AssistantInitiationActionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AssistantInitiationActionsSolution {
+  assistantSid?: string;
+}
+
 interface AssistantInitiationActionsListInstanceImpl extends AssistantInitiationActionsListInstance {}
 class AssistantInitiationActionsListInstanceImpl implements AssistantInitiationActionsListInstance {
   _version?: Understand;
@@ -251,8 +255,6 @@ interface AssistantInitiationActionsResource {
 }
 
 export class AssistantInitiationActionsInstance {
-  protected _solution: AssistantInitiationActionsSolution;
-  protected _context?: AssistantInitiationActionsListInstance;
 
   constructor(protected _version: Understand, payload: AssistantInitiationActionsPayload, assistantSid?: string) {
     this.accountSid = payload.account_sid;
@@ -260,7 +262,6 @@ export class AssistantInitiationActionsInstance {
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid: assistantSid || this.assistantSid };
   }
 
   accountSid?: string | null;
@@ -285,9 +286,6 @@ export class AssistantInitiationActionsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AssistantInitiationActionsSolution {
-  assistantSid?: string;
 }
 
 export class AssistantInitiationActionsPage extends Page<Understand, AssistantInitiationActionsPayload, AssistantInitiationActionsResource, AssistantInitiationActionsInstance> {

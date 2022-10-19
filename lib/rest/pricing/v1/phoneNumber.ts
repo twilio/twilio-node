@@ -33,6 +33,9 @@ export interface PhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PhoneNumberSolution {
+}
+
 interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
 class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
   _version?: V1;

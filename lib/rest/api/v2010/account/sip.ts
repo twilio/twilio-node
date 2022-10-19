@@ -37,6 +37,10 @@ export interface SIPListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SIPSolution {
+  accountSid?: string;
+}
+
 interface SIPListInstanceImpl extends SIPListInstance {}
 class SIPListInstanceImpl implements SIPListInstance {
   _version?: V2010;

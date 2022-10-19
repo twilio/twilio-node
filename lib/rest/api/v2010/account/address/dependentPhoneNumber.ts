@@ -181,6 +181,11 @@ export interface DependentPhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DependentPhoneNumberSolution {
+  accountSid?: string;
+  addressSid?: string;
+}
+
 interface DependentPhoneNumberListInstanceImpl extends DependentPhoneNumberListInstance {}
 class DependentPhoneNumberListInstanceImpl implements DependentPhoneNumberListInstance {
   _version?: V2010;

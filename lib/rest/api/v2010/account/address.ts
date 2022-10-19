@@ -187,8 +187,13 @@ export interface AddressContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AddressContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class AddressContextImpl implements AddressContext {
-  protected _solution: AddressSolution;
+  protected _solution: AddressContextSolution;
   protected _uri: string;
 
   protected _dependentPhoneNumbers?: DependentPhoneNumberListInstance;
@@ -302,7 +307,7 @@ interface AddressResource {
 }
 
 export class AddressInstance {
-  protected _solution: AddressSolution;
+  protected _solution: AddressContextSolution;
   protected _context?: AddressContext;
 
   constructor(protected _version: V2010, payload: AddressPayload, accountSid: string, sid?: string) {
@@ -473,10 +478,6 @@ export class AddressInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface AddressSolution {
-  accountSid?: string;
-  sid?: string;
-}
 
 export class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
   /**
@@ -634,6 +635,10 @@ export interface AddressListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AddressSolution {
+  accountSid?: string;
 }
 
 interface AddressListInstanceImpl extends AddressListInstance {}

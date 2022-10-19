@@ -252,6 +252,10 @@ export interface ConferenceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ConferenceSolution {
+  accountSid?: string;
+}
+
 interface ConferenceListInstanceImpl extends ConferenceListInstance {}
 class ConferenceListInstanceImpl implements ConferenceListInstance {
   _version?: V2010;
@@ -371,8 +375,13 @@ export interface ConferenceContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ConferenceContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class ConferenceContextImpl implements ConferenceContext {
-  protected _solution: ConferenceSolution;
+  protected _solution: ConferenceContextSolution;
   protected _uri: string;
 
   protected _participants?: ParticipantListInstance;
@@ -471,7 +480,7 @@ interface ConferenceResource {
 }
 
 export class ConferenceInstance {
-  protected _solution: ConferenceSolution;
+  protected _solution: ConferenceContextSolution;
   protected _context?: ConferenceContext;
 
   constructor(protected _version: V2010, payload: ConferencePayload, accountSid: string, sid?: string) {
@@ -612,10 +621,6 @@ export class ConferenceInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ConferenceSolution {
-  accountSid?: string;
-  sid?: string;
 }
 
 export class ConferencePage extends Page<V2010, ConferencePayload, ConferenceResource, ConferenceInstance> {

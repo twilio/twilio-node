@@ -218,6 +218,10 @@ export interface QueueListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface QueueSolution {
+  accountSid?: string;
+}
+
 interface QueueListInstanceImpl extends QueueListInstance {}
 class QueueListInstanceImpl implements QueueListInstance {
   _version?: V2010;
@@ -368,8 +372,13 @@ export interface QueueContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface QueueContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class QueueContextImpl implements QueueContext {
-  protected _solution: QueueSolution;
+  protected _solution: QueueContextSolution;
   protected _uri: string;
 
   protected _members?: MemberListInstance;
@@ -471,7 +480,7 @@ interface QueueResource {
 }
 
 export class QueueInstance {
-  protected _solution: QueueSolution;
+  protected _solution: QueueContextSolution;
   protected _context?: QueueContext;
 
   constructor(protected _version: V2010, payload: QueuePayload, accountSid: string, sid?: string) {
@@ -605,10 +614,6 @@ export class QueueInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface QueueSolution {
-  accountSid?: string;
-  sid?: string;
 }
 
 export class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueInstance> {

@@ -236,6 +236,9 @@ export interface EsimProfileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EsimProfileSolution {
+}
+
 interface EsimProfileListInstanceImpl extends EsimProfileListInstance {}
 class EsimProfileListInstanceImpl implements EsimProfileListInstance {
   _version?: V1;
@@ -358,8 +361,12 @@ export interface EsimProfileContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EsimProfileContextSolution {
+  sid?: string;
+}
+
 export class EsimProfileContextImpl implements EsimProfileContext {
-  protected _solution: EsimProfileSolution;
+  protected _solution: EsimProfileContextSolution;
   protected _uri: string;
 
 
@@ -416,7 +423,7 @@ interface EsimProfileResource {
 }
 
 export class EsimProfileInstance {
-  protected _solution: EsimProfileSolution;
+  protected _solution: EsimProfileContextSolution;
   protected _context?: EsimProfileContext;
 
   constructor(protected _version: V1, payload: EsimProfilePayload, sid?: string) {
@@ -524,9 +531,6 @@ export class EsimProfileInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface EsimProfileSolution {
-  sid?: string;
 }
 
 export class EsimProfilePage extends Page<V1, EsimProfilePayload, EsimProfileResource, EsimProfileInstance> {

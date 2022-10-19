@@ -289,6 +289,11 @@ export interface NationalListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NationalSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 interface NationalListInstanceImpl extends NationalListInstance {}
 class NationalListInstanceImpl implements NationalListInstance {
   _version?: V2010;

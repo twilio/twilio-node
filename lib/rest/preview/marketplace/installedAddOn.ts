@@ -222,6 +222,9 @@ export interface InstalledAddOnListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface InstalledAddOnSolution {
+}
+
 interface InstalledAddOnListInstanceImpl extends InstalledAddOnListInstance {}
 class InstalledAddOnListInstanceImpl implements InstalledAddOnListInstance {
   _version?: Marketplace;
@@ -378,8 +381,12 @@ export interface InstalledAddOnContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface InstalledAddOnContextSolution {
+  sid?: string;
+}
+
 export class InstalledAddOnContextImpl implements InstalledAddOnContext {
-  protected _solution: InstalledAddOnSolution;
+  protected _solution: InstalledAddOnContextSolution;
   protected _uri: string;
 
   protected _extensions?: InstalledAddOnExtensionListInstance;
@@ -482,7 +489,7 @@ interface InstalledAddOnResource {
 }
 
 export class InstalledAddOnInstance {
-  protected _solution: InstalledAddOnSolution;
+  protected _solution: InstalledAddOnContextSolution;
   protected _context?: InstalledAddOnContext;
 
   constructor(protected _version: Marketplace, payload: InstalledAddOnPayload, sid?: string) {
@@ -622,9 +629,6 @@ export class InstalledAddOnInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface InstalledAddOnSolution {
-  sid?: string;
 }
 
 export class InstalledAddOnPage extends Page<Marketplace, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnInstance> {

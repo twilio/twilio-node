@@ -141,8 +141,13 @@ export interface DeploymentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DeploymentContextSolution {
+  fleetSid?: string;
+  sid?: string;
+}
+
 export class DeploymentContextImpl implements DeploymentContext {
-  protected _solution: DeploymentSolution;
+  protected _solution: DeploymentContextSolution;
   protected _uri: string;
 
 
@@ -237,7 +242,7 @@ interface DeploymentResource {
 }
 
 export class DeploymentInstance {
-  protected _solution: DeploymentSolution;
+  protected _solution: DeploymentContextSolution;
   protected _context?: DeploymentContext;
 
   constructor(protected _version: DeployedDevices, payload: DeploymentPayload, fleetSid: string, sid?: string) {
@@ -358,10 +363,6 @@ export class DeploymentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DeploymentSolution {
-  fleetSid?: string;
-  sid?: string;
 }
 
 export class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, DeploymentResource, DeploymentInstance> {
@@ -528,6 +529,10 @@ export interface DeploymentListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DeploymentSolution {
+  fleetSid?: string;
 }
 
 interface DeploymentListInstanceImpl extends DeploymentListInstance {}

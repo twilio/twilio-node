@@ -70,6 +70,10 @@ export interface VerificationCheckListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface VerificationCheckSolution {
+  serviceSid?: string;
+}
+
 interface VerificationCheckListInstanceImpl extends VerificationCheckListInstance {}
 class VerificationCheckListInstanceImpl implements VerificationCheckListInstance {
   _version?: V2;
@@ -147,8 +151,6 @@ interface VerificationCheckResource {
 }
 
 export class VerificationCheckInstance {
-  protected _solution: VerificationCheckSolution;
-  protected _context?: VerificationCheckListInstance;
 
   constructor(protected _version: V2, payload: VerificationCheckPayload, serviceSid?: string) {
     this.sid = payload.sid;
@@ -164,7 +166,6 @@ export class VerificationCheckInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.snaAttemptsErrorCodes = payload.sna_attempts_error_codes;
 
-    this._solution = { serviceSid: serviceSid || this.serviceSid };
   }
 
   /**
@@ -238,9 +239,6 @@ export class VerificationCheckInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface VerificationCheckSolution {
-  serviceSid?: string;
 }
 
 export class VerificationCheckPage extends Page<V2, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {

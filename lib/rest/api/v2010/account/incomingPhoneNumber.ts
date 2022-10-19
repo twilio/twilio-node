@@ -361,6 +361,10 @@ export interface IncomingPhoneNumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IncomingPhoneNumberSolution {
+  accountSid?: string;
+}
+
 interface IncomingPhoneNumberListInstanceImpl extends IncomingPhoneNumberListInstance {}
 class IncomingPhoneNumberListInstanceImpl implements IncomingPhoneNumberListInstance {
   _version?: V2010;
@@ -566,8 +570,13 @@ export interface IncomingPhoneNumberContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IncomingPhoneNumberContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContext {
-  protected _solution: IncomingPhoneNumberSolution;
+  protected _solution: IncomingPhoneNumberContextSolution;
   protected _uri: string;
 
   protected _assignedAddOns?: AssignedAddOnListInstance;
@@ -720,7 +729,7 @@ interface IncomingPhoneNumberResource {
 }
 
 export class IncomingPhoneNumberInstance {
-  protected _solution: IncomingPhoneNumberSolution;
+  protected _solution: IncomingPhoneNumberContextSolution;
   protected _context?: IncomingPhoneNumberContext;
 
   constructor(protected _version: V2010, payload: IncomingPhoneNumberPayload, accountSid: string, sid?: string) {
@@ -986,10 +995,6 @@ export class IncomingPhoneNumberInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface IncomingPhoneNumberSolution {
-  accountSid?: string;
-  sid?: string;
 }
 
 export class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberInstance> {

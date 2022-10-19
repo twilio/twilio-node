@@ -124,8 +124,12 @@ export interface BrandRegistrationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BrandRegistrationContextSolution {
+  sid?: string;
+}
+
 export class BrandRegistrationContextImpl implements BrandRegistrationContext {
-  protected _solution: BrandRegistrationSolution;
+  protected _solution: BrandRegistrationContextSolution;
   protected _uri: string;
 
   protected _brandVettings?: BrandVettingListInstance;
@@ -211,7 +215,7 @@ interface BrandRegistrationResource {
 }
 
 export class BrandRegistrationInstance {
-  protected _solution: BrandRegistrationSolution;
+  protected _solution: BrandRegistrationContextSolution;
   protected _context?: BrandRegistrationContext;
 
   constructor(protected _version: V1, payload: BrandRegistrationPayload, sid?: string) {
@@ -381,9 +385,6 @@ export class BrandRegistrationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface BrandRegistrationSolution {
-  sid?: string;
-}
 
 export class BrandRegistrationPage extends Page<V1, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationInstance> {
   /**
@@ -540,6 +541,9 @@ export interface BrandRegistrationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface BrandRegistrationSolution {
 }
 
 interface BrandRegistrationListInstanceImpl extends BrandRegistrationListInstance {}

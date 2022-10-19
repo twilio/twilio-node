@@ -289,6 +289,10 @@ export interface TollFreeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TollFreeSolution {
+  accountSid?: string;
+}
+
 interface TollFreeListInstanceImpl extends TollFreeListInstance {}
 class TollFreeListInstanceImpl implements TollFreeListInstance {
   _version?: V2010;
@@ -454,8 +458,6 @@ interface TollFreeResource {
 }
 
 export class TollFreeInstance {
-  protected _solution: TollFreeSolution;
-  protected _context?: TollFreeListInstance;
 
   constructor(protected _version: V2010, payload: TollFreePayload, accountSid?: string) {
     this.accountSid = payload.account_sid;
@@ -493,7 +495,6 @@ export class TollFreeInstance {
     this.bundleSid = payload.bundle_sid;
     this.status = payload.status;
 
-    this._solution = { accountSid: accountSid || this.accountSid };
   }
 
   /**
@@ -662,9 +663,6 @@ export class TollFreeInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TollFreeSolution {
-  accountSid?: string;
 }
 
 export class TollFreePage extends Page<V2010, TollFreePayload, TollFreeResource, TollFreeInstance> {

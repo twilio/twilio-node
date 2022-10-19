@@ -207,6 +207,10 @@ export interface YesterdayListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface YesterdaySolution {
+  accountSid?: string;
+}
+
 interface YesterdayListInstanceImpl extends YesterdayListInstance {}
 class YesterdayListInstanceImpl implements YesterdayListInstance {
   _version?: V2010;

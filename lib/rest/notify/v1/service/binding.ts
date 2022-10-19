@@ -242,6 +242,10 @@ export interface BindingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BindingSolution {
+  serviceSid?: string;
+}
+
 interface BindingListInstanceImpl extends BindingListInstance {}
 class BindingListInstanceImpl implements BindingListInstance {
   _version?: V1;
@@ -388,8 +392,13 @@ export interface BindingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BindingContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class BindingContextImpl implements BindingContext {
-  protected _solution: BindingSolution;
+  protected _solution: BindingContextSolution;
   protected _uri: string;
 
 
@@ -461,7 +470,7 @@ interface BindingResource {
 }
 
 export class BindingInstance {
-  protected _solution: BindingSolution;
+  protected _solution: BindingContextSolution;
   protected _context?: BindingContext;
 
   constructor(protected _version: V1, payload: BindingPayload, serviceSid: string, sid?: string) {
@@ -596,10 +605,6 @@ export class BindingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface BindingSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {

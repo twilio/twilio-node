@@ -113,8 +113,14 @@ export interface NotificationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NotificationContextSolution {
+  accountSid?: string;
+  callSid?: string;
+  sid?: string;
+}
+
 export class NotificationContextImpl implements NotificationContext {
-  protected _solution: NotificationSolution;
+  protected _solution: NotificationContextSolution;
   protected _uri: string;
 
 
@@ -177,7 +183,7 @@ interface NotificationResource {
 }
 
 export class NotificationInstance {
-  protected _solution: NotificationSolution;
+  protected _solution: NotificationContextSolution;
   protected _context?: NotificationContext;
 
   constructor(protected _version: V2010, payload: NotificationPayload, accountSid: string, callSid: string, sid?: string) {
@@ -318,11 +324,6 @@ export class NotificationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NotificationSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
 }
 
 export class NotificationPage extends Page<V2010, NotificationPayload, NotificationResource, NotificationInstance> {
@@ -470,6 +471,11 @@ export interface NotificationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface NotificationSolution {
+  accountSid?: string;
+  callSid?: string;
 }
 
 interface NotificationListInstanceImpl extends NotificationListInstance {}

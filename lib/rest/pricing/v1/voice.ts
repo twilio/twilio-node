@@ -35,6 +35,9 @@ export interface VoiceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface VoiceSolution {
+}
+
 interface VoiceListInstanceImpl extends VoiceListInstance {}
 class VoiceListInstanceImpl implements VoiceListInstance {
   _version?: V1;

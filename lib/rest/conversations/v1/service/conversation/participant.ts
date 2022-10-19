@@ -266,6 +266,11 @@ export interface ParticipantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ParticipantSolution {
+  chatServiceSid?: string;
+  conversationSid?: string;
+}
+
 interface ParticipantListInstanceImpl extends ParticipantListInstance {}
 class ParticipantListInstanceImpl implements ParticipantListInstance {
   _version?: V1;
@@ -431,8 +436,14 @@ export interface ParticipantContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ParticipantContextSolution {
+  chatServiceSid?: string;
+  conversationSid?: string;
+  sid?: string;
+}
+
 export class ParticipantContextImpl implements ParticipantContext {
-  protected _solution: ParticipantSolution;
+  protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
 
@@ -552,7 +563,7 @@ interface ParticipantResource {
 }
 
 export class ParticipantInstance {
-  protected _solution: ParticipantSolution;
+  protected _solution: ParticipantContextSolution;
   protected _context?: ParticipantContext;
 
   constructor(protected _version: V1, payload: ParticipantPayload, chatServiceSid: string, conversationSid: string, sid?: string) {
@@ -713,11 +724,6 @@ export class ParticipantInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ParticipantSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-  sid?: string;
 }
 
 export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {

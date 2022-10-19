@@ -133,6 +133,11 @@ export interface BuildStatusListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BuildStatusSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 interface BuildStatusListInstanceImpl extends BuildStatusListInstance {}
 class BuildStatusListInstanceImpl implements BuildStatusListInstance {
   _version?: V1;

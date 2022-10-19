@@ -91,8 +91,14 @@ export interface ExecutionStepContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ExecutionStepContextSolution {
+  flowSid?: string;
+  executionSid?: string;
+  sid?: string;
+}
+
 export class ExecutionStepContextImpl implements ExecutionStepContext {
-  protected _solution: ExecutionStepSolution;
+  protected _solution: ExecutionStepContextSolution;
   protected _uri: string;
 
   protected _stepContext?: ExecutionStepContextListInstance;
@@ -155,7 +161,7 @@ interface ExecutionStepResource {
 }
 
 export class ExecutionStepInstance {
-  protected _solution: ExecutionStepSolution;
+  protected _solution: ExecutionStepContextSolution;
   protected _context?: ExecutionStepContext;
 
   constructor(protected _version: V2, payload: ExecutionStepPayload, flowSid: string, executionSid: string, sid?: string) {
@@ -273,11 +279,6 @@ export class ExecutionStepInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ExecutionStepSolution {
-  flowSid?: string;
-  executionSid?: string;
-  sid?: string;
 }
 
 export class ExecutionStepPage extends Page<V2, ExecutionStepPayload, ExecutionStepResource, ExecutionStepInstance> {
@@ -425,6 +426,11 @@ export interface ExecutionStepListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ExecutionStepSolution {
+  flowSid?: string;
+  executionSid?: string;
 }
 
 interface ExecutionStepListInstanceImpl extends ExecutionStepListInstance {}

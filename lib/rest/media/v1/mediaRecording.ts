@@ -213,6 +213,9 @@ export interface MediaRecordingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MediaRecordingSolution {
+}
+
 interface MediaRecordingListInstanceImpl extends MediaRecordingListInstance {}
 class MediaRecordingListInstanceImpl implements MediaRecordingListInstance {
   _version?: V1;
@@ -316,8 +319,12 @@ export interface MediaRecordingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MediaRecordingContextSolution {
+  sid?: string;
+}
+
 export class MediaRecordingContextImpl implements MediaRecordingContext {
-  protected _solution: MediaRecordingSolution;
+  protected _solution: MediaRecordingContextSolution;
   protected _uri: string;
 
 
@@ -391,7 +398,7 @@ interface MediaRecordingResource {
 }
 
 export class MediaRecordingInstance {
-  protected _solution: MediaRecordingSolution;
+  protected _solution: MediaRecordingContextSolution;
   protected _context?: MediaRecordingContext;
 
   constructor(protected _version: V1, payload: MediaRecordingPayload, sid?: string) {
@@ -526,9 +533,6 @@ export class MediaRecordingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface MediaRecordingSolution {
-  sid?: string;
 }
 
 export class MediaRecordingPage extends Page<V1, MediaRecordingPayload, MediaRecordingResource, MediaRecordingInstance> {

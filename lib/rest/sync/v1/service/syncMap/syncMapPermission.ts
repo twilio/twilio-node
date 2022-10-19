@@ -196,6 +196,11 @@ export interface SyncMapPermissionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SyncMapPermissionSolution {
+  serviceSid?: string;
+  mapSid?: string;
+}
+
 interface SyncMapPermissionListInstanceImpl extends SyncMapPermissionListInstance {}
 class SyncMapPermissionListInstanceImpl implements SyncMapPermissionListInstance {
   _version?: V1;
@@ -307,8 +312,14 @@ export interface SyncMapPermissionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SyncMapPermissionContextSolution {
+  serviceSid?: string;
+  mapSid?: string;
+  identity?: string;
+}
+
 export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
-  protected _solution: SyncMapPermissionSolution;
+  protected _solution: SyncMapPermissionContextSolution;
   protected _uri: string;
 
 
@@ -413,7 +424,7 @@ interface SyncMapPermissionResource {
 }
 
 export class SyncMapPermissionInstance {
-  protected _solution: SyncMapPermissionSolution;
+  protected _solution: SyncMapPermissionContextSolution;
   protected _context?: SyncMapPermissionContext;
 
   constructor(protected _version: V1, payload: SyncMapPermissionPayload, serviceSid: string, mapSid: string, identity?: string) {
@@ -526,11 +537,6 @@ export class SyncMapPermissionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SyncMapPermissionSolution {
-  serviceSid?: string;
-  mapSid?: string;
-  identity?: string;
 }
 
 export class SyncMapPermissionPage extends Page<V1, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {

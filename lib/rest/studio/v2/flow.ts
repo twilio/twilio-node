@@ -232,6 +232,9 @@ export interface FlowListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FlowSolution {
+}
+
 interface FlowListInstanceImpl extends FlowListInstance {}
 class FlowListInstanceImpl implements FlowListInstance {
   _version?: V2;
@@ -396,8 +399,12 @@ export interface FlowContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FlowContextSolution {
+  sid?: string;
+}
+
 export class FlowContextImpl implements FlowContext {
-  protected _solution: FlowSolution;
+  protected _solution: FlowContextSolution;
   protected _uri: string;
 
   protected _executions?: ExecutionListInstance;
@@ -520,7 +527,7 @@ interface FlowResource {
 }
 
 export class FlowInstance {
-  protected _solution: FlowSolution;
+  protected _solution: FlowContextSolution;
   protected _context?: FlowContext;
 
   constructor(protected _version: V2, payload: FlowPayload, sid?: string) {
@@ -690,9 +697,6 @@ export class FlowInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FlowSolution {
-  sid?: string;
 }
 
 export class FlowPage extends Page<V2, FlowPayload, FlowResource, FlowInstance> {

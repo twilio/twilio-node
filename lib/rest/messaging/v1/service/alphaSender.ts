@@ -108,8 +108,13 @@ export interface AlphaSenderContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AlphaSenderContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class AlphaSenderContextImpl implements AlphaSenderContext {
-  protected _solution: AlphaSenderSolution;
+  protected _solution: AlphaSenderContextSolution;
   protected _uri: string;
 
 
@@ -175,7 +180,7 @@ interface AlphaSenderResource {
 }
 
 export class AlphaSenderInstance {
-  protected _solution: AlphaSenderSolution;
+  protected _solution: AlphaSenderContextSolution;
   protected _context?: AlphaSenderContext;
 
   constructor(protected _version: V1, payload: AlphaSenderPayload, serviceSid: string, sid?: string) {
@@ -274,10 +279,6 @@ export class AlphaSenderInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AlphaSenderSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class AlphaSenderPage extends Page<V1, AlphaSenderPayload, AlphaSenderResource, AlphaSenderInstance> {
@@ -436,6 +437,10 @@ export interface AlphaSenderListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AlphaSenderSolution {
+  serviceSid?: string;
 }
 
 interface AlphaSenderListInstanceImpl extends AlphaSenderListInstance {}

@@ -205,6 +205,11 @@ export interface TaskQueueCumulativeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TaskQueueCumulativeStatisticsSolution {
+  workspaceSid?: string;
+  taskQueueSid?: string;
+}
+
 interface TaskQueueCumulativeStatisticsListInstanceImpl extends TaskQueueCumulativeStatisticsListInstance {}
 class TaskQueueCumulativeStatisticsListInstanceImpl implements TaskQueueCumulativeStatisticsListInstance {
   _version?: V1;

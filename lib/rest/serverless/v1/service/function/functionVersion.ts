@@ -186,6 +186,11 @@ export interface FunctionVersionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FunctionVersionSolution {
+  serviceSid?: string;
+  functionSid?: string;
+}
+
 interface FunctionVersionListInstanceImpl extends FunctionVersionListInstance {}
 class FunctionVersionListInstanceImpl implements FunctionVersionListInstance {
   _version?: V1;
@@ -276,8 +281,14 @@ export interface FunctionVersionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FunctionVersionContextSolution {
+  serviceSid?: string;
+  functionSid?: string;
+  sid?: string;
+}
+
 export class FunctionVersionContextImpl implements FunctionVersionContext {
-  protected _solution: FunctionVersionSolution;
+  protected _solution: FunctionVersionContextSolution;
   protected _uri: string;
 
   protected _functionVersionContent?: FunctionVersionContentListInstance;
@@ -337,7 +348,7 @@ interface FunctionVersionResource {
 }
 
 export class FunctionVersionInstance {
-  protected _solution: FunctionVersionSolution;
+  protected _solution: FunctionVersionContextSolution;
   protected _context?: FunctionVersionContext;
 
   constructor(protected _version: V1, payload: FunctionVersionPayload, serviceSid: string, functionSid: string, sid?: string) {
@@ -431,11 +442,6 @@ export class FunctionVersionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FunctionVersionSolution {
-  serviceSid?: string;
-  functionSid?: string;
-  sid?: string;
 }
 
 export class FunctionVersionPage extends Page<V1, FunctionVersionPayload, FunctionVersionResource, FunctionVersionInstance> {

@@ -219,6 +219,10 @@ export interface RoleListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RoleSolution {
+  serviceSid?: string;
+}
+
 interface RoleListInstanceImpl extends RoleListInstance {}
 class RoleListInstanceImpl implements RoleListInstance {
   _version?: V2;
@@ -369,8 +373,13 @@ export interface RoleContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RoleContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class RoleContextImpl implements RoleContext {
-  protected _solution: RoleSolution;
+  protected _solution: RoleContextSolution;
   protected _uri: string;
 
 
@@ -466,7 +475,7 @@ interface RoleResource {
 }
 
 export class RoleInstance {
-  protected _solution: RoleSolution;
+  protected _solution: RoleContextSolution;
   protected _context?: RoleContext;
 
   constructor(protected _version: V2, payload: RolePayload, serviceSid: string, sid?: string) {
@@ -582,10 +591,6 @@ export class RoleInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RoleSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class RolePage extends Page<V2, RolePayload, RoleResource, RoleInstance> {

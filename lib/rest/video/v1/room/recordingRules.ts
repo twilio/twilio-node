@@ -171,6 +171,10 @@ export interface RecordingRulesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RecordingRulesSolution {
+  roomSid?: string;
+}
+
 interface RecordingRulesListInstanceImpl extends RecordingRulesListInstance {}
 class RecordingRulesListInstanceImpl implements RecordingRulesListInstance {
   _version?: V1;
@@ -260,8 +264,6 @@ interface RecordingRulesResource {
 }
 
 export class RecordingRulesInstance {
-  protected _solution: RecordingRulesSolution;
-  protected _context?: RecordingRulesListInstance;
 
   constructor(protected _version: V1, payload: RecordingRulesPayload, roomSid?: string) {
     this.roomSid = payload.room_sid;
@@ -269,7 +271,6 @@ export class RecordingRulesInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { roomSid: roomSid || this.roomSid };
   }
 
   /**
@@ -306,9 +307,6 @@ export class RecordingRulesInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RecordingRulesSolution {
-  roomSid?: string;
 }
 
 export class RecordingRulesPage extends Page<V1, RecordingRulesPayload, RecordingRulesResource, RecordingRulesInstance> {

@@ -214,6 +214,10 @@ export interface AssetListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AssetSolution {
+  serviceSid?: string;
+}
+
 interface AssetListInstanceImpl extends AssetListInstance {}
 class AssetListInstanceImpl implements AssetListInstance {
   _version?: V1;
@@ -355,8 +359,13 @@ export interface AssetContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AssetContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class AssetContextImpl implements AssetContext {
-  protected _solution: AssetSolution;
+  protected _solution: AssetContextSolution;
   protected _uri: string;
 
   protected _assetVersions?: AssetVersionListInstance;
@@ -457,7 +466,7 @@ interface AssetResource {
 }
 
 export class AssetInstance {
-  protected _solution: AssetSolution;
+  protected _solution: AssetContextSolution;
   protected _context?: AssetContext;
 
   constructor(protected _version: V1, payload: AssetPayload, serviceSid: string, sid?: string) {
@@ -577,10 +586,6 @@ export class AssetInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AssetSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class AssetPage extends Page<V1, AssetPayload, AssetResource, AssetInstance> {

@@ -139,8 +139,13 @@ export interface SubscribedEventContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SubscribedEventContextSolution {
+  subscriptionSid?: string;
+  type?: string;
+}
+
 export class SubscribedEventContextImpl implements SubscribedEventContext {
-  protected _solution: SubscribedEventSolution;
+  protected _solution: SubscribedEventContextSolution;
   protected _uri: string;
 
 
@@ -231,7 +236,7 @@ interface SubscribedEventResource {
 }
 
 export class SubscribedEventInstance {
-  protected _solution: SubscribedEventSolution;
+  protected _solution: SubscribedEventContextSolution;
   protected _context?: SubscribedEventContext;
 
   constructor(protected _version: V1, payload: SubscribedEventPayload, subscriptionSid: string, type?: string) {
@@ -334,10 +339,6 @@ export class SubscribedEventInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SubscribedEventSolution {
-  subscriptionSid?: string;
-  type?: string;
 }
 
 export class SubscribedEventPage extends Page<V1, SubscribedEventPayload, SubscribedEventResource, SubscribedEventInstance> {
@@ -496,6 +497,10 @@ export interface SubscribedEventListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SubscribedEventSolution {
+  subscriptionSid?: string;
 }
 
 interface SubscribedEventListInstanceImpl extends SubscribedEventListInstance {}

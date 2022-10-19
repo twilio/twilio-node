@@ -214,6 +214,9 @@ export interface SettingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SettingSolution {
+}
+
 interface SettingListInstanceImpl extends SettingListInstance {}
 class SettingListInstanceImpl implements SettingListInstance {
   _version?: V1;
@@ -319,8 +322,6 @@ interface SettingResource {
 }
 
 export class SettingInstance {
-  protected _solution: SettingSolution;
-  protected _context?: SettingListInstance;
 
   constructor(protected _version: V1, payload: SettingPayload) {
     this.accountSid = payload.account_sid;
@@ -328,7 +329,6 @@ export class SettingInstance {
     this.voiceTrace = payload.voice_trace;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   accountSid?: string | null;
@@ -353,8 +353,6 @@ export class SettingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SettingSolution {
 }
 
 export class SettingPage extends Page<V1, SettingPayload, SettingResource, SettingInstance> {

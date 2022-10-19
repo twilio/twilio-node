@@ -137,8 +137,12 @@ export interface RoomContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RoomContextSolution {
+  roomSid?: string;
+}
+
 export class RoomContextImpl implements RoomContext {
-  protected _solution: RoomSolution;
+  protected _solution: RoomContextSolution;
   protected _uri: string;
 
   protected _participants?: ParticipantListInstance;
@@ -216,7 +220,7 @@ interface RoomResource {
 }
 
 export class RoomInstance {
-  protected _solution: RoomSolution;
+  protected _solution: RoomContextSolution;
   protected _context?: RoomContext;
 
   constructor(protected _version: V1, payload: RoomPayload, roomSid?: string) {
@@ -398,9 +402,6 @@ export class RoomInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface RoomSolution {
-  roomSid?: string;
-}
 
 export class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance> {
   /**
@@ -545,6 +546,9 @@ export interface RoomListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface RoomSolution {
 }
 
 interface RoomListInstanceImpl extends RoomListInstance {}

@@ -124,8 +124,14 @@ export interface SyncListPermissionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SyncListPermissionContextSolution {
+  serviceSid?: string;
+  listSid?: string;
+  identity?: string;
+}
+
 export class SyncListPermissionContextImpl implements SyncListPermissionContext {
-  protected _solution: SyncListPermissionSolution;
+  protected _solution: SyncListPermissionContextSolution;
   protected _uri: string;
 
 
@@ -230,7 +236,7 @@ interface SyncListPermissionResource {
 }
 
 export class SyncListPermissionInstance {
-  protected _solution: SyncListPermissionSolution;
+  protected _solution: SyncListPermissionContextSolution;
   protected _context?: SyncListPermissionContext;
 
   constructor(protected _version: V1, payload: SyncListPermissionPayload, serviceSid: string, listSid: string, identity?: string) {
@@ -343,11 +349,6 @@ export class SyncListPermissionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SyncListPermissionSolution {
-  serviceSid?: string;
-  listSid?: string;
-  identity?: string;
 }
 
 export class SyncListPermissionPage extends Page<V1, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionInstance> {
@@ -495,6 +496,11 @@ export interface SyncListPermissionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SyncListPermissionSolution {
+  serviceSid?: string;
+  listSid?: string;
 }
 
 interface SyncListPermissionListInstanceImpl extends SyncListPermissionListInstance {}

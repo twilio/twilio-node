@@ -101,8 +101,14 @@ export interface TranscriptionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TranscriptionContextSolution {
+  accountSid?: string;
+  recordingSid?: string;
+  sid?: string;
+}
+
 export class TranscriptionContextImpl implements TranscriptionContext {
-  protected _solution: TranscriptionSolution;
+  protected _solution: TranscriptionContextSolution;
   protected _uri: string;
 
 
@@ -173,7 +179,7 @@ interface TranscriptionResource {
 }
 
 export class TranscriptionInstance {
-  protected _solution: TranscriptionSolution;
+  protected _solution: TranscriptionContextSolution;
   protected _context?: TranscriptionContext;
 
   constructor(protected _version: V2010, payload: TranscriptionPayload, accountSid: string, recordingSid: string, sid?: string) {
@@ -299,11 +305,6 @@ export class TranscriptionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TranscriptionSolution {
-  accountSid?: string;
-  recordingSid?: string;
-  sid?: string;
 }
 
 export class TranscriptionPage extends Page<V2010, TranscriptionPayload, TranscriptionResource, TranscriptionInstance> {
@@ -451,6 +452,11 @@ export interface TranscriptionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TranscriptionSolution {
+  accountSid?: string;
+  recordingSid?: string;
 }
 
 interface TranscriptionListInstanceImpl extends TranscriptionListInstance {}

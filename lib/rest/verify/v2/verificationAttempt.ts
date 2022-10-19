@@ -142,8 +142,12 @@ export interface VerificationAttemptContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface VerificationAttemptContextSolution {
+  sid?: string;
+}
+
 export class VerificationAttemptContextImpl implements VerificationAttemptContext {
-  protected _solution: VerificationAttemptSolution;
+  protected _solution: VerificationAttemptContextSolution;
   protected _uri: string;
 
 
@@ -199,7 +203,7 @@ interface VerificationAttemptResource {
 }
 
 export class VerificationAttemptInstance {
-  protected _solution: VerificationAttemptSolution;
+  protected _solution: VerificationAttemptContextSolution;
   protected _context?: VerificationAttemptContext;
 
   constructor(protected _version: V2, payload: VerificationAttemptPayload, sid?: string) {
@@ -295,9 +299,6 @@ export class VerificationAttemptInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface VerificationAttemptSolution {
-  sid?: string;
 }
 
 export class VerificationAttemptPage extends Page<V2, VerificationAttemptPayload, VerificationAttemptResource, VerificationAttemptInstance> {
@@ -444,6 +445,9 @@ export interface VerificationAttemptListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface VerificationAttemptSolution {
 }
 
 interface VerificationAttemptListInstanceImpl extends VerificationAttemptListInstance {}

@@ -207,6 +207,10 @@ export interface DailyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DailySolution {
+  accountSid?: string;
+}
+
 interface DailyListInstanceImpl extends DailyListInstance {}
 class DailyListInstanceImpl implements DailyListInstance {
   _version?: V2010;

@@ -215,6 +215,9 @@ export interface SourceIpMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SourceIpMappingSolution {
+}
+
 interface SourceIpMappingListInstanceImpl extends SourceIpMappingListInstance {}
 class SourceIpMappingListInstanceImpl implements SourceIpMappingListInstance {
   _version?: V1;
@@ -360,8 +363,12 @@ export interface SourceIpMappingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SourceIpMappingContextSolution {
+  sid?: string;
+}
+
 export class SourceIpMappingContextImpl implements SourceIpMappingContext {
-  protected _solution: SourceIpMappingSolution;
+  protected _solution: SourceIpMappingContextSolution;
   protected _uri: string;
 
 
@@ -454,7 +461,7 @@ interface SourceIpMappingResource {
 }
 
 export class SourceIpMappingInstance {
-  protected _solution: SourceIpMappingSolution;
+  protected _solution: SourceIpMappingContextSolution;
   protected _context?: SourceIpMappingContext;
 
   constructor(protected _version: V1, payload: SourceIpMappingPayload, sid?: string) {
@@ -555,9 +562,6 @@ export class SourceIpMappingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SourceIpMappingSolution {
-  sid?: string;
 }
 
 export class SourceIpMappingPage extends Page<V1, SourceIpMappingPayload, SourceIpMappingResource, SourceIpMappingInstance> {

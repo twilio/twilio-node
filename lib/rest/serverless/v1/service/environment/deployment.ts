@@ -98,8 +98,14 @@ export interface DeploymentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DeploymentContextSolution {
+  serviceSid?: string;
+  environmentSid?: string;
+  sid?: string;
+}
+
 export class DeploymentContextImpl implements DeploymentContext {
-  protected _solution: DeploymentSolution;
+  protected _solution: DeploymentContextSolution;
   protected _uri: string;
 
 
@@ -152,7 +158,7 @@ interface DeploymentResource {
 }
 
 export class DeploymentInstance {
-  protected _solution: DeploymentSolution;
+  protected _solution: DeploymentContextSolution;
   protected _context?: DeploymentContext;
 
   constructor(protected _version: V1, payload: DeploymentPayload, serviceSid: string, environmentSid: string, sid?: string) {
@@ -239,11 +245,6 @@ export class DeploymentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DeploymentSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
 }
 
 export class DeploymentPage extends Page<V1, DeploymentPayload, DeploymentResource, DeploymentInstance> {
@@ -411,6 +412,11 @@ export interface DeploymentListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DeploymentSolution {
+  serviceSid?: string;
+  environmentSid?: string;
 }
 
 interface DeploymentListInstanceImpl extends DeploymentListInstance {}

@@ -140,8 +140,13 @@ export interface ShortCodeContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ShortCodeContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class ShortCodeContextImpl implements ShortCodeContext {
-  protected _solution: ShortCodeSolution;
+  protected _solution: ShortCodeContextSolution;
   protected _uri: string;
 
 
@@ -233,7 +238,7 @@ interface ShortCodeResource {
 }
 
 export class ShortCodeInstance {
-  protected _solution: ShortCodeSolution;
+  protected _solution: ShortCodeContextSolution;
   protected _context?: ShortCodeContext;
 
   constructor(protected _version: V2010, payload: ShortCodePayload, accountSid: string, sid?: string) {
@@ -366,10 +371,6 @@ export class ShortCodeInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ShortCodeSolution {
-  accountSid?: string;
-  sid?: string;
 }
 
 export class ShortCodePage extends Page<V2010, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
@@ -516,6 +517,10 @@ export interface ShortCodeListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ShortCodeSolution {
+  accountSid?: string;
 }
 
 interface ShortCodeListInstanceImpl extends ShortCodeListInstance {}

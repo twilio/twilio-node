@@ -151,8 +151,13 @@ export interface ActivityContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ActivityContextSolution {
+  workspaceSid?: string;
+  sid?: string;
+}
+
 export class ActivityContextImpl implements ActivityContext {
-  protected _solution: ActivitySolution;
+  protected _solution: ActivityContextSolution;
   protected _uri: string;
 
 
@@ -247,7 +252,7 @@ interface ActivityResource {
 }
 
 export class ActivityInstance {
-  protected _solution: ActivitySolution;
+  protected _solution: ActivityContextSolution;
   protected _context?: ActivityContext;
 
   constructor(protected _version: V1, payload: ActivityPayload, workspaceSid: string, sid?: string) {
@@ -371,10 +376,6 @@ export class ActivityInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ActivitySolution {
-  workspaceSid?: string;
-  sid?: string;
 }
 
 export class ActivityPage extends Page<V1, ActivityPayload, ActivityResource, ActivityInstance> {
@@ -533,6 +534,10 @@ export interface ActivityListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ActivitySolution {
+  workspaceSid?: string;
 }
 
 interface ActivityListInstanceImpl extends ActivityListInstance {}

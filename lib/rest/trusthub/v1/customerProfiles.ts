@@ -248,6 +248,9 @@ export interface CustomerProfilesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CustomerProfilesSolution {
+}
+
 interface CustomerProfilesListInstanceImpl extends CustomerProfilesListInstance {}
 class CustomerProfilesListInstanceImpl implements CustomerProfilesListInstance {
   _version?: V1;
@@ -413,8 +416,12 @@ export interface CustomerProfilesContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CustomerProfilesContextSolution {
+  sid?: string;
+}
+
 export class CustomerProfilesContextImpl implements CustomerProfilesContext {
-  protected _solution: CustomerProfilesSolution;
+  protected _solution: CustomerProfilesContextSolution;
   protected _uri: string;
 
   protected _customerProfilesEvaluations?: CustomerProfilesEvaluationsListInstance;
@@ -533,7 +540,7 @@ interface CustomerProfilesResource {
 }
 
 export class CustomerProfilesInstance {
-  protected _solution: CustomerProfilesSolution;
+  protected _solution: CustomerProfilesContextSolution;
   protected _context?: CustomerProfilesContext;
 
   constructor(protected _version: V1, payload: CustomerProfilesPayload, sid?: string) {
@@ -696,9 +703,6 @@ export class CustomerProfilesInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CustomerProfilesSolution {
-  sid?: string;
 }
 
 export class CustomerProfilesPage extends Page<V1, CustomerProfilesPayload, CustomerProfilesResource, CustomerProfilesInstance> {

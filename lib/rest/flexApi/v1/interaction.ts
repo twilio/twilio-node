@@ -57,6 +57,9 @@ export interface InteractionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface InteractionSolution {
+}
+
 interface InteractionListInstanceImpl extends InteractionListInstance {}
 class InteractionListInstanceImpl implements InteractionListInstance {
   _version?: V1;
@@ -143,8 +146,12 @@ export interface InteractionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface InteractionContextSolution {
+  sid?: string;
+}
+
 export class InteractionContextImpl implements InteractionContext {
-  protected _solution: InteractionSolution;
+  protected _solution: InteractionContextSolution;
   protected _uri: string;
 
   protected _channels?: InteractionChannelListInstance;
@@ -200,7 +207,7 @@ interface InteractionResource {
 }
 
 export class InteractionInstance {
-  protected _solution: InteractionSolution;
+  protected _solution: InteractionContextSolution;
   protected _context?: InteractionContext;
 
   constructor(protected _version: V1, payload: InteractionPayload, sid?: string) {
@@ -270,9 +277,6 @@ export class InteractionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface InteractionSolution {
-  sid?: string;
 }
 
 export class InteractionPage extends Page<V1, InteractionPayload, InteractionResource, InteractionInstance> {

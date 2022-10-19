@@ -194,6 +194,11 @@ export interface WorkerChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkerChannelSolution {
+  workspaceSid?: string;
+  workerSid?: string;
+}
+
 interface WorkerChannelListInstanceImpl extends WorkerChannelListInstance {}
 class WorkerChannelListInstanceImpl implements WorkerChannelListInstance {
   _version?: V1;
@@ -303,8 +308,14 @@ export interface WorkerChannelContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkerChannelContextSolution {
+  workspaceSid?: string;
+  workerSid?: string;
+  sid?: string;
+}
+
 export class WorkerChannelContextImpl implements WorkerChannelContext {
-  protected _solution: WorkerChannelSolution;
+  protected _solution: WorkerChannelContextSolution;
   protected _uri: string;
 
 
@@ -391,7 +402,7 @@ interface WorkerChannelResource {
 }
 
 export class WorkerChannelInstance {
-  protected _solution: WorkerChannelSolution;
+  protected _solution: WorkerChannelContextSolution;
   protected _context?: WorkerChannelContext;
 
   constructor(protected _version: V1, payload: WorkerChannelPayload, workspaceSid: string, workerSid: string, sid?: string) {
@@ -530,11 +541,6 @@ export class WorkerChannelInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface WorkerChannelSolution {
-  workspaceSid?: string;
-  workerSid?: string;
-  sid?: string;
 }
 
 export class WorkerChannelPage extends Page<V1, WorkerChannelPayload, WorkerChannelResource, WorkerChannelInstance> {

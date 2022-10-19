@@ -126,8 +126,12 @@ export interface SmsCommandContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SmsCommandContextSolution {
+  sid?: string;
+}
+
 export class SmsCommandContextImpl implements SmsCommandContext {
-  protected _solution: SmsCommandSolution;
+  protected _solution: SmsCommandContextSolution;
   protected _uri: string;
 
 
@@ -181,7 +185,7 @@ interface SmsCommandResource {
 }
 
 export class SmsCommandInstance {
-  protected _solution: SmsCommandSolution;
+  protected _solution: SmsCommandContextSolution;
   protected _context?: SmsCommandContext;
 
   constructor(protected _version: V1, payload: SmsCommandPayload, sid?: string) {
@@ -268,9 +272,6 @@ export class SmsCommandInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SmsCommandSolution {
-  sid?: string;
 }
 
 export class SmsCommandPage extends Page<V1, SmsCommandPayload, SmsCommandResource, SmsCommandInstance> {
@@ -428,6 +429,9 @@ export interface SmsCommandListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SmsCommandSolution {
 }
 
 interface SmsCommandListInstanceImpl extends SmsCommandListInstance {}

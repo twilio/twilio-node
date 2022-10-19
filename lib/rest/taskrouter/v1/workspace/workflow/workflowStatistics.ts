@@ -205,6 +205,11 @@ export interface WorkflowStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkflowStatisticsSolution {
+  workspaceSid?: string;
+  workflowSid?: string;
+}
+
 interface WorkflowStatisticsListInstanceImpl extends WorkflowStatisticsListInstance {}
 class WorkflowStatisticsListInstanceImpl implements WorkflowStatisticsListInstance {
   _version?: V1;

@@ -120,8 +120,13 @@ export interface BuildContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BuildContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class BuildContextImpl implements BuildContext {
-  protected _solution: BuildSolution;
+  protected _solution: BuildContextSolution;
   protected _uri: string;
 
   protected _buildStatus?: BuildStatusListInstance;
@@ -197,7 +202,7 @@ interface BuildResource {
 }
 
 export class BuildInstance {
-  protected _solution: BuildSolution;
+  protected _solution: BuildContextSolution;
   protected _context?: BuildContext;
 
   constructor(protected _version: V1, payload: BuildPayload, serviceSid: string, sid?: string) {
@@ -318,10 +323,6 @@ export class BuildInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface BuildSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
@@ -488,6 +489,10 @@ export interface BuildListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface BuildSolution {
+  serviceSid?: string;
 }
 
 interface BuildListInstanceImpl extends BuildListInstance {}

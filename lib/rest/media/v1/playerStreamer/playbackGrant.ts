@@ -164,6 +164,10 @@ export interface PlaybackGrantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PlaybackGrantSolution {
+  sid?: string;
+}
+
 interface PlaybackGrantListInstanceImpl extends PlaybackGrantListInstance {}
 class PlaybackGrantListInstanceImpl implements PlaybackGrantListInstance {
   _version?: V1;
@@ -255,8 +259,6 @@ interface PlaybackGrantResource {
 }
 
 export class PlaybackGrantInstance {
-  protected _solution: PlaybackGrantSolution;
-  protected _context?: PlaybackGrantListInstance;
 
   constructor(protected _version: V1, payload: PlaybackGrantPayload, sid?: string) {
     this.sid = payload.sid;
@@ -265,7 +267,6 @@ export class PlaybackGrantInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.grant = payload.grant;
 
-    this._solution = { sid: sid || this.sid };
   }
 
   /**
@@ -307,9 +308,6 @@ export class PlaybackGrantInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface PlaybackGrantSolution {
-  sid?: string;
 }
 
 export class PlaybackGrantPage extends Page<V1, PlaybackGrantPayload, PlaybackGrantResource, PlaybackGrantInstance> {

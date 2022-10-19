@@ -293,6 +293,9 @@ export interface CallSummariesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CallSummariesSolution {
+}
+
 interface CallSummariesListInstanceImpl extends CallSummariesListInstance {}
 class CallSummariesListInstanceImpl implements CallSummariesListInstance {
   _version?: V1;

@@ -108,8 +108,14 @@ export interface AuthRegistrationsCredentialListMappingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthRegistrationsCredentialListMappingContextSolution {
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
+}
+
 export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRegistrationsCredentialListMappingContext {
-  protected _solution: AuthRegistrationsCredentialListMappingSolution;
+  protected _solution: AuthRegistrationsCredentialListMappingContextSolution;
   protected _uri: string;
 
 
@@ -172,7 +178,7 @@ interface AuthRegistrationsCredentialListMappingResource {
 }
 
 export class AuthRegistrationsCredentialListMappingInstance {
-  protected _solution: AuthRegistrationsCredentialListMappingSolution;
+  protected _solution: AuthRegistrationsCredentialListMappingContextSolution;
   protected _context?: AuthRegistrationsCredentialListMappingContext;
 
   constructor(protected _version: V2010, payload: AuthRegistrationsCredentialListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
@@ -253,11 +259,6 @@ export class AuthRegistrationsCredentialListMappingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AuthRegistrationsCredentialListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
 }
 
 export class AuthRegistrationsCredentialListMappingPage extends Page<V2010, AuthRegistrationsCredentialListMappingPayload, AuthRegistrationsCredentialListMappingResource, AuthRegistrationsCredentialListMappingInstance> {
@@ -417,6 +418,11 @@ export interface AuthRegistrationsCredentialListMappingListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AuthRegistrationsCredentialListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
 }
 
 interface AuthRegistrationsCredentialListMappingListInstanceImpl extends AuthRegistrationsCredentialListMappingListInstance {}

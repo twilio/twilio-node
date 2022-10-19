@@ -103,8 +103,13 @@ export interface AvailablePhoneNumberCountryContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AvailablePhoneNumberCountryContextSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNumberCountryContext {
-  protected _solution: AvailablePhoneNumberCountrySolution;
+  protected _solution: AvailablePhoneNumberCountryContextSolution;
   protected _uri: string;
 
   protected _tollFree?: TollFreeListInstance;
@@ -196,7 +201,7 @@ interface AvailablePhoneNumberCountryResource {
 }
 
 export class AvailablePhoneNumberCountryInstance {
-  protected _solution: AvailablePhoneNumberCountrySolution;
+  protected _solution: AvailablePhoneNumberCountryContextSolution;
   protected _context?: AvailablePhoneNumberCountryContext;
 
   constructor(protected _version: V2010, payload: AvailablePhoneNumberCountryPayload, accountSid: string, countryCode?: string) {
@@ -314,10 +319,6 @@ export class AvailablePhoneNumberCountryInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AvailablePhoneNumberCountrySolution {
-  accountSid?: string;
-  countryCode?: string;
 }
 
 export class AvailablePhoneNumberCountryPage extends Page<V2010, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountryInstance> {
@@ -464,6 +465,10 @@ export interface AvailablePhoneNumberCountryListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AvailablePhoneNumberCountrySolution {
+  accountSid?: string;
 }
 
 interface AvailablePhoneNumberCountryListInstanceImpl extends AvailablePhoneNumberCountryListInstance {}

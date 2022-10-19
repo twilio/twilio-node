@@ -249,6 +249,10 @@ export interface EventListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EventSolution {
+  workspaceSid?: string;
+}
+
 interface EventListInstanceImpl extends EventListInstance {}
 class EventListInstanceImpl implements EventListInstance {
   _version?: V1;
@@ -349,8 +353,13 @@ export interface EventContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EventContextSolution {
+  workspaceSid?: string;
+  sid?: string;
+}
+
 export class EventContextImpl implements EventContext {
-  protected _solution: EventSolution;
+  protected _solution: EventContextSolution;
   protected _uri: string;
 
 
@@ -412,7 +421,7 @@ interface EventResource {
 }
 
 export class EventInstance {
-  protected _solution: EventSolution;
+  protected _solution: EventContextSolution;
   protected _context?: EventContext;
 
   constructor(protected _version: V1, payload: EventPayload, workspaceSid: string, sid?: string) {
@@ -553,10 +562,6 @@ export class EventInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface EventSolution {
-  workspaceSid?: string;
-  sid?: string;
 }
 
 export class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {

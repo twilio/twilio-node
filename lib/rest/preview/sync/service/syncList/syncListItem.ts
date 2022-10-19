@@ -246,6 +246,11 @@ export interface SyncListItemListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SyncListItemSolution {
+  serviceSid?: string;
+  listSid?: string;
+}
+
 interface SyncListItemListInstanceImpl extends SyncListItemListInstance {}
 class SyncListItemListInstanceImpl implements SyncListItemListInstance {
   _version?: Sync;
@@ -399,8 +404,14 @@ export interface SyncListItemContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SyncListItemContextSolution {
+  serviceSid?: string;
+  listSid?: string;
+  index?: number;
+}
+
 export class SyncListItemContextImpl implements SyncListItemContext {
-  protected _solution: SyncListItemSolution;
+  protected _solution: SyncListItemContextSolution;
   protected _uri: string;
 
 
@@ -510,7 +521,7 @@ interface SyncListItemResource {
 }
 
 export class SyncListItemInstance {
-  protected _solution: SyncListItemSolution;
+  protected _solution: SyncListItemContextSolution;
   protected _context?: SyncListItemContext;
 
   constructor(protected _version: Sync, payload: SyncListItemPayload, serviceSid: string, listSid: string, index?: number) {
@@ -615,11 +626,6 @@ export class SyncListItemInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SyncListItemSolution {
-  serviceSid?: string;
-  listSid?: string;
-  index?: number;
 }
 
 export class SyncListItemPage extends Page<Sync, SyncListItemPayload, SyncListItemResource, SyncListItemInstance> {

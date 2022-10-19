@@ -217,6 +217,10 @@ export interface TaskQueuesStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TaskQueuesStatisticsSolution {
+  workspaceSid?: string;
+}
+
 interface TaskQueuesStatisticsListInstanceImpl extends TaskQueuesStatisticsListInstance {}
 class TaskQueuesStatisticsListInstanceImpl implements TaskQueuesStatisticsListInstance {
   _version?: V1;

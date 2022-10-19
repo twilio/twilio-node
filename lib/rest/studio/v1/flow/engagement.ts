@@ -212,6 +212,10 @@ export interface EngagementListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EngagementSolution {
+  flowSid?: string;
+}
+
 interface EngagementListInstanceImpl extends EngagementListInstance {}
 class EngagementListInstanceImpl implements EngagementListInstance {
   _version?: V1;
@@ -348,8 +352,13 @@ export interface EngagementContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EngagementContextSolution {
+  flowSid?: string;
+  sid?: string;
+}
+
 export class EngagementContextImpl implements EngagementContext {
-  protected _solution: EngagementSolution;
+  protected _solution: EngagementContextSolution;
   protected _uri: string;
 
   protected _steps?: StepListInstance;
@@ -430,7 +439,7 @@ interface EngagementResource {
 }
 
 export class EngagementInstance {
-  protected _solution: EngagementSolution;
+  protected _solution: EngagementContextSolution;
   protected _context?: EngagementContext;
 
   constructor(protected _version: V1, payload: EngagementPayload, flowSid: string, sid?: string) {
@@ -558,10 +567,6 @@ export class EngagementInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface EngagementSolution {
-  flowSid?: string;
-  sid?: string;
 }
 
 export class EngagementPage extends Page<V1, EngagementPayload, EngagementResource, EngagementInstance> {

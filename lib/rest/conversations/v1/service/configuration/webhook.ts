@@ -170,6 +170,10 @@ export interface WebhookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WebhookSolution {
+  chatServiceSid?: string;
+}
+
 interface WebhookListInstanceImpl extends WebhookListInstance {}
 class WebhookListInstanceImpl implements WebhookListInstance {
   _version?: V1;
@@ -265,8 +269,6 @@ interface WebhookResource {
 }
 
 export class WebhookInstance {
-  protected _solution: WebhookSolution;
-  protected _context?: WebhookListInstance;
 
   constructor(protected _version: V1, payload: WebhookPayload, chatServiceSid?: string) {
     this.accountSid = payload.account_sid;
@@ -277,7 +279,6 @@ export class WebhookInstance {
     this.method = payload.method;
     this.url = payload.url;
 
-    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
   }
 
   /**
@@ -326,9 +327,6 @@ export class WebhookInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface WebhookSolution {
-  chatServiceSid?: string;
 }
 
 export class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, WebhookInstance> {

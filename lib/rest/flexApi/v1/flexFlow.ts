@@ -211,8 +211,12 @@ export interface FlexFlowContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FlexFlowContextSolution {
+  sid?: string;
+}
+
 export class FlexFlowContextImpl implements FlexFlowContext {
-  protected _solution: FlexFlowSolution;
+  protected _solution: FlexFlowContextSolution;
   protected _uri: string;
 
 
@@ -328,7 +332,7 @@ interface FlexFlowResource {
 }
 
 export class FlexFlowInstance {
-  protected _solution: FlexFlowSolution;
+  protected _solution: FlexFlowContextSolution;
   protected _context?: FlexFlowContext;
 
   constructor(protected _version: V1, payload: FlexFlowPayload, sid?: string) {
@@ -479,9 +483,6 @@ export class FlexFlowInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FlexFlowSolution {
-  sid?: string;
 }
 
 export class FlexFlowPage extends Page<V1, FlexFlowPayload, FlexFlowResource, FlexFlowInstance> {
@@ -639,6 +640,9 @@ export interface FlexFlowListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FlexFlowSolution {
 }
 
 interface FlexFlowListInstanceImpl extends FlexFlowListInstance {}

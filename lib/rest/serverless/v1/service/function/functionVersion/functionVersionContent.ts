@@ -133,6 +133,12 @@ export interface FunctionVersionContentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FunctionVersionContentSolution {
+  serviceSid?: string;
+  functionSid?: string;
+  sid?: string;
+}
+
 interface FunctionVersionContentListInstanceImpl extends FunctionVersionContentListInstance {}
 class FunctionVersionContentListInstanceImpl implements FunctionVersionContentListInstance {
   _version?: V1;

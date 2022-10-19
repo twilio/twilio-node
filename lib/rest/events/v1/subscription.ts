@@ -226,6 +226,9 @@ export interface SubscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SubscriptionSolution {
+}
+
 interface SubscriptionListInstanceImpl extends SubscriptionListInstance {}
 class SubscriptionListInstanceImpl implements SubscriptionListInstance {
   _version?: V1;
@@ -386,8 +389,12 @@ export interface SubscriptionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SubscriptionContextSolution {
+  sid?: string;
+}
+
 export class SubscriptionContextImpl implements SubscriptionContext {
-  protected _solution: SubscriptionSolution;
+  protected _solution: SubscriptionContextSolution;
   protected _uri: string;
 
   protected _subscribedEvents?: SubscribedEventListInstance;
@@ -488,7 +495,7 @@ interface SubscriptionResource {
 }
 
 export class SubscriptionInstance {
-  protected _solution: SubscriptionSolution;
+  protected _solution: SubscriptionContextSolution;
   protected _context?: SubscriptionContext;
 
   constructor(protected _version: V1, payload: SubscriptionPayload, sid?: string) {
@@ -616,9 +623,6 @@ export class SubscriptionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SubscriptionSolution {
-  sid?: string;
 }
 
 export class SubscriptionPage extends Page<V1, SubscriptionPayload, SubscriptionResource, SubscriptionInstance> {

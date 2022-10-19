@@ -203,6 +203,9 @@ export interface RegulationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RegulationSolution {
+}
+
 interface RegulationListInstanceImpl extends RegulationListInstance {}
 class RegulationListInstanceImpl implements RegulationListInstance {
   _version?: V2;
@@ -295,8 +298,12 @@ export interface RegulationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RegulationContextSolution {
+  sid?: string;
+}
+
 export class RegulationContextImpl implements RegulationContext {
-  protected _solution: RegulationSolution;
+  protected _solution: RegulationContextSolution;
   protected _uri: string;
 
 
@@ -348,7 +355,7 @@ interface RegulationResource {
 }
 
 export class RegulationInstance {
-  protected _solution: RegulationSolution;
+  protected _solution: RegulationContextSolution;
   protected _context?: RegulationContext;
 
   constructor(protected _version: V2, payload: RegulationPayload, sid?: string) {
@@ -426,9 +433,6 @@ export class RegulationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RegulationSolution {
-  sid?: string;
 }
 
 export class RegulationPage extends Page<V2, RegulationPayload, RegulationResource, RegulationInstance> {

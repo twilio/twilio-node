@@ -181,6 +181,11 @@ export interface UserChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UserChannelSolution {
+  serviceSid?: string;
+  userSid?: string;
+}
+
 interface UserChannelListInstanceImpl extends UserChannelListInstance {}
 class UserChannelListInstanceImpl implements UserChannelListInstance {
   _version?: V1;

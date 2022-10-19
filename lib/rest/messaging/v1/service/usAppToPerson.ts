@@ -216,6 +216,10 @@ export interface UsAppToPersonListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UsAppToPersonSolution {
+  messagingServiceSid?: string;
+}
+
 interface UsAppToPersonListInstanceImpl extends UsAppToPersonListInstance {}
 class UsAppToPersonListInstanceImpl implements UsAppToPersonListInstance {
   _version?: V1;
@@ -379,8 +383,13 @@ export interface UsAppToPersonContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UsAppToPersonContextSolution {
+  messagingServiceSid?: string;
+  sid?: string;
+}
+
 export class UsAppToPersonContextImpl implements UsAppToPersonContext {
-  protected _solution: UsAppToPersonSolution;
+  protected _solution: UsAppToPersonContextSolution;
   protected _uri: string;
 
 
@@ -455,7 +464,7 @@ interface UsAppToPersonResource {
 }
 
 export class UsAppToPersonInstance {
-  protected _solution: UsAppToPersonSolution;
+  protected _solution: UsAppToPersonContextSolution;
   protected _context?: UsAppToPersonContext;
 
   constructor(protected _version: V1, payload: UsAppToPersonPayload, messagingServiceSid: string, sid?: string) {
@@ -608,10 +617,6 @@ export class UsAppToPersonInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface UsAppToPersonSolution {
-  messagingServiceSid?: string;
-  sid?: string;
 }
 
 export class UsAppToPersonPage extends Page<V1, UsAppToPersonPayload, UsAppToPersonResource, UsAppToPersonInstance> {

@@ -162,6 +162,10 @@ export interface DefaultsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DefaultsSolution {
+  assistantSid?: string;
+}
+
 interface DefaultsListInstanceImpl extends DefaultsListInstance {}
 class DefaultsListInstanceImpl implements DefaultsListInstance {
   _version?: V1;
@@ -251,8 +255,6 @@ interface DefaultsResource {
 }
 
 export class DefaultsInstance {
-  protected _solution: DefaultsSolution;
-  protected _context?: DefaultsListInstance;
 
   constructor(protected _version: V1, payload: DefaultsPayload, assistantSid?: string) {
     this.accountSid = payload.account_sid;
@@ -260,7 +262,6 @@ export class DefaultsInstance {
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid: assistantSid || this.assistantSid };
   }
 
   /**
@@ -297,9 +298,6 @@ export class DefaultsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DefaultsSolution {
-  assistantSid?: string;
 }
 
 export class DefaultsPage extends Page<V1, DefaultsPayload, DefaultsResource, DefaultsInstance> {

@@ -202,8 +202,13 @@ export interface ConversationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ConversationContextSolution {
+  chatServiceSid?: string;
+  sid?: string;
+}
+
 export class ConversationContextImpl implements ConversationContext {
-  protected _solution: ConversationSolution;
+  protected _solution: ConversationContextSolution;
   protected _uri: string;
 
   protected _participants?: ParticipantListInstance;
@@ -342,7 +347,7 @@ interface ConversationResource {
 }
 
 export class ConversationInstance {
-  protected _solution: ConversationSolution;
+  protected _solution: ConversationContextSolution;
   protected _context?: ConversationContext;
 
   constructor(protected _version: V1, payload: ConversationPayload, chatServiceSid: string, sid?: string) {
@@ -525,10 +530,6 @@ export class ConversationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface ConversationSolution {
-  chatServiceSid?: string;
-  sid?: string;
-}
 
 export class ConversationPage extends Page<V1, ConversationPayload, ConversationResource, ConversationInstance> {
   /**
@@ -694,6 +695,10 @@ export interface ConversationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ConversationSolution {
+  chatServiceSid?: string;
 }
 
 interface ConversationListInstanceImpl extends ConversationListInstance {}

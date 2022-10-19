@@ -107,8 +107,12 @@ export interface NetworkContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NetworkContextSolution {
+  sid?: string;
+}
+
 export class NetworkContextImpl implements NetworkContext {
-  protected _solution: NetworkSolution;
+  protected _solution: NetworkContextSolution;
   protected _uri: string;
 
 
@@ -158,7 +162,7 @@ interface NetworkResource {
 }
 
 export class NetworkInstance {
-  protected _solution: NetworkSolution;
+  protected _solution: NetworkContextSolution;
   protected _context?: NetworkContext;
 
   constructor(protected _version: V1, payload: NetworkPayload, sid?: string) {
@@ -227,9 +231,6 @@ export class NetworkInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NetworkSolution {
-  sid?: string;
 }
 
 export class NetworkPage extends Page<V1, NetworkPayload, NetworkResource, NetworkInstance> {
@@ -375,6 +376,9 @@ export interface NetworkListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface NetworkSolution {
 }
 
 interface NetworkListInstanceImpl extends NetworkListInstance {}

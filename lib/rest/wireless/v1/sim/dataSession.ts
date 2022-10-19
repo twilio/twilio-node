@@ -181,6 +181,10 @@ export interface DataSessionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DataSessionSolution {
+  simSid?: string;
+}
+
 interface DataSessionListInstanceImpl extends DataSessionListInstance {}
 class DataSessionListInstanceImpl implements DataSessionListInstance {
   _version?: V1;

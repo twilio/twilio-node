@@ -289,6 +289,10 @@ export interface LocalListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface LocalSolution {
+  accountSid?: string;
+}
+
 interface LocalListInstanceImpl extends LocalListInstance {}
 class LocalListInstanceImpl implements LocalListInstance {
   _version?: V2010;
@@ -454,8 +458,6 @@ interface LocalResource {
 }
 
 export class LocalInstance {
-  protected _solution: LocalSolution;
-  protected _context?: LocalListInstance;
 
   constructor(protected _version: V2010, payload: LocalPayload, accountSid?: string) {
     this.accountSid = payload.account_sid;
@@ -493,7 +495,6 @@ export class LocalInstance {
     this.bundleSid = payload.bundle_sid;
     this.status = payload.status;
 
-    this._solution = { accountSid: accountSid || this.accountSid };
   }
 
   /**
@@ -662,9 +663,6 @@ export class LocalInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface LocalSolution {
-  accountSid?: string;
 }
 
 export class LocalPage extends Page<V2010, LocalPayload, LocalResource, LocalInstance> {

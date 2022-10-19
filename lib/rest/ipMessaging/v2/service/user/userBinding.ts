@@ -107,8 +107,14 @@ export interface UserBindingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UserBindingContextSolution {
+  serviceSid?: string;
+  userSid?: string;
+  sid?: string;
+}
+
 export class UserBindingContextImpl implements UserBindingContext {
-  protected _solution: UserBindingSolution;
+  protected _solution: UserBindingContextSolution;
   protected _uri: string;
 
 
@@ -178,7 +184,7 @@ interface UserBindingResource {
 }
 
 export class UserBindingInstance {
-  protected _solution: UserBindingSolution;
+  protected _solution: UserBindingContextSolution;
   protected _context?: UserBindingContext;
 
   constructor(protected _version: V2, payload: UserBindingPayload, serviceSid: string, userSid: string, sid?: string) {
@@ -265,11 +271,6 @@ export class UserBindingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface UserBindingSolution {
-  serviceSid?: string;
-  userSid?: string;
-  sid?: string;
 }
 
 export class UserBindingPage extends Page<V2, UserBindingPayload, UserBindingResource, UserBindingInstance> {
@@ -417,6 +418,11 @@ export interface UserBindingListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface UserBindingSolution {
+  serviceSid?: string;
+  userSid?: string;
 }
 
 interface UserBindingListInstanceImpl extends UserBindingListInstance {}

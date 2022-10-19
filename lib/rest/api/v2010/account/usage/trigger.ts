@@ -177,8 +177,13 @@ export interface TriggerContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TriggerContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class TriggerContextImpl implements TriggerContext {
-  protected _solution: TriggerSolution;
+  protected _solution: TriggerContextSolution;
   protected _uri: string;
 
 
@@ -283,7 +288,7 @@ interface TriggerResource {
 }
 
 export class TriggerInstance {
-  protected _solution: TriggerSolution;
+  protected _solution: TriggerContextSolution;
   protected _context?: TriggerContext;
 
   constructor(protected _version: V2010, payload: TriggerPayload, accountSid: string, sid?: string) {
@@ -444,10 +449,6 @@ export class TriggerInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface TriggerSolution {
-  accountSid?: string;
-  sid?: string;
-}
 
 export class TriggerPage extends Page<V2010, TriggerPayload, TriggerResource, TriggerInstance> {
   /**
@@ -605,6 +606,10 @@ export interface TriggerListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TriggerSolution {
+  accountSid?: string;
 }
 
 interface TriggerListInstanceImpl extends TriggerListInstance {}

@@ -107,8 +107,12 @@ export interface AlertContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AlertContextSolution {
+  sid?: string;
+}
+
 export class AlertContextImpl implements AlertContext {
-  protected _solution: AlertSolution;
+  protected _solution: AlertContextSolution;
   protected _uri: string;
 
 
@@ -173,7 +177,7 @@ interface AlertResource {
 }
 
 export class AlertInstance {
-  protected _solution: AlertSolution;
+  protected _solution: AlertContextSolution;
   protected _context?: AlertContext;
 
   constructor(protected _version: V1, payload: AlertPayload, sid?: string) {
@@ -327,9 +331,6 @@ export class AlertInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface AlertSolution {
-  sid?: string;
-}
 
 export class AlertPage extends Page<V1, AlertPayload, AlertResource, AlertInstance> {
   /**
@@ -474,6 +475,9 @@ export interface AlertListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AlertSolution {
 }
 
 interface AlertListInstanceImpl extends AlertListInstance {}

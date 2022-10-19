@@ -207,6 +207,10 @@ export interface TodayListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TodaySolution {
+  accountSid?: string;
+}
+
 interface TodayListInstanceImpl extends TodayListInstance {}
 class TodayListInstanceImpl implements TodayListInstance {
   _version?: V2010;

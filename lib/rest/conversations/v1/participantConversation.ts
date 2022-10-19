@@ -193,6 +193,9 @@ export interface ParticipantConversationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ParticipantConversationSolution {
+}
+
 interface ParticipantConversationListInstanceImpl extends ParticipantConversationListInstance {}
 class ParticipantConversationListInstanceImpl implements ParticipantConversationListInstance {
   _version?: V1;

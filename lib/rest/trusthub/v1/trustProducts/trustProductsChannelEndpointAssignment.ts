@@ -122,8 +122,13 @@ export interface TrustProductsChannelEndpointAssignmentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TrustProductsChannelEndpointAssignmentContextSolution {
+  trustProductSid?: string;
+  sid?: string;
+}
+
 export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustProductsChannelEndpointAssignmentContext {
-  protected _solution: TrustProductsChannelEndpointAssignmentSolution;
+  protected _solution: TrustProductsChannelEndpointAssignmentContextSolution;
   protected _uri: string;
 
 
@@ -188,7 +193,7 @@ interface TrustProductsChannelEndpointAssignmentResource {
 }
 
 export class TrustProductsChannelEndpointAssignmentInstance {
-  protected _solution: TrustProductsChannelEndpointAssignmentSolution;
+  protected _solution: TrustProductsChannelEndpointAssignmentContextSolution;
   protected _context?: TrustProductsChannelEndpointAssignmentContext;
 
   constructor(protected _version: V1, payload: TrustProductsChannelEndpointAssignmentPayload, trustProductSid: string, sid?: string) {
@@ -281,10 +286,6 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TrustProductsChannelEndpointAssignmentSolution {
-  trustProductSid?: string;
-  sid?: string;
 }
 
 export class TrustProductsChannelEndpointAssignmentPage extends Page<V1, TrustProductsChannelEndpointAssignmentPayload, TrustProductsChannelEndpointAssignmentResource, TrustProductsChannelEndpointAssignmentInstance> {
@@ -443,6 +444,10 @@ export interface TrustProductsChannelEndpointAssignmentListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TrustProductsChannelEndpointAssignmentSolution {
+  trustProductSid?: string;
 }
 
 interface TrustProductsChannelEndpointAssignmentListInstanceImpl extends TrustProductsChannelEndpointAssignmentListInstance {}

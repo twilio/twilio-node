@@ -197,6 +197,10 @@ export interface MetricListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MetricSolution {
+  callSid?: string;
+}
+
 interface MetricListInstanceImpl extends MetricListInstance {}
 class MetricListInstanceImpl implements MetricListInstance {
   _version?: V1;

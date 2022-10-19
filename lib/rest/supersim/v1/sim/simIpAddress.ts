@@ -181,6 +181,10 @@ export interface SimIpAddressListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SimIpAddressSolution {
+  simSid?: string;
+}
+
 interface SimIpAddressListInstanceImpl extends SimIpAddressListInstance {}
 class SimIpAddressListInstanceImpl implements SimIpAddressListInstance {
   _version?: V1;

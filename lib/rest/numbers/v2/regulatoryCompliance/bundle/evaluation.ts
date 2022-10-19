@@ -91,8 +91,13 @@ export interface EvaluationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EvaluationContextSolution {
+  bundleSid?: string;
+  sid?: string;
+}
+
 export class EvaluationContextImpl implements EvaluationContext {
-  protected _solution: EvaluationSolution;
+  protected _solution: EvaluationContextSolution;
   protected _uri: string;
 
 
@@ -145,7 +150,7 @@ interface EvaluationResource {
 }
 
 export class EvaluationInstance {
-  protected _solution: EvaluationSolution;
+  protected _solution: EvaluationContextSolution;
   protected _context?: EvaluationContext;
 
   constructor(protected _version: V2, payload: EvaluationPayload, bundleSid: string, sid?: string) {
@@ -223,10 +228,6 @@ export class EvaluationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface EvaluationSolution {
-  bundleSid?: string;
-  sid?: string;
 }
 
 export class EvaluationPage extends Page<V2, EvaluationPayload, EvaluationResource, EvaluationInstance> {
@@ -383,6 +384,10 @@ export interface EvaluationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface EvaluationSolution {
+  bundleSid?: string;
 }
 
 interface EvaluationListInstanceImpl extends EvaluationListInstance {}

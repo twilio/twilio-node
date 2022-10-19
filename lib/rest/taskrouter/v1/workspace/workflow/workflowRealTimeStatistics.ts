@@ -181,6 +181,11 @@ export interface WorkflowRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkflowRealTimeStatisticsSolution {
+  workspaceSid?: string;
+  workflowSid?: string;
+}
+
 interface WorkflowRealTimeStatisticsListInstanceImpl extends WorkflowRealTimeStatisticsListInstance {}
 class WorkflowRealTimeStatisticsListInstanceImpl implements WorkflowRealTimeStatisticsListInstance {
   _version?: V1;

@@ -141,8 +141,14 @@ export interface VariableContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface VariableContextSolution {
+  serviceSid?: string;
+  environmentSid?: string;
+  sid?: string;
+}
+
 export class VariableContextImpl implements VariableContext {
-  protected _solution: VariableSolution;
+  protected _solution: VariableContextSolution;
   protected _uri: string;
 
 
@@ -238,7 +244,7 @@ interface VariableResource {
 }
 
 export class VariableInstance {
-  protected _solution: VariableSolution;
+  protected _solution: VariableContextSolution;
   protected _context?: VariableContext;
 
   constructor(protected _version: V1, payload: VariablePayload, serviceSid: string, environmentSid: string, sid?: string) {
@@ -365,11 +371,6 @@ export class VariableInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface VariableSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
 }
 
 export class VariablePage extends Page<V1, VariablePayload, VariableResource, VariableInstance> {
@@ -529,6 +530,11 @@ export interface VariableListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface VariableSolution {
+  serviceSid?: string;
+  environmentSid?: string;
 }
 
 interface VariableListInstanceImpl extends VariableListInstance {}

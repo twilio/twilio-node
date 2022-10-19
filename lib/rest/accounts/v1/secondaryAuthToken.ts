@@ -51,6 +51,9 @@ export interface SecondaryAuthTokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SecondaryAuthTokenSolution {
+}
+
 interface SecondaryAuthTokenListInstanceImpl extends SecondaryAuthTokenListInstance {}
 class SecondaryAuthTokenListInstanceImpl implements SecondaryAuthTokenListInstance {
   _version?: V1;
@@ -119,8 +122,6 @@ interface SecondaryAuthTokenResource {
 }
 
 export class SecondaryAuthTokenInstance {
-  protected _solution: SecondaryAuthTokenSolution;
-  protected _context?: SecondaryAuthTokenListInstance;
 
   constructor(protected _version: V1, payload: SecondaryAuthTokenPayload) {
     this.accountSid = payload.account_sid;
@@ -129,7 +130,6 @@ export class SecondaryAuthTokenInstance {
     this.secondaryAuthToken = payload.secondary_auth_token;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -171,8 +171,6 @@ export class SecondaryAuthTokenInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SecondaryAuthTokenSolution {
 }
 
 export class SecondaryAuthTokenPage extends Page<V1, SecondaryAuthTokenPayload, SecondaryAuthTokenResource, SecondaryAuthTokenInstance> {

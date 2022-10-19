@@ -185,8 +185,12 @@ export interface AddressConfigurationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AddressConfigurationContextSolution {
+  sid?: string;
+}
+
 export class AddressConfigurationContextImpl implements AddressConfigurationContext {
-  protected _solution: AddressConfigurationSolution;
+  protected _solution: AddressConfigurationContextSolution;
   protected _uri: string;
 
 
@@ -289,7 +293,7 @@ interface AddressConfigurationResource {
 }
 
 export class AddressConfigurationInstance {
-  protected _solution: AddressConfigurationSolution;
+  protected _solution: AddressConfigurationContextSolution;
   protected _context?: AddressConfigurationContext;
 
   constructor(protected _version: V1, payload: AddressConfigurationPayload, sid?: string) {
@@ -416,9 +420,6 @@ export class AddressConfigurationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AddressConfigurationSolution {
-  sid?: string;
 }
 
 export class AddressConfigurationPage extends Page<V1, AddressConfigurationPayload, AddressConfigurationResource, AddressConfigurationInstance> {
@@ -576,6 +577,9 @@ export interface AddressConfigurationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AddressConfigurationSolution {
 }
 
 interface AddressConfigurationListInstanceImpl extends AddressConfigurationListInstance {}

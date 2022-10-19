@@ -248,6 +248,9 @@ export interface TrustProductsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TrustProductsSolution {
+}
+
 interface TrustProductsListInstanceImpl extends TrustProductsListInstance {}
 class TrustProductsListInstanceImpl implements TrustProductsListInstance {
   _version?: V1;
@@ -413,8 +416,12 @@ export interface TrustProductsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TrustProductsContextSolution {
+  sid?: string;
+}
+
 export class TrustProductsContextImpl implements TrustProductsContext {
-  protected _solution: TrustProductsSolution;
+  protected _solution: TrustProductsContextSolution;
   protected _uri: string;
 
   protected _trustProductsChannelEndpointAssignment?: TrustProductsChannelEndpointAssignmentListInstance;
@@ -533,7 +540,7 @@ interface TrustProductsResource {
 }
 
 export class TrustProductsInstance {
-  protected _solution: TrustProductsSolution;
+  protected _solution: TrustProductsContextSolution;
   protected _context?: TrustProductsContext;
 
   constructor(protected _version: V1, payload: TrustProductsPayload, sid?: string) {
@@ -696,9 +703,6 @@ export class TrustProductsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TrustProductsSolution {
-  sid?: string;
 }
 
 export class TrustProductsPage extends Page<V1, TrustProductsPayload, TrustProductsResource, TrustProductsInstance> {

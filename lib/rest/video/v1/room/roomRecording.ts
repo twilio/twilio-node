@@ -131,8 +131,13 @@ export interface RoomRecordingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RoomRecordingContextSolution {
+  roomSid?: string;
+  sid?: string;
+}
+
 export class RoomRecordingContextImpl implements RoomRecordingContext {
-  protected _solution: RoomRecordingSolution;
+  protected _solution: RoomRecordingContextSolution;
   protected _uri: string;
 
 
@@ -207,7 +212,7 @@ interface RoomRecordingResource {
 }
 
 export class RoomRecordingInstance {
-  protected _solution: RoomRecordingSolution;
+  protected _solution: RoomRecordingContextSolution;
   protected _context?: RoomRecordingContext;
 
   constructor(protected _version: V1, payload: RoomRecordingPayload, roomSid: string, sid?: string) {
@@ -348,10 +353,6 @@ export class RoomRecordingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RoomRecordingSolution {
-  roomSid?: string;
-  sid?: string;
 }
 
 export class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecordingResource, RoomRecordingInstance> {
@@ -498,6 +499,10 @@ export interface RoomRecordingListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface RoomRecordingSolution {
+  roomSid?: string;
 }
 
 interface RoomRecordingListInstanceImpl extends RoomRecordingListInstance {}

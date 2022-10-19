@@ -33,6 +33,10 @@ export interface DialogueListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DialogueSolution {
+  assistantSid?: string;
+}
+
 interface DialogueListInstanceImpl extends DialogueListInstance {}
 class DialogueListInstanceImpl implements DialogueListInstance {
   _version?: Understand;
@@ -84,8 +88,13 @@ export interface DialogueContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DialogueContextSolution {
+  assistantSid?: string;
+  sid?: string;
+}
+
 export class DialogueContextImpl implements DialogueContext {
-  protected _solution: DialogueSolution;
+  protected _solution: DialogueContextSolution;
   protected _uri: string;
 
 
@@ -135,7 +144,7 @@ interface DialogueResource {
 }
 
 export class DialogueInstance {
-  protected _solution: DialogueSolution;
+  protected _solution: DialogueContextSolution;
   protected _context?: DialogueContext;
 
   constructor(protected _version: Understand, payload: DialoguePayload, assistantSid: string, sid?: string) {
@@ -201,10 +210,6 @@ export class DialogueInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DialogueSolution {
-  assistantSid?: string;
-  sid?: string;
 }
 
 export class DialoguePage extends Page<Understand, DialoguePayload, DialogueResource, DialogueInstance> {

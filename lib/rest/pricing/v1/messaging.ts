@@ -33,6 +33,9 @@ export interface MessagingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MessagingSolution {
+}
+
 interface MessagingListInstanceImpl extends MessagingListInstance {}
 class MessagingListInstanceImpl implements MessagingListInstance {
   _version?: V1;

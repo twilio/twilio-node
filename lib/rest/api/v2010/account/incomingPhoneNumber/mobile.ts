@@ -289,6 +289,10 @@ export interface MobileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MobileSolution {
+  accountSid?: string;
+}
+
 interface MobileListInstanceImpl extends MobileListInstance {}
 class MobileListInstanceImpl implements MobileListInstance {
   _version?: V2010;
@@ -454,8 +458,6 @@ interface MobileResource {
 }
 
 export class MobileInstance {
-  protected _solution: MobileSolution;
-  protected _context?: MobileListInstance;
 
   constructor(protected _version: V2010, payload: MobilePayload, accountSid?: string) {
     this.accountSid = payload.account_sid;
@@ -493,7 +495,6 @@ export class MobileInstance {
     this.bundleSid = payload.bundle_sid;
     this.status = payload.status;
 
-    this._solution = { accountSid: accountSid || this.accountSid };
   }
 
   /**
@@ -662,9 +663,6 @@ export class MobileInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface MobileSolution {
-  accountSid?: string;
 }
 
 export class MobilePage extends Page<V2010, MobilePayload, MobileResource, MobileInstance> {

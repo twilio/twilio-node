@@ -44,6 +44,9 @@ export interface TrunkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TrunkSolution {
+}
+
 interface TrunkListInstanceImpl extends TrunkListInstance {}
 class TrunkListInstanceImpl implements TrunkListInstance {
   _version?: V2;
@@ -115,8 +118,12 @@ export interface TrunkContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TrunkContextSolution {
+  sipTrunkDomain?: string;
+}
+
 export class TrunkContextImpl implements TrunkContext {
-  protected _solution: TrunkSolution;
+  protected _solution: TrunkContextSolution;
   protected _uri: string;
 
 
@@ -198,7 +205,7 @@ interface TrunkResource {
 }
 
 export class TrunkInstance {
-  protected _solution: TrunkSolution;
+  protected _solution: TrunkContextSolution;
   protected _context?: TrunkContext;
 
   constructor(protected _version: V2, payload: TrunkPayload, sipTrunkDomain?: string) {
@@ -307,9 +314,6 @@ export class TrunkInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TrunkSolution {
-  sipTrunkDomain?: string;
 }
 
 export class TrunkPage extends Page<V2, TrunkPayload, TrunkResource, TrunkInstance> {

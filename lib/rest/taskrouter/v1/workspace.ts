@@ -187,8 +187,12 @@ export interface WorkspaceContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkspaceContextSolution {
+  sid?: string;
+}
+
 export class WorkspaceContextImpl implements WorkspaceContext {
-  protected _solution: WorkspaceSolution;
+  protected _solution: WorkspaceContextSolution;
   protected _uri: string;
 
   protected _taskChannels?: TaskChannelListInstance;
@@ -355,7 +359,7 @@ interface WorkspaceResource {
 }
 
 export class WorkspaceInstance {
-  protected _solution: WorkspaceSolution;
+  protected _solution: WorkspaceContextSolution;
   protected _context?: WorkspaceContext;
 
   constructor(protected _version: V1, payload: WorkspacePayload, sid?: string) {
@@ -586,9 +590,6 @@ export class WorkspaceInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface WorkspaceSolution {
-  sid?: string;
-}
 
 export class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource, WorkspaceInstance> {
   /**
@@ -745,6 +746,9 @@ export interface WorkspaceListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface WorkspaceSolution {
 }
 
 interface WorkspaceListInstanceImpl extends WorkspaceListInstance {}

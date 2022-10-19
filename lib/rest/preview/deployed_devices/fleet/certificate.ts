@@ -149,8 +149,13 @@ export interface CertificateContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CertificateContextSolution {
+  fleetSid?: string;
+  sid?: string;
+}
+
 export class CertificateContextImpl implements CertificateContext {
-  protected _solution: CertificateSolution;
+  protected _solution: CertificateContextSolution;
   protected _uri: string;
 
 
@@ -246,7 +251,7 @@ interface CertificateResource {
 }
 
 export class CertificateInstance {
-  protected _solution: CertificateSolution;
+  protected _solution: CertificateContextSolution;
   protected _context?: CertificateContext;
 
   constructor(protected _version: DeployedDevices, payload: CertificatePayload, fleetSid: string, sid?: string) {
@@ -373,10 +378,6 @@ export class CertificateInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CertificateSolution {
-  fleetSid?: string;
-  sid?: string;
 }
 
 export class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
@@ -535,6 +536,10 @@ export interface CertificateListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CertificateSolution {
+  fleetSid?: string;
 }
 
 interface CertificateListInstanceImpl extends CertificateListInstance {}

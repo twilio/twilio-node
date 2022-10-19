@@ -133,6 +133,10 @@ export interface BalanceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BalanceSolution {
+  accountSid?: string;
+}
+
 interface BalanceListInstanceImpl extends BalanceListInstance {}
 class BalanceListInstanceImpl implements BalanceListInstance {
   _version?: V2010;

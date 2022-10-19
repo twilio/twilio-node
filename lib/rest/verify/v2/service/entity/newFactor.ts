@@ -86,6 +86,11 @@ export interface NewFactorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NewFactorSolution {
+  serviceSid?: string;
+  identity?: string;
+}
+
 interface NewFactorListInstanceImpl extends NewFactorListInstance {}
 class NewFactorListInstanceImpl implements NewFactorListInstance {
   _version?: V2;
@@ -179,8 +184,6 @@ interface NewFactorResource {
 }
 
 export class NewFactorInstance {
-  protected _solution: NewFactorSolution;
-  protected _context?: NewFactorListInstance;
 
   constructor(protected _version: V2, payload: NewFactorPayload, serviceSid: string, identity?: string) {
     this.sid = payload.sid;
@@ -198,7 +201,6 @@ export class NewFactorInstance {
     this.metadata = payload.metadata;
     this.url = payload.url;
 
-    this._solution = { serviceSid, identity: identity || this.identity };
   }
 
   /**
@@ -279,10 +281,6 @@ export class NewFactorInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NewFactorSolution {
-  serviceSid?: string;
-  identity?: string;
 }
 
 export class NewFactorPage extends Page<V2, NewFactorPayload, NewFactorResource, NewFactorInstance> {

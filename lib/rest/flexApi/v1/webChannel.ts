@@ -151,8 +151,12 @@ export interface WebChannelContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WebChannelContextSolution {
+  sid?: string;
+}
+
 export class WebChannelContextImpl implements WebChannelContext {
-  protected _solution: WebChannelSolution;
+  protected _solution: WebChannelContextSolution;
   protected _uri: string;
 
 
@@ -245,7 +249,7 @@ interface WebChannelResource {
 }
 
 export class WebChannelInstance {
-  protected _solution: WebChannelSolution;
+  protected _solution: WebChannelContextSolution;
   protected _context?: WebChannelContext;
 
   constructor(protected _version: V1, payload: WebChannelPayload, sid?: string) {
@@ -354,9 +358,6 @@ export class WebChannelInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface WebChannelSolution {
-  sid?: string;
 }
 
 export class WebChannelPage extends Page<V1, WebChannelPayload, WebChannelResource, WebChannelInstance> {
@@ -514,6 +515,9 @@ export interface WebChannelListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface WebChannelSolution {
 }
 
 interface WebChannelListInstanceImpl extends WebChannelListInstance {}

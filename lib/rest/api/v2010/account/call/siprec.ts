@@ -471,8 +471,14 @@ export interface SiprecContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SiprecContextSolution {
+  accountSid?: string;
+  callSid?: string;
+  sid?: string;
+}
+
 export class SiprecContextImpl implements SiprecContext {
-  protected _solution: SiprecSolution;
+  protected _solution: SiprecContextSolution;
   protected _uri: string;
 
 
@@ -538,7 +544,7 @@ interface SiprecResource {
 }
 
 export class SiprecInstance {
-  protected _solution: SiprecSolution;
+  protected _solution: SiprecContextSolution;
   protected _context?: SiprecContext;
 
   constructor(protected _version: V2010, payload: SiprecPayload, accountSid: string, callSid: string, sid?: string) {
@@ -619,11 +625,6 @@ export class SiprecInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface SiprecSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
-}
 
 export class SiprecPage extends Page<V2010, SiprecPayload, SiprecResource, SiprecInstance> {
   /**
@@ -688,6 +689,11 @@ export interface SiprecListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SiprecSolution {
+  accountSid?: string;
+  callSid?: string;
 }
 
 interface SiprecListInstanceImpl extends SiprecListInstance {}

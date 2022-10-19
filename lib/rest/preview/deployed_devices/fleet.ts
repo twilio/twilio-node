@@ -147,8 +147,12 @@ export interface FleetContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FleetContextSolution {
+  sid?: string;
+}
+
 export class FleetContextImpl implements FleetContext {
-  protected _solution: FleetSolution;
+  protected _solution: FleetContextSolution;
   protected _uri: string;
 
   protected _devices?: DeviceListInstance;
@@ -268,7 +272,7 @@ interface FleetResource {
 }
 
 export class FleetInstance {
-  protected _solution: FleetSolution;
+  protected _solution: FleetContextSolution;
   protected _context?: FleetContext;
 
   constructor(protected _version: DeployedDevices, payload: FleetPayload, sid?: string) {
@@ -423,9 +427,6 @@ export class FleetInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FleetSolution {
-  sid?: string;
 }
 
 export class FleetPage extends Page<DeployedDevices, FleetPayload, FleetResource, FleetInstance> {
@@ -591,6 +592,9 @@ export interface FleetListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FleetSolution {
 }
 
 interface FleetListInstanceImpl extends FleetListInstance {}

@@ -204,6 +204,11 @@ export interface IpAccessControlListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpAccessControlListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 interface IpAccessControlListMappingListInstanceImpl extends IpAccessControlListMappingListInstance {}
 class IpAccessControlListMappingListInstanceImpl implements IpAccessControlListMappingListInstance {
   _version?: V2010;
@@ -332,8 +337,14 @@ export interface IpAccessControlListMappingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpAccessControlListMappingContextSolution {
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
+}
+
 export class IpAccessControlListMappingContextImpl implements IpAccessControlListMappingContext {
-  protected _solution: IpAccessControlListMappingSolution;
+  protected _solution: IpAccessControlListMappingContextSolution;
   protected _uri: string;
 
 
@@ -398,7 +409,7 @@ interface IpAccessControlListMappingResource {
 }
 
 export class IpAccessControlListMappingInstance {
-  protected _solution: IpAccessControlListMappingSolution;
+  protected _solution: IpAccessControlListMappingContextSolution;
   protected _context?: IpAccessControlListMappingContext;
 
   constructor(protected _version: V2010, payload: IpAccessControlListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
@@ -491,11 +502,6 @@ export class IpAccessControlListMappingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface IpAccessControlListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
 }
 
 export class IpAccessControlListMappingPage extends Page<V2010, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingInstance> {

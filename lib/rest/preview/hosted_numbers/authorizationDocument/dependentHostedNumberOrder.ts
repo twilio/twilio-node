@@ -213,6 +213,10 @@ export interface DependentHostedNumberOrderListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DependentHostedNumberOrderSolution {
+  signingDocumentSid?: string;
+}
+
 interface DependentHostedNumberOrderListInstanceImpl extends DependentHostedNumberOrderListInstance {}
 class DependentHostedNumberOrderListInstanceImpl implements DependentHostedNumberOrderListInstance {
   _version?: HostedNumbers;

@@ -201,6 +201,11 @@ export interface MediaListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MediaSolution {
+  accountSid?: string;
+  messageSid?: string;
+}
+
 interface MediaListInstanceImpl extends MediaListInstance {}
 class MediaListInstanceImpl implements MediaListInstance {
   _version?: V2010;
@@ -303,8 +308,14 @@ export interface MediaContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MediaContextSolution {
+  accountSid?: string;
+  messageSid?: string;
+  sid?: string;
+}
+
 export class MediaContextImpl implements MediaContext {
-  protected _solution: MediaSolution;
+  protected _solution: MediaContextSolution;
   protected _uri: string;
 
 
@@ -369,7 +380,7 @@ interface MediaResource {
 }
 
 export class MediaInstance {
-  protected _solution: MediaSolution;
+  protected _solution: MediaContextSolution;
   protected _context?: MediaContext;
 
   constructor(protected _version: V2010, payload: MediaPayload, accountSid: string, messageSid: string, sid?: string) {
@@ -462,11 +473,6 @@ export class MediaInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface MediaSolution {
-  accountSid?: string;
-  messageSid?: string;
-  sid?: string;
 }
 
 export class MediaPage extends Page<V2010, MediaPayload, MediaResource, MediaInstance> {

@@ -231,6 +231,10 @@ export interface KeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface KeySolution {
+  fleetSid?: string;
+}
+
 interface KeyListInstanceImpl extends KeyListInstance {}
 class KeyListInstanceImpl implements KeyListInstance {
   _version?: DeployedDevices;
@@ -380,8 +384,13 @@ export interface KeyContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface KeyContextSolution {
+  fleetSid?: string;
+  sid?: string;
+}
+
 export class KeyContextImpl implements KeyContext {
-  protected _solution: KeySolution;
+  protected _solution: KeyContextSolution;
   protected _uri: string;
 
 
@@ -477,7 +486,7 @@ interface KeyResource {
 }
 
 export class KeyInstance {
-  protected _solution: KeySolution;
+  protected _solution: KeyContextSolution;
   protected _context?: KeyContext;
 
   constructor(protected _version: DeployedDevices, payload: KeyPayload, fleetSid: string, sid?: string) {
@@ -604,10 +613,6 @@ export class KeyInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface KeySolution {
-  fleetSid?: string;
-  sid?: string;
 }
 
 export class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, KeyInstance> {

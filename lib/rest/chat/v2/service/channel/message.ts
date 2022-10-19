@@ -266,6 +266,11 @@ export interface MessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MessageSolution {
+  serviceSid?: string;
+  channelSid?: string;
+}
+
 interface MessageListInstanceImpl extends MessageListInstance {}
 class MessageListInstanceImpl implements MessageListInstance {
   _version?: V2;
@@ -431,8 +436,14 @@ export interface MessageContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MessageContextSolution {
+  serviceSid?: string;
+  channelSid?: string;
+  sid?: string;
+}
+
 export class MessageContextImpl implements MessageContext {
-  protected _solution: MessageSolution;
+  protected _solution: MessageContextSolution;
   protected _uri: string;
 
 
@@ -552,7 +563,7 @@ interface MessageResource {
 }
 
 export class MessageInstance {
-  protected _solution: MessageSolution;
+  protected _solution: MessageContextSolution;
   protected _context?: MessageContext;
 
   constructor(protected _version: V2, payload: MessagePayload, serviceSid: string, channelSid: string, sid?: string) {
@@ -731,11 +742,6 @@ export class MessageInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface MessageSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
 }
 
 export class MessagePage extends Page<V2, MessagePayload, MessageResource, MessageInstance> {

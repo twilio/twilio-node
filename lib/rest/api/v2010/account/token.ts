@@ -68,6 +68,10 @@ export interface TokenListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TokenSolution {
+  accountSid?: string;
+}
+
 interface TokenListInstanceImpl extends TokenListInstance {}
 class TokenListInstanceImpl implements TokenListInstance {
   _version?: V2010;
@@ -136,8 +140,6 @@ interface TokenResource {
 }
 
 export class TokenInstance {
-  protected _solution: TokenSolution;
-  protected _context?: TokenListInstance;
 
   constructor(protected _version: V2010, payload: TokenPayload, accountSid?: string) {
     this.accountSid = payload.account_sid;
@@ -148,7 +150,6 @@ export class TokenInstance {
     this.ttl = payload.ttl;
     this.username = payload.username;
 
-    this._solution = { accountSid: accountSid || this.accountSid };
   }
 
   /**
@@ -200,9 +201,6 @@ export class TokenInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TokenSolution {
-  accountSid?: string;
 }
 
 export class TokenPage extends Page<V2010, TokenPayload, TokenResource, TokenInstance> {

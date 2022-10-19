@@ -136,8 +136,14 @@ export interface UserConversationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UserConversationContextSolution {
+  chatServiceSid?: string;
+  userSid?: string;
+  conversationSid?: string;
+}
+
 export class UserConversationContextImpl implements UserConversationContext {
-  protected _solution: UserConversationSolution;
+  protected _solution: UserConversationContextSolution;
   protected _uri: string;
 
 
@@ -243,7 +249,7 @@ interface UserConversationResource {
 }
 
 export class UserConversationInstance {
-  protected _solution: UserConversationSolution;
+  protected _solution: UserConversationContextSolution;
   protected _context?: UserConversationContext;
 
   constructor(protected _version: V1, payload: UserConversationPayload, chatServiceSid: string, userSid: string, conversationSid?: string) {
@@ -416,11 +422,6 @@ export class UserConversationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface UserConversationSolution {
-  chatServiceSid?: string;
-  userSid?: string;
-  conversationSid?: string;
-}
 
 export class UserConversationPage extends Page<V1, UserConversationPayload, UserConversationResource, UserConversationInstance> {
   /**
@@ -567,6 +568,11 @@ export interface UserConversationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface UserConversationSolution {
+  chatServiceSid?: string;
+  userSid?: string;
 }
 
 interface UserConversationListInstanceImpl extends UserConversationListInstance {}

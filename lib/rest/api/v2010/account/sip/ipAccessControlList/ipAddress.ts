@@ -145,8 +145,14 @@ export interface IpAddressContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpAddressContextSolution {
+  accountSid?: string;
+  ipAccessControlListSid?: string;
+  sid?: string;
+}
+
 export class IpAddressContextImpl implements IpAddressContext {
-  protected _solution: IpAddressSolution;
+  protected _solution: IpAddressContextSolution;
   protected _uri: string;
 
 
@@ -243,7 +249,7 @@ interface IpAddressResource {
 }
 
 export class IpAddressInstance {
-  protected _solution: IpAddressSolution;
+  protected _solution: IpAddressContextSolution;
   protected _context?: IpAddressContext;
 
   constructor(protected _version: V2010, payload: IpAddressPayload, accountSid: string, ipAccessControlListSid: string, sid?: string) {
@@ -370,11 +376,6 @@ export class IpAddressInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface IpAddressSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
-  sid?: string;
 }
 
 export class IpAddressPage extends Page<V2010, IpAddressPayload, IpAddressResource, IpAddressInstance> {
@@ -534,6 +535,11 @@ export interface IpAddressListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface IpAddressSolution {
+  accountSid?: string;
+  ipAccessControlListSid?: string;
 }
 
 interface IpAddressListInstanceImpl extends IpAddressListInstance {}

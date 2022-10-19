@@ -95,8 +95,12 @@ export interface EventTypeContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EventTypeContextSolution {
+  type?: string;
+}
+
 export class EventTypeContextImpl implements EventTypeContext {
-  protected _solution: EventTypeSolution;
+  protected _solution: EventTypeContextSolution;
   protected _uri: string;
 
 
@@ -148,7 +152,7 @@ interface EventTypeResource {
 }
 
 export class EventTypeInstance {
-  protected _solution: EventTypeSolution;
+  protected _solution: EventTypeContextSolution;
   protected _context?: EventTypeContext;
 
   constructor(protected _version: V1, payload: EventTypePayload, type?: string) {
@@ -226,9 +230,6 @@ export class EventTypeInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface EventTypeSolution {
-  type?: string;
 }
 
 export class EventTypePage extends Page<V1, EventTypePayload, EventTypeResource, EventTypeInstance> {
@@ -374,6 +375,9 @@ export interface EventTypeListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface EventTypeSolution {
 }
 
 interface EventTypeListInstanceImpl extends EventTypeListInstance {}

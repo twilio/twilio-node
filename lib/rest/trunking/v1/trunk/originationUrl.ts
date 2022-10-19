@@ -153,8 +153,13 @@ export interface OriginationUrlContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface OriginationUrlContextSolution {
+  trunkSid?: string;
+  sid?: string;
+}
+
 export class OriginationUrlContextImpl implements OriginationUrlContext {
-  protected _solution: OriginationUrlSolution;
+  protected _solution: OriginationUrlContextSolution;
   protected _uri: string;
 
 
@@ -255,7 +260,7 @@ interface OriginationUrlResource {
 }
 
 export class OriginationUrlInstance {
-  protected _solution: OriginationUrlSolution;
+  protected _solution: OriginationUrlContextSolution;
   protected _context?: OriginationUrlContext;
 
   constructor(protected _version: V1, payload: OriginationUrlPayload, trunkSid: string, sid?: string) {
@@ -394,10 +399,6 @@ export class OriginationUrlInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface OriginationUrlSolution {
-  trunkSid?: string;
-  sid?: string;
 }
 
 export class OriginationUrlPage extends Page<V1, OriginationUrlPayload, OriginationUrlResource, OriginationUrlInstance> {
@@ -556,6 +557,10 @@ export interface OriginationUrlListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface OriginationUrlSolution {
+  trunkSid?: string;
 }
 
 interface OriginationUrlListInstanceImpl extends OriginationUrlListInstance {}

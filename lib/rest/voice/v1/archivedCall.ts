@@ -41,8 +41,13 @@ export interface ArchivedCallContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ArchivedCallContextSolution {
+  date?: string;
+  sid?: string;
+}
+
 export class ArchivedCallContextImpl implements ArchivedCallContext {
-  protected _solution: ArchivedCallSolution;
+  protected _solution: ArchivedCallContextSolution;
   protected _uri: string;
 
 
@@ -89,6 +94,10 @@ export interface ArchivedCallListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ArchivedCallSolution {
+  date?: string;
 }
 
 interface ArchivedCallListInstanceImpl extends ArchivedCallListInstance {}

@@ -161,8 +161,12 @@ export interface CredentialContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CredentialContextSolution {
+  sid?: string;
+}
+
 export class CredentialContextImpl implements CredentialContext {
-  protected _solution: CredentialSolution;
+  protected _solution: CredentialContextSolution;
   protected _uri: string;
 
 
@@ -261,7 +265,7 @@ interface CredentialResource {
 }
 
 export class CredentialInstance {
-  protected _solution: CredentialSolution;
+  protected _solution: CredentialContextSolution;
   protected _context?: CredentialContext;
 
   constructor(protected _version: V1, payload: CredentialPayload, sid?: string) {
@@ -379,9 +383,6 @@ export class CredentialInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CredentialSolution {
-  sid?: string;
 }
 
 export class CredentialPage extends Page<V1, CredentialPayload, CredentialResource, CredentialInstance> {
@@ -539,6 +540,9 @@ export interface CredentialListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CredentialSolution {
 }
 
 interface CredentialListInstanceImpl extends CredentialListInstance {}

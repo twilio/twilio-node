@@ -181,6 +181,10 @@ export interface WorkersRealTimeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkersRealTimeStatisticsSolution {
+  workspaceSid?: string;
+}
+
 interface WorkersRealTimeStatisticsListInstanceImpl extends WorkersRealTimeStatisticsListInstance {}
 class WorkersRealTimeStatisticsListInstanceImpl implements WorkersRealTimeStatisticsListInstance {
   _version?: V1;

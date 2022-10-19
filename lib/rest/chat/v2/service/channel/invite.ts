@@ -116,8 +116,14 @@ export interface InviteContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface InviteContextSolution {
+  serviceSid?: string;
+  channelSid?: string;
+  sid?: string;
+}
+
 export class InviteContextImpl implements InviteContext {
-  protected _solution: InviteSolution;
+  protected _solution: InviteContextSolution;
   protected _uri: string;
 
 
@@ -185,7 +191,7 @@ interface InviteResource {
 }
 
 export class InviteInstance {
-  protected _solution: InviteSolution;
+  protected _solution: InviteContextSolution;
   protected _context?: InviteContext;
 
   constructor(protected _version: V2, payload: InvitePayload, serviceSid: string, channelSid: string, sid?: string) {
@@ -296,11 +302,6 @@ export class InviteInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface InviteSolution {
-  serviceSid?: string;
-  channelSid?: string;
-  sid?: string;
 }
 
 export class InvitePage extends Page<V2, InvitePayload, InviteResource, InviteInstance> {
@@ -460,6 +461,11 @@ export interface InviteListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface InviteSolution {
+  serviceSid?: string;
+  channelSid?: string;
 }
 
 interface InviteListInstanceImpl extends InviteListInstance {}

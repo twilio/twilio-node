@@ -194,8 +194,14 @@ export interface SyncMapItemContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SyncMapItemContextSolution {
+  serviceSid?: string;
+  mapSid?: string;
+  key?: string;
+}
+
 export class SyncMapItemContextImpl implements SyncMapItemContext {
-  protected _solution: SyncMapItemSolution;
+  protected _solution: SyncMapItemContextSolution;
   protected _uri: string;
 
 
@@ -308,7 +314,7 @@ interface SyncMapItemResource {
 }
 
 export class SyncMapItemInstance {
-  protected _solution: SyncMapItemSolution;
+  protected _solution: SyncMapItemContextSolution;
   protected _context?: SyncMapItemContext;
 
   constructor(protected _version: V1, payload: SyncMapItemPayload, serviceSid: string, mapSid: string, key?: string) {
@@ -457,11 +463,6 @@ export class SyncMapItemInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SyncMapItemSolution {
-  serviceSid?: string;
-  mapSid?: string;
-  key?: string;
 }
 
 export class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
@@ -621,6 +622,11 @@ export interface SyncMapItemListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SyncMapItemSolution {
+  serviceSid?: string;
+  mapSid?: string;
 }
 
 interface SyncMapItemListInstanceImpl extends SyncMapItemListInstance {}

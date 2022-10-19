@@ -235,6 +235,10 @@ export interface WebhookListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WebhookSolution {
+  serviceSid?: string;
+}
+
 interface WebhookListInstanceImpl extends WebhookListInstance {}
 class WebhookListInstanceImpl implements WebhookListInstance {
   _version?: V2;
@@ -395,8 +399,13 @@ export interface WebhookContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WebhookContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class WebhookContextImpl implements WebhookContext {
-  protected _solution: WebhookSolution;
+  protected _solution: WebhookContextSolution;
   protected _uri: string;
 
 
@@ -498,7 +507,7 @@ interface WebhookResource {
 }
 
 export class WebhookInstance {
-  protected _solution: WebhookSolution;
+  protected _solution: WebhookContextSolution;
   protected _context?: WebhookContext;
 
   constructor(protected _version: V2, payload: WebhookPayload, serviceSid: string, sid?: string) {
@@ -634,10 +643,6 @@ export class WebhookInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface WebhookSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {

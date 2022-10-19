@@ -232,8 +232,12 @@ export interface HostedNumberOrderContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface HostedNumberOrderContextSolution {
+  sid?: string;
+}
+
 export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
-  protected _solution: HostedNumberOrderSolution;
+  protected _solution: HostedNumberOrderContextSolution;
   protected _uri: string;
 
 
@@ -351,7 +355,7 @@ interface HostedNumberOrderResource {
 }
 
 export class HostedNumberOrderInstance {
-  protected _solution: HostedNumberOrderSolution;
+  protected _solution: HostedNumberOrderContextSolution;
   protected _context?: HostedNumberOrderContext;
 
   constructor(protected _version: HostedNumbers, payload: HostedNumberOrderPayload, sid?: string) {
@@ -554,9 +558,6 @@ export class HostedNumberOrderInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface HostedNumberOrderSolution {
-  sid?: string;
-}
 
 export class HostedNumberOrderPage extends Page<HostedNumbers, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderInstance> {
   /**
@@ -713,6 +714,9 @@ export interface HostedNumberOrderListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface HostedNumberOrderSolution {
 }
 
 interface HostedNumberOrderListInstanceImpl extends HostedNumberOrderListInstance {}

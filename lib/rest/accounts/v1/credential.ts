@@ -35,6 +35,9 @@ export interface CredentialListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CredentialSolution {
+}
+
 interface CredentialListInstanceImpl extends CredentialListInstance {}
 class CredentialListInstanceImpl implements CredentialListInstance {
   _version?: V1;

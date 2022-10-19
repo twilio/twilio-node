@@ -89,8 +89,12 @@ export interface SupportingDocumentTypeContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SupportingDocumentTypeContextSolution {
+  sid?: string;
+}
+
 export class SupportingDocumentTypeContextImpl implements SupportingDocumentTypeContext {
-  protected _solution: SupportingDocumentTypeSolution;
+  protected _solution: SupportingDocumentTypeContextSolution;
   protected _uri: string;
 
 
@@ -140,7 +144,7 @@ interface SupportingDocumentTypeResource {
 }
 
 export class SupportingDocumentTypeInstance {
-  protected _solution: SupportingDocumentTypeSolution;
+  protected _solution: SupportingDocumentTypeContextSolution;
   protected _context?: SupportingDocumentTypeContext;
 
   constructor(protected _version: V1, payload: SupportingDocumentTypePayload, sid?: string) {
@@ -209,9 +213,6 @@ export class SupportingDocumentTypeInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SupportingDocumentTypeSolution {
-  sid?: string;
 }
 
 export class SupportingDocumentTypePage extends Page<V1, SupportingDocumentTypePayload, SupportingDocumentTypeResource, SupportingDocumentTypeInstance> {
@@ -357,6 +358,9 @@ export interface SupportingDocumentTypeListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SupportingDocumentTypeSolution {
 }
 
 interface SupportingDocumentTypeListInstanceImpl extends SupportingDocumentTypeListInstance {}

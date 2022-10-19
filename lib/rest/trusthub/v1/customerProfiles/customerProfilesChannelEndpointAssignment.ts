@@ -218,6 +218,10 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CustomerProfilesChannelEndpointAssignmentSolution {
+  customerProfileSid?: string;
+}
+
 interface CustomerProfilesChannelEndpointAssignmentListInstanceImpl extends CustomerProfilesChannelEndpointAssignmentListInstance {}
 class CustomerProfilesChannelEndpointAssignmentListInstanceImpl implements CustomerProfilesChannelEndpointAssignmentListInstance {
   _version?: V1;
@@ -353,8 +357,13 @@ export interface CustomerProfilesChannelEndpointAssignmentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CustomerProfilesChannelEndpointAssignmentContextSolution {
+  customerProfileSid?: string;
+  sid?: string;
+}
+
 export class CustomerProfilesChannelEndpointAssignmentContextImpl implements CustomerProfilesChannelEndpointAssignmentContext {
-  protected _solution: CustomerProfilesChannelEndpointAssignmentSolution;
+  protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
   protected _uri: string;
 
 
@@ -419,7 +428,7 @@ interface CustomerProfilesChannelEndpointAssignmentResource {
 }
 
 export class CustomerProfilesChannelEndpointAssignmentInstance {
-  protected _solution: CustomerProfilesChannelEndpointAssignmentSolution;
+  protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
   protected _context?: CustomerProfilesChannelEndpointAssignmentContext;
 
   constructor(protected _version: V1, payload: CustomerProfilesChannelEndpointAssignmentPayload, customerProfileSid: string, sid?: string) {
@@ -512,10 +521,6 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CustomerProfilesChannelEndpointAssignmentSolution {
-  customerProfileSid?: string;
-  sid?: string;
 }
 
 export class CustomerProfilesChannelEndpointAssignmentPage extends Page<V1, CustomerProfilesChannelEndpointAssignmentPayload, CustomerProfilesChannelEndpointAssignmentResource, CustomerProfilesChannelEndpointAssignmentInstance> {

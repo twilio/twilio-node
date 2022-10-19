@@ -289,6 +289,11 @@ export interface SharedCostListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SharedCostSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 interface SharedCostListInstanceImpl extends SharedCostListInstance {}
 class SharedCostListInstanceImpl implements SharedCostListInstance {
   _version?: V2010;

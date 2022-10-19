@@ -34,6 +34,9 @@ export interface SchemaListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SchemaSolution {
+}
+
 interface SchemaListInstanceImpl extends SchemaListInstance {}
 class SchemaListInstanceImpl implements SchemaListInstance {
   _version?: V1;
@@ -86,8 +89,12 @@ export interface SchemaContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SchemaContextSolution {
+  id?: string;
+}
+
 export class SchemaContextImpl implements SchemaContext {
-  protected _solution: SchemaSolution;
+  protected _solution: SchemaContextSolution;
   protected _uri: string;
 
   protected _versions?: SchemaVersionListInstance;
@@ -143,7 +150,7 @@ interface SchemaResource {
 }
 
 export class SchemaInstance {
-  protected _solution: SchemaSolution;
+  protected _solution: SchemaContextSolution;
   protected _context?: SchemaContext;
 
   constructor(protected _version: V1, payload: SchemaPayload, id?: string) {
@@ -219,9 +226,6 @@ export class SchemaInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SchemaSolution {
-  id?: string;
 }
 
 export class SchemaPage extends Page<V1, SchemaPayload, SchemaResource, SchemaInstance> {

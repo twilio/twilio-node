@@ -204,6 +204,11 @@ export interface CredentialListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CredentialListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 interface CredentialListMappingListInstanceImpl extends CredentialListMappingListInstance {}
 class CredentialListMappingListInstanceImpl implements CredentialListMappingListInstance {
   _version?: V2010;
@@ -332,8 +337,14 @@ export interface CredentialListMappingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CredentialListMappingContextSolution {
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
+}
+
 export class CredentialListMappingContextImpl implements CredentialListMappingContext {
-  protected _solution: CredentialListMappingSolution;
+  protected _solution: CredentialListMappingContextSolution;
   protected _uri: string;
 
 
@@ -398,7 +409,7 @@ interface CredentialListMappingResource {
 }
 
 export class CredentialListMappingInstance {
-  protected _solution: CredentialListMappingSolution;
+  protected _solution: CredentialListMappingContextSolution;
   protected _context?: CredentialListMappingContext;
 
   constructor(protected _version: V2010, payload: CredentialListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
@@ -491,11 +502,6 @@ export class CredentialListMappingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CredentialListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
 }
 
 export class CredentialListMappingPage extends Page<V2010, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingInstance> {

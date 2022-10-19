@@ -141,8 +141,12 @@ export interface AWSContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AWSContextSolution {
+  sid?: string;
+}
+
 export class AWSContextImpl implements AWSContext {
-  protected _solution: AWSSolution;
+  protected _solution: AWSContextSolution;
   protected _uri: string;
 
 
@@ -234,7 +238,7 @@ interface AWSResource {
 }
 
 export class AWSInstance {
-  protected _solution: AWSSolution;
+  protected _solution: AWSContextSolution;
   protected _context?: AWSContext;
 
   constructor(protected _version: V1, payload: AWSPayload, sid?: string) {
@@ -343,9 +347,6 @@ export class AWSInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AWSSolution {
-  sid?: string;
 }
 
 export class AWSPage extends Page<V1, AWSPayload, AWSResource, AWSInstance> {
@@ -503,6 +504,9 @@ export interface AWSListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AWSSolution {
 }
 
 interface AWSListInstanceImpl extends AWSListInstance {}

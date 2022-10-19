@@ -162,6 +162,11 @@ export interface TaskActionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TaskActionsSolution {
+  assistantSid?: string;
+  taskSid?: string;
+}
+
 interface TaskActionsListInstanceImpl extends TaskActionsListInstance {}
 class TaskActionsListInstanceImpl implements TaskActionsListInstance {
   _version?: Understand;
@@ -252,8 +257,6 @@ interface TaskActionsResource {
 }
 
 export class TaskActionsInstance {
-  protected _solution: TaskActionsSolution;
-  protected _context?: TaskActionsListInstance;
 
   constructor(protected _version: Understand, payload: TaskActionsPayload, assistantSid: string, taskSid?: string) {
     this.accountSid = payload.account_sid;
@@ -262,7 +265,6 @@ export class TaskActionsInstance {
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid, taskSid: taskSid || this.taskSid };
   }
 
   /**
@@ -298,10 +300,6 @@ export class TaskActionsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TaskActionsSolution {
-  assistantSid?: string;
-  taskSid?: string;
 }
 
 export class TaskActionsPage extends Page<Understand, TaskActionsPayload, TaskActionsResource, TaskActionsInstance> {

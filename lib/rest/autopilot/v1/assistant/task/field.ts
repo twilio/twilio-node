@@ -110,8 +110,14 @@ export interface FieldContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FieldContextSolution {
+  assistantSid?: string;
+  taskSid?: string;
+  sid?: string;
+}
+
 export class FieldContextImpl implements FieldContext {
-  protected _solution: FieldSolution;
+  protected _solution: FieldContextSolution;
   protected _uri: string;
 
 
@@ -178,7 +184,7 @@ interface FieldResource {
 }
 
 export class FieldInstance {
-  protected _solution: FieldSolution;
+  protected _solution: FieldContextSolution;
   protected _context?: FieldContext;
 
   constructor(protected _version: V1, payload: FieldPayload, assistantSid: string, taskSid: string, sid?: string) {
@@ -283,11 +289,6 @@ export class FieldInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FieldSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
 }
 
 export class FieldPage extends Page<V1, FieldPayload, FieldResource, FieldInstance> {
@@ -447,6 +448,11 @@ export interface FieldListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FieldSolution {
+  assistantSid?: string;
+  taskSid?: string;
 }
 
 interface FieldListInstanceImpl extends FieldListInstance {}

@@ -289,6 +289,11 @@ export interface TollFreeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TollFreeSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 interface TollFreeListInstanceImpl extends TollFreeListInstance {}
 class TollFreeListInstanceImpl implements TollFreeListInstance {
   _version?: V2010;

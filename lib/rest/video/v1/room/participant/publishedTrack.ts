@@ -91,8 +91,14 @@ export interface PublishedTrackContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PublishedTrackContextSolution {
+  roomSid?: string;
+  participantSid?: string;
+  sid?: string;
+}
+
 export class PublishedTrackContextImpl implements PublishedTrackContext {
-  protected _solution: PublishedTrackSolution;
+  protected _solution: PublishedTrackContextSolution;
   protected _uri: string;
 
 
@@ -146,7 +152,7 @@ interface PublishedTrackResource {
 }
 
 export class PublishedTrackInstance {
-  protected _solution: PublishedTrackSolution;
+  protected _solution: PublishedTrackContextSolution;
   protected _context?: PublishedTrackContext;
 
   constructor(protected _version: V1, payload: PublishedTrackPayload, roomSid: string, participantSid: string, sid?: string) {
@@ -236,11 +242,6 @@ export class PublishedTrackInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface PublishedTrackSolution {
-  roomSid?: string;
-  participantSid?: string;
-  sid?: string;
 }
 
 export class PublishedTrackPage extends Page<V1, PublishedTrackPayload, PublishedTrackResource, PublishedTrackInstance> {
@@ -388,6 +389,11 @@ export interface PublishedTrackListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PublishedTrackSolution {
+  roomSid?: string;
+  participantSid?: string;
 }
 
 interface PublishedTrackListInstanceImpl extends PublishedTrackListInstance {}

@@ -108,8 +108,13 @@ export interface BrandVettingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BrandVettingContextSolution {
+  brandSid?: string;
+  brandVettingSid?: string;
+}
+
 export class BrandVettingContextImpl implements BrandVettingContext {
-  protected _solution: BrandVettingSolution;
+  protected _solution: BrandVettingContextSolution;
   protected _uri: string;
 
 
@@ -164,7 +169,7 @@ interface BrandVettingResource {
 }
 
 export class BrandVettingInstance {
-  protected _solution: BrandVettingSolution;
+  protected _solution: BrandVettingContextSolution;
   protected _context?: BrandVettingContext;
 
   constructor(protected _version: V1, payload: BrandVettingPayload, brandSid: string, brandVettingSid?: string) {
@@ -260,10 +265,6 @@ export class BrandVettingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface BrandVettingSolution {
-  brandSid?: string;
-  brandVettingSid?: string;
 }
 
 export class BrandVettingPage extends Page<V1, BrandVettingPayload, BrandVettingResource, BrandVettingInstance> {
@@ -422,6 +423,10 @@ export interface BrandVettingListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface BrandVettingSolution {
+  brandSid?: string;
 }
 
 interface BrandVettingListInstanceImpl extends BrandVettingListInstance {}

@@ -191,8 +191,12 @@ export interface CompositionHookContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CompositionHookContextSolution {
+  sid?: string;
+}
+
 export class CompositionHookContextImpl implements CompositionHookContext {
-  protected _solution: CompositionHookSolution;
+  protected _solution: CompositionHookContextSolution;
   protected _uri: string;
 
 
@@ -304,7 +308,7 @@ interface CompositionHookResource {
 }
 
 export class CompositionHookInstance {
-  protected _solution: CompositionHookSolution;
+  protected _solution: CompositionHookContextSolution;
   protected _context?: CompositionHookContext;
 
   constructor(protected _version: V1, payload: CompositionHookPayload, sid?: string) {
@@ -456,9 +460,6 @@ export class CompositionHookInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CompositionHookSolution {
-  sid?: string;
 }
 
 export class CompositionHookPage extends Page<V1, CompositionHookPayload, CompositionHookResource, CompositionHookInstance> {
@@ -616,6 +617,9 @@ export interface CompositionHookListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CompositionHookSolution {
 }
 
 interface CompositionHookListInstanceImpl extends CompositionHookListInstance {}

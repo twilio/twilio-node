@@ -52,6 +52,9 @@ export interface RestoreAssistantListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RestoreAssistantSolution {
+}
+
 interface RestoreAssistantListInstanceImpl extends RestoreAssistantListInstance {}
 class RestoreAssistantListInstanceImpl implements RestoreAssistantListInstance {
   _version?: V1;
@@ -126,8 +129,6 @@ interface RestoreAssistantResource {
 }
 
 export class RestoreAssistantInstance {
-  protected _solution: RestoreAssistantSolution;
-  protected _context?: RestoreAssistantListInstance;
 
   constructor(protected _version: V1, payload: RestoreAssistantPayload) {
     this.accountSid = payload.account_sid;
@@ -143,7 +144,6 @@ export class RestoreAssistantInstance {
     this.callbackUrl = payload.callback_url;
     this.callbackEvents = payload.callback_events;
 
-    this._solution = {  };
   }
 
   /**
@@ -220,8 +220,6 @@ export class RestoreAssistantInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RestoreAssistantSolution {
 }
 
 export class RestoreAssistantPage extends Page<V1, RestoreAssistantPayload, RestoreAssistantResource, RestoreAssistantInstance> {

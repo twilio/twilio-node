@@ -52,6 +52,10 @@ export interface SinkValidateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SinkValidateSolution {
+  sid?: string;
+}
+
 interface SinkValidateListInstanceImpl extends SinkValidateListInstance {}
 class SinkValidateListInstanceImpl implements SinkValidateListInstance {
   _version?: V1;
@@ -115,13 +119,10 @@ interface SinkValidateResource {
 }
 
 export class SinkValidateInstance {
-  protected _solution: SinkValidateSolution;
-  protected _context?: SinkValidateListInstance;
 
   constructor(protected _version: V1, payload: SinkValidatePayload, sid?: string) {
     this.result = payload.result;
 
-    this._solution = { sid: sid || this.sid };
   }
 
   /**
@@ -143,9 +144,6 @@ export class SinkValidateInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SinkValidateSolution {
-  sid?: string;
 }
 
 export class SinkValidatePage extends Page<V1, SinkValidatePayload, SinkValidateResource, SinkValidateInstance> {

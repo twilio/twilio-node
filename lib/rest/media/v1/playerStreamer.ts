@@ -248,6 +248,9 @@ export interface PlayerStreamerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PlayerStreamerSolution {
+}
+
 interface PlayerStreamerListInstanceImpl extends PlayerStreamerListInstance {}
 class PlayerStreamerListInstanceImpl implements PlayerStreamerListInstance {
   _version?: V1;
@@ -383,8 +386,12 @@ export interface PlayerStreamerContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PlayerStreamerContextSolution {
+  sid?: string;
+}
+
 export class PlayerStreamerContextImpl implements PlayerStreamerContext {
-  protected _solution: PlayerStreamerSolution;
+  protected _solution: PlayerStreamerContextSolution;
   protected _uri: string;
 
   protected _playbackGrant?: PlaybackGrantListInstance;
@@ -477,7 +484,7 @@ interface PlayerStreamerResource {
 }
 
 export class PlayerStreamerInstance {
-  protected _solution: PlayerStreamerSolution;
+  protected _solution: PlayerStreamerContextSolution;
   protected _context?: PlayerStreamerContext;
 
   constructor(protected _version: V1, payload: PlayerStreamerPayload, sid?: string) {
@@ -603,9 +610,6 @@ export class PlayerStreamerInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface PlayerStreamerSolution {
-  sid?: string;
 }
 
 export class PlayerStreamerPage extends Page<V1, PlayerStreamerPayload, PlayerStreamerResource, PlayerStreamerInstance> {

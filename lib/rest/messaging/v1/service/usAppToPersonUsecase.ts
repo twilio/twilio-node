@@ -181,6 +181,10 @@ export interface UsAppToPersonUsecaseListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UsAppToPersonUsecaseSolution {
+  messagingServiceSid?: string;
+}
+
 interface UsAppToPersonUsecaseListInstanceImpl extends UsAppToPersonUsecaseListInstance {}
 class UsAppToPersonUsecaseListInstanceImpl implements UsAppToPersonUsecaseListInstance {
   _version?: V1;

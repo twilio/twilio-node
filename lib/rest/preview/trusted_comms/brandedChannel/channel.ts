@@ -52,6 +52,10 @@ export interface ChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ChannelSolution {
+  brandedChannelSid?: string;
+}
+
 interface ChannelListInstanceImpl extends ChannelListInstance {}
 class ChannelListInstanceImpl implements ChannelListInstance {
   _version?: TrustedComms;
@@ -121,8 +125,6 @@ interface ChannelResource {
 }
 
 export class ChannelInstance {
-  protected _solution: ChannelSolution;
-  protected _context?: ChannelListInstance;
 
   constructor(protected _version: TrustedComms, payload: ChannelPayload, brandedChannelSid?: string) {
     this.accountSid = payload.account_sid;
@@ -133,7 +135,6 @@ export class ChannelInstance {
     this.phoneNumber = payload.phone_number;
     this.url = payload.url;
 
-    this._solution = { brandedChannelSid: brandedChannelSid || this.brandedChannelSid };
   }
 
   /**
@@ -185,9 +186,6 @@ export class ChannelInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ChannelSolution {
-  brandedChannelSid?: string;
 }
 
 export class ChannelPage extends Page<TrustedComms, ChannelPayload, ChannelResource, ChannelInstance> {

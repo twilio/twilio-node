@@ -184,8 +184,13 @@ export interface TaskQueueContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TaskQueueContextSolution {
+  workspaceSid?: string;
+  sid?: string;
+}
+
 export class TaskQueueContextImpl implements TaskQueueContext {
-  protected _solution: TaskQueueSolution;
+  protected _solution: TaskQueueContextSolution;
   protected _uri: string;
 
   protected _realTimeStatistics?: TaskQueueRealTimeStatisticsListInstance;
@@ -309,7 +314,7 @@ interface TaskQueueResource {
 }
 
 export class TaskQueueInstance {
-  protected _solution: TaskQueueSolution;
+  protected _solution: TaskQueueContextSolution;
   protected _context?: TaskQueueContext;
 
   constructor(protected _version: V1, payload: TaskQueuePayload, workspaceSid: string, sid?: string) {
@@ -491,10 +496,6 @@ export class TaskQueueInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface TaskQueueSolution {
-  workspaceSid?: string;
-  sid?: string;
-}
 
 export class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
   /**
@@ -653,6 +654,10 @@ export interface TaskQueueListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TaskQueueSolution {
+  workspaceSid?: string;
 }
 
 interface TaskQueueListInstanceImpl extends TaskQueueListInstance {}

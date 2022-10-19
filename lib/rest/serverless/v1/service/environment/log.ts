@@ -203,6 +203,11 @@ export interface LogListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface LogSolution {
+  serviceSid?: string;
+  environmentSid?: string;
+}
+
 interface LogListInstanceImpl extends LogListInstance {}
 class LogListInstanceImpl implements LogListInstance {
   _version?: V1;
@@ -295,8 +300,14 @@ export interface LogContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface LogContextSolution {
+  serviceSid?: string;
+  environmentSid?: string;
+  sid?: string;
+}
+
 export class LogContextImpl implements LogContext {
-  protected _solution: LogSolution;
+  protected _solution: LogContextSolution;
   protected _uri: string;
 
 
@@ -353,7 +364,7 @@ interface LogResource {
 }
 
 export class LogInstance {
-  protected _solution: LogSolution;
+  protected _solution: LogContextSolution;
   protected _context?: LogContext;
 
   constructor(protected _version: V1, payload: LogPayload, serviceSid: string, environmentSid: string, sid?: string) {
@@ -461,11 +472,6 @@ export class LogInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface LogSolution {
-  serviceSid?: string;
-  environmentSid?: string;
-  sid?: string;
 }
 
 export class LogPage extends Page<V1, LogPayload, LogResource, LogInstance> {

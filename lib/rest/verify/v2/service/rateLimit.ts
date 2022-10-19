@@ -141,8 +141,13 @@ export interface RateLimitContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RateLimitContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class RateLimitContextImpl implements RateLimitContext {
-  protected _solution: RateLimitSolution;
+  protected _solution: RateLimitContextSolution;
   protected _uri: string;
 
   protected _buckets?: BucketListInstance;
@@ -243,7 +248,7 @@ interface RateLimitResource {
 }
 
 export class RateLimitInstance {
-  protected _solution: RateLimitSolution;
+  protected _solution: RateLimitContextSolution;
   protected _context?: RateLimitContext;
 
   constructor(protected _version: V2, payload: RateLimitPayload, serviceSid: string, sid?: string) {
@@ -377,10 +382,6 @@ export class RateLimitInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RateLimitSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class RateLimitPage extends Page<V2, RateLimitPayload, RateLimitResource, RateLimitInstance> {
@@ -539,6 +540,10 @@ export interface RateLimitListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface RateLimitSolution {
+  serviceSid?: string;
 }
 
 interface RateLimitListInstanceImpl extends RateLimitListInstance {}

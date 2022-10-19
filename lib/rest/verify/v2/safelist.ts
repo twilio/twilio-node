@@ -60,8 +60,12 @@ export interface SafelistContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SafelistContextSolution {
+  phoneNumber?: string;
+}
+
 export class SafelistContextImpl implements SafelistContext {
-  protected _solution: SafelistSolution;
+  protected _solution: SafelistContextSolution;
   protected _uri: string;
 
 
@@ -122,7 +126,7 @@ interface SafelistResource {
 }
 
 export class SafelistInstance {
-  protected _solution: SafelistSolution;
+  protected _solution: SafelistContextSolution;
   protected _context?: SafelistContext;
 
   constructor(protected _version: V2, payload: SafelistPayload, phoneNumber?: string) {
@@ -192,9 +196,6 @@ export class SafelistInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface SafelistSolution {
-  phoneNumber?: string;
-}
 
 export class SafelistPage extends Page<V2, SafelistPayload, SafelistResource, SafelistInstance> {
   /**
@@ -249,6 +250,9 @@ export interface SafelistListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SafelistSolution {
 }
 
 interface SafelistListInstanceImpl extends SafelistListInstance {}

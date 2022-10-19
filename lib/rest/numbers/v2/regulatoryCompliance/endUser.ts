@@ -145,8 +145,12 @@ export interface EndUserContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EndUserContextSolution {
+  sid?: string;
+}
+
 export class EndUserContextImpl implements EndUserContext {
-  protected _solution: EndUserSolution;
+  protected _solution: EndUserContextSolution;
   protected _uri: string;
 
 
@@ -241,7 +245,7 @@ interface EndUserResource {
 }
 
 export class EndUserInstance {
-  protected _solution: EndUserSolution;
+  protected _solution: EndUserContextSolution;
   protected _context?: EndUserContext;
 
   constructor(protected _version: V2, payload: EndUserPayload, sid?: string) {
@@ -359,9 +363,6 @@ export class EndUserInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface EndUserSolution {
-  sid?: string;
 }
 
 export class EndUserPage extends Page<V2, EndUserPayload, EndUserResource, EndUserInstance> {
@@ -519,6 +520,9 @@ export interface EndUserListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface EndUserSolution {
 }
 
 interface EndUserListInstanceImpl extends EndUserListInstance {}

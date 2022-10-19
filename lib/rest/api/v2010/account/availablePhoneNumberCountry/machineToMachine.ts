@@ -289,6 +289,11 @@ export interface MachineToMachineListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MachineToMachineSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 interface MachineToMachineListInstanceImpl extends MachineToMachineListInstance {}
 class MachineToMachineListInstanceImpl implements MachineToMachineListInstance {
   _version?: V2010;

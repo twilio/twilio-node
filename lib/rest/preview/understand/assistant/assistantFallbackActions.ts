@@ -162,6 +162,10 @@ export interface AssistantFallbackActionsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AssistantFallbackActionsSolution {
+  assistantSid?: string;
+}
+
 interface AssistantFallbackActionsListInstanceImpl extends AssistantFallbackActionsListInstance {}
 class AssistantFallbackActionsListInstanceImpl implements AssistantFallbackActionsListInstance {
   _version?: Understand;
@@ -251,8 +255,6 @@ interface AssistantFallbackActionsResource {
 }
 
 export class AssistantFallbackActionsInstance {
-  protected _solution: AssistantFallbackActionsSolution;
-  protected _context?: AssistantFallbackActionsListInstance;
 
   constructor(protected _version: Understand, payload: AssistantFallbackActionsPayload, assistantSid?: string) {
     this.accountSid = payload.account_sid;
@@ -260,7 +262,6 @@ export class AssistantFallbackActionsInstance {
     this.url = payload.url;
     this.data = payload.data;
 
-    this._solution = { assistantSid: assistantSid || this.assistantSid };
   }
 
   accountSid?: string | null;
@@ -285,9 +286,6 @@ export class AssistantFallbackActionsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AssistantFallbackActionsSolution {
-  assistantSid?: string;
 }
 
 export class AssistantFallbackActionsPage extends Page<Understand, AssistantFallbackActionsPayload, AssistantFallbackActionsResource, AssistantFallbackActionsInstance> {

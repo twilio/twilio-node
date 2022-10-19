@@ -166,6 +166,11 @@ export interface FeedbackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FeedbackSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
 interface FeedbackListInstanceImpl extends FeedbackListInstance {}
 class FeedbackListInstanceImpl implements FeedbackListInstance {
   _version?: V2010;
@@ -258,8 +263,6 @@ interface FeedbackResource {
 }
 
 export class FeedbackInstance {
-  protected _solution: FeedbackSolution;
-  protected _context?: FeedbackListInstance;
 
   constructor(protected _version: V2010, payload: FeedbackPayload, accountSid: string, callSid?: string) {
     this.accountSid = payload.account_sid;
@@ -269,7 +272,6 @@ export class FeedbackInstance {
     this.qualityScore = deserialize.integer(payload.quality_score);
     this.sid = payload.sid;
 
-    this._solution = { accountSid, callSid: callSid || this.callSid };
   }
 
   /**
@@ -316,10 +318,6 @@ export class FeedbackInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FeedbackSolution {
-  accountSid?: string;
-  callSid?: string;
 }
 
 export class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {

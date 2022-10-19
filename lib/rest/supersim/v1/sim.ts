@@ -165,8 +165,12 @@ export interface SimContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SimContextSolution {
+  sid?: string;
+}
+
 export class SimContextImpl implements SimContext {
-  protected _solution: SimSolution;
+  protected _solution: SimContextSolution;
   protected _uri: string;
 
   protected _billingPeriods?: BillingPeriodListInstance;
@@ -266,7 +270,7 @@ interface SimResource {
 }
 
 export class SimInstance {
-  protected _solution: SimSolution;
+  protected _solution: SimContextSolution;
   protected _context?: SimContext;
 
   constructor(protected _version: V1, payload: SimPayload, sid?: string) {
@@ -395,9 +399,6 @@ export class SimInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SimSolution {
-  sid?: string;
 }
 
 export class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
@@ -555,6 +556,9 @@ export interface SimListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SimSolution {
 }
 
 interface SimListInstanceImpl extends SimListInstance {}

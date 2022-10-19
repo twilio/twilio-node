@@ -204,6 +204,10 @@ export interface OutgoingCallerIdListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface OutgoingCallerIdSolution {
+  accountSid?: string;
+}
+
 interface OutgoingCallerIdListInstanceImpl extends OutgoingCallerIdListInstance {}
 class OutgoingCallerIdListInstanceImpl implements OutgoingCallerIdListInstance {
   _version?: V2010;
@@ -325,8 +329,13 @@ export interface OutgoingCallerIdContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface OutgoingCallerIdContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
-  protected _solution: OutgoingCallerIdSolution;
+  protected _solution: OutgoingCallerIdContextSolution;
   protected _uri: string;
 
 
@@ -419,7 +428,7 @@ interface OutgoingCallerIdResource {
 }
 
 export class OutgoingCallerIdInstance {
-  protected _solution: OutgoingCallerIdSolution;
+  protected _solution: OutgoingCallerIdContextSolution;
   protected _context?: OutgoingCallerIdContext;
 
   constructor(protected _version: V2010, payload: OutgoingCallerIdPayload, accountSid: string, sid?: string) {
@@ -534,10 +543,6 @@ export class OutgoingCallerIdInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface OutgoingCallerIdSolution {
-  accountSid?: string;
-  sid?: string;
 }
 
 export class OutgoingCallerIdPage extends Page<V2010, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdInstance> {

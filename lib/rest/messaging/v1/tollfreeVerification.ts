@@ -262,6 +262,9 @@ export interface TollfreeVerificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TollfreeVerificationSolution {
+}
+
 interface TollfreeVerificationListInstanceImpl extends TollfreeVerificationListInstance {}
 class TollfreeVerificationListInstanceImpl implements TollfreeVerificationListInstance {
   _version?: V1;
@@ -439,8 +442,12 @@ export interface TollfreeVerificationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TollfreeVerificationContextSolution {
+  sid?: string;
+}
+
 export class TollfreeVerificationContextImpl implements TollfreeVerificationContext {
-  protected _solution: TollfreeVerificationSolution;
+  protected _solution: TollfreeVerificationContextSolution;
   protected _uri: string;
 
 
@@ -516,7 +523,7 @@ interface TollfreeVerificationResource {
 }
 
 export class TollfreeVerificationInstance {
-  protected _solution: TollfreeVerificationSolution;
+  protected _solution: TollfreeVerificationContextSolution;
   protected _context?: TollfreeVerificationContext;
 
   constructor(protected _version: V1, payload: TollfreeVerificationPayload, sid?: string) {
@@ -735,9 +742,6 @@ export class TollfreeVerificationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TollfreeVerificationSolution {
-  sid?: string;
 }
 
 export class TollfreeVerificationPage extends Page<V1, TollfreeVerificationPayload, TollfreeVerificationResource, TollfreeVerificationInstance> {

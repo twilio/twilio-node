@@ -212,6 +212,10 @@ export interface ExportCustomJobListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ExportCustomJobSolution {
+  resourceType?: string;
+}
+
 interface ExportCustomJobListInstanceImpl extends ExportCustomJobListInstance {}
 class ExportCustomJobListInstanceImpl implements ExportCustomJobListInstance {
   _version?: V1;
@@ -336,8 +340,6 @@ interface ExportCustomJobResource {
 }
 
 export class ExportCustomJobInstance {
-  protected _solution: ExportCustomJobSolution;
-  protected _context?: ExportCustomJobListInstance;
 
   constructor(protected _version: V1, payload: ExportCustomJobPayload, resourceType?: string) {
     this.friendlyName = payload.friendly_name;
@@ -352,7 +354,6 @@ export class ExportCustomJobInstance {
     this.jobQueuePosition = payload.job_queue_position;
     this.estimatedCompletionTime = payload.estimated_completion_time;
 
-    this._solution = { resourceType: resourceType || this.resourceType };
   }
 
   /**
@@ -424,9 +425,6 @@ export class ExportCustomJobInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ExportCustomJobSolution {
-  resourceType?: string;
 }
 
 export class ExportCustomJobPage extends Page<V1, ExportCustomJobPayload, ExportCustomJobResource, ExportCustomJobInstance> {

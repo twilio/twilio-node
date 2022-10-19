@@ -181,6 +181,10 @@ export interface BillingPeriodListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BillingPeriodSolution {
+  simSid?: string;
+}
+
 interface BillingPeriodListInstanceImpl extends BillingPeriodListInstance {}
 class BillingPeriodListInstanceImpl implements BillingPeriodListInstance {
   _version?: V1;

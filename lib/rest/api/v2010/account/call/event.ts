@@ -181,6 +181,11 @@ export interface EventListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EventSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
 interface EventListInstanceImpl extends EventListInstance {}
 class EventListInstanceImpl implements EventListInstance {
   _version?: V2010;

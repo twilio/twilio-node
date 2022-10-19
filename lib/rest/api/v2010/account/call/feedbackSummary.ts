@@ -70,8 +70,13 @@ export interface FeedbackSummaryContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FeedbackSummaryContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
-  protected _solution: FeedbackSummarySolution;
+  protected _solution: FeedbackSummaryContextSolution;
   protected _uri: string;
 
 
@@ -143,7 +148,7 @@ interface FeedbackSummaryResource {
 }
 
 export class FeedbackSummaryInstance {
-  protected _solution: FeedbackSummarySolution;
+  protected _solution: FeedbackSummaryContextSolution;
   protected _context?: FeedbackSummaryContext;
 
   constructor(protected _version: V2010, payload: FeedbackSummaryPayload, accountSid: string, sid?: string) {
@@ -276,10 +281,6 @@ export class FeedbackSummaryInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface FeedbackSummarySolution {
-  accountSid?: string;
-  sid?: string;
-}
 
 export class FeedbackSummaryPage extends Page<V2010, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummaryInstance> {
   /**
@@ -335,6 +336,10 @@ export interface FeedbackSummaryListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FeedbackSummarySolution {
+  accountSid?: string;
 }
 
 interface FeedbackSummaryListInstanceImpl extends FeedbackSummaryListInstance {}

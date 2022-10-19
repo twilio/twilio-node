@@ -233,6 +233,9 @@ export interface UsageRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UsageRecordSolution {
+}
+
 interface UsageRecordListInstanceImpl extends UsageRecordListInstance {}
 class UsageRecordListInstanceImpl implements UsageRecordListInstance {
   _version?: V1;

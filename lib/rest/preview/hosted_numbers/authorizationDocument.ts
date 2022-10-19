@@ -165,8 +165,12 @@ export interface AuthorizationDocumentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthorizationDocumentContextSolution {
+  sid?: string;
+}
+
 export class AuthorizationDocumentContextImpl implements AuthorizationDocumentContext {
-  protected _solution: AuthorizationDocumentSolution;
+  protected _solution: AuthorizationDocumentContextSolution;
   protected _uri: string;
 
   protected _dependentHostedNumberOrders?: DependentHostedNumberOrderListInstance;
@@ -260,7 +264,7 @@ interface AuthorizationDocumentResource {
 }
 
 export class AuthorizationDocumentInstance {
-  protected _solution: AuthorizationDocumentSolution;
+  protected _solution: AuthorizationDocumentContextSolution;
   protected _context?: AuthorizationDocumentContext;
 
   constructor(protected _version: HostedNumbers, payload: AuthorizationDocumentPayload, sid?: string) {
@@ -373,9 +377,6 @@ export class AuthorizationDocumentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AuthorizationDocumentSolution {
-  sid?: string;
 }
 
 export class AuthorizationDocumentPage extends Page<HostedNumbers, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentInstance> {
@@ -533,6 +534,9 @@ export interface AuthorizationDocumentListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AuthorizationDocumentSolution {
 }
 
 interface AuthorizationDocumentListInstanceImpl extends AuthorizationDocumentListInstance {}

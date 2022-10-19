@@ -54,6 +54,9 @@ export interface ExternalCampaignListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ExternalCampaignSolution {
+}
+
 interface ExternalCampaignListInstanceImpl extends ExternalCampaignListInstance {}
 class ExternalCampaignListInstanceImpl implements ExternalCampaignListInstance {
   _version?: V1;
@@ -126,8 +129,6 @@ interface ExternalCampaignResource {
 }
 
 export class ExternalCampaignInstance {
-  protected _solution: ExternalCampaignSolution;
-  protected _context?: ExternalCampaignListInstance;
 
   constructor(protected _version: V1, payload: ExternalCampaignPayload) {
     this.sid = payload.sid;
@@ -136,7 +137,6 @@ export class ExternalCampaignInstance {
     this.messagingServiceSid = payload.messaging_service_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
-    this._solution = {  };
   }
 
   /**
@@ -178,8 +178,6 @@ export class ExternalCampaignInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ExternalCampaignSolution {
 }
 
 export class ExternalCampaignPage extends Page<V1, ExternalCampaignPayload, ExternalCampaignResource, ExternalCampaignInstance> {

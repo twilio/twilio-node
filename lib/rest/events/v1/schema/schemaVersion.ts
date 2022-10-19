@@ -89,8 +89,13 @@ export interface SchemaVersionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SchemaVersionContextSolution {
+  id?: string;
+  schemaVersion?: number;
+}
+
 export class SchemaVersionContextImpl implements SchemaVersionContext {
-  protected _solution: SchemaVersionSolution;
+  protected _solution: SchemaVersionContextSolution;
   protected _uri: string;
 
 
@@ -140,7 +145,7 @@ interface SchemaVersionResource {
 }
 
 export class SchemaVersionInstance {
-  protected _solution: SchemaVersionSolution;
+  protected _solution: SchemaVersionContextSolution;
   protected _context?: SchemaVersionContext;
 
   constructor(protected _version: V1, payload: SchemaVersionPayload, id: string, schemaVersion?: number) {
@@ -206,10 +211,6 @@ export class SchemaVersionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SchemaVersionSolution {
-  id?: string;
-  schemaVersion?: number;
 }
 
 export class SchemaVersionPage extends Page<V1, SchemaVersionPayload, SchemaVersionResource, SchemaVersionInstance> {
@@ -356,6 +357,10 @@ export interface SchemaVersionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SchemaVersionSolution {
+  id?: string;
 }
 
 interface SchemaVersionListInstanceImpl extends SchemaVersionListInstance {}

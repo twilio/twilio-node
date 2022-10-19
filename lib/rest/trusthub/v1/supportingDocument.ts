@@ -221,6 +221,9 @@ export interface SupportingDocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SupportingDocumentSolution {
+}
+
 interface SupportingDocumentListInstanceImpl extends SupportingDocumentListInstance {}
 class SupportingDocumentListInstanceImpl implements SupportingDocumentListInstance {
   _version?: V1;
@@ -375,8 +378,12 @@ export interface SupportingDocumentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SupportingDocumentContextSolution {
+  sid?: string;
+}
+
 export class SupportingDocumentContextImpl implements SupportingDocumentContext {
-  protected _solution: SupportingDocumentSolution;
+  protected _solution: SupportingDocumentContextSolution;
   protected _uri: string;
 
 
@@ -473,7 +480,7 @@ interface SupportingDocumentResource {
 }
 
 export class SupportingDocumentInstance {
-  protected _solution: SupportingDocumentSolution;
+  protected _solution: SupportingDocumentContextSolution;
   protected _context?: SupportingDocumentContext;
 
   constructor(protected _version: V1, payload: SupportingDocumentPayload, sid?: string) {
@@ -603,9 +610,6 @@ export class SupportingDocumentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SupportingDocumentSolution {
-  sid?: string;
 }
 
 export class SupportingDocumentPage extends Page<V1, SupportingDocumentPayload, SupportingDocumentResource, SupportingDocumentInstance> {

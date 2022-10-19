@@ -141,8 +141,12 @@ export interface PublicKeyContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PublicKeyContextSolution {
+  sid?: string;
+}
+
 export class PublicKeyContextImpl implements PublicKeyContext {
-  protected _solution: PublicKeySolution;
+  protected _solution: PublicKeyContextSolution;
   protected _uri: string;
 
 
@@ -234,7 +238,7 @@ interface PublicKeyResource {
 }
 
 export class PublicKeyInstance {
-  protected _solution: PublicKeySolution;
+  protected _solution: PublicKeyContextSolution;
   protected _context?: PublicKeyContext;
 
   constructor(protected _version: V1, payload: PublicKeyPayload, sid?: string) {
@@ -343,9 +347,6 @@ export class PublicKeyInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface PublicKeySolution {
-  sid?: string;
 }
 
 export class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource, PublicKeyInstance> {
@@ -503,6 +504,9 @@ export interface PublicKeyListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PublicKeySolution {
 }
 
 interface PublicKeyListInstanceImpl extends PublicKeyListInstance {}

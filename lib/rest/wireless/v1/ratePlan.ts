@@ -243,6 +243,9 @@ export interface RatePlanListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RatePlanSolution {
+}
+
 interface RatePlanListInstanceImpl extends RatePlanListInstance {}
 class RatePlanListInstanceImpl implements RatePlanListInstance {
   _version?: V1;
@@ -400,8 +403,12 @@ export interface RatePlanContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RatePlanContextSolution {
+  sid?: string;
+}
+
 export class RatePlanContextImpl implements RatePlanContext {
-  protected _solution: RatePlanSolution;
+  protected _solution: RatePlanContextSolution;
   protected _uri: string;
 
 
@@ -504,7 +511,7 @@ interface RatePlanResource {
 }
 
 export class RatePlanInstance {
-  protected _solution: RatePlanSolution;
+  protected _solution: RatePlanContextSolution;
   protected _context?: RatePlanContext;
 
   constructor(protected _version: V1, payload: RatePlanPayload, sid?: string) {
@@ -673,9 +680,6 @@ export class RatePlanInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RatePlanSolution {
-  sid?: string;
 }
 
 export class RatePlanPage extends Page<V1, RatePlanPayload, RatePlanResource, RatePlanInstance> {

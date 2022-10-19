@@ -41,6 +41,9 @@ export interface AuthTokenPromotionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthTokenPromotionSolution {
+}
+
 interface AuthTokenPromotionListInstanceImpl extends AuthTokenPromotionListInstance {}
 class AuthTokenPromotionListInstanceImpl implements AuthTokenPromotionListInstance {
   _version?: V1;
@@ -94,8 +97,6 @@ interface AuthTokenPromotionResource {
 }
 
 export class AuthTokenPromotionInstance {
-  protected _solution: AuthTokenPromotionSolution;
-  protected _context?: AuthTokenPromotionListInstance;
 
   constructor(protected _version: V1, payload: AuthTokenPromotionPayload) {
     this.accountSid = payload.account_sid;
@@ -104,7 +105,6 @@ export class AuthTokenPromotionInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -146,8 +146,6 @@ export class AuthTokenPromotionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AuthTokenPromotionSolution {
 }
 
 export class AuthTokenPromotionPage extends Page<V1, AuthTokenPromotionPayload, AuthTokenPromotionResource, AuthTokenPromotionInstance> {

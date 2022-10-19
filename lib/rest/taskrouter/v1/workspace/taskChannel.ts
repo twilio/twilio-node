@@ -219,6 +219,10 @@ export interface TaskChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TaskChannelSolution {
+  workspaceSid?: string;
+}
+
 interface TaskChannelListInstanceImpl extends TaskChannelListInstance {}
 class TaskChannelListInstanceImpl implements TaskChannelListInstance {
   _version?: V1;
@@ -373,8 +377,13 @@ export interface TaskChannelContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TaskChannelContextSolution {
+  workspaceSid?: string;
+  sid?: string;
+}
+
 export class TaskChannelContextImpl implements TaskChannelContext {
-  protected _solution: TaskChannelSolution;
+  protected _solution: TaskChannelContextSolution;
   protected _uri: string;
 
 
@@ -471,7 +480,7 @@ interface TaskChannelResource {
 }
 
 export class TaskChannelInstance {
-  protected _solution: TaskChannelSolution;
+  protected _solution: TaskChannelContextSolution;
   protected _context?: TaskChannelContext;
 
   constructor(protected _version: V1, payload: TaskChannelPayload, workspaceSid: string, sid?: string) {
@@ -604,10 +613,6 @@ export class TaskChannelInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TaskChannelSolution {
-  workspaceSid?: string;
-  sid?: string;
 }
 
 export class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelResource, TaskChannelInstance> {

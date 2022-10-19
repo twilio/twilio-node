@@ -289,6 +289,11 @@ export interface VoipListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface VoipSolution {
+  accountSid?: string;
+  countryCode?: string;
+}
+
 interface VoipListInstanceImpl extends VoipListInstance {}
 class VoipListInstanceImpl implements VoipListInstance {
   _version?: V2010;

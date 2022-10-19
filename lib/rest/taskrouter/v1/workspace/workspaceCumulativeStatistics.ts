@@ -205,6 +205,10 @@ export interface WorkspaceCumulativeStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkspaceCumulativeStatisticsSolution {
+  workspaceSid?: string;
+}
+
 interface WorkspaceCumulativeStatisticsListInstanceImpl extends WorkspaceCumulativeStatisticsListInstance {}
 class WorkspaceCumulativeStatisticsListInstanceImpl implements WorkspaceCumulativeStatisticsListInstance {
   _version?: V1;

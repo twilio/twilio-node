@@ -169,8 +169,13 @@ export interface QueryContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface QueryContextSolution {
+  assistantSid?: string;
+  sid?: string;
+}
+
 export class QueryContextImpl implements QueryContext {
-  protected _solution: QuerySolution;
+  protected _solution: QueryContextSolution;
   protected _uri: string;
 
 
@@ -271,7 +276,7 @@ interface QueryResource {
 }
 
 export class QueryInstance {
-  protected _solution: QuerySolution;
+  protected _solution: QueryContextSolution;
   protected _context?: QueryContext;
 
   constructor(protected _version: V1, payload: QueryPayload, assistantSid: string, sid?: string) {
@@ -428,10 +433,6 @@ export class QueryInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface QuerySolution {
-  assistantSid?: string;
-  sid?: string;
 }
 
 export class QueryPage extends Page<V1, QueryPayload, QueryResource, QueryInstance> {
@@ -590,6 +591,10 @@ export interface QueryListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface QuerySolution {
+  assistantSid?: string;
 }
 
 interface QueryListInstanceImpl extends QueryListInstance {}

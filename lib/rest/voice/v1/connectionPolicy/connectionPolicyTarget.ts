@@ -153,8 +153,13 @@ export interface ConnectionPolicyTargetContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ConnectionPolicyTargetContextSolution {
+  connectionPolicySid?: string;
+  sid?: string;
+}
+
 export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTargetContext {
-  protected _solution: ConnectionPolicyTargetSolution;
+  protected _solution: ConnectionPolicyTargetContextSolution;
   protected _uri: string;
 
 
@@ -255,7 +260,7 @@ interface ConnectionPolicyTargetResource {
 }
 
 export class ConnectionPolicyTargetInstance {
-  protected _solution: ConnectionPolicyTargetSolution;
+  protected _solution: ConnectionPolicyTargetContextSolution;
   protected _context?: ConnectionPolicyTargetContext;
 
   constructor(protected _version: V1, payload: ConnectionPolicyTargetPayload, connectionPolicySid: string, sid?: string) {
@@ -394,10 +399,6 @@ export class ConnectionPolicyTargetInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ConnectionPolicyTargetSolution {
-  connectionPolicySid?: string;
-  sid?: string;
 }
 
 export class ConnectionPolicyTargetPage extends Page<V1, ConnectionPolicyTargetPayload, ConnectionPolicyTargetResource, ConnectionPolicyTargetInstance> {
@@ -556,6 +557,10 @@ export interface ConnectionPolicyTargetListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ConnectionPolicyTargetSolution {
+  connectionPolicySid?: string;
 }
 
 interface ConnectionPolicyTargetListInstanceImpl extends ConnectionPolicyTargetListInstance {}

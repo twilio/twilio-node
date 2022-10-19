@@ -235,6 +235,9 @@ export interface SinkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SinkSolution {
+}
+
 interface SinkListInstanceImpl extends SinkListInstance {}
 class SinkListInstanceImpl implements SinkListInstance {
   _version?: V1;
@@ -389,8 +392,12 @@ export interface SinkContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SinkContextSolution {
+  sid?: string;
+}
+
 export class SinkContextImpl implements SinkContext {
-  protected _solution: SinkSolution;
+  protected _solution: SinkContextSolution;
   protected _uri: string;
 
   protected _sinkTest?: SinkTestListInstance;
@@ -498,7 +505,7 @@ interface SinkResource {
 }
 
 export class SinkInstance {
-  protected _solution: SinkSolution;
+  protected _solution: SinkContextSolution;
   protected _context?: SinkContext;
 
   constructor(protected _version: V1, payload: SinkPayload, sid?: string) {
@@ -625,9 +632,6 @@ export class SinkInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SinkSolution {
-  sid?: string;
 }
 
 export class SinkPage extends Page<V1, SinkPayload, SinkResource, SinkInstance> {

@@ -128,8 +128,13 @@ export interface SigningKeyContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SigningKeyContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class SigningKeyContextImpl implements SigningKeyContext {
-  protected _solution: SigningKeySolution;
+  protected _solution: SigningKeyContextSolution;
   protected _uri: string;
 
 
@@ -219,7 +224,7 @@ interface SigningKeyResource {
 }
 
 export class SigningKeyInstance {
-  protected _solution: SigningKeySolution;
+  protected _solution: SigningKeyContextSolution;
   protected _context?: SigningKeyContext;
 
   constructor(protected _version: V2010, payload: SigningKeyPayload, accountSid: string, sid?: string) {
@@ -304,10 +309,6 @@ export class SigningKeyInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SigningKeySolution {
-  accountSid?: string;
-  sid?: string;
 }
 
 export class SigningKeyPage extends Page<V2010, SigningKeyPayload, SigningKeyResource, SigningKeyInstance> {
@@ -454,6 +455,10 @@ export interface SigningKeyListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SigningKeySolution {
+  accountSid?: string;
 }
 
 interface SigningKeyListInstanceImpl extends SigningKeyListInstance {}

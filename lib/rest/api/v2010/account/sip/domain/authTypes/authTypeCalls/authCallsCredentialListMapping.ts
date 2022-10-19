@@ -204,6 +204,11 @@ export interface AuthCallsCredentialListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthCallsCredentialListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 interface AuthCallsCredentialListMappingListInstanceImpl extends AuthCallsCredentialListMappingListInstance {}
 class AuthCallsCredentialListMappingListInstanceImpl implements AuthCallsCredentialListMappingListInstance {
   _version?: V2010;
@@ -332,8 +337,14 @@ export interface AuthCallsCredentialListMappingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthCallsCredentialListMappingContextSolution {
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
+}
+
 export class AuthCallsCredentialListMappingContextImpl implements AuthCallsCredentialListMappingContext {
-  protected _solution: AuthCallsCredentialListMappingSolution;
+  protected _solution: AuthCallsCredentialListMappingContextSolution;
   protected _uri: string;
 
 
@@ -396,7 +407,7 @@ interface AuthCallsCredentialListMappingResource {
 }
 
 export class AuthCallsCredentialListMappingInstance {
-  protected _solution: AuthCallsCredentialListMappingSolution;
+  protected _solution: AuthCallsCredentialListMappingContextSolution;
   protected _context?: AuthCallsCredentialListMappingContext;
 
   constructor(protected _version: V2010, payload: AuthCallsCredentialListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
@@ -477,11 +488,6 @@ export class AuthCallsCredentialListMappingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AuthCallsCredentialListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
 }
 
 export class AuthCallsCredentialListMappingPage extends Page<V2010, AuthCallsCredentialListMappingPayload, AuthCallsCredentialListMappingResource, AuthCallsCredentialListMappingInstance> {

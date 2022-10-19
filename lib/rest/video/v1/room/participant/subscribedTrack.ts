@@ -185,6 +185,11 @@ export interface SubscribedTrackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SubscribedTrackSolution {
+  roomSid?: string;
+  participantSid?: string;
+}
+
 interface SubscribedTrackListInstanceImpl extends SubscribedTrackListInstance {}
 class SubscribedTrackListInstanceImpl implements SubscribedTrackListInstance {
   _version?: V1;
@@ -274,8 +279,14 @@ export interface SubscribedTrackContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SubscribedTrackContextSolution {
+  roomSid?: string;
+  participantSid?: string;
+  sid?: string;
+}
+
 export class SubscribedTrackContextImpl implements SubscribedTrackContext {
-  protected _solution: SubscribedTrackSolution;
+  protected _solution: SubscribedTrackContextSolution;
   protected _uri: string;
 
 
@@ -330,7 +341,7 @@ interface SubscribedTrackResource {
 }
 
 export class SubscribedTrackInstance {
-  protected _solution: SubscribedTrackSolution;
+  protected _solution: SubscribedTrackContextSolution;
   protected _context?: SubscribedTrackContext;
 
   constructor(protected _version: V1, payload: SubscribedTrackPayload, roomSid: string, participantSid: string, sid?: string) {
@@ -426,11 +437,6 @@ export class SubscribedTrackInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SubscribedTrackSolution {
-  roomSid?: string;
-  participantSid?: string;
-  sid?: string;
 }
 
 export class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackInstance> {

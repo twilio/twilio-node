@@ -172,6 +172,9 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ConfigurationSolution {
+}
+
 interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
 class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _version?: V1;
@@ -287,8 +290,6 @@ interface ConfigurationResource {
 }
 
 export class ConfigurationInstance {
-  protected _solution: ConfigurationSolution;
-  protected _context?: ConfigurationListInstance;
 
   constructor(protected _version: V1, payload: ConfigurationPayload) {
     this.accountSid = payload.account_sid;
@@ -299,7 +300,6 @@ export class ConfigurationInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = {  };
   }
 
   /**
@@ -365,8 +365,6 @@ export class ConfigurationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ConfigurationSolution {
 }
 
 export class ConfigurationPage extends Page<V1, ConfigurationPayload, ConfigurationResource, ConfigurationInstance> {

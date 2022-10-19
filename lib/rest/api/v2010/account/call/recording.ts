@@ -163,8 +163,14 @@ export interface RecordingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RecordingContextSolution {
+  accountSid?: string;
+  callSid?: string;
+  sid?: string;
+}
+
 export class RecordingContextImpl implements RecordingContext {
-  protected _solution: RecordingSolution;
+  protected _solution: RecordingContextSolution;
   protected _uri: string;
 
 
@@ -270,7 +276,7 @@ interface RecordingResource {
 }
 
 export class RecordingInstance {
-  protected _solution: RecordingSolution;
+  protected _solution: RecordingContextSolution;
   protected _context?: RecordingContext;
 
   constructor(protected _version: V2010, payload: RecordingPayload, accountSid: string, callSid: string, sid?: string) {
@@ -438,11 +444,6 @@ export class RecordingInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface RecordingSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
-}
 
 export class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
   /**
@@ -609,6 +610,11 @@ export interface RecordingListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface RecordingSolution {
+  accountSid?: string;
+  callSid?: string;
 }
 
 interface RecordingListInstanceImpl extends RecordingListInstance {}

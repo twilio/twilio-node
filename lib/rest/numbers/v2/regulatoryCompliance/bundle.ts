@@ -309,6 +309,9 @@ export interface BundleListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BundleSolution {
+}
+
 interface BundleListInstanceImpl extends BundleListInstance {}
 class BundleListInstanceImpl implements BundleListInstance {
   _version?: V2;
@@ -482,8 +485,12 @@ export interface BundleContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BundleContextSolution {
+  sid?: string;
+}
+
 export class BundleContextImpl implements BundleContext {
-  protected _solution: BundleSolution;
+  protected _solution: BundleContextSolution;
   protected _uri: string;
 
   protected _evaluations?: EvaluationListInstance;
@@ -608,7 +615,7 @@ interface BundleResource {
 }
 
 export class BundleInstance {
-  protected _solution: BundleSolution;
+  protected _solution: BundleContextSolution;
   protected _context?: BundleContext;
 
   constructor(protected _version: V2, payload: BundlePayload, sid?: string) {
@@ -778,9 +785,6 @@ export class BundleInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface BundleSolution {
-  sid?: string;
 }
 
 export class BundlePage extends Page<V2, BundlePayload, BundleResource, BundleInstance> {

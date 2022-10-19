@@ -41,6 +41,10 @@ export interface SinkTestListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SinkTestSolution {
+  sid?: string;
+}
+
 interface SinkTestListInstanceImpl extends SinkTestListInstance {}
 class SinkTestListInstanceImpl implements SinkTestListInstance {
   _version?: V1;
@@ -90,13 +94,10 @@ interface SinkTestResource {
 }
 
 export class SinkTestInstance {
-  protected _solution: SinkTestSolution;
-  protected _context?: SinkTestListInstance;
 
   constructor(protected _version: V1, payload: SinkTestPayload, sid?: string) {
     this.result = payload.result;
 
-    this._solution = { sid: sid || this.sid };
   }
 
   /**
@@ -118,9 +119,6 @@ export class SinkTestInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SinkTestSolution {
-  sid?: string;
 }
 
 export class SinkTestPage extends Page<V1, SinkTestPayload, SinkTestResource, SinkTestInstance> {

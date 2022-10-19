@@ -58,8 +58,13 @@ export interface AccessTokenContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AccessTokenContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class AccessTokenContextImpl implements AccessTokenContext {
-  protected _solution: AccessTokenSolution;
+  protected _solution: AccessTokenContextSolution;
   protected _uri: string;
 
 
@@ -114,7 +119,7 @@ interface AccessTokenResource {
 }
 
 export class AccessTokenInstance {
-  protected _solution: AccessTokenSolution;
+  protected _solution: AccessTokenContextSolution;
   protected _context?: AccessTokenContext;
 
   constructor(protected _version: V2, payload: AccessTokenPayload, serviceSid: string, sid?: string) {
@@ -211,10 +216,6 @@ export class AccessTokenInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface AccessTokenSolution {
-  serviceSid?: string;
-  sid?: string;
-}
 
 export class AccessTokenPage extends Page<V2, AccessTokenPayload, AccessTokenResource, AccessTokenInstance> {
   /**
@@ -270,6 +271,10 @@ export interface AccessTokenListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AccessTokenSolution {
+  serviceSid?: string;
 }
 
 interface AccessTokenListInstanceImpl extends AccessTokenListInstance {}

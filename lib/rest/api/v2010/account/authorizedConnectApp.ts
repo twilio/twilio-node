@@ -185,6 +185,10 @@ export interface AuthorizedConnectAppListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthorizedConnectAppSolution {
+  accountSid?: string;
+}
+
 interface AuthorizedConnectAppListInstanceImpl extends AuthorizedConnectAppListInstance {}
 class AuthorizedConnectAppListInstanceImpl implements AuthorizedConnectAppListInstance {
   _version?: V2010;
@@ -274,8 +278,13 @@ export interface AuthorizedConnectAppContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthorizedConnectAppContextSolution {
+  accountSid?: string;
+  connectAppSid?: string;
+}
+
 export class AuthorizedConnectAppContextImpl implements AuthorizedConnectAppContext {
-  protected _solution: AuthorizedConnectAppSolution;
+  protected _solution: AuthorizedConnectAppContextSolution;
   protected _uri: string;
 
 
@@ -330,7 +339,7 @@ interface AuthorizedConnectAppResource {
 }
 
 export class AuthorizedConnectAppInstance {
-  protected _solution: AuthorizedConnectAppSolution;
+  protected _solution: AuthorizedConnectAppContextSolution;
   protected _context?: AuthorizedConnectAppContext;
 
   constructor(protected _version: V2010, payload: AuthorizedConnectAppPayload, accountSid: string, connectAppSid?: string) {
@@ -429,10 +438,6 @@ export class AuthorizedConnectAppInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AuthorizedConnectAppSolution {
-  accountSid?: string;
-  connectAppSid?: string;
 }
 
 export class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppInstance> {

@@ -207,6 +207,10 @@ export interface LastMonthListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface LastMonthSolution {
+  accountSid?: string;
+}
+
 interface LastMonthListInstanceImpl extends LastMonthListInstance {}
 class LastMonthListInstanceImpl implements LastMonthListInstance {
   _version?: V2010;

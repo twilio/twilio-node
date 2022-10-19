@@ -191,8 +191,13 @@ export interface DomainContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DomainContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class DomainContextImpl implements DomainContext {
-  protected _solution: DomainSolution;
+  protected _solution: DomainContextSolution;
   protected _uri: string;
 
   protected _ipAccessControlListMappings?: IpAccessControlListMappingListInstance;
@@ -332,7 +337,7 @@ interface DomainResource {
 }
 
 export class DomainInstance {
-  protected _solution: DomainSolution;
+  protected _solution: DomainContextSolution;
   protected _context?: DomainContext;
 
   constructor(protected _version: V2010, payload: DomainPayload, accountSid: string, sid?: string) {
@@ -553,10 +558,6 @@ export class DomainInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface DomainSolution {
-  accountSid?: string;
-  sid?: string;
-}
 
 export class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
   /**
@@ -714,6 +715,10 @@ export interface DomainListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DomainSolution {
+  accountSid?: string;
 }
 
 interface DomainListInstanceImpl extends DomainListInstance {}

@@ -147,8 +147,12 @@ export interface MediaProcessorContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MediaProcessorContextSolution {
+  sid?: string;
+}
+
 export class MediaProcessorContextImpl implements MediaProcessorContext {
-  protected _solution: MediaProcessorSolution;
+  protected _solution: MediaProcessorContextSolution;
   protected _uri: string;
 
 
@@ -235,7 +239,7 @@ interface MediaProcessorResource {
 }
 
 export class MediaProcessorInstance {
-  protected _solution: MediaProcessorSolution;
+  protected _solution: MediaProcessorContextSolution;
   protected _context?: MediaProcessorContext;
 
   constructor(protected _version: V1, payload: MediaProcessorPayload, sid?: string) {
@@ -357,9 +361,6 @@ export class MediaProcessorInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface MediaProcessorSolution {
-  sid?: string;
 }
 
 export class MediaProcessorPage extends Page<V1, MediaProcessorPayload, MediaProcessorResource, MediaProcessorInstance> {
@@ -517,6 +518,9 @@ export interface MediaProcessorListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface MediaProcessorSolution {
 }
 
 interface MediaProcessorListInstanceImpl extends MediaProcessorListInstance {}

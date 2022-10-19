@@ -163,8 +163,13 @@ export interface SessionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SessionContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class SessionContextImpl implements SessionContext {
-  protected _solution: SessionSolution;
+  protected _solution: SessionContextSolution;
   protected _uri: string;
 
   protected _participants?: ParticipantListInstance;
@@ -281,7 +286,7 @@ interface SessionResource {
 }
 
 export class SessionInstance {
-  protected _solution: SessionSolution;
+  protected _solution: SessionContextSolution;
   protected _context?: SessionContext;
 
   constructor(protected _version: V1, payload: SessionPayload, serviceSid: string, sid?: string) {
@@ -459,10 +464,6 @@ export class SessionInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface SessionSolution {
-  serviceSid?: string;
-  sid?: string;
-}
 
 export class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
   /**
@@ -628,6 +629,10 @@ export interface SessionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SessionSolution {
+  serviceSid?: string;
 }
 
 interface SessionListInstanceImpl extends SessionListInstance {}

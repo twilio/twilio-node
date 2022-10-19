@@ -224,6 +224,10 @@ export interface SyncStreamListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SyncStreamSolution {
+  serviceSid?: string;
+}
+
 interface SyncStreamListInstanceImpl extends SyncStreamListInstance {}
 class SyncStreamListInstanceImpl implements SyncStreamListInstance {
   _version?: V1;
@@ -373,8 +377,13 @@ export interface SyncStreamContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SyncStreamContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class SyncStreamContextImpl implements SyncStreamContext {
-  protected _solution: SyncStreamSolution;
+  protected _solution: SyncStreamContextSolution;
   protected _uri: string;
 
   protected _streamMessages?: StreamMessageListInstance;
@@ -476,7 +485,7 @@ interface SyncStreamResource {
 }
 
 export class SyncStreamInstance {
-  protected _solution: SyncStreamSolution;
+  protected _solution: SyncStreamContextSolution;
   protected _context?: SyncStreamContext;
 
   constructor(protected _version: V1, payload: SyncStreamPayload, serviceSid: string, sid?: string) {
@@ -616,10 +625,6 @@ export class SyncStreamInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SyncStreamSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResource, SyncStreamInstance> {

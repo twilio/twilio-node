@@ -183,6 +183,9 @@ export interface PoliciesListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PoliciesSolution {
+}
+
 interface PoliciesListInstanceImpl extends PoliciesListInstance {}
 class PoliciesListInstanceImpl implements PoliciesListInstance {
   _version?: V1;
@@ -272,8 +275,12 @@ export interface PoliciesContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PoliciesContextSolution {
+  sid?: string;
+}
+
 export class PoliciesContextImpl implements PoliciesContext {
-  protected _solution: PoliciesSolution;
+  protected _solution: PoliciesContextSolution;
   protected _uri: string;
 
 
@@ -322,7 +329,7 @@ interface PoliciesResource {
 }
 
 export class PoliciesInstance {
-  protected _solution: PoliciesSolution;
+  protected _solution: PoliciesContextSolution;
   protected _context?: PoliciesContext;
 
   constructor(protected _version: V1, payload: PoliciesPayload, sid?: string) {
@@ -385,9 +392,6 @@ export class PoliciesInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface PoliciesSolution {
-  sid?: string;
 }
 
 export class PoliciesPage extends Page<V1, PoliciesPayload, PoliciesResource, PoliciesInstance> {

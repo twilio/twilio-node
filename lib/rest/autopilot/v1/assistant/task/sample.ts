@@ -151,8 +151,14 @@ export interface SampleContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SampleContextSolution {
+  assistantSid?: string;
+  taskSid?: string;
+  sid?: string;
+}
+
 export class SampleContextImpl implements SampleContext {
-  protected _solution: SampleSolution;
+  protected _solution: SampleContextSolution;
   protected _uri: string;
 
 
@@ -250,7 +256,7 @@ interface SampleResource {
 }
 
 export class SampleInstance {
-  protected _solution: SampleSolution;
+  protected _solution: SampleContextSolution;
   protected _context?: SampleContext;
 
   constructor(protected _version: V1, payload: SamplePayload, assistantSid: string, taskSid: string, sid?: string) {
@@ -383,11 +389,6 @@ export class SampleInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SampleSolution {
-  assistantSid?: string;
-  taskSid?: string;
-  sid?: string;
 }
 
 export class SamplePage extends Page<V1, SamplePayload, SampleResource, SampleInstance> {
@@ -547,6 +548,11 @@ export interface SampleListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SampleSolution {
+  assistantSid?: string;
+  taskSid?: string;
 }
 
 interface SampleListInstanceImpl extends SampleListInstance {}

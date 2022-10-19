@@ -33,6 +33,9 @@ export interface JobListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface JobSolution {
+}
+
 interface JobListInstanceImpl extends JobListInstance {}
 class JobListInstanceImpl implements JobListInstance {
   _version?: V1;
@@ -94,8 +97,12 @@ export interface JobContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface JobContextSolution {
+  jobSid?: string;
+}
+
 export class JobContextImpl implements JobContext {
-  protected _solution: JobSolution;
+  protected _solution: JobContextSolution;
   protected _uri: string;
 
 
@@ -165,7 +172,7 @@ interface JobResource {
 }
 
 export class JobInstance {
-  protected _solution: JobSolution;
+  protected _solution: JobContextSolution;
   protected _context?: JobContext;
 
   constructor(protected _version: V1, payload: JobPayload, jobSid?: string) {
@@ -285,9 +292,6 @@ export class JobInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface JobSolution {
-  jobSid?: string;
 }
 
 export class JobPage extends Page<V1, JobPayload, JobResource, JobInstance> {

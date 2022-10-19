@@ -207,6 +207,10 @@ export interface MonthlyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MonthlySolution {
+  accountSid?: string;
+}
+
 interface MonthlyListInstanceImpl extends MonthlyListInstance {}
 class MonthlyListInstanceImpl implements MonthlyListInstance {
   _version?: V2010;

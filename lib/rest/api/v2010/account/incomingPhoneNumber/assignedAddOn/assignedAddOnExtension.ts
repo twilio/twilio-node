@@ -183,6 +183,12 @@ export interface AssignedAddOnExtensionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AssignedAddOnExtensionSolution {
+  accountSid?: string;
+  resourceSid?: string;
+  assignedAddOnSid?: string;
+}
+
 interface AssignedAddOnExtensionListInstanceImpl extends AssignedAddOnExtensionListInstance {}
 class AssignedAddOnExtensionListInstanceImpl implements AssignedAddOnExtensionListInstance {
   _version?: V2010;
@@ -272,8 +278,15 @@ export interface AssignedAddOnExtensionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AssignedAddOnExtensionContextSolution {
+  accountSid?: string;
+  resourceSid?: string;
+  assignedAddOnSid?: string;
+  sid?: string;
+}
+
 export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtensionContext {
-  protected _solution: AssignedAddOnExtensionSolution;
+  protected _solution: AssignedAddOnExtensionContextSolution;
   protected _uri: string;
 
 
@@ -327,7 +340,7 @@ interface AssignedAddOnExtensionResource {
 }
 
 export class AssignedAddOnExtensionInstance {
-  protected _solution: AssignedAddOnExtensionSolution;
+  protected _solution: AssignedAddOnExtensionContextSolution;
   protected _context?: AssignedAddOnExtensionContext;
 
   constructor(protected _version: V2010, payload: AssignedAddOnExtensionPayload, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid?: string) {
@@ -420,12 +433,6 @@ export class AssignedAddOnExtensionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AssignedAddOnExtensionSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  assignedAddOnSid?: string;
-  sid?: string;
 }
 
 export class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionInstance> {

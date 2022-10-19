@@ -312,6 +312,11 @@ export interface ReservationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ReservationSolution {
+  workspaceSid?: string;
+  taskSid?: string;
+}
+
 interface ReservationListInstanceImpl extends ReservationListInstance {}
 class ReservationListInstanceImpl implements ReservationListInstance {
   _version?: V1;
@@ -422,8 +427,14 @@ export interface ReservationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ReservationContextSolution {
+  workspaceSid?: string;
+  taskSid?: string;
+  sid?: string;
+}
+
 export class ReservationContextImpl implements ReservationContext {
-  protected _solution: ReservationSolution;
+  protected _solution: ReservationContextSolution;
   protected _uri: string;
 
 
@@ -560,7 +571,7 @@ interface ReservationResource {
 }
 
 export class ReservationInstance {
-  protected _solution: ReservationSolution;
+  protected _solution: ReservationContextSolution;
   protected _context?: ReservationContext;
 
   constructor(protected _version: V1, payload: ReservationPayload, workspaceSid: string, taskSid: string, sid?: string) {
@@ -684,11 +695,6 @@ export class ReservationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ReservationSolution {
-  workspaceSid?: string;
-  taskSid?: string;
-  sid?: string;
 }
 
 export class ReservationPage extends Page<V1, ReservationPayload, ReservationResource, ReservationInstance> {

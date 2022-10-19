@@ -141,8 +141,13 @@ export interface ModelBuildContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ModelBuildContextSolution {
+  assistantSid?: string;
+  sid?: string;
+}
+
 export class ModelBuildContextImpl implements ModelBuildContext {
-  protected _solution: ModelBuildSolution;
+  protected _solution: ModelBuildContextSolution;
   protected _uri: string;
 
 
@@ -238,7 +243,7 @@ interface ModelBuildResource {
 }
 
 export class ModelBuildInstance {
-  protected _solution: ModelBuildSolution;
+  protected _solution: ModelBuildContextSolution;
   protected _context?: ModelBuildContext;
 
   constructor(protected _version: V1, payload: ModelBuildPayload, assistantSid: string, sid?: string) {
@@ -368,10 +373,6 @@ export class ModelBuildInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ModelBuildSolution {
-  assistantSid?: string;
-  sid?: string;
 }
 
 export class ModelBuildPage extends Page<V1, ModelBuildPayload, ModelBuildResource, ModelBuildInstance> {
@@ -538,6 +539,10 @@ export interface ModelBuildListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ModelBuildSolution {
+  assistantSid?: string;
 }
 
 interface ModelBuildListInstanceImpl extends ModelBuildListInstance {}

@@ -202,6 +202,11 @@ export interface InteractionChannelInviteListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface InteractionChannelInviteSolution {
+  interactionSid?: string;
+  channelSid?: string;
+}
+
 interface InteractionChannelInviteListInstanceImpl extends InteractionChannelInviteListInstance {}
 class InteractionChannelInviteListInstanceImpl implements InteractionChannelInviteListInstance {
   _version?: V1;
@@ -307,8 +312,6 @@ interface InteractionChannelInviteResource {
 }
 
 export class InteractionChannelInviteInstance {
-  protected _solution: InteractionChannelInviteSolution;
-  protected _context?: InteractionChannelInviteListInstance;
 
   constructor(protected _version: V1, payload: InteractionChannelInvitePayload, interactionSid: string, channelSid?: string) {
     this.sid = payload.sid;
@@ -317,7 +320,6 @@ export class InteractionChannelInviteInstance {
     this.routing = payload.routing;
     this.url = payload.url;
 
-    this._solution = { interactionSid, channelSid: channelSid || this.channelSid };
   }
 
   /**
@@ -356,10 +358,6 @@ export class InteractionChannelInviteInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface InteractionChannelInviteSolution {
-  interactionSid?: string;
-  channelSid?: string;
 }
 
 export class InteractionChannelInvitePage extends Page<V1, InteractionChannelInvitePayload, InteractionChannelInviteResource, InteractionChannelInviteInstance> {

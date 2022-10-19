@@ -112,8 +112,14 @@ export interface MemberContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MemberContextSolution {
+  accountSid?: string;
+  queueSid?: string;
+  callSid?: string;
+}
+
 export class MemberContextImpl implements MemberContext {
-  protected _solution: MemberSolution;
+  protected _solution: MemberContextSolution;
   protected _uri: string;
 
 
@@ -194,7 +200,7 @@ interface MemberResource {
 }
 
 export class MemberInstance {
-  protected _solution: MemberSolution;
+  protected _solution: MemberContextSolution;
   protected _context?: MemberContext;
 
   constructor(protected _version: V2010, payload: MemberPayload, accountSid: string, queueSid: string, callSid?: string) {
@@ -283,11 +289,6 @@ export class MemberInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface MemberSolution {
-  accountSid?: string;
-  queueSid?: string;
-  callSid?: string;
 }
 
 export class MemberPage extends Page<V2010, MemberPayload, MemberResource, MemberInstance> {
@@ -435,6 +436,11 @@ export interface MemberListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface MemberSolution {
+  accountSid?: string;
+  queueSid?: string;
 }
 
 interface MemberListInstanceImpl extends MemberListInstance {}

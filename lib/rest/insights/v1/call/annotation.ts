@@ -178,6 +178,10 @@ export interface AnnotationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AnnotationSolution {
+  callSid?: string;
+}
+
 interface AnnotationListInstanceImpl extends AnnotationListInstance {}
 class AnnotationListInstanceImpl implements AnnotationListInstance {
   _version?: V1;
@@ -279,8 +283,6 @@ interface AnnotationResource {
 }
 
 export class AnnotationInstance {
-  protected _solution: AnnotationSolution;
-  protected _context?: AnnotationListInstance;
 
   constructor(protected _version: V1, payload: AnnotationPayload, callSid?: string) {
     this.callSid = payload.call_sid;
@@ -294,7 +296,6 @@ export class AnnotationInstance {
     this.incident = payload.incident;
     this.url = payload.url;
 
-    this._solution = { callSid: callSid || this.callSid };
   }
 
   /**
@@ -355,9 +356,6 @@ export class AnnotationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AnnotationSolution {
-  callSid?: string;
 }
 
 export class AnnotationPage extends Page<V1, AnnotationPayload, AnnotationResource, AnnotationInstance> {

@@ -108,8 +108,13 @@ export interface NetworkAccessProfileNetworkContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NetworkAccessProfileNetworkContextSolution {
+  networkAccessProfileSid?: string;
+  sid?: string;
+}
+
 export class NetworkAccessProfileNetworkContextImpl implements NetworkAccessProfileNetworkContext {
-  protected _solution: NetworkAccessProfileNetworkSolution;
+  protected _solution: NetworkAccessProfileNetworkContextSolution;
   protected _uri: string;
 
 
@@ -173,7 +178,7 @@ interface NetworkAccessProfileNetworkResource {
 }
 
 export class NetworkAccessProfileNetworkInstance {
-  protected _solution: NetworkAccessProfileNetworkSolution;
+  protected _solution: NetworkAccessProfileNetworkContextSolution;
   protected _context?: NetworkAccessProfileNetworkContext;
 
   constructor(protected _version: V1, payload: NetworkAccessProfileNetworkPayload, networkAccessProfileSid: string, sid?: string) {
@@ -260,10 +265,6 @@ export class NetworkAccessProfileNetworkInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NetworkAccessProfileNetworkSolution {
-  networkAccessProfileSid?: string;
-  sid?: string;
 }
 
 export class NetworkAccessProfileNetworkPage extends Page<V1, NetworkAccessProfileNetworkPayload, NetworkAccessProfileNetworkResource, NetworkAccessProfileNetworkInstance> {
@@ -422,6 +423,10 @@ export interface NetworkAccessProfileNetworkListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface NetworkAccessProfileNetworkSolution {
+  networkAccessProfileSid?: string;
 }
 
 interface NetworkAccessProfileNetworkListInstanceImpl extends NetworkAccessProfileNetworkListInstance {}

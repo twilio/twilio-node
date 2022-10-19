@@ -180,8 +180,12 @@ export interface AssistantContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AssistantContextSolution {
+  sid?: string;
+}
+
 export class AssistantContextImpl implements AssistantContext {
-  protected _solution: AssistantSolution;
+  protected _solution: AssistantContextSolution;
   protected _uri: string;
 
   protected _dialogues?: DialogueListInstance;
@@ -336,7 +340,7 @@ interface AssistantResource {
 }
 
 export class AssistantInstance {
-  protected _solution: AssistantSolution;
+  protected _solution: AssistantContextSolution;
   protected _context?: AssistantContext;
 
   constructor(protected _version: V1, payload: AssistantPayload, sid?: string) {
@@ -550,9 +554,6 @@ export class AssistantInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface AssistantSolution {
-  sid?: string;
-}
 
 export class AssistantPage extends Page<V1, AssistantPayload, AssistantResource, AssistantInstance> {
   /**
@@ -718,6 +719,9 @@ export interface AssistantListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AssistantSolution {
 }
 
 interface AssistantListInstanceImpl extends AssistantListInstance {}

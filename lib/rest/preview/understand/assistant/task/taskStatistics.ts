@@ -133,6 +133,11 @@ export interface TaskStatisticsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TaskStatisticsSolution {
+  assistantSid?: string;
+  taskSid?: string;
+}
+
 interface TaskStatisticsListInstanceImpl extends TaskStatisticsListInstance {}
 class TaskStatisticsListInstanceImpl implements TaskStatisticsListInstance {
   _version?: Understand;

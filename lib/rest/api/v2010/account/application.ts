@@ -199,8 +199,13 @@ export interface ApplicationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ApplicationContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class ApplicationContextImpl implements ApplicationContext {
-  protected _solution: ApplicationSolution;
+  protected _solution: ApplicationContextSolution;
   protected _uri: string;
 
 
@@ -325,7 +330,7 @@ interface ApplicationResource {
 }
 
 export class ApplicationInstance {
-  protected _solution: ApplicationSolution;
+  protected _solution: ApplicationContextSolution;
   protected _context?: ApplicationContext;
 
   constructor(protected _version: V2010, payload: ApplicationPayload, accountSid: string, sid?: string) {
@@ -519,10 +524,6 @@ export class ApplicationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface ApplicationSolution {
-  accountSid?: string;
-  sid?: string;
-}
 
 export class ApplicationPage extends Page<V2010, ApplicationPayload, ApplicationResource, ApplicationInstance> {
   /**
@@ -688,6 +689,10 @@ export interface ApplicationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ApplicationSolution {
+  accountSid?: string;
 }
 
 interface ApplicationListInstanceImpl extends ApplicationListInstance {}

@@ -196,6 +196,11 @@ export interface DocumentPermissionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DocumentPermissionSolution {
+  serviceSid?: string;
+  documentSid?: string;
+}
+
 interface DocumentPermissionListInstanceImpl extends DocumentPermissionListInstance {}
 class DocumentPermissionListInstanceImpl implements DocumentPermissionListInstance {
   _version?: V1;
@@ -307,8 +312,14 @@ export interface DocumentPermissionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DocumentPermissionContextSolution {
+  serviceSid?: string;
+  documentSid?: string;
+  identity?: string;
+}
+
 export class DocumentPermissionContextImpl implements DocumentPermissionContext {
-  protected _solution: DocumentPermissionSolution;
+  protected _solution: DocumentPermissionContextSolution;
   protected _uri: string;
 
 
@@ -413,7 +424,7 @@ interface DocumentPermissionResource {
 }
 
 export class DocumentPermissionInstance {
-  protected _solution: DocumentPermissionSolution;
+  protected _solution: DocumentPermissionContextSolution;
   protected _context?: DocumentPermissionContext;
 
   constructor(protected _version: V1, payload: DocumentPermissionPayload, serviceSid: string, documentSid: string, identity?: string) {
@@ -526,11 +537,6 @@ export class DocumentPermissionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DocumentPermissionSolution {
-  serviceSid?: string;
-  documentSid?: string;
-  identity?: string;
 }
 
 export class DocumentPermissionPage extends Page<V1, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {

@@ -226,6 +226,10 @@ export interface DocumentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DocumentSolution {
+  serviceSid?: string;
+}
+
 interface DocumentListInstanceImpl extends DocumentListInstance {}
 class DocumentListInstanceImpl implements DocumentListInstance {
   _version?: Sync;
@@ -367,8 +371,13 @@ export interface DocumentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DocumentContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class DocumentContextImpl implements DocumentContext {
-  protected _solution: DocumentSolution;
+  protected _solution: DocumentContextSolution;
   protected _uri: string;
 
   protected _documentPermissions?: DocumentPermissionListInstance;
@@ -473,7 +482,7 @@ interface DocumentResource {
 }
 
 export class DocumentInstance {
-  protected _solution: DocumentSolution;
+  protected _solution: DocumentContextSolution;
   protected _context?: DocumentContext;
 
   constructor(protected _version: Sync, payload: DocumentPayload, serviceSid: string, sid?: string) {
@@ -578,10 +587,6 @@ export class DocumentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DocumentSolution {
-  serviceSid?: string;
-  sid?: string;
 }
 
 export class DocumentPage extends Page<Sync, DocumentPayload, DocumentResource, DocumentInstance> {

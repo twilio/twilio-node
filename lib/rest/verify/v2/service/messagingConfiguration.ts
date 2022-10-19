@@ -131,8 +131,13 @@ export interface MessagingConfigurationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface MessagingConfigurationContextSolution {
+  serviceSid?: string;
+  country?: string;
+}
+
 export class MessagingConfigurationContextImpl implements MessagingConfigurationContext {
-  protected _solution: MessagingConfigurationSolution;
+  protected _solution: MessagingConfigurationContextSolution;
   protected _uri: string;
 
 
@@ -226,7 +231,7 @@ interface MessagingConfigurationResource {
 }
 
 export class MessagingConfigurationInstance {
-  protected _solution: MessagingConfigurationSolution;
+  protected _solution: MessagingConfigurationContextSolution;
   protected _context?: MessagingConfigurationContext;
 
   constructor(protected _version: V2, payload: MessagingConfigurationPayload, serviceSid: string, country?: string) {
@@ -333,10 +338,6 @@ export class MessagingConfigurationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface MessagingConfigurationSolution {
-  serviceSid?: string;
-  country?: string;
 }
 
 export class MessagingConfigurationPage extends Page<V2, MessagingConfigurationPayload, MessagingConfigurationResource, MessagingConfigurationInstance> {
@@ -495,6 +496,10 @@ export interface MessagingConfigurationListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface MessagingConfigurationSolution {
+  serviceSid?: string;
 }
 
 interface MessagingConfigurationListInstanceImpl extends MessagingConfigurationListInstance {}

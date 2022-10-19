@@ -134,8 +134,12 @@ export interface CommandContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CommandContextSolution {
+  sid?: string;
+}
+
 export class CommandContextImpl implements CommandContext {
-  protected _solution: CommandSolution;
+  protected _solution: CommandContextSolution;
   protected _uri: string;
 
 
@@ -191,7 +195,7 @@ interface CommandResource {
 }
 
 export class CommandInstance {
-  protected _solution: CommandSolution;
+  protected _solution: CommandContextSolution;
   protected _context?: CommandContext;
 
   constructor(protected _version: Wireless, payload: CommandPayload, sid?: string) {
@@ -263,9 +267,6 @@ export class CommandInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CommandSolution {
-  sid?: string;
 }
 
 export class CommandPage extends Page<Wireless, CommandPayload, CommandResource, CommandInstance> {
@@ -423,6 +424,9 @@ export interface CommandListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CommandSolution {
 }
 
 interface CommandListInstanceImpl extends CommandListInstance {}

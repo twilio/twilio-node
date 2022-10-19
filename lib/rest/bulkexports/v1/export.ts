@@ -38,6 +38,9 @@ export interface ExportListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ExportSolution {
+}
+
 interface ExportListInstanceImpl extends ExportListInstance {}
 class ExportListInstanceImpl implements ExportListInstance {
   _version?: V1;
@@ -102,8 +105,12 @@ export interface ExportContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ExportContextSolution {
+  resourceType?: string;
+}
+
 export class ExportContextImpl implements ExportContext {
-  protected _solution: ExportSolution;
+  protected _solution: ExportContextSolution;
   protected _uri: string;
 
   protected _exportConfiguration?: ExportConfigurationListInstance;
@@ -169,7 +176,7 @@ interface ExportResource {
 }
 
 export class ExportInstance {
-  protected _solution: ExportSolution;
+  protected _solution: ExportContextSolution;
   protected _context?: ExportContext;
 
   constructor(protected _version: V1, payload: ExportPayload, resourceType?: string) {
@@ -247,9 +254,6 @@ export class ExportInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ExportSolution {
-  resourceType?: string;
 }
 
 export class ExportPage extends Page<V1, ExportPayload, ExportResource, ExportInstance> {

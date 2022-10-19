@@ -185,6 +185,11 @@ export interface DeliveryReceiptListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DeliveryReceiptSolution {
+  conversationSid?: string;
+  messageSid?: string;
+}
+
 interface DeliveryReceiptListInstanceImpl extends DeliveryReceiptListInstance {}
 class DeliveryReceiptListInstanceImpl implements DeliveryReceiptListInstance {
   _version?: V1;
@@ -274,8 +279,14 @@ export interface DeliveryReceiptContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DeliveryReceiptContextSolution {
+  conversationSid?: string;
+  messageSid?: string;
+  sid?: string;
+}
+
 export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
-  protected _solution: DeliveryReceiptSolution;
+  protected _solution: DeliveryReceiptContextSolution;
   protected _uri: string;
 
 
@@ -331,7 +342,7 @@ interface DeliveryReceiptResource {
 }
 
 export class DeliveryReceiptInstance {
-  protected _solution: DeliveryReceiptSolution;
+  protected _solution: DeliveryReceiptContextSolution;
   protected _context?: DeliveryReceiptContext;
 
   constructor(protected _version: V1, payload: DeliveryReceiptPayload, conversationSid: string, messageSid: string, sid?: string) {
@@ -433,11 +444,6 @@ export class DeliveryReceiptInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DeliveryReceiptSolution {
-  conversationSid?: string;
-  messageSid?: string;
-  sid?: string;
 }
 
 export class DeliveryReceiptPage extends Page<V1, DeliveryReceiptPayload, DeliveryReceiptResource, DeliveryReceiptInstance> {

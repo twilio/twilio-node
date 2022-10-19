@@ -108,8 +108,13 @@ export interface TrustProductsEntityAssignmentsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TrustProductsEntityAssignmentsContextSolution {
+  trustProductSid?: string;
+  sid?: string;
+}
+
 export class TrustProductsEntityAssignmentsContextImpl implements TrustProductsEntityAssignmentsContext {
-  protected _solution: TrustProductsEntityAssignmentsSolution;
+  protected _solution: TrustProductsEntityAssignmentsContextSolution;
   protected _uri: string;
 
 
@@ -173,7 +178,7 @@ interface TrustProductsEntityAssignmentsResource {
 }
 
 export class TrustProductsEntityAssignmentsInstance {
-  protected _solution: TrustProductsEntityAssignmentsSolution;
+  protected _solution: TrustProductsEntityAssignmentsContextSolution;
   protected _context?: TrustProductsEntityAssignmentsContext;
 
   constructor(protected _version: V1, payload: TrustProductsEntityAssignmentsPayload, trustProductSid: string, sid?: string) {
@@ -260,10 +265,6 @@ export class TrustProductsEntityAssignmentsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TrustProductsEntityAssignmentsSolution {
-  trustProductSid?: string;
-  sid?: string;
 }
 
 export class TrustProductsEntityAssignmentsPage extends Page<V1, TrustProductsEntityAssignmentsPayload, TrustProductsEntityAssignmentsResource, TrustProductsEntityAssignmentsInstance> {
@@ -422,6 +423,10 @@ export interface TrustProductsEntityAssignmentsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TrustProductsEntityAssignmentsSolution {
+  trustProductSid?: string;
 }
 
 interface TrustProductsEntityAssignmentsListInstanceImpl extends TrustProductsEntityAssignmentsListInstance {}

@@ -157,8 +157,13 @@ export interface DeviceContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DeviceContextSolution {
+  fleetSid?: string;
+  sid?: string;
+}
+
 export class DeviceContextImpl implements DeviceContext {
-  protected _solution: DeviceSolution;
+  protected _solution: DeviceContextSolution;
   protected _uri: string;
 
 
@@ -259,7 +264,7 @@ interface DeviceResource {
 }
 
 export class DeviceInstance {
-  protected _solution: DeviceSolution;
+  protected _solution: DeviceContextSolution;
   protected _context?: DeviceContext;
 
   constructor(protected _version: DeployedDevices, payload: DevicePayload, fleetSid: string, sid?: string) {
@@ -404,10 +409,6 @@ export class DeviceInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DeviceSolution {
-  fleetSid?: string;
-  sid?: string;
 }
 
 export class DevicePage extends Page<DeployedDevices, DevicePayload, DeviceResource, DeviceInstance> {
@@ -574,6 +575,10 @@ export interface DeviceListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DeviceSolution {
+  fleetSid?: string;
 }
 
 interface DeviceListInstanceImpl extends DeviceListInstance {}

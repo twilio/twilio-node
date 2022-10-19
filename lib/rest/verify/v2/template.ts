@@ -187,6 +187,9 @@ export interface TemplateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TemplateSolution {
+}
+
 interface TemplateListInstanceImpl extends TemplateListInstance {}
 class TemplateListInstanceImpl implements TemplateListInstance {
   _version?: V2;

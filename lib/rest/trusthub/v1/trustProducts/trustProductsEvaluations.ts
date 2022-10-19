@@ -100,8 +100,13 @@ export interface TrustProductsEvaluationsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TrustProductsEvaluationsContextSolution {
+  trustProductSid?: string;
+  sid?: string;
+}
+
 export class TrustProductsEvaluationsContextImpl implements TrustProductsEvaluationsContext {
-  protected _solution: TrustProductsEvaluationsSolution;
+  protected _solution: TrustProductsEvaluationsContextSolution;
   protected _uri: string;
 
 
@@ -154,7 +159,7 @@ interface TrustProductsEvaluationsResource {
 }
 
 export class TrustProductsEvaluationsInstance {
-  protected _solution: TrustProductsEvaluationsSolution;
+  protected _solution: TrustProductsEvaluationsContextSolution;
   protected _context?: TrustProductsEvaluationsContext;
 
   constructor(protected _version: V1, payload: TrustProductsEvaluationsPayload, trustProductSid: string, sid?: string) {
@@ -232,10 +237,6 @@ export class TrustProductsEvaluationsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface TrustProductsEvaluationsSolution {
-  trustProductSid?: string;
-  sid?: string;
 }
 
 export class TrustProductsEvaluationsPage extends Page<V1, TrustProductsEvaluationsPayload, TrustProductsEvaluationsResource, TrustProductsEvaluationsInstance> {
@@ -394,6 +395,10 @@ export interface TrustProductsEvaluationsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TrustProductsEvaluationsSolution {
+  trustProductSid?: string;
 }
 
 interface TrustProductsEvaluationsListInstanceImpl extends TrustProductsEvaluationsListInstance {}

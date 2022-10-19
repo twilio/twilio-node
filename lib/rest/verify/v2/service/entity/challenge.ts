@@ -167,8 +167,14 @@ export interface ChallengeContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ChallengeContextSolution {
+  serviceSid?: string;
+  identity?: string;
+  sid?: string;
+}
+
 export class ChallengeContextImpl implements ChallengeContext {
-  protected _solution: ChallengeSolution;
+  protected _solution: ChallengeContextSolution;
   protected _uri: string;
 
   protected _notifications?: NotificationListInstance;
@@ -266,7 +272,7 @@ interface ChallengeResource {
 }
 
 export class ChallengeInstance {
-  protected _solution: ChallengeSolution;
+  protected _solution: ChallengeContextSolution;
   protected _context?: ChallengeContext;
 
   constructor(protected _version: V2, payload: ChallengePayload, serviceSid: string, identity: string, sid?: string) {
@@ -434,11 +440,6 @@ export class ChallengeInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface ChallengeSolution {
-  serviceSid?: string;
-  identity?: string;
-  sid?: string;
-}
 
 export class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource, ChallengeInstance> {
   /**
@@ -597,6 +598,11 @@ export interface ChallengeListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ChallengeSolution {
+  serviceSid?: string;
+  identity?: string;
 }
 
 interface ChallengeListInstanceImpl extends ChallengeListInstance {}

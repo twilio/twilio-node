@@ -172,6 +172,10 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ConfigurationSolution {
+  chatServiceSid?: string;
+}
+
 interface ConfigurationListInstanceImpl extends ConfigurationListInstance {}
 class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _version?: V1;
@@ -287,8 +291,6 @@ interface ConfigurationResource {
 }
 
 export class ConfigurationInstance {
-  protected _solution: ConfigurationSolution;
-  protected _context?: ConfigurationListInstance;
 
   constructor(protected _version: V1, payload: ConfigurationPayload, chatServiceSid?: string) {
     this.chatServiceSid = payload.chat_service_sid;
@@ -299,7 +301,6 @@ export class ConfigurationInstance {
     this.links = payload.links;
     this.reachabilityEnabled = payload.reachability_enabled;
 
-    this._solution = { chatServiceSid: chatServiceSid || this.chatServiceSid };
   }
 
   /**
@@ -365,9 +366,6 @@ export class ConfigurationInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ConfigurationSolution {
-  chatServiceSid?: string;
 }
 
 export class ConfigurationPage extends Page<V1, ConfigurationPayload, ConfigurationResource, ConfigurationInstance> {

@@ -217,6 +217,9 @@ export interface IpRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpRecordSolution {
+}
+
 interface IpRecordListInstanceImpl extends IpRecordListInstance {}
 class IpRecordListInstanceImpl implements IpRecordListInstance {
   _version?: V1;
@@ -367,8 +370,12 @@ export interface IpRecordContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpRecordContextSolution {
+  sid?: string;
+}
+
 export class IpRecordContextImpl implements IpRecordContext {
-  protected _solution: IpRecordSolution;
+  protected _solution: IpRecordContextSolution;
   protected _uri: string;
 
 
@@ -462,7 +469,7 @@ interface IpRecordResource {
 }
 
 export class IpRecordInstance {
-  protected _solution: IpRecordSolution;
+  protected _solution: IpRecordContextSolution;
   protected _context?: IpRecordContext;
 
   constructor(protected _version: V1, payload: IpRecordPayload, sid?: string) {
@@ -583,9 +590,6 @@ export class IpRecordInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface IpRecordSolution {
-  sid?: string;
 }
 
 export class IpRecordPage extends Page<V1, IpRecordPayload, IpRecordResource, IpRecordInstance> {

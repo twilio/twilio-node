@@ -151,8 +151,13 @@ export interface ExecutionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ExecutionContextSolution {
+  flowSid?: string;
+  sid?: string;
+}
+
 export class ExecutionContextImpl implements ExecutionContext {
-  protected _solution: ExecutionSolution;
+  protected _solution: ExecutionContextSolution;
   protected _uri: string;
 
   protected _steps?: ExecutionStepListInstance;
@@ -262,7 +267,7 @@ interface ExecutionResource {
 }
 
 export class ExecutionInstance {
-  protected _solution: ExecutionSolution;
+  protected _solution: ExecutionContextSolution;
   protected _context?: ExecutionContext;
 
   constructor(protected _version: V1, payload: ExecutionPayload, flowSid: string, sid?: string) {
@@ -404,10 +409,6 @@ export class ExecutionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ExecutionSolution {
-  flowSid?: string;
-  sid?: string;
 }
 
 export class ExecutionPage extends Page<V1, ExecutionPayload, ExecutionResource, ExecutionInstance> {
@@ -566,6 +567,10 @@ export interface ExecutionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ExecutionSolution {
+  flowSid?: string;
 }
 
 interface ExecutionListInstanceImpl extends ExecutionListInstance {}

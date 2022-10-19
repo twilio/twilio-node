@@ -62,6 +62,11 @@ export interface FeedbackListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FeedbackSolution {
+  accountSid?: string;
+  messageSid?: string;
+}
+
 interface FeedbackListInstanceImpl extends FeedbackListInstance {}
 class FeedbackListInstanceImpl implements FeedbackListInstance {
   _version?: V2010;
@@ -129,8 +134,6 @@ interface FeedbackResource {
 }
 
 export class FeedbackInstance {
-  protected _solution: FeedbackSolution;
-  protected _context?: FeedbackListInstance;
 
   constructor(protected _version: V2010, payload: FeedbackPayload, accountSid: string, messageSid?: string) {
     this.accountSid = payload.account_sid;
@@ -140,7 +143,6 @@ export class FeedbackInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, messageSid: messageSid || this.messageSid };
   }
 
   /**
@@ -184,10 +186,6 @@ export class FeedbackInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FeedbackSolution {
-  accountSid?: string;
-  messageSid?: string;
 }
 
 export class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {

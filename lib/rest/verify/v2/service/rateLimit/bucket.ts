@@ -141,8 +141,14 @@ export interface BucketContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface BucketContextSolution {
+  serviceSid?: string;
+  rateLimitSid?: string;
+  sid?: string;
+}
+
 export class BucketContextImpl implements BucketContext {
-  protected _solution: BucketSolution;
+  protected _solution: BucketContextSolution;
   protected _uri: string;
 
 
@@ -238,7 +244,7 @@ interface BucketResource {
 }
 
 export class BucketInstance {
-  protected _solution: BucketSolution;
+  protected _solution: BucketContextSolution;
   protected _context?: BucketContext;
 
   constructor(protected _version: V2, payload: BucketPayload, serviceSid: string, rateLimitSid: string, sid?: string) {
@@ -365,11 +371,6 @@ export class BucketInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface BucketSolution {
-  serviceSid?: string;
-  rateLimitSid?: string;
-  sid?: string;
 }
 
 export class BucketPage extends Page<V2, BucketPayload, BucketResource, BucketInstance> {
@@ -529,6 +530,11 @@ export interface BucketListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface BucketSolution {
+  serviceSid?: string;
+  rateLimitSid?: string;
 }
 
 interface BucketListInstanceImpl extends BucketListInstance {}

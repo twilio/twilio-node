@@ -152,8 +152,12 @@ export interface CompositionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CompositionContextSolution {
+  sid?: string;
+}
+
 export class CompositionContextImpl implements CompositionContext {
-  protected _solution: CompositionSolution;
+  protected _solution: CompositionContextSolution;
   protected _uri: string;
 
 
@@ -233,7 +237,7 @@ interface CompositionResource {
 }
 
 export class CompositionInstance {
-  protected _solution: CompositionSolution;
+  protected _solution: CompositionContextSolution;
   protected _context?: CompositionContext;
 
   constructor(protected _version: V1, payload: CompositionPayload, sid?: string) {
@@ -405,9 +409,6 @@ export class CompositionInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface CompositionSolution {
-  sid?: string;
-}
 
 export class CompositionPage extends Page<V1, CompositionPayload, CompositionResource, CompositionInstance> {
   /**
@@ -564,6 +565,9 @@ export interface CompositionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CompositionSolution {
 }
 
 interface CompositionListInstanceImpl extends CompositionListInstance {}

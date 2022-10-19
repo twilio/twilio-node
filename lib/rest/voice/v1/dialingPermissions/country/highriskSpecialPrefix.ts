@@ -181,6 +181,10 @@ export interface HighriskSpecialPrefixListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface HighriskSpecialPrefixSolution {
+  isoCode?: string;
+}
+
 interface HighriskSpecialPrefixListInstanceImpl extends HighriskSpecialPrefixListInstance {}
 class HighriskSpecialPrefixListInstanceImpl implements HighriskSpecialPrefixListInstance {
   _version?: V1;

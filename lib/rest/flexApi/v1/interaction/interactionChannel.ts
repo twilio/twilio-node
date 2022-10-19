@@ -202,6 +202,10 @@ export interface InteractionChannelListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface InteractionChannelSolution {
+  interactionSid?: string;
+}
+
 interface InteractionChannelListInstanceImpl extends InteractionChannelListInstance {}
 class InteractionChannelListInstanceImpl implements InteractionChannelListInstance {
   _version?: V1;
@@ -305,8 +309,13 @@ export interface InteractionChannelContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface InteractionChannelContextSolution {
+  interactionSid?: string;
+  sid?: string;
+}
+
 export class InteractionChannelContextImpl implements InteractionChannelContext {
-  protected _solution: InteractionChannelSolution;
+  protected _solution: InteractionChannelContextSolution;
   protected _uri: string;
 
   protected _participants?: InteractionChannelParticipantListInstance;
@@ -401,7 +410,7 @@ interface InteractionChannelResource {
 }
 
 export class InteractionChannelInstance {
-  protected _solution: InteractionChannelSolution;
+  protected _solution: InteractionChannelContextSolution;
   protected _context?: InteractionChannelContext;
 
   constructor(protected _version: V1, payload: InteractionChannelPayload, interactionSid: string, sid?: string) {
@@ -504,10 +513,6 @@ export class InteractionChannelInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface InteractionChannelSolution {
-  interactionSid?: string;
-  sid?: string;
 }
 
 export class InteractionChannelPage extends Page<V1, InteractionChannelPayload, InteractionChannelResource, InteractionChannelInstance> {

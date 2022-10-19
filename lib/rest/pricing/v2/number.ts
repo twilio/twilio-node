@@ -61,6 +61,9 @@ export interface NumberListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NumberSolution {
+}
+
 interface NumberListInstanceImpl extends NumberListInstance {}
 class NumberListInstanceImpl implements NumberListInstance {
   _version?: V2;
@@ -122,8 +125,12 @@ export interface NumberContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NumberContextSolution {
+  destinationNumber?: string;
+}
+
 export class NumberContextImpl implements NumberContext {
-  protected _solution: NumberSolution;
+  protected _solution: NumberContextSolution;
   protected _uri: string;
 
 
@@ -188,7 +195,7 @@ interface NumberResource {
 }
 
 export class NumberInstance {
-  protected _solution: NumberSolution;
+  protected _solution: NumberContextSolution;
   protected _context?: NumberContext;
 
   constructor(protected _version: V2, payload: NumberPayload, destinationNumber?: string) {
@@ -279,9 +286,6 @@ export class NumberInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NumberSolution {
-  destinationNumber?: string;
 }
 
 export class NumberPage extends Page<V2, NumberPayload, NumberResource, NumberInstance> {

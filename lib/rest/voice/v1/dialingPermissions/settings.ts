@@ -162,6 +162,9 @@ export interface SettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SettingsSolution {
+}
+
 interface SettingsListInstanceImpl extends SettingsListInstance {}
 class SettingsListInstanceImpl implements SettingsListInstance {
   _version?: V1;
@@ -249,14 +252,11 @@ interface SettingsResource {
 }
 
 export class SettingsInstance {
-  protected _solution: SettingsSolution;
-  protected _context?: SettingsListInstance;
 
   constructor(protected _version: V1, payload: SettingsPayload) {
     this.dialingPermissionsInheritance = payload.dialing_permissions_inheritance;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -283,8 +283,6 @@ export class SettingsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SettingsSolution {
 }
 
 export class SettingsPage extends Page<V1, SettingsPayload, SettingsResource, SettingsInstance> {

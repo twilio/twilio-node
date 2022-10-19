@@ -164,6 +164,9 @@ export interface CompositionSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CompositionSettingsSolution {
+}
+
 interface CompositionSettingsListInstanceImpl extends CompositionSettingsListInstance {}
 class CompositionSettingsListInstanceImpl implements CompositionSettingsListInstance {
   _version?: V1;
@@ -263,8 +266,6 @@ interface CompositionSettingsResource {
 }
 
 export class CompositionSettingsInstance {
-  protected _solution: CompositionSettingsSolution;
-  protected _context?: CompositionSettingsListInstance;
 
   constructor(protected _version: V1, payload: CompositionSettingsPayload) {
     this.accountSid = payload.account_sid;
@@ -276,7 +277,6 @@ export class CompositionSettingsInstance {
     this.encryptionEnabled = payload.encryption_enabled;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -333,8 +333,6 @@ export class CompositionSettingsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CompositionSettingsSolution {
 }
 
 export class CompositionSettingsPage extends Page<V1, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsInstance> {

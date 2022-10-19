@@ -240,6 +240,10 @@ export interface WorkflowListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkflowSolution {
+  workspaceSid?: string;
+}
+
 interface WorkflowListInstanceImpl extends WorkflowListInstance {}
 class WorkflowListInstanceImpl implements WorkflowListInstance {
   _version?: V1;
@@ -400,8 +404,13 @@ export interface WorkflowContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkflowContextSolution {
+  workspaceSid?: string;
+  sid?: string;
+}
+
 export class WorkflowContextImpl implements WorkflowContext {
-  protected _solution: WorkflowSolution;
+  protected _solution: WorkflowContextSolution;
   protected _uri: string;
 
   protected _realTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
@@ -523,7 +532,7 @@ interface WorkflowResource {
 }
 
 export class WorkflowInstance {
-  protected _solution: WorkflowSolution;
+  protected _solution: WorkflowContextSolution;
   protected _context?: WorkflowContext;
 
   constructor(protected _version: V1, payload: WorkflowPayload, workspaceSid: string, sid?: string) {
@@ -695,10 +704,6 @@ export class WorkflowInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface WorkflowSolution {
-  workspaceSid?: string;
-  sid?: string;
 }
 
 export class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, WorkflowInstance> {

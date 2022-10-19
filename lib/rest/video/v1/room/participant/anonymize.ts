@@ -43,6 +43,11 @@ export interface AnonymizeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AnonymizeSolution {
+  roomSid?: string;
+  sid?: string;
+}
+
 interface AnonymizeListInstanceImpl extends AnonymizeListInstance {}
 class AnonymizeListInstanceImpl implements AnonymizeListInstance {
   _version?: V1;
@@ -102,8 +107,6 @@ interface AnonymizeResource {
 }
 
 export class AnonymizeInstance {
-  protected _solution: AnonymizeSolution;
-  protected _context?: AnonymizeListInstance;
 
   constructor(protected _version: V1, payload: AnonymizePayload, roomSid: string, sid?: string) {
     this.sid = payload.sid;
@@ -118,7 +121,6 @@ export class AnonymizeInstance {
     this.duration = deserialize.integer(payload.duration);
     this.url = payload.url;
 
-    this._solution = { roomSid, sid: sid || this.sid };
   }
 
   /**
@@ -187,10 +189,6 @@ export class AnonymizeInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AnonymizeSolution {
-  roomSid?: string;
-  sid?: string;
 }
 
 export class AnonymizePage extends Page<V1, AnonymizePayload, AnonymizeResource, AnonymizeInstance> {

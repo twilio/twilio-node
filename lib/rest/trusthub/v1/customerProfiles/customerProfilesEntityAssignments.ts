@@ -108,8 +108,13 @@ export interface CustomerProfilesEntityAssignmentsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CustomerProfilesEntityAssignmentsContextSolution {
+  customerProfileSid?: string;
+  sid?: string;
+}
+
 export class CustomerProfilesEntityAssignmentsContextImpl implements CustomerProfilesEntityAssignmentsContext {
-  protected _solution: CustomerProfilesEntityAssignmentsSolution;
+  protected _solution: CustomerProfilesEntityAssignmentsContextSolution;
   protected _uri: string;
 
 
@@ -173,7 +178,7 @@ interface CustomerProfilesEntityAssignmentsResource {
 }
 
 export class CustomerProfilesEntityAssignmentsInstance {
-  protected _solution: CustomerProfilesEntityAssignmentsSolution;
+  protected _solution: CustomerProfilesEntityAssignmentsContextSolution;
   protected _context?: CustomerProfilesEntityAssignmentsContext;
 
   constructor(protected _version: V1, payload: CustomerProfilesEntityAssignmentsPayload, customerProfileSid: string, sid?: string) {
@@ -260,10 +265,6 @@ export class CustomerProfilesEntityAssignmentsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CustomerProfilesEntityAssignmentsSolution {
-  customerProfileSid?: string;
-  sid?: string;
 }
 
 export class CustomerProfilesEntityAssignmentsPage extends Page<V1, CustomerProfilesEntityAssignmentsPayload, CustomerProfilesEntityAssignmentsResource, CustomerProfilesEntityAssignmentsInstance> {
@@ -422,6 +423,10 @@ export interface CustomerProfilesEntityAssignmentsListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CustomerProfilesEntityAssignmentsSolution {
+  customerProfileSid?: string;
 }
 
 interface CustomerProfilesEntityAssignmentsListInstanceImpl extends CustomerProfilesEntityAssignmentsListInstance {}

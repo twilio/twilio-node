@@ -186,6 +186,11 @@ export interface AddOnResultListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AddOnResultSolution {
+  accountSid?: string;
+  referenceSid?: string;
+}
+
 interface AddOnResultListInstanceImpl extends AddOnResultListInstance {}
 class AddOnResultListInstanceImpl implements AddOnResultListInstance {
   _version?: V2010;
@@ -286,8 +291,14 @@ export interface AddOnResultContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AddOnResultContextSolution {
+  accountSid?: string;
+  referenceSid?: string;
+  sid?: string;
+}
+
 export class AddOnResultContextImpl implements AddOnResultContext {
-  protected _solution: AddOnResultSolution;
+  protected _solution: AddOnResultContextSolution;
   protected _uri: string;
 
   protected _payloads?: PayloadListInstance;
@@ -361,7 +372,7 @@ interface AddOnResultResource {
 }
 
 export class AddOnResultInstance {
-  protected _solution: AddOnResultSolution;
+  protected _solution: AddOnResultContextSolution;
   protected _context?: AddOnResultContext;
 
   constructor(protected _version: V2010, payload: AddOnResultPayload, accountSid: string, referenceSid: string, sid?: string) {
@@ -476,11 +487,6 @@ export class AddOnResultInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AddOnResultSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  sid?: string;
 }
 
 export class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResultResource, AddOnResultInstance> {

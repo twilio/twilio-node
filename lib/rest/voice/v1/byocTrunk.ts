@@ -257,6 +257,9 @@ export interface ByocTrunkListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ByocTrunkSolution {
+}
+
 interface ByocTrunkListInstanceImpl extends ByocTrunkListInstance {}
 class ByocTrunkListInstanceImpl implements ByocTrunkListInstance {
   _version?: V1;
@@ -413,8 +416,12 @@ export interface ByocTrunkContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ByocTrunkContextSolution {
+  sid?: string;
+}
+
 export class ByocTrunkContextImpl implements ByocTrunkContext {
-  protected _solution: ByocTrunkSolution;
+  protected _solution: ByocTrunkContextSolution;
   protected _uri: string;
 
 
@@ -527,7 +534,7 @@ interface ByocTrunkResource {
 }
 
 export class ByocTrunkInstance {
-  protected _solution: ByocTrunkSolution;
+  protected _solution: ByocTrunkContextSolution;
   protected _context?: ByocTrunkContext;
 
   constructor(protected _version: V1, payload: ByocTrunkPayload, sid?: string) {
@@ -690,9 +697,6 @@ export class ByocTrunkInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ByocTrunkSolution {
-  sid?: string;
 }
 
 export class ByocTrunkPage extends Page<V1, ByocTrunkPayload, ByocTrunkResource, ByocTrunkInstance> {

@@ -183,6 +183,10 @@ export interface DayListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DaySolution {
+  resourceType?: string;
+}
+
 interface DayListInstanceImpl extends DayListInstance {}
 class DayListInstanceImpl implements DayListInstance {
   _version?: V1;
@@ -272,8 +276,13 @@ export interface DayContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface DayContextSolution {
+  resourceType?: string;
+  day?: string;
+}
+
 export class DayContextImpl implements DayContext {
-  protected _solution: DaySolution;
+  protected _solution: DayContextSolution;
   protected _uri: string;
 
 
@@ -319,7 +328,7 @@ interface DayResource {
 }
 
 export class DayInstance {
-  protected _solution: DaySolution;
+  protected _solution: DayContextSolution;
   protected _context?: DayContext;
 
   constructor(protected _version: V1, payload: DayPayload, resourceType: string, day?: string) {
@@ -361,10 +370,6 @@ export class DayInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface DaySolution {
-  resourceType?: string;
-  day?: string;
 }
 
 export class DayPage extends Page<V1, DayPayload, DayResource, DayInstance> {

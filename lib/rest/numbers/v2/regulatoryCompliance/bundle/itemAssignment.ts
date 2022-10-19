@@ -108,8 +108,13 @@ export interface ItemAssignmentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ItemAssignmentContextSolution {
+  bundleSid?: string;
+  sid?: string;
+}
+
 export class ItemAssignmentContextImpl implements ItemAssignmentContext {
-  protected _solution: ItemAssignmentSolution;
+  protected _solution: ItemAssignmentContextSolution;
   protected _uri: string;
 
 
@@ -173,7 +178,7 @@ interface ItemAssignmentResource {
 }
 
 export class ItemAssignmentInstance {
-  protected _solution: ItemAssignmentSolution;
+  protected _solution: ItemAssignmentContextSolution;
   protected _context?: ItemAssignmentContext;
 
   constructor(protected _version: V2, payload: ItemAssignmentPayload, bundleSid: string, sid?: string) {
@@ -260,10 +265,6 @@ export class ItemAssignmentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ItemAssignmentSolution {
-  bundleSid?: string;
-  sid?: string;
 }
 
 export class ItemAssignmentPage extends Page<V2, ItemAssignmentPayload, ItemAssignmentResource, ItemAssignmentInstance> {
@@ -422,6 +423,10 @@ export interface ItemAssignmentListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ItemAssignmentSolution {
+  bundleSid?: string;
 }
 
 interface ItemAssignmentListInstanceImpl extends ItemAssignmentListInstance {}

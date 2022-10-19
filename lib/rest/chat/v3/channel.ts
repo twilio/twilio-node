@@ -68,8 +68,13 @@ export interface ChannelContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ChannelContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
 export class ChannelContextImpl implements ChannelContext {
-  protected _solution: ChannelSolution;
+  protected _solution: ChannelContextSolution;
   protected _uri: string;
 
 
@@ -143,7 +148,7 @@ interface ChannelResource {
 }
 
 export class ChannelInstance {
-  protected _solution: ChannelSolution;
+  protected _solution: ChannelContextSolution;
   protected _context?: ChannelContext;
 
   constructor(protected _version: V3, payload: ChannelPayload, serviceSid: string, sid?: string) {
@@ -274,10 +279,6 @@ export class ChannelInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface ChannelSolution {
-  serviceSid?: string;
-  sid?: string;
-}
 
 export class ChannelPage extends Page<V3, ChannelPayload, ChannelResource, ChannelInstance> {
   /**
@@ -321,6 +322,10 @@ export interface ChannelListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ChannelSolution {
+  serviceSid?: string;
 }
 
 interface ChannelListInstanceImpl extends ChannelListInstance {}

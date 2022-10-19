@@ -104,8 +104,12 @@ export interface CountryContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CountryContextSolution {
+  isoCountry?: string;
+}
+
 export class CountryContextImpl implements CountryContext {
-  protected _solution: CountrySolution;
+  protected _solution: CountryContextSolution;
   protected _uri: string;
 
 
@@ -156,7 +160,7 @@ interface CountryResource {
 }
 
 export class CountryInstance {
-  protected _solution: CountrySolution;
+  protected _solution: CountryContextSolution;
   protected _context?: CountryContext;
 
   constructor(protected _version: V1, payload: CountryPayload, isoCountry?: string) {
@@ -231,9 +235,6 @@ export class CountryInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CountrySolution {
-  isoCountry?: string;
 }
 
 export class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
@@ -379,6 +380,9 @@ export interface CountryListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CountrySolution {
 }
 
 interface CountryListInstanceImpl extends CountryListInstance {}

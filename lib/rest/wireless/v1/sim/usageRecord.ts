@@ -201,6 +201,10 @@ export interface UsageRecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface UsageRecordSolution {
+  simSid?: string;
+}
+
 interface UsageRecordListInstanceImpl extends UsageRecordListInstance {}
 class UsageRecordListInstanceImpl implements UsageRecordListInstance {
   _version?: V1;

@@ -99,8 +99,15 @@ export interface PayloadContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PayloadContextSolution {
+  accountSid?: string;
+  referenceSid?: string;
+  addOnResultSid?: string;
+  sid?: string;
+}
+
 export class PayloadContextImpl implements PayloadContext {
-  protected _solution: PayloadSolution;
+  protected _solution: PayloadContextSolution;
   protected _uri: string;
 
 
@@ -169,7 +176,7 @@ interface PayloadResource {
 }
 
 export class PayloadInstance {
-  protected _solution: PayloadSolution;
+  protected _solution: PayloadContextSolution;
   protected _context?: PayloadContext;
 
   constructor(protected _version: V2010, payload: PayloadPayload, accountSid: string, referenceSid: string, addOnResultSid: string, sid?: string) {
@@ -286,12 +293,6 @@ export class PayloadInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface PayloadSolution {
-  accountSid?: string;
-  referenceSid?: string;
-  addOnResultSid?: string;
-  sid?: string;
 }
 
 export class PayloadPage extends Page<V2010, PayloadPayload, PayloadResource, PayloadInstance> {
@@ -440,6 +441,12 @@ export interface PayloadListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PayloadSolution {
+  accountSid?: string;
+  referenceSid?: string;
+  addOnResultSid?: string;
 }
 
 interface PayloadListInstanceImpl extends PayloadListInstance {}

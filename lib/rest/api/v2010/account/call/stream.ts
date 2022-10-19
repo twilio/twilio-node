@@ -471,8 +471,14 @@ export interface StreamContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface StreamContextSolution {
+  accountSid?: string;
+  callSid?: string;
+  sid?: string;
+}
+
 export class StreamContextImpl implements StreamContext {
-  protected _solution: StreamSolution;
+  protected _solution: StreamContextSolution;
   protected _uri: string;
 
 
@@ -538,7 +544,7 @@ interface StreamResource {
 }
 
 export class StreamInstance {
-  protected _solution: StreamSolution;
+  protected _solution: StreamContextSolution;
   protected _context?: StreamContext;
 
   constructor(protected _version: V2010, payload: StreamPayload, accountSid: string, callSid: string, sid?: string) {
@@ -619,11 +625,6 @@ export class StreamInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface StreamSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
-}
 
 export class StreamPage extends Page<V2010, StreamPayload, StreamResource, StreamInstance> {
   /**
@@ -680,6 +681,11 @@ export interface StreamListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface StreamSolution {
+  accountSid?: string;
+  callSid?: string;
 }
 
 interface StreamListInstanceImpl extends StreamListInstance {}

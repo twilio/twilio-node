@@ -35,6 +35,11 @@ export interface AuthTypeCallsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthTypeCallsSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 interface AuthTypeCallsListInstanceImpl extends AuthTypeCallsListInstance {}
 class AuthTypeCallsListInstanceImpl implements AuthTypeCallsListInstance {
   _version?: V2010;

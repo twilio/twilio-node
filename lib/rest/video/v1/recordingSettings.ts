@@ -164,6 +164,9 @@ export interface RecordingSettingsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RecordingSettingsSolution {
+}
+
 interface RecordingSettingsListInstanceImpl extends RecordingSettingsListInstance {}
 class RecordingSettingsListInstanceImpl implements RecordingSettingsListInstance {
   _version?: V1;
@@ -263,8 +266,6 @@ interface RecordingSettingsResource {
 }
 
 export class RecordingSettingsInstance {
-  protected _solution: RecordingSettingsSolution;
-  protected _context?: RecordingSettingsListInstance;
 
   constructor(protected _version: V1, payload: RecordingSettingsPayload) {
     this.accountSid = payload.account_sid;
@@ -276,7 +277,6 @@ export class RecordingSettingsInstance {
     this.encryptionEnabled = payload.encryption_enabled;
     this.url = payload.url;
 
-    this._solution = {  };
   }
 
   /**
@@ -333,8 +333,6 @@ export class RecordingSettingsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface RecordingSettingsSolution {
 }
 
 export class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsInstance> {

@@ -232,8 +232,13 @@ export interface TaskContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface TaskContextSolution {
+  workspaceSid?: string;
+  sid?: string;
+}
+
 export class TaskContextImpl implements TaskContext {
-  protected _solution: TaskSolution;
+  protected _solution: TaskContextSolution;
   protected _uri: string;
 
   protected _reservations?: ReservationListInstance;
@@ -363,7 +368,7 @@ interface TaskResource {
 }
 
 export class TaskInstance {
-  protected _solution: TaskSolution;
+  protected _solution: TaskContextSolution;
   protected _context?: TaskContext;
 
   constructor(protected _version: V1, payload: TaskPayload, workspaceSid: string, sid?: string) {
@@ -577,10 +582,6 @@ export class TaskInstance {
     return inspect(this.toJSON(), options);
   }
 }
-export interface TaskSolution {
-  workspaceSid?: string;
-  sid?: string;
-}
 
 export class TaskPage extends Page<V1, TaskPayload, TaskResource, TaskInstance> {
   /**
@@ -746,6 +747,10 @@ export interface TaskListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TaskSolution {
+  workspaceSid?: string;
 }
 
 interface TaskListInstanceImpl extends TaskListInstance {}

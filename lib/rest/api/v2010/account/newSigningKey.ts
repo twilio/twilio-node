@@ -60,6 +60,10 @@ export interface NewSigningKeyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface NewSigningKeySolution {
+  accountSid?: string;
+}
+
 interface NewSigningKeyListInstanceImpl extends NewSigningKeyListInstance {}
 class NewSigningKeyListInstanceImpl implements NewSigningKeyListInstance {
   _version?: V2010;
@@ -126,8 +130,6 @@ interface NewSigningKeyResource {
 }
 
 export class NewSigningKeyInstance {
-  protected _solution: NewSigningKeySolution;
-  protected _context?: NewSigningKeyListInstance;
 
   constructor(protected _version: V2010, payload: NewSigningKeyPayload, accountSid?: string) {
     this.sid = payload.sid;
@@ -136,7 +138,6 @@ export class NewSigningKeyInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.secret = payload.secret;
 
-    this._solution = { accountSid: accountSid || this.accountSid };
   }
 
   /**
@@ -178,9 +179,6 @@ export class NewSigningKeyInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface NewSigningKeySolution {
-  accountSid?: string;
 }
 
 export class NewSigningKeyPage extends Page<V2010, NewSigningKeyPayload, NewSigningKeyResource, NewSigningKeyInstance> {

@@ -118,8 +118,14 @@ export interface FieldValueContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FieldValueContextSolution {
+  assistantSid?: string;
+  fieldTypeSid?: string;
+  sid?: string;
+}
+
 export class FieldValueContextImpl implements FieldValueContext {
-  protected _solution: FieldValueSolution;
+  protected _solution: FieldValueContextSolution;
   protected _uri: string;
 
 
@@ -187,7 +193,7 @@ interface FieldValueResource {
 }
 
 export class FieldValueInstance {
-  protected _solution: FieldValueSolution;
+  protected _solution: FieldValueContextSolution;
   protected _context?: FieldValueContext;
 
   constructor(protected _version: Understand, payload: FieldValuePayload, assistantSid: string, fieldTypeSid: string, sid?: string) {
@@ -295,11 +301,6 @@ export class FieldValueInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FieldValueSolution {
-  assistantSid?: string;
-  fieldTypeSid?: string;
-  sid?: string;
 }
 
 export class FieldValuePage extends Page<Understand, FieldValuePayload, FieldValueResource, FieldValueInstance> {
@@ -459,6 +460,11 @@ export interface FieldValueListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FieldValueSolution {
+  assistantSid?: string;
+  fieldTypeSid?: string;
 }
 
 interface FieldValueListInstanceImpl extends FieldValueListInstance {}

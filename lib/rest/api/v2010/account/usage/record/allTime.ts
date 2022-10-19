@@ -207,6 +207,10 @@ export interface AllTimeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AllTimeSolution {
+  accountSid?: string;
+}
+
 interface AllTimeListInstanceImpl extends AllTimeListInstance {}
 class AllTimeListInstanceImpl implements AllTimeListInstance {
   _version?: V2010;

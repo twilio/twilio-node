@@ -204,6 +204,11 @@ export interface AuthCallsIpAccessControlListMappingListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthCallsIpAccessControlListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
+}
+
 interface AuthCallsIpAccessControlListMappingListInstanceImpl extends AuthCallsIpAccessControlListMappingListInstance {}
 class AuthCallsIpAccessControlListMappingListInstanceImpl implements AuthCallsIpAccessControlListMappingListInstance {
   _version?: V2010;
@@ -332,8 +337,14 @@ export interface AuthCallsIpAccessControlListMappingContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AuthCallsIpAccessControlListMappingContextSolution {
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
+}
+
 export class AuthCallsIpAccessControlListMappingContextImpl implements AuthCallsIpAccessControlListMappingContext {
-  protected _solution: AuthCallsIpAccessControlListMappingSolution;
+  protected _solution: AuthCallsIpAccessControlListMappingContextSolution;
   protected _uri: string;
 
 
@@ -396,7 +407,7 @@ interface AuthCallsIpAccessControlListMappingResource {
 }
 
 export class AuthCallsIpAccessControlListMappingInstance {
-  protected _solution: AuthCallsIpAccessControlListMappingSolution;
+  protected _solution: AuthCallsIpAccessControlListMappingContextSolution;
   protected _context?: AuthCallsIpAccessControlListMappingContext;
 
   constructor(protected _version: V2010, payload: AuthCallsIpAccessControlListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
@@ -477,11 +488,6 @@ export class AuthCallsIpAccessControlListMappingInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AuthCallsIpAccessControlListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
 }
 
 export class AuthCallsIpAccessControlListMappingPage extends Page<V2010, AuthCallsIpAccessControlListMappingPayload, AuthCallsIpAccessControlListMappingResource, AuthCallsIpAccessControlListMappingInstance> {

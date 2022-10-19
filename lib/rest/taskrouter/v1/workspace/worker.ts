@@ -285,6 +285,10 @@ export interface WorkerListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkerSolution {
+  workspaceSid?: string;
+}
+
 interface WorkerListInstanceImpl extends WorkerListInstance {}
 class WorkerListInstanceImpl implements WorkerListInstance {
   _version?: V1;
@@ -485,8 +489,13 @@ export interface WorkerContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface WorkerContextSolution {
+  workspaceSid?: string;
+  sid?: string;
+}
+
 export class WorkerContextImpl implements WorkerContext {
-  protected _solution: WorkerSolution;
+  protected _solution: WorkerContextSolution;
   protected _uri: string;
 
   protected _reservations?: ReservationListInstance;
@@ -619,7 +628,7 @@ interface WorkerResource {
 }
 
 export class WorkerInstance {
-  protected _solution: WorkerSolution;
+  protected _solution: WorkerContextSolution;
   protected _context?: WorkerContext;
 
   constructor(protected _version: V1, payload: WorkerPayload, workspaceSid: string, sid?: string) {
@@ -801,10 +810,6 @@ export class WorkerInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface WorkerSolution {
-  workspaceSid?: string;
-  sid?: string;
 }
 
 export class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {

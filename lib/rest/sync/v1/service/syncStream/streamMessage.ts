@@ -52,6 +52,11 @@ export interface StreamMessageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface StreamMessageSolution {
+  serviceSid?: string;
+  streamSid?: string;
+}
+
 interface StreamMessageListInstanceImpl extends StreamMessageListInstance {}
 class StreamMessageListInstanceImpl implements StreamMessageListInstance {
   _version?: V1;
@@ -116,14 +121,11 @@ interface StreamMessageResource {
 }
 
 export class StreamMessageInstance {
-  protected _solution: StreamMessageSolution;
-  protected _context?: StreamMessageListInstance;
 
   constructor(protected _version: V1, payload: StreamMessagePayload, serviceSid: string, streamSid?: string) {
     this.sid = payload.sid;
     this.data = payload.data;
 
-    this._solution = { serviceSid, streamSid: streamSid || this.streamSid };
   }
 
   /**
@@ -150,10 +152,6 @@ export class StreamMessageInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface StreamMessageSolution {
-  serviceSid?: string;
-  streamSid?: string;
 }
 
 export class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {

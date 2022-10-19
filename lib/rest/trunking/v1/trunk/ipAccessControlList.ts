@@ -204,6 +204,10 @@ export interface IpAccessControlListListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpAccessControlListSolution {
+  trunkSid?: string;
+}
+
 interface IpAccessControlListListInstanceImpl extends IpAccessControlListListInstance {}
 class IpAccessControlListListInstanceImpl implements IpAccessControlListListInstance {
   _version?: V1;
@@ -332,8 +336,13 @@ export interface IpAccessControlListContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface IpAccessControlListContextSolution {
+  trunkSid?: string;
+  sid?: string;
+}
+
 export class IpAccessControlListContextImpl implements IpAccessControlListContext {
-  protected _solution: IpAccessControlListSolution;
+  protected _solution: IpAccessControlListContextSolution;
   protected _uri: string;
 
 
@@ -398,7 +407,7 @@ interface IpAccessControlListResource {
 }
 
 export class IpAccessControlListInstance {
-  protected _solution: IpAccessControlListSolution;
+  protected _solution: IpAccessControlListContextSolution;
   protected _context?: IpAccessControlListContext;
 
   constructor(protected _version: V1, payload: IpAccessControlListPayload, trunkSid: string, sid?: string) {
@@ -491,10 +500,6 @@ export class IpAccessControlListInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface IpAccessControlListSolution {
-  trunkSid?: string;
-  sid?: string;
 }
 
 export class IpAccessControlListPage extends Page<V1, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListInstance> {

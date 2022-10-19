@@ -62,6 +62,10 @@ export interface ValidationRequestListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ValidationRequestSolution {
+  accountSid?: string;
+}
+
 interface ValidationRequestListInstanceImpl extends ValidationRequestListInstance {}
 class ValidationRequestListInstanceImpl implements ValidationRequestListInstance {
   _version?: V2010;
@@ -134,8 +138,6 @@ interface ValidationRequestResource {
 }
 
 export class ValidationRequestInstance {
-  protected _solution: ValidationRequestSolution;
-  protected _context?: ValidationRequestListInstance;
 
   constructor(protected _version: V2010, payload: ValidationRequestPayload, accountSid?: string) {
     this.accountSid = payload.account_sid;
@@ -144,7 +146,6 @@ export class ValidationRequestInstance {
     this.phoneNumber = payload.phone_number;
     this.validationCode = payload.validation_code;
 
-    this._solution = { accountSid: accountSid || this.accountSid };
   }
 
   /**
@@ -186,9 +187,6 @@ export class ValidationRequestInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ValidationRequestSolution {
-  accountSid?: string;
 }
 
 export class ValidationRequestPage extends Page<V2010, ValidationRequestPayload, ValidationRequestResource, ValidationRequestInstance> {

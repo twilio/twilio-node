@@ -370,6 +370,10 @@ export interface CallListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CallSolution {
+  accountSid?: string;
+}
+
 interface CallListInstanceImpl extends CallListInstance {}
 class CallListInstanceImpl implements CallListInstance {
   _version?: V2010;
@@ -583,8 +587,13 @@ export interface CallContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CallContextSolution {
+  accountSid?: string;
+  sid?: string;
+}
+
 export class CallContextImpl implements CallContext {
-  protected _solution: CallSolution;
+  protected _solution: CallContextSolution;
   protected _uri: string;
 
   protected _payments?: PaymentListInstance;
@@ -746,7 +755,7 @@ interface CallResource {
 }
 
 export class CallInstance {
-  protected _solution: CallSolution;
+  protected _solution: CallContextSolution;
   protected _context?: CallContext;
 
   constructor(protected _version: V2010, payload: CallPayload, accountSid: string, sid?: string) {
@@ -1021,10 +1030,6 @@ export class CallInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CallSolution {
-  accountSid?: string;
-  sid?: string;
 }
 
 export class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {

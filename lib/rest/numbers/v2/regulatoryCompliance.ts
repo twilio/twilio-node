@@ -43,6 +43,9 @@ export interface RegulatoryComplianceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface RegulatoryComplianceSolution {
+}
+
 interface RegulatoryComplianceListInstanceImpl extends RegulatoryComplianceListInstance {}
 class RegulatoryComplianceListInstanceImpl implements RegulatoryComplianceListInstance {
   _version?: V2;

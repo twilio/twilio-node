@@ -218,6 +218,10 @@ export interface FieldTypeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FieldTypeSolution {
+  assistantSid?: string;
+}
+
 interface FieldTypeListInstanceImpl extends FieldTypeListInstance {}
 class FieldTypeListInstanceImpl implements FieldTypeListInstance {
   _version?: V1;
@@ -368,8 +372,13 @@ export interface FieldTypeContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FieldTypeContextSolution {
+  assistantSid?: string;
+  sid?: string;
+}
+
 export class FieldTypeContextImpl implements FieldTypeContext {
-  protected _solution: FieldTypeSolution;
+  protected _solution: FieldTypeContextSolution;
   protected _uri: string;
 
   protected _fieldValues?: FieldValueListInstance;
@@ -471,7 +480,7 @@ interface FieldTypeResource {
 }
 
 export class FieldTypeInstance {
-  protected _solution: FieldTypeSolution;
+  protected _solution: FieldTypeContextSolution;
   protected _context?: FieldTypeContext;
 
   constructor(protected _version: V1, payload: FieldTypePayload, assistantSid: string, sid?: string) {
@@ -605,10 +614,6 @@ export class FieldTypeInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FieldTypeSolution {
-  assistantSid?: string;
-  sid?: string;
 }
 
 export class FieldTypePage extends Page<V1, FieldTypePayload, FieldTypeResource, FieldTypeInstance> {

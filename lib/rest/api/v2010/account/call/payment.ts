@@ -109,6 +109,11 @@ export interface PaymentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PaymentSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
 interface PaymentListInstanceImpl extends PaymentListInstance {}
 class PaymentListInstanceImpl implements PaymentListInstance {
   _version?: V2010;
@@ -210,8 +215,14 @@ export interface PaymentContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface PaymentContextSolution {
+  accountSid?: string;
+  callSid?: string;
+  sid?: string;
+}
+
 export class PaymentContextImpl implements PaymentContext {
-  protected _solution: PaymentSolution;
+  protected _solution: PaymentContextSolution;
   protected _uri: string;
 
 
@@ -283,7 +294,7 @@ interface PaymentResource {
 }
 
 export class PaymentInstance {
-  protected _solution: PaymentSolution;
+  protected _solution: PaymentContextSolution;
   protected _context?: PaymentContext;
 
   constructor(protected _version: V2010, payload: PaymentPayload, accountSid: string, callSid: string, sid?: string) {
@@ -360,11 +371,6 @@ export class PaymentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface PaymentSolution {
-  accountSid?: string;
-  callSid?: string;
-  sid?: string;
 }
 
 export class PaymentPage extends Page<V2010, PaymentPayload, PaymentResource, PaymentInstance> {

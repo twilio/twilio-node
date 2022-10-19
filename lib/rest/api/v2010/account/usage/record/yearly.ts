@@ -207,6 +207,10 @@ export interface YearlyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface YearlySolution {
+  accountSid?: string;
+}
+
 interface YearlyListInstanceImpl extends YearlyListInstance {}
 class YearlyListInstanceImpl implements YearlyListInstance {
   _version?: V2010;

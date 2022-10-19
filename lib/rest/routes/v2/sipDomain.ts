@@ -44,6 +44,9 @@ export interface SipDomainListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SipDomainSolution {
+}
+
 interface SipDomainListInstanceImpl extends SipDomainListInstance {}
 class SipDomainListInstanceImpl implements SipDomainListInstance {
   _version?: V2;
@@ -115,8 +118,12 @@ export interface SipDomainContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface SipDomainContextSolution {
+  sipDomain?: string;
+}
+
 export class SipDomainContextImpl implements SipDomainContext {
-  protected _solution: SipDomainSolution;
+  protected _solution: SipDomainContextSolution;
   protected _uri: string;
 
 
@@ -198,7 +205,7 @@ interface SipDomainResource {
 }
 
 export class SipDomainInstance {
-  protected _solution: SipDomainSolution;
+  protected _solution: SipDomainContextSolution;
   protected _context?: SipDomainContext;
 
   constructor(protected _version: V2, payload: SipDomainPayload, sipDomain?: string) {
@@ -283,9 +290,6 @@ export class SipDomainInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface SipDomainSolution {
-  sipDomain?: string;
 }
 
 export class SipDomainPage extends Page<V2, SipDomainPayload, SipDomainResource, SipDomainInstance> {

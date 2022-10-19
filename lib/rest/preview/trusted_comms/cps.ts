@@ -181,6 +181,9 @@ export interface CpsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CpsSolution {
+}
+
 interface CpsListInstanceImpl extends CpsListInstance {}
 class CpsListInstanceImpl implements CpsListInstance {
   _version?: TrustedComms;

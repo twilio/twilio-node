@@ -91,8 +91,14 @@ export interface AssetVersionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface AssetVersionContextSolution {
+  serviceSid?: string;
+  assetSid?: string;
+  sid?: string;
+}
+
 export class AssetVersionContextImpl implements AssetVersionContext {
-  protected _solution: AssetVersionSolution;
+  protected _solution: AssetVersionContextSolution;
   protected _uri: string;
 
 
@@ -145,7 +151,7 @@ interface AssetVersionResource {
 }
 
 export class AssetVersionInstance {
-  protected _solution: AssetVersionSolution;
+  protected _solution: AssetVersionContextSolution;
   protected _context?: AssetVersionContext;
 
   constructor(protected _version: V1, payload: AssetVersionPayload, serviceSid: string, assetSid: string, sid?: string) {
@@ -229,11 +235,6 @@ export class AssetVersionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface AssetVersionSolution {
-  serviceSid?: string;
-  assetSid?: string;
-  sid?: string;
 }
 
 export class AssetVersionPage extends Page<V1, AssetVersionPayload, AssetVersionResource, AssetVersionInstance> {
@@ -381,6 +382,11 @@ export interface AssetVersionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AssetVersionSolution {
+  serviceSid?: string;
+  assetSid?: string;
 }
 
 interface AssetVersionListInstanceImpl extends AssetVersionListInstance {}

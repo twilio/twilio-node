@@ -214,6 +214,11 @@ export interface FactorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FactorSolution {
+  serviceSid?: string;
+  identity?: string;
+}
+
 interface FactorListInstanceImpl extends FactorListInstance {}
 class FactorListInstanceImpl implements FactorListInstance {
   _version?: V2;
@@ -333,8 +338,14 @@ export interface FactorContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FactorContextSolution {
+  serviceSid?: string;
+  identity?: string;
+  sid?: string;
+}
+
 export class FactorContextImpl implements FactorContext {
-  protected _solution: FactorSolution;
+  protected _solution: FactorContextSolution;
   protected _uri: string;
 
 
@@ -441,7 +452,7 @@ interface FactorResource {
 }
 
 export class FactorInstance {
-  protected _solution: FactorSolution;
+  protected _solution: FactorContextSolution;
   protected _context?: FactorContext;
 
   constructor(protected _version: V2, payload: FactorPayload, serviceSid: string, identity: string, sid?: string) {
@@ -586,11 +597,6 @@ export class FactorInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FactorSolution {
-  serviceSid?: string;
-  identity?: string;
-  sid?: string;
 }
 
 export class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorInstance> {

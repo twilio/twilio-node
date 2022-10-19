@@ -54,6 +54,10 @@ export interface ReplaceItemsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface ReplaceItemsSolution {
+  bundleSid?: string;
+}
+
 interface ReplaceItemsListInstanceImpl extends ReplaceItemsListInstance {}
 class ReplaceItemsListInstanceImpl implements ReplaceItemsListInstance {
   _version?: V2;
@@ -126,8 +130,6 @@ interface ReplaceItemsResource {
 }
 
 export class ReplaceItemsInstance {
-  protected _solution: ReplaceItemsSolution;
-  protected _context?: ReplaceItemsListInstance;
 
   constructor(protected _version: V2, payload: ReplaceItemsPayload, bundleSid?: string) {
     this.sid = payload.sid;
@@ -141,7 +143,6 @@ export class ReplaceItemsInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { bundleSid: bundleSid || this.bundleSid };
   }
 
   /**
@@ -205,9 +206,6 @@ export class ReplaceItemsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface ReplaceItemsSolution {
-  bundleSid?: string;
 }
 
 export class ReplaceItemsPage extends Page<V2, ReplaceItemsPayload, ReplaceItemsResource, ReplaceItemsInstance> {

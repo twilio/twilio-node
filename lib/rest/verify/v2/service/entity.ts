@@ -207,6 +207,10 @@ export interface EntityListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EntitySolution {
+  serviceSid?: string;
+}
+
 interface EntityListInstanceImpl extends EntityListInstance {}
 class EntityListInstanceImpl implements EntityListInstance {
   _version?: V2;
@@ -338,8 +342,13 @@ export interface EntityContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface EntityContextSolution {
+  serviceSid?: string;
+  identity?: string;
+}
+
 export class EntityContextImpl implements EntityContext {
-  protected _solution: EntitySolution;
+  protected _solution: EntityContextSolution;
   protected _uri: string;
 
   protected _newFactors?: NewFactorListInstance;
@@ -423,7 +432,7 @@ interface EntityResource {
 }
 
 export class EntityInstance {
-  protected _solution: EntitySolution;
+  protected _solution: EntityContextSolution;
   protected _context?: EntityContext;
 
   constructor(protected _version: V2, payload: EntityPayload, serviceSid: string, identity?: string) {
@@ -543,10 +552,6 @@ export class EntityInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface EntitySolution {
-  serviceSid?: string;
-  identity?: string;
 }
 
 export class EntityPage extends Page<V2, EntityPayload, EntityResource, EntityInstance> {

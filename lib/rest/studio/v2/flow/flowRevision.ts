@@ -91,8 +91,13 @@ export interface FlowRevisionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface FlowRevisionContextSolution {
+  sid?: string;
+  revision?: string;
+}
+
 export class FlowRevisionContextImpl implements FlowRevisionContext {
-  protected _solution: FlowRevisionSolution;
+  protected _solution: FlowRevisionContextSolution;
   protected _uri: string;
 
 
@@ -149,7 +154,7 @@ interface FlowRevisionResource {
 }
 
 export class FlowRevisionInstance {
-  protected _solution: FlowRevisionSolution;
+  protected _solution: FlowRevisionContextSolution;
   protected _context?: FlowRevisionContext;
 
   constructor(protected _version: V2, payload: FlowRevisionPayload, sid: string, revision?: string) {
@@ -257,10 +262,6 @@ export class FlowRevisionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface FlowRevisionSolution {
-  sid?: string;
-  revision?: string;
 }
 
 export class FlowRevisionPage extends Page<V2, FlowRevisionPayload, FlowRevisionResource, FlowRevisionInstance> {
@@ -407,6 +408,10 @@ export interface FlowRevisionListInstance {
    */
   toJSON(): any;
   [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FlowRevisionSolution {
+  sid?: string;
 }
 
 interface FlowRevisionListInstanceImpl extends FlowRevisionListInstance {}

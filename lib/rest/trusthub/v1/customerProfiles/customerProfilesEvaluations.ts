@@ -206,6 +206,10 @@ export interface CustomerProfilesEvaluationsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CustomerProfilesEvaluationsSolution {
+  customerProfileSid?: string;
+}
+
 interface CustomerProfilesEvaluationsListInstanceImpl extends CustomerProfilesEvaluationsListInstance {}
 class CustomerProfilesEvaluationsListInstanceImpl implements CustomerProfilesEvaluationsListInstance {
   _version?: V1;
@@ -324,8 +328,13 @@ export interface CustomerProfilesEvaluationsContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
+export interface CustomerProfilesEvaluationsContextSolution {
+  customerProfileSid?: string;
+  sid?: string;
+}
+
 export class CustomerProfilesEvaluationsContextImpl implements CustomerProfilesEvaluationsContext {
-  protected _solution: CustomerProfilesEvaluationsSolution;
+  protected _solution: CustomerProfilesEvaluationsContextSolution;
   protected _uri: string;
 
 
@@ -378,7 +387,7 @@ interface CustomerProfilesEvaluationsResource {
 }
 
 export class CustomerProfilesEvaluationsInstance {
-  protected _solution: CustomerProfilesEvaluationsSolution;
+  protected _solution: CustomerProfilesEvaluationsContextSolution;
   protected _context?: CustomerProfilesEvaluationsContext;
 
   constructor(protected _version: V1, payload: CustomerProfilesEvaluationsPayload, customerProfileSid: string, sid?: string) {
@@ -456,10 +465,6 @@ export class CustomerProfilesEvaluationsInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-export interface CustomerProfilesEvaluationsSolution {
-  customerProfileSid?: string;
-  sid?: string;
 }
 
 export class CustomerProfilesEvaluationsPage extends Page<V1, CustomerProfilesEvaluationsPayload, CustomerProfilesEvaluationsResource, CustomerProfilesEvaluationsInstance> {
