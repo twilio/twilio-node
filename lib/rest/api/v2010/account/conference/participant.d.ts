@@ -32,10 +32,10 @@ declare function ParticipantList(version: V2010, accountSid: string, conferenceS
  * @property endConferenceOnExit - Whether to end the conference when the participant leaves
  * @property hold - Whether the participant should be on hold
  * @property holdMethod - The HTTP method we should use to call hold_url
- * @property holdUrl - The URL we call using the `hold_method` for  music that plays when the participant is on hold
+ * @property holdUrl - The URL we call using the `hold_method` for music that plays when the participant is on hold
  * @property muted - Whether the participant should be muted
  * @property waitMethod - The HTTP method we should use to call `wait_url`
- * @property waitUrl - URL that hosts pre-conference hold music
+ * @property waitUrl - The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start
  */
 interface ParticipantInstanceUpdateOptions {
   announceMethod?: string;

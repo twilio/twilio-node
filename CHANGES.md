@@ -1,6 +1,28 @@
 twilio-node changelog
 =====================
 
+[2022-10-19] Version 3.83.0
+---------------------------
+**Api**
+- Make link shortening parameters public **(breaking change)**
+
+**Oauth**
+- added oauth JWKS endpoint
+- Get userinfo resource
+- OpenID discovery resource
+- Add new API for token endpoint
+
+**Supersim**
+- Add SettingsUpdates resource
+
+**Verify**
+- Update Verify Push endpoints to `ga` maturity
+- Verify BYOT add Channels property to the Get Templates response
+
+**Twiml**
+- Add `requireMatchingInputs` attribute and `input-matching-failed` errorType to `<Prompt>`
+
+
 [2022-10-05] Version 3.82.2
 ---------------------------
 **Api**

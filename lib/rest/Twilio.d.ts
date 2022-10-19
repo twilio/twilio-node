@@ -23,6 +23,7 @@ import Microvisor = require('./Microvisor');
 import Monitor = require('./Monitor');
 import Notify = require('./Notify');
 import Numbers = require('./Numbers');
+import Oauth = require('./Oauth');
 import Preview = require('./Preview');
 import Pricing = require('./Pricing');
 import Proxy = require('./Proxy');
@@ -83,6 +84,7 @@ declare class Twilio {
   notifications: (typeof Api.prototype.account.notifications);
   notify: Notify;
   numbers: Numbers;
+  oauth: Oauth;
   outgoingCallerIds: (typeof Api.prototype.account.outgoingCallerIds);
   preview: Preview;
   pricing: Pricing;

@@ -19,9 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
 /**
  * Initialize the EntityList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
  */
@@ -236,9 +233,6 @@ declare class EntityContext {
   /**
    * Initialize the EntityContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
    * @param identity - Unique external identifier of the Entity
@@ -270,9 +264,6 @@ declare class EntityContext {
 declare class EntityInstance extends SerializableClass {
   /**
    * Initialize the EntityContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -324,9 +315,6 @@ declare class EntityInstance extends SerializableClass {
 declare class EntityPage extends Page<V2, EntityPayload, EntityResource, EntityInstance> {
   /**
    * Initialize the EntityPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

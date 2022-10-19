@@ -247,7 +247,7 @@ declare namespace VoiceResponse {
 
   type PromptCardType = 'visa'|'mastercard'|'amex'|'maestro'|'discover'|'optima'|'jcb'|'diners-club'|'enroute';
 
-  type PromptErrorType = 'timeout'|'invalid-card-number'|'invalid-card-type'|'invalid-date'|'invalid-security-code'|'internal-error';
+  type PromptErrorType = 'timeout'|'invalid-card-number'|'invalid-card-type'|'invalid-date'|'invalid-security-code'|'internal-error'|'input-matching-failed';
 
   type PromptFor = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'payment-processing'|'bank-account-number'|'bank-routing-number';
 
@@ -617,12 +617,14 @@ declare namespace VoiceResponse {
    * @property cardType - Type of the credit card
    * @property errorType - Type of error
    * @property for_ - Name of the payment source data element
+   * @property requireMatchingInputs - Require customer to input requested information twice and verify matching.
    */
   export interface PromptAttributes {
     attempt?: number[];
     cardType?: PromptCardType[];
     errorType?: PromptErrorType[];
     for_?: PromptFor;
+    requireMatchingInputs?: boolean;
   }
 
   /**

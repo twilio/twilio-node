@@ -21,9 +21,6 @@ type NewFactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
 /**
  * Initialize the NewFactorList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
  * @param identity - Unique external identifier of the Entity
@@ -113,9 +110,6 @@ declare class NewFactorInstance extends SerializableClass {
   /**
    * Initialize the NewFactorContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
@@ -147,9 +141,6 @@ declare class NewFactorInstance extends SerializableClass {
 declare class NewFactorPage extends Page<V2, NewFactorPayload, NewFactorResource, NewFactorInstance> {
   /**
    * Initialize the NewFactorPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API

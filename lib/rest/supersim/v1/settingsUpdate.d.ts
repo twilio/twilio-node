@@ -7,19 +7,24 @@
 
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
-import V2 = require('../V2');
+import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
+type SettingsUpdateStatus = 'scheduled'|'in-progress'|'successful'|'failed';
+
 /**
- * Initialize the TemplateList
+ * Initialize the SettingsUpdateList
+ *
+ * PLEASE NOTE that this class contains beta products that are subject to change.
+ * Use them with caution.
  *
  * @param version - Version of the resource
  */
-declare function TemplateList(version: V2): TemplateListInstance;
+declare function SettingsUpdateList(version: V1): SettingsUpdateListInstance;
 
-interface TemplateListInstance {
+interface SettingsUpdateListInstance {
   /**
-   * Streams TemplateInstance records from the API.
+   * Streams SettingsUpdateInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -32,9 +37,9 @@ interface TemplateListInstance {
    *
    * @param callback - Function to process each record
    */
-  each(callback?: (item: TemplateInstance, done: (err?: Error) => void) => void): void;
+  each(callback?: (item: SettingsUpdateInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Streams TemplateInstance records from the API.
+   * Streams SettingsUpdateInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit
    * is reached.
@@ -48,9 +53,9 @@ interface TemplateListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TemplateListInstanceEachOptions, callback?: (item: TemplateInstance, done: (err?: Error) => void) => void): void;
+  each(opts?: SettingsUpdateListInstanceEachOptions, callback?: (item: SettingsUpdateInstance, done: (err?: Error) => void) => void): void;
   /**
-   * Retrieve a single target page of TemplateInstance records from the API.
+   * Retrieve a single target page of SettingsUpdateInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -59,9 +64,9 @@ interface TemplateListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  getPage(callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
+  getPage(callback?: (error: Error | null, items: SettingsUpdatePage) => any): Promise<SettingsUpdatePage>;
   /**
-   * Retrieve a single target page of TemplateInstance records from the API.
+   * Retrieve a single target page of SettingsUpdateInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -71,18 +76,18 @@ interface TemplateListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SettingsUpdatePage) => any): Promise<SettingsUpdatePage>;
   /**
-   * Lists TemplateInstance records from the API as a list.
+   * Lists SettingsUpdateInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
    *
    * @param callback - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: TemplateInstance[]) => any): Promise<TemplateInstance[]>;
+  list(callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any): Promise<SettingsUpdateInstance[]>;
   /**
-   * Lists TemplateInstance records from the API as a list.
+   * Lists SettingsUpdateInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback
    * function.
@@ -90,9 +95,9 @@ interface TemplateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TemplateListInstanceOptions, callback?: (error: Error | null, items: TemplateInstance[]) => any): Promise<TemplateInstance[]>;
+  list(opts?: SettingsUpdateListInstanceOptions, callback?: (error: Error | null, items: SettingsUpdateInstance[]) => any): Promise<SettingsUpdateInstance[]>;
   /**
-   * Retrieve a single page of TemplateInstance records from the API.
+   * Retrieve a single page of SettingsUpdateInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -101,9 +106,9 @@ interface TemplateListInstance {
    *
    * @param callback - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
+  page(callback?: (error: Error | null, items: SettingsUpdatePage) => any): Promise<SettingsUpdatePage>;
   /**
-   * Retrieve a single page of TemplateInstance records from the API.
+   * Retrieve a single page of SettingsUpdateInstance records from the API.
    *
    * The request is executed immediately.
    *
@@ -113,7 +118,7 @@ interface TemplateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TemplateListInstancePageOptions, callback?: (error: Error | null, items: TemplatePage) => any): Promise<TemplatePage>;
+  page(opts?: SettingsUpdateListInstancePageOptions, callback?: (error: Error | null, items: SettingsUpdatePage) => any): Promise<SettingsUpdatePage>;
   /**
    * Provide a user-friendly representation
    */
@@ -127,7 +132,6 @@ interface TemplateListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property friendlyName - Filter templates using friendly name
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -138,19 +142,19 @@ interface TemplateListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
+ * @property sim - Filter the Settings Updates by Super SIM
  */
-interface TemplateListInstanceEachOptions {
-  callback?: (item: TemplateInstance, done: (err?: Error) => void) => void;
+interface SettingsUpdateListInstanceEachOptions {
+  callback?: (item: SettingsUpdateInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  friendlyName?: string;
   limit?: number;
   pageSize?: number;
+  sim?: string;
 }
 
 /**
  * Options to pass to list
  *
- * @property friendlyName - Filter templates using friendly name
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -161,84 +165,97 @@ interface TemplateListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property sim - Filter the Settings Updates by Super SIM
  */
-interface TemplateListInstanceOptions {
-  friendlyName?: string;
+interface SettingsUpdateListInstanceOptions {
   limit?: number;
   pageSize?: number;
+  sim?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property friendlyName - Filter templates using friendly name
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
+ * @property sim - Filter the Settings Updates by Super SIM
  */
-interface TemplateListInstancePageOptions {
-  friendlyName?: string;
+interface SettingsUpdateListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+  sim?: string;
 }
 
-interface TemplatePayload extends TemplateResource, Page.TwilioResponsePayload {
+interface SettingsUpdatePayload extends SettingsUpdateResource, Page.TwilioResponsePayload {
 }
 
-interface TemplateResource {
-  account_sid: string;
-  channels: string[];
-  friendly_name: string;
+interface SettingsUpdateResource {
+  date_completed: Date;
+  date_created: Date;
+  date_updated: Date;
+  iccid: string;
+  packages: object[];
   sid: string;
-  translations: object;
+  sim_sid: string;
+  status: SettingsUpdateStatus;
 }
 
-interface TemplateSolution {
+interface SettingsUpdateSolution {
 }
 
 
-declare class TemplateInstance extends SerializableClass {
+declare class SettingsUpdateInstance extends SerializableClass {
   /**
-   * Initialize the TemplateContext
+   * Initialize the SettingsUpdateContext
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: V2, payload: TemplatePayload);
+  constructor(version: V1, payload: SettingsUpdatePayload);
 
-  accountSid: string;
-  channels: string[];
-  friendlyName: string;
+  dateCompleted: Date;
+  dateCreated: Date;
+  dateUpdated: Date;
+  iccid: string;
+  packages: object[];
   sid: string;
+  simSid: string;
+  status: SettingsUpdateStatus;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
-  translations: any;
 }
 
 
-declare class TemplatePage extends Page<V2, TemplatePayload, TemplateResource, TemplateInstance> {
+declare class SettingsUpdatePage extends Page<V1, SettingsUpdatePayload, SettingsUpdateResource, SettingsUpdateInstance> {
   /**
-   * Initialize the TemplatePage
+   * Initialize the SettingsUpdatePage
+   *
+   * PLEASE NOTE that this class contains beta products that are subject to change.
+   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: V2, response: Response<string>, solution: TemplateSolution);
+  constructor(version: V1, response: Response<string>, solution: SettingsUpdateSolution);
 
   /**
-   * Build an instance of TemplateInstance
+   * Build an instance of SettingsUpdateInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TemplatePayload): TemplateInstance;
+  getInstance(payload: SettingsUpdatePayload): SettingsUpdateInstance;
   /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
 }
 
-export { TemplateInstance, TemplateList, TemplateListInstance, TemplateListInstanceEachOptions, TemplateListInstanceOptions, TemplateListInstancePageOptions, TemplatePage, TemplatePayload, TemplateResource, TemplateSolution }
+export { SettingsUpdateInstance, SettingsUpdateList, SettingsUpdateListInstance, SettingsUpdateListInstanceEachOptions, SettingsUpdateListInstanceOptions, SettingsUpdateListInstancePageOptions, SettingsUpdatePage, SettingsUpdatePayload, SettingsUpdateResource, SettingsUpdateSolution, SettingsUpdateStatus }

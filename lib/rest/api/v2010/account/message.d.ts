@@ -185,6 +185,7 @@ interface MessageListInstance {
  * @property scheduleType - Pass the value `fixed` to schedule a message at a fixed time.
  * @property sendAsMms - If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
  * @property sendAt - The time that Twilio will send the message. Must be in ISO 8601 format.
+ * @property shortenUrls - Sets whether to shorten and track links included in the body of this message.
  * @property smartEncoded - Whether to detect Unicode characters that have a similar GSM-7 character and replace them
  * @property statusCallback - The URL we should call to send status information to your application
  * @property to - The destination phone number
@@ -206,6 +207,7 @@ interface MessageListInstanceCreateOptions {
   scheduleType?: MessageScheduleType;
   sendAsMms?: boolean;
   sendAt?: Date;
+  shortenUrls?: boolean;
   smartEncoded?: boolean;
   statusCallback?: string;
   to: string;

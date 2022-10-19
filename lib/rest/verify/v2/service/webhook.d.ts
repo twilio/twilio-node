@@ -19,9 +19,6 @@ type WebhookVersion = 'v1'|'v2';
 /**
  * Initialize the WebhookList
  *
- * PLEASE NOTE that this class contains beta products that are subject to change.
- * Use them with caution.
- *
  * @param version - Version of the resource
  * @param serviceSid - Service Sid.
  */
@@ -265,9 +262,6 @@ declare class WebhookContext {
   /**
    * Initialize the WebhookContext
    *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
-   *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
    * @param sid - The unique string that identifies the resource to fetch
@@ -309,9 +303,6 @@ declare class WebhookContext {
 declare class WebhookInstance extends SerializableClass {
   /**
    * Initialize the WebhookContext
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -368,9 +359,6 @@ declare class WebhookInstance extends SerializableClass {
 declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
    * Initialize the WebhookPage
-   *
-   * PLEASE NOTE that this class contains beta products that are subject to change.
-   * Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
