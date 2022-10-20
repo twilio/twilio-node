@@ -1,5 +1,4 @@
 'use strict';
-var _ = require('lodash');
 var util = require('util');
 var Request = require('../../lib/http/request');
 var RequestClient = require('../../lib/base/RequestClient');
@@ -16,7 +15,7 @@ function Holodeck() {
   this.holograms = [];
 }
 
-_.extend(Holodeck.prototype, RequestClient.prototype);
+Holodeck.prototype = Object.assign(Holodeck.prototype, RequestClient.prototype);
 
 Holodeck.prototype.mock = function(response, request) {
   request = request || new Request();
@@ -38,23 +37,21 @@ Holodeck.prototype.addStandardHeaders = function(request) {
   if (request.method === 'POST') {
     standardHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
   }
-  _.assign(request.headers, standardHeaders);
+  request.headers = Object.assign(request.headers, standardHeaders, Object.getPrototypeOf(standardHeaders));
   return request;
 };
 
 Holodeck.prototype.assertHasRequest = function(request) {
   var requestWithHeaders = this.addStandardHeaders(request);
-  var matchedRequest = _.find(this.requests, function(req) {
+  var matchedRequest = this.requests.find(function(req) {
     return req.isEqual(request) || req.isEqual(requestWithHeaders);
   });
 
-  if (!_.isUndefined(matchedRequest)) {
+  if (!matchedRequest) {
     return;
   }
 
-  var message = _.template(
-    '\nHolodeck has never received a request matching: \n <%= request %>\n')({ request: request }
-  );
+  const message = `\nHolodeck has never received a request matching: \n ${request}>\n`;
 
   throw new Error(message);
 };
@@ -62,12 +59,14 @@ Holodeck.prototype.assertHasRequest = function(request) {
 Holodeck.prototype.request = async function(opts) {
   opts = opts || {};
 
-  var request = new Request(_.assign({}, opts, {
+  const Auth = {
     auth: {
       username: opts.username,
       password: opts.password,
     }
-  }));
+  };
+
+  var request = new Request(Object.assign({}, opts, Object.getPrototypeOf(opts), Auth, Object.getPrototypeOf(Auth)));
   this.requests.push(request);
 
   const matchedHologramIndex = this.holograms.findIndex(hologram => hologram.request.isEqual(request));

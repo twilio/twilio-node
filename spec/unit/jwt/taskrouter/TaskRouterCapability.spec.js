@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var TaskRouterCapability = require('../../../../index').jwt.taskrouter.TaskRouterCapability;
 var util = require('../../../../index').jwt.taskrouter.util;
 var jwt = require('jsonwebtoken');
@@ -47,14 +46,14 @@ describe('The TaskRouter Capability Token Object', function() {
     });
 
     var workerPolicies = util.defaultWorkerPolicies('v1', 'WS456', 'WK789');
-    _.each(workerPolicies, function (policy) {
+    for (const policy of workerPolicies) {
       c.addPolicy(policy);
-    });
+    }
 
     var eventBridgePolicies = util.defaultEventBridgePolicies('AC123', 'WK789');
-    _.each(eventBridgePolicies, function (policy) {
+    for (const policy of eventBridgePolicies) {
       c.addPolicy(policy);
-    });
+    }
 
     var decoded = jwt.verify(c.toJwt(), 'foobar');
     expect(decoded.policies.length).toBe(6);
