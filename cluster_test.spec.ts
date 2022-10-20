@@ -76,8 +76,10 @@ describe('Validating Request', function () {
   let validationServer;
   let portNumber = 7777;
   let count = 0;
+  let validationCount = 0; //workaround to ensure that request is sent validation server, due to localtunnel issue
   beforeAll(async () => {
     validationServer = await http.createServer((req, res) => {
+      validationCount++;
       let url = req.headers["x-forwarded-proto"] + "://" + req.headers["host"] + req.url
       let signatureHeader = req.headers["x-twilio-signature"]
       let body = "";
@@ -153,10 +155,12 @@ describe('Validating Request', function () {
 
   test("Should validate incoming GET request", async () => {
     await validateRequest('GET');
+    expect(validationCount).toBe(1);
   })
 
   test("Should validate incoming POST request", async () => {
     await validateRequest('POST');
+    expect(validationCount).toBe(2);
   })
 });
 
