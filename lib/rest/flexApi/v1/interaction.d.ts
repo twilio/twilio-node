@@ -12,8 +12,6 @@ import { InteractionChannelList } from './interaction/interactionChannel';
 import { InteractionChannelListInstance } from './interaction/interactionChannel';
 import { SerializableClass } from '../../../interfaces';
 
-type InteractionStatus = 'close'|'closed'|'wrapup';
-
 /**
  * Initialize the InteractionList
  *
@@ -149,4 +147,4 @@ declare class InteractionPage extends Page<V1, InteractionPayload, InteractionRe
   toJSON(): any;
 }
 
-export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionListInstanceCreateOptions, InteractionPage, InteractionPayload, InteractionResource, InteractionSolution, InteractionStatus }
+export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionListInstanceCreateOptions, InteractionPage, InteractionPayload, InteractionResource, InteractionSolution }

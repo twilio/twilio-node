@@ -25,6 +25,10 @@ This library supports the following Node.js implementations:
 
 TypeScript is supported for TypeScript version 2.9 and above.
 
+## Installation
+
+`npm install twilio` or `yarn add twilio`
+
 ## Sample Usage
 
 Check out these [code examples](examples) in JavaScript and TypeScript to get up and running quickly.
@@ -88,7 +92,7 @@ client.logLevel = 'debug';
 ```
 
 ## Using webhook validation
-See [example](examples/express.js) for a code sample for incoming Twilio request validation
+See [example](examples/express.js) for a code sample for incoming Twilio request validation.
 
 ## Handling Exceptions
 
@@ -135,7 +139,7 @@ npm test
 To run just one specific test file instead of the whole suite, provide a JavaScript regular expression that will match your spec file's name, like:
 
 ```bash
-npm run test -- -m .\*client.\*
+npm run test:javascript -- -m .\*client.\*
 ```
 
 [apidocs]: https://www.twilio.com/docs/api

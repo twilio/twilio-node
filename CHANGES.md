@@ -1,6 +1,151 @@
 twilio-node changelog
 =====================
 
+[2022-10-05] Version 3.82.2
+---------------------------
+**Api**
+- Added `virtual-agent` to `usage_record` API.
+- Add AMD attributes to participant create request
+
+**Twiml**
+- Add AMD attributes to `Number` and `Sip`
+
+
+[2022-09-21] Version 3.82.1
+---------------------------
+**Library - Fix**
+- [PR #782](https://github.com/twilio/twilio-node/pull/782): support duplicated query param values. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
+[2022-09-07] Version 3.82.0
+---------------------------
+**Library - Fix**
+- [PR #723](https://github.com/twilio/twilio-node/pull/723): webhook validation with array parameter sorting Fixes #722. Thanks to [@robbie-terazo](https://github.com/robbie-terazo)!
+
+**Flex**
+- Removed redundant `close` status from Flex Interactions flow **(breaking change)**
+- Adding `debugger_integration` and `flex_ui_status_report` to Flex Configuration
+
+**Messaging**
+- Add create, list and get tollfree verification API
+
+**Verify**
+- Verify SafeList API endpoints added.
+
+**Video**
+- Add `Anonymize` API
+
+**Twiml**
+- Update `event` value `call-in-progress` to `call-answered`
+
+
+[2022-08-24] Version 3.81.0
+---------------------------
+**Library - Test**
+- [PR #779](https://github.com/twilio/twilio-node/pull/779): add test-docker rule. Thanks to [@beebzz](https://github.com/beebzz)!
+
+**Library - Feature**
+- [PR #778](https://github.com/twilio/twilio-node/pull/778): RequestClient updated to become more customizable. Thanks to [@mattcole19](https://github.com/mattcole19)!
+
+**Api**
+- Remove `beta feature` from scheduling params and remove optimize parameters. **(breaking change)**
+
+**Routes**
+- Remove Duplicate Create Method - Update Method will work even if Inbound Processing Region is currently empty/404. **(breaking change)**
+
+**Twiml**
+- Add new Polly Neural voices
+- Add new languages to SSML `<lang>`.
+
+
+[2022-08-10] Version 3.80.1
+---------------------------
+**Routes**
+- Inbound Proccessing Region API - Public GA
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+
+
+[2022-07-21] Version 3.80.0
+---------------------------
+**Library - Docs**
+- [PR #772](https://github.com/twilio/twilio-node/pull/772): added npm/yarn install instructions. Thanks to [@citypaul](https://github.com/citypaul)!
+
+**Library - Feature**
+- [PR #775](https://github.com/twilio/twilio-node/pull/775): add a timeout options to RequestClient that creates a custom https agent. Thanks to [@benweissmann](https://github.com/benweissmann)!
+
+**Flex**
+- Add `status`, `error_code`, and `error_message` fields to Interaction `Channel`
+- Adding `messenger` and `gbm` as supported channels for Interactions API
+
+**Messaging**
+- Update alpha_sender docs with new valid characters
+
+**Verify**
+- Reorder Verification Check parameters so `code` stays as the first parameter **(breaking change)**
+- Rollback List Attempts API V2 back to pilot stage.
+
+
+[2022-07-13] Version 3.79.0
+---------------------------
+**Library - Test**
+- [PR #771](https://github.com/twilio/twilio-node/pull/771): Adding misc as PR type. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+**Conversations**
+- Allowed to use `identity` as part of Participant's resource **(breaking change)**
+
+**Lookups**
+- Remove `enhanced_line_type` from the lookup response **(breaking change)**
+
+**Supersim**
+- Add support for `sim_ip_addresses` resource to helper libraries
+
+**Verify**
+- Changed summary param `service_sid` to `verify_service_sid` to be consistent with list attempts API **(breaking change)**
+- Make `code` optional on Verification check to support `sna` attempts. **(breaking change)**
+
+
+[2022-06-29] Version 3.78.0
+---------------------------
+**Library - Docs**
+- [PR #767](https://github.com/twilio/twilio-node/pull/767): a full stop is added in README.md file. Thanks to [@bishal7679](https://github.com/bishal7679)!
+
+**Api**
+- Added `amazon-polly` to `usage_record` API.
+
+**Insights**
+- Added `annotation` field in call summary
+- Added new endpoint to fetch/create/update Call Annotations
+
+**Verify**
+- Remove `api.verify.totp` beta flag and set maturity to `beta` for Verify TOTP properties and parameters. **(breaking change)**
+- Changed summary param `verify_service_sid` to `service_sid` to be consistent with list attempts API **(breaking change)**
+
+**Twiml**
+- Add `maxQueueSize` to `Enqueue`
+
+
+[2022-06-15] Version 3.77.3
+---------------------------
+**Lookups**
+- Adding support for Lookup V2 API
+
+**Studio**
+- Corrected PII labels to be 30 days and added context to be PII
+
+**Twiml**
+- Add `statusCallbackMethod` attribute, nested `<Config` and `<Parameter>` elements to `<VirtualAgent>` noun.
+- Add support for new Amazon Polly voices (Q2 2022) for `Say` verb
+- Add support for `<Conversation>` noun
+
+
+[2022-06-01] Version 3.77.2
+---------------------------
+**Library - Chore**
+- [PR #755](https://github.com/twilio/twilio-node/pull/755): use Docker 'rc' tag for release candidate images. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2022-05-18] Version 3.77.1
 ---------------------------
 **Api**

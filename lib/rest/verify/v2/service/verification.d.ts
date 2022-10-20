@@ -10,7 +10,7 @@ import Response = require('../../../../http/response');
 import V2 = require('../../V2');
 import { SerializableClass } from '../../../../interfaces';
 
-type VerificationChannel = 'sms'|'call'|'email'|'whatsapp'|'silent';
+type VerificationChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
 
 type VerificationStatus = 'canceled'|'approved';
 
@@ -65,7 +65,7 @@ interface VerificationListInstance {
  * @property customCode - A pre-generated code
  * @property customFriendlyName - A custom user defined friendly name
  * @property customMessage - The text of a custom message to use for the verification
- * @property locale - The locale to use for the verification SMS, WhatsApp or call
+ * @property locale - The override locale to use for the verification SMS, WhatsApp or call
  * @property payee - The payee of the associated PSD2 compliant transaction
  * @property rateLimits - The custom key-value pairs of Programmable Rate Limits.
  * @property sendDigits - The digits to send after a phone call is answered
@@ -104,6 +104,7 @@ interface VerificationResource {
   send_code_attempts: object[];
   service_sid: string;
   sid: string;
+  sna: object;
   status: string;
   to: string;
   url: string;
@@ -173,6 +174,7 @@ declare class VerificationInstance extends SerializableClass {
   sendCodeAttempts: object[];
   serviceSid: string;
   sid: string;
+  sna: any;
   status: string;
   to: string;
   /**

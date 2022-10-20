@@ -9,6 +9,8 @@ interface Solution {
  * Base page object to maintain request state.
  */
 declare class Page<TVersion extends Version, TPayload extends Page.TwilioResponsePayload, TResource, TInstance> {
+  _version: any;
+  _solution: any;
   /**
    * Base page object to maintain request state.
    *
@@ -65,7 +67,7 @@ declare class Page<TVersion extends Version, TPayload extends Page.TwilioRespons
    * @return the page of records
    */
   loadPage(payload: TPayload): TResource[];
-
+  toJSON(): any;
   /**
    * @constant META_KEYS
    * @description meta keys returned in a list request

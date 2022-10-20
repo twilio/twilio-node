@@ -1,5 +1,3 @@
-import {ExportListInstance} from "./preview/bulk_exports/export";
-import {ExportConfigurationListInstance} from "./preview/bulk_exports/exportConfiguration";
 import {FleetListInstance} from "./preview/deployed_devices/fleet";
 import {AuthorizationDocumentListInstance} from "./preview/hosted_numbers/authorizationDocument";
 import {HostedNumberOrderListInstance} from "./preview/hosted_numbers/hostedNumberOrder";
@@ -8,6 +6,7 @@ import {InstalledAddOnListInstance} from "./preview/marketplace/installedAddOn";
 import {ServiceListInstance} from "./preview/sync/service";
 import {BrandedChannelListInstance} from "./preview/trusted_comms/brandedChannel";
 import {BrandsInformationListInstance} from "./preview/trusted_comms/brandsInformation";
+import {CpsListInstance} from "./preview/trusted_comms/cps";
 import {CurrentCallListInstance} from "./preview/trusted_comms/currentCall";
 import {AssistantListInstance} from "./preview/understand/assistant";
 import {CommandListInstance} from "./preview/wireless/command";
@@ -16,22 +15,6 @@ import {SimListInstance} from "./preview/wireless/sim";
 import PreviewBase from "./PreviewBase";
 
 class Preview extends PreviewBase {
-    /**
-     * @deprecated - Use bulk_exports.exports instead
-     */
-    get exports(): ExportListInstance {
-        console.warn('exports is deprecated. Use bulk_exports.exports instead.');
-        return this.bulk_exports.exports;
-    }
-
-    /**
-     * @deprecated - Use bulk_exports.exportConfiguration instead
-     */
-    get exportConfiguration(): ExportConfigurationListInstance {
-        console.warn('exportConfiguration is deprecated. Use bulk_exports.exportConfiguration instead.');
-        return this.bulk_exports.exportConfiguration;
-    }
-
     /**
      * @deprecated - Use deployed_devices.fleets instead
      */
@@ -131,7 +114,7 @@ class Preview extends PreviewBase {
     /**
      * @deprecated - Use trusted_comms.cps instead
      */
-    get cps(): CpListInstance {
+    get cps(): CpsListInstance {
         console.warn('cps is deprecated. Use trusted_comms.cps instead.');
         return this.trusted_comms.cps;
     }
