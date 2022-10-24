@@ -12,6 +12,8 @@ Please enter each Issue number you are resolving in your PR after one of the fol
 e.g.
 Fixes #1
 Closes #2
+
+Note: If you made changes to the Request Validation logic, please run `make test` locally and ensure all test cases pass
 -->
 
 # Fixes #

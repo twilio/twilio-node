@@ -1,7 +1,6 @@
 'use strict';
 
 import {FlowInstance} from "./lib/rest/studio/v2/flow";
-jest.setTimeout(10000);
 
 const twilio = require('./lib/index.js');
 const http = require('http');
@@ -12,12 +11,7 @@ const toNumber = process.env.TWILIO_TO_NUMBER;
 const apiKey = process.env.TWILIO_API_KEY;
 const apiSecret = process.env.TWILIO_API_SECRET;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN
 const testClient = twilio(apiKey, apiSecret, {accountSid});
-
-afterAll(async () => {
-  await new Promise(resolve => setTimeout(resolve, 5000))
-})
 
 test("Should send a Text", () => {
   return testClient.messages.create({
@@ -69,100 +63,96 @@ test("Should allow special characters for friendly and identity name", async () 
 
   expect(removeConversation).toBeTruthy();
 })
+describe("Local Cluster Test", () => { //To be run on local machine only
+  jest.setTimeout(10000);
+  describe('Validating Incoming Twilio Request', () => {
+    let tunnel;
+    let flowSid;
+    let validationServer;
+    let portNumber = 7777;
+    let validationCount = 0; //workaround to ensure validation server receives requests (due to localtunnel issue)
+    beforeAll(async () => {
+      validationServer = await http.createServer((req, res) => {
+        validationCount++;
+        let url = req.headers["x-forwarded-proto"] + "://" + req.headers["host"] + req.url
+        let signatureHeader = req.headers["x-twilio-signature"]
+        let body = "";
+        req.on("data", (chunk: string) => {
+          body += chunk;
+        });
 
-describe('Validating Request', function () {
-  let tunnel;
-  let flowSid;
-  let validationServer;
-  let portNumber = 7777;
-  let count = 0;
-  let validationCount = 0; //workaround to ensure that request is sent validation server, due to localtunnel issue
-  beforeAll(async () => {
-    validationServer = await http.createServer((req, res) => {
-      validationCount++;
-      let url = req.headers["x-forwarded-proto"] + "://" + req.headers["host"] + req.url
-      let signatureHeader = req.headers["x-twilio-signature"]
-      let body = "";
-      req.on("data", (chunk: string) => {
-        body += chunk;
+        req.on("end", () => {
+          let params = new URLSearchParams(body);
+          let paramObject = Object.fromEntries(params.entries());
+          let requestIsValid = twilio.validateRequest(process.env.TWILIO_AUTH_TOKEN, signatureHeader, url, paramObject)
+          expect(requestIsValid).toBeTruthy();
+        });
       });
 
-      req.on("end", () => {
-        let params = new URLSearchParams(body);
-        let paramObject = Object.fromEntries(params.entries());
-        let requestIsValid = twilio.validateRequest(authToken, signatureHeader, url, paramObject)
-        console.log("validating request")
-        expect(requestIsValid).toBeTruthy();
-      });
+      validationServer.listen(portNumber);
+      tunnel = await localtunnel({port: portNumber});
     });
 
-    validationServer.listen(portNumber);
-    console.log("server listening to port")
-    console.log("setting up localtunnel")
-    tunnel = await localtunnel({port: portNumber});
-    tunnel.on('error', (er) => console.log("err: ", ++count, " => ", er))
-    console.log(tunnel.url)
-  });
+    afterAll(() => {
+      tunnel.close();
+      testClient.studio.v2.flows(flowSid).remove();
+      validationServer.close();
+    });
 
-  afterAll(() => {
-    tunnel.close();
-    testClient.studio.v2.flows(flowSid).remove();
-    validationServer.close();
-  });
-
-  function CreateStudioFlow(url: string, method: string): Promise<FlowInstance> {
-    return testClient.studio.v2.flows.create({
-      friendlyName: 'Node Cluster Test Flow',
-      status: 'published',
-      definition: {
-        description: 'Studio Flow',
-        states: [
-          {
-            name: 'Trigger',
-            type: 'trigger',
-            transitions: [{
-              "next": "httpRequest",
-              "event": "incomingRequest"
-            }],
-            properties: {}
-          }, {
-            name: "httpRequest",
-            type: "make-http-request",
-            transitions: [],
-            properties: {
-              method: method,
-              content_type: "application/x-www-form-urlencoded;charset=utf-8",
-              url: url
+    function CreateStudioFlow(url: string, method: string): Promise<FlowInstance> {
+      return testClient.studio.v2.flows.create({
+        friendlyName: 'Node Cluster Test Flow',
+        status: 'published',
+        definition: {
+          description: 'Studio Flow',
+          states: [
+            {
+              name: 'Trigger',
+              type: 'trigger',
+              transitions: [{
+                "next": "httpRequest",
+                "event": "incomingRequest"
+              }],
+              properties: {}
+            }, {
+              name: "httpRequest",
+              type: "make-http-request",
+              transitions: [],
+              properties: {
+                method: method,
+                content_type: "application/x-www-form-urlencoded;charset=utf-8",
+                url: url
+              }
             }
+          ],
+          initial_state: 'Trigger',
+          flags: {
+            allow_concurrent_calls: true
           }
-        ],
-        initial_state: 'Trigger',
-        flags: {
-          allow_concurrent_calls: true
         }
-      }
+      })
+    }
+
+    async function validateRequest(method: string) {
+      let flow = await CreateStudioFlow(tunnel.url, method);
+      flowSid = flow.sid;
+      await testClient.studio.v2.flows(flowSid)
+        .executions
+        .create({to: 'to', from: 'from'});
+      await new Promise(resolve => setTimeout(resolve, 5000))
+    }
+
+    test("Should validate GET request", async () => {
+      await validateRequest('GET');
+      expect(validationCount).toBe(1);
     })
-  }
 
-  async function validateRequest(method: string) {
-    let flow = await CreateStudioFlow(tunnel.url, method);
-    flowSid = flow.sid;
-    await testClient.studio.v2.flows(flowSid)
-      .executions
-      .create({to: 'to', from: 'from'});
-    await new Promise(resolve => setTimeout(resolve, 5000))
-  }
-
-  test("Should validate incoming GET request", async () => {
-    await validateRequest('GET');
-    expect(validationCount).toBe(1);
-  })
-
-  test("Should validate incoming POST request", async () => {
-    await validateRequest('POST');
-    expect(validationCount).toBe(2);
-  })
-});
+    test("Should validate POST request", async () => {
+      await validateRequest('POST');
+      expect(validationCount).toBe(2);
+    })
+  });
+})
 
 test("Should list available numbers", () => {
   return testClient.availablePhoneNumbers('US')
