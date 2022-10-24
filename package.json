@@ -59,7 +59,8 @@
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test -- spec/* && npm run nsp",
     "jsdoc": "jsdoc -r lib -d docs",
-    "nsp": "npm audit --production"
+    "nsp": "npm audit --production",
+    "cluster": "jest --testPathPattern='.*cluster_test.spec.ts$' --testNamePattern='^(?!\\bLocal Cluster Test\\b)' --coverage"
   },
   "files": [
     "lib",
