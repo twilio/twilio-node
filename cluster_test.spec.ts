@@ -1,6 +1,7 @@
 'use strict';
 
 import {FlowInstance} from "./lib/rest/studio/v2/flow";
+jest.setTimeout(15000);
 
 const twilio = require('./lib/index.js');
 const http = require('http');
@@ -64,7 +65,6 @@ test("Should allow special characters for friendly and identity name", async () 
   expect(removeConversation).toBeTruthy();
 })
 describe("Local Cluster Test", () => { //To be run on local machine only
-  jest.setTimeout(10000);
   describe('Validating Incoming Twilio Request', () => {
     let tunnel;
     let flowSid;
