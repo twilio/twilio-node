@@ -38,7 +38,7 @@ class Holodeck {
     if (request.method === 'POST') {
       standardHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
     }
-    request.headers = Object.assign(request.headers, standardHeaders, Object.getPrototypeOf(standardHeaders));
+    request.headers = Object.assign(request.headers, standardHeaders);
     return request;
   }
 
@@ -67,7 +67,7 @@ class Holodeck {
       }
     };
 
-    var request = new Request(Object.assign({}, opts, Object.getPrototypeOf(opts), Auth, Object.getPrototypeOf(Auth)));
+    var request = new Request(Object.assign(opts, Auth));
     this.requests.push(request);
 
     const matchedHologramIndex = this.holograms.findIndex(hologram => hologram.request.isEqual(request));
