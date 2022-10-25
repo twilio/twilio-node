@@ -47,10 +47,11 @@
     "nock": "^13.2.9",
     "node-mocks-http": "^1.8.1",
     "ts-jest": "^28.0.3",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.2",
+    "localtunnel": "2.0.2"
   },
   "scripts": {
-    "test": "npm run test:javascript",
+    "test": "npm run test:javascript -- spec/*",
     "test:javascript": "jest --coverage --detectOpenHandles",
     "test:typescript": "tsc -t es5 examples/typescript/example.ts --noEmit --strict",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
@@ -58,7 +59,9 @@
     "check": "npm run jshint && npm run jscs",
     "ci": "npm run test && npm run nsp",
     "jsdoc": "jsdoc -r lib -d docs",
-    "nsp": "npm audit --production"
+    "nsp": "npm audit --production",
+    "cluster": "jest ./cluster_test.spec.ts --coverage",
+    "webhook-test": "jest ./webhook_cluster_test.spec.ts --coverage"
   },
   "files": [
     "lib",
