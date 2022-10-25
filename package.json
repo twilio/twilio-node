@@ -51,8 +51,8 @@
     "localtunnel": "2.0.2"
   },
   "scripts": {
-    "test": "npm run test:javascript -- spec/*",
-    "test:javascript": "jest --coverage --detectOpenHandles",
+    "test": "npm run test:javascript",
+    "test:javascript": "jest spec/* --coverage --detectOpenHandles",
     "test:typescript": "tsc -t es5 examples/typescript/example.ts --noEmit --strict",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "eslint lib/base/**/**.js lib/http/**/**.js --fix",
