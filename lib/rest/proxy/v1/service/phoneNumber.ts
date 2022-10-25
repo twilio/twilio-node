@@ -19,6 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import PhoneNumberCapabilities from "../../../../interfaces";
+
+
 
 /**
  * The capabilities of the phone number
@@ -177,7 +180,6 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<PhoneNumberInstance> {
@@ -190,7 +192,6 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -218,7 +219,6 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -249,7 +249,7 @@ interface PhoneNumberResource {
   phone_number?: string | null;
   friendly_name?: string | null;
   iso_country?: string | null;
-  capabilities?: ProxyV1ServicePhoneNumberCapabilities | null;
+  capabilities?: PhoneNumberCapabilities | null;
   url?: string | null;
   is_reserved?: boolean | null;
   in_use?: number | null;
@@ -308,7 +308,7 @@ export class PhoneNumberInstance {
    * The ISO Country Code
    */
   isoCountry?: string | null;
-  capabilities?: ProxyV1ServicePhoneNumberCapabilities | null;
+  capabilities?: PhoneNumberCapabilities | null;
   /**
    * The absolute URL of the PhoneNumber resource
    */
@@ -396,37 +396,6 @@ export class PhoneNumberInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
-  /**
-   * Initialize the PhoneNumberPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of PhoneNumberInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance {
-    return new PhoneNumberInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -616,7 +585,6 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<PhoneNumberPage> {
@@ -656,7 +624,6 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -667,4 +634,35 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
 
   return instance;
 }
+
+
+export class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
+/**
+* Initialize the PhoneNumberPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of PhoneNumberInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: PhoneNumberPayload): PhoneNumberInstance {
+    return new PhoneNumberInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

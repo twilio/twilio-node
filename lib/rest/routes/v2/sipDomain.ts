@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
+
 
 
 /**
@@ -144,7 +144,6 @@ export class SipDomainContextImpl implements SipDomainContext {
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<SipDomainInstance> {
@@ -173,7 +172,6 @@ export class SipDomainContextImpl implements SipDomainContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -190,7 +188,7 @@ export class SipDomainContextImpl implements SipDomainContext {
   }
 }
 
-interface SipDomainPayload extends SipDomainResource, Page.TwilioResponsePayload {
+interface SipDomainPayload extends SipDomainResource{
 }
 
 interface SipDomainResource {
@@ -292,33 +290,5 @@ export class SipDomainInstance {
   }
 }
 
-export class SipDomainPage extends Page<V2, SipDomainPayload, SipDomainResource, SipDomainInstance> {
-  /**
-   * Initialize the SipDomainPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: SipDomainSolution) {
-    super(version, response, solution);
-  }
 
-  /**
-   * Build an instance of SipDomainInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SipDomainPayload): SipDomainInstance {
-    return new SipDomainInstance(
-      this._version,
-      payload,
-      this._solution.sipDomain,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

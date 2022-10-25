@@ -21,6 +21,8 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { BrandVettingListInstance } from "./brandRegistration/brandVetting";
 
+
+
 type BrandRegistrationsIdentityStatus = 'SELF_DECLARED'|'UNVERIFIED'|'VERIFIED'|'VETTED_VERIFIED';
 
 type BrandRegistrationsStatus = 'PENDING'|'APPROVED'|'FAILED'|'IN_REVIEW'|'DELETED';
@@ -156,7 +158,6 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
     return operationPromise;
 
 
-
   }
 
   update(callback?: any): Promise<BrandRegistrationInstance> {
@@ -169,7 +170,6 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -386,36 +386,6 @@ export class BrandRegistrationInstance {
   }
 }
 
-export class BrandRegistrationPage extends Page<V1, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationInstance> {
-  /**
-   * Initialize the BrandRegistrationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: BrandRegistrationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of BrandRegistrationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BrandRegistrationPayload): BrandRegistrationInstance {
-    return new BrandRegistrationInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface BrandRegistrationListInstance {
   (sid: string): BrandRegistrationContext;
@@ -599,7 +569,6 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<BrandRegistrationPage> {
@@ -639,7 +608,6 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -650,4 +618,34 @@ export function BrandRegistrationListInstance(version: V1): BrandRegistrationLis
 
   return instance;
 }
+
+
+export class BrandRegistrationPage extends Page<V1, BrandRegistrationPayload, BrandRegistrationResource, BrandRegistrationInstance> {
+/**
+* Initialize the BrandRegistrationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: BrandRegistrationSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of BrandRegistrationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BrandRegistrationPayload): BrandRegistrationInstance {
+    return new BrandRegistrationInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

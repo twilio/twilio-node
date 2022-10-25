@@ -20,6 +20,30 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+export class IpMessagingV1ServiceUserUserChannel {
+  "accountSid"?: string | null;
+  "serviceSid"?: string | null;
+  "channelSid"?: string | null;
+  "memberSid"?: string | null;
+  "status"?: UserChannelEnumChannelStatus;
+  "lastConsumedMessageIndex"?: number | null;
+  "unreadMessagesCount"?: number | null;
+  "links"?: object | null;
+}
+
+
+export class ListChannelResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -238,7 +262,6 @@ export function UserChannelListInstance(version: V1, serviceSid: string, userSid
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -249,4 +272,71 @@ export function UserChannelListInstance(version: V1, serviceSid: string, userSid
 
   return instance;
 }
+
+interface UserChannelPayload extends UserChannelResource, Page.TwilioResponsePayload {
+}
+
+interface UserChannelResource {
+  channels?: Array<IpMessagingV1ServiceUserUserChannel>;
+  meta?: ListChannelResponseMeta;
+}
+
+export class UserChannelInstance {
+
+  constructor(protected _version: V1, payload: UserChannelPayload, serviceSid: string, userSid?: string) {
+    this.channels = payload.channels;
+    this.meta = payload.meta;
+
+  }
+
+  channels?: Array<IpMessagingV1ServiceUserUserChannel>;
+  meta?: ListChannelResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      channels: this.channels, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class UserChannelPage extends Page<V1, UserChannelPayload, UserChannelResource, UserChannelInstance> {
+/**
+* Initialize the UserChannelPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: UserChannelSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of UserChannelInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UserChannelPayload): UserChannelInstance {
+    return new UserChannelInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.userSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

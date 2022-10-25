@@ -22,6 +22,8 @@ const serialize = require("../../../../base/serialize");
 import { BucketListInstance } from "./rateLimit/bucket";
 
 
+
+
 /**
  * Options to pass to update a RateLimitInstance
  *
@@ -172,7 +174,6 @@ export class RateLimitContextImpl implements RateLimitContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<RateLimitInstance> {
@@ -185,7 +186,6 @@ export class RateLimitContextImpl implements RateLimitContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -213,7 +213,6 @@ export class RateLimitContextImpl implements RateLimitContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -380,37 +379,6 @@ export class RateLimitInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class RateLimitPage extends Page<V2, RateLimitPayload, RateLimitResource, RateLimitInstance> {
-  /**
-   * Initialize the RateLimitPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: RateLimitSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of RateLimitInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RateLimitPayload): RateLimitInstance {
-    return new RateLimitInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -592,7 +560,6 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<RateLimitPage> {
@@ -632,7 +599,6 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -643,4 +609,35 @@ export function RateLimitListInstance(version: V2, serviceSid: string): RateLimi
 
   return instance;
 }
+
+
+export class RateLimitPage extends Page<V2, RateLimitPayload, RateLimitResource, RateLimitInstance> {
+/**
+* Initialize the RateLimitPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: RateLimitSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of RateLimitInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RateLimitPayload): RateLimitInstance {
+    return new RateLimitInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

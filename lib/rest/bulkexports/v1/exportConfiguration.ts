@@ -14,21 +14,20 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
+
 /**
- * Options to pass to create a ExportConfigurationInstance
+ * Options to pass to update a ExportConfigurationInstance
  *
  * @property { boolean } [enabled] If true, Twilio will automatically generate every day\\\&#39;s file when the day is over.
  * @property { string } [webhookUrl] Stores the URL destination for the method specified in webhook_method.
  * @property { string } [webhookMethod] Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
  */
-export interface ExportConfigurationListInstanceCreateOptions {
+export interface ExportConfigurationListInstanceUpdateOptions {
   enabled?: boolean;
   webhookUrl?: string;
   webhookMethod?: string;
@@ -37,126 +36,34 @@ export interface ExportConfigurationListInstanceCreateOptions {
 export interface ExportConfigurationListInstance {
 
 
-
   /**
-   * Streams ExportConfigurationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ExportConfigurationInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ExportConfigurationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ExportConfigurationListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ExportConfigurationListInstanceEachOptions, callback?: (item: ExportConfigurationInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ExportConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ExportConfigurationPage) => any): Promise<ExportConfigurationPage>;
-  /**
-   * Retrieve a single target page of ExportConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ExportConfigurationPage) => any): Promise<ExportConfigurationPage>;
-  getPage(params?: any, callback?: any): Promise<ExportConfigurationPage>;
-  /**
-   * Lists ExportConfigurationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ExportConfigurationInstance[]) => any): Promise<ExportConfigurationInstance[]>;
-  /**
-   * Lists ExportConfigurationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ExportConfigurationListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ExportConfigurationListInstanceOptions, callback?: (error: Error | null, items: ExportConfigurationInstance[]) => any): Promise<ExportConfigurationInstance[]>;
-  list(params?: any, callback?: any): Promise<ExportConfigurationInstance[]>;
-  /**
-   * Retrieve a single page of ExportConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ExportConfigurationPage) => any): Promise<ExportConfigurationPage>;
-  /**
-   * Retrieve a single page of ExportConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ExportConfigurationListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ExportConfigurationListInstancePageOptions, callback?: (error: Error | null, items: ExportConfigurationPage) => any): Promise<ExportConfigurationPage>;
-  page(params?: any, callback?: any): Promise<ExportConfigurationPage>;
-
-  /**
-   * Create a ExportConfigurationInstance
+   * Fetch a ExportConfigurationInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ExportConfigurationInstance
    */
-  create(callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  fetch(callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>
+
+
   /**
-   * Create a ExportConfigurationInstance
+   * Update a ExportConfigurationInstance
    *
-   * @param { ExportConfigurationListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ExportConfigurationInstance
    */
-  create(params: ExportConfigurationListInstanceCreateOptions, callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
-  create(params?: any, callback?: any): Promise<ExportConfigurationInstance>
+  update(callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  /**
+   * Update a ExportConfigurationInstance
+   *
+   * @param { ExportConfigurationListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ExportConfigurationInstance
+   */
+  update(params: ExportConfigurationListInstanceUpdateOptions, callback?: (error: Error | null, item?: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  update(params?: any, callback?: any): Promise<ExportConfigurationInstance>
 
 
   /**
@@ -185,31 +92,21 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
   instance._solution = { resourceType };
   instance._uri = `/Exports/${resourceType}/Configuration`;
 
-  instance.page = function page(callback?: any): Promise<ExportConfigurationPage> {
+  instance.fetch = function fetch(callback?: any): Promise<ExportConfigurationInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new ExportConfigurationPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new ExportConfigurationInstance(operationVersion, payload, this._solution.resourceType));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ExportConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new ExportConfigurationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<ExportConfigurationInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -227,14 +124,13 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ExportConfigurationInstance(operationVersion, payload, this._solution.resourceType));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -250,7 +146,7 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
   return instance;
 }
 
-interface ExportConfigurationPayload extends ExportConfigurationResource, Page.TwilioResponsePayload {
+interface ExportConfigurationPayload extends ExportConfigurationResource{
 }
 
 interface ExportConfigurationResource {
@@ -313,33 +209,4 @@ export class ExportConfigurationInstance {
   }
 }
 
-export class ExportConfigurationPage extends Page<V1, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationInstance> {
-  /**
-   * Initialize the ExportConfigurationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ExportConfigurationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ExportConfigurationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ExportConfigurationPayload): ExportConfigurationInstance {
-    return new ExportConfigurationInstance(
-      this._version,
-      payload,
-      this._solution.resourceType,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

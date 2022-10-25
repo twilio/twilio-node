@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type ConfigurationAddressType = 'sms'|'whatsapp'|'messenger'|'gbm';
 
 type ConfigurationAddressAutoCreationType = 'webhook'|'studio'|'default';
@@ -209,7 +211,6 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<AddressConfigurationInstance> {
@@ -222,7 +223,6 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -258,7 +258,6 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -418,36 +417,6 @@ export class AddressConfigurationInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class AddressConfigurationPage extends Page<V1, AddressConfigurationPayload, AddressConfigurationResource, AddressConfigurationInstance> {
-  /**
-   * Initialize the AddressConfigurationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: AddressConfigurationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AddressConfigurationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AddressConfigurationPayload): AddressConfigurationInstance {
-    return new AddressConfigurationInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -641,7 +610,6 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<AddressConfigurationPage> {
@@ -682,7 +650,6 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -693,4 +660,34 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
 
   return instance;
 }
+
+
+export class AddressConfigurationPage extends Page<V1, AddressConfigurationPayload, AddressConfigurationResource, AddressConfigurationInstance> {
+/**
+* Initialize the AddressConfigurationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: AddressConfigurationSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of AddressConfigurationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AddressConfigurationPayload): AddressConfigurationInstance {
+    return new AddressConfigurationInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

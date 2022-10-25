@@ -14,145 +14,52 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
 /**
- * Options to pass to create a DefaultsInstance
+ * Options to pass to update a DefaultsInstance
  *
  * @property { any } [defaults] A JSON string that describes the default task links for the &#x60;assistant_initiation&#x60;, &#x60;collect&#x60;, and &#x60;fallback&#x60; situations.
  */
-export interface DefaultsListInstanceCreateOptions {
+export interface DefaultsListInstanceUpdateOptions {
   defaults?: any;
 }
 
 export interface DefaultsListInstance {
 
 
-
   /**
-   * Streams DefaultsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: DefaultsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams DefaultsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DefaultsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: DefaultsListInstanceEachOptions, callback?: (item: DefaultsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of DefaultsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: DefaultsPage) => any): Promise<DefaultsPage>;
-  /**
-   * Retrieve a single target page of DefaultsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DefaultsPage) => any): Promise<DefaultsPage>;
-  getPage(params?: any, callback?: any): Promise<DefaultsPage>;
-  /**
-   * Lists DefaultsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: DefaultsInstance[]) => any): Promise<DefaultsInstance[]>;
-  /**
-   * Lists DefaultsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DefaultsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: DefaultsListInstanceOptions, callback?: (error: Error | null, items: DefaultsInstance[]) => any): Promise<DefaultsInstance[]>;
-  list(params?: any, callback?: any): Promise<DefaultsInstance[]>;
-  /**
-   * Retrieve a single page of DefaultsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: DefaultsPage) => any): Promise<DefaultsPage>;
-  /**
-   * Retrieve a single page of DefaultsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DefaultsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: DefaultsListInstancePageOptions, callback?: (error: Error | null, items: DefaultsPage) => any): Promise<DefaultsPage>;
-  page(params?: any, callback?: any): Promise<DefaultsPage>;
-
-  /**
-   * Create a DefaultsInstance
+   * Fetch a DefaultsInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DefaultsInstance
    */
-  create(callback?: (error: Error | null, item?: DefaultsInstance) => any): Promise<DefaultsInstance>;
+  fetch(callback?: (error: Error | null, item?: DefaultsInstance) => any): Promise<DefaultsInstance>
+
+
   /**
-   * Create a DefaultsInstance
+   * Update a DefaultsInstance
    *
-   * @param { DefaultsListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed DefaultsInstance
    */
-  create(params: DefaultsListInstanceCreateOptions, callback?: (error: Error | null, item?: DefaultsInstance) => any): Promise<DefaultsInstance>;
-  create(params?: any, callback?: any): Promise<DefaultsInstance>
+  update(callback?: (error: Error | null, item?: DefaultsInstance) => any): Promise<DefaultsInstance>;
+  /**
+   * Update a DefaultsInstance
+   *
+   * @param { DefaultsListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DefaultsInstance
+   */
+  update(params: DefaultsListInstanceUpdateOptions, callback?: (error: Error | null, item?: DefaultsInstance) => any): Promise<DefaultsInstance>;
+  update(params?: any, callback?: any): Promise<DefaultsInstance>
 
 
   /**
@@ -181,31 +88,21 @@ export function DefaultsListInstance(version: V1, assistantSid: string): Default
   instance._solution = { assistantSid };
   instance._uri = `/Assistants/${assistantSid}/Defaults`;
 
-  instance.page = function page(callback?: any): Promise<DefaultsPage> {
+  instance.fetch = function fetch(callback?: any): Promise<DefaultsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new DefaultsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new DefaultsInstance(operationVersion, payload, this._solution.assistantSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DefaultsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new DefaultsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<DefaultsInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<DefaultsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -221,14 +118,13 @@ export function DefaultsListInstance(version: V1, assistantSid: string): Default
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new DefaultsInstance(operationVersion, payload, this._solution.assistantSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -244,7 +140,7 @@ export function DefaultsListInstance(version: V1, assistantSid: string): Default
   return instance;
 }
 
-interface DefaultsPayload extends DefaultsResource, Page.TwilioResponsePayload {
+interface DefaultsPayload extends DefaultsResource{
 }
 
 interface DefaultsResource {
@@ -300,33 +196,4 @@ export class DefaultsInstance {
   }
 }
 
-export class DefaultsPage extends Page<V1, DefaultsPayload, DefaultsResource, DefaultsInstance> {
-  /**
-   * Initialize the DefaultsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: DefaultsSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of DefaultsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DefaultsPayload): DefaultsInstance {
-    return new DefaultsInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

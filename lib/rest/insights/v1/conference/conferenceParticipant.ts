@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type ConferenceParticipantProcessingState = 'complete'|'in_progress'|'timeout';
 
 type ConferenceParticipantCallDirection = 'inbound'|'outbound';
@@ -287,7 +289,6 @@ export function ConferenceParticipantListInstance(version: V1, conferenceSid: st
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -368,7 +369,6 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -614,33 +614,33 @@ export class ConferenceParticipantInstance {
 }
 
 export class ConferenceParticipantPage extends Page<V1, ConferenceParticipantPayload, ConferenceParticipantResource, ConferenceParticipantInstance> {
-  /**
-   * Initialize the ConferenceParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ConferenceParticipantSolution) {
+/**
+* Initialize the ConferenceParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ConferenceParticipantSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ConferenceParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConferenceParticipantPayload): ConferenceParticipantInstance {
+    /**
+    * Build an instance of ConferenceParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ConferenceParticipantPayload): ConferenceParticipantInstance {
     return new ConferenceParticipantInstance(
-      this._version,
-      payload,
-      this._solution.conferenceSid,
-      this._solution.participantSid,
+    this._version,
+    payload,
+        this._solution.conferenceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

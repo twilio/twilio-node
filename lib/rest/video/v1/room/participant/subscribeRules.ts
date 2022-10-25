@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 
 export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
   "type"?: string;
@@ -32,137 +31,45 @@ export class VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules {
 
 
 /**
- * Options to pass to create a SubscribeRulesInstance
+ * Options to pass to update a SubscribeRulesInstance
  *
  * @property { any } [rules] A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
  */
-export interface SubscribeRulesListInstanceCreateOptions {
+export interface SubscribeRulesListInstanceUpdateOptions {
   rules?: any;
 }
 
 export interface SubscribeRulesListInstance {
 
 
-
   /**
-   * Streams SubscribeRulesInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: SubscribeRulesInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams SubscribeRulesInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SubscribeRulesListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: SubscribeRulesListInstanceEachOptions, callback?: (item: SubscribeRulesInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of SubscribeRulesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: SubscribeRulesPage) => any): Promise<SubscribeRulesPage>;
-  /**
-   * Retrieve a single target page of SubscribeRulesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SubscribeRulesPage) => any): Promise<SubscribeRulesPage>;
-  getPage(params?: any, callback?: any): Promise<SubscribeRulesPage>;
-  /**
-   * Lists SubscribeRulesInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: SubscribeRulesInstance[]) => any): Promise<SubscribeRulesInstance[]>;
-  /**
-   * Lists SubscribeRulesInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SubscribeRulesListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: SubscribeRulesListInstanceOptions, callback?: (error: Error | null, items: SubscribeRulesInstance[]) => any): Promise<SubscribeRulesInstance[]>;
-  list(params?: any, callback?: any): Promise<SubscribeRulesInstance[]>;
-  /**
-   * Retrieve a single page of SubscribeRulesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: SubscribeRulesPage) => any): Promise<SubscribeRulesPage>;
-  /**
-   * Retrieve a single page of SubscribeRulesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SubscribeRulesListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: SubscribeRulesListInstancePageOptions, callback?: (error: Error | null, items: SubscribeRulesPage) => any): Promise<SubscribeRulesPage>;
-  page(params?: any, callback?: any): Promise<SubscribeRulesPage>;
-
-  /**
-   * Create a SubscribeRulesInstance
+   * Fetch a SubscribeRulesInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SubscribeRulesInstance
    */
-  create(callback?: (error: Error | null, item?: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance>;
+  fetch(callback?: (error: Error | null, item?: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance>
+
+
   /**
-   * Create a SubscribeRulesInstance
+   * Update a SubscribeRulesInstance
    *
-   * @param { SubscribeRulesListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SubscribeRulesInstance
    */
-  create(params: SubscribeRulesListInstanceCreateOptions, callback?: (error: Error | null, item?: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance>;
-  create(params?: any, callback?: any): Promise<SubscribeRulesInstance>
+  update(callback?: (error: Error | null, item?: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance>;
+  /**
+   * Update a SubscribeRulesInstance
+   *
+   * @param { SubscribeRulesListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SubscribeRulesInstance
+   */
+  update(params: SubscribeRulesListInstanceUpdateOptions, callback?: (error: Error | null, item?: SubscribeRulesInstance) => any): Promise<SubscribeRulesInstance>;
+  update(params?: any, callback?: any): Promise<SubscribeRulesInstance>
 
 
   /**
@@ -192,31 +99,21 @@ export function SubscribeRulesListInstance(version: V1, roomSid: string, partici
   instance._solution = { roomSid, participantSid };
   instance._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribeRules`;
 
-  instance.page = function page(callback?: any): Promise<SubscribeRulesPage> {
+  instance.fetch = function fetch(callback?: any): Promise<SubscribeRulesInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new SubscribeRulesPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new SubscribeRulesInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SubscribeRulesPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new SubscribeRulesPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<SubscribeRulesInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<SubscribeRulesInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -232,14 +129,13 @@ export function SubscribeRulesListInstance(version: V1, roomSid: string, partici
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SubscribeRulesInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -255,7 +151,7 @@ export function SubscribeRulesListInstance(version: V1, roomSid: string, partici
   return instance;
 }
 
-interface SubscribeRulesPayload extends SubscribeRulesResource, Page.TwilioResponsePayload {
+interface SubscribeRulesPayload extends SubscribeRulesResource{
 }
 
 interface SubscribeRulesResource {
@@ -318,34 +214,4 @@ export class SubscribeRulesInstance {
   }
 }
 
-export class SubscribeRulesPage extends Page<V1, SubscribeRulesPayload, SubscribeRulesResource, SubscribeRulesInstance> {
-  /**
-   * Initialize the SubscribeRulesPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SubscribeRulesSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SubscribeRulesInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SubscribeRulesPayload): SubscribeRulesInstance {
-    return new SubscribeRulesInstance(
-      this._version,
-      payload,
-      this._solution.roomSid,
-      this._solution.participantSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

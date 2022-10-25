@@ -19,7 +19,9 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 import { PayloadListInstance } from "./addOnResult/payload";
+
 
 type RecordingAddOnResultStatus = 'canceled'|'completed'|'deleted'|'failed'|'in-progress'|'init'|'processing'|'queued';
 
@@ -247,7 +249,6 @@ export function AddOnResultListInstance(version: V2010, accountSid: string, refe
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -323,7 +324,6 @@ export class AddOnResultContextImpl implements AddOnResultContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<AddOnResultInstance> {
@@ -336,7 +336,6 @@ export class AddOnResultContextImpl implements AddOnResultContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -490,34 +489,34 @@ export class AddOnResultInstance {
 }
 
 export class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResultResource, AddOnResultInstance> {
-  /**
-   * Initialize the AddOnResultPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: AddOnResultSolution) {
+/**
+* Initialize the AddOnResultPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AddOnResultSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AddOnResultInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AddOnResultPayload): AddOnResultInstance {
+    /**
+    * Build an instance of AddOnResultInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AddOnResultPayload): AddOnResultInstance {
     return new AddOnResultInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.referenceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.referenceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

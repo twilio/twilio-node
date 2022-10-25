@@ -20,6 +20,7 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
+
 import { PaymentListInstance } from "./call/payment";
 import { FeedbackListInstance } from "./call/feedback";
 import { SiprecListInstance } from "./call/siprec";
@@ -27,6 +28,7 @@ import { EventListInstance } from "./call/event";
 import { StreamListInstance } from "./call/stream";
 import { RecordingListInstance } from "./call/recording";
 import { NotificationListInstance } from "./call/notification";
+
 
 type CallStatus = 'queued'|'ringing'|'in-progress'|'completed'|'busy'|'failed'|'no-answer'|'canceled';
 
@@ -467,7 +469,6 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<CallPage> {
@@ -515,7 +516,6 @@ export function CallListInstance(version: V2010, accountSid: string): CallListIn
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -654,7 +654,6 @@ export class CallContextImpl implements CallContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<CallInstance> {
@@ -667,7 +666,6 @@ export class CallContextImpl implements CallContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -703,7 +701,6 @@ export class CallContextImpl implements CallContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -1033,33 +1030,33 @@ export class CallInstance {
 }
 
 export class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {
-  /**
-   * Initialize the CallPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: CallSolution) {
+/**
+* Initialize the CallPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: CallSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of CallInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CallPayload): CallInstance {
+    /**
+    * Build an instance of CallInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CallPayload): CallInstance {
     return new CallInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

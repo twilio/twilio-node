@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type MediaRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
 
 type MediaRecordingOrder = 'asc'|'desc';
@@ -276,7 +278,6 @@ export function MediaRecordingListInstance(version: V1): MediaRecordingListInsta
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -343,7 +344,6 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<MediaRecordingInstance> {
@@ -356,7 +356,6 @@ export class MediaRecordingContextImpl implements MediaRecordingContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -536,32 +535,32 @@ export class MediaRecordingInstance {
 }
 
 export class MediaRecordingPage extends Page<V1, MediaRecordingPayload, MediaRecordingResource, MediaRecordingInstance> {
-  /**
-   * Initialize the MediaRecordingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: MediaRecordingSolution) {
+/**
+* Initialize the MediaRecordingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: MediaRecordingSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MediaRecordingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MediaRecordingPayload): MediaRecordingInstance {
+    /**
+    * Build an instance of MediaRecordingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MediaRecordingPayload): MediaRecordingInstance {
     return new MediaRecordingInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

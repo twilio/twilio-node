@@ -14,117 +14,24 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../../base/Page";
-import Response from "../../../../../../http/response";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
 
+
 export interface FunctionVersionContentListInstance {
 
 
+  /**
+   * Fetch a FunctionVersionContentInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FunctionVersionContentInstance
+   */
+  fetch(callback?: (error: Error | null, item?: FunctionVersionContentInstance) => any): Promise<FunctionVersionContentInstance>
 
-  /**
-   * Streams FunctionVersionContentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: FunctionVersionContentInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams FunctionVersionContentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FunctionVersionContentListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: FunctionVersionContentListInstanceEachOptions, callback?: (item: FunctionVersionContentInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of FunctionVersionContentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: FunctionVersionContentPage) => any): Promise<FunctionVersionContentPage>;
-  /**
-   * Retrieve a single target page of FunctionVersionContentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FunctionVersionContentPage) => any): Promise<FunctionVersionContentPage>;
-  getPage(params?: any, callback?: any): Promise<FunctionVersionContentPage>;
-  /**
-   * Lists FunctionVersionContentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: FunctionVersionContentInstance[]) => any): Promise<FunctionVersionContentInstance[]>;
-  /**
-   * Lists FunctionVersionContentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FunctionVersionContentListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: FunctionVersionContentListInstanceOptions, callback?: (error: Error | null, items: FunctionVersionContentInstance[]) => any): Promise<FunctionVersionContentInstance[]>;
-  list(params?: any, callback?: any): Promise<FunctionVersionContentInstance[]>;
-  /**
-   * Retrieve a single page of FunctionVersionContentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: FunctionVersionContentPage) => any): Promise<FunctionVersionContentPage>;
-  /**
-   * Retrieve a single page of FunctionVersionContentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FunctionVersionContentListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: FunctionVersionContentListInstancePageOptions, callback?: (error: Error | null, items: FunctionVersionContentPage) => any): Promise<FunctionVersionContentPage>;
-  page(params?: any, callback?: any): Promise<FunctionVersionContentPage>;
 
   /**
    * Provide a user-friendly representation
@@ -154,29 +61,19 @@ export function FunctionVersionContentListInstance(version: V1, serviceSid: stri
   instance._solution = { serviceSid, functionSid, sid };
   instance._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}/Content`;
 
-  instance.page = function page(callback?: any): Promise<FunctionVersionContentPage> {
+  instance.fetch = function fetch(callback?: any): Promise<FunctionVersionContentInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new FunctionVersionContentPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new FunctionVersionContentInstance(operationVersion, payload, this._solution.serviceSid, this._solution.functionSid, this._solution.sid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FunctionVersionContentPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new FunctionVersionContentPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -188,4 +85,72 @@ export function FunctionVersionContentListInstance(version: V1, serviceSid: stri
 
   return instance;
 }
+
+interface FunctionVersionContentPayload extends FunctionVersionContentResource{
+}
+
+interface FunctionVersionContentResource {
+  sid?: string | null;
+  account_sid?: string | null;
+  service_sid?: string | null;
+  function_sid?: string | null;
+  content?: string | null;
+  url?: string | null;
+}
+
+export class FunctionVersionContentInstance {
+
+  constructor(protected _version: V1, payload: FunctionVersionContentPayload, serviceSid: string, functionSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.functionSid = payload.function_sid;
+    this.content = payload.content;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The unique string that identifies the Function Version resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the Function Version resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Service that the Function Version resource is associated with
+   */
+  serviceSid?: string | null;
+  /**
+   * The SID of the Function that is the parent of the Function Version
+   */
+  functionSid?: string | null;
+  /**
+   * The content of the Function Version resource
+   */
+  content?: string | null;
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      accountSid: this.accountSid, 
+      serviceSid: this.serviceSid, 
+      functionSid: this.functionSid, 
+      content: this.content, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

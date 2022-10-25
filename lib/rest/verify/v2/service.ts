@@ -19,6 +19,7 @@ import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { EntityListInstance } from "./service/entity";
 import { RateLimitListInstance } from "./service/rateLimit";
 import { AccessTokenListInstance } from "./service/accessToken";
@@ -26,6 +27,7 @@ import { VerificationCheckListInstance } from "./service/verificationCheck";
 import { VerificationListInstance } from "./service/verification";
 import { WebhookListInstance } from "./service/webhook";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
+
 
 
 /**
@@ -348,7 +350,6 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ServicePage> {
@@ -386,7 +387,6 @@ export function ServiceListInstance(version: V2): ServiceListInstance {
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -524,7 +524,6 @@ export class ServiceContextImpl implements ServiceContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ServiceInstance> {
@@ -537,7 +536,6 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -581,7 +579,6 @@ export class ServiceContextImpl implements ServiceContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -855,32 +852,32 @@ export class ServiceInstance {
 }
 
 export class ServicePage extends Page<V2, ServicePayload, ServiceResource, ServiceInstance> {
-  /**
-   * Initialize the ServicePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: ServiceSolution) {
+/**
+* Initialize the ServicePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: ServiceSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ServiceInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ServicePayload): ServiceInstance {
+    /**
+    * Build an instance of ServiceInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ServicePayload): ServiceInstance {
     return new ServiceInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

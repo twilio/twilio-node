@@ -20,6 +20,8 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type RegulationEndUserType = 'individual'|'business';
 
 /**
@@ -265,7 +267,6 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -322,7 +323,6 @@ export class RegulationContextImpl implements RegulationContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -436,32 +436,32 @@ export class RegulationInstance {
 }
 
 export class RegulationPage extends Page<V2, RegulationPayload, RegulationResource, RegulationInstance> {
-  /**
-   * Initialize the RegulationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: RegulationSolution) {
+/**
+* Initialize the RegulationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: RegulationSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of RegulationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RegulationPayload): RegulationInstance {
+    /**
+    * Build an instance of RegulationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RegulationPayload): RegulationInstance {
     return new RegulationInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

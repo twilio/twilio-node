@@ -20,6 +20,86 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+export class WirelessV1SimDataSession {
+  /**
+   * The unique string that identifies the resource
+   */
+  "sid"?: string | null;
+  /**
+   * The SID of the Sim resource that the Data Session is for
+   */
+  "simSid"?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  "accountSid"?: string | null;
+  /**
+   * The generation of wireless technology that the device was using
+   */
+  "radioLink"?: string | null;
+  /**
+   * The \'mobile country code\' is the unique ID of the home country where the Data Session took place
+   */
+  "operatorMcc"?: string | null;
+  /**
+   * The \'mobile network code\' is the unique ID specific to the mobile operator network where the Data Session took place
+   */
+  "operatorMnc"?: string | null;
+  /**
+   * The three letter country code representing where the device\'s Data Session took place
+   */
+  "operatorCountry"?: string | null;
+  /**
+   * The friendly name of the mobile operator network that the SIM-connected device is attached to
+   */
+  "operatorName"?: string | null;
+  /**
+   * The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated
+   */
+  "cellId"?: string | null;
+  /**
+   * An object with the estimated location where the device\'s Data Session took place
+   */
+  "cellLocationEstimate"?: any | null;
+  /**
+   * The number of packets uploaded by the device between the start time and when the Data Session was last updated
+   */
+  "packetsUploaded"?: number | null;
+  /**
+   * The number of packets downloaded by the device between the start time and when the Data Session was last updated
+   */
+  "packetsDownloaded"?: number | null;
+  /**
+   * The date that the resource was last updated, given as GMT in ISO 8601 format
+   */
+  "lastUpdated"?: Date | null;
+  /**
+   * The date that the Data Session started, given as GMT in ISO 8601 format
+   */
+  "start"?: Date | null;
+  /**
+   * The date that the record ended, given as GMT in ISO 8601 format
+   */
+  "end"?: Date | null;
+  /**
+   * The unique ID of the device using the SIM to connect
+   */
+  "imei"?: string | null;
+}
+
+
+export class ListAccountUsageRecordResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -237,7 +317,6 @@ export function DataSessionListInstance(version: V1, simSid: string): DataSessio
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -248,4 +327,70 @@ export function DataSessionListInstance(version: V1, simSid: string): DataSessio
 
   return instance;
 }
+
+interface DataSessionPayload extends DataSessionResource, Page.TwilioResponsePayload {
+}
+
+interface DataSessionResource {
+  data_sessions?: Array<WirelessV1SimDataSession>;
+  meta?: ListAccountUsageRecordResponseMeta;
+}
+
+export class DataSessionInstance {
+
+  constructor(protected _version: V1, payload: DataSessionPayload, simSid?: string) {
+    this.dataSessions = payload.data_sessions;
+    this.meta = payload.meta;
+
+  }
+
+  dataSessions?: Array<WirelessV1SimDataSession>;
+  meta?: ListAccountUsageRecordResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      dataSessions: this.dataSessions, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class DataSessionPage extends Page<V1, DataSessionPayload, DataSessionResource, DataSessionInstance> {
+/**
+* Initialize the DataSessionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DataSessionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of DataSessionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DataSessionPayload): DataSessionInstance {
+    return new DataSessionInstance(
+    this._version,
+    payload,
+        this._solution.simSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -133,7 +135,6 @@ export class NetworkContextImpl implements NetworkContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -229,36 +230,6 @@ export class NetworkInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class NetworkPage extends Page<V1, NetworkPayload, NetworkResource, NetworkInstance> {
-  /**
-   * Initialize the NetworkPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: NetworkSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of NetworkInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NetworkPayload): NetworkInstance {
-    return new NetworkInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -440,7 +411,6 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -451,4 +421,34 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
   return instance;
 }
+
+
+export class NetworkPage extends Page<V1, NetworkPayload, NetworkResource, NetworkInstance> {
+/**
+* Initialize the NetworkPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: NetworkSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of NetworkInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: NetworkPayload): NetworkInstance {
+    return new NetworkInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

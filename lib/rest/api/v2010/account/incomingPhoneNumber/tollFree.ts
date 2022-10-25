@@ -20,6 +20,7 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
 type IncomingPhoneNumberTollFreeAddressRequirement = 'none'|'any'|'local'|'foreign';
 
 type IncomingPhoneNumberTollFreeVoiceReceiveMode = 'voice'|'fax';
@@ -36,6 +37,128 @@ export class ApiV2010AccountIncomingPhoneNumberCapabilities {
 
 
 type IncomingPhoneNumberTollFreeEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
+export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree {
+  /**
+   * The SID of the Account that created the resource
+   */
+  "accountSid"?: string | null;
+  /**
+   * The SID of the Address resource associated with the phone number
+   */
+  "addressSid"?: string | null;
+  "addressRequirements"?: IncomingPhoneNumberTollFreeAddressRequirement;
+  /**
+   * The API version used to start a new TwiML session
+   */
+  "apiVersion"?: string | null;
+  /**
+   * Whether the phone number is new to the Twilio platform
+   */
+  "beta"?: boolean | null;
+  "capabilities"?: PhoneNumberCapabilities | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was created
+   */
+  "dateCreated"?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was last updated
+   */
+  "dateUpdated"?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  "friendlyName"?: string | null;
+  /**
+   * The SID of the Identity resource associated with number
+   */
+  "identitySid"?: string | null;
+  /**
+   * The phone number in E.164 format
+   */
+  "phoneNumber"?: string | null;
+  /**
+   * The phone number\'s origin. Can be twilio or hosted.
+   */
+  "origin"?: string | null;
+  /**
+   * The unique string that identifies the resource
+   */
+  "sid"?: string | null;
+  /**
+   * The SID of the application that handles SMS messages sent to the phone number
+   */
+  "smsApplicationSid"?: string | null;
+  /**
+   * The HTTP method used with sms_fallback_url
+   */
+  "smsFallbackMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree.SmsFallbackMethodEnum;
+  /**
+   * The URL that we call when an error occurs while retrieving or executing the TwiML
+   */
+  "smsFallbackUrl"?: string | null;
+  /**
+   * The HTTP method to use with sms_url
+   */
+  "smsMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree.SmsMethodEnum;
+  /**
+   * The URL we call when the phone number receives an incoming SMS message
+   */
+  "smsUrl"?: string | null;
+  /**
+   * The URL to send status information to your application
+   */
+  "statusCallback"?: string | null;
+  /**
+   * The HTTP method we use to call status_callback
+   */
+  "statusCallbackMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree.StatusCallbackMethodEnum;
+  /**
+   * The SID of the Trunk that handles calls to the phone number
+   */
+  "trunkSid"?: string | null;
+  /**
+   * The URI of the resource, relative to `https://api.twilio.com`
+   */
+  "uri"?: string | null;
+  "voiceReceiveMode"?: IncomingPhoneNumberTollFreeVoiceReceiveMode;
+  /**
+   * The SID of the application that handles calls to the phone number
+   */
+  "voiceApplicationSid"?: string | null;
+  /**
+   * Whether to lookup the caller\'s name
+   */
+  "voiceCallerIdLookup"?: boolean | null;
+  /**
+   * The HTTP method used with voice_fallback_url
+   */
+  "voiceFallbackMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree.VoiceFallbackMethodEnum;
+  /**
+   * The URL we call when an error occurs in TwiML
+   */
+  "voiceFallbackUrl"?: string | null;
+  /**
+   * The HTTP method used with the voice_url
+   */
+  "voiceMethod"?: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree.VoiceMethodEnum;
+  /**
+   * The URL we call when the phone number receives a call
+   */
+  "voiceUrl"?: string | null;
+  "emergencyStatus"?: IncomingPhoneNumberTollFreeEmergencyStatus;
+  /**
+   * The emergency address configuration to use for emergency calling
+   */
+  "emergencyAddressSid"?: string | null;
+  "emergencyAddressStatus"?: IncomingPhoneNumberTollFreeEmergencyAddressStatus;
+  /**
+   * The SID of the Bundle resource associated with number
+   */
+  "bundleSid"?: string | null;
+  "status"?: string | null;
+}
+
 
 type IncomingPhoneNumberTollFreeEmergencyStatus = 'Active'|'Inactive';
 
@@ -356,7 +479,6 @@ export function TollFreeListInstance(version: V2010, accountSid: string): TollFr
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<TollFreePage> {
@@ -400,7 +522,6 @@ export function TollFreeListInstance(version: V2010, accountSid: string): TollFr
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -411,210 +532,46 @@ export function TollFreeListInstance(version: V2010, accountSid: string): TollFr
 
   return instance;
 }
-export type TollFreeSmsFallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type TollFreeSmsMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type TollFreeStatusCallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type TollFreeVoiceFallbackMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
-export type TollFreeVoiceMethod = 'HEAD'|'GET'|'POST'|'PATCH'|'PUT'|'DELETE';
 
 interface TollFreePayload extends TollFreeResource, Page.TwilioResponsePayload {
 }
 
 interface TollFreeResource {
-  account_sid?: string | null;
-  address_sid?: string | null;
-  address_requirements?: IncomingPhoneNumberTollFreeAddressRequirement;
-  api_version?: string | null;
-  beta?: boolean | null;
-  capabilities?: ApiV2010AccountIncomingPhoneNumberCapabilities | null;
-  date_created?: string | null;
-  date_updated?: string | null;
-  friendly_name?: string | null;
-  identity_sid?: string | null;
-  phone_number?: string | null;
-  origin?: string | null;
-  sid?: string | null;
-  sms_application_sid?: string | null;
-  sms_fallback_method?: TollFreeSmsFallbackMethod;
-  sms_fallback_url?: string | null;
-  sms_method?: TollFreeSmsMethod;
-  sms_url?: string | null;
-  status_callback?: string | null;
-  status_callback_method?: TollFreeStatusCallbackMethod;
-  trunk_sid?: string | null;
-  uri?: string | null;
-  voice_receive_mode?: IncomingPhoneNumberTollFreeVoiceReceiveMode;
-  voice_application_sid?: string | null;
-  voice_caller_id_lookup?: boolean | null;
-  voice_fallback_method?: TollFreeVoiceFallbackMethod;
-  voice_fallback_url?: string | null;
-  voice_method?: TollFreeVoiceMethod;
-  voice_url?: string | null;
-  emergency_status?: IncomingPhoneNumberTollFreeEmergencyStatus;
-  emergency_address_sid?: string | null;
-  emergency_address_status?: IncomingPhoneNumberTollFreeEmergencyAddressStatus;
-  bundle_sid?: string | null;
-  status?: string | null;
+  incoming_phone_numbers?: Array<ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree>;
+  end?: number;
+  first_page_uri?: string;
+  next_page_uri?: string;
+  page?: number;
+  page_size?: number;
+  previous_page_uri?: string;
+  start?: number;
+  uri?: string;
 }
 
 export class TollFreeInstance {
 
   constructor(protected _version: V2010, payload: TollFreePayload, accountSid?: string) {
-    this.accountSid = payload.account_sid;
-    this.addressSid = payload.address_sid;
-    this.addressRequirements = payload.address_requirements;
-    this.apiVersion = payload.api_version;
-    this.beta = payload.beta;
-    this.capabilities = payload.capabilities;
-    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
-    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.identitySid = payload.identity_sid;
-    this.phoneNumber = payload.phone_number;
-    this.origin = payload.origin;
-    this.sid = payload.sid;
-    this.smsApplicationSid = payload.sms_application_sid;
-    this.smsFallbackMethod = payload.sms_fallback_method;
-    this.smsFallbackUrl = payload.sms_fallback_url;
-    this.smsMethod = payload.sms_method;
-    this.smsUrl = payload.sms_url;
-    this.statusCallback = payload.status_callback;
-    this.statusCallbackMethod = payload.status_callback_method;
-    this.trunkSid = payload.trunk_sid;
+    this.incomingPhoneNumbers = payload.incoming_phone_numbers;
+    this.end = deserialize.integer(payload.end);
+    this.firstPageUri = payload.first_page_uri;
+    this.nextPageUri = payload.next_page_uri;
+    this.page = deserialize.integer(payload.page);
+    this.pageSize = deserialize.integer(payload.page_size);
+    this.previousPageUri = payload.previous_page_uri;
+    this.start = deserialize.integer(payload.start);
     this.uri = payload.uri;
-    this.voiceReceiveMode = payload.voice_receive_mode;
-    this.voiceApplicationSid = payload.voice_application_sid;
-    this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
-    this.voiceFallbackMethod = payload.voice_fallback_method;
-    this.voiceFallbackUrl = payload.voice_fallback_url;
-    this.voiceMethod = payload.voice_method;
-    this.voiceUrl = payload.voice_url;
-    this.emergencyStatus = payload.emergency_status;
-    this.emergencyAddressSid = payload.emergency_address_sid;
-    this.emergencyAddressStatus = payload.emergency_address_status;
-    this.bundleSid = payload.bundle_sid;
-    this.status = payload.status;
 
   }
 
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The SID of the Address resource associated with the phone number
-   */
-  addressSid?: string | null;
-  addressRequirements?: IncomingPhoneNumberTollFreeAddressRequirement;
-  /**
-   * The API version used to start a new TwiML session
-   */
-  apiVersion?: string | null;
-  /**
-   * Whether the phone number is new to the Twilio platform
-   */
-  beta?: boolean | null;
-  capabilities?: ApiV2010AccountIncomingPhoneNumberCapabilities | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was created
-   */
-  dateCreated?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
-   */
-  dateUpdated?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  friendlyName?: string | null;
-  /**
-   * The SID of the Identity resource associated with number
-   */
-  identitySid?: string | null;
-  /**
-   * The phone number in E.164 format
-   */
-  phoneNumber?: string | null;
-  /**
-   * The phone number\'s origin. Can be twilio or hosted.
-   */
-  origin?: string | null;
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the application that handles SMS messages sent to the phone number
-   */
-  smsApplicationSid?: string | null;
-  /**
-   * The HTTP method used with sms_fallback_url
-   */
-  smsFallbackMethod?: TollFreeSmsFallbackMethod;
-  /**
-   * The URL that we call when an error occurs while retrieving or executing the TwiML
-   */
-  smsFallbackUrl?: string | null;
-  /**
-   * The HTTP method to use with sms_url
-   */
-  smsMethod?: TollFreeSmsMethod;
-  /**
-   * The URL we call when the phone number receives an incoming SMS message
-   */
-  smsUrl?: string | null;
-  /**
-   * The URL to send status information to your application
-   */
-  statusCallback?: string | null;
-  /**
-   * The HTTP method we use to call status_callback
-   */
-  statusCallbackMethod?: TollFreeStatusCallbackMethod;
-  /**
-   * The SID of the Trunk that handles calls to the phone number
-   */
-  trunkSid?: string | null;
-  /**
-   * The URI of the resource, relative to `https://api.twilio.com`
-   */
-  uri?: string | null;
-  voiceReceiveMode?: IncomingPhoneNumberTollFreeVoiceReceiveMode;
-  /**
-   * The SID of the application that handles calls to the phone number
-   */
-  voiceApplicationSid?: string | null;
-  /**
-   * Whether to lookup the caller\'s name
-   */
-  voiceCallerIdLookup?: boolean | null;
-  /**
-   * The HTTP method used with voice_fallback_url
-   */
-  voiceFallbackMethod?: TollFreeVoiceFallbackMethod;
-  /**
-   * The URL we call when an error occurs in TwiML
-   */
-  voiceFallbackUrl?: string | null;
-  /**
-   * The HTTP method used with the voice_url
-   */
-  voiceMethod?: TollFreeVoiceMethod;
-  /**
-   * The URL we call when the phone number receives a call
-   */
-  voiceUrl?: string | null;
-  emergencyStatus?: IncomingPhoneNumberTollFreeEmergencyStatus;
-  /**
-   * The emergency address configuration to use for emergency calling
-   */
-  emergencyAddressSid?: string | null;
-  emergencyAddressStatus?: IncomingPhoneNumberTollFreeEmergencyAddressStatus;
-  /**
-   * The SID of the Bundle resource associated with number
-   */
-  bundleSid?: string | null;
-  status?: string | null;
+  incomingPhoneNumbers?: Array<ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree>;
+  end?: number;
+  firstPageUri?: string;
+  nextPageUri?: string;
+  page?: number;
+  pageSize?: number;
+  previousPageUri?: string;
+  start?: number;
+  uri?: string;
 
   /**
    * Provide a user-friendly representation
@@ -623,40 +580,15 @@ export class TollFreeInstance {
    */
   toJSON() {
     return {
-      accountSid: this.accountSid, 
-      addressSid: this.addressSid, 
-      addressRequirements: this.addressRequirements, 
-      apiVersion: this.apiVersion, 
-      beta: this.beta, 
-      capabilities: this.capabilities, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      identitySid: this.identitySid, 
-      phoneNumber: this.phoneNumber, 
-      origin: this.origin, 
-      sid: this.sid, 
-      smsApplicationSid: this.smsApplicationSid, 
-      smsFallbackMethod: this.smsFallbackMethod, 
-      smsFallbackUrl: this.smsFallbackUrl, 
-      smsMethod: this.smsMethod, 
-      smsUrl: this.smsUrl, 
-      statusCallback: this.statusCallback, 
-      statusCallbackMethod: this.statusCallbackMethod, 
-      trunkSid: this.trunkSid, 
-      uri: this.uri, 
-      voiceReceiveMode: this.voiceReceiveMode, 
-      voiceApplicationSid: this.voiceApplicationSid, 
-      voiceCallerIdLookup: this.voiceCallerIdLookup, 
-      voiceFallbackMethod: this.voiceFallbackMethod, 
-      voiceFallbackUrl: this.voiceFallbackUrl, 
-      voiceMethod: this.voiceMethod, 
-      voiceUrl: this.voiceUrl, 
-      emergencyStatus: this.emergencyStatus, 
-      emergencyAddressSid: this.emergencyAddressSid, 
-      emergencyAddressStatus: this.emergencyAddressStatus, 
-      bundleSid: this.bundleSid, 
-      status: this.status
+      incomingPhoneNumbers: this.incomingPhoneNumbers, 
+      end: this.end, 
+      firstPageUri: this.firstPageUri, 
+      nextPageUri: this.nextPageUri, 
+      page: this.page, 
+      pageSize: this.pageSize, 
+      previousPageUri: this.previousPageUri, 
+      start: this.start, 
+      uri: this.uri
     }
   }
 
@@ -666,32 +598,32 @@ export class TollFreeInstance {
 }
 
 export class TollFreePage extends Page<V2010, TollFreePayload, TollFreeResource, TollFreeInstance> {
-  /**
-   * Initialize the TollFreePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: TollFreeSolution) {
+/**
+* Initialize the TollFreePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: TollFreeSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TollFreeInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TollFreePayload): TollFreeInstance {
+    /**
+    * Build an instance of TollFreeInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TollFreePayload): TollFreeInstance {
     return new TollFreeInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
 

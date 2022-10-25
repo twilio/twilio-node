@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type EsimProfileStatus = 'new'|'reserving'|'available'|'downloaded'|'installed'|'failed';
 
 
@@ -285,7 +287,6 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<EsimProfilePage> {
@@ -326,7 +327,6 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -385,7 +385,6 @@ export class EsimProfileContextImpl implements EsimProfileContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -534,32 +533,32 @@ export class EsimProfileInstance {
 }
 
 export class EsimProfilePage extends Page<V1, EsimProfilePayload, EsimProfileResource, EsimProfileInstance> {
-  /**
-   * Initialize the EsimProfilePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: EsimProfileSolution) {
+/**
+* Initialize the EsimProfilePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: EsimProfileSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of EsimProfileInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EsimProfilePayload): EsimProfileInstance {
+    /**
+    * Build an instance of EsimProfileInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EsimProfilePayload): EsimProfileInstance {
     return new EsimProfileInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

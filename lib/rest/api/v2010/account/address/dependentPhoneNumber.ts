@@ -20,6 +20,109 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+export class ApiV2010AccountAddressDependentPhoneNumber {
+  /**
+   * The unique string that identifies the resource
+   */
+  "sid"?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  "accountSid"?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  "friendlyName"?: string | null;
+  /**
+   * The phone number in E.164 format
+   */
+  "phoneNumber"?: string | null;
+  /**
+   * The URL we call when the phone number receives a call
+   */
+  "voiceUrl"?: string | null;
+  /**
+   * The HTTP method used with the voice_url
+   */
+  "voiceMethod"?: ApiV2010AccountAddressDependentPhoneNumber.VoiceMethodEnum;
+  /**
+   * The HTTP method used with voice_fallback_url
+   */
+  "voiceFallbackMethod"?: ApiV2010AccountAddressDependentPhoneNumber.VoiceFallbackMethodEnum;
+  /**
+   * The URL we call when an error occurs in TwiML
+   */
+  "voiceFallbackUrl"?: string | null;
+  /**
+   * Whether to lookup the caller\'s name
+   */
+  "voiceCallerIdLookup"?: boolean | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was created
+   */
+  "dateCreated"?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was last updated
+   */
+  "dateUpdated"?: string | null;
+  /**
+   * The HTTP method used with sms_fallback_url
+   */
+  "smsFallbackMethod"?: ApiV2010AccountAddressDependentPhoneNumber.SmsFallbackMethodEnum;
+  /**
+   * The URL that we call when an error occurs while retrieving or executing the TwiML
+   */
+  "smsFallbackUrl"?: string | null;
+  /**
+   * The HTTP method to use with sms_url
+   */
+  "smsMethod"?: ApiV2010AccountAddressDependentPhoneNumber.SmsMethodEnum;
+  /**
+   * The URL we call when the phone number receives an incoming SMS message
+   */
+  "smsUrl"?: string | null;
+  "addressRequirements"?: DependentPhoneNumberEnumAddressRequirement;
+  /**
+   * Indicate if a phone can receive calls or messages
+   */
+  "capabilities"?: any | null;
+  /**
+   * The URL to send status information to your application
+   */
+  "statusCallback"?: string | null;
+  /**
+   * The HTTP method we use to call status_callback
+   */
+  "statusCallbackMethod"?: ApiV2010AccountAddressDependentPhoneNumber.StatusCallbackMethodEnum;
+  /**
+   * The API version used to start a new TwiML session
+   */
+  "apiVersion"?: string | null;
+  /**
+   * The SID of the application that handles SMS messages sent to the phone number
+   */
+  "smsApplicationSid"?: string | null;
+  /**
+   * The SID of the application that handles calls to the phone number
+   */
+  "voiceApplicationSid"?: string | null;
+  /**
+   * The SID of the Trunk that handles calls to the phone number
+   */
+  "trunkSid"?: string | null;
+  "emergencyStatus"?: DependentPhoneNumberEnumEmergencyStatus;
+  /**
+   * The emergency address configuration to use for emergency calling
+   */
+  "emergencyAddressSid"?: string | null;
+  /**
+   * The URI of the resource, relative to `https://api.twilio.com`
+   */
+  "uri"?: string | null;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -238,7 +341,6 @@ export function DependentPhoneNumberListInstance(version: V2010, accountSid: str
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -249,4 +351,99 @@ export function DependentPhoneNumberListInstance(version: V2010, accountSid: str
 
   return instance;
 }
+
+interface DependentPhoneNumberPayload extends DependentPhoneNumberResource, Page.TwilioResponsePayload {
+}
+
+interface DependentPhoneNumberResource {
+  dependent_phone_numbers?: Array<ApiV2010AccountAddressDependentPhoneNumber>;
+  end?: number;
+  first_page_uri?: string;
+  next_page_uri?: string;
+  page?: number;
+  page_size?: number;
+  previous_page_uri?: string;
+  start?: number;
+  uri?: string;
+}
+
+export class DependentPhoneNumberInstance {
+
+  constructor(protected _version: V2010, payload: DependentPhoneNumberPayload, accountSid: string, addressSid?: string) {
+    this.dependentPhoneNumbers = payload.dependent_phone_numbers;
+    this.end = deserialize.integer(payload.end);
+    this.firstPageUri = payload.first_page_uri;
+    this.nextPageUri = payload.next_page_uri;
+    this.page = deserialize.integer(payload.page);
+    this.pageSize = deserialize.integer(payload.page_size);
+    this.previousPageUri = payload.previous_page_uri;
+    this.start = deserialize.integer(payload.start);
+    this.uri = payload.uri;
+
+  }
+
+  dependentPhoneNumbers?: Array<ApiV2010AccountAddressDependentPhoneNumber>;
+  end?: number;
+  firstPageUri?: string;
+  nextPageUri?: string;
+  page?: number;
+  pageSize?: number;
+  previousPageUri?: string;
+  start?: number;
+  uri?: string;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      dependentPhoneNumbers: this.dependentPhoneNumbers, 
+      end: this.end, 
+      firstPageUri: this.firstPageUri, 
+      nextPageUri: this.nextPageUri, 
+      page: this.page, 
+      pageSize: this.pageSize, 
+      previousPageUri: this.previousPageUri, 
+      start: this.start, 
+      uri: this.uri
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class DependentPhoneNumberPage extends Page<V2010, DependentPhoneNumberPayload, DependentPhoneNumberResource, DependentPhoneNumberInstance> {
+/**
+* Initialize the DependentPhoneNumberPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: DependentPhoneNumberSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of DependentPhoneNumberInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DependentPhoneNumberPayload): DependentPhoneNumberInstance {
+    return new DependentPhoneNumberInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.addressSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

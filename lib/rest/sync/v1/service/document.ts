@@ -19,7 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { DocumentPermissionListInstance } from "./document/documentPermission";
+
 
 
 /**
@@ -280,7 +282,6 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<DocumentPage> {
@@ -318,7 +319,6 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -415,7 +415,6 @@ export class DocumentContextImpl implements DocumentContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<DocumentInstance> {
@@ -428,7 +427,6 @@ export class DocumentContextImpl implements DocumentContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -458,7 +456,6 @@ export class DocumentContextImpl implements DocumentContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -651,33 +648,33 @@ export class DocumentInstance {
 }
 
 export class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, DocumentInstance> {
-  /**
-   * Initialize the DocumentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: DocumentSolution) {
+/**
+* Initialize the DocumentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DocumentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DocumentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DocumentPayload): DocumentInstance {
+    /**
+    * Build an instance of DocumentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DocumentPayload): DocumentInstance {
     return new DocumentInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

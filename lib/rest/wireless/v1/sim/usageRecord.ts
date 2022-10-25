@@ -20,7 +20,43 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
 type UsageRecordGranularity = 'hourly'|'daily'|'all';
+
+export class WirelessV1SimUsageRecord {
+  /**
+   * The SID of the Sim resource that this Usage Record is for
+   */
+  "simSid"?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  "accountSid"?: string | null;
+  /**
+   * The time period for which the usage is reported
+   */
+  "period"?: any | null;
+  /**
+   * An object that describes the SIM\'s usage of Commands during the specified period
+   */
+  "commands"?: any | null;
+  /**
+   * An object that describes the SIM\'s data usage during the specified period
+   */
+  "data"?: any | null;
+}
+
+
+export class ListAccountUsageRecordResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
 
 /**
  * Options to pass to each
@@ -260,7 +296,6 @@ export function UsageRecordListInstance(version: V1, simSid: string): UsageRecor
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -271,4 +306,70 @@ export function UsageRecordListInstance(version: V1, simSid: string): UsageRecor
 
   return instance;
 }
+
+interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePayload {
+}
+
+interface UsageRecordResource {
+  usage_records?: Array<WirelessV1SimUsageRecord>;
+  meta?: ListAccountUsageRecordResponseMeta;
+}
+
+export class UsageRecordInstance {
+
+  constructor(protected _version: V1, payload: UsageRecordPayload, simSid?: string) {
+    this.usageRecords = payload.usage_records;
+    this.meta = payload.meta;
+
+  }
+
+  usageRecords?: Array<WirelessV1SimUsageRecord>;
+  meta?: ListAccountUsageRecordResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      usageRecords: this.usageRecords, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
+/**
+* Initialize the UsageRecordPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: UsageRecordSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of UsageRecordInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UsageRecordPayload): UsageRecordInstance {
+    return new UsageRecordInstance(
+    this._version,
+    payload,
+        this._solution.simSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

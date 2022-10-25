@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a QueryInstance
  *
@@ -194,7 +196,6 @@ export class QueryContextImpl implements QueryContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<QueryInstance> {
@@ -207,7 +208,6 @@ export class QueryContextImpl implements QueryContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -236,7 +236,6 @@ export class QueryContextImpl implements QueryContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -435,37 +434,6 @@ export class QueryInstance {
   }
 }
 
-export class QueryPage extends Page<V1, QueryPayload, QueryResource, QueryInstance> {
-  /**
-   * Initialize the QueryPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: QuerySolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of QueryInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: QueryPayload): QueryInstance {
-    return new QueryInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface QueryListInstance {
   (sid: string): QueryContext;
@@ -649,7 +617,6 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<QueryPage> {
@@ -693,7 +660,6 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -704,4 +670,35 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
 
   return instance;
 }
+
+
+export class QueryPage extends Page<V1, QueryPayload, QueryResource, QueryInstance> {
+/**
+* Initialize the QueryPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: QuerySolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of QueryInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: QueryPayload): QueryInstance {
+    return new QueryInstance(
+    this._version,
+    payload,
+        this._solution.assistantSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

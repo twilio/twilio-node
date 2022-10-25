@@ -19,9 +19,11 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./customerProfiles/customerProfilesChannelEndpointAssignment";
+
 
 type CustomerProfileStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
 
@@ -307,7 +309,6 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<CustomerProfilesPage> {
@@ -348,7 +349,6 @@ export function CustomerProfilesListInstance(version: V1): CustomerProfilesListI
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -458,7 +458,6 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<CustomerProfilesInstance> {
@@ -471,7 +470,6 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -502,7 +500,6 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -706,32 +703,32 @@ export class CustomerProfilesInstance {
 }
 
 export class CustomerProfilesPage extends Page<V1, CustomerProfilesPayload, CustomerProfilesResource, CustomerProfilesInstance> {
-  /**
-   * Initialize the CustomerProfilesPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: CustomerProfilesSolution) {
+/**
+* Initialize the CustomerProfilesPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: CustomerProfilesSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of CustomerProfilesInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CustomerProfilesPayload): CustomerProfilesInstance {
+    /**
+    * Build an instance of CustomerProfilesInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CustomerProfilesPayload): CustomerProfilesInstance {
     return new CustomerProfilesInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a OriginationUrlInstance
  *
@@ -178,7 +180,6 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<OriginationUrlInstance> {
@@ -191,7 +192,6 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -223,7 +223,6 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -397,37 +396,6 @@ export class OriginationUrlInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class OriginationUrlPage extends Page<V1, OriginationUrlPayload, OriginationUrlResource, OriginationUrlInstance> {
-  /**
-   * Initialize the OriginationUrlPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: OriginationUrlSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of OriginationUrlInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: OriginationUrlPayload): OriginationUrlInstance {
-    return new OriginationUrlInstance(
-      this._version,
-      payload,
-      this._solution.trunkSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -628,7 +596,6 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<OriginationUrlPage> {
@@ -668,7 +635,6 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -679,4 +645,35 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
 
   return instance;
 }
+
+
+export class OriginationUrlPage extends Page<V1, OriginationUrlPayload, OriginationUrlResource, OriginationUrlInstance> {
+/**
+* Initialize the OriginationUrlPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: OriginationUrlSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of OriginationUrlInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: OriginationUrlPayload): OriginationUrlInstance {
+    return new OriginationUrlInstance(
+    this._version,
+    payload,
+        this._solution.trunkSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

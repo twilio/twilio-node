@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a DeploymentInstance
  *
@@ -166,7 +168,6 @@ export class DeploymentContextImpl implements DeploymentContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<DeploymentInstance> {
@@ -179,7 +180,6 @@ export class DeploymentContextImpl implements DeploymentContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -208,7 +208,6 @@ export class DeploymentContextImpl implements DeploymentContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -361,37 +360,6 @@ export class DeploymentInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, DeploymentResource, DeploymentInstance> {
-  /**
-   * Initialize the DeploymentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: DeployedDevices, response: Response<string>, solution: DeploymentSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of DeploymentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DeploymentPayload): DeploymentInstance {
-    return new DeploymentInstance(
-      this._version,
-      payload,
-      this._solution.fleetSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -580,7 +548,6 @@ export function DeploymentListInstance(version: DeployedDevices, fleetSid: strin
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<DeploymentPage> {
@@ -620,7 +587,6 @@ export function DeploymentListInstance(version: DeployedDevices, fleetSid: strin
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -631,4 +597,35 @@ export function DeploymentListInstance(version: DeployedDevices, fleetSid: strin
 
   return instance;
 }
+
+
+export class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, DeploymentResource, DeploymentInstance> {
+/**
+* Initialize the DeploymentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: DeployedDevices, response: Response<string>, solution: DeploymentSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of DeploymentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DeploymentPayload): DeploymentInstance {
+    return new DeploymentInstance(
+    this._version,
+    payload,
+        this._solution.fleetSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

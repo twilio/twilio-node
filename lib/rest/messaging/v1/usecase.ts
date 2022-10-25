@@ -14,117 +14,24 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
+
 export interface UsecaseListInstance {
 
 
+  /**
+   * Fetch a UsecaseInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UsecaseInstance
+   */
+  fetch(callback?: (error: Error | null, item?: UsecaseInstance) => any): Promise<UsecaseInstance>
 
-  /**
-   * Streams UsecaseInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: UsecaseInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams UsecaseInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsecaseListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: UsecaseListInstanceEachOptions, callback?: (item: UsecaseInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of UsecaseInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: UsecasePage) => any): Promise<UsecasePage>;
-  /**
-   * Retrieve a single target page of UsecaseInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UsecasePage) => any): Promise<UsecasePage>;
-  getPage(params?: any, callback?: any): Promise<UsecasePage>;
-  /**
-   * Lists UsecaseInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: UsecaseInstance[]) => any): Promise<UsecaseInstance[]>;
-  /**
-   * Lists UsecaseInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsecaseListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: UsecaseListInstanceOptions, callback?: (error: Error | null, items: UsecaseInstance[]) => any): Promise<UsecaseInstance[]>;
-  list(params?: any, callback?: any): Promise<UsecaseInstance[]>;
-  /**
-   * Retrieve a single page of UsecaseInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: UsecasePage) => any): Promise<UsecasePage>;
-  /**
-   * Retrieve a single page of UsecaseInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsecaseListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: UsecaseListInstancePageOptions, callback?: (error: Error | null, items: UsecasePage) => any): Promise<UsecasePage>;
-  page(params?: any, callback?: any): Promise<UsecasePage>;
 
   /**
    * Provide a user-friendly representation
@@ -151,29 +58,19 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
   instance._solution = {  };
   instance._uri = `/Services/Usecases`;
 
-  instance.page = function page(callback?: any): Promise<UsecasePage> {
+  instance.fetch = function fetch(callback?: any): Promise<UsecaseInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new UsecasePage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new UsecaseInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UsecasePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new UsecasePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -185,4 +82,40 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
 
   return instance;
 }
+
+interface UsecasePayload extends UsecaseResource{
+}
+
+interface UsecaseResource {
+  usecases?: Array<any> | null;
+}
+
+export class UsecaseInstance {
+
+  constructor(protected _version: V1, payload: UsecasePayload) {
+    this.usecases = payload.usecases;
+
+  }
+
+  /**
+   * Human readable Messaging Service Use Case details
+   */
+  usecases?: Array<any> | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      usecases: this.usecases
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

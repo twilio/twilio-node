@@ -20,9 +20,34 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+export class InsightsV1CallMetric {
+  "timestamp"?: string | null;
+  "callSid"?: string | null;
+  "accountSid"?: string | null;
+  "edge"?: MetricEnumTwilioEdge;
+  "direction"?: MetricEnumStreamDirection;
+  "carrierEdge"?: any | null;
+  "sipEdge"?: any | null;
+  "sdkEdge"?: any | null;
+  "clientEdge"?: any | null;
+}
+
+
 type MetricStreamDirection = 'unknown'|'inbound'|'outbound'|'both';
 
 type MetricTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
+
+export class ListCallSummariesResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
 
 /**
  * Options to pass to each
@@ -255,7 +280,6 @@ export function MetricListInstance(version: V1, callSid: string): MetricListInst
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -266,4 +290,70 @@ export function MetricListInstance(version: V1, callSid: string): MetricListInst
 
   return instance;
 }
+
+interface MetricPayload extends MetricResource, Page.TwilioResponsePayload {
+}
+
+interface MetricResource {
+  metrics?: Array<InsightsV1CallMetric>;
+  meta?: ListCallSummariesResponseMeta;
+}
+
+export class MetricInstance {
+
+  constructor(protected _version: V1, payload: MetricPayload, callSid?: string) {
+    this.metrics = payload.metrics;
+    this.meta = payload.meta;
+
+  }
+
+  metrics?: Array<InsightsV1CallMetric>;
+  meta?: ListCallSummariesResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      metrics: this.metrics, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class MetricPage extends Page<V1, MetricPayload, MetricResource, MetricInstance> {
+/**
+* Initialize the MetricPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: MetricSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of MetricInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MetricPayload): MetricInstance {
+    return new MetricInstance(
+    this._version,
+    payload,
+        this._solution.callSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

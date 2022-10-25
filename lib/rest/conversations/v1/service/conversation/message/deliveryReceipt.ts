@@ -20,6 +20,8 @@ import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
+
+
 type ServiceConversationMessageReceiptDeliveryStatus = 'read'|'failed'|'delivered'|'undelivered'|'sent';
 
 /**
@@ -247,7 +249,6 @@ export function DeliveryReceiptListInstance(version: V1, chatServiceSid: string,
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -307,7 +308,6 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -456,35 +456,35 @@ export class DeliveryReceiptInstance {
 }
 
 export class DeliveryReceiptPage extends Page<V1, DeliveryReceiptPayload, DeliveryReceiptResource, DeliveryReceiptInstance> {
-  /**
-   * Initialize the DeliveryReceiptPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: DeliveryReceiptSolution) {
+/**
+* Initialize the DeliveryReceiptPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DeliveryReceiptSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DeliveryReceiptInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DeliveryReceiptPayload): DeliveryReceiptInstance {
+    /**
+    * Build an instance of DeliveryReceiptInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DeliveryReceiptPayload): DeliveryReceiptInstance {
     return new DeliveryReceiptInstance(
-      this._version,
-      payload,
-      this._solution.chatServiceSid,
-      this._solution.conversationSid,
-      this._solution.messageSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.chatServiceSid,
+        this._solution.conversationSid,
+        this._solution.messageSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

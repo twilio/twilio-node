@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a TrustProductsChannelEndpointAssignmentInstance
  *
@@ -147,7 +149,6 @@ export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustP
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<TrustProductsChannelEndpointAssignmentInstance> {
@@ -160,7 +161,6 @@ export class TrustProductsChannelEndpointAssignmentContextImpl implements TrustP
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -284,37 +284,6 @@ export class TrustProductsChannelEndpointAssignmentInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class TrustProductsChannelEndpointAssignmentPage extends Page<V1, TrustProductsChannelEndpointAssignmentPayload, TrustProductsChannelEndpointAssignmentResource, TrustProductsChannelEndpointAssignmentInstance> {
-  /**
-   * Initialize the TrustProductsChannelEndpointAssignmentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: TrustProductsChannelEndpointAssignmentSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of TrustProductsChannelEndpointAssignmentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TrustProductsChannelEndpointAssignmentPayload): TrustProductsChannelEndpointAssignmentInstance {
-    return new TrustProductsChannelEndpointAssignmentInstance(
-      this._version,
-      payload,
-      this._solution.trustProductSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -500,7 +469,6 @@ export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, 
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<TrustProductsChannelEndpointAssignmentPage> {
@@ -542,7 +510,6 @@ export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, 
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -553,4 +520,35 @@ export function TrustProductsChannelEndpointAssignmentListInstance(version: V1, 
 
   return instance;
 }
+
+
+export class TrustProductsChannelEndpointAssignmentPage extends Page<V1, TrustProductsChannelEndpointAssignmentPayload, TrustProductsChannelEndpointAssignmentResource, TrustProductsChannelEndpointAssignmentInstance> {
+/**
+* Initialize the TrustProductsChannelEndpointAssignmentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TrustProductsChannelEndpointAssignmentSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of TrustProductsChannelEndpointAssignmentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TrustProductsChannelEndpointAssignmentPayload): TrustProductsChannelEndpointAssignmentInstance {
+    return new TrustProductsChannelEndpointAssignmentInstance(
+    this._version,
+    payload,
+        this._solution.trustProductSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

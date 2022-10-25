@@ -25,6 +25,8 @@ import { TaskStatisticsListInstance } from "./task/taskStatistics";
 import { TaskActionsListInstance } from "./task/taskActions";
 
 
+
+
 /**
  * Options to pass to update a TaskInstance
  *
@@ -206,7 +208,6 @@ export class TaskContextImpl implements TaskContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<TaskInstance> {
@@ -219,7 +220,6 @@ export class TaskContextImpl implements TaskContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -250,7 +250,6 @@ export class TaskContextImpl implements TaskContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -443,37 +442,6 @@ export class TaskInstance {
   }
 }
 
-export class TaskPage extends Page<Understand, TaskPayload, TaskResource, TaskInstance> {
-  /**
-   * Initialize the TaskPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Understand, response: Response<string>, solution: TaskSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of TaskInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TaskPayload): TaskInstance {
-    return new TaskInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface TaskListInstance {
   (sid: string): TaskContext;
@@ -653,7 +621,6 @@ export function TaskListInstance(version: Understand, assistantSid: string): Tas
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<TaskPage> {
@@ -693,7 +660,6 @@ export function TaskListInstance(version: Understand, assistantSid: string): Tas
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -704,4 +670,35 @@ export function TaskListInstance(version: Understand, assistantSid: string): Tas
 
   return instance;
 }
+
+
+export class TaskPage extends Page<Understand, TaskPayload, TaskResource, TaskInstance> {
+/**
+* Initialize the TaskPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Understand, response: Response<string>, solution: TaskSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of TaskInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TaskPayload): TaskInstance {
+    return new TaskInstance(
+    this._version,
+    payload,
+        this._solution.assistantSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

@@ -19,9 +19,11 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { NewFactorListInstance } from "./entity/newFactor";
 import { FactorListInstance } from "./entity/factor";
 import { ChallengeListInstance } from "./entity/challenge";
+
 
 
 /**
@@ -256,7 +258,6 @@ export function EntityListInstance(version: V2, serviceSid: string): EntityListI
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<EntityPage> {
@@ -294,7 +295,6 @@ export function EntityListInstance(version: V2, serviceSid: string): EntityListI
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -385,7 +385,6 @@ export class EntityContextImpl implements EntityContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<EntityInstance> {
@@ -398,7 +397,6 @@ export class EntityContextImpl implements EntityContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -555,33 +553,33 @@ export class EntityInstance {
 }
 
 export class EntityPage extends Page<V2, EntityPayload, EntityResource, EntityInstance> {
-  /**
-   * Initialize the EntityPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: EntitySolution) {
+/**
+* Initialize the EntityPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: EntitySolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of EntityInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EntityPayload): EntityInstance {
+    /**
+    * Build an instance of EntityInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EntityPayload): EntityInstance {
     return new EntityInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.identity,
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

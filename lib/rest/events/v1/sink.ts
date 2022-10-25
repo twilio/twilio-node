@@ -19,8 +19,10 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
+
 
 type SinkStatus = 'initialized'|'validating'|'active'|'failed';
 
@@ -293,7 +295,6 @@ export function SinkListInstance(version: V1): SinkListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SinkPage> {
@@ -333,7 +334,6 @@ export function SinkListInstance(version: V1): SinkListInstance {
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -428,7 +428,6 @@ export class SinkContextImpl implements SinkContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SinkInstance> {
@@ -441,7 +440,6 @@ export class SinkContextImpl implements SinkContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -470,7 +468,6 @@ export class SinkContextImpl implements SinkContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -635,32 +632,32 @@ export class SinkInstance {
 }
 
 export class SinkPage extends Page<V1, SinkPayload, SinkResource, SinkInstance> {
-  /**
-   * Initialize the SinkPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SinkSolution) {
+/**
+* Initialize the SinkPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SinkSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SinkInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SinkPayload): SinkInstance {
+    /**
+    * Build an instance of SinkInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SinkPayload): SinkInstance {
     return new SinkInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

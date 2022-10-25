@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 
 /**
@@ -97,7 +96,6 @@ export function SinkValidateListInstance(version: V1, sid: string): SinkValidate
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -111,7 +109,7 @@ export function SinkValidateListInstance(version: V1, sid: string): SinkValidate
   return instance;
 }
 
-interface SinkValidatePayload extends SinkValidateResource, Page.TwilioResponsePayload {
+interface SinkValidatePayload extends SinkValidateResource{
 }
 
 interface SinkValidateResource {
@@ -146,33 +144,4 @@ export class SinkValidateInstance {
   }
 }
 
-export class SinkValidatePage extends Page<V1, SinkValidatePayload, SinkValidateResource, SinkValidateInstance> {
-  /**
-   * Initialize the SinkValidatePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SinkValidateSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SinkValidateInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SinkValidatePayload): SinkValidateInstance {
-    return new SinkValidateInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

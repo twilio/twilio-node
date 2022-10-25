@@ -14,145 +14,52 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
 /**
- * Options to pass to create a AssistantFallbackActionsInstance
+ * Options to pass to update a AssistantFallbackActionsInstance
  *
  * @property { any } [fallbackActions] 
  */
-export interface AssistantFallbackActionsListInstanceCreateOptions {
+export interface AssistantFallbackActionsListInstanceUpdateOptions {
   fallbackActions?: any;
 }
 
 export interface AssistantFallbackActionsListInstance {
 
 
-
   /**
-   * Streams AssistantFallbackActionsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: AssistantFallbackActionsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams AssistantFallbackActionsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AssistantFallbackActionsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: AssistantFallbackActionsListInstanceEachOptions, callback?: (item: AssistantFallbackActionsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of AssistantFallbackActionsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: AssistantFallbackActionsPage) => any): Promise<AssistantFallbackActionsPage>;
-  /**
-   * Retrieve a single target page of AssistantFallbackActionsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssistantFallbackActionsPage) => any): Promise<AssistantFallbackActionsPage>;
-  getPage(params?: any, callback?: any): Promise<AssistantFallbackActionsPage>;
-  /**
-   * Lists AssistantFallbackActionsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: AssistantFallbackActionsInstance[]) => any): Promise<AssistantFallbackActionsInstance[]>;
-  /**
-   * Lists AssistantFallbackActionsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AssistantFallbackActionsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: AssistantFallbackActionsListInstanceOptions, callback?: (error: Error | null, items: AssistantFallbackActionsInstance[]) => any): Promise<AssistantFallbackActionsInstance[]>;
-  list(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance[]>;
-  /**
-   * Retrieve a single page of AssistantFallbackActionsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: AssistantFallbackActionsPage) => any): Promise<AssistantFallbackActionsPage>;
-  /**
-   * Retrieve a single page of AssistantFallbackActionsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AssistantFallbackActionsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: AssistantFallbackActionsListInstancePageOptions, callback?: (error: Error | null, items: AssistantFallbackActionsPage) => any): Promise<AssistantFallbackActionsPage>;
-  page(params?: any, callback?: any): Promise<AssistantFallbackActionsPage>;
-
-  /**
-   * Create a AssistantFallbackActionsInstance
+   * Fetch a AssistantFallbackActionsInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
    */
-  create(callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
+  fetch(callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>
+
+
   /**
-   * Create a AssistantFallbackActionsInstance
+   * Update a AssistantFallbackActionsInstance
    *
-   * @param { AssistantFallbackActionsListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
    */
-  create(params: AssistantFallbackActionsListInstanceCreateOptions, callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
-  create(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance>
+  update(callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
+  /**
+   * Update a AssistantFallbackActionsInstance
+   *
+   * @param { AssistantFallbackActionsListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssistantFallbackActionsInstance
+   */
+  update(params: AssistantFallbackActionsListInstanceUpdateOptions, callback?: (error: Error | null, item?: AssistantFallbackActionsInstance) => any): Promise<AssistantFallbackActionsInstance>;
+  update(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance>
 
 
   /**
@@ -181,31 +88,21 @@ export function AssistantFallbackActionsListInstance(version: Understand, assist
   instance._solution = { assistantSid };
   instance._uri = `/Assistants/${assistantSid}/FallbackActions`;
 
-  instance.page = function page(callback?: any): Promise<AssistantFallbackActionsPage> {
+  instance.fetch = function fetch(callback?: any): Promise<AssistantFallbackActionsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new AssistantFallbackActionsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new AssistantFallbackActionsInstance(operationVersion, payload, this._solution.assistantSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssistantFallbackActionsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new AssistantFallbackActionsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<AssistantFallbackActionsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -221,14 +118,13 @@ export function AssistantFallbackActionsListInstance(version: Understand, assist
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AssistantFallbackActionsInstance(operationVersion, payload, this._solution.assistantSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -244,7 +140,7 @@ export function AssistantFallbackActionsListInstance(version: Understand, assist
   return instance;
 }
 
-interface AssistantFallbackActionsPayload extends AssistantFallbackActionsResource, Page.TwilioResponsePayload {
+interface AssistantFallbackActionsPayload extends AssistantFallbackActionsResource{
 }
 
 interface AssistantFallbackActionsResource {
@@ -288,33 +184,4 @@ export class AssistantFallbackActionsInstance {
   }
 }
 
-export class AssistantFallbackActionsPage extends Page<Understand, AssistantFallbackActionsPayload, AssistantFallbackActionsResource, AssistantFallbackActionsInstance> {
-  /**
-   * Initialize the AssistantFallbackActionsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Understand, response: Response<string>, solution: AssistantFallbackActionsSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AssistantFallbackActionsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AssistantFallbackActionsPayload): AssistantFallbackActionsInstance {
-    return new AssistantFallbackActionsInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

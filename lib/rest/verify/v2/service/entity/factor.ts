@@ -20,6 +20,8 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type FactorFactorStatuses = 'unverified'|'verified';
 
 type FactorFactorTypes = 'push'|'totp';
@@ -275,7 +277,6 @@ export function FactorListInstance(version: V2, serviceSid: string, identity: st
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -364,7 +365,6 @@ export class FactorContextImpl implements FactorContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<FactorInstance> {
@@ -377,7 +377,6 @@ export class FactorContextImpl implements FactorContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -413,7 +412,6 @@ export class FactorContextImpl implements FactorContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -600,34 +598,34 @@ export class FactorInstance {
 }
 
 export class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorInstance> {
-  /**
-   * Initialize the FactorPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: FactorSolution) {
+/**
+* Initialize the FactorPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: FactorSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of FactorInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FactorPayload): FactorInstance {
+    /**
+    * Build an instance of FactorInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FactorPayload): FactorInstance {
     return new FactorInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.identity,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.identity,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

@@ -20,6 +20,8 @@ import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -257,7 +259,6 @@ export function SyncMapPermissionListInstance(version: Sync, serviceSid: string,
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -338,7 +339,6 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SyncMapPermissionInstance> {
@@ -351,7 +351,6 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -390,7 +389,6 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -540,34 +538,34 @@ export class SyncMapPermissionInstance {
 }
 
 export class SyncMapPermissionPage extends Page<Sync, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {
-  /**
-   * Initialize the SyncMapPermissionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Sync, response: Response<string>, solution: SyncMapPermissionSolution) {
+/**
+* Initialize the SyncMapPermissionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Sync, response: Response<string>, solution: SyncMapPermissionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SyncMapPermissionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SyncMapPermissionPayload): SyncMapPermissionInstance {
+    /**
+    * Build an instance of SyncMapPermissionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SyncMapPermissionPayload): SyncMapPermissionInstance {
     return new SyncMapPermissionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.mapSid,
-      this._solution.identity,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.mapSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

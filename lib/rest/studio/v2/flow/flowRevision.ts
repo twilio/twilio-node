@@ -20,6 +20,8 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type FlowRevisionStatus = 'draft'|'published';
 
 /**
@@ -116,7 +118,6 @@ export class FlowRevisionContextImpl implements FlowRevisionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -260,37 +261,6 @@ export class FlowRevisionInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class FlowRevisionPage extends Page<V2, FlowRevisionPayload, FlowRevisionResource, FlowRevisionInstance> {
-  /**
-   * Initialize the FlowRevisionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: FlowRevisionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of FlowRevisionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FlowRevisionPayload): FlowRevisionInstance {
-    return new FlowRevisionInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-      this._solution.revision,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -470,7 +440,6 @@ export function FlowRevisionListInstance(version: V2, sid: string): FlowRevision
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -481,4 +450,35 @@ export function FlowRevisionListInstance(version: V2, sid: string): FlowRevision
 
   return instance;
 }
+
+
+export class FlowRevisionPage extends Page<V2, FlowRevisionPayload, FlowRevisionResource, FlowRevisionInstance> {
+/**
+* Initialize the FlowRevisionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: FlowRevisionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of FlowRevisionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FlowRevisionPayload): FlowRevisionInstance {
+    return new FlowRevisionInstance(
+    this._version,
+    payload,
+        this._solution.sid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

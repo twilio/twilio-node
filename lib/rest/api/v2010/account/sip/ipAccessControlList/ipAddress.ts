@@ -21,6 +21,8 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a IpAddressInstance
  *
@@ -171,7 +173,6 @@ export class IpAddressContextImpl implements IpAddressContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<IpAddressInstance> {
@@ -184,7 +185,6 @@ export class IpAddressContextImpl implements IpAddressContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -214,7 +214,6 @@ export class IpAddressContextImpl implements IpAddressContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -374,38 +373,6 @@ export class IpAddressInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class IpAddressPage extends Page<V2010, IpAddressPayload, IpAddressResource, IpAddressInstance> {
-  /**
-   * Initialize the IpAddressPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: IpAddressSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of IpAddressInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: IpAddressPayload): IpAddressInstance {
-    return new IpAddressInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.ipAccessControlListSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -593,7 +560,6 @@ export function IpAddressListInstance(version: V2010, accountSid: string, ipAcce
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<IpAddressPage> {
@@ -633,7 +599,6 @@ export function IpAddressListInstance(version: V2010, accountSid: string, ipAcce
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -644,4 +609,36 @@ export function IpAddressListInstance(version: V2010, accountSid: string, ipAcce
 
   return instance;
 }
+
+
+export class IpAddressPage extends Page<V2010, IpAddressPayload, IpAddressResource, IpAddressInstance> {
+/**
+* Initialize the IpAddressPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: IpAddressSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of IpAddressInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: IpAddressPayload): IpAddressInstance {
+    return new IpAddressInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.ipAccessControlListSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

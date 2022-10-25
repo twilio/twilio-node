@@ -14,17 +14,17 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { SettingListInstance } from "./call/setting";
 import { CallSummariesListInstance } from "./call/callSummaries";
+
 import { CallSummaryListInstance } from "./call/callSummary";
 import { EventListInstance } from "./call/event";
 import { MetricListInstance } from "./call/metric";
 import { AnnotationListInstance } from "./call/annotation";
+
 
 
 export interface CallListInstance {
@@ -169,7 +169,6 @@ export class CallContextImpl implements CallContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -186,7 +185,7 @@ export class CallContextImpl implements CallContext {
   }
 }
 
-interface CallPayload extends CallResource, Page.TwilioResponsePayload {
+interface CallPayload extends CallResource{
 }
 
 interface CallResource {
@@ -274,33 +273,5 @@ export class CallInstance {
   }
 }
 
-export class CallPage extends Page<V1, CallPayload, CallResource, CallInstance> {
-  /**
-   * Initialize the CallPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: CallSolution) {
-    super(version, response, solution);
-  }
 
-  /**
-   * Build an instance of CallInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CallPayload): CallInstance {
-    return new CallInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

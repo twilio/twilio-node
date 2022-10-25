@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 
 
 /**
@@ -55,107 +54,15 @@ export interface RecordingSettingsListInstance {
   create(params: any, callback?: any): Promise<RecordingSettingsInstance>
 
 
+  /**
+   * Fetch a RecordingSettingsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RecordingSettingsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>
 
-  /**
-   * Streams RecordingSettingsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: RecordingSettingsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams RecordingSettingsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingSettingsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: RecordingSettingsListInstanceEachOptions, callback?: (item: RecordingSettingsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of RecordingSettingsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: RecordingSettingsPage) => any): Promise<RecordingSettingsPage>;
-  /**
-   * Retrieve a single target page of RecordingSettingsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: RecordingSettingsPage) => any): Promise<RecordingSettingsPage>;
-  getPage(params?: any, callback?: any): Promise<RecordingSettingsPage>;
-  /**
-   * Lists RecordingSettingsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: RecordingSettingsInstance[]) => any): Promise<RecordingSettingsInstance[]>;
-  /**
-   * Lists RecordingSettingsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingSettingsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: RecordingSettingsListInstanceOptions, callback?: (error: Error | null, items: RecordingSettingsInstance[]) => any): Promise<RecordingSettingsInstance[]>;
-  list(params?: any, callback?: any): Promise<RecordingSettingsInstance[]>;
-  /**
-   * Retrieve a single page of RecordingSettingsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: RecordingSettingsPage) => any): Promise<RecordingSettingsPage>;
-  /**
-   * Retrieve a single page of RecordingSettingsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingSettingsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: RecordingSettingsListInstancePageOptions, callback?: (error: Error | null, items: RecordingSettingsPage) => any): Promise<RecordingSettingsPage>;
-  page(params?: any, callback?: any): Promise<RecordingSettingsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -213,32 +120,21 @@ export function RecordingSettingsListInstance(version: V1): RecordingSettingsLis
     return operationPromise;
 
 
-
     }
 
-  instance.page = function page(callback?: any): Promise<RecordingSettingsPage> {
+  instance.fetch = function fetch(callback?: any): Promise<RecordingSettingsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new RecordingSettingsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new RecordingSettingsInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RecordingSettingsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new RecordingSettingsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -251,7 +147,7 @@ export function RecordingSettingsListInstance(version: V1): RecordingSettingsLis
   return instance;
 }
 
-interface RecordingSettingsPayload extends RecordingSettingsResource, Page.TwilioResponsePayload {
+interface RecordingSettingsPayload extends RecordingSettingsResource{
 }
 
 interface RecordingSettingsResource {
@@ -335,32 +231,4 @@ export class RecordingSettingsInstance {
   }
 }
 
-export class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsInstance> {
-  /**
-   * Initialize the RecordingSettingsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: RecordingSettingsSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of RecordingSettingsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RecordingSettingsPayload): RecordingSettingsInstance {
-    return new RecordingSettingsInstance(
-      this._version,
-      payload,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

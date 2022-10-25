@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type SyncMapItemQueryResultOrder = 'asc'|'desc';
 
 type SyncMapItemQueryFromBoundType = 'inclusive'|'exclusive';
@@ -232,7 +234,6 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SyncMapItemInstance> {
@@ -245,7 +246,6 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -277,7 +277,6 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -461,38 +460,6 @@ export class SyncMapItemInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
-  /**
-   * Initialize the SyncMapItemPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SyncMapItemSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SyncMapItemInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SyncMapItemPayload): SyncMapItemInstance {
-    return new SyncMapItemInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.mapSid,
-      this._solution.key,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -682,7 +649,6 @@ export function SyncMapItemListInstance(version: V1, serviceSid: string, mapSid:
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SyncMapItemPage> {
@@ -725,7 +691,6 @@ export function SyncMapItemListInstance(version: V1, serviceSid: string, mapSid:
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -736,4 +701,36 @@ export function SyncMapItemListInstance(version: V1, serviceSid: string, mapSid:
 
   return instance;
 }
+
+
+export class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
+/**
+* Initialize the SyncMapItemPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SyncMapItemSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SyncMapItemInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SyncMapItemPayload): SyncMapItemInstance {
+    return new SyncMapItemInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.mapSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

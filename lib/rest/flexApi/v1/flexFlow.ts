@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type FlexFlowIntegrationType = 'studio'|'external'|'task';
 
 type FlexFlowChannelType = 'web'|'sms'|'facebook'|'whatsapp'|'line'|'custom';
@@ -235,7 +237,6 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<FlexFlowInstance> {
@@ -248,7 +249,6 @@ export class FlexFlowContextImpl implements FlexFlowContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -292,7 +292,6 @@ export class FlexFlowContextImpl implements FlexFlowContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -481,36 +480,6 @@ export class FlexFlowInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class FlexFlowPage extends Page<V1, FlexFlowPayload, FlexFlowResource, FlexFlowInstance> {
-  /**
-   * Initialize the FlexFlowPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: FlexFlowSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of FlexFlowInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FlexFlowPayload): FlexFlowInstance {
-    return new FlexFlowInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -714,7 +683,6 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<FlexFlowPage> {
@@ -755,7 +723,6 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -766,4 +733,34 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
 
   return instance;
 }
+
+
+export class FlexFlowPage extends Page<V1, FlexFlowPayload, FlexFlowResource, FlexFlowInstance> {
+/**
+* Initialize the FlexFlowPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: FlexFlowSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of FlexFlowInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FlexFlowPayload): FlexFlowInstance {
+    return new FlexFlowInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

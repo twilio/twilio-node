@@ -20,6 +20,66 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+export class SupersimV1UsageRecord {
+  /**
+   * The SID of the Account that incurred the usage.
+   */
+  "accountSid"?: string | null;
+  /**
+   * SID of a Sim resource to which the UsageRecord belongs.
+   */
+  "simSid"?: string | null;
+  /**
+   * SID of the Network resource on which the usage occurred.
+   */
+  "networkSid"?: string | null;
+  /**
+   * SID of the Fleet resource on which the usage occurred.
+   */
+  "fleetSid"?: string | null;
+  /**
+   * Alpha-2 ISO Country Code of the country the usage occurred in.
+   */
+  "isoCountry"?: string | null;
+  /**
+   * The time period for which the usage is reported.
+   */
+  "period"?: any | null;
+  /**
+   * Total data uploaded in bytes, aggregated by the query parameters.
+   */
+  "dataUpload"?: number | null;
+  /**
+   * Total data downloaded in bytes, aggregated by the query parameters.
+   */
+  "dataDownload"?: number | null;
+  /**
+   * Total of data_upload and data_download.
+   */
+  "dataTotal"?: number | null;
+  /**
+   * Total amount in the `billed_unit` that was charged for the data uploaded or downloaded.
+   */
+  "dataTotalBilled"?: number | null;
+  /**
+   * The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`).
+   */
+  "billedUnit"?: string | null;
+}
+
+
+export class ListBillingPeriodResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 type UsageRecordGranularity = 'hour'|'day'|'all';
 
 type UsageRecordGroup = 'sim'|'fleet'|'network'|'isoCountry';
@@ -296,7 +356,6 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -307,4 +366,69 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
 
   return instance;
 }
+
+interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePayload {
+}
+
+interface UsageRecordResource {
+  usage_records?: Array<SupersimV1UsageRecord>;
+  meta?: ListBillingPeriodResponseMeta;
+}
+
+export class UsageRecordInstance {
+
+  constructor(protected _version: V1, payload: UsageRecordPayload) {
+    this.usageRecords = payload.usage_records;
+    this.meta = payload.meta;
+
+  }
+
+  usageRecords?: Array<SupersimV1UsageRecord>;
+  meta?: ListBillingPeriodResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      usageRecords: this.usageRecords, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
+/**
+* Initialize the UsageRecordPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: UsageRecordSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of UsageRecordInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UsageRecordPayload): UsageRecordInstance {
+    return new UsageRecordInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

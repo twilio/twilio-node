@@ -14,14 +14,14 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 /**
- * Options to pass to each
+ * Options to pass to fetch a WorkersStatisticsInstance
  *
  * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
  * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -30,16 +30,8 @@ const serialize = require("../../../../../base/serialize");
  * @property { string } [taskQueueName] The &#x60;friendly_name&#x60; of the TaskQueue for which to fetch Worker statistics.
  * @property { string } [friendlyName] Only include Workers with &#x60;friendly_name&#x60; values that match this parameter.
  * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface WorkersStatisticsListInstanceEachOptions {
+export interface WorkersStatisticsListInstanceFetchOptions {
   minutes?: number;
   startDate?: Date;
   endDate?: Date;
@@ -47,168 +39,30 @@ export interface WorkersStatisticsListInstanceEachOptions {
   taskQueueName?: string;
   friendlyName?: string;
   taskChannel?: string;
-  callback?: (item: WorkersStatisticsInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
 }
-
-/**
- * Options to pass to list
- *
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [taskQueueSid] The SID of the TaskQueue for which to fetch Worker statistics.
- * @property { string } [taskQueueName] The &#x60;friendly_name&#x60; of the TaskQueue for which to fetch Worker statistics.
- * @property { string } [friendlyName] Only include Workers with &#x60;friendly_name&#x60; values that match this parameter.
- * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface WorkersStatisticsListInstanceOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskQueueSid?: string;
-  taskQueueName?: string;
-  friendlyName?: string;
-  taskChannel?: string;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [taskQueueSid] The SID of the TaskQueue for which to fetch Worker statistics.
- * @property { string } [taskQueueName] The &#x60;friendly_name&#x60; of the TaskQueue for which to fetch Worker statistics.
- * @property { string } [friendlyName] Only include Workers with &#x60;friendly_name&#x60; values that match this parameter.
- * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface WorkersStatisticsListInstancePageOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskQueueSid?: string;
-  taskQueueName?: string;
-  friendlyName?: string;
-  taskChannel?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface WorkersStatisticsListInstance {
 
 
+  /**
+   * Fetch a WorkersStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
+  /**
+   * Fetch a WorkersStatisticsInstance
+   *
+   * @param { WorkersStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersStatisticsInstance
+   */
+  fetch(params: WorkersStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<WorkersStatisticsInstance>
 
-  /**
-   * Streams WorkersStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: WorkersStatisticsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams WorkersStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkersStatisticsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: WorkersStatisticsListInstanceEachOptions, callback?: (item: WorkersStatisticsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of WorkersStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: WorkersStatisticsPage) => any): Promise<WorkersStatisticsPage>;
-  /**
-   * Retrieve a single target page of WorkersStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkersStatisticsPage) => any): Promise<WorkersStatisticsPage>;
-  getPage(params?: any, callback?: any): Promise<WorkersStatisticsPage>;
-  /**
-   * Lists WorkersStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: WorkersStatisticsInstance[]) => any): Promise<WorkersStatisticsInstance[]>;
-  /**
-   * Lists WorkersStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkersStatisticsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: WorkersStatisticsListInstanceOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance[]) => any): Promise<WorkersStatisticsInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkersStatisticsInstance[]>;
-  /**
-   * Retrieve a single page of WorkersStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: WorkersStatisticsPage) => any): Promise<WorkersStatisticsPage>;
-  /**
-   * Retrieve a single page of WorkersStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkersStatisticsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: WorkersStatisticsListInstancePageOptions, callback?: (error: Error | null, items: WorkersStatisticsPage) => any): Promise<WorkersStatisticsPage>;
-  page(params?: any, callback?: any): Promise<WorkersStatisticsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -236,7 +90,7 @@ export function WorkersStatisticsListInstance(version: V1, workspaceSid: string)
   instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/Workers/Statistics`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<WorkersStatisticsPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<WorkersStatisticsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -253,32 +107,20 @@ export function WorkersStatisticsListInstance(version: V1, workspaceSid: string)
     if (params.taskQueueName !== undefined) data['TaskQueueName'] = params.taskQueueName;
     if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
     if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new WorkersStatisticsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new WorkersStatisticsInstance(operationVersion, payload, this._solution.workspaceSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkersStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new WorkersStatisticsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -290,4 +132,68 @@ export function WorkersStatisticsListInstance(version: V1, workspaceSid: string)
 
   return instance;
 }
+
+interface WorkersStatisticsPayload extends WorkersStatisticsResource{
+}
+
+interface WorkersStatisticsResource {
+  realtime?: any | null;
+  cumulative?: any | null;
+  account_sid?: string | null;
+  workspace_sid?: string | null;
+  url?: string | null;
+}
+
+export class WorkersStatisticsInstance {
+
+  constructor(protected _version: V1, payload: WorkersStatisticsPayload, workspaceSid?: string) {
+    this.realtime = payload.realtime;
+    this.cumulative = payload.cumulative;
+    this.accountSid = payload.account_sid;
+    this.workspaceSid = payload.workspace_sid;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * An object that contains the real-time statistics for the Worker
+   */
+  realtime?: any | null;
+  /**
+   * An object that contains the cumulative statistics for the Worker
+   */
+  cumulative?: any | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Workspace that contains the Worker
+   */
+  workspaceSid?: string | null;
+  /**
+   * The absolute URL of the Worker statistics resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      realtime: this.realtime, 
+      cumulative: this.cumulative, 
+      accountSid: this.accountSid, 
+      workspaceSid: this.workspaceSid, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

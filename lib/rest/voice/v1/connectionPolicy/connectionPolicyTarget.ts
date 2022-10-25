@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a ConnectionPolicyTargetInstance
  *
@@ -178,7 +180,6 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ConnectionPolicyTargetInstance> {
@@ -191,7 +192,6 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -223,7 +223,6 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -397,37 +396,6 @@ export class ConnectionPolicyTargetInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class ConnectionPolicyTargetPage extends Page<V1, ConnectionPolicyTargetPayload, ConnectionPolicyTargetResource, ConnectionPolicyTargetInstance> {
-  /**
-   * Initialize the ConnectionPolicyTargetPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ConnectionPolicyTargetSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ConnectionPolicyTargetInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConnectionPolicyTargetPayload): ConnectionPolicyTargetInstance {
-    return new ConnectionPolicyTargetInstance(
-      this._version,
-      payload,
-      this._solution.connectionPolicySid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -612,7 +580,6 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ConnectionPolicyTargetPage> {
@@ -652,7 +619,6 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -663,4 +629,35 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
 
   return instance;
 }
+
+
+export class ConnectionPolicyTargetPage extends Page<V1, ConnectionPolicyTargetPayload, ConnectionPolicyTargetResource, ConnectionPolicyTargetInstance> {
+/**
+* Initialize the ConnectionPolicyTargetPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ConnectionPolicyTargetSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of ConnectionPolicyTargetInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ConnectionPolicyTargetPayload): ConnectionPolicyTargetInstance {
+    return new ConnectionPolicyTargetInstance(
+    this._version,
+    payload,
+        this._solution.connectionPolicySid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

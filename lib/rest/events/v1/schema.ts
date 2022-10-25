@@ -14,12 +14,12 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { SchemaVersionListInstance } from "./schema/schemaVersion";
+
 
 
 export interface SchemaListInstance {
@@ -121,7 +121,6 @@ export class SchemaContextImpl implements SchemaContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -138,7 +137,7 @@ export class SchemaContextImpl implements SchemaContext {
   }
 }
 
-interface SchemaPayload extends SchemaResource, Page.TwilioResponsePayload {
+interface SchemaPayload extends SchemaResource{
 }
 
 interface SchemaResource {
@@ -228,33 +227,5 @@ export class SchemaInstance {
   }
 }
 
-export class SchemaPage extends Page<V1, SchemaPayload, SchemaResource, SchemaInstance> {
-  /**
-   * Initialize the SchemaPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SchemaSolution) {
-    super(version, response, solution);
-  }
 
-  /**
-   * Build an instance of SchemaInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SchemaPayload): SchemaInstance {
-    return new SchemaInstance(
-      this._version,
-      payload,
-      this._solution.id,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

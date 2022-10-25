@@ -23,6 +23,8 @@ import { ParticipantListInstance } from "./room/participant";
 import { RecordingRulesListInstance } from "./room/recordingRules";
 import { RoomRecordingListInstance } from "./room/roomRecording";
 
+
+
 type RoomRoomType = 'go'|'peer-to-peer'|'group'|'group-small';
 
 type RoomVideoCodec = 'VP8'|'H264';
@@ -227,7 +229,6 @@ export class RoomContextImpl implements RoomContext {
     return operationPromise;
 
 
-
   }
 
   update(params: any, callback?: any): Promise<RoomInstance> {
@@ -254,7 +255,6 @@ export class RoomContextImpl implements RoomContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -519,36 +519,6 @@ export class RoomInstance {
   }
 }
 
-export class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance> {
-  /**
-   * Initialize the RoomPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: RoomSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of RoomInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RoomPayload): RoomInstance {
-    return new RoomInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface RoomListInstance {
   (sid: string): RoomContext;
@@ -745,7 +715,6 @@ export function RoomListInstance(version: V1): RoomListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<RoomPage> {
@@ -789,7 +758,6 @@ export function RoomListInstance(version: V1): RoomListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -800,4 +768,34 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
   return instance;
 }
+
+
+export class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance> {
+/**
+* Initialize the RoomPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: RoomSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of RoomInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RoomPayload): RoomInstance {
+    return new RoomInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

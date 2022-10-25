@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 
 
 export interface SecondaryAuthTokenListInstance {
@@ -35,13 +34,13 @@ export interface SecondaryAuthTokenListInstance {
 
 
   /**
-   *  a SecondaryAuthTokenInstance
+   * Remove a SecondaryAuthTokenInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
-   * @returns { Promise } Resolves to processed SecondaryAuthTokenInstance
+   * @returns { Promise } Resolves to processed boolean
    */
-  (callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any): Promise<SecondaryAuthTokenInstance>
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
 
   /**
@@ -81,20 +80,16 @@ export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenL
     return operationPromise;
 
 
-
     }
 
-  instance. = function (callback?: any): Promise<SecondaryAuthTokenInstance> {
+  instance.remove = function remove(callback?: any): Promise<boolean> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.({ uri: this._uri, method: 'delete' });
-    
-    operationPromise = operationPromise.then(payload => new SecondaryAuthTokenInstance(operationVersion, payload));
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -110,7 +105,7 @@ export function SecondaryAuthTokenListInstance(version: V1): SecondaryAuthTokenL
   return instance;
 }
 
-interface SecondaryAuthTokenPayload extends SecondaryAuthTokenResource, Page.TwilioResponsePayload {
+interface SecondaryAuthTokenPayload extends SecondaryAuthTokenResource{
 }
 
 interface SecondaryAuthTokenResource {
@@ -173,32 +168,4 @@ export class SecondaryAuthTokenInstance {
   }
 }
 
-export class SecondaryAuthTokenPage extends Page<V1, SecondaryAuthTokenPayload, SecondaryAuthTokenResource, SecondaryAuthTokenInstance> {
-  /**
-   * Initialize the SecondaryAuthTokenPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SecondaryAuthTokenSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SecondaryAuthTokenInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SecondaryAuthTokenPayload): SecondaryAuthTokenInstance {
-    return new SecondaryAuthTokenInstance(
-      this._version,
-      payload,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

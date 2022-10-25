@@ -14,13 +14,12 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../../../base/Page";
-import Response from "../../../../../../../http/response";
 import V2010 from "../../../../../V2010";
 const deserialize = require("../../../../../../../base/deserialize");
 const serialize = require("../../../../../../../base/serialize");
 import { AuthCallsIpAccessControlListMappingListInstance } from "./authTypeCalls/authCallsIpAccessControlListMapping";
 import { AuthCallsCredentialListMappingListInstance } from "./authTypeCalls/authCallsCredentialListMapping";
+
 
 
 export interface AuthTypeCallsListInstance {
@@ -85,4 +84,5 @@ export function AuthTypeCallsListInstance(version: V2010, accountSid: string, do
 
   return instance;
 }
+
 

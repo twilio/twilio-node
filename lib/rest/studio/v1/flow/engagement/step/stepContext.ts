@@ -14,117 +14,24 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../../base/Page";
-import Response from "../../../../../../http/response";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
 
+
 export interface StepContextListInstance {
 
 
+  /**
+   * Fetch a StepContextInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed StepContextInstance
+   */
+  fetch(callback?: (error: Error | null, item?: StepContextInstance) => any): Promise<StepContextInstance>
 
-  /**
-   * Streams StepContextInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: StepContextInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams StepContextInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { StepContextListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: StepContextListInstanceEachOptions, callback?: (item: StepContextInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of StepContextInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: StepContextPage) => any): Promise<StepContextPage>;
-  /**
-   * Retrieve a single target page of StepContextInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: StepContextPage) => any): Promise<StepContextPage>;
-  getPage(params?: any, callback?: any): Promise<StepContextPage>;
-  /**
-   * Lists StepContextInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: StepContextInstance[]) => any): Promise<StepContextInstance[]>;
-  /**
-   * Lists StepContextInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { StepContextListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: StepContextListInstanceOptions, callback?: (error: Error | null, items: StepContextInstance[]) => any): Promise<StepContextInstance[]>;
-  list(params?: any, callback?: any): Promise<StepContextInstance[]>;
-  /**
-   * Retrieve a single page of StepContextInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: StepContextPage) => any): Promise<StepContextPage>;
-  /**
-   * Retrieve a single page of StepContextInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { StepContextListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: StepContextListInstancePageOptions, callback?: (error: Error | null, items: StepContextPage) => any): Promise<StepContextPage>;
-  page(params?: any, callback?: any): Promise<StepContextPage>;
 
   /**
    * Provide a user-friendly representation
@@ -154,29 +61,19 @@ export function StepContextListInstance(version: V1, flowSid: string, engagement
   instance._solution = { flowSid, engagementSid, stepSid };
   instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
 
-  instance.page = function page(callback?: any): Promise<StepContextPage> {
+  instance.fetch = function fetch(callback?: any): Promise<StepContextInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new StepContextPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new StepContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.engagementSid, this._solution.stepSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<StepContextPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new StepContextPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -188,4 +85,75 @@ export function StepContextListInstance(version: V1, flowSid: string, engagement
 
   return instance;
 }
+
+interface StepContextPayload extends StepContextResource{
+}
+
+interface StepContextResource {
+  account_sid?: string | null;
+  context?: any | null;
+  engagement_sid?: string | null;
+  flow_sid?: string | null;
+  step_sid?: string | null;
+  url?: string | null;
+}
+
+export class StepContextInstance {
+
+  constructor(protected _version: V1, payload: StepContextPayload, flowSid: string, engagementSid: string, stepSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.context = payload.context;
+    this.engagementSid = payload.engagement_sid;
+    this.flowSid = payload.flow_sid;
+    this.stepSid = payload.step_sid;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The current state of the flow
+   */
+  context?: any | null;
+  /**
+   * The SID of the Engagement
+   */
+  engagementSid?: string | null;
+  /**
+   * The SID of the Flow
+   */
+  flowSid?: string | null;
+  /**
+   * Step SID
+   */
+  stepSid?: string | null;
+  /**
+   * The absolute URL of the resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      context: this.context, 
+      engagementSid: this.engagementSid, 
+      flowSid: this.flowSid, 
+      stepSid: this.stepSid, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

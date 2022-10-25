@@ -20,6 +20,8 @@ import V2010 from "../../../../V2010";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -245,7 +247,6 @@ export function AssignedAddOnExtensionListInstance(version: V2010, accountSid: s
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -305,7 +306,6 @@ export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtension
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -436,35 +436,35 @@ export class AssignedAddOnExtensionInstance {
 }
 
 export class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionInstance> {
-  /**
-   * Initialize the AssignedAddOnExtensionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: AssignedAddOnExtensionSolution) {
+/**
+* Initialize the AssignedAddOnExtensionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AssignedAddOnExtensionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AssignedAddOnExtensionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AssignedAddOnExtensionPayload): AssignedAddOnExtensionInstance {
+    /**
+    * Build an instance of AssignedAddOnExtensionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AssignedAddOnExtensionPayload): AssignedAddOnExtensionInstance {
     return new AssignedAddOnExtensionInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.resourceSid,
-      this._solution.assignedAddOnSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.resourceSid,
+        this._solution.assignedAddOnSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

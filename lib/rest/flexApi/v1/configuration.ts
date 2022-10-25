@@ -14,165 +14,45 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-/**
- * Options to pass to each
- *
- * @property { string } [uiVersion] The Pinned UI version of the Configuration resource to fetch.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface ConfigurationListInstanceEachOptions {
-  uiVersion?: string;
-  callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
+
+type ConfigurationStatus = 'ok'|'inprogress'|'notstarted';
+
 
 /**
- * Options to pass to list
+ * Options to pass to fetch a ConfigurationInstance
  *
  * @property { string } [uiVersion] The Pinned UI version of the Configuration resource to fetch.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface ConfigurationListInstanceOptions {
+export interface ConfigurationListInstanceFetchOptions {
   uiVersion?: string;
-  limit?: number;
 }
-
-/**
- * Options to pass to page
- *
- * @property { string } [uiVersion] The Pinned UI version of the Configuration resource to fetch.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface ConfigurationListInstancePageOptions {
-  uiVersion?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface ConfigurationListInstance {
 
 
+  /**
+   * Fetch a ConfigurationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConfigurationInstance
+   */
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  /**
+   * Fetch a ConfigurationInstance
+   *
+   * @param { ConfigurationListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConfigurationInstance
+   */
+  fetch(params: ConfigurationListInstanceFetchOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  fetch(params?: any, callback?: any): Promise<ConfigurationInstance>
 
-  /**
-   * Streams ConfigurationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ConfigurationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConfigurationListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ConfigurationListInstanceEachOptions, callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
-  /**
-   * Retrieve a single target page of ConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
-  getPage(params?: any, callback?: any): Promise<ConfigurationPage>;
-  /**
-   * Lists ConfigurationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ConfigurationInstance[]) => any): Promise<ConfigurationInstance[]>;
-  /**
-   * Lists ConfigurationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConfigurationListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ConfigurationListInstanceOptions, callback?: (error: Error | null, items: ConfigurationInstance[]) => any): Promise<ConfigurationInstance[]>;
-  list(params?: any, callback?: any): Promise<ConfigurationInstance[]>;
-  /**
-   * Retrieve a single page of ConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
-  /**
-   * Retrieve a single page of ConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConfigurationListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ConfigurationListInstancePageOptions, callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
-  page(params?: any, callback?: any): Promise<ConfigurationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -199,7 +79,7 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
   instance._solution = {  };
   instance._uri = `/Configuration`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<ConfigurationPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<ConfigurationInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -210,32 +90,20 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
     const data: any = {};
 
     if (params.uiVersion !== undefined) data['UiVersion'] = params.uiVersion;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new ConfigurationPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ConfigurationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -247,4 +115,345 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
 
   return instance;
 }
+
+interface ConfigurationPayload extends ConfigurationResource{
+}
+
+interface ConfigurationResource {
+  account_sid?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  attributes?: any | null;
+  status?: ConfigurationStatus;
+  taskrouter_workspace_sid?: string | null;
+  taskrouter_target_workflow_sid?: string | null;
+  taskrouter_target_taskqueue_sid?: string | null;
+  taskrouter_taskqueues?: Array<any> | null;
+  taskrouter_skills?: Array<any> | null;
+  taskrouter_worker_channels?: any | null;
+  taskrouter_worker_attributes?: any | null;
+  taskrouter_offline_activity_sid?: string | null;
+  runtime_domain?: string | null;
+  messaging_service_instance_sid?: string | null;
+  chat_service_instance_sid?: string | null;
+  flex_service_instance_sid?: string | null;
+  ui_language?: string | null;
+  ui_attributes?: any | null;
+  ui_dependencies?: any | null;
+  ui_version?: string | null;
+  service_version?: string | null;
+  call_recording_enabled?: boolean | null;
+  call_recording_webhook_url?: string | null;
+  crm_enabled?: boolean | null;
+  crm_type?: string | null;
+  crm_callback_url?: string | null;
+  crm_fallback_url?: string | null;
+  crm_attributes?: any | null;
+  public_attributes?: any | null;
+  plugin_service_enabled?: boolean | null;
+  plugin_service_attributes?: any | null;
+  integrations?: Array<any> | null;
+  outbound_call_flows?: any | null;
+  serverless_service_sids?: Array<string> | null;
+  queue_stats_configuration?: any | null;
+  notifications?: any | null;
+  markdown?: any | null;
+  url?: string | null;
+  flex_insights_hr?: any | null;
+  flex_insights_drilldown?: boolean | null;
+  flex_url?: string | null;
+  channel_configs?: Array<any> | null;
+  debugger_integration?: any | null;
+  flex_ui_status_report?: any | null;
+}
+
+export class ConfigurationInstance {
+
+  constructor(protected _version: V1, payload: ConfigurationPayload) {
+    this.accountSid = payload.account_sid;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.attributes = payload.attributes;
+    this.status = payload.status;
+    this.taskrouterWorkspaceSid = payload.taskrouter_workspace_sid;
+    this.taskrouterTargetWorkflowSid = payload.taskrouter_target_workflow_sid;
+    this.taskrouterTargetTaskqueueSid = payload.taskrouter_target_taskqueue_sid;
+    this.taskrouterTaskqueues = payload.taskrouter_taskqueues;
+    this.taskrouterSkills = payload.taskrouter_skills;
+    this.taskrouterWorkerChannels = payload.taskrouter_worker_channels;
+    this.taskrouterWorkerAttributes = payload.taskrouter_worker_attributes;
+    this.taskrouterOfflineActivitySid = payload.taskrouter_offline_activity_sid;
+    this.runtimeDomain = payload.runtime_domain;
+    this.messagingServiceInstanceSid = payload.messaging_service_instance_sid;
+    this.chatServiceInstanceSid = payload.chat_service_instance_sid;
+    this.flexServiceInstanceSid = payload.flex_service_instance_sid;
+    this.uiLanguage = payload.ui_language;
+    this.uiAttributes = payload.ui_attributes;
+    this.uiDependencies = payload.ui_dependencies;
+    this.uiVersion = payload.ui_version;
+    this.serviceVersion = payload.service_version;
+    this.callRecordingEnabled = payload.call_recording_enabled;
+    this.callRecordingWebhookUrl = payload.call_recording_webhook_url;
+    this.crmEnabled = payload.crm_enabled;
+    this.crmType = payload.crm_type;
+    this.crmCallbackUrl = payload.crm_callback_url;
+    this.crmFallbackUrl = payload.crm_fallback_url;
+    this.crmAttributes = payload.crm_attributes;
+    this.publicAttributes = payload.public_attributes;
+    this.pluginServiceEnabled = payload.plugin_service_enabled;
+    this.pluginServiceAttributes = payload.plugin_service_attributes;
+    this.integrations = payload.integrations;
+    this.outboundCallFlows = payload.outbound_call_flows;
+    this.serverlessServiceSids = payload.serverless_service_sids;
+    this.queueStatsConfiguration = payload.queue_stats_configuration;
+    this.notifications = payload.notifications;
+    this.markdown = payload.markdown;
+    this.url = payload.url;
+    this.flexInsightsHr = payload.flex_insights_hr;
+    this.flexInsightsDrilldown = payload.flex_insights_drilldown;
+    this.flexUrl = payload.flex_url;
+    this.channelConfigs = payload.channel_configs;
+    this.debuggerIntegration = payload.debugger_integration;
+    this.flexUiStatusReport = payload.flex_ui_status_report;
+
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The ISO 8601 date and time in GMT when the Configuration resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The ISO 8601 date and time in GMT when the Configuration resource was last updated
+   */
+  dateUpdated?: Date | null;
+  /**
+   * An object that contains application-specific data
+   */
+  attributes?: any | null;
+  status?: ConfigurationStatus;
+  /**
+   * The SID of the TaskRouter Workspace
+   */
+  taskrouterWorkspaceSid?: string | null;
+  /**
+   * The SID of the TaskRouter target Workflow
+   */
+  taskrouterTargetWorkflowSid?: string | null;
+  /**
+   * The SID of the TaskRouter Target TaskQueue
+   */
+  taskrouterTargetTaskqueueSid?: string | null;
+  /**
+   * The list of TaskRouter TaskQueues
+   */
+  taskrouterTaskqueues?: Array<any> | null;
+  /**
+   * The Skill description for TaskRouter workers
+   */
+  taskrouterSkills?: Array<any> | null;
+  /**
+   * The TaskRouter default channel capacities and availability for workers
+   */
+  taskrouterWorkerChannels?: any | null;
+  /**
+   * The TaskRouter Worker attributes
+   */
+  taskrouterWorkerAttributes?: any | null;
+  /**
+   * The TaskRouter SID of the offline activity
+   */
+  taskrouterOfflineActivitySid?: string | null;
+  /**
+   * The URL where the Flex instance is hosted
+   */
+  runtimeDomain?: string | null;
+  /**
+   * The SID of the Messaging service instance
+   */
+  messagingServiceInstanceSid?: string | null;
+  /**
+   * The SID of the chat service this user belongs to
+   */
+  chatServiceInstanceSid?: string | null;
+  /**
+   * The SID of the Flex service instance
+   */
+  flexServiceInstanceSid?: string | null;
+  /**
+   * The primary language of the Flex UI
+   */
+  uiLanguage?: string | null;
+  /**
+   * The object that describes Flex UI characteristics and settings
+   */
+  uiAttributes?: any | null;
+  /**
+   * The object that defines the NPM packages and versions to be used in Hosted Flex
+   */
+  uiDependencies?: any | null;
+  /**
+   * The Pinned UI version
+   */
+  uiVersion?: string | null;
+  /**
+   * The Flex Service version
+   */
+  serviceVersion?: string | null;
+  /**
+   * Whether call recording is enabled
+   */
+  callRecordingEnabled?: boolean | null;
+  /**
+   * The call recording webhook URL
+   */
+  callRecordingWebhookUrl?: string | null;
+  /**
+   * Whether CRM is present for Flex
+   */
+  crmEnabled?: boolean | null;
+  /**
+   * The CRM Type
+   */
+  crmType?: string | null;
+  /**
+   * The CRM Callback URL
+   */
+  crmCallbackUrl?: string | null;
+  /**
+   * The CRM Fallback URL
+   */
+  crmFallbackUrl?: string | null;
+  /**
+   * An object that contains the CRM attributes
+   */
+  crmAttributes?: any | null;
+  /**
+   * The list of public attributes
+   */
+  publicAttributes?: any | null;
+  /**
+   * Whether the plugin service enabled
+   */
+  pluginServiceEnabled?: boolean | null;
+  /**
+   * The plugin service attributes
+   */
+  pluginServiceAttributes?: any | null;
+  /**
+   * A list of objects that contain the configurations for the Integrations supported in this configuration
+   */
+  integrations?: Array<any> | null;
+  /**
+   * The list of outbound call flows
+   */
+  outboundCallFlows?: any | null;
+  /**
+   * The list of serverless service SIDs
+   */
+  serverlessServiceSids?: Array<string> | null;
+  /**
+   * Configurable parameters for Queues Statistics
+   */
+  queueStatsConfiguration?: any | null;
+  /**
+   * Configurable parameters for Notifications
+   */
+  notifications?: any | null;
+  /**
+   * Configurable parameters for Markdown
+   */
+  markdown?: any | null;
+  /**
+   * The absolute URL of the Configuration resource
+   */
+  url?: string | null;
+  /**
+   * Object that controls workspace reporting
+   */
+  flexInsightsHr?: any | null;
+  /**
+   * Setting to enable Flex UI redirection
+   */
+  flexInsightsDrilldown?: boolean | null;
+  /**
+   * URL to redirect to in case drilldown is enabled.
+   */
+  flexUrl?: string | null;
+  /**
+   * Flex Conversations channels\' attachments configurations
+   */
+  channelConfigs?: Array<any> | null;
+  /**
+   * Configurable parameters for Debugger Integration
+   */
+  debuggerIntegration?: any | null;
+  /**
+   * Configurable parameters for Flex UI Status report
+   */
+  flexUiStatusReport?: any | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      attributes: this.attributes, 
+      status: this.status, 
+      taskrouterWorkspaceSid: this.taskrouterWorkspaceSid, 
+      taskrouterTargetWorkflowSid: this.taskrouterTargetWorkflowSid, 
+      taskrouterTargetTaskqueueSid: this.taskrouterTargetTaskqueueSid, 
+      taskrouterTaskqueues: this.taskrouterTaskqueues, 
+      taskrouterSkills: this.taskrouterSkills, 
+      taskrouterWorkerChannels: this.taskrouterWorkerChannels, 
+      taskrouterWorkerAttributes: this.taskrouterWorkerAttributes, 
+      taskrouterOfflineActivitySid: this.taskrouterOfflineActivitySid, 
+      runtimeDomain: this.runtimeDomain, 
+      messagingServiceInstanceSid: this.messagingServiceInstanceSid, 
+      chatServiceInstanceSid: this.chatServiceInstanceSid, 
+      flexServiceInstanceSid: this.flexServiceInstanceSid, 
+      uiLanguage: this.uiLanguage, 
+      uiAttributes: this.uiAttributes, 
+      uiDependencies: this.uiDependencies, 
+      uiVersion: this.uiVersion, 
+      serviceVersion: this.serviceVersion, 
+      callRecordingEnabled: this.callRecordingEnabled, 
+      callRecordingWebhookUrl: this.callRecordingWebhookUrl, 
+      crmEnabled: this.crmEnabled, 
+      crmType: this.crmType, 
+      crmCallbackUrl: this.crmCallbackUrl, 
+      crmFallbackUrl: this.crmFallbackUrl, 
+      crmAttributes: this.crmAttributes, 
+      publicAttributes: this.publicAttributes, 
+      pluginServiceEnabled: this.pluginServiceEnabled, 
+      pluginServiceAttributes: this.pluginServiceAttributes, 
+      integrations: this.integrations, 
+      outboundCallFlows: this.outboundCallFlows, 
+      serverlessServiceSids: this.serverlessServiceSids, 
+      queueStatsConfiguration: this.queueStatsConfiguration, 
+      notifications: this.notifications, 
+      markdown: this.markdown, 
+      url: this.url, 
+      flexInsightsHr: this.flexInsightsHr, 
+      flexInsightsDrilldown: this.flexInsightsDrilldown, 
+      flexUrl: this.flexUrl, 
+      channelConfigs: this.channelConfigs, 
+      debuggerIntegration: this.debuggerIntegration, 
+      flexUiStatusReport: this.flexUiStatusReport
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

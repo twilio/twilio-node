@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
+
 
 
 export interface ArchivedCallContext {
@@ -42,7 +42,7 @@ export interface ArchivedCallContext {
 }
 
 export interface ArchivedCallContextSolution {
-  date?: string;
+  date?: Date;
   sid?: string;
 }
 
@@ -51,7 +51,7 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   protected _uri: string;
 
 
-  constructor(protected _version: V1, date: string, sid: string) {
+  constructor(protected _version: V1, date: Date, sid: string) {
     this._solution = { date, sid };
     this._uri = `/Archives/${date}/Calls/${sid}`;
   }
@@ -64,7 +64,6 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -97,7 +96,7 @@ export interface ArchivedCallListInstance {
 }
 
 export interface ArchivedCallSolution {
-  date?: string;
+  date?: Date;
 }
 
 interface ArchivedCallListInstanceImpl extends ArchivedCallListInstance {}
@@ -108,7 +107,7 @@ class ArchivedCallListInstanceImpl implements ArchivedCallListInstance {
 
 }
 
-export function ArchivedCallListInstance(version: V1, date: string): ArchivedCallListInstance {
+export function ArchivedCallListInstance(version: V1, date: Date): ArchivedCallListInstance {
   const instance = ((sid) => instance.get(sid)) as ArchivedCallListInstanceImpl;
 
   instance.get = function get(sid): ArchivedCallContext {
@@ -129,4 +128,6 @@ export function ArchivedCallListInstance(version: V1, date: string): ArchivedCal
 
   return instance;
 }
+
+
 

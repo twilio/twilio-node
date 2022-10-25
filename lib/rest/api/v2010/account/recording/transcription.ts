@@ -20,6 +20,8 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type RecordingTranscriptionStatus = 'in-progress'|'completed'|'failed';
 
 /**
@@ -127,7 +129,6 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<TranscriptionInstance> {
@@ -140,7 +141,6 @@ export class TranscriptionContextImpl implements TranscriptionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -303,38 +303,6 @@ export class TranscriptionInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class TranscriptionPage extends Page<V2010, TranscriptionPayload, TranscriptionResource, TranscriptionInstance> {
-  /**
-   * Initialize the TranscriptionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: TranscriptionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of TranscriptionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TranscriptionPayload): TranscriptionInstance {
-    return new TranscriptionInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.recordingSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -515,7 +483,6 @@ export function TranscriptionListInstance(version: V2010, accountSid: string, re
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -526,4 +493,36 @@ export function TranscriptionListInstance(version: V2010, accountSid: string, re
 
   return instance;
 }
+
+
+export class TranscriptionPage extends Page<V2010, TranscriptionPayload, TranscriptionResource, TranscriptionInstance> {
+/**
+* Initialize the TranscriptionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: TranscriptionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of TranscriptionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TranscriptionPayload): TranscriptionInstance {
+    return new TranscriptionInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.recordingSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

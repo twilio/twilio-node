@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type AssetVersionVisibility = 'public'|'private'|'protected';
 
 /**
@@ -117,7 +119,6 @@ export class AssetVersionContextImpl implements AssetVersionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -233,38 +234,6 @@ export class AssetVersionInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class AssetVersionPage extends Page<V1, AssetVersionPayload, AssetVersionResource, AssetVersionInstance> {
-  /**
-   * Initialize the AssetVersionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: AssetVersionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AssetVersionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AssetVersionPayload): AssetVersionInstance {
-    return new AssetVersionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.assetSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -445,7 +414,6 @@ export function AssetVersionListInstance(version: V1, serviceSid: string, assetS
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -456,4 +424,36 @@ export function AssetVersionListInstance(version: V1, serviceSid: string, assetS
 
   return instance;
 }
+
+
+export class AssetVersionPage extends Page<V1, AssetVersionPayload, AssetVersionResource, AssetVersionInstance> {
+/**
+* Initialize the AssetVersionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: AssetVersionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of AssetVersionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AssetVersionPayload): AssetVersionInstance {
+    return new AssetVersionInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.assetSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

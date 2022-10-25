@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 
 type MessageFeedbackOutcome = 'confirmed'|'unconfirmed';
 
@@ -107,7 +106,6 @@ export function FeedbackListInstance(version: V2010, accountSid: string, message
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -121,7 +119,7 @@ export function FeedbackListInstance(version: V2010, accountSid: string, message
   return instance;
 }
 
-interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
+interface FeedbackPayload extends FeedbackResource{
 }
 
 interface FeedbackResource {
@@ -188,34 +186,4 @@ export class FeedbackInstance {
   }
 }
 
-export class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
-  /**
-   * Initialize the FeedbackPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of FeedbackInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FeedbackPayload): FeedbackInstance {
-    return new FeedbackInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.messageSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

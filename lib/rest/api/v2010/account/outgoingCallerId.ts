@@ -20,6 +20,8 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -266,7 +268,6 @@ export function OutgoingCallerIdListInstance(version: V2010, accountSid: string)
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -354,7 +355,6 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<OutgoingCallerIdInstance> {
@@ -367,7 +367,6 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -395,7 +394,6 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -546,33 +544,33 @@ export class OutgoingCallerIdInstance {
 }
 
 export class OutgoingCallerIdPage extends Page<V2010, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdInstance> {
-  /**
-   * Initialize the OutgoingCallerIdPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: OutgoingCallerIdSolution) {
+/**
+* Initialize the OutgoingCallerIdPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: OutgoingCallerIdSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of OutgoingCallerIdInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance {
+    /**
+    * Build an instance of OutgoingCallerIdInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance {
     return new OutgoingCallerIdInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

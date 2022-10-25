@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 export class ApiV2010AccountTokenIceServers {
   "credential"?: string;
@@ -112,7 +111,6 @@ export function TokenListInstance(version: V2010, accountSid: string): TokenList
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -126,7 +124,7 @@ export function TokenListInstance(version: V2010, accountSid: string): TokenList
   return instance;
 }
 
-interface TokenPayload extends TokenResource, Page.TwilioResponsePayload {
+interface TokenPayload extends TokenResource{
 }
 
 interface TokenResource {
@@ -203,33 +201,4 @@ export class TokenInstance {
   }
 }
 
-export class TokenPage extends Page<V2010, TokenPayload, TokenResource, TokenInstance> {
-  /**
-   * Initialize the TokenPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: TokenSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of TokenInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TokenPayload): TokenInstance {
-    return new TokenInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

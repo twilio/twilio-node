@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -242,7 +244,6 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -299,7 +300,6 @@ export class PoliciesContextImpl implements PoliciesContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -395,32 +395,32 @@ export class PoliciesInstance {
 }
 
 export class PoliciesPage extends Page<V1, PoliciesPayload, PoliciesResource, PoliciesInstance> {
-  /**
-   * Initialize the PoliciesPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: PoliciesSolution) {
+/**
+* Initialize the PoliciesPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: PoliciesSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of PoliciesInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PoliciesPayload): PoliciesInstance {
+    /**
+    * Build an instance of PoliciesInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: PoliciesPayload): PoliciesInstance {
     return new PoliciesInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

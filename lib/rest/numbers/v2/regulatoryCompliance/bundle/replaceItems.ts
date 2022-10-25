@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 
 type ReplaceItemsStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
 
@@ -99,7 +98,6 @@ export function ReplaceItemsListInstance(version: V2, bundleSid: string): Replac
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -113,7 +111,7 @@ export function ReplaceItemsListInstance(version: V2, bundleSid: string): Replac
   return instance;
 }
 
-interface ReplaceItemsPayload extends ReplaceItemsResource, Page.TwilioResponsePayload {
+interface ReplaceItemsPayload extends ReplaceItemsResource{
 }
 
 interface ReplaceItemsResource {
@@ -208,33 +206,4 @@ export class ReplaceItemsInstance {
   }
 }
 
-export class ReplaceItemsPage extends Page<V2, ReplaceItemsPayload, ReplaceItemsResource, ReplaceItemsInstance> {
-  /**
-   * Initialize the ReplaceItemsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: ReplaceItemsSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ReplaceItemsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ReplaceItemsPayload): ReplaceItemsInstance {
-    return new ReplaceItemsInstance(
-      this._version,
-      payload,
-      this._solution.bundleSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

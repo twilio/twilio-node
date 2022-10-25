@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
+
 
 
 export interface JobListInstance {
@@ -121,7 +121,6 @@ export class JobContextImpl implements JobContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<JobInstance> {
@@ -134,7 +133,6 @@ export class JobContextImpl implements JobContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -153,7 +151,7 @@ export class JobContextImpl implements JobContext {
   }
 }
 
-interface JobPayload extends JobResource, Page.TwilioResponsePayload {
+interface JobPayload extends JobResource{
 }
 
 interface JobResource {
@@ -294,33 +292,5 @@ export class JobInstance {
   }
 }
 
-export class JobPage extends Page<V1, JobPayload, JobResource, JobInstance> {
-  /**
-   * Initialize the JobPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: JobSolution) {
-    super(version, response, solution);
-  }
 
-  /**
-   * Build an instance of JobInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: JobPayload): JobInstance {
-    return new JobInstance(
-      this._version,
-      payload,
-      this._solution.jobSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

@@ -14,19 +14,18 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
+
 /**
- * Options to pass to create a RestoreAssistantInstance
+ * Options to pass to update a RestoreAssistantInstance
  *
  * @property { string } assistant The Twilio-provided string that uniquely identifies the Assistant resource to restore.
  */
-export interface RestoreAssistantListInstanceCreateOptions {
+export interface RestoreAssistantListInstanceUpdateOptions {
   assistant: string;
 }
 
@@ -34,15 +33,15 @@ export interface RestoreAssistantListInstance {
 
 
   /**
-   * Create a RestoreAssistantInstance
+   * Update a RestoreAssistantInstance
    *
-   * @param { RestoreAssistantListInstanceCreateOptions } params - Parameter for request
+   * @param { RestoreAssistantListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RestoreAssistantInstance
    */
-  create(params: RestoreAssistantListInstanceCreateOptions, callback?: (error: Error | null, item?: RestoreAssistantInstance) => any): Promise<RestoreAssistantInstance>;
-  create(params: any, callback?: any): Promise<RestoreAssistantInstance>
+  update(params: RestoreAssistantListInstanceUpdateOptions, callback?: (error: Error | null, item?: RestoreAssistantInstance) => any): Promise<RestoreAssistantInstance>;
+  update(params: any, callback?: any): Promise<RestoreAssistantInstance>
 
 
   /**
@@ -70,7 +69,7 @@ export function RestoreAssistantListInstance(version: V1): RestoreAssistantListI
   instance._solution = {  };
   instance._uri = `/Assistants/Restore`;
 
-  instance.create = function create(params: any, callback?: any): Promise<RestoreAssistantInstance> {
+  instance.update = function update(params: any, callback?: any): Promise<RestoreAssistantInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -87,14 +86,13 @@ export function RestoreAssistantListInstance(version: V1): RestoreAssistantListI
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RestoreAssistantInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -110,7 +108,7 @@ export function RestoreAssistantListInstance(version: V1): RestoreAssistantListI
   return instance;
 }
 
-interface RestoreAssistantPayload extends RestoreAssistantResource, Page.TwilioResponsePayload {
+interface RestoreAssistantPayload extends RestoreAssistantResource{
 }
 
 interface RestoreAssistantResource {
@@ -222,32 +220,4 @@ export class RestoreAssistantInstance {
   }
 }
 
-export class RestoreAssistantPage extends Page<V1, RestoreAssistantPayload, RestoreAssistantResource, RestoreAssistantInstance> {
-  /**
-   * Initialize the RestoreAssistantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: RestoreAssistantSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of RestoreAssistantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RestoreAssistantPayload): RestoreAssistantInstance {
-    return new RestoreAssistantInstance(
-      this._version,
-      payload,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

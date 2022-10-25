@@ -18,6 +18,7 @@ import { IpCommandListInstance } from "./v1/ipCommand";
 import { FleetListInstance } from "./v1/fleet";
 import { SimListInstance } from "./v1/sim";
 import { NetworkListInstance } from "./v1/network";
+import { SettingsUpdateListInstance } from "./v1/settingsUpdate";
 import { UsageRecordListInstance } from "./v1/usageRecord";
 import { NetworkAccessProfileListInstance } from "./v1/networkAccessProfile";
 import { SmsCommandListInstance } from "./v1/smsCommand";
@@ -31,6 +32,7 @@ export default class V1 extends Version {
    * @property { Twilio.Supersim.V1.FleetListInstance } fleets - fleets resource
    * @property { Twilio.Supersim.V1.SimListInstance } sims - sims resource
    * @property { Twilio.Supersim.V1.NetworkListInstance } networks - networks resource
+   * @property { Twilio.Supersim.V1.SettingsUpdateListInstance } settingsUpdates - settingsUpdates resource
    * @property { Twilio.Supersim.V1.UsageRecordListInstance } usageRecords - usageRecords resource
    * @property { Twilio.Supersim.V1.NetworkAccessProfileListInstance } networkAccessProfiles - networkAccessProfiles resource
    * @property { Twilio.Supersim.V1.SmsCommandListInstance } smsCommands - smsCommands resource
@@ -46,6 +48,7 @@ export default class V1 extends Version {
   protected _fleets?: FleetListInstance;
   protected _sims?: SimListInstance;
   protected _networks?: NetworkListInstance;
+  protected _settingsUpdates?: SettingsUpdateListInstance;
   protected _usageRecords?: UsageRecordListInstance;
   protected _networkAccessProfiles?: NetworkAccessProfileListInstance;
   protected _smsCommands?: SmsCommandListInstance;
@@ -69,6 +72,11 @@ export default class V1 extends Version {
   get networks(): NetworkListInstance {
     this._networks = this._networks || NetworkListInstance(this);
     return this._networks;
+  }
+
+  get settingsUpdates(): SettingsUpdateListInstance {
+    this._settingsUpdates = this._settingsUpdates || SettingsUpdateListInstance(this);
+    return this._settingsUpdates;
   }
 
   get usageRecords(): UsageRecordListInstance {

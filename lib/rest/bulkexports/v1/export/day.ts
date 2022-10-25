@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -243,7 +245,6 @@ export function DayListInstance(version: V1, resourceType: string): DayListInsta
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -301,7 +302,6 @@ export class DayContextImpl implements DayContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -373,33 +373,33 @@ export class DayInstance {
 }
 
 export class DayPage extends Page<V1, DayPayload, DayResource, DayInstance> {
-  /**
-   * Initialize the DayPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: DaySolution) {
+/**
+* Initialize the DayPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DaySolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DayInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DayPayload): DayInstance {
+    /**
+    * Build an instance of DayInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DayPayload): DayInstance {
     return new DayInstance(
-      this._version,
-      payload,
-      this._solution.resourceType,
-      this._solution.day,
+    this._version,
+    payload,
+        this._solution.resourceType,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

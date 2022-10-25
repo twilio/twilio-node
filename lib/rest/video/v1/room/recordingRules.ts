@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 export class VideoV1RoomRoomRecordingRuleRules {
   "type"?: string;
@@ -31,137 +30,45 @@ export class VideoV1RoomRoomRecordingRuleRules {
 
 
 /**
- * Options to pass to create a RecordingRulesInstance
+ * Options to pass to update a RecordingRulesInstance
  *
  * @property { any } [rules] A JSON-encoded array of recording rules.
  */
-export interface RecordingRulesListInstanceCreateOptions {
+export interface RecordingRulesListInstanceUpdateOptions {
   rules?: any;
 }
 
 export interface RecordingRulesListInstance {
 
 
-
   /**
-   * Streams RecordingRulesInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: RecordingRulesInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams RecordingRulesInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingRulesListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: RecordingRulesListInstanceEachOptions, callback?: (item: RecordingRulesInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of RecordingRulesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: RecordingRulesPage) => any): Promise<RecordingRulesPage>;
-  /**
-   * Retrieve a single target page of RecordingRulesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: RecordingRulesPage) => any): Promise<RecordingRulesPage>;
-  getPage(params?: any, callback?: any): Promise<RecordingRulesPage>;
-  /**
-   * Lists RecordingRulesInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: RecordingRulesInstance[]) => any): Promise<RecordingRulesInstance[]>;
-  /**
-   * Lists RecordingRulesInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingRulesListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: RecordingRulesListInstanceOptions, callback?: (error: Error | null, items: RecordingRulesInstance[]) => any): Promise<RecordingRulesInstance[]>;
-  list(params?: any, callback?: any): Promise<RecordingRulesInstance[]>;
-  /**
-   * Retrieve a single page of RecordingRulesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: RecordingRulesPage) => any): Promise<RecordingRulesPage>;
-  /**
-   * Retrieve a single page of RecordingRulesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingRulesListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: RecordingRulesListInstancePageOptions, callback?: (error: Error | null, items: RecordingRulesPage) => any): Promise<RecordingRulesPage>;
-  page(params?: any, callback?: any): Promise<RecordingRulesPage>;
-
-  /**
-   * Create a RecordingRulesInstance
+   * Fetch a RecordingRulesInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RecordingRulesInstance
    */
-  create(callback?: (error: Error | null, item?: RecordingRulesInstance) => any): Promise<RecordingRulesInstance>;
+  fetch(callback?: (error: Error | null, item?: RecordingRulesInstance) => any): Promise<RecordingRulesInstance>
+
+
   /**
-   * Create a RecordingRulesInstance
+   * Update a RecordingRulesInstance
    *
-   * @param { RecordingRulesListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RecordingRulesInstance
    */
-  create(params: RecordingRulesListInstanceCreateOptions, callback?: (error: Error | null, item?: RecordingRulesInstance) => any): Promise<RecordingRulesInstance>;
-  create(params?: any, callback?: any): Promise<RecordingRulesInstance>
+  update(callback?: (error: Error | null, item?: RecordingRulesInstance) => any): Promise<RecordingRulesInstance>;
+  /**
+   * Update a RecordingRulesInstance
+   *
+   * @param { RecordingRulesListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RecordingRulesInstance
+   */
+  update(params: RecordingRulesListInstanceUpdateOptions, callback?: (error: Error | null, item?: RecordingRulesInstance) => any): Promise<RecordingRulesInstance>;
+  update(params?: any, callback?: any): Promise<RecordingRulesInstance>
 
 
   /**
@@ -190,31 +97,21 @@ export function RecordingRulesListInstance(version: V1, roomSid: string): Record
   instance._solution = { roomSid };
   instance._uri = `/Rooms/${roomSid}/RecordingRules`;
 
-  instance.page = function page(callback?: any): Promise<RecordingRulesPage> {
+  instance.fetch = function fetch(callback?: any): Promise<RecordingRulesInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new RecordingRulesPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new RecordingRulesInstance(operationVersion, payload, this._solution.roomSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RecordingRulesPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new RecordingRulesPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<RecordingRulesInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<RecordingRulesInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -230,14 +127,13 @@ export function RecordingRulesListInstance(version: V1, roomSid: string): Record
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingRulesInstance(operationVersion, payload, this._solution.roomSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -253,7 +149,7 @@ export function RecordingRulesListInstance(version: V1, roomSid: string): Record
   return instance;
 }
 
-interface RecordingRulesPayload extends RecordingRulesResource, Page.TwilioResponsePayload {
+interface RecordingRulesPayload extends RecordingRulesResource{
 }
 
 interface RecordingRulesResource {
@@ -309,33 +205,4 @@ export class RecordingRulesInstance {
   }
 }
 
-export class RecordingRulesPage extends Page<V1, RecordingRulesPayload, RecordingRulesResource, RecordingRulesInstance> {
-  /**
-   * Initialize the RecordingRulesPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: RecordingRulesSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of RecordingRulesInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RecordingRulesPayload): RecordingRulesInstance {
-    return new RecordingRulesInstance(
-      this._version,
-      payload,
-      this._solution.roomSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

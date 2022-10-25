@@ -26,15 +26,13 @@ import {ValidationRequestListInstance} from './api/v2010/account/validationReque
 import ApiBase from "./ApiBase";
 
 class Api extends ApiBase {
-    _account?: AccountContext;
+
+    get account(): AccountContext {
+        return this.v2010.account;
+    }
 
     get accounts(): AccountListInstance {
         return this.v2010.accounts;
-    }
-
-    get account(): AccountContext {
-        this._account = this._account || new AccountContextImpl(this.v2010, this.twilio.accountSid);
-        return this._account;
     }
 
     /**

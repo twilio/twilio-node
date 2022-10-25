@@ -14,117 +14,24 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
 export interface EngagementContextListInstance {
 
 
+  /**
+   * Fetch a EngagementContextInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed EngagementContextInstance
+   */
+  fetch(callback?: (error: Error | null, item?: EngagementContextInstance) => any): Promise<EngagementContextInstance>
 
-  /**
-   * Streams EngagementContextInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: EngagementContextInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams EngagementContextInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { EngagementContextListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: EngagementContextListInstanceEachOptions, callback?: (item: EngagementContextInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of EngagementContextInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: EngagementContextPage) => any): Promise<EngagementContextPage>;
-  /**
-   * Retrieve a single target page of EngagementContextInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EngagementContextPage) => any): Promise<EngagementContextPage>;
-  getPage(params?: any, callback?: any): Promise<EngagementContextPage>;
-  /**
-   * Lists EngagementContextInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: EngagementContextInstance[]) => any): Promise<EngagementContextInstance[]>;
-  /**
-   * Lists EngagementContextInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { EngagementContextListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: EngagementContextListInstanceOptions, callback?: (error: Error | null, items: EngagementContextInstance[]) => any): Promise<EngagementContextInstance[]>;
-  list(params?: any, callback?: any): Promise<EngagementContextInstance[]>;
-  /**
-   * Retrieve a single page of EngagementContextInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: EngagementContextPage) => any): Promise<EngagementContextPage>;
-  /**
-   * Retrieve a single page of EngagementContextInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { EngagementContextListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: EngagementContextListInstancePageOptions, callback?: (error: Error | null, items: EngagementContextPage) => any): Promise<EngagementContextPage>;
-  page(params?: any, callback?: any): Promise<EngagementContextPage>;
 
   /**
    * Provide a user-friendly representation
@@ -153,29 +60,19 @@ export function EngagementContextListInstance(version: V1, flowSid: string, enga
   instance._solution = { flowSid, engagementSid };
   instance._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Context`;
 
-  instance.page = function page(callback?: any): Promise<EngagementContextPage> {
+  instance.fetch = function fetch(callback?: any): Promise<EngagementContextInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new EngagementContextPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new EngagementContextInstance(operationVersion, payload, this._solution.flowSid, this._solution.engagementSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EngagementContextPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new EngagementContextPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -187,4 +84,68 @@ export function EngagementContextListInstance(version: V1, flowSid: string, enga
 
   return instance;
 }
+
+interface EngagementContextPayload extends EngagementContextResource{
+}
+
+interface EngagementContextResource {
+  account_sid?: string | null;
+  context?: any | null;
+  engagement_sid?: string | null;
+  flow_sid?: string | null;
+  url?: string | null;
+}
+
+export class EngagementContextInstance {
+
+  constructor(protected _version: V1, payload: EngagementContextPayload, flowSid: string, engagementSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.context = payload.context;
+    this.engagementSid = payload.engagement_sid;
+    this.flowSid = payload.flow_sid;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * Account SID
+   */
+  accountSid?: string | null;
+  /**
+   * Flow state
+   */
+  context?: any | null;
+  /**
+   * Engagement SID
+   */
+  engagementSid?: string | null;
+  /**
+   * Flow SID
+   */
+  flowSid?: string | null;
+  /**
+   * The URL of the resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      context: this.context, 
+      engagementSid: this.engagementSid, 
+      flowSid: this.flowSid, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

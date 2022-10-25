@@ -19,7 +19,9 @@ import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 import { IpAddressListInstance } from "./ipAccessControlList/ipAddress";
+
 
 
 /**
@@ -263,7 +265,6 @@ export function IpAccessControlListListInstance(version: V2010, accountSid: stri
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<IpAccessControlListPage> {
@@ -301,7 +302,6 @@ export function IpAccessControlListListInstance(version: V2010, accountSid: stri
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -390,7 +390,6 @@ export class IpAccessControlListContextImpl implements IpAccessControlListContex
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<IpAccessControlListInstance> {
@@ -403,7 +402,6 @@ export class IpAccessControlListContextImpl implements IpAccessControlListContex
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -432,7 +430,6 @@ export class IpAccessControlListContextImpl implements IpAccessControlListContex
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -582,33 +579,33 @@ export class IpAccessControlListInstance {
 }
 
 export class IpAccessControlListPage extends Page<V2010, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListInstance> {
-  /**
-   * Initialize the IpAccessControlListPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: IpAccessControlListSolution) {
+/**
+* Initialize the IpAccessControlListPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: IpAccessControlListSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of IpAccessControlListInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: IpAccessControlListPayload): IpAccessControlListInstance {
+    /**
+    * Build an instance of IpAccessControlListInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: IpAccessControlListPayload): IpAccessControlListInstance {
     return new IpAccessControlListInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

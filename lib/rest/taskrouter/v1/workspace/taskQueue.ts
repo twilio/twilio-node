@@ -22,7 +22,9 @@ const serialize = require("../../../../base/serialize");
 import { TaskQueueRealTimeStatisticsListInstance } from "./taskQueue/taskQueueRealTimeStatistics";
 import { TaskQueueCumulativeStatisticsListInstance } from "./taskQueue/taskQueueCumulativeStatistics";
 import { TaskQueueStatisticsListInstance } from "./taskQueue/taskQueueStatistics";
+
 import { TaskQueuesStatisticsListInstance } from "./taskQueue/taskQueuesStatistics";
+
 
 type TaskQueueTaskOrder = 'FIFO'|'LIFO';
 
@@ -227,7 +229,6 @@ export class TaskQueueContextImpl implements TaskQueueContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<TaskQueueInstance> {
@@ -240,7 +241,6 @@ export class TaskQueueContextImpl implements TaskQueueContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -273,7 +273,6 @@ export class TaskQueueContextImpl implements TaskQueueContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -497,37 +496,6 @@ export class TaskQueueInstance {
   }
 }
 
-export class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
-  /**
-   * Initialize the TaskQueuePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: TaskQueueSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of TaskQueueInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TaskQueuePayload): TaskQueueInstance {
-    return new TaskQueueInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface TaskQueueListInstance {
   (sid: string): TaskQueueContext;
@@ -720,7 +688,6 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<TaskQueuePage> {
@@ -763,7 +730,6 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -774,4 +740,35 @@ export function TaskQueueListInstance(version: V1, workspaceSid: string): TaskQu
 
   return instance;
 }
+
+
+export class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
+/**
+* Initialize the TaskQueuePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TaskQueueSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of TaskQueueInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TaskQueuePayload): TaskQueueInstance {
+    return new TaskQueueInstance(
+    this._version,
+    payload,
+        this._solution.workspaceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

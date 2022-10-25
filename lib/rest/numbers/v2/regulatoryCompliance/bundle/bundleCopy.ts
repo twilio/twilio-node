@@ -20,6 +20,59 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+export class NumbersV2RegulatoryComplianceBundleBundleCopy {
+  /**
+   * The unique string that identifies the resource
+   */
+  "sid"?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  "accountSid"?: string | null;
+  /**
+   * The unique string of a regulation
+   */
+  "regulationSid"?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  "friendlyName"?: string | null;
+  "status"?: BundleCopyStatus;
+  /**
+   * The ISO 8601 date and time in GMT when the resource will be valid until
+   */
+  "validUntil"?: Date | null;
+  /**
+   * The email address
+   */
+  "email"?: string | null;
+  /**
+   * The URL we call to inform your application of status changes
+   */
+  "statusCallback"?: string | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was created
+   */
+  "dateCreated"?: Date | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was last updated
+   */
+  "dateUpdated"?: Date | null;
+}
+
+
+export class ListBundleResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 type BundleCopyStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
 
 
@@ -256,7 +309,6 @@ export function BundleCopyListInstance(version: V2, bundleSid: string): BundleCo
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<BundleCopyPage> {
@@ -296,7 +348,6 @@ export function BundleCopyListInstance(version: V2, bundleSid: string): BundleCo
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -312,71 +363,20 @@ interface BundleCopyPayload extends BundleCopyResource, Page.TwilioResponsePaylo
 }
 
 interface BundleCopyResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  regulation_sid?: string | null;
-  friendly_name?: string | null;
-  status?: BundleCopyStatus;
-  valid_until?: Date | null;
-  email?: string | null;
-  status_callback?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
+  results?: Array<NumbersV2RegulatoryComplianceBundleBundleCopy>;
+  meta?: ListBundleResponseMeta;
 }
 
 export class BundleCopyInstance {
 
   constructor(protected _version: V2, payload: BundleCopyPayload, bundleSid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.regulationSid = payload.regulation_sid;
-    this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
-    this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
-    this.email = payload.email;
-    this.statusCallback = payload.status_callback;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.results = payload.results;
+    this.meta = payload.meta;
 
   }
 
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The unique string of a regulation
-   */
-  regulationSid?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  friendlyName?: string | null;
-  status?: BundleCopyStatus;
-  /**
-   * The ISO 8601 date and time in GMT when the resource will be valid until
-   */
-  validUntil?: Date | null;
-  /**
-   * The email address
-   */
-  email?: string | null;
-  /**
-   * The URL we call to inform your application of status changes
-   */
-  statusCallback?: string | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
-   */
-  dateUpdated?: Date | null;
+  results?: Array<NumbersV2RegulatoryComplianceBundleBundleCopy>;
+  meta?: ListBundleResponseMeta;
 
   /**
    * Provide a user-friendly representation
@@ -385,16 +385,8 @@ export class BundleCopyInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      regulationSid: this.regulationSid, 
-      friendlyName: this.friendlyName, 
-      status: this.status, 
-      validUntil: this.validUntil, 
-      email: this.email, 
-      statusCallback: this.statusCallback, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated
+      results: this.results, 
+      meta: this.meta
     }
   }
 
@@ -404,32 +396,32 @@ export class BundleCopyInstance {
 }
 
 export class BundleCopyPage extends Page<V2, BundleCopyPayload, BundleCopyResource, BundleCopyInstance> {
-  /**
-   * Initialize the BundleCopyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: BundleCopySolution) {
+/**
+* Initialize the BundleCopyPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: BundleCopySolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of BundleCopyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BundleCopyPayload): BundleCopyInstance {
+    /**
+    * Build an instance of BundleCopyInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BundleCopyPayload): BundleCopyInstance {
     return new BundleCopyInstance(
-      this._version,
-      payload,
-      this._solution.bundleSid,
+    this._version,
+    payload,
+        this._solution.bundleSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
 

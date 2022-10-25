@@ -20,6 +20,8 @@ import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type SyncListItemQueryResultOrder = 'asc'|'desc';
 
 type SyncListItemQueryFromBoundType = 'inclusive'|'exclusive';
@@ -296,7 +298,6 @@ export function SyncListItemListInstance(version: Sync, serviceSid: string, list
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SyncListItemPage> {
@@ -337,7 +338,6 @@ export function SyncListItemListInstance(version: Sync, serviceSid: string, list
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -442,7 +442,6 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SyncListItemInstance> {
@@ -455,7 +454,6 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -485,7 +483,6 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -629,34 +626,34 @@ export class SyncListItemInstance {
 }
 
 export class SyncListItemPage extends Page<Sync, SyncListItemPayload, SyncListItemResource, SyncListItemInstance> {
-  /**
-   * Initialize the SyncListItemPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Sync, response: Response<string>, solution: SyncListItemSolution) {
+/**
+* Initialize the SyncListItemPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Sync, response: Response<string>, solution: SyncListItemSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SyncListItemInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SyncListItemPayload): SyncListItemInstance {
+    /**
+    * Build an instance of SyncListItemInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SyncListItemPayload): SyncListItemInstance {
     return new SyncListItemInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.listSid,
-      this._solution.index,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.listSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

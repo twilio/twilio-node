@@ -20,7 +20,113 @@ import HostedNumbers from "../../HostedNumbers";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder {
+  /**
+   * HostedNumberOrder sid.
+   */
+  "sid"?: string | null;
+  /**
+   * Account sid.
+   */
+  "accountSid"?: string | null;
+  /**
+   * IncomingPhoneNumber sid.
+   */
+  "incomingPhoneNumberSid"?: string | null;
+  /**
+   * Address sid.
+   */
+  "addressSid"?: string | null;
+  /**
+   * LOA document sid.
+   */
+  "signingDocumentSid"?: string | null;
+  /**
+   * An E164 formatted phone number.
+   */
+  "phoneNumber"?: string | null;
+  "capabilities"?: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities | null;
+  /**
+   * A human readable description of this resource.
+   */
+  "friendlyName"?: string | null;
+  /**
+   * A unique, developer assigned name of this HostedNumberOrder.
+   */
+  "uniqueName"?: string | null;
+  "status"?: DependentHostedNumberOrderEnumStatus;
+  /**
+   * Why a hosted_number_order reached status \"action-required\"
+   */
+  "failureReason"?: string | null;
+  /**
+   * The date this HostedNumberOrder was created.
+   */
+  "dateCreated"?: Date | null;
+  /**
+   * The date this HostedNumberOrder was updated.
+   */
+  "dateUpdated"?: Date | null;
+  /**
+   * The number of attempts made to verify ownership of the phone number.
+   */
+  "verificationAttempts"?: number | null;
+  /**
+   * Email.
+   */
+  "email"?: string | null;
+  /**
+   * A list of emails.
+   */
+  "ccEmails"?: Array<string> | null;
+  "verificationType"?: DependentHostedNumberOrderEnumVerificationType;
+  /**
+   * Verification Document Sid.
+   */
+  "verificationDocumentSid"?: string | null;
+  /**
+   * Phone extension to use for ownership verification call.
+   */
+  "extension"?: string | null;
+  /**
+   * Seconds (0-30) to delay ownership verification call by.
+   */
+  "callDelay"?: number | null;
+  /**
+   * The digits passed during the ownership verification call.
+   */
+  "verificationCode"?: string | null;
+  /**
+   * List of IDs for ownership verification calls.
+   */
+  "verificationCallSids"?: Array<string> | null;
+}
+
+
+/**
+ * A mapping of phone number capabilities.
+ */
+export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities {
+  "mms"?: boolean;
+  "sms"?: boolean;
+  "voice"?: boolean;
+  "fax"?: boolean;
+}
+
+
 type DependentHostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
+
+export class ListDeployedDevicesCertificateResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
 
 /**
  * Options to pass to each
@@ -274,7 +380,6 @@ export function DependentHostedNumberOrderListInstance(version: HostedNumbers, s
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -285,4 +390,70 @@ export function DependentHostedNumberOrderListInstance(version: HostedNumbers, s
 
   return instance;
 }
+
+interface DependentHostedNumberOrderPayload extends DependentHostedNumberOrderResource, Page.TwilioResponsePayload {
+}
+
+interface DependentHostedNumberOrderResource {
+  items?: Array<PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder>;
+  meta?: ListDeployedDevicesCertificateResponseMeta;
+}
+
+export class DependentHostedNumberOrderInstance {
+
+  constructor(protected _version: HostedNumbers, payload: DependentHostedNumberOrderPayload, signingDocumentSid?: string) {
+    this.items = payload.items;
+    this.meta = payload.meta;
+
+  }
+
+  items?: Array<PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder>;
+  meta?: ListDeployedDevicesCertificateResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      items: this.items, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class DependentHostedNumberOrderPage extends Page<HostedNumbers, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderInstance> {
+/**
+* Initialize the DependentHostedNumberOrderPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: HostedNumbers, response: Response<string>, solution: DependentHostedNumberOrderSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of DependentHostedNumberOrderInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DependentHostedNumberOrderPayload): DependentHostedNumberOrderInstance {
+    return new DependentHostedNumberOrderInstance(
+    this._version,
+    payload,
+        this._solution.signingDocumentSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

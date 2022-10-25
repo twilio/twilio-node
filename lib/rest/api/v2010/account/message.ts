@@ -19,8 +19,10 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { FeedbackListInstance } from "./message/feedback";
 import { MediaListInstance } from "./message/media";
+
 
 type MessageContentRetention = 'retain';
 
@@ -50,6 +52,7 @@ type MessageUpdateStatus = 'canceled';
  * @property { MessageAddressRetention } [addressRetention] 
  * @property { boolean } [smartEncoded] Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
  * @property { Array<string> } [persistentAction] Rich actions for Channels Messages.
+ * @property { boolean } [shortenUrls] Determines the usage of Click Tracking. Setting it to &#x60;true&#x60; will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to &#x60;false&#x60;.
  * @property { MessageScheduleType } [scheduleType] 
  * @property { Date } [sendAt] The time that Twilio will send the message. Must be in ISO 8601 format.
  * @property { boolean } [sendAsMms] If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
@@ -71,6 +74,7 @@ export interface MessageListInstanceCreateOptions {
   addressRetention?: MessageAddressRetention;
   smartEncoded?: boolean;
   persistentAction?: Array<string>;
+  shortenUrls?: boolean;
   scheduleType?: MessageScheduleType;
   sendAt?: Date;
   sendAsMms?: boolean;
@@ -341,6 +345,7 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
     if (params.addressRetention !== undefined) data['AddressRetention'] = params.addressRetention;
     if (params.smartEncoded !== undefined) data['SmartEncoded'] = serialize.bool(params.smartEncoded);
     if (params.persistentAction !== undefined) data['PersistentAction'] = serialize.map(params.persistentAction, ((e) => e));
+    if (params.shortenUrls !== undefined) data['ShortenUrls'] = serialize.bool(params.shortenUrls);
     if (params.scheduleType !== undefined) data['ScheduleType'] = params.scheduleType;
     if (params.sendAt !== undefined) data['SendAt'] = serialize.iso8601DateTime(params.sendAt);
     if (params.sendAsMms !== undefined) data['SendAsMms'] = serialize.bool(params.sendAsMms);
@@ -360,7 +365,6 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -405,7 +409,6 @@ export function MessageListInstance(version: V2010, accountSid: string): Message
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -509,7 +512,6 @@ export class MessageContextImpl implements MessageContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<MessageInstance> {
@@ -522,7 +524,6 @@ export class MessageContextImpl implements MessageContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -551,7 +552,6 @@ export class MessageContextImpl implements MessageContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -801,33 +801,33 @@ export class MessageInstance {
 }
 
 export class MessagePage extends Page<V2010, MessagePayload, MessageResource, MessageInstance> {
-  /**
-   * Initialize the MessagePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: MessageSolution) {
+/**
+* Initialize the MessagePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: MessageSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MessageInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MessagePayload): MessageInstance {
+    /**
+    * Build an instance of MessageInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MessagePayload): MessageInstance {
     return new MessageInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

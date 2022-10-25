@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
 
@@ -26,12 +25,12 @@ type RecordingRecordingMode = 'do-not-record'|'record-from-ringing'|'record-from
 
 
 /**
- * Options to pass to create a RecordingInstance
+ * Options to pass to update a RecordingInstance
  *
  * @property { RecordingRecordingMode } [mode] 
  * @property { RecordingRecordingTrim } [trim] 
  */
-export interface RecordingListInstanceCreateOptions {
+export interface RecordingListInstanceUpdateOptions {
   mode?: RecordingRecordingMode;
   trim?: RecordingRecordingTrim;
 }
@@ -39,126 +38,34 @@ export interface RecordingListInstanceCreateOptions {
 export interface RecordingListInstance {
 
 
-
   /**
-   * Streams RecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: RecordingInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams RecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: RecordingListInstanceEachOptions, callback?: (item: RecordingInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of RecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
-  /**
-   * Retrieve a single target page of RecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
-  getPage(params?: any, callback?: any): Promise<RecordingPage>;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: RecordingInstance[]) => any): Promise<RecordingInstance[]>;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: RecordingListInstanceOptions, callback?: (error: Error | null, items: RecordingInstance[]) => any): Promise<RecordingInstance[]>;
-  list(params?: any, callback?: any): Promise<RecordingInstance[]>;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { RecordingListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: RecordingListInstancePageOptions, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
-  page(params?: any, callback?: any): Promise<RecordingPage>;
-
-  /**
-   * Create a RecordingInstance
+   * Fetch a RecordingInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RecordingInstance
    */
-  create(callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
+  fetch(callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>
+
+
   /**
-   * Create a RecordingInstance
+   * Update a RecordingInstance
    *
-   * @param { RecordingListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed RecordingInstance
    */
-  create(params: RecordingListInstanceCreateOptions, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
-  create(params?: any, callback?: any): Promise<RecordingInstance>
+  update(callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
+  /**
+   * Update a RecordingInstance
+   *
+   * @param { RecordingListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RecordingInstance
+   */
+  update(params: RecordingListInstanceUpdateOptions, callback?: (error: Error | null, item?: RecordingInstance) => any): Promise<RecordingInstance>;
+  update(params?: any, callback?: any): Promise<RecordingInstance>
 
 
   /**
@@ -187,31 +94,21 @@ export function RecordingListInstance(version: V1, trunkSid: string): RecordingL
   instance._solution = { trunkSid };
   instance._uri = `/Trunks/${trunkSid}/Recording`;
 
-  instance.page = function page(callback?: any): Promise<RecordingPage> {
+  instance.fetch = function fetch(callback?: any): Promise<RecordingInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new RecordingPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.trunkSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<RecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new RecordingPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<RecordingInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<RecordingInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -228,14 +125,13 @@ export function RecordingListInstance(version: V1, trunkSid: string): RecordingL
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingInstance(operationVersion, payload, this._solution.trunkSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -251,7 +147,7 @@ export function RecordingListInstance(version: V1, trunkSid: string): RecordingL
   return instance;
 }
 
-interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
+interface RecordingPayload extends RecordingResource{
 }
 
 interface RecordingResource {
@@ -287,33 +183,4 @@ export class RecordingInstance {
   }
 }
 
-export class RecordingPage extends Page<V1, RecordingPayload, RecordingResource, RecordingInstance> {
-  /**
-   * Initialize the RecordingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: RecordingSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of RecordingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RecordingPayload): RecordingInstance {
-    return new RecordingInstance(
-      this._version,
-      payload,
-      this._solution.trunkSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

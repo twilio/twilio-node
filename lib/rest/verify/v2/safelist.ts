@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
+
 
 
 /**
@@ -84,7 +84,6 @@ export class SafelistContextImpl implements SafelistContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SafelistInstance> {
@@ -97,7 +96,6 @@ export class SafelistContextImpl implements SafelistContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -116,7 +114,7 @@ export class SafelistContextImpl implements SafelistContext {
   }
 }
 
-interface SafelistPayload extends SafelistResource, Page.TwilioResponsePayload {
+interface SafelistPayload extends SafelistResource{
 }
 
 interface SafelistResource {
@@ -197,36 +195,6 @@ export class SafelistInstance {
   }
 }
 
-export class SafelistPage extends Page<V2, SafelistPayload, SafelistResource, SafelistInstance> {
-  /**
-   * Initialize the SafelistPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: SafelistSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SafelistInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SafelistPayload): SafelistInstance {
-    return new SafelistInstance(
-      this._version,
-      payload,
-      this._solution.phoneNumber,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface SafelistListInstance {
   (phoneNumber: string): SafelistContext;
@@ -300,7 +268,6 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -313,4 +280,6 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
 
   return instance;
 }
+
+
 

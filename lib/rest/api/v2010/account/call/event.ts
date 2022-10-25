@@ -20,6 +20,19 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+export class ApiV2010AccountCallCallEvent {
+  /**
+   * Call Request.
+   */
+  "request"?: any | null;
+  /**
+   * Call Response with Events.
+   */
+  "response"?: any | null;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -238,7 +251,6 @@ export function EventListInstance(version: V2010, accountSid: string, callSid: s
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -249,4 +261,99 @@ export function EventListInstance(version: V2010, accountSid: string, callSid: s
 
   return instance;
 }
+
+interface EventPayload extends EventResource, Page.TwilioResponsePayload {
+}
+
+interface EventResource {
+  events?: Array<ApiV2010AccountCallCallEvent>;
+  end?: number;
+  first_page_uri?: string;
+  next_page_uri?: string;
+  page?: number;
+  page_size?: number;
+  previous_page_uri?: string;
+  start?: number;
+  uri?: string;
+}
+
+export class EventInstance {
+
+  constructor(protected _version: V2010, payload: EventPayload, accountSid: string, callSid?: string) {
+    this.events = payload.events;
+    this.end = deserialize.integer(payload.end);
+    this.firstPageUri = payload.first_page_uri;
+    this.nextPageUri = payload.next_page_uri;
+    this.page = deserialize.integer(payload.page);
+    this.pageSize = deserialize.integer(payload.page_size);
+    this.previousPageUri = payload.previous_page_uri;
+    this.start = deserialize.integer(payload.start);
+    this.uri = payload.uri;
+
+  }
+
+  events?: Array<ApiV2010AccountCallCallEvent>;
+  end?: number;
+  firstPageUri?: string;
+  nextPageUri?: string;
+  page?: number;
+  pageSize?: number;
+  previousPageUri?: string;
+  start?: number;
+  uri?: string;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      events: this.events, 
+      end: this.end, 
+      firstPageUri: this.firstPageUri, 
+      nextPageUri: this.nextPageUri, 
+      page: this.page, 
+      pageSize: this.pageSize, 
+      previousPageUri: this.previousPageUri, 
+      start: this.start, 
+      uri: this.uri
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class EventPage extends Page<V2010, EventPayload, EventResource, EventInstance> {
+/**
+* Initialize the EventPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: EventSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of EventInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EventPayload): EventInstance {
+    return new EventInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.callSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

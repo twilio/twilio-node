@@ -14,145 +14,52 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
 /**
- * Options to pass to create a StyleSheetInstance
+ * Options to pass to update a StyleSheetInstance
  *
  * @property { any } [styleSheet] The JSON string that describes the style sheet object.
  */
-export interface StyleSheetListInstanceCreateOptions {
+export interface StyleSheetListInstanceUpdateOptions {
   styleSheet?: any;
 }
 
 export interface StyleSheetListInstance {
 
 
-
   /**
-   * Streams StyleSheetInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: StyleSheetInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams StyleSheetInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { StyleSheetListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: StyleSheetListInstanceEachOptions, callback?: (item: StyleSheetInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of StyleSheetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: StyleSheetPage) => any): Promise<StyleSheetPage>;
-  /**
-   * Retrieve a single target page of StyleSheetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: StyleSheetPage) => any): Promise<StyleSheetPage>;
-  getPage(params?: any, callback?: any): Promise<StyleSheetPage>;
-  /**
-   * Lists StyleSheetInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: StyleSheetInstance[]) => any): Promise<StyleSheetInstance[]>;
-  /**
-   * Lists StyleSheetInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { StyleSheetListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: StyleSheetListInstanceOptions, callback?: (error: Error | null, items: StyleSheetInstance[]) => any): Promise<StyleSheetInstance[]>;
-  list(params?: any, callback?: any): Promise<StyleSheetInstance[]>;
-  /**
-   * Retrieve a single page of StyleSheetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: StyleSheetPage) => any): Promise<StyleSheetPage>;
-  /**
-   * Retrieve a single page of StyleSheetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { StyleSheetListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: StyleSheetListInstancePageOptions, callback?: (error: Error | null, items: StyleSheetPage) => any): Promise<StyleSheetPage>;
-  page(params?: any, callback?: any): Promise<StyleSheetPage>;
-
-  /**
-   * Create a StyleSheetInstance
+   * Fetch a StyleSheetInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed StyleSheetInstance
    */
-  create(callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
+  fetch(callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>
+
+
   /**
-   * Create a StyleSheetInstance
+   * Update a StyleSheetInstance
    *
-   * @param { StyleSheetListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed StyleSheetInstance
    */
-  create(params: StyleSheetListInstanceCreateOptions, callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
-  create(params?: any, callback?: any): Promise<StyleSheetInstance>
+  update(callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
+  /**
+   * Update a StyleSheetInstance
+   *
+   * @param { StyleSheetListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed StyleSheetInstance
+   */
+  update(params: StyleSheetListInstanceUpdateOptions, callback?: (error: Error | null, item?: StyleSheetInstance) => any): Promise<StyleSheetInstance>;
+  update(params?: any, callback?: any): Promise<StyleSheetInstance>
 
 
   /**
@@ -181,31 +88,21 @@ export function StyleSheetListInstance(version: V1, assistantSid: string): Style
   instance._solution = { assistantSid };
   instance._uri = `/Assistants/${assistantSid}/StyleSheet`;
 
-  instance.page = function page(callback?: any): Promise<StyleSheetPage> {
+  instance.fetch = function fetch(callback?: any): Promise<StyleSheetInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new StyleSheetPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new StyleSheetInstance(operationVersion, payload, this._solution.assistantSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<StyleSheetPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new StyleSheetPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<StyleSheetInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<StyleSheetInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -221,14 +118,13 @@ export function StyleSheetListInstance(version: V1, assistantSid: string): Style
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new StyleSheetInstance(operationVersion, payload, this._solution.assistantSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -244,7 +140,7 @@ export function StyleSheetListInstance(version: V1, assistantSid: string): Style
   return instance;
 }
 
-interface StyleSheetPayload extends StyleSheetResource, Page.TwilioResponsePayload {
+interface StyleSheetPayload extends StyleSheetResource{
 }
 
 interface StyleSheetResource {
@@ -300,33 +196,4 @@ export class StyleSheetInstance {
   }
 }
 
-export class StyleSheetPage extends Page<V1, StyleSheetPayload, StyleSheetResource, StyleSheetInstance> {
-  /**
-   * Initialize the StyleSheetPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: StyleSheetSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of StyleSheetInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: StyleSheetPayload): StyleSheetInstance {
-    return new StyleSheetInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

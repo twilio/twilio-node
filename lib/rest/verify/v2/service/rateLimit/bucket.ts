@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a BucketInstance
  *
@@ -167,7 +169,6 @@ export class BucketContextImpl implements BucketContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<BucketInstance> {
@@ -180,7 +181,6 @@ export class BucketContextImpl implements BucketContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -209,7 +209,6 @@ export class BucketContextImpl implements BucketContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -369,38 +368,6 @@ export class BucketInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class BucketPage extends Page<V2, BucketPayload, BucketResource, BucketInstance> {
-  /**
-   * Initialize the BucketPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: BucketSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of BucketInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BucketPayload): BucketInstance {
-    return new BucketInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.rateLimitSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -587,7 +554,6 @@ export function BucketListInstance(version: V2, serviceSid: string, rateLimitSid
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<BucketPage> {
@@ -627,7 +593,6 @@ export function BucketListInstance(version: V2, serviceSid: string, rateLimitSid
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -638,4 +603,36 @@ export function BucketListInstance(version: V2, serviceSid: string, rateLimitSid
 
   return instance;
 }
+
+
+export class BucketPage extends Page<V2, BucketPayload, BucketResource, BucketInstance> {
+/**
+* Initialize the BucketPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: BucketSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of BucketInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BucketPayload): BucketInstance {
+    return new BucketInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.rateLimitSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type RoomRecordingCodec = 'VP8'|'H264'|'OPUS'|'PCMU';
 
 type RoomRecordingType = 'audio'|'video'|'data';
@@ -156,7 +158,6 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<RoomRecordingInstance> {
@@ -169,7 +170,6 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -355,37 +355,6 @@ export class RoomRecordingInstance {
   }
 }
 
-export class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecordingResource, RoomRecordingInstance> {
-  /**
-   * Initialize the RoomRecordingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: RoomRecordingSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of RoomRecordingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RoomRecordingPayload): RoomRecordingInstance {
-    return new RoomRecordingInstance(
-      this._version,
-      payload,
-      this._solution.roomSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface RoomRecordingListInstance {
   (sid: string): RoomRecordingContext;
@@ -565,7 +534,6 @@ export function RoomRecordingListInstance(version: V1, roomSid: string): RoomRec
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -576,4 +544,35 @@ export function RoomRecordingListInstance(version: V1, roomSid: string): RoomRec
 
   return instance;
 }
+
+
+export class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecordingResource, RoomRecordingInstance> {
+/**
+* Initialize the RoomRecordingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: RoomRecordingSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of RoomRecordingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RoomRecordingPayload): RoomRecordingInstance {
+    return new RoomRecordingInstance(
+    this._version,
+    payload,
+        this._solution.roomSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

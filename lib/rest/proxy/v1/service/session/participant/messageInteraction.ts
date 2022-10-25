@@ -20,6 +20,8 @@ import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
+
+
 type MessageInteractionType = 'message'|'voice'|'unknown';
 
 type MessageInteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
@@ -131,7 +133,6 @@ export class MessageInteractionContextImpl implements MessageInteractionContext 
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -329,39 +330,6 @@ export class MessageInteractionInstance {
   }
 }
 
-export class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
-  /**
-   * Initialize the MessageInteractionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: MessageInteractionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of MessageInteractionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MessageInteractionPayload): MessageInteractionInstance {
-    return new MessageInteractionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sessionSid,
-      this._solution.participantSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface MessageInteractionListInstance {
   (sid: string): MessageInteractionContext;
@@ -548,7 +516,6 @@ export function MessageInteractionListInstance(version: V1, serviceSid: string, 
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<MessageInteractionPage> {
@@ -588,7 +555,6 @@ export function MessageInteractionListInstance(version: V1, serviceSid: string, 
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -599,4 +565,37 @@ export function MessageInteractionListInstance(version: V1, serviceSid: string, 
 
   return instance;
 }
+
+
+export class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
+/**
+* Initialize the MessageInteractionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: MessageInteractionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of MessageInteractionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MessageInteractionPayload): MessageInteractionInstance {
+    return new MessageInteractionInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.sessionSid,
+        this._solution.participantSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

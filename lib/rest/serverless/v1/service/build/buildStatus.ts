@@ -14,117 +14,26 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+type BuildStatusStatus = 'building'|'completed'|'failed';
+
+
 export interface BuildStatusListInstance {
 
 
+  /**
+   * Fetch a BuildStatusInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BuildStatusInstance
+   */
+  fetch(callback?: (error: Error | null, item?: BuildStatusInstance) => any): Promise<BuildStatusInstance>
 
-  /**
-   * Streams BuildStatusInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: BuildStatusInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams BuildStatusInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BuildStatusListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: BuildStatusListInstanceEachOptions, callback?: (item: BuildStatusInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of BuildStatusInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: BuildStatusPage) => any): Promise<BuildStatusPage>;
-  /**
-   * Retrieve a single target page of BuildStatusInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BuildStatusPage) => any): Promise<BuildStatusPage>;
-  getPage(params?: any, callback?: any): Promise<BuildStatusPage>;
-  /**
-   * Lists BuildStatusInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: BuildStatusInstance[]) => any): Promise<BuildStatusInstance[]>;
-  /**
-   * Lists BuildStatusInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BuildStatusListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: BuildStatusListInstanceOptions, callback?: (error: Error | null, items: BuildStatusInstance[]) => any): Promise<BuildStatusInstance[]>;
-  list(params?: any, callback?: any): Promise<BuildStatusInstance[]>;
-  /**
-   * Retrieve a single page of BuildStatusInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: BuildStatusPage) => any): Promise<BuildStatusPage>;
-  /**
-   * Retrieve a single page of BuildStatusInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BuildStatusListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: BuildStatusListInstancePageOptions, callback?: (error: Error | null, items: BuildStatusPage) => any): Promise<BuildStatusPage>;
-  page(params?: any, callback?: any): Promise<BuildStatusPage>;
 
   /**
    * Provide a user-friendly representation
@@ -153,29 +62,19 @@ export function BuildStatusListInstance(version: V1, serviceSid: string, sid: st
   instance._solution = { serviceSid, sid };
   instance._uri = `/Services/${serviceSid}/Builds/${sid}/Status`;
 
-  instance.page = function page(callback?: any): Promise<BuildStatusPage> {
+  instance.fetch = function fetch(callback?: any): Promise<BuildStatusInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new BuildStatusPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new BuildStatusInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BuildStatusPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new BuildStatusPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -187,4 +86,65 @@ export function BuildStatusListInstance(version: V1, serviceSid: string, sid: st
 
   return instance;
 }
+
+interface BuildStatusPayload extends BuildStatusResource{
+}
+
+interface BuildStatusResource {
+  sid?: string | null;
+  account_sid?: string | null;
+  service_sid?: string | null;
+  status?: BuildStatusStatus;
+  url?: string | null;
+}
+
+export class BuildStatusInstance {
+
+  constructor(protected _version: V1, payload: BuildStatusPayload, serviceSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.status = payload.status;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The unique string that identifies the Build resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the Build resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Service that the Build resource is associated with
+   */
+  serviceSid?: string | null;
+  status?: BuildStatusStatus;
+  /**
+   * The absolute URL of the Build Status resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      accountSid: this.accountSid, 
+      serviceSid: this.serviceSid, 
+      status: this.status, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

@@ -14,16 +14,16 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
 type VerificationAttemptsSummaryChannels = 'sms'|'call'|'email'|'whatsapp';
 
+
 /**
- * Options to pass to each
+ * Options to pass to fetch a VerificationAttemptsSummaryInstance
  *
  * @property { string } [verifyServiceSid] Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
  * @property { Date } [dateCreatedAfter] Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
@@ -31,180 +31,38 @@ type VerificationAttemptsSummaryChannels = 'sms'|'call'|'email'|'whatsapp';
  * @property { string } [country] Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
  * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
  * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface VerificationAttemptsSummaryListInstanceEachOptions {
+export interface VerificationAttemptsSummaryListInstanceFetchOptions {
   verifyServiceSid?: string;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   country?: string;
   channel?: VerificationAttemptsSummaryChannels;
   destinationPrefix?: string;
-  callback?: (item: VerificationAttemptsSummaryInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
 }
-
-/**
- * Options to pass to list
- *
- * @property { string } [verifyServiceSid] Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
- * @property { Date } [dateCreatedAfter] Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
- * @property { Date } [dateCreatedBefore] Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
- * @property { string } [country] Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
- * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
- * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface VerificationAttemptsSummaryListInstanceOptions {
-  verifyServiceSid?: string;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  country?: string;
-  channel?: VerificationAttemptsSummaryChannels;
-  destinationPrefix?: string;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { string } [verifyServiceSid] Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
- * @property { Date } [dateCreatedAfter] Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
- * @property { Date } [dateCreatedBefore] Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
- * @property { string } [country] Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
- * @property { VerificationAttemptsSummaryChannels } [channel] Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
- * @property { string } [destinationPrefix] Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface VerificationAttemptsSummaryListInstancePageOptions {
-  verifyServiceSid?: string;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  country?: string;
-  channel?: VerificationAttemptsSummaryChannels;
-  destinationPrefix?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface VerificationAttemptsSummaryListInstance {
 
 
+  /**
+   * Fetch a VerificationAttemptsSummaryInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
+   */
+  fetch(callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
+  /**
+   * Fetch a VerificationAttemptsSummaryInstance
+   *
+   * @param { VerificationAttemptsSummaryListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed VerificationAttemptsSummaryInstance
+   */
+  fetch(params: VerificationAttemptsSummaryListInstanceFetchOptions, callback?: (error: Error | null, item?: VerificationAttemptsSummaryInstance) => any): Promise<VerificationAttemptsSummaryInstance>;
+  fetch(params?: any, callback?: any): Promise<VerificationAttemptsSummaryInstance>
 
-  /**
-   * Streams VerificationAttemptsSummaryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: VerificationAttemptsSummaryInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams VerificationAttemptsSummaryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { VerificationAttemptsSummaryListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: VerificationAttemptsSummaryListInstanceEachOptions, callback?: (item: VerificationAttemptsSummaryInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of VerificationAttemptsSummaryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: VerificationAttemptsSummaryPage) => any): Promise<VerificationAttemptsSummaryPage>;
-  /**
-   * Retrieve a single target page of VerificationAttemptsSummaryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: VerificationAttemptsSummaryPage) => any): Promise<VerificationAttemptsSummaryPage>;
-  getPage(params?: any, callback?: any): Promise<VerificationAttemptsSummaryPage>;
-  /**
-   * Lists VerificationAttemptsSummaryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: VerificationAttemptsSummaryInstance[]) => any): Promise<VerificationAttemptsSummaryInstance[]>;
-  /**
-   * Lists VerificationAttemptsSummaryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { VerificationAttemptsSummaryListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: VerificationAttemptsSummaryListInstanceOptions, callback?: (error: Error | null, items: VerificationAttemptsSummaryInstance[]) => any): Promise<VerificationAttemptsSummaryInstance[]>;
-  list(params?: any, callback?: any): Promise<VerificationAttemptsSummaryInstance[]>;
-  /**
-   * Retrieve a single page of VerificationAttemptsSummaryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: VerificationAttemptsSummaryPage) => any): Promise<VerificationAttemptsSummaryPage>;
-  /**
-   * Retrieve a single page of VerificationAttemptsSummaryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { VerificationAttemptsSummaryListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: VerificationAttemptsSummaryListInstancePageOptions, callback?: (error: Error | null, items: VerificationAttemptsSummaryPage) => any): Promise<VerificationAttemptsSummaryPage>;
-  page(params?: any, callback?: any): Promise<VerificationAttemptsSummaryPage>;
 
   /**
    * Provide a user-friendly representation
@@ -231,7 +89,7 @@ export function VerificationAttemptsSummaryListInstance(version: V2): Verificati
   instance._solution = {  };
   instance._uri = `/Attempts/Summary`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<VerificationAttemptsSummaryPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<VerificationAttemptsSummaryInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -247,32 +105,20 @@ export function VerificationAttemptsSummaryListInstance(version: V2): Verificati
     if (params.country !== undefined) data['Country'] = params.country;
     if (params.channel !== undefined) data['Channel'] = params.channel;
     if (params.destinationPrefix !== undefined) data['DestinationPrefix'] = params.destinationPrefix;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new VerificationAttemptsSummaryPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new VerificationAttemptsSummaryInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<VerificationAttemptsSummaryPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new VerificationAttemptsSummaryPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -284,4 +130,65 @@ export function VerificationAttemptsSummaryListInstance(version: V2): Verificati
 
   return instance;
 }
+
+interface VerificationAttemptsSummaryPayload extends VerificationAttemptsSummaryResource{
+}
+
+interface VerificationAttemptsSummaryResource {
+  total_attempts?: number | null;
+  total_converted?: number | null;
+  total_unconverted?: number | null;
+  conversion_rate_percentage?: number | null;
+  url?: string | null;
+}
+
+export class VerificationAttemptsSummaryInstance {
+
+  constructor(protected _version: V2, payload: VerificationAttemptsSummaryPayload) {
+    this.totalAttempts = deserialize.integer(payload.total_attempts);
+    this.totalConverted = deserialize.integer(payload.total_converted);
+    this.totalUnconverted = deserialize.integer(payload.total_unconverted);
+    this.conversionRatePercentage = payload.conversion_rate_percentage;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * Total of attempts made.
+   */
+  totalAttempts?: number | null;
+  /**
+   * Total of attempts confirmed by the end user.
+   */
+  totalConverted?: number | null;
+  /**
+   * Total of attempts made that were not confirmed by the end user.
+   */
+  totalUnconverted?: number | null;
+  /**
+   * Percentage of the confirmed messages over the total.
+   */
+  conversionRatePercentage?: number | null;
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      totalAttempts: this.totalAttempts, 
+      totalConverted: this.totalConverted, 
+      totalUnconverted: this.totalUnconverted, 
+      conversionRatePercentage: this.conversionRatePercentage, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

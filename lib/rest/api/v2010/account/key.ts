@@ -20,6 +20,8 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -252,7 +254,6 @@ export function KeyListInstance(version: V2010, accountSid: string): KeyListInst
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -340,7 +341,6 @@ export class KeyContextImpl implements KeyContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<KeyInstance> {
@@ -353,7 +353,6 @@ export class KeyContextImpl implements KeyContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -381,7 +380,6 @@ export class KeyContextImpl implements KeyContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -511,33 +509,33 @@ export class KeyInstance {
 }
 
 export class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> {
-  /**
-   * Initialize the KeyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: KeySolution) {
+/**
+* Initialize the KeyPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: KeySolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of KeyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: KeyPayload): KeyInstance {
+    /**
+    * Build an instance of KeyInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: KeyPayload): KeyInstance {
     return new KeyInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

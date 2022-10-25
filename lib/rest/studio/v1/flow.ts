@@ -19,8 +19,10 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { EngagementListInstance } from "./flow/engagement";
 import { ExecutionListInstance } from "./flow/execution";
+
 
 type FlowStatus = 'draft'|'published';
 
@@ -246,7 +248,6 @@ export function FlowListInstance(version: V1): FlowListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -327,7 +328,6 @@ export class FlowContextImpl implements FlowContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<FlowInstance> {
@@ -340,7 +340,6 @@ export class FlowContextImpl implements FlowContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -494,32 +493,32 @@ export class FlowInstance {
 }
 
 export class FlowPage extends Page<V1, FlowPayload, FlowResource, FlowInstance> {
-  /**
-   * Initialize the FlowPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: FlowSolution) {
+/**
+* Initialize the FlowPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: FlowSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of FlowInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FlowPayload): FlowInstance {
+    /**
+    * Build an instance of FlowInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FlowPayload): FlowInstance {
     return new FlowInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

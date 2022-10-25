@@ -20,6 +20,8 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|'failed';
 
 
@@ -193,11 +195,11 @@ export interface ParticipantListInstancePageOptions {
  *
  * @property { boolean } [muted] Whether the participant should be muted. Can be &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; will mute the participant, and &#x60;false&#x60; will un-mute them. Anything value other than &#x60;true&#x60; or &#x60;false&#x60; is interpreted as &#x60;false&#x60;.
  * @property { boolean } [hold] Whether the participant should be on hold. Can be: &#x60;true&#x60; or &#x60;false&#x60;. &#x60;true&#x60; puts the participant on hold, and &#x60;false&#x60; lets them rejoin the conference.
- * @property { string } [holdUrl] The URL we call using the &#x60;hold_method&#x60; for  music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains the &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60; or &#x60;&lt;Redirect&gt;&#x60; commands.
+ * @property { string } [holdUrl] The URL we call using the &#x60;hold_method&#x60; for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs.
  * @property { string } [holdMethod] The HTTP method we should use to call &#x60;hold_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;GET&#x60;.
- * @property { string } [announceUrl] The URL we call using the &#x60;announce_method&#x60; for an announcement to the participant. The URL must return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60; or &#x60;&lt;Say&gt;&#x60; commands.
+ * @property { string } [announceUrl] The URL we call using the &#x60;announce_method&#x60; for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs.
  * @property { string } [announceMethod] The HTTP method we should use to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { string } [waitUrl] The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+ * @property { string } [waitUrl] The URL we call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
  * @property { string } [waitMethod] The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file.
  * @property { boolean } [beepOnExit] Whether to play a notification beep to the conference when the participant exits. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
  * @property { boolean } [endConferenceOnExit] Whether to end the conference when the participant leaves. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;.
@@ -444,7 +446,6 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
@@ -485,7 +486,6 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -576,7 +576,6 @@ export class ParticipantContextImpl implements ParticipantContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
@@ -589,7 +588,6 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -628,7 +626,6 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -825,34 +822,34 @@ export class ParticipantInstance {
 }
 
 export class ParticipantPage extends Page<V2010, ParticipantPayload, ParticipantResource, ParticipantInstance> {
-  /**
-   * Initialize the ParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: ParticipantSolution) {
+/**
+* Initialize the ParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: ParticipantSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ParticipantPayload): ParticipantInstance {
+    /**
+    * Build an instance of ParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ParticipantPayload): ParticipantInstance {
     return new ParticipantInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.conferenceSid,
-      this._solution.callSid,
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.conferenceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

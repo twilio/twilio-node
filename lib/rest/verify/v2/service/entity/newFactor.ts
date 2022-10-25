@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 
 type NewFactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
 
@@ -149,7 +148,6 @@ export function NewFactorListInstance(version: V2, serviceSid: string, identity:
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -163,7 +161,7 @@ export function NewFactorListInstance(version: V2, serviceSid: string, identity:
   return instance;
 }
 
-interface NewFactorPayload extends NewFactorResource, Page.TwilioResponsePayload {
+interface NewFactorPayload extends NewFactorResource{
 }
 
 interface NewFactorResource {
@@ -283,34 +281,4 @@ export class NewFactorInstance {
   }
 }
 
-export class NewFactorPage extends Page<V2, NewFactorPayload, NewFactorResource, NewFactorInstance> {
-  /**
-   * Initialize the NewFactorPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: NewFactorSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of NewFactorInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NewFactorPayload): NewFactorInstance {
-    return new NewFactorInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.identity,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a SyncListPermissionInstance
  *
@@ -150,7 +152,6 @@ export class SyncListPermissionContextImpl implements SyncListPermissionContext 
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SyncListPermissionInstance> {
@@ -163,7 +164,6 @@ export class SyncListPermissionContextImpl implements SyncListPermissionContext 
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -202,7 +202,6 @@ export class SyncListPermissionContextImpl implements SyncListPermissionContext 
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -347,38 +346,6 @@ export class SyncListPermissionInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class SyncListPermissionPage extends Page<Sync, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionInstance> {
-  /**
-   * Initialize the SyncListPermissionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Sync, response: Response<string>, solution: SyncListPermissionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SyncListPermissionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SyncListPermissionPayload): SyncListPermissionInstance {
-    return new SyncListPermissionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.listSid,
-      this._solution.identity,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -559,7 +526,6 @@ export function SyncListPermissionListInstance(version: Sync, serviceSid: string
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -570,4 +536,36 @@ export function SyncListPermissionListInstance(version: Sync, serviceSid: string
 
   return instance;
 }
+
+
+export class SyncListPermissionPage extends Page<Sync, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionInstance> {
+/**
+* Initialize the SyncListPermissionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Sync, response: Response<string>, solution: SyncListPermissionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SyncListPermissionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SyncListPermissionPayload): SyncListPermissionInstance {
+    return new SyncListPermissionInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.listSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

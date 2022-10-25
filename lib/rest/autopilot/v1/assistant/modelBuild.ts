@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type ModelBuildStatus = 'enqueued'|'building'|'completed'|'failed'|'canceled';
 
 
@@ -166,7 +168,6 @@ export class ModelBuildContextImpl implements ModelBuildContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ModelBuildInstance> {
@@ -179,7 +180,6 @@ export class ModelBuildContextImpl implements ModelBuildContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -207,7 +207,6 @@ export class ModelBuildContextImpl implements ModelBuildContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -371,37 +370,6 @@ export class ModelBuildInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class ModelBuildPage extends Page<V1, ModelBuildPayload, ModelBuildResource, ModelBuildInstance> {
-  /**
-   * Initialize the ModelBuildPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ModelBuildSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ModelBuildInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ModelBuildPayload): ModelBuildInstance {
-    return new ModelBuildInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -590,7 +558,6 @@ export function ModelBuildListInstance(version: V1, assistantSid: string): Model
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ModelBuildPage> {
@@ -630,7 +597,6 @@ export function ModelBuildListInstance(version: V1, assistantSid: string): Model
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -641,4 +607,35 @@ export function ModelBuildListInstance(version: V1, assistantSid: string): Model
 
   return instance;
 }
+
+
+export class ModelBuildPage extends Page<V1, ModelBuildPayload, ModelBuildResource, ModelBuildInstance> {
+/**
+* Initialize the ModelBuildPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ModelBuildSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of ModelBuildInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ModelBuildPayload): ModelBuildInstance {
+    return new ModelBuildInstance(
+    this._version,
+    payload,
+        this._solution.assistantSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

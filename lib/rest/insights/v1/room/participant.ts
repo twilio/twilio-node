@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type VideoParticipantSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
 
 type VideoParticipantSummaryCodec = 'VP8'|'H264'|'VP9';
@@ -251,7 +253,6 @@ export function ParticipantListInstance(version: V1, roomSid: string): Participa
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -309,7 +310,6 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -487,33 +487,33 @@ export class ParticipantInstance {
 }
 
 export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
-  /**
-   * Initialize the ParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ParticipantSolution) {
+/**
+* Initialize the ParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ParticipantSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ParticipantPayload): ParticipantInstance {
+    /**
+    * Build an instance of ParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ParticipantPayload): ParticipantInstance {
     return new ParticipantInstance(
-      this._version,
-      payload,
-      this._solution.roomSid,
-      this._solution.participantSid,
+    this._version,
+    payload,
+        this._solution.roomSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

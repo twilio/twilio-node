@@ -22,6 +22,8 @@ const serialize = require("../../../../base/serialize");
 import { ExecutionStepListInstance } from "./execution/executionStep";
 import { ExecutionContextListInstance } from "./execution/executionContext";
 
+
+
 type ExecutionStatus = 'active'|'ended';
 
 
@@ -188,7 +190,6 @@ export class ExecutionContextImpl implements ExecutionContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ExecutionInstance> {
@@ -201,7 +202,6 @@ export class ExecutionContextImpl implements ExecutionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -230,7 +230,6 @@ export class ExecutionContextImpl implements ExecutionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -400,37 +399,6 @@ export class ExecutionInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class ExecutionPage extends Page<V2, ExecutionPayload, ExecutionResource, ExecutionInstance> {
-  /**
-   * Initialize the ExecutionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: ExecutionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ExecutionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ExecutionPayload): ExecutionInstance {
-    return new ExecutionInstance(
-      this._version,
-      payload,
-      this._solution.flowSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -617,7 +585,6 @@ export function ExecutionListInstance(version: V2, flowSid: string): ExecutionLi
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ExecutionPage> {
@@ -659,7 +626,6 @@ export function ExecutionListInstance(version: V2, flowSid: string): ExecutionLi
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -670,4 +636,35 @@ export function ExecutionListInstance(version: V2, flowSid: string): ExecutionLi
 
   return instance;
 }
+
+
+export class ExecutionPage extends Page<V2, ExecutionPayload, ExecutionResource, ExecutionInstance> {
+/**
+* Initialize the ExecutionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: ExecutionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of ExecutionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ExecutionPayload): ExecutionInstance {
+    return new ExecutionInstance(
+    this._version,
+    payload,
+        this._solution.flowSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

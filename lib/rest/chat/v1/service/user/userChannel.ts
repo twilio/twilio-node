@@ -20,6 +20,51 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+export class ChatV1ServiceUserUserChannel {
+  /**
+   * The SID of the Account that created the resource
+   */
+  "accountSid"?: string | null;
+  /**
+   * The SID of the Service that the resource is associated with
+   */
+  "serviceSid"?: string | null;
+  /**
+   * The SID of the Channel the resource belongs to
+   */
+  "channelSid"?: string | null;
+  /**
+   * The SID of the User as a Member in the Channel
+   */
+  "memberSid"?: string | null;
+  "status"?: UserChannelEnumChannelStatus;
+  /**
+   * The index of the last Message in the Channel the Member has read
+   */
+  "lastConsumedMessageIndex"?: number | null;
+  /**
+   * The number of unread Messages in the Channel for the User
+   */
+  "unreadMessagesCount"?: number | null;
+  /**
+   * Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
+   */
+  "links"?: object | null;
+}
+
+
+export class ListChannelResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -238,7 +283,6 @@ export function UserChannelListInstance(version: V1, serviceSid: string, userSid
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -249,4 +293,71 @@ export function UserChannelListInstance(version: V1, serviceSid: string, userSid
 
   return instance;
 }
+
+interface UserChannelPayload extends UserChannelResource, Page.TwilioResponsePayload {
+}
+
+interface UserChannelResource {
+  channels?: Array<ChatV1ServiceUserUserChannel>;
+  meta?: ListChannelResponseMeta;
+}
+
+export class UserChannelInstance {
+
+  constructor(protected _version: V1, payload: UserChannelPayload, serviceSid: string, userSid?: string) {
+    this.channels = payload.channels;
+    this.meta = payload.meta;
+
+  }
+
+  channels?: Array<ChatV1ServiceUserUserChannel>;
+  meta?: ListChannelResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      channels: this.channels, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class UserChannelPage extends Page<V1, UserChannelPayload, UserChannelResource, UserChannelInstance> {
+/**
+* Initialize the UserChannelPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: UserChannelSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of UserChannelInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UserChannelPayload): UserChannelInstance {
+    return new UserChannelInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.userSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

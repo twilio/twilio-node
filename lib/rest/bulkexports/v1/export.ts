@@ -14,15 +14,15 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { JobListInstance } from "./export/job";
+
 import { ExportConfigurationListInstance } from "./export/exportConfiguration";
 import { ExportCustomJobListInstance } from "./export/exportCustomJob";
 import { DayListInstance } from "./export/day";
+
 
 
 export interface ExportListInstance {
@@ -149,7 +149,6 @@ export class ExportContextImpl implements ExportContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -166,7 +165,7 @@ export class ExportContextImpl implements ExportContext {
   }
 }
 
-interface ExportPayload extends ExportResource, Page.TwilioResponsePayload {
+interface ExportPayload extends ExportResource{
 }
 
 interface ExportResource {
@@ -256,33 +255,5 @@ export class ExportInstance {
   }
 }
 
-export class ExportPage extends Page<V1, ExportPayload, ExportResource, ExportInstance> {
-  /**
-   * Initialize the ExportPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ExportSolution) {
-    super(version, response, solution);
-  }
 
-  /**
-   * Build an instance of ExportInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ExportPayload): ExportInstance {
-    return new ExportInstance(
-      this._version,
-      payload,
-      this._solution.resourceType,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

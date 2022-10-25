@@ -19,7 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { AssetVersionListInstance } from "./asset/assetVersion";
+
 
 
 /**
@@ -263,7 +265,6 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<AssetPage> {
@@ -301,7 +302,6 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -390,7 +390,6 @@ export class AssetContextImpl implements AssetContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<AssetInstance> {
@@ -403,7 +402,6 @@ export class AssetContextImpl implements AssetContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -432,7 +430,6 @@ export class AssetContextImpl implements AssetContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -589,33 +586,33 @@ export class AssetInstance {
 }
 
 export class AssetPage extends Page<V1, AssetPayload, AssetResource, AssetInstance> {
-  /**
-   * Initialize the AssetPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: AssetSolution) {
+/**
+* Initialize the AssetPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: AssetSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AssetInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AssetPayload): AssetInstance {
+    /**
+    * Build an instance of AssetInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AssetPayload): AssetInstance {
     return new AssetInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

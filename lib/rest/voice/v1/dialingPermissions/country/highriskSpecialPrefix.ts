@@ -20,6 +20,26 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+export class VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes {
+  /**
+   * A prefix that includes the E.164 assigned country code
+   */
+  "prefix"?: string | null;
+}
+
+
+export class ListByocTrunkResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -237,7 +257,6 @@ export function HighriskSpecialPrefixListInstance(version: V1, isoCode: string):
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -248,4 +267,70 @@ export function HighriskSpecialPrefixListInstance(version: V1, isoCode: string):
 
   return instance;
 }
+
+interface HighriskSpecialPrefixPayload extends HighriskSpecialPrefixResource, Page.TwilioResponsePayload {
+}
+
+interface HighriskSpecialPrefixResource {
+  content?: Array<VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes>;
+  meta?: ListByocTrunkResponseMeta;
+}
+
+export class HighriskSpecialPrefixInstance {
+
+  constructor(protected _version: V1, payload: HighriskSpecialPrefixPayload, isoCode?: string) {
+    this.content = payload.content;
+    this.meta = payload.meta;
+
+  }
+
+  content?: Array<VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes>;
+  meta?: ListByocTrunkResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      content: this.content, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class HighriskSpecialPrefixPage extends Page<V1, HighriskSpecialPrefixPayload, HighriskSpecialPrefixResource, HighriskSpecialPrefixInstance> {
+/**
+* Initialize the HighriskSpecialPrefixPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: HighriskSpecialPrefixSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of HighriskSpecialPrefixInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: HighriskSpecialPrefixPayload): HighriskSpecialPrefixInstance {
+    return new HighriskSpecialPrefixInstance(
+    this._version,
+    payload,
+        this._solution.isoCode,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

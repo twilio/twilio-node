@@ -14,165 +14,43 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
-/**
- * Options to pass to each
- *
- * @property { string } [brandRegistrationSid] The unique string to identify the A2P brand.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface UsAppToPersonUsecaseListInstanceEachOptions {
-  brandRegistrationSid?: string;
-  callback?: (item: UsAppToPersonUsecaseInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
+
 
 /**
- * Options to pass to list
+ * Options to pass to fetch a UsAppToPersonUsecaseInstance
  *
  * @property { string } [brandRegistrationSid] The unique string to identify the A2P brand.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface UsAppToPersonUsecaseListInstanceOptions {
+export interface UsAppToPersonUsecaseListInstanceFetchOptions {
   brandRegistrationSid?: string;
-  limit?: number;
 }
-
-/**
- * Options to pass to page
- *
- * @property { string } [brandRegistrationSid] The unique string to identify the A2P brand.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface UsAppToPersonUsecaseListInstancePageOptions {
-  brandRegistrationSid?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface UsAppToPersonUsecaseListInstance {
 
 
+  /**
+   * Fetch a UsAppToPersonUsecaseInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
+   */
+  fetch(callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any): Promise<UsAppToPersonUsecaseInstance>;
+  /**
+   * Fetch a UsAppToPersonUsecaseInstance
+   *
+   * @param { UsAppToPersonUsecaseListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UsAppToPersonUsecaseInstance
+   */
+  fetch(params: UsAppToPersonUsecaseListInstanceFetchOptions, callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any): Promise<UsAppToPersonUsecaseInstance>;
+  fetch(params?: any, callback?: any): Promise<UsAppToPersonUsecaseInstance>
 
-  /**
-   * Streams UsAppToPersonUsecaseInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: UsAppToPersonUsecaseInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams UsAppToPersonUsecaseInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsAppToPersonUsecaseListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: UsAppToPersonUsecaseListInstanceEachOptions, callback?: (item: UsAppToPersonUsecaseInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of UsAppToPersonUsecaseInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: UsAppToPersonUsecasePage) => any): Promise<UsAppToPersonUsecasePage>;
-  /**
-   * Retrieve a single target page of UsAppToPersonUsecaseInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UsAppToPersonUsecasePage) => any): Promise<UsAppToPersonUsecasePage>;
-  getPage(params?: any, callback?: any): Promise<UsAppToPersonUsecasePage>;
-  /**
-   * Lists UsAppToPersonUsecaseInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: UsAppToPersonUsecaseInstance[]) => any): Promise<UsAppToPersonUsecaseInstance[]>;
-  /**
-   * Lists UsAppToPersonUsecaseInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsAppToPersonUsecaseListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: UsAppToPersonUsecaseListInstanceOptions, callback?: (error: Error | null, items: UsAppToPersonUsecaseInstance[]) => any): Promise<UsAppToPersonUsecaseInstance[]>;
-  list(params?: any, callback?: any): Promise<UsAppToPersonUsecaseInstance[]>;
-  /**
-   * Retrieve a single page of UsAppToPersonUsecaseInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: UsAppToPersonUsecasePage) => any): Promise<UsAppToPersonUsecasePage>;
-  /**
-   * Retrieve a single page of UsAppToPersonUsecaseInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsAppToPersonUsecaseListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: UsAppToPersonUsecaseListInstancePageOptions, callback?: (error: Error | null, items: UsAppToPersonUsecasePage) => any): Promise<UsAppToPersonUsecasePage>;
-  page(params?: any, callback?: any): Promise<UsAppToPersonUsecasePage>;
 
   /**
    * Provide a user-friendly representation
@@ -200,7 +78,7 @@ export function UsAppToPersonUsecaseListInstance(version: V1, messagingServiceSi
   instance._solution = { messagingServiceSid };
   instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p/Usecases`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<UsAppToPersonUsecasePage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<UsAppToPersonUsecaseInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -211,32 +89,20 @@ export function UsAppToPersonUsecaseListInstance(version: V1, messagingServiceSi
     const data: any = {};
 
     if (params.brandRegistrationSid !== undefined) data['BrandRegistrationSid'] = params.brandRegistrationSid;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new UsAppToPersonUsecasePage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new UsAppToPersonUsecaseInstance(operationVersion, payload, this._solution.messagingServiceSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UsAppToPersonUsecasePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new UsAppToPersonUsecasePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -248,4 +114,40 @@ export function UsAppToPersonUsecaseListInstance(version: V1, messagingServiceSi
 
   return instance;
 }
+
+interface UsAppToPersonUsecasePayload extends UsAppToPersonUsecaseResource{
+}
+
+interface UsAppToPersonUsecaseResource {
+  us_app_to_person_usecases?: Array<any> | null;
+}
+
+export class UsAppToPersonUsecaseInstance {
+
+  constructor(protected _version: V1, payload: UsAppToPersonUsecasePayload, messagingServiceSid?: string) {
+    this.usAppToPersonUsecases = payload.us_app_to_person_usecases;
+
+  }
+
+  /**
+   * Human readable A2P Use Case details
+   */
+  usAppToPersonUsecases?: Array<any> | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      usAppToPersonUsecases: this.usAppToPersonUsecases
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

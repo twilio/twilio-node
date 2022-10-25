@@ -21,6 +21,8 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a CredentialListMappingInstance
  *
@@ -254,7 +256,6 @@ export function CredentialListMappingListInstance(version: V2010, accountSid: st
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<CredentialListMappingPage> {
@@ -292,7 +293,6 @@ export function CredentialListMappingListInstance(version: V2010, accountSid: st
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -363,7 +363,6 @@ export class CredentialListMappingContextImpl implements CredentialListMappingCo
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<CredentialListMappingInstance> {
@@ -376,7 +375,6 @@ export class CredentialListMappingContextImpl implements CredentialListMappingCo
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -505,34 +503,34 @@ export class CredentialListMappingInstance {
 }
 
 export class CredentialListMappingPage extends Page<V2010, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingInstance> {
-  /**
-   * Initialize the CredentialListMappingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: CredentialListMappingSolution) {
+/**
+* Initialize the CredentialListMappingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: CredentialListMappingSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of CredentialListMappingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CredentialListMappingPayload): CredentialListMappingInstance {
+    /**
+    * Build an instance of CredentialListMappingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CredentialListMappingPayload): CredentialListMappingInstance {
     return new CredentialListMappingInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.domainSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.domainSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

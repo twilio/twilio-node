@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type SupportingDocumentStatus = 'draft'|'pending-review'|'rejected'|'approved'|'expired'|'provisionally-approved';
 
 
@@ -275,7 +277,6 @@ export function SupportingDocumentListInstance(version: V1): SupportingDocumentL
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SupportingDocumentPage> {
@@ -313,7 +314,6 @@ export function SupportingDocumentListInstance(version: V1): SupportingDocumentL
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -402,7 +402,6 @@ export class SupportingDocumentContextImpl implements SupportingDocumentContext 
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SupportingDocumentInstance> {
@@ -415,7 +414,6 @@ export class SupportingDocumentContextImpl implements SupportingDocumentContext 
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -444,7 +442,6 @@ export class SupportingDocumentContextImpl implements SupportingDocumentContext 
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -613,32 +610,32 @@ export class SupportingDocumentInstance {
 }
 
 export class SupportingDocumentPage extends Page<V1, SupportingDocumentPayload, SupportingDocumentResource, SupportingDocumentInstance> {
-  /**
-   * Initialize the SupportingDocumentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SupportingDocumentSolution) {
+/**
+* Initialize the SupportingDocumentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SupportingDocumentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SupportingDocumentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SupportingDocumentPayload): SupportingDocumentInstance {
+    /**
+    * Build an instance of SupportingDocumentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SupportingDocumentPayload): SupportingDocumentInstance {
     return new SupportingDocumentInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

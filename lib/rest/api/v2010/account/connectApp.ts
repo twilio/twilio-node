@@ -20,6 +20,8 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type ConnectAppPermission = 'get-all'|'post-all';
 
 /**
@@ -268,7 +270,6 @@ export function ConnectAppListInstance(version: V2010, accountSid: string): Conn
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -356,7 +357,6 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ConnectAppInstance> {
@@ -369,7 +369,6 @@ export class ConnectAppContextImpl implements ConnectAppContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -404,7 +403,6 @@ export class ConnectAppContextImpl implements ConnectAppContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -584,33 +582,33 @@ export class ConnectAppInstance {
 }
 
 export class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppResource, ConnectAppInstance> {
-  /**
-   * Initialize the ConnectAppPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: ConnectAppSolution) {
+/**
+* Initialize the ConnectAppPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: ConnectAppSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ConnectAppInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConnectAppPayload): ConnectAppInstance {
+    /**
+    * Build an instance of ConnectAppInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ConnectAppPayload): ConnectAppInstance {
     return new ConnectAppInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

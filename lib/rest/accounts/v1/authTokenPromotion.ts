@@ -14,24 +14,23 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 
 
 export interface AuthTokenPromotionListInstance {
 
 
   /**
-   * Create a AuthTokenPromotionInstance
+   * Update a AuthTokenPromotionInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AuthTokenPromotionInstance
    */
-  create(callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance>
+  update(callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance>
 
 
   /**
@@ -59,17 +58,16 @@ export function AuthTokenPromotionListInstance(version: V1): AuthTokenPromotionL
   instance._solution = {  };
   instance._uri = `/AuthTokens/Promote`;
 
-  instance.create = function create(callback?: any): Promise<AuthTokenPromotionInstance> {
+  instance.update = function update(callback?: any): Promise<AuthTokenPromotionInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post' });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post' });
     
     operationPromise = operationPromise.then(payload => new AuthTokenPromotionInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -85,7 +83,7 @@ export function AuthTokenPromotionListInstance(version: V1): AuthTokenPromotionL
   return instance;
 }
 
-interface AuthTokenPromotionPayload extends AuthTokenPromotionResource, Page.TwilioResponsePayload {
+interface AuthTokenPromotionPayload extends AuthTokenPromotionResource{
 }
 
 interface AuthTokenPromotionResource {
@@ -148,32 +146,4 @@ export class AuthTokenPromotionInstance {
   }
 }
 
-export class AuthTokenPromotionPage extends Page<V1, AuthTokenPromotionPayload, AuthTokenPromotionResource, AuthTokenPromotionInstance> {
-  /**
-   * Initialize the AuthTokenPromotionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: AuthTokenPromotionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AuthTokenPromotionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AuthTokenPromotionPayload): AuthTokenPromotionInstance {
-    return new AuthTokenPromotionInstance(
-      this._version,
-      payload,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

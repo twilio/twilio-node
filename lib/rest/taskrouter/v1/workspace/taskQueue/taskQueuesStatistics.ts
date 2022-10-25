@@ -20,6 +20,42 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+export class ListActivityResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
+export class TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics {
+  /**
+   * The SID of the Account that created the resource
+   */
+  "accountSid"?: string | null;
+  /**
+   * An object that contains the cumulative statistics for the TaskQueues
+   */
+  "cumulative"?: any | null;
+  /**
+   * An object that contains the real-time statistics for the TaskQueues
+   */
+  "realtime"?: any | null;
+  /**
+   * The SID of the TaskQueue from which these statistics were calculated
+   */
+  "taskQueueSid"?: string | null;
+  /**
+   * The SID of the Workspace that contains the TaskQueues
+   */
+  "workspaceSid"?: string | null;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -279,7 +315,6 @@ export function TaskQueuesStatisticsListInstance(version: V1, workspaceSid: stri
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -290,4 +325,70 @@ export function TaskQueuesStatisticsListInstance(version: V1, workspaceSid: stri
 
   return instance;
 }
+
+interface TaskQueuesStatisticsPayload extends TaskQueuesStatisticsResource, Page.TwilioResponsePayload {
+}
+
+interface TaskQueuesStatisticsResource {
+  task_queues_statistics?: Array<TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics>;
+  meta?: ListActivityResponseMeta;
+}
+
+export class TaskQueuesStatisticsInstance {
+
+  constructor(protected _version: V1, payload: TaskQueuesStatisticsPayload, workspaceSid?: string) {
+    this.taskQueuesStatistics = payload.task_queues_statistics;
+    this.meta = payload.meta;
+
+  }
+
+  taskQueuesStatistics?: Array<TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics>;
+  meta?: ListActivityResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      taskQueuesStatistics: this.taskQueuesStatistics, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class TaskQueuesStatisticsPage extends Page<V1, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsInstance> {
+/**
+* Initialize the TaskQueuesStatisticsPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TaskQueuesStatisticsSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of TaskQueuesStatisticsInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TaskQueuesStatisticsPayload): TaskQueuesStatisticsInstance {
+    return new TaskQueuesStatisticsInstance(
+    this._version,
+    payload,
+        this._solution.workspaceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

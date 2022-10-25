@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a TaskChannelInstance
  *
@@ -274,7 +276,6 @@ export function TaskChannelListInstance(version: V1, workspaceSid: string): Task
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<TaskChannelPage> {
@@ -312,7 +313,6 @@ export function TaskChannelListInstance(version: V1, workspaceSid: string): Task
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -402,7 +402,6 @@ export class TaskChannelContextImpl implements TaskChannelContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<TaskChannelInstance> {
@@ -415,7 +414,6 @@ export class TaskChannelContextImpl implements TaskChannelContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -444,7 +442,6 @@ export class TaskChannelContextImpl implements TaskChannelContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -616,33 +613,33 @@ export class TaskChannelInstance {
 }
 
 export class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelResource, TaskChannelInstance> {
-  /**
-   * Initialize the TaskChannelPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: TaskChannelSolution) {
+/**
+* Initialize the TaskChannelPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TaskChannelSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TaskChannelInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TaskChannelPayload): TaskChannelInstance {
+    /**
+    * Build an instance of TaskChannelInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TaskChannelPayload): TaskChannelInstance {
     return new TaskChannelInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.workspaceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

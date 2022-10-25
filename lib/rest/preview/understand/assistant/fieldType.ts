@@ -19,7 +19,9 @@ import Response from "../../../../http/response";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { FieldValueListInstance } from "./fieldType/fieldValue";
+
 
 
 /**
@@ -268,7 +270,6 @@ export function FieldTypeListInstance(version: Understand, assistantSid: string)
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<FieldTypePage> {
@@ -306,7 +307,6 @@ export function FieldTypeListInstance(version: Understand, assistantSid: string)
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -403,7 +403,6 @@ export class FieldTypeContextImpl implements FieldTypeContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<FieldTypeInstance> {
@@ -416,7 +415,6 @@ export class FieldTypeContextImpl implements FieldTypeContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -445,7 +443,6 @@ export class FieldTypeContextImpl implements FieldTypeContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -611,33 +608,33 @@ export class FieldTypeInstance {
 }
 
 export class FieldTypePage extends Page<Understand, FieldTypePayload, FieldTypeResource, FieldTypeInstance> {
-  /**
-   * Initialize the FieldTypePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Understand, response: Response<string>, solution: FieldTypeSolution) {
+/**
+* Initialize the FieldTypePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Understand, response: Response<string>, solution: FieldTypeSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of FieldTypeInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FieldTypePayload): FieldTypeInstance {
+    /**
+    * Build an instance of FieldTypeInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FieldTypePayload): FieldTypeInstance {
     return new FieldTypeInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.assistantSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

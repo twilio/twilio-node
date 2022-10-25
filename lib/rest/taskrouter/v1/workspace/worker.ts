@@ -22,9 +22,11 @@ const serialize = require("../../../../base/serialize");
 import { WorkersStatisticsListInstance } from "./worker/workersStatistics";
 import { WorkersRealTimeStatisticsListInstance } from "./worker/workersRealTimeStatistics";
 import { WorkersCumulativeStatisticsListInstance } from "./worker/workersCumulativeStatistics";
+
 import { ReservationListInstance } from "./worker/reservation";
 import { WorkerChannelListInstance } from "./worker/workerChannel";
 import { WorkerStatisticsListInstance } from "./worker/workerStatistics";
+
 
 
 /**
@@ -366,7 +368,6 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<WorkerPage> {
@@ -411,7 +412,6 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -544,7 +544,6 @@ export class WorkerContextImpl implements WorkerContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<WorkerInstance> {
@@ -557,7 +556,6 @@ export class WorkerContextImpl implements WorkerContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -589,7 +587,6 @@ export class WorkerContextImpl implements WorkerContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -813,33 +810,33 @@ export class WorkerInstance {
 }
 
 export class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {
-  /**
-   * Initialize the WorkerPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: WorkerSolution) {
+/**
+* Initialize the WorkerPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: WorkerSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of WorkerInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: WorkerPayload): WorkerInstance {
+    /**
+    * Build an instance of WorkerInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: WorkerPayload): WorkerInstance {
     return new WorkerInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.workspaceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

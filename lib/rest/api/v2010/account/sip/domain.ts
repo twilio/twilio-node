@@ -24,6 +24,8 @@ import { CredentialListMappingListInstance } from "./domain/credentialListMappin
 import { AuthTypesListInstance } from "./domain/authTypes";
 
 
+
+
 /**
  * Options to pass to update a DomainInstance
  *
@@ -234,7 +236,6 @@ export class DomainContextImpl implements DomainContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<DomainInstance> {
@@ -247,7 +248,6 @@ export class DomainContextImpl implements DomainContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -287,7 +287,6 @@ export class DomainContextImpl implements DomainContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -559,37 +558,6 @@ export class DomainInstance {
   }
 }
 
-export class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
-  /**
-   * Initialize the DomainPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: DomainSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of DomainInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DomainPayload): DomainInstance {
-    return new DomainInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface DomainListInstance {
   (sid: string): DomainContext;
@@ -778,7 +746,6 @@ export function DomainListInstance(version: V2010, accountSid: string): DomainLi
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<DomainPage> {
@@ -818,7 +785,6 @@ export function DomainListInstance(version: V2010, accountSid: string): DomainLi
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -829,4 +795,35 @@ export function DomainListInstance(version: V2010, accountSid: string): DomainLi
 
   return instance;
 }
+
+
+export class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
+/**
+* Initialize the DomainPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: DomainSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of DomainInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DomainPayload): DomainInstance {
+    return new DomainInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

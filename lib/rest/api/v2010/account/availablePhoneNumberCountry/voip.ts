@@ -20,6 +20,71 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoip {
+  /**
+   * A formatted version of the phone number
+   */
+  "friendlyName"?: string | null;
+  /**
+   * The phone number in E.164 format
+   */
+  "phoneNumber"?: string | null;
+  /**
+   * The LATA of this phone number
+   */
+  "lata"?: string | null;
+  /**
+   * The locality or city of this phone number\'s location
+   */
+  "locality"?: string | null;
+  /**
+   * The rate center of this phone number
+   */
+  "rateCenter"?: string | null;
+  /**
+   * The latitude of this phone number\'s location
+   */
+  "latitude"?: number | null;
+  /**
+   * The longitude of this phone number\'s location
+   */
+  "longitude"?: number | null;
+  /**
+   * The two-letter state or province abbreviation of this phone number\'s location
+   */
+  "region"?: string | null;
+  /**
+   * The postal or ZIP code of this phone number\'s location
+   */
+  "postalCode"?: string | null;
+  /**
+   * The ISO country code of this phone number
+   */
+  "isoCountry"?: string | null;
+  /**
+   * The type of Address resource the phone number requires
+   */
+  "addressRequirements"?: string | null;
+  /**
+   * Whether the phone number is new to the Twilio platform
+   */
+  "beta"?: boolean | null;
+  "capabilities"?: ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities | null;
+}
+
+
+/**
+ * Whether a phone number can receive calls or messages
+ */
+export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities {
+  "mms"?: boolean;
+  "sms"?: boolean;
+  "voice"?: boolean;
+  "fax"?: boolean;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -364,7 +429,6 @@ export function VoipListInstance(version: V2010, accountSid: string, countryCode
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -375,4 +439,99 @@ export function VoipListInstance(version: V2010, accountSid: string, countryCode
 
   return instance;
 }
+
+interface VoipPayload extends VoipResource, Page.TwilioResponsePayload {
+}
+
+interface VoipResource {
+  available_phone_numbers?: Array<ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoip>;
+  end?: number;
+  first_page_uri?: string;
+  next_page_uri?: string;
+  page?: number;
+  page_size?: number;
+  previous_page_uri?: string;
+  start?: number;
+  uri?: string;
+}
+
+export class VoipInstance {
+
+  constructor(protected _version: V2010, payload: VoipPayload, accountSid: string, countryCode?: string) {
+    this.availablePhoneNumbers = payload.available_phone_numbers;
+    this.end = deserialize.integer(payload.end);
+    this.firstPageUri = payload.first_page_uri;
+    this.nextPageUri = payload.next_page_uri;
+    this.page = deserialize.integer(payload.page);
+    this.pageSize = deserialize.integer(payload.page_size);
+    this.previousPageUri = payload.previous_page_uri;
+    this.start = deserialize.integer(payload.start);
+    this.uri = payload.uri;
+
+  }
+
+  availablePhoneNumbers?: Array<ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberVoip>;
+  end?: number;
+  firstPageUri?: string;
+  nextPageUri?: string;
+  page?: number;
+  pageSize?: number;
+  previousPageUri?: string;
+  start?: number;
+  uri?: string;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      availablePhoneNumbers: this.availablePhoneNumbers, 
+      end: this.end, 
+      firstPageUri: this.firstPageUri, 
+      nextPageUri: this.nextPageUri, 
+      page: this.page, 
+      pageSize: this.pageSize, 
+      previousPageUri: this.previousPageUri, 
+      start: this.start, 
+      uri: this.uri
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class VoipPage extends Page<V2010, VoipPayload, VoipResource, VoipInstance> {
+/**
+* Initialize the VoipPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: VoipSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of VoipInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: VoipPayload): VoipInstance {
+    return new VoipInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.countryCode,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

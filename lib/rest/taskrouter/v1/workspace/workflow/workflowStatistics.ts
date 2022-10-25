@@ -14,189 +14,51 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 /**
- * Options to pass to each
+ * Options to pass to fetch a WorkflowStatisticsInstance
  *
  * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
  * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
  * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface WorkflowStatisticsListInstanceEachOptions {
+export interface WorkflowStatisticsListInstanceFetchOptions {
   minutes?: number;
   startDate?: Date;
   endDate?: Date;
   taskChannel?: string;
   splitByWaitTime?: string;
-  callback?: (item: WorkflowStatisticsInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
 }
-
-/**
- * Options to pass to list
- *
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface WorkflowStatisticsListInstanceOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface WorkflowStatisticsListInstancePageOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface WorkflowStatisticsListInstance {
 
 
+  /**
+   * Fetch a WorkflowStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any): Promise<WorkflowStatisticsInstance>;
+  /**
+   * Fetch a WorkflowStatisticsInstance
+   *
+   * @param { WorkflowStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowStatisticsInstance
+   */
+  fetch(params: WorkflowStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: WorkflowStatisticsInstance) => any): Promise<WorkflowStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance>
 
-  /**
-   * Streams WorkflowStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: WorkflowStatisticsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams WorkflowStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkflowStatisticsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: WorkflowStatisticsListInstanceEachOptions, callback?: (item: WorkflowStatisticsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of WorkflowStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: WorkflowStatisticsPage) => any): Promise<WorkflowStatisticsPage>;
-  /**
-   * Retrieve a single target page of WorkflowStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkflowStatisticsPage) => any): Promise<WorkflowStatisticsPage>;
-  getPage(params?: any, callback?: any): Promise<WorkflowStatisticsPage>;
-  /**
-   * Lists WorkflowStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: WorkflowStatisticsInstance[]) => any): Promise<WorkflowStatisticsInstance[]>;
-  /**
-   * Lists WorkflowStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkflowStatisticsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: WorkflowStatisticsListInstanceOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance[]) => any): Promise<WorkflowStatisticsInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkflowStatisticsInstance[]>;
-  /**
-   * Retrieve a single page of WorkflowStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: WorkflowStatisticsPage) => any): Promise<WorkflowStatisticsPage>;
-  /**
-   * Retrieve a single page of WorkflowStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkflowStatisticsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: WorkflowStatisticsListInstancePageOptions, callback?: (error: Error | null, items: WorkflowStatisticsPage) => any): Promise<WorkflowStatisticsPage>;
-  page(params?: any, callback?: any): Promise<WorkflowStatisticsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -225,7 +87,7 @@ export function WorkflowStatisticsListInstance(version: V1, workspaceSid: string
   instance._solution = { workspaceSid, workflowSid };
   instance._uri = `/Workspaces/${workspaceSid}/Workflows/${workflowSid}/Statistics`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<WorkflowStatisticsPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<WorkflowStatisticsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -240,32 +102,20 @@ export function WorkflowStatisticsListInstance(version: V1, workspaceSid: string
     if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
     if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
     if (params.splitByWaitTime !== undefined) data['SplitByWaitTime'] = params.splitByWaitTime;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new WorkflowStatisticsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new WorkflowStatisticsInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.workflowSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkflowStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new WorkflowStatisticsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -277,4 +127,75 @@ export function WorkflowStatisticsListInstance(version: V1, workspaceSid: string
 
   return instance;
 }
+
+interface WorkflowStatisticsPayload extends WorkflowStatisticsResource{
+}
+
+interface WorkflowStatisticsResource {
+  account_sid?: string | null;
+  cumulative?: any | null;
+  realtime?: any | null;
+  workflow_sid?: string | null;
+  workspace_sid?: string | null;
+  url?: string | null;
+}
+
+export class WorkflowStatisticsInstance {
+
+  constructor(protected _version: V1, payload: WorkflowStatisticsPayload, workspaceSid: string, workflowSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.cumulative = payload.cumulative;
+    this.realtime = payload.realtime;
+    this.workflowSid = payload.workflow_sid;
+    this.workspaceSid = payload.workspace_sid;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * An object that contains the cumulative statistics for the Workflow
+   */
+  cumulative?: any | null;
+  /**
+   * An object that contains the real-time statistics for the Workflow
+   */
+  realtime?: any | null;
+  /**
+   * Returns the list of Tasks that are being controlled by the Workflow with the specified SID value
+   */
+  workflowSid?: string | null;
+  /**
+   * The SID of the Workspace that contains the Workflow
+   */
+  workspaceSid?: string | null;
+  /**
+   * The absolute URL of the Workflow statistics resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      cumulative: this.cumulative, 
+      realtime: this.realtime, 
+      workflowSid: this.workflowSid, 
+      workspaceSid: this.workspaceSid, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

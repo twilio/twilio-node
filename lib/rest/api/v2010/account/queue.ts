@@ -19,7 +19,9 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { MemberListInstance } from "./queue/member";
+
 
 
 /**
@@ -268,7 +270,6 @@ export function QueueListInstance(version: V2010, accountSid: string): QueueList
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<QueuePage> {
@@ -306,7 +307,6 @@ export function QueueListInstance(version: V2010, accountSid: string): QueueList
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -403,7 +403,6 @@ export class QueueContextImpl implements QueueContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<QueueInstance> {
@@ -416,7 +415,6 @@ export class QueueContextImpl implements QueueContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -445,7 +443,6 @@ export class QueueContextImpl implements QueueContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -617,33 +614,33 @@ export class QueueInstance {
 }
 
 export class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueInstance> {
-  /**
-   * Initialize the QueuePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: QueueSolution) {
+/**
+* Initialize the QueuePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: QueueSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of QueueInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: QueuePayload): QueueInstance {
+    /**
+    * Build an instance of QueueInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: QueuePayload): QueueInstance {
     return new QueueInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

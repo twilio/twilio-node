@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 
 export interface SinkTestListInstance {
@@ -72,7 +71,6 @@ export function SinkTestListInstance(version: V1, sid: string): SinkTestListInst
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -86,7 +84,7 @@ export function SinkTestListInstance(version: V1, sid: string): SinkTestListInst
   return instance;
 }
 
-interface SinkTestPayload extends SinkTestResource, Page.TwilioResponsePayload {
+interface SinkTestPayload extends SinkTestResource{
 }
 
 interface SinkTestResource {
@@ -121,33 +119,4 @@ export class SinkTestInstance {
   }
 }
 
-export class SinkTestPage extends Page<V1, SinkTestPayload, SinkTestResource, SinkTestInstance> {
-  /**
-   * Initialize the SinkTestPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SinkTestSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SinkTestInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SinkTestPayload): SinkTestInstance {
-    return new SinkTestInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

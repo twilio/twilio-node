@@ -19,11 +19,13 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { IpAccessControlListListInstance } from "./trunk/ipAccessControlList";
 import { CredentialListListInstance } from "./trunk/credentialList";
 import { OriginationUrlListInstance } from "./trunk/originationUrl";
 import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
+
 
 type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
 
@@ -312,7 +314,6 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<TrunkPage> {
@@ -350,7 +351,6 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -474,7 +474,6 @@ export class TrunkContextImpl implements TrunkContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<TrunkInstance> {
@@ -487,7 +486,6 @@ export class TrunkContextImpl implements TrunkContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -522,7 +520,6 @@ export class TrunkContextImpl implements TrunkContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -773,32 +770,32 @@ export class TrunkInstance {
 }
 
 export class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInstance> {
-  /**
-   * Initialize the TrunkPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: TrunkSolution) {
+/**
+* Initialize the TrunkPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TrunkSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TrunkInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TrunkPayload): TrunkInstance {
+    /**
+    * Build an instance of TrunkInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TrunkPayload): TrunkInstance {
     return new TrunkInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

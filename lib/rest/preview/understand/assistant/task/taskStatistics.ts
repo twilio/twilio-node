@@ -14,117 +14,24 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import Understand from "../../../Understand";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
 export interface TaskStatisticsListInstance {
 
 
+  /**
+   * Fetch a TaskStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: TaskStatisticsInstance) => any): Promise<TaskStatisticsInstance>
 
-  /**
-   * Streams TaskStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: TaskStatisticsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams TaskStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskStatisticsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: TaskStatisticsListInstanceEachOptions, callback?: (item: TaskStatisticsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of TaskStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: TaskStatisticsPage) => any): Promise<TaskStatisticsPage>;
-  /**
-   * Retrieve a single target page of TaskStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskStatisticsPage) => any): Promise<TaskStatisticsPage>;
-  getPage(params?: any, callback?: any): Promise<TaskStatisticsPage>;
-  /**
-   * Lists TaskStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: TaskStatisticsInstance[]) => any): Promise<TaskStatisticsInstance[]>;
-  /**
-   * Lists TaskStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskStatisticsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: TaskStatisticsListInstanceOptions, callback?: (error: Error | null, items: TaskStatisticsInstance[]) => any): Promise<TaskStatisticsInstance[]>;
-  list(params?: any, callback?: any): Promise<TaskStatisticsInstance[]>;
-  /**
-   * Retrieve a single page of TaskStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: TaskStatisticsPage) => any): Promise<TaskStatisticsPage>;
-  /**
-   * Retrieve a single page of TaskStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskStatisticsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: TaskStatisticsListInstancePageOptions, callback?: (error: Error | null, items: TaskStatisticsPage) => any): Promise<TaskStatisticsPage>;
-  page(params?: any, callback?: any): Promise<TaskStatisticsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -153,29 +60,19 @@ export function TaskStatisticsListInstance(version: Understand, assistantSid: st
   instance._solution = { assistantSid, taskSid };
   instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Statistics`;
 
-  instance.page = function page(callback?: any): Promise<TaskStatisticsPage> {
+  instance.fetch = function fetch(callback?: any): Promise<TaskStatisticsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new TaskStatisticsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new TaskStatisticsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new TaskStatisticsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -187,4 +84,72 @@ export function TaskStatisticsListInstance(version: Understand, assistantSid: st
 
   return instance;
 }
+
+interface TaskStatisticsPayload extends TaskStatisticsResource{
+}
+
+interface TaskStatisticsResource {
+  account_sid?: string | null;
+  assistant_sid?: string | null;
+  task_sid?: string | null;
+  samples_count?: number | null;
+  fields_count?: number | null;
+  url?: string | null;
+}
+
+export class TaskStatisticsInstance {
+
+  constructor(protected _version: Understand, payload: TaskStatisticsPayload, assistantSid: string, taskSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.assistantSid = payload.assistant_sid;
+    this.taskSid = payload.task_sid;
+    this.samplesCount = deserialize.integer(payload.samples_count);
+    this.fieldsCount = deserialize.integer(payload.fields_count);
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The unique ID of the Account that created this Field.
+   */
+  accountSid?: string | null;
+  /**
+   * The unique ID of the parent Assistant.
+   */
+  assistantSid?: string | null;
+  /**
+   * The unique ID of the Task associated with this Field.
+   */
+  taskSid?: string | null;
+  /**
+   * The total number of Samples associated with this Task.
+   */
+  samplesCount?: number | null;
+  /**
+   * The total number of Fields associated with this Task.
+   */
+  fieldsCount?: number | null;
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      assistantSid: this.assistantSid, 
+      taskSid: this.taskSid, 
+      samplesCount: this.samplesCount, 
+      fieldsCount: this.fieldsCount, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

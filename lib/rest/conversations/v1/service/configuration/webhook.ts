@@ -14,24 +14,23 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 
 type ServiceWebhookConfigurationMethod = 'GET'|'POST';
 
 
 /**
- * Options to pass to create a WebhookInstance
+ * Options to pass to update a WebhookInstance
  *
  * @property { string } [preWebhookUrl] The absolute url the pre-event webhook request should be sent to.
  * @property { string } [postWebhookUrl] The absolute url the post-event webhook request should be sent to.
  * @property { Array<string> } [filters] The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are &#x60;onParticipantAdd&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onDeliveryUpdated&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationRemove&#x60;, &#x60;onParticipantRemove&#x60;, &#x60;onConversationUpdate&#x60;, &#x60;onMessageAdd&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onConversationAdded&#x60;, &#x60;onMessageAdded&#x60;, &#x60;onConversationAdd&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantUpdate&#x60;, &#x60;onMessageRemove&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onParticipantRemoved&#x60;, &#x60;onMessageUpdate&#x60; or &#x60;onConversationStateUpdated&#x60;.
  * @property { string } [method] The HTTP method to be used when sending a webhook request. One of &#x60;GET&#x60; or &#x60;POST&#x60;.
  */
-export interface WebhookListInstanceCreateOptions {
+export interface WebhookListInstanceUpdateOptions {
   preWebhookUrl?: string;
   postWebhookUrl?: string;
   filters?: Array<string>;
@@ -41,126 +40,34 @@ export interface WebhookListInstanceCreateOptions {
 export interface WebhookListInstance {
 
 
-
   /**
-   * Streams WebhookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams WebhookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WebhookListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: WebhookListInstanceEachOptions, callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
-  /**
-   * Retrieve a single target page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
-  getPage(params?: any, callback?: any): Promise<WebhookPage>;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WebhookListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: WebhookListInstanceOptions, callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
-  list(params?: any, callback?: any): Promise<WebhookInstance[]>;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WebhookListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: WebhookListInstancePageOptions, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
-  page(params?: any, callback?: any): Promise<WebhookPage>;
-
-  /**
-   * Create a WebhookInstance
+   * Fetch a WebhookInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
-  create(callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
+  fetch(callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>
+
+
   /**
-   * Create a WebhookInstance
+   * Update a WebhookInstance
    *
-   * @param { WebhookListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed WebhookInstance
    */
-  create(params: WebhookListInstanceCreateOptions, callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
-  create(params?: any, callback?: any): Promise<WebhookInstance>
+  update(callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
+  /**
+   * Update a WebhookInstance
+   *
+   * @param { WebhookListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WebhookInstance
+   */
+  update(params: WebhookListInstanceUpdateOptions, callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
+  update(params?: any, callback?: any): Promise<WebhookInstance>
 
 
   /**
@@ -189,31 +96,21 @@ export function WebhookListInstance(version: V1, chatServiceSid: string): Webhoo
   instance._solution = { chatServiceSid };
   instance._uri = `/Services/${chatServiceSid}/Configuration/Webhooks`;
 
-  instance.page = function page(callback?: any): Promise<WebhookPage> {
+  instance.fetch = function fetch(callback?: any): Promise<WebhookInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new WebhookPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.chatServiceSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WebhookPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new WebhookPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<WebhookInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<WebhookInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -232,14 +129,13 @@ export function WebhookListInstance(version: V1, chatServiceSid: string): Webhoo
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.chatServiceSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -255,7 +151,7 @@ export function WebhookListInstance(version: V1, chatServiceSid: string): Webhoo
   return instance;
 }
 
-interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
+interface WebhookPayload extends WebhookResource{
 }
 
 interface WebhookResource {
@@ -329,33 +225,4 @@ export class WebhookInstance {
   }
 }
 
-export class WebhookPage extends Page<V1, WebhookPayload, WebhookResource, WebhookInstance> {
-  /**
-   * Initialize the WebhookPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: WebhookSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of WebhookInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: WebhookPayload): WebhookInstance {
-    return new WebhookInstance(
-      this._version,
-      payload,
-      this._solution.chatServiceSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

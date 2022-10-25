@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type RoleRoleType = 'channel'|'deployment';
 
 
@@ -278,7 +280,6 @@ export function RoleListInstance(version: V1, serviceSid: string): RoleListInsta
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<RolePage> {
@@ -316,7 +317,6 @@ export function RoleListInstance(version: V1, serviceSid: string): RoleListInsta
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -398,7 +398,6 @@ export class RoleContextImpl implements RoleContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<RoleInstance> {
@@ -411,7 +410,6 @@ export class RoleContextImpl implements RoleContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -440,7 +438,6 @@ export class RoleContextImpl implements RoleContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -594,33 +591,33 @@ export class RoleInstance {
 }
 
 export class RolePage extends Page<V1, RolePayload, RoleResource, RoleInstance> {
-  /**
-   * Initialize the RolePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: RoleSolution) {
+/**
+* Initialize the RolePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: RoleSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of RoleInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RolePayload): RoleInstance {
+    /**
+    * Build an instance of RoleInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RolePayload): RoleInstance {
     return new RoleInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

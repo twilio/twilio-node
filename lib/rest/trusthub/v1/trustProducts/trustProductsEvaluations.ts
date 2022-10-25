@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type TrustProductEvaluationStatus = 'compliant'|'noncompliant';
 
 
@@ -125,7 +127,6 @@ export class TrustProductsEvaluationsContextImpl implements TrustProductsEvaluat
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -235,37 +236,6 @@ export class TrustProductsEvaluationsInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class TrustProductsEvaluationsPage extends Page<V1, TrustProductsEvaluationsPayload, TrustProductsEvaluationsResource, TrustProductsEvaluationsInstance> {
-  /**
-   * Initialize the TrustProductsEvaluationsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: TrustProductsEvaluationsSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of TrustProductsEvaluationsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TrustProductsEvaluationsPayload): TrustProductsEvaluationsInstance {
-    return new TrustProductsEvaluationsInstance(
-      this._version,
-      payload,
-      this._solution.trustProductSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -446,7 +416,6 @@ export function TrustProductsEvaluationsListInstance(version: V1, trustProductSi
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<TrustProductsEvaluationsPage> {
@@ -486,7 +455,6 @@ export function TrustProductsEvaluationsListInstance(version: V1, trustProductSi
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -497,4 +465,35 @@ export function TrustProductsEvaluationsListInstance(version: V1, trustProductSi
 
   return instance;
 }
+
+
+export class TrustProductsEvaluationsPage extends Page<V1, TrustProductsEvaluationsPayload, TrustProductsEvaluationsResource, TrustProductsEvaluationsInstance> {
+/**
+* Initialize the TrustProductsEvaluationsPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TrustProductsEvaluationsSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of TrustProductsEvaluationsInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TrustProductsEvaluationsPayload): TrustProductsEvaluationsInstance {
+    return new TrustProductsEvaluationsInstance(
+    this._version,
+    payload,
+        this._solution.trustProductSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

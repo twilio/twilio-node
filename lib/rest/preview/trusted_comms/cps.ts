@@ -14,165 +14,43 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import TrustedComms from "../TrustedComms";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-/**
- * Options to pass to each
- *
- * @property { string } [xXcnamSensitivePhoneNumber] Phone number used to retrieve its corresponding CPS.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface CpsListInstanceEachOptions {
-  xXcnamSensitivePhoneNumber?: string;
-  callback?: (item: CpsInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
+
 
 /**
- * Options to pass to list
+ * Options to pass to fetch a CpsInstance
  *
  * @property { string } [xXcnamSensitivePhoneNumber] Phone number used to retrieve its corresponding CPS.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface CpsListInstanceOptions {
+export interface CpsListInstanceFetchOptions {
   xXcnamSensitivePhoneNumber?: string;
-  limit?: number;
 }
-
-/**
- * Options to pass to page
- *
- * @property { string } [xXcnamSensitivePhoneNumber] Phone number used to retrieve its corresponding CPS.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface CpsListInstancePageOptions {
-  xXcnamSensitivePhoneNumber?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface CpsListInstance {
 
 
+  /**
+   * Fetch a CpsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CpsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
+  /**
+   * Fetch a CpsInstance
+   *
+   * @param { CpsListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CpsInstance
+   */
+  fetch(params: CpsListInstanceFetchOptions, callback?: (error: Error | null, item?: CpsInstance) => any): Promise<CpsInstance>;
+  fetch(params?: any, callback?: any): Promise<CpsInstance>
 
-  /**
-   * Streams CpsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: CpsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams CpsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CpsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: CpsListInstanceEachOptions, callback?: (item: CpsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of CpsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: CpsPage) => any): Promise<CpsPage>;
-  /**
-   * Retrieve a single target page of CpsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CpsPage) => any): Promise<CpsPage>;
-  getPage(params?: any, callback?: any): Promise<CpsPage>;
-  /**
-   * Lists CpsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: CpsInstance[]) => any): Promise<CpsInstance[]>;
-  /**
-   * Lists CpsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CpsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: CpsListInstanceOptions, callback?: (error: Error | null, items: CpsInstance[]) => any): Promise<CpsInstance[]>;
-  list(params?: any, callback?: any): Promise<CpsInstance[]>;
-  /**
-   * Retrieve a single page of CpsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: CpsPage) => any): Promise<CpsPage>;
-  /**
-   * Retrieve a single page of CpsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CpsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: CpsListInstancePageOptions, callback?: (error: Error | null, items: CpsPage) => any): Promise<CpsPage>;
-  page(params?: any, callback?: any): Promise<CpsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -199,7 +77,7 @@ export function CpsListInstance(version: TrustedComms): CpsListInstance {
   instance._solution = {  };
   instance._uri = `/CPS`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<CpsPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<CpsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -209,33 +87,21 @@ export function CpsListInstance(version: TrustedComms): CpsListInstance {
 
     const data: any = {};
 
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
     if (params.xXcnamSensitivePhoneNumber !== undefined) headers['X-Xcnam-Sensitive-Phone-Number'] = params.xXcnamSensitivePhoneNumber;
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new CpsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new CpsInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CpsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new CpsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -247,4 +113,54 @@ export function CpsListInstance(version: TrustedComms): CpsListInstance {
 
   return instance;
 }
+
+interface CpsPayload extends CpsResource{
+}
+
+interface CpsResource {
+  cps_url?: string | null;
+  phone_number?: string | null;
+  url?: string | null;
+}
+
+export class CpsInstance {
+
+  constructor(protected _version: TrustedComms, payload: CpsPayload) {
+    this.cpsUrl = payload.cps_url;
+    this.phoneNumber = payload.phone_number;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * CPS URL of the phone number.
+   */
+  cpsUrl?: string | null;
+  /**
+   * Phone number passed.
+   */
+  phoneNumber?: string | null;
+  /**
+   * The URL of this resource.
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      cpsUrl: this.cpsUrl, 
+      phoneNumber: this.phoneNumber, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

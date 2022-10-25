@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 type AnnotationAnsweredBy = 'unknown_answered_by'|'human'|'machine';
 
@@ -26,7 +25,7 @@ type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity
 
 
 /**
- * Options to pass to create a AnnotationInstance
+ * Options to pass to update a AnnotationInstance
  *
  * @property { AnnotationAnsweredBy } [answeredBy] 
  * @property { AnnotationConnectivityIssue } [connectivityIssue] 
@@ -36,7 +35,7 @@ type AnnotationConnectivityIssue = 'unknown_connectivity_issue'|'no_connectivity
  * @property { string } [comment] Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
  * @property { string } [incident] Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
  */
-export interface AnnotationListInstanceCreateOptions {
+export interface AnnotationListInstanceUpdateOptions {
   answeredBy?: AnnotationAnsweredBy;
   connectivityIssue?: AnnotationConnectivityIssue;
   qualityIssues?: string;
@@ -49,126 +48,34 @@ export interface AnnotationListInstanceCreateOptions {
 export interface AnnotationListInstance {
 
 
-
   /**
-   * Streams AnnotationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: AnnotationInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams AnnotationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AnnotationListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: AnnotationListInstanceEachOptions, callback?: (item: AnnotationInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of AnnotationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: AnnotationPage) => any): Promise<AnnotationPage>;
-  /**
-   * Retrieve a single target page of AnnotationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AnnotationPage) => any): Promise<AnnotationPage>;
-  getPage(params?: any, callback?: any): Promise<AnnotationPage>;
-  /**
-   * Lists AnnotationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: AnnotationInstance[]) => any): Promise<AnnotationInstance[]>;
-  /**
-   * Lists AnnotationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AnnotationListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: AnnotationListInstanceOptions, callback?: (error: Error | null, items: AnnotationInstance[]) => any): Promise<AnnotationInstance[]>;
-  list(params?: any, callback?: any): Promise<AnnotationInstance[]>;
-  /**
-   * Retrieve a single page of AnnotationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: AnnotationPage) => any): Promise<AnnotationPage>;
-  /**
-   * Retrieve a single page of AnnotationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AnnotationListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: AnnotationListInstancePageOptions, callback?: (error: Error | null, items: AnnotationPage) => any): Promise<AnnotationPage>;
-  page(params?: any, callback?: any): Promise<AnnotationPage>;
-
-  /**
-   * Create a AnnotationInstance
+   * Fetch a AnnotationInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  create(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  fetch(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>
+
+
   /**
-   * Create a AnnotationInstance
+   * Update a AnnotationInstance
    *
-   * @param { AnnotationListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AnnotationInstance
    */
-  create(params: AnnotationListInstanceCreateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
-  create(params?: any, callback?: any): Promise<AnnotationInstance>
+  update(callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  /**
+   * Update a AnnotationInstance
+   *
+   * @param { AnnotationListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AnnotationInstance
+   */
+  update(params: AnnotationListInstanceUpdateOptions, callback?: (error: Error | null, item?: AnnotationInstance) => any): Promise<AnnotationInstance>;
+  update(params?: any, callback?: any): Promise<AnnotationInstance>
 
 
   /**
@@ -197,31 +104,21 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
   instance._solution = { callSid };
   instance._uri = `/Voice/${callSid}/Annotation`;
 
-  instance.page = function page(callback?: any): Promise<AnnotationPage> {
+  instance.fetch = function fetch(callback?: any): Promise<AnnotationInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new AnnotationPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, this._solution.callSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AnnotationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new AnnotationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<AnnotationInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<AnnotationInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -243,14 +140,13 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new AnnotationInstance(operationVersion, payload, this._solution.callSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -266,7 +162,7 @@ export function AnnotationListInstance(version: V1, callSid: string): Annotation
   return instance;
 }
 
-interface AnnotationPayload extends AnnotationResource, Page.TwilioResponsePayload {
+interface AnnotationPayload extends AnnotationResource{
 }
 
 interface AnnotationResource {
@@ -358,33 +254,4 @@ export class AnnotationInstance {
   }
 }
 
-export class AnnotationPage extends Page<V1, AnnotationPayload, AnnotationResource, AnnotationInstance> {
-  /**
-   * Initialize the AnnotationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: AnnotationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AnnotationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AnnotationPayload): AnnotationInstance {
-    return new AnnotationInstance(
-      this._version,
-      payload,
-      this._solution.callSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

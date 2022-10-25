@@ -14,24 +14,23 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 
 type FlowValidateStatus = 'draft'|'published';
 
 
 /**
- * Options to pass to create a FlowValidateInstance
+ * Options to pass to update a FlowValidateInstance
  *
  * @property { string } friendlyName The string that you assigned to describe the Flow.
  * @property { FlowValidateStatus } status 
  * @property { any } definition JSON representation of flow definition.
  * @property { string } [commitMessage] Description of change made in the revision.
  */
-export interface FlowValidateListInstanceCreateOptions {
+export interface FlowValidateListInstanceUpdateOptions {
   friendlyName: string;
   status: FlowValidateStatus;
   definition: any;
@@ -42,15 +41,15 @@ export interface FlowValidateListInstance {
 
 
   /**
-   * Create a FlowValidateInstance
+   * Update a FlowValidateInstance
    *
-   * @param { FlowValidateListInstanceCreateOptions } params - Parameter for request
+   * @param { FlowValidateListInstanceUpdateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed FlowValidateInstance
    */
-  create(params: FlowValidateListInstanceCreateOptions, callback?: (error: Error | null, item?: FlowValidateInstance) => any): Promise<FlowValidateInstance>;
-  create(params: any, callback?: any): Promise<FlowValidateInstance>
+  update(params: FlowValidateListInstanceUpdateOptions, callback?: (error: Error | null, item?: FlowValidateInstance) => any): Promise<FlowValidateInstance>;
+  update(params: any, callback?: any): Promise<FlowValidateInstance>
 
 
   /**
@@ -78,7 +77,7 @@ export function FlowValidateListInstance(version: V2): FlowValidateListInstance 
   instance._solution = {  };
   instance._uri = `/Flows/Validate`;
 
-  instance.create = function create(params: any, callback?: any): Promise<FlowValidateInstance> {
+  instance.update = function update(params: any, callback?: any): Promise<FlowValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
@@ -106,14 +105,13 @@ export function FlowValidateListInstance(version: V2): FlowValidateListInstance 
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new FlowValidateInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -129,7 +127,7 @@ export function FlowValidateListInstance(version: V2): FlowValidateListInstance 
   return instance;
 }
 
-interface FlowValidatePayload extends FlowValidateResource, Page.TwilioResponsePayload {
+interface FlowValidatePayload extends FlowValidateResource{
 }
 
 interface FlowValidateResource {
@@ -164,32 +162,4 @@ export class FlowValidateInstance {
   }
 }
 
-export class FlowValidatePage extends Page<V2, FlowValidatePayload, FlowValidateResource, FlowValidateInstance> {
-  /**
-   * Initialize the FlowValidatePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: FlowValidateSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of FlowValidateInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FlowValidatePayload): FlowValidateInstance {
-    return new FlowValidateInstance(
-      this._version,
-      payload,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

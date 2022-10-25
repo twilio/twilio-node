@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a CertificateInstance
  *
@@ -174,7 +176,6 @@ export class CertificateContextImpl implements CertificateContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<CertificateInstance> {
@@ -187,7 +188,6 @@ export class CertificateContextImpl implements CertificateContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -216,7 +216,6 @@ export class CertificateContextImpl implements CertificateContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -376,37 +375,6 @@ export class CertificateInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
-  /**
-   * Initialize the CertificatePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: DeployedDevices, response: Response<string>, solution: CertificateSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of CertificateInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CertificatePayload): CertificateInstance {
-    return new CertificateInstance(
-      this._version,
-      payload,
-      this._solution.fleetSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -589,7 +557,6 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<CertificatePage> {
@@ -630,7 +597,6 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -641,4 +607,35 @@ export function CertificateListInstance(version: DeployedDevices, fleetSid: stri
 
   return instance;
 }
+
+
+export class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
+/**
+* Initialize the CertificatePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: DeployedDevices, response: Response<string>, solution: CertificateSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of CertificateInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CertificatePayload): CertificateInstance {
+    return new CertificateInstance(
+    this._version,
+    payload,
+        this._solution.fleetSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

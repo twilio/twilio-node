@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type ServiceConversationParticipantWebhookEnabledType = 'true'|'false';
 
 
@@ -323,7 +325,6 @@ export function ParticipantListInstance(version: V1, chatServiceSid: string, con
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
@@ -361,7 +362,6 @@ export function ParticipantListInstance(version: V1, chatServiceSid: string, con
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -474,7 +474,6 @@ export class ParticipantContextImpl implements ParticipantContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ParticipantInstance> {
@@ -487,7 +486,6 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -524,7 +522,6 @@ export class ParticipantContextImpl implements ParticipantContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -727,34 +724,34 @@ export class ParticipantInstance {
 }
 
 export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
-  /**
-   * Initialize the ParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ParticipantSolution) {
+/**
+* Initialize the ParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ParticipantSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ParticipantPayload): ParticipantInstance {
+    /**
+    * Build an instance of ParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ParticipantPayload): ParticipantInstance {
     return new ParticipantInstance(
-      this._version,
-      payload,
-      this._solution.chatServiceSid,
-      this._solution.conversationSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.chatServiceSid,
+        this._solution.conversationSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

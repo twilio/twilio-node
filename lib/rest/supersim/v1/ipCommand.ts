@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type IpCommandDirection = 'to_sim'|'from_sim';
 
 type IpCommandStatus = 'queued'|'sent'|'received'|'failed';
@@ -305,7 +307,6 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<IpCommandPage> {
@@ -347,7 +348,6 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -406,7 +406,6 @@ export class IpCommandContextImpl implements IpCommandContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -556,32 +555,32 @@ export class IpCommandInstance {
 }
 
 export class IpCommandPage extends Page<V1, IpCommandPayload, IpCommandResource, IpCommandInstance> {
-  /**
-   * Initialize the IpCommandPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: IpCommandSolution) {
+/**
+* Initialize the IpCommandPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: IpCommandSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of IpCommandInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: IpCommandPayload): IpCommandInstance {
+    /**
+    * Build an instance of IpCommandInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: IpCommandPayload): IpCommandInstance {
     return new IpCommandInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

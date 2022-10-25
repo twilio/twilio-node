@@ -20,6 +20,8 @@ import Sync from "../../../Sync";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -257,7 +259,6 @@ export function DocumentPermissionListInstance(version: Sync, serviceSid: string
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -338,7 +339,6 @@ export class DocumentPermissionContextImpl implements DocumentPermissionContext 
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<DocumentPermissionInstance> {
@@ -351,7 +351,6 @@ export class DocumentPermissionContextImpl implements DocumentPermissionContext 
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -390,7 +389,6 @@ export class DocumentPermissionContextImpl implements DocumentPermissionContext 
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -540,34 +538,34 @@ export class DocumentPermissionInstance {
 }
 
 export class DocumentPermissionPage extends Page<Sync, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {
-  /**
-   * Initialize the DocumentPermissionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Sync, response: Response<string>, solution: DocumentPermissionSolution) {
+/**
+* Initialize the DocumentPermissionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Sync, response: Response<string>, solution: DocumentPermissionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of DocumentPermissionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DocumentPermissionPayload): DocumentPermissionInstance {
+    /**
+    * Build an instance of DocumentPermissionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DocumentPermissionPayload): DocumentPermissionInstance {
     return new DocumentPermissionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.documentSid,
-      this._solution.identity,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.documentSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

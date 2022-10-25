@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
+
 
 type SiprecUpdateStatus = 'stopped';
 
@@ -513,7 +513,6 @@ export class SiprecContextImpl implements SiprecContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -530,7 +529,7 @@ export class SiprecContextImpl implements SiprecContext {
   }
 }
 
-interface SiprecPayload extends SiprecResource, Page.TwilioResponsePayload {
+interface SiprecPayload extends SiprecResource{
 }
 
 interface SiprecResource {
@@ -622,38 +621,6 @@ export class SiprecInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class SiprecPage extends Page<V2010, SiprecPayload, SiprecResource, SiprecInstance> {
-  /**
-   * Initialize the SiprecPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: SiprecSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SiprecInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SiprecPayload): SiprecInstance {
-    return new SiprecInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.callSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -942,7 +909,6 @@ export function SiprecListInstance(version: V2010, accountSid: string, callSid: 
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -955,4 +921,6 @@ export function SiprecListInstance(version: V2010, accountSid: string, callSid: 
 
   return instance;
 }
+
+
 

@@ -22,6 +22,8 @@ const serialize = require("../../../base/serialize");
 import { NetworkAccessProfileNetworkListInstance } from "./networkAccessProfile/networkAccessProfileNetwork";
 
 
+
+
 /**
  * Options to pass to update a NetworkAccessProfileInstance
  *
@@ -163,7 +165,6 @@ export class NetworkAccessProfileContextImpl implements NetworkAccessProfileCont
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<NetworkAccessProfileInstance> {
@@ -189,7 +190,6 @@ export class NetworkAccessProfileContextImpl implements NetworkAccessProfileCont
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -327,36 +327,6 @@ export class NetworkAccessProfileInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class NetworkAccessProfilePage extends Page<V1, NetworkAccessProfilePayload, NetworkAccessProfileResource, NetworkAccessProfileInstance> {
-  /**
-   * Initialize the NetworkAccessProfilePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: NetworkAccessProfileSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of NetworkAccessProfileInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NetworkAccessProfilePayload): NetworkAccessProfileInstance {
-    return new NetworkAccessProfileInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -544,7 +514,6 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<NetworkAccessProfilePage> {
@@ -584,7 +553,6 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -595,4 +563,34 @@ export function NetworkAccessProfileListInstance(version: V1): NetworkAccessProf
 
   return instance;
 }
+
+
+export class NetworkAccessProfilePage extends Page<V1, NetworkAccessProfilePayload, NetworkAccessProfileResource, NetworkAccessProfileInstance> {
+/**
+* Initialize the NetworkAccessProfilePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: NetworkAccessProfileSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of NetworkAccessProfileInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: NetworkAccessProfilePayload): NetworkAccessProfileInstance {
+    return new NetworkAccessProfileInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

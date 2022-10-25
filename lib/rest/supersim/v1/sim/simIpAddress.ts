@@ -20,6 +20,27 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+export class ListBillingPeriodResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
+export class SupersimV1SimSimIpAddress {
+  /**
+   * IP address assigned to the given Super SIM
+   */
+  "ipAddress"?: string | null;
+  "ipAddressVersion"?: SimIpAddressEnumIpAddressVersion;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -237,7 +258,6 @@ export function SimIpAddressListInstance(version: V1, simSid: string): SimIpAddr
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -248,4 +268,70 @@ export function SimIpAddressListInstance(version: V1, simSid: string): SimIpAddr
 
   return instance;
 }
+
+interface SimIpAddressPayload extends SimIpAddressResource, Page.TwilioResponsePayload {
+}
+
+interface SimIpAddressResource {
+  ip_addresses?: Array<SupersimV1SimSimIpAddress>;
+  meta?: ListBillingPeriodResponseMeta;
+}
+
+export class SimIpAddressInstance {
+
+  constructor(protected _version: V1, payload: SimIpAddressPayload, simSid?: string) {
+    this.ipAddresses = payload.ip_addresses;
+    this.meta = payload.meta;
+
+  }
+
+  ipAddresses?: Array<SupersimV1SimSimIpAddress>;
+  meta?: ListBillingPeriodResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      ipAddresses: this.ipAddresses, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class SimIpAddressPage extends Page<V1, SimIpAddressPayload, SimIpAddressResource, SimIpAddressInstance> {
+/**
+* Initialize the SimIpAddressPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SimIpAddressSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SimIpAddressInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SimIpAddressPayload): SimIpAddressInstance {
+    return new SimIpAddressInstance(
+    this._version,
+    payload,
+        this._solution.simSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

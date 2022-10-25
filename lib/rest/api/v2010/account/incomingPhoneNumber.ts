@@ -22,7 +22,10 @@ const serialize = require("../../../../base/serialize");
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
 import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
+
 import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
+import PhoneNumberCapabilities from "../../../../interfaces";
+
 
 /**
  * Indicate if a phone can receive calls or messages
@@ -462,7 +465,6 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<IncomingPhoneNumberPage> {
@@ -504,7 +506,6 @@ export function IncomingPhoneNumberListInstance(version: V2010, accountSid: stri
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -601,7 +602,6 @@ export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContex
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<IncomingPhoneNumberInstance> {
@@ -614,7 +614,6 @@ export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContex
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -666,7 +665,6 @@ export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContex
     return operationPromise;
 
 
-
   }
 
   /**
@@ -697,7 +695,7 @@ interface IncomingPhoneNumberResource {
   address_requirements?: IncomingPhoneNumberAddressRequirement;
   api_version?: string | null;
   beta?: boolean | null;
-  capabilities?: ApiV2010AccountIncomingPhoneNumberCapabilities | null;
+  capabilities?: PhoneNumberCapabilities | null;
   date_created?: string | null;
   date_updated?: string | null;
   friendly_name?: string | null;
@@ -788,7 +786,7 @@ export class IncomingPhoneNumberInstance {
    * Whether the phone number is new to the Twilio platform
    */
   beta?: boolean | null;
-  capabilities?: ApiV2010AccountIncomingPhoneNumberCapabilities | null;
+  capabilities?: PhoneNumberCapabilities | null;
   /**
    * The RFC 2822 date and time in GMT that the resource was created
    */
@@ -998,33 +996,33 @@ export class IncomingPhoneNumberInstance {
 }
 
 export class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberInstance> {
-  /**
-   * Initialize the IncomingPhoneNumberPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: IncomingPhoneNumberSolution) {
+/**
+* Initialize the IncomingPhoneNumberPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: IncomingPhoneNumberSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of IncomingPhoneNumberInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: IncomingPhoneNumberPayload): IncomingPhoneNumberInstance {
+    /**
+    * Build an instance of IncomingPhoneNumberInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: IncomingPhoneNumberPayload): IncomingPhoneNumberInstance {
     return new IncomingPhoneNumberInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

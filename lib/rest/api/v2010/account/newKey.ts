@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 
 /**
@@ -104,7 +103,6 @@ export function NewKeyListInstance(version: V2010, accountSid: string): NewKeyLi
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -118,7 +116,7 @@ export function NewKeyListInstance(version: V2010, accountSid: string): NewKeyLi
   return instance;
 }
 
-interface NewKeyPayload extends NewKeyResource, Page.TwilioResponsePayload {
+interface NewKeyPayload extends NewKeyResource{
 }
 
 interface NewKeyResource {
@@ -181,33 +179,4 @@ export class NewKeyInstance {
   }
 }
 
-export class NewKeyPage extends Page<V2010, NewKeyPayload, NewKeyResource, NewKeyInstance> {
-  /**
-   * Initialize the NewKeyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: NewKeySolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of NewKeyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NewKeyPayload): NewKeyInstance {
-    return new NewKeyInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

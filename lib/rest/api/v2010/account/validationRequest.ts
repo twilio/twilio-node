@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 
 /**
@@ -112,7 +111,6 @@ export function ValidationRequestListInstance(version: V2010, accountSid: string
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -126,7 +124,7 @@ export function ValidationRequestListInstance(version: V2010, accountSid: string
   return instance;
 }
 
-interface ValidationRequestPayload extends ValidationRequestResource, Page.TwilioResponsePayload {
+interface ValidationRequestPayload extends ValidationRequestResource{
 }
 
 interface ValidationRequestResource {
@@ -189,33 +187,4 @@ export class ValidationRequestInstance {
   }
 }
 
-export class ValidationRequestPage extends Page<V2010, ValidationRequestPayload, ValidationRequestResource, ValidationRequestInstance> {
-  /**
-   * Initialize the ValidationRequestPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: ValidationRequestSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ValidationRequestInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ValidationRequestPayload): ValidationRequestInstance {
-    return new ValidationRequestInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -116,7 +118,6 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -209,37 +210,6 @@ export class SchemaVersionInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class SchemaVersionPage extends Page<V1, SchemaVersionPayload, SchemaVersionResource, SchemaVersionInstance> {
-  /**
-   * Initialize the SchemaVersionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SchemaVersionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SchemaVersionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SchemaVersionPayload): SchemaVersionInstance {
-    return new SchemaVersionInstance(
-      this._version,
-      payload,
-      this._solution.id,
-      this._solution.schemaVersion,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -419,7 +389,6 @@ export function SchemaVersionListInstance(version: V1, id: string): SchemaVersio
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -430,4 +399,35 @@ export function SchemaVersionListInstance(version: V1, id: string): SchemaVersio
 
   return instance;
 }
+
+
+export class SchemaVersionPage extends Page<V1, SchemaVersionPayload, SchemaVersionResource, SchemaVersionInstance> {
+/**
+* Initialize the SchemaVersionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SchemaVersionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SchemaVersionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SchemaVersionPayload): SchemaVersionInstance {
+    return new SchemaVersionInstance(
+    this._version,
+    payload,
+        this._solution.id,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

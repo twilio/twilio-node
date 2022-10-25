@@ -14,12 +14,12 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import TrustedComms from "../TrustedComms";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { ChannelListInstance } from "./brandedChannel/channel";
+
+
 
 
 export interface BrandedChannelContext {
@@ -75,7 +75,6 @@ export class BrandedChannelContextImpl implements BrandedChannelContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -92,7 +91,7 @@ export class BrandedChannelContextImpl implements BrandedChannelContext {
   }
 }
 
-interface BrandedChannelPayload extends BrandedChannelResource, Page.TwilioResponsePayload {
+interface BrandedChannelPayload extends BrandedChannelResource{
 }
 
 interface BrandedChannelResource {
@@ -189,36 +188,6 @@ export class BrandedChannelInstance {
   }
 }
 
-export class BrandedChannelPage extends Page<TrustedComms, BrandedChannelPayload, BrandedChannelResource, BrandedChannelInstance> {
-  /**
-   * Initialize the BrandedChannelPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: TrustedComms, response: Response<string>, solution: BrandedChannelSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of BrandedChannelInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BrandedChannelPayload): BrandedChannelInstance {
-    return new BrandedChannelInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface BrandedChannelListInstance {
   (sid: string): BrandedChannelContext;
@@ -264,4 +233,6 @@ export function BrandedChannelListInstance(version: TrustedComms): BrandedChanne
 
   return instance;
 }
+
+
 

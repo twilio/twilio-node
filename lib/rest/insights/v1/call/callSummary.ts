@@ -14,167 +14,49 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+type SummaryCallState = 'ringing'|'completed'|'busy'|'fail'|'noanswer'|'canceled'|'answered'|'undialed';
+
+type SummaryCallType = 'carrier'|'sip'|'trunking'|'client';
+
 type SummaryProcessingState = 'complete'|'partial';
 
-/**
- * Options to pass to each
- *
- * @property { SummaryProcessingState } [processingState] 
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface CallSummaryListInstanceEachOptions {
-  processingState?: SummaryProcessingState;
-  callback?: (item: CallSummaryInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
 
 /**
- * Options to pass to list
+ * Options to pass to fetch a CallSummaryInstance
  *
  * @property { SummaryProcessingState } [processingState] 
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface CallSummaryListInstanceOptions {
+export interface CallSummaryListInstanceFetchOptions {
   processingState?: SummaryProcessingState;
-  limit?: number;
 }
-
-/**
- * Options to pass to page
- *
- * @property { SummaryProcessingState } [processingState] 
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface CallSummaryListInstancePageOptions {
-  processingState?: SummaryProcessingState;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface CallSummaryListInstance {
 
 
+  /**
+   * Fetch a CallSummaryInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CallSummaryInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
+  /**
+   * Fetch a CallSummaryInstance
+   *
+   * @param { CallSummaryListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CallSummaryInstance
+   */
+  fetch(params: CallSummaryListInstanceFetchOptions, callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
+  fetch(params?: any, callback?: any): Promise<CallSummaryInstance>
 
-  /**
-   * Streams CallSummaryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: CallSummaryInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams CallSummaryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CallSummaryListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: CallSummaryListInstanceEachOptions, callback?: (item: CallSummaryInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of CallSummaryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: CallSummaryPage) => any): Promise<CallSummaryPage>;
-  /**
-   * Retrieve a single target page of CallSummaryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CallSummaryPage) => any): Promise<CallSummaryPage>;
-  getPage(params?: any, callback?: any): Promise<CallSummaryPage>;
-  /**
-   * Lists CallSummaryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: CallSummaryInstance[]) => any): Promise<CallSummaryInstance[]>;
-  /**
-   * Lists CallSummaryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CallSummaryListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: CallSummaryListInstanceOptions, callback?: (error: Error | null, items: CallSummaryInstance[]) => any): Promise<CallSummaryInstance[]>;
-  list(params?: any, callback?: any): Promise<CallSummaryInstance[]>;
-  /**
-   * Retrieve a single page of CallSummaryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: CallSummaryPage) => any): Promise<CallSummaryPage>;
-  /**
-   * Retrieve a single page of CallSummaryInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CallSummaryListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: CallSummaryListInstancePageOptions, callback?: (error: Error | null, items: CallSummaryPage) => any): Promise<CallSummaryPage>;
-  page(params?: any, callback?: any): Promise<CallSummaryPage>;
 
   /**
    * Provide a user-friendly representation
@@ -202,7 +84,7 @@ export function CallSummaryListInstance(version: V1, callSid: string): CallSumma
   instance._solution = { callSid };
   instance._uri = `/Voice/${callSid}/Summary`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<CallSummaryPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<CallSummaryInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -213,32 +95,20 @@ export function CallSummaryListInstance(version: V1, callSid: string): CallSumma
     const data: any = {};
 
     if (params.processingState !== undefined) data['ProcessingState'] = params.processingState;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new CallSummaryPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new CallSummaryInstance(operationVersion, payload, this._solution.callSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CallSummaryPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new CallSummaryPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -250,4 +120,121 @@ export function CallSummaryListInstance(version: V1, callSid: string): CallSumma
 
   return instance;
 }
+
+interface CallSummaryPayload extends CallSummaryResource{
+}
+
+interface CallSummaryResource {
+  account_sid?: string | null;
+  call_sid?: string | null;
+  call_type?: SummaryCallType;
+  call_state?: SummaryCallState;
+  processing_state?: SummaryProcessingState;
+  created_time?: Date | null;
+  start_time?: Date | null;
+  end_time?: Date | null;
+  duration?: number | null;
+  connect_duration?: number | null;
+  from?: any | null;
+  to?: any | null;
+  carrier_edge?: any | null;
+  client_edge?: any | null;
+  sdk_edge?: any | null;
+  sip_edge?: any | null;
+  tags?: Array<string> | null;
+  url?: string | null;
+  attributes?: any | null;
+  properties?: any | null;
+  trust?: any | null;
+  annotation?: any | null;
+}
+
+export class CallSummaryInstance {
+
+  constructor(protected _version: V1, payload: CallSummaryPayload, callSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.callSid = payload.call_sid;
+    this.callType = payload.call_type;
+    this.callState = payload.call_state;
+    this.processingState = payload.processing_state;
+    this.createdTime = deserialize.iso8601DateTime(payload.created_time);
+    this.startTime = deserialize.iso8601DateTime(payload.start_time);
+    this.endTime = deserialize.iso8601DateTime(payload.end_time);
+    this.duration = deserialize.integer(payload.duration);
+    this.connectDuration = deserialize.integer(payload.connect_duration);
+    this.from = payload.from;
+    this.to = payload.to;
+    this.carrierEdge = payload.carrier_edge;
+    this.clientEdge = payload.client_edge;
+    this.sdkEdge = payload.sdk_edge;
+    this.sipEdge = payload.sip_edge;
+    this.tags = payload.tags;
+    this.url = payload.url;
+    this.attributes = payload.attributes;
+    this.properties = payload.properties;
+    this.trust = payload.trust;
+    this.annotation = payload.annotation;
+
+  }
+
+  accountSid?: string | null;
+  callSid?: string | null;
+  callType?: SummaryCallType;
+  callState?: SummaryCallState;
+  processingState?: SummaryProcessingState;
+  createdTime?: Date | null;
+  startTime?: Date | null;
+  endTime?: Date | null;
+  duration?: number | null;
+  connectDuration?: number | null;
+  from?: any | null;
+  to?: any | null;
+  carrierEdge?: any | null;
+  clientEdge?: any | null;
+  sdkEdge?: any | null;
+  sipEdge?: any | null;
+  tags?: Array<string> | null;
+  url?: string | null;
+  attributes?: any | null;
+  properties?: any | null;
+  trust?: any | null;
+  annotation?: any | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      callSid: this.callSid, 
+      callType: this.callType, 
+      callState: this.callState, 
+      processingState: this.processingState, 
+      createdTime: this.createdTime, 
+      startTime: this.startTime, 
+      endTime: this.endTime, 
+      duration: this.duration, 
+      connectDuration: this.connectDuration, 
+      from: this.from, 
+      to: this.to, 
+      carrierEdge: this.carrierEdge, 
+      clientEdge: this.clientEdge, 
+      sdkEdge: this.sdkEdge, 
+      sipEdge: this.sipEdge, 
+      tags: this.tags, 
+      url: this.url, 
+      attributes: this.attributes, 
+      properties: this.properties, 
+      trust: this.trust, 
+      annotation: this.annotation
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

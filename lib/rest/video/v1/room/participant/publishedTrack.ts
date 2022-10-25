@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type RoomParticipantPublishedTrackKind = 'audio'|'video'|'data';
 
 /**
@@ -117,7 +119,6 @@ export class PublishedTrackContextImpl implements PublishedTrackContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -240,38 +241,6 @@ export class PublishedTrackInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class PublishedTrackPage extends Page<V1, PublishedTrackPayload, PublishedTrackResource, PublishedTrackInstance> {
-  /**
-   * Initialize the PublishedTrackPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: PublishedTrackSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of PublishedTrackInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PublishedTrackPayload): PublishedTrackInstance {
-    return new PublishedTrackInstance(
-      this._version,
-      payload,
-      this._solution.roomSid,
-      this._solution.participantSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -452,7 +421,6 @@ export function PublishedTrackListInstance(version: V1, roomSid: string, partici
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -463,4 +431,36 @@ export function PublishedTrackListInstance(version: V1, roomSid: string, partici
 
   return instance;
 }
+
+
+export class PublishedTrackPage extends Page<V1, PublishedTrackPayload, PublishedTrackResource, PublishedTrackInstance> {
+/**
+* Initialize the PublishedTrackPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: PublishedTrackSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of PublishedTrackInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: PublishedTrackPayload): PublishedTrackInstance {
+    return new PublishedTrackInstance(
+    this._version,
+    payload,
+        this._solution.roomSid,
+        this._solution.participantSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

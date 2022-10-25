@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
+
 
 
 /**
@@ -144,7 +144,6 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<PhoneNumberInstance> {
@@ -173,7 +172,6 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -190,7 +188,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   }
 }
 
-interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
+interface PhoneNumberPayload extends PhoneNumberResource{
 }
 
 interface PhoneNumberResource {
@@ -316,33 +314,5 @@ export class PhoneNumberInstance {
   }
 }
 
-export class PhoneNumberPage extends Page<V2, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
-  /**
-   * Initialize the PhoneNumberPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: PhoneNumberSolution) {
-    super(version, response, solution);
-  }
 
-  /**
-   * Build an instance of PhoneNumberInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance {
-    return new PhoneNumberInstance(
-      this._version,
-      payload,
-      this._solution.phoneNumber,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

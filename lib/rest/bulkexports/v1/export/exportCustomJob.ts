@@ -21,6 +21,66 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+export class BulkexportsV1ExportExportCustomJob {
+  /**
+   * The friendly name specified when creating the job
+   */
+  "friendlyName"?: string | null;
+  /**
+   * The type of communication – Messages, Calls, Conferences, and Participants
+   */
+  "resourceType"?: string | null;
+  /**
+   * The start day for the custom export specified as a string in the format of yyyy-MM-dd
+   */
+  "startDay"?: string | null;
+  /**
+   * The end day for the custom export specified as a string in the format of yyyy-MM-dd. This will be the last day exported. For instance, to export a single day, choose the same day for start and end day. To export the first 4 days of July, you would set the start date to 2020-07-01 and the end date to 2020-07-04. The end date must be the UTC day before yesterday.
+   */
+  "endDay"?: string | null;
+  /**
+   * The optional webhook url called on completion
+   */
+  "webhookUrl"?: string | null;
+  /**
+   * This is the method used to call the webhook
+   */
+  "webhookMethod"?: string | null;
+  /**
+   * The optional email to send the completion notification to
+   */
+  "email"?: string | null;
+  /**
+   * The unique job_sid returned when the custom export was created. This can be used to look up the status of the job.
+   */
+  "jobSid"?: string | null;
+  /**
+   * The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
+   */
+  "details"?: any | null;
+  /**
+   * This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+   */
+  "jobQueuePosition"?: string | null;
+  /**
+   * this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+   */
+  "estimatedCompletionTime"?: string | null;
+}
+
+
+export class ListDayResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
+
 /**
  * Options to pass to create a ExportCustomJobInstance
  *
@@ -270,7 +330,6 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ExportCustomJobPage> {
@@ -310,7 +369,6 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -326,80 +384,20 @@ interface ExportCustomJobPayload extends ExportCustomJobResource, Page.TwilioRes
 }
 
 interface ExportCustomJobResource {
-  friendly_name?: string | null;
-  resource_type?: string | null;
-  start_day?: string | null;
-  end_day?: string | null;
-  webhook_url?: string | null;
-  webhook_method?: string | null;
-  email?: string | null;
-  job_sid?: string | null;
-  details?: any | null;
-  job_queue_position?: string | null;
-  estimated_completion_time?: string | null;
+  jobs?: Array<BulkexportsV1ExportExportCustomJob>;
+  meta?: ListDayResponseMeta;
 }
 
 export class ExportCustomJobInstance {
 
   constructor(protected _version: V1, payload: ExportCustomJobPayload, resourceType?: string) {
-    this.friendlyName = payload.friendly_name;
-    this.resourceType = payload.resource_type;
-    this.startDay = payload.start_day;
-    this.endDay = payload.end_day;
-    this.webhookUrl = payload.webhook_url;
-    this.webhookMethod = payload.webhook_method;
-    this.email = payload.email;
-    this.jobSid = payload.job_sid;
-    this.details = payload.details;
-    this.jobQueuePosition = payload.job_queue_position;
-    this.estimatedCompletionTime = payload.estimated_completion_time;
+    this.jobs = payload.jobs;
+    this.meta = payload.meta;
 
   }
 
-  /**
-   * The friendly name specified when creating the job
-   */
-  friendlyName?: string | null;
-  /**
-   * The type of communication – Messages, Calls, Conferences, and Participants
-   */
-  resourceType?: string | null;
-  /**
-   * The start day for the custom export specified as a string in the format of yyyy-MM-dd
-   */
-  startDay?: string | null;
-  /**
-   * The end day for the custom export specified as a string in the format of yyyy-MM-dd. This will be the last day exported. For instance, to export a single day, choose the same day for start and end day. To export the first 4 days of July, you would set the start date to 2020-07-01 and the end date to 2020-07-04. The end date must be the UTC day before yesterday.
-   */
-  endDay?: string | null;
-  /**
-   * The optional webhook url called on completion
-   */
-  webhookUrl?: string | null;
-  /**
-   * This is the method used to call the webhook
-   */
-  webhookMethod?: string | null;
-  /**
-   * The optional email to send the completion notification to
-   */
-  email?: string | null;
-  /**
-   * The unique job_sid returned when the custom export was created. This can be used to look up the status of the job.
-   */
-  jobSid?: string | null;
-  /**
-   * The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
-   */
-  details?: any | null;
-  /**
-   * This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
-   */
-  jobQueuePosition?: string | null;
-  /**
-   * this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
-   */
-  estimatedCompletionTime?: string | null;
+  jobs?: Array<BulkexportsV1ExportExportCustomJob>;
+  meta?: ListDayResponseMeta;
 
   /**
    * Provide a user-friendly representation
@@ -408,17 +406,8 @@ export class ExportCustomJobInstance {
    */
   toJSON() {
     return {
-      friendlyName: this.friendlyName, 
-      resourceType: this.resourceType, 
-      startDay: this.startDay, 
-      endDay: this.endDay, 
-      webhookUrl: this.webhookUrl, 
-      webhookMethod: this.webhookMethod, 
-      email: this.email, 
-      jobSid: this.jobSid, 
-      details: this.details, 
-      jobQueuePosition: this.jobQueuePosition, 
-      estimatedCompletionTime: this.estimatedCompletionTime
+      jobs: this.jobs, 
+      meta: this.meta
     }
   }
 
@@ -428,32 +417,32 @@ export class ExportCustomJobInstance {
 }
 
 export class ExportCustomJobPage extends Page<V1, ExportCustomJobPayload, ExportCustomJobResource, ExportCustomJobInstance> {
-  /**
-   * Initialize the ExportCustomJobPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ExportCustomJobSolution) {
+/**
+* Initialize the ExportCustomJobPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ExportCustomJobSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ExportCustomJobInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ExportCustomJobPayload): ExportCustomJobInstance {
+    /**
+    * Build an instance of ExportCustomJobInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ExportCustomJobPayload): ExportCustomJobInstance {
     return new ExportCustomJobInstance(
-      this._version,
-      payload,
-      this._solution.resourceType,
+    this._version,
+    payload,
+        this._solution.resourceType,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
 

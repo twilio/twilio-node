@@ -19,7 +19,9 @@ import Response from "../../../http/response";
 import Marketplace from "../Marketplace";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { AvailableAddOnExtensionListInstance } from "./availableAddOn/availableAddOnExtension";
+
 
 /**
  * Options to pass to each
@@ -243,7 +245,6 @@ export function AvailableAddOnListInstance(version: Marketplace): AvailableAddOn
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -307,7 +308,6 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -431,32 +431,32 @@ export class AvailableAddOnInstance {
 }
 
 export class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnInstance> {
-  /**
-   * Initialize the AvailableAddOnPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Marketplace, response: Response<string>, solution: AvailableAddOnSolution) {
+/**
+* Initialize the AvailableAddOnPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Marketplace, response: Response<string>, solution: AvailableAddOnSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AvailableAddOnInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AvailableAddOnPayload): AvailableAddOnInstance {
+    /**
+    * Build an instance of AvailableAddOnInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AvailableAddOnPayload): AvailableAddOnInstance {
     return new AvailableAddOnInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

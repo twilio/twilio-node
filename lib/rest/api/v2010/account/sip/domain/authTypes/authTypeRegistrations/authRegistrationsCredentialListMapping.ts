@@ -21,6 +21,8 @@ const deserialize = require("../../../../../../../../base/deserialize");
 const serialize = require("../../../../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a AuthRegistrationsCredentialListMappingInstance
  *
@@ -134,7 +136,6 @@ export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRe
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<AuthRegistrationsCredentialListMappingInstance> {
@@ -147,7 +148,6 @@ export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRe
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -257,38 +257,6 @@ export class AuthRegistrationsCredentialListMappingInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class AuthRegistrationsCredentialListMappingPage extends Page<V2010, AuthRegistrationsCredentialListMappingPayload, AuthRegistrationsCredentialListMappingResource, AuthRegistrationsCredentialListMappingInstance> {
-  /**
-   * Initialize the AuthRegistrationsCredentialListMappingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: AuthRegistrationsCredentialListMappingSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AuthRegistrationsCredentialListMappingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AuthRegistrationsCredentialListMappingPayload): AuthRegistrationsCredentialListMappingInstance {
-    return new AuthRegistrationsCredentialListMappingInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.domainSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -470,7 +438,6 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<AuthRegistrationsCredentialListMappingPage> {
@@ -510,7 +477,6 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -521,4 +487,36 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
 
   return instance;
 }
+
+
+export class AuthRegistrationsCredentialListMappingPage extends Page<V2010, AuthRegistrationsCredentialListMappingPayload, AuthRegistrationsCredentialListMappingResource, AuthRegistrationsCredentialListMappingInstance> {
+/**
+* Initialize the AuthRegistrationsCredentialListMappingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AuthRegistrationsCredentialListMappingSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of AuthRegistrationsCredentialListMappingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AuthRegistrationsCredentialListMappingPayload): AuthRegistrationsCredentialListMappingInstance {
+    return new AuthRegistrationsCredentialListMappingInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.domainSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

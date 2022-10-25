@@ -21,6 +21,39 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+export class FlexV1InteractionInteractionChannelInteractionChannelInvite {
+  /**
+   * The unique string that identifies the resource
+   */
+  "sid"?: string | null;
+  /**
+   * The Interaction SID for this Channel
+   */
+  "interactionSid"?: string | null;
+  /**
+   * The Channel SID for this Invite
+   */
+  "channelSid"?: string | null;
+  /**
+   * A JSON object representing the routing rules for the Interaction Channel
+   */
+  "routing"?: any | null;
+  "url"?: string | null;
+}
+
+
+export class ListChannelResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
+
 /**
  * Options to pass to create a InteractionChannelInviteInstance
  *
@@ -248,7 +281,6 @@ export function InteractionChannelInviteListInstance(version: V1, interactionSid
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<InteractionChannelInvitePage> {
@@ -288,7 +320,6 @@ export function InteractionChannelInviteListInstance(version: V1, interactionSid
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -304,41 +335,20 @@ interface InteractionChannelInvitePayload extends InteractionChannelInviteResour
 }
 
 interface InteractionChannelInviteResource {
-  sid?: string | null;
-  interaction_sid?: string | null;
-  channel_sid?: string | null;
-  routing?: any | null;
-  url?: string | null;
+  invites?: Array<FlexV1InteractionInteractionChannelInteractionChannelInvite>;
+  meta?: ListChannelResponseMeta;
 }
 
 export class InteractionChannelInviteInstance {
 
   constructor(protected _version: V1, payload: InteractionChannelInvitePayload, interactionSid: string, channelSid?: string) {
-    this.sid = payload.sid;
-    this.interactionSid = payload.interaction_sid;
-    this.channelSid = payload.channel_sid;
-    this.routing = payload.routing;
-    this.url = payload.url;
+    this.invites = payload.invites;
+    this.meta = payload.meta;
 
   }
 
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The Interaction SID for this Channel
-   */
-  interactionSid?: string | null;
-  /**
-   * The Channel SID for this Invite
-   */
-  channelSid?: string | null;
-  /**
-   * A JSON object representing the routing rules for the Interaction Channel
-   */
-  routing?: any | null;
-  url?: string | null;
+  invites?: Array<FlexV1InteractionInteractionChannelInteractionChannelInvite>;
+  meta?: ListChannelResponseMeta;
 
   /**
    * Provide a user-friendly representation
@@ -347,11 +357,8 @@ export class InteractionChannelInviteInstance {
    */
   toJSON() {
     return {
-      sid: this.sid, 
-      interactionSid: this.interactionSid, 
-      channelSid: this.channelSid, 
-      routing: this.routing, 
-      url: this.url
+      invites: this.invites, 
+      meta: this.meta
     }
   }
 
@@ -361,33 +368,33 @@ export class InteractionChannelInviteInstance {
 }
 
 export class InteractionChannelInvitePage extends Page<V1, InteractionChannelInvitePayload, InteractionChannelInviteResource, InteractionChannelInviteInstance> {
-  /**
-   * Initialize the InteractionChannelInvitePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: InteractionChannelInviteSolution) {
+/**
+* Initialize the InteractionChannelInvitePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InteractionChannelInviteSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of InteractionChannelInviteInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: InteractionChannelInvitePayload): InteractionChannelInviteInstance {
+    /**
+    * Build an instance of InteractionChannelInviteInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InteractionChannelInvitePayload): InteractionChannelInviteInstance {
     return new InteractionChannelInviteInstance(
-      this._version,
-      payload,
-      this._solution.interactionSid,
-      this._solution.channelSid,
+    this._version,
+    payload,
+        this._solution.interactionSid,
+        this._solution.channelSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
 

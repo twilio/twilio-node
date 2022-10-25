@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 type VerificationCheckChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
 
@@ -118,7 +117,6 @@ export function VerificationCheckListInstance(version: V2, serviceSid: string): 
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -132,7 +130,7 @@ export function VerificationCheckListInstance(version: V2, serviceSid: string): 
   return instance;
 }
 
-interface VerificationCheckPayload extends VerificationCheckResource, Page.TwilioResponsePayload {
+interface VerificationCheckPayload extends VerificationCheckResource{
 }
 
 interface VerificationCheckResource {
@@ -241,33 +239,4 @@ export class VerificationCheckInstance {
   }
 }
 
-export class VerificationCheckPage extends Page<V2, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {
-  /**
-   * Initialize the VerificationCheckPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: VerificationCheckSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of VerificationCheckInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: VerificationCheckPayload): VerificationCheckInstance {
-    return new VerificationCheckInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

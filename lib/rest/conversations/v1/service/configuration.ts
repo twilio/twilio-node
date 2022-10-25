@@ -14,8 +14,6 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
@@ -23,15 +21,16 @@ import { WebhookListInstance } from "./configuration/webhook";
 import { NotificationListInstance } from "./configuration/notification";
 
 
+
 /**
- * Options to pass to create a ConfigurationInstance
+ * Options to pass to update a ConfigurationInstance
  *
  * @property { string } [defaultConversationCreatorRoleSid] The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
  * @property { string } [defaultConversationRoleSid] The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
  * @property { string } [defaultChatServiceRoleSid] The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
  * @property { boolean } [reachabilityEnabled] Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is &#x60;false&#x60;.
  */
-export interface ConfigurationListInstanceCreateOptions {
+export interface ConfigurationListInstanceUpdateOptions {
   defaultConversationCreatorRoleSid?: string;
   defaultConversationRoleSid?: string;
   defaultChatServiceRoleSid?: string;
@@ -43,126 +42,34 @@ export interface ConfigurationListInstance {
   webhooks: WebhookListInstance;
   notifications: NotificationListInstance;
 
-
   /**
-   * Streams ConfigurationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ConfigurationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConfigurationListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ConfigurationListInstanceEachOptions, callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
-  /**
-   * Retrieve a single target page of ConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
-  getPage(params?: any, callback?: any): Promise<ConfigurationPage>;
-  /**
-   * Lists ConfigurationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ConfigurationInstance[]) => any): Promise<ConfigurationInstance[]>;
-  /**
-   * Lists ConfigurationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConfigurationListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ConfigurationListInstanceOptions, callback?: (error: Error | null, items: ConfigurationInstance[]) => any): Promise<ConfigurationInstance[]>;
-  list(params?: any, callback?: any): Promise<ConfigurationInstance[]>;
-  /**
-   * Retrieve a single page of ConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
-  /**
-   * Retrieve a single page of ConfigurationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConfigurationListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ConfigurationListInstancePageOptions, callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
-  page(params?: any, callback?: any): Promise<ConfigurationPage>;
-
-  /**
-   * Create a ConfigurationInstance
+   * Fetch a ConfigurationInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  create(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+
+
   /**
-   * Create a ConfigurationInstance
+   * Update a ConfigurationInstance
    *
-   * @param { ConfigurationListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed ConfigurationInstance
    */
-  create(params: ConfigurationListInstanceCreateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
-  create(params?: any, callback?: any): Promise<ConfigurationInstance>
+  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  /**
+   * Update a ConfigurationInstance
+   *
+   * @param { ConfigurationListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConfigurationInstance
+   */
+  update(params: ConfigurationListInstanceUpdateOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  update(params?: any, callback?: any): Promise<ConfigurationInstance>
 
 
   /**
@@ -211,31 +118,21 @@ export function ConfigurationListInstance(version: V1, chatServiceSid: string): 
     }
   });
 
-  instance.page = function page(callback?: any): Promise<ConfigurationPage> {
+  instance.fetch = function fetch(callback?: any): Promise<ConfigurationInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new ConfigurationPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, this._solution.chatServiceSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConfigurationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new ConfigurationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<ConfigurationInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<ConfigurationInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -254,14 +151,13 @@ export function ConfigurationListInstance(version: V1, chatServiceSid: string): 
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, this._solution.chatServiceSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -277,7 +173,7 @@ export function ConfigurationListInstance(version: V1, chatServiceSid: string): 
   return instance;
 }
 
-interface ConfigurationPayload extends ConfigurationResource, Page.TwilioResponsePayload {
+interface ConfigurationPayload extends ConfigurationResource{
 }
 
 interface ConfigurationResource {
@@ -368,33 +264,4 @@ export class ConfigurationInstance {
   }
 }
 
-export class ConfigurationPage extends Page<V1, ConfigurationPayload, ConfigurationResource, ConfigurationInstance> {
-  /**
-   * Initialize the ConfigurationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ConfigurationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ConfigurationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConfigurationPayload): ConfigurationInstance {
-    return new ConfigurationInstance(
-      this._version,
-      payload,
-      this._solution.chatServiceSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

@@ -14,165 +14,43 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-/**
- * Options to pass to each
- *
- * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface TaskQueueRealTimeStatisticsListInstanceEachOptions {
-  taskChannel?: string;
-  callback?: (item: TaskQueueRealTimeStatisticsInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
+
 
 /**
- * Options to pass to list
+ * Options to pass to fetch a TaskQueueRealTimeStatisticsInstance
  *
  * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface TaskQueueRealTimeStatisticsListInstanceOptions {
+export interface TaskQueueRealTimeStatisticsListInstanceFetchOptions {
   taskChannel?: string;
-  limit?: number;
 }
-
-/**
- * Options to pass to page
- *
- * @property { string } [taskChannel] The TaskChannel for which to fetch statistics. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface TaskQueueRealTimeStatisticsListInstancePageOptions {
-  taskChannel?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface TaskQueueRealTimeStatisticsListInstance {
 
 
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: TaskQueueRealTimeStatisticsInstance) => any): Promise<TaskQueueRealTimeStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueRealTimeStatisticsInstance
+   *
+   * @param { TaskQueueRealTimeStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueRealTimeStatisticsInstance
+   */
+  fetch(params: TaskQueueRealTimeStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: TaskQueueRealTimeStatisticsInstance) => any): Promise<TaskQueueRealTimeStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsInstance>
 
-  /**
-   * Streams TaskQueueRealTimeStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: TaskQueueRealTimeStatisticsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams TaskQueueRealTimeStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskQueueRealTimeStatisticsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: TaskQueueRealTimeStatisticsListInstanceEachOptions, callback?: (item: TaskQueueRealTimeStatisticsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of TaskQueueRealTimeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsPage) => any): Promise<TaskQueueRealTimeStatisticsPage>;
-  /**
-   * Retrieve a single target page of TaskQueueRealTimeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsPage) => any): Promise<TaskQueueRealTimeStatisticsPage>;
-  getPage(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsPage>;
-  /**
-   * Lists TaskQueueRealTimeStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsInstance[]) => any): Promise<TaskQueueRealTimeStatisticsInstance[]>;
-  /**
-   * Lists TaskQueueRealTimeStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskQueueRealTimeStatisticsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: TaskQueueRealTimeStatisticsListInstanceOptions, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsInstance[]) => any): Promise<TaskQueueRealTimeStatisticsInstance[]>;
-  list(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsInstance[]>;
-  /**
-   * Retrieve a single page of TaskQueueRealTimeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsPage) => any): Promise<TaskQueueRealTimeStatisticsPage>;
-  /**
-   * Retrieve a single page of TaskQueueRealTimeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskQueueRealTimeStatisticsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: TaskQueueRealTimeStatisticsListInstancePageOptions, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsPage) => any): Promise<TaskQueueRealTimeStatisticsPage>;
-  page(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -201,7 +79,7 @@ export function TaskQueueRealTimeStatisticsListInstance(version: V1, workspaceSi
   instance._solution = { workspaceSid, taskQueueSid };
   instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/RealTimeStatistics`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -212,32 +90,20 @@ export function TaskQueueRealTimeStatisticsListInstance(version: V1, workspaceSi
     const data: any = {};
 
     if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new TaskQueueRealTimeStatisticsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new TaskQueueRealTimeStatisticsInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.taskQueueSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskQueueRealTimeStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new TaskQueueRealTimeStatisticsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -249,4 +115,131 @@ export function TaskQueueRealTimeStatisticsListInstance(version: V1, workspaceSi
 
   return instance;
 }
+
+interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource{
+}
+
+interface TaskQueueRealTimeStatisticsResource {
+  account_sid?: string | null;
+  activity_statistics?: Array<any> | null;
+  longest_task_waiting_age?: number | null;
+  longest_task_waiting_sid?: string | null;
+  longest_relative_task_age_in_queue?: number | null;
+  longest_relative_task_sid_in_queue?: string | null;
+  task_queue_sid?: string | null;
+  tasks_by_priority?: any | null;
+  tasks_by_status?: any | null;
+  total_available_workers?: number | null;
+  total_eligible_workers?: number | null;
+  total_tasks?: number | null;
+  workspace_sid?: string | null;
+  url?: string | null;
+}
+
+export class TaskQueueRealTimeStatisticsInstance {
+
+  constructor(protected _version: V1, payload: TaskQueueRealTimeStatisticsPayload, workspaceSid: string, taskQueueSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.activityStatistics = payload.activity_statistics;
+    this.longestTaskWaitingAge = deserialize.integer(payload.longest_task_waiting_age);
+    this.longestTaskWaitingSid = payload.longest_task_waiting_sid;
+    this.longestRelativeTaskAgeInQueue = deserialize.integer(payload.longest_relative_task_age_in_queue);
+    this.longestRelativeTaskSidInQueue = payload.longest_relative_task_sid_in_queue;
+    this.taskQueueSid = payload.task_queue_sid;
+    this.tasksByPriority = payload.tasks_by_priority;
+    this.tasksByStatus = payload.tasks_by_status;
+    this.totalAvailableWorkers = deserialize.integer(payload.total_available_workers);
+    this.totalEligibleWorkers = deserialize.integer(payload.total_eligible_workers);
+    this.totalTasks = deserialize.integer(payload.total_tasks);
+    this.workspaceSid = payload.workspace_sid;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The number of current Workers by Activity
+   */
+  activityStatistics?: Array<any> | null;
+  /**
+   * The age of the longest waiting Task
+   */
+  longestTaskWaitingAge?: number | null;
+  /**
+   * The SID of the longest waiting Task
+   */
+  longestTaskWaitingSid?: string | null;
+  /**
+   * The relative age in the TaskQueue for the longest waiting Task.
+   */
+  longestRelativeTaskAgeInQueue?: number | null;
+  /**
+   * The SID of the Task waiting in the TaskQueue the longest.
+   */
+  longestRelativeTaskSidInQueue?: string | null;
+  /**
+   * The SID of the TaskQueue from which these statistics were calculated
+   */
+  taskQueueSid?: string | null;
+  /**
+   * The number of Tasks by priority
+   */
+  tasksByPriority?: any | null;
+  /**
+   * The number of Tasks by their current status
+   */
+  tasksByStatus?: any | null;
+  /**
+   * The total number of Workers available for Tasks in the TaskQueue
+   */
+  totalAvailableWorkers?: number | null;
+  /**
+   * The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state
+   */
+  totalEligibleWorkers?: number | null;
+  /**
+   * The total number of Tasks
+   */
+  totalTasks?: number | null;
+  /**
+   * The SID of the Workspace that contains the TaskQueue
+   */
+  workspaceSid?: string | null;
+  /**
+   * The absolute URL of the TaskQueue statistics resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      activityStatistics: this.activityStatistics, 
+      longestTaskWaitingAge: this.longestTaskWaitingAge, 
+      longestTaskWaitingSid: this.longestTaskWaitingSid, 
+      longestRelativeTaskAgeInQueue: this.longestRelativeTaskAgeInQueue, 
+      longestRelativeTaskSidInQueue: this.longestRelativeTaskSidInQueue, 
+      taskQueueSid: this.taskQueueSid, 
+      tasksByPriority: this.tasksByPriority, 
+      tasksByStatus: this.tasksByStatus, 
+      totalAvailableWorkers: this.totalAvailableWorkers, 
+      totalEligibleWorkers: this.totalEligibleWorkers, 
+      totalTasks: this.totalTasks, 
+      workspaceSid: this.workspaceSid, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

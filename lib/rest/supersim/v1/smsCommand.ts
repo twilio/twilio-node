@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type SmsCommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
 
 type SmsCommandDirection = 'to_sim'|'from_sim';
@@ -152,7 +154,6 @@ export class SmsCommandContextImpl implements SmsCommandContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -270,36 +271,6 @@ export class SmsCommandInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class SmsCommandPage extends Page<V1, SmsCommandPayload, SmsCommandResource, SmsCommandInstance> {
-  /**
-   * Initialize the SmsCommandPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SmsCommandSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SmsCommandInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SmsCommandPayload): SmsCommandInstance {
-    return new SmsCommandInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -486,7 +457,6 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SmsCommandPage> {
@@ -529,7 +499,6 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -540,4 +509,34 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
 
   return instance;
 }
+
+
+export class SmsCommandPage extends Page<V1, SmsCommandPayload, SmsCommandResource, SmsCommandInstance> {
+/**
+* Initialize the SmsCommandPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SmsCommandSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SmsCommandInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SmsCommandPayload): SmsCommandInstance {
+    return new SmsCommandInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

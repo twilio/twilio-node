@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type TaskReservationConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
 
 type TaskReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded'|'wrapping'|'completed';
@@ -374,7 +376,6 @@ export function ReservationListInstance(version: V1, workspaceSid: string, taskS
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -455,7 +456,6 @@ export class ReservationContextImpl implements ReservationContext {
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<ReservationInstance> {
@@ -534,7 +534,6 @@ export class ReservationContextImpl implements ReservationContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -698,34 +697,34 @@ export class ReservationInstance {
 }
 
 export class ReservationPage extends Page<V1, ReservationPayload, ReservationResource, ReservationInstance> {
-  /**
-   * Initialize the ReservationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ReservationSolution) {
+/**
+* Initialize the ReservationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ReservationSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ReservationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ReservationPayload): ReservationInstance {
+    /**
+    * Build an instance of ReservationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ReservationPayload): ReservationInstance {
     return new ReservationInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid,
-      this._solution.taskSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.workspaceSid,
+        this._solution.taskSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

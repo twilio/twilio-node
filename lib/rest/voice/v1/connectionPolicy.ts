@@ -19,7 +19,9 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { ConnectionPolicyTargetListInstance } from "./connectionPolicy/connectionPolicyTarget";
+
 
 
 /**
@@ -269,7 +271,6 @@ export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListI
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ConnectionPolicyPage> {
@@ -307,7 +308,6 @@ export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListI
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -403,7 +403,6 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ConnectionPolicyInstance> {
@@ -416,7 +415,6 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -444,7 +442,6 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -602,32 +599,32 @@ export class ConnectionPolicyInstance {
 }
 
 export class ConnectionPolicyPage extends Page<V1, ConnectionPolicyPayload, ConnectionPolicyResource, ConnectionPolicyInstance> {
-  /**
-   * Initialize the ConnectionPolicyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ConnectionPolicySolution) {
+/**
+* Initialize the ConnectionPolicyPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ConnectionPolicySolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ConnectionPolicyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConnectionPolicyPayload): ConnectionPolicyInstance {
+    /**
+    * Build an instance of ConnectionPolicyInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ConnectionPolicyPayload): ConnectionPolicyInstance {
     return new ConnectionPolicyInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

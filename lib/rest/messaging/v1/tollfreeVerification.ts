@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type TollfreeVerificationOptInType = 'VERBAL'|'WEB_FORM'|'PAPER_FORM'|'VIA_TEXT'|'MOBILE_QR_CODE';
 
 type TollfreeVerificationStatus = 'PENDING_REVIEW'|'IN_REVIEW'|'TWILIO_APPROVED'|'TWILIO_REJECTED';
@@ -367,7 +369,6 @@ export function TollfreeVerificationListInstance(version: V1): TollfreeVerificat
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<TollfreeVerificationPage> {
@@ -407,7 +408,6 @@ export function TollfreeVerificationListInstance(version: V1): TollfreeVerificat
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -466,7 +466,6 @@ export class TollfreeVerificationContextImpl implements TollfreeVerificationCont
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -745,32 +744,32 @@ export class TollfreeVerificationInstance {
 }
 
 export class TollfreeVerificationPage extends Page<V1, TollfreeVerificationPayload, TollfreeVerificationResource, TollfreeVerificationInstance> {
-  /**
-   * Initialize the TollfreeVerificationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: TollfreeVerificationSolution) {
+/**
+* Initialize the TollfreeVerificationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: TollfreeVerificationSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TollfreeVerificationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TollfreeVerificationPayload): TollfreeVerificationInstance {
+    /**
+    * Build an instance of TollfreeVerificationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TollfreeVerificationPayload): TollfreeVerificationInstance {
     return new TollfreeVerificationInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

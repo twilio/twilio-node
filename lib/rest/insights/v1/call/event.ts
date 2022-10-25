@@ -20,7 +20,34 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+export class InsightsV1CallEvent {
+  "timestamp"?: string | null;
+  "callSid"?: string | null;
+  "accountSid"?: string | null;
+  "edge"?: EventEnumTwilioEdge;
+  "group"?: string | null;
+  "level"?: EventEnumLevel;
+  "name"?: string | null;
+  "carrierEdge"?: any | null;
+  "sipEdge"?: any | null;
+  "sdkEdge"?: any | null;
+  "clientEdge"?: any | null;
+}
+
+
 type EventTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
+
+export class ListCallSummariesResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
 
 /**
  * Options to pass to each
@@ -246,7 +273,6 @@ export function EventListInstance(version: V1, callSid: string): EventListInstan
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -257,4 +283,70 @@ export function EventListInstance(version: V1, callSid: string): EventListInstan
 
   return instance;
 }
+
+interface EventPayload extends EventResource, Page.TwilioResponsePayload {
+}
+
+interface EventResource {
+  events?: Array<InsightsV1CallEvent>;
+  meta?: ListCallSummariesResponseMeta;
+}
+
+export class EventInstance {
+
+  constructor(protected _version: V1, payload: EventPayload, callSid?: string) {
+    this.events = payload.events;
+    this.meta = payload.meta;
+
+  }
+
+  events?: Array<InsightsV1CallEvent>;
+  meta?: ListCallSummariesResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      events: this.events, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
+/**
+* Initialize the EventPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: EventSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of EventInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EventPayload): EventInstance {
+    return new EventInstance(
+    this._version,
+    payload,
+        this._solution.callSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

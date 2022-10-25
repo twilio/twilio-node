@@ -14,171 +14,45 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import Wireless from "../../Wireless";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 /**
- * Options to pass to each
+ * Options to pass to fetch a UsageInstance
  *
  * @property { string } [end] 
  * @property { string } [start] 
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface UsageListInstanceEachOptions {
+export interface UsageListInstanceFetchOptions {
   end?: string;
   start?: string;
-  callback?: (item: UsageInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
 }
-
-/**
- * Options to pass to list
- *
- * @property { string } [end] 
- * @property { string } [start] 
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface UsageListInstanceOptions {
-  end?: string;
-  start?: string;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { string } [end] 
- * @property { string } [start] 
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface UsageListInstancePageOptions {
-  end?: string;
-  start?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface UsageListInstance {
 
 
+  /**
+   * Fetch a UsageInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UsageInstance
+   */
+  fetch(callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
+  /**
+   * Fetch a UsageInstance
+   *
+   * @param { UsageListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UsageInstance
+   */
+  fetch(params: UsageListInstanceFetchOptions, callback?: (error: Error | null, item?: UsageInstance) => any): Promise<UsageInstance>;
+  fetch(params?: any, callback?: any): Promise<UsageInstance>
 
-  /**
-   * Streams UsageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: UsageInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams UsageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsageListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: UsageListInstanceEachOptions, callback?: (item: UsageInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of UsageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: UsagePage) => any): Promise<UsagePage>;
-  /**
-   * Retrieve a single target page of UsageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UsagePage) => any): Promise<UsagePage>;
-  getPage(params?: any, callback?: any): Promise<UsagePage>;
-  /**
-   * Lists UsageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: UsageInstance[]) => any): Promise<UsageInstance[]>;
-  /**
-   * Lists UsageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsageListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: UsageListInstanceOptions, callback?: (error: Error | null, items: UsageInstance[]) => any): Promise<UsageInstance[]>;
-  list(params?: any, callback?: any): Promise<UsageInstance[]>;
-  /**
-   * Retrieve a single page of UsageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: UsagePage) => any): Promise<UsagePage>;
-  /**
-   * Retrieve a single page of UsageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsageListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: UsageListInstancePageOptions, callback?: (error: Error | null, items: UsagePage) => any): Promise<UsagePage>;
-  page(params?: any, callback?: any): Promise<UsagePage>;
 
   /**
    * Provide a user-friendly representation
@@ -206,7 +80,7 @@ export function UsageListInstance(version: Wireless, simSid: string): UsageListI
   instance._solution = { simSid };
   instance._uri = `/Sims/${simSid}/Usage`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<UsagePage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<UsageInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -218,32 +92,20 @@ export function UsageListInstance(version: Wireless, simSid: string): UsageListI
 
     if (params.end !== undefined) data['End'] = params.end;
     if (params.start !== undefined) data['Start'] = params.start;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new UsagePage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new UsageInstance(operationVersion, payload, this._solution.simSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UsagePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new UsagePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -255,4 +117,69 @@ export function UsageListInstance(version: Wireless, simSid: string): UsageListI
 
   return instance;
 }
+
+interface UsagePayload extends UsageResource{
+}
+
+interface UsageResource {
+  sim_sid?: string | null;
+  sim_unique_name?: string | null;
+  account_sid?: string | null;
+  period?: any | null;
+  commands_usage?: any | null;
+  commands_costs?: any | null;
+  data_usage?: any | null;
+  data_costs?: any | null;
+  url?: string | null;
+}
+
+export class UsageInstance {
+
+  constructor(protected _version: Wireless, payload: UsagePayload, simSid?: string) {
+    this.simSid = payload.sim_sid;
+    this.simUniqueName = payload.sim_unique_name;
+    this.accountSid = payload.account_sid;
+    this.period = payload.period;
+    this.commandsUsage = payload.commands_usage;
+    this.commandsCosts = payload.commands_costs;
+    this.dataUsage = payload.data_usage;
+    this.dataCosts = payload.data_costs;
+    this.url = payload.url;
+
+  }
+
+  simSid?: string | null;
+  simUniqueName?: string | null;
+  accountSid?: string | null;
+  period?: any | null;
+  commandsUsage?: any | null;
+  commandsCosts?: any | null;
+  dataUsage?: any | null;
+  dataCosts?: any | null;
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      simSid: this.simSid, 
+      simUniqueName: this.simUniqueName, 
+      accountSid: this.accountSid, 
+      period: this.period, 
+      commandsUsage: this.commandsUsage, 
+      commandsCosts: this.commandsCosts, 
+      dataUsage: this.dataUsage, 
+      dataCosts: this.dataCosts, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

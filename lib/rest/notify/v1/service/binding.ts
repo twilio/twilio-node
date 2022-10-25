@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type BindingBindingType = 'apn'|'gcm'|'sms'|'fcm'|'facebook-messenger'|'alexa';
 
 
@@ -46,8 +48,8 @@ export interface BindingListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
- * @property { string } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
+ * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
+ * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
  * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/chat/rest/user-resource)\&#39;s &#x60;identity&#x60; value of the resources to read.
  * @property { Array<string> } [tag] Only list Bindings that have all of the specified Tags. The following implicit tags are available: &#x60;all&#x60;, &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60;, &#x60;facebook-messenger&#x60;. Up to 5 tags are allowed.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -61,8 +63,8 @@ export interface BindingListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface BindingListInstanceEachOptions {
-  startDate?: string;
-  endDate?: string;
+  startDate?: Date;
+  endDate?: Date;
   identity?: Array<string>;
   tag?: Array<string>;
   pageSize?: number;
@@ -74,8 +76,8 @@ export interface BindingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
- * @property { string } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
+ * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
+ * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
  * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/chat/rest/user-resource)\&#39;s &#x60;identity&#x60; value of the resources to read.
  * @property { Array<string> } [tag] Only list Bindings that have all of the specified Tags. The following implicit tags are available: &#x60;all&#x60;, &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60;, &#x60;facebook-messenger&#x60;. Up to 5 tags are allowed.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -85,8 +87,8 @@ export interface BindingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface BindingListInstanceOptions {
-  startDate?: string;
-  endDate?: string;
+  startDate?: Date;
+  endDate?: Date;
   identity?: Array<string>;
   tag?: Array<string>;
   pageSize?: number;
@@ -96,8 +98,8 @@ export interface BindingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
- * @property { string } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
+ * @property { Date } [startDate] Only include usage that has occurred on or after this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
+ * @property { Date } [endDate] Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
  * @property { Array<string> } [identity] The [User](https://www.twilio.com/docs/chat/rest/user-resource)\&#39;s &#x60;identity&#x60; value of the resources to read.
  * @property { Array<string> } [tag] Only list Bindings that have all of the specified Tags. The following implicit tags are available: &#x60;all&#x60;, &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60;, &#x60;facebook-messenger&#x60;. Up to 5 tags are allowed.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -105,8 +107,8 @@ export interface BindingListInstanceOptions {
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface BindingListInstancePageOptions {
-  startDate?: string;
-  endDate?: string;
+  startDate?: Date;
+  endDate?: Date;
   identity?: Array<string>;
   tag?: Array<string>;
   pageSize?: number;
@@ -305,7 +307,6 @@ export function BindingListInstance(version: V1, serviceSid: string): BindingLis
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<BindingPage> {
@@ -347,7 +348,6 @@ export function BindingListInstance(version: V1, serviceSid: string): BindingLis
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -417,7 +417,6 @@ export class BindingContextImpl implements BindingContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<BindingInstance> {
@@ -430,7 +429,6 @@ export class BindingContextImpl implements BindingContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -608,33 +606,33 @@ export class BindingInstance {
 }
 
 export class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {
-  /**
-   * Initialize the BindingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: BindingSolution) {
+/**
+* Initialize the BindingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: BindingSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of BindingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BindingPayload): BindingInstance {
+    /**
+    * Build an instance of BindingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BindingPayload): BindingInstance {
     return new BindingInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

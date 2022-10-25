@@ -19,7 +19,9 @@ import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 import { VerificationAttemptsSummaryListInstance } from "./verificationAttempt/verificationAttemptsSummary";
+
 
 type VerificationAttemptChannels = 'sms'|'call'|'email'|'whatsapp';
 
@@ -168,7 +170,6 @@ export class VerificationAttemptContextImpl implements VerificationAttemptContex
     return operationPromise;
 
 
-
   }
 
   /**
@@ -297,36 +298,6 @@ export class VerificationAttemptInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class VerificationAttemptPage extends Page<V2, VerificationAttemptPayload, VerificationAttemptResource, VerificationAttemptInstance> {
-  /**
-   * Initialize the VerificationAttemptPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: VerificationAttemptSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of VerificationAttemptInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: VerificationAttemptPayload): VerificationAttemptInstance {
-    return new VerificationAttemptInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -524,7 +495,6 @@ export function VerificationAttemptListInstance(version: V2): VerificationAttemp
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -535,4 +505,34 @@ export function VerificationAttemptListInstance(version: V2): VerificationAttemp
 
   return instance;
 }
+
+
+export class VerificationAttemptPage extends Page<V2, VerificationAttemptPayload, VerificationAttemptResource, VerificationAttemptInstance> {
+/**
+* Initialize the VerificationAttemptPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: VerificationAttemptSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of VerificationAttemptInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: VerificationAttemptPayload): VerificationAttemptInstance {
+    return new VerificationAttemptInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

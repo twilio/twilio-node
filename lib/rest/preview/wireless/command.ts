@@ -21,6 +21,8 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a CommandInstance
  *
@@ -160,7 +162,6 @@ export class CommandContextImpl implements CommandContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -265,36 +266,6 @@ export class CommandInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class CommandPage extends Page<Wireless, CommandPayload, CommandResource, CommandInstance> {
-  /**
-   * Initialize the CommandPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Wireless, response: Response<string>, solution: CommandSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of CommandInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CommandPayload): CommandInstance {
-    return new CommandInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -480,7 +451,6 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<CommandPage> {
@@ -524,7 +494,6 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -535,4 +504,34 @@ export function CommandListInstance(version: Wireless): CommandListInstance {
 
   return instance;
 }
+
+
+export class CommandPage extends Page<Wireless, CommandPayload, CommandResource, CommandInstance> {
+/**
+* Initialize the CommandPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Wireless, response: Response<string>, solution: CommandSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of CommandInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CommandPayload): CommandInstance {
+    return new CommandInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

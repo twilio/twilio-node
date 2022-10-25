@@ -21,6 +21,8 @@ const deserialize = require("../../../../../../base/deserialize");
 const serialize = require("../../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a IpAccessControlListMappingInstance
  *
@@ -254,7 +256,6 @@ export function IpAccessControlListMappingListInstance(version: V2010, accountSi
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<IpAccessControlListMappingPage> {
@@ -292,7 +293,6 @@ export function IpAccessControlListMappingListInstance(version: V2010, accountSi
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -363,7 +363,6 @@ export class IpAccessControlListMappingContextImpl implements IpAccessControlLis
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<IpAccessControlListMappingInstance> {
@@ -376,7 +375,6 @@ export class IpAccessControlListMappingContextImpl implements IpAccessControlLis
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -505,34 +503,34 @@ export class IpAccessControlListMappingInstance {
 }
 
 export class IpAccessControlListMappingPage extends Page<V2010, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingInstance> {
-  /**
-   * Initialize the IpAccessControlListMappingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: IpAccessControlListMappingSolution) {
+/**
+* Initialize the IpAccessControlListMappingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: IpAccessControlListMappingSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of IpAccessControlListMappingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: IpAccessControlListMappingPayload): IpAccessControlListMappingInstance {
+    /**
+    * Build an instance of IpAccessControlListMappingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: IpAccessControlListMappingPayload): IpAccessControlListMappingInstance {
     return new IpAccessControlListMappingInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.domainSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.domainSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

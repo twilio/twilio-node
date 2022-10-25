@@ -21,6 +21,8 @@ const deserialize = require("../../../../../../../../base/deserialize");
 const serialize = require("../../../../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a AuthCallsCredentialListMappingInstance
  *
@@ -254,7 +256,6 @@ export function AuthCallsCredentialListMappingListInstance(version: V2010, accou
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<AuthCallsCredentialListMappingPage> {
@@ -292,7 +293,6 @@ export function AuthCallsCredentialListMappingListInstance(version: V2010, accou
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -363,7 +363,6 @@ export class AuthCallsCredentialListMappingContextImpl implements AuthCallsCrede
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<AuthCallsCredentialListMappingInstance> {
@@ -376,7 +375,6 @@ export class AuthCallsCredentialListMappingContextImpl implements AuthCallsCrede
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -491,34 +489,34 @@ export class AuthCallsCredentialListMappingInstance {
 }
 
 export class AuthCallsCredentialListMappingPage extends Page<V2010, AuthCallsCredentialListMappingPayload, AuthCallsCredentialListMappingResource, AuthCallsCredentialListMappingInstance> {
-  /**
-   * Initialize the AuthCallsCredentialListMappingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: AuthCallsCredentialListMappingSolution) {
+/**
+* Initialize the AuthCallsCredentialListMappingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AuthCallsCredentialListMappingSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AuthCallsCredentialListMappingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AuthCallsCredentialListMappingPayload): AuthCallsCredentialListMappingInstance {
+    /**
+    * Build an instance of AuthCallsCredentialListMappingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AuthCallsCredentialListMappingPayload): AuthCallsCredentialListMappingInstance {
     return new AuthCallsCredentialListMappingInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.domainSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.domainSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

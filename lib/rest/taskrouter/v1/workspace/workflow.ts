@@ -19,9 +19,11 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { WorkflowRealTimeStatisticsListInstance } from "./workflow/workflowRealTimeStatistics";
 import { WorkflowCumulativeStatisticsListInstance } from "./workflow/workflowCumulativeStatistics";
 import { WorkflowStatisticsListInstance } from "./workflow/workflowStatistics";
+
 
 
 /**
@@ -297,7 +299,6 @@ export function WorkflowListInstance(version: V1, workspaceSid: string): Workflo
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<WorkflowPage> {
@@ -336,7 +337,6 @@ export function WorkflowListInstance(version: V1, workspaceSid: string): Workflo
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -447,7 +447,6 @@ export class WorkflowContextImpl implements WorkflowContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<WorkflowInstance> {
@@ -460,7 +459,6 @@ export class WorkflowContextImpl implements WorkflowContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -493,7 +491,6 @@ export class WorkflowContextImpl implements WorkflowContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -707,33 +704,33 @@ export class WorkflowInstance {
 }
 
 export class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, WorkflowInstance> {
-  /**
-   * Initialize the WorkflowPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: WorkflowSolution) {
+/**
+* Initialize the WorkflowPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: WorkflowSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of WorkflowInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: WorkflowPayload): WorkflowInstance {
+    /**
+    * Build an instance of WorkflowInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: WorkflowPayload): WorkflowInstance {
     return new WorkflowInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.workspaceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

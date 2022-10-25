@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a InviteInstance
  *
@@ -142,7 +144,6 @@ export class InviteContextImpl implements InviteContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<InviteInstance> {
@@ -155,7 +156,6 @@ export class InviteContextImpl implements InviteContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -300,38 +300,6 @@ export class InviteInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class InvitePage extends Page<V1, InvitePayload, InviteResource, InviteInstance> {
-  /**
-   * Initialize the InvitePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: InviteSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of InviteInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: InvitePayload): InviteInstance {
-    return new InviteInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.channelSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -514,7 +482,6 @@ export function InviteListInstance(version: V1, serviceSid: string, channelSid: 
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<InvitePage> {
@@ -555,7 +522,6 @@ export function InviteListInstance(version: V1, serviceSid: string, channelSid: 
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -566,4 +532,36 @@ export function InviteListInstance(version: V1, serviceSid: string, channelSid: 
 
   return instance;
 }
+
+
+export class InvitePage extends Page<V1, InvitePayload, InviteResource, InviteInstance> {
+/**
+* Initialize the InvitePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InviteSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of InviteInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InvitePayload): InviteInstance {
+    return new InviteInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.channelSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

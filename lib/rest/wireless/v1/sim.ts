@@ -22,6 +22,8 @@ const serialize = require("../../../base/serialize");
 import { UsageRecordListInstance } from "./sim/usageRecord";
 import { DataSessionListInstance } from "./sim/dataSession";
 
+
+
 type SimResetStatus = 'resetting';
 
 type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'scheduled'|'updating';
@@ -236,7 +238,6 @@ export class SimContextImpl implements SimContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SimInstance> {
@@ -249,7 +250,6 @@ export class SimContextImpl implements SimContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -294,7 +294,6 @@ export class SimContextImpl implements SimContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -576,36 +575,6 @@ export class SimInstance {
   }
 }
 
-export class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
-  /**
-   * Initialize the SimPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SimSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SimInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SimPayload): SimInstance {
-    return new SimInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface SimListInstance {
   (sid: string): SimContext;
@@ -785,7 +754,6 @@ export function SimListInstance(version: V1): SimListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -796,4 +764,34 @@ export function SimListInstance(version: V1): SimListInstance {
 
   return instance;
 }
+
+
+export class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
+/**
+* Initialize the SimPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SimSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SimInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SimPayload): SimInstance {
+    return new SimInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

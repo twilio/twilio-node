@@ -19,6 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import PhoneNumberCapabilities from "../../../../interfaces";
+
+
 
 /**
  * The capabilities of the short code
@@ -173,7 +176,6 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ShortCodeInstance> {
@@ -186,7 +188,6 @@ export class ShortCodeContextImpl implements ShortCodeContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -216,7 +217,6 @@ export class ShortCodeContextImpl implements ShortCodeContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -244,7 +244,7 @@ interface ShortCodeResource {
   date_updated?: Date | null;
   short_code?: string | null;
   iso_country?: string | null;
-  capabilities?: ProxyV1ServiceShortCodeCapabilities | null;
+  capabilities?: PhoneNumberCapabilities | null;
   url?: string | null;
   is_reserved?: boolean | null;
 }
@@ -296,7 +296,7 @@ export class ShortCodeInstance {
    * The ISO Country Code
    */
   isoCountry?: string | null;
-  capabilities?: ProxyV1ServiceShortCodeCapabilities | null;
+  capabilities?: PhoneNumberCapabilities | null;
   /**
    * The absolute URL of the ShortCode resource
    */
@@ -378,37 +378,6 @@ export class ShortCodeInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class ShortCodePage extends Page<V1, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
-  /**
-   * Initialize the ShortCodePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ShortCodeSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ShortCodeInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ShortCodePayload): ShortCodeInstance {
-    return new ShortCodeInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -589,7 +558,6 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ShortCodePage> {
@@ -629,7 +597,6 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -640,4 +607,35 @@ export function ShortCodeListInstance(version: V1, serviceSid: string): ShortCod
 
   return instance;
 }
+
+
+export class ShortCodePage extends Page<V1, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
+/**
+* Initialize the ShortCodePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ShortCodeSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of ShortCodeInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ShortCodePayload): ShortCodeInstance {
+    return new ShortCodeInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

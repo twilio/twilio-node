@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a VariableInstance
  *
@@ -167,7 +169,6 @@ export class VariableContextImpl implements VariableContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<VariableInstance> {
@@ -180,7 +181,6 @@ export class VariableContextImpl implements VariableContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -209,7 +209,6 @@ export class VariableContextImpl implements VariableContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -369,38 +368,6 @@ export class VariableInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class VariablePage extends Page<V1, VariablePayload, VariableResource, VariableInstance> {
-  /**
-   * Initialize the VariablePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: VariableSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of VariableInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: VariablePayload): VariableInstance {
-    return new VariableInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.environmentSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -587,7 +554,6 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<VariablePage> {
@@ -627,7 +593,6 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -638,4 +603,36 @@ export function VariableListInstance(version: V1, serviceSid: string, environmen
 
   return instance;
 }
+
+
+export class VariablePage extends Page<V1, VariablePayload, VariableResource, VariableInstance> {
+/**
+* Initialize the VariablePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: VariableSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of VariableInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: VariablePayload): VariableInstance {
+    return new VariableInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.environmentSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

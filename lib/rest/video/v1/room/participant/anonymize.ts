@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 
 type RoomParticipantAnonymizeStatus = 'connected'|'disconnected';
 
@@ -27,13 +26,13 @@ export interface AnonymizeListInstance {
 
 
   /**
-   * Create a AnonymizeInstance
+   * Update a AnonymizeInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed AnonymizeInstance
    */
-  create(callback?: (error: Error | null, item?: AnonymizeInstance) => any): Promise<AnonymizeInstance>
+  update(callback?: (error: Error | null, item?: AnonymizeInstance) => any): Promise<AnonymizeInstance>
 
 
   /**
@@ -63,17 +62,16 @@ export function AnonymizeListInstance(version: V1, roomSid: string, sid: string)
   instance._solution = { roomSid, sid };
   instance._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
 
-  instance.create = function create(callback?: any): Promise<AnonymizeInstance> {
+  instance.update = function update(callback?: any): Promise<AnonymizeInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post' });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post' });
     
     operationPromise = operationPromise.then(payload => new AnonymizeInstance(operationVersion, payload, this._solution.roomSid, this._solution.sid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -89,7 +87,7 @@ export function AnonymizeListInstance(version: V1, roomSid: string, sid: string)
   return instance;
 }
 
-interface AnonymizePayload extends AnonymizeResource, Page.TwilioResponsePayload {
+interface AnonymizePayload extends AnonymizeResource{
 }
 
 interface AnonymizeResource {
@@ -191,34 +189,4 @@ export class AnonymizeInstance {
   }
 }
 
-export class AnonymizePage extends Page<V1, AnonymizePayload, AnonymizeResource, AnonymizeInstance> {
-  /**
-   * Initialize the AnonymizePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: AnonymizeSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AnonymizeInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AnonymizePayload): AnonymizeInstance {
-    return new AnonymizeInstance(
-      this._version,
-      payload,
-      this._solution.roomSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

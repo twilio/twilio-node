@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
+
 
 type PaymentsTokenType = 'one-time'|'reusable';
 
@@ -178,7 +178,6 @@ export function PaymentListInstance(version: V2010, accountSid: string, callSid:
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -264,7 +263,6 @@ export class PaymentContextImpl implements PaymentContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -281,7 +279,7 @@ export class PaymentContextImpl implements PaymentContext {
   }
 }
 
-interface PaymentPayload extends PaymentResource, Page.TwilioResponsePayload {
+interface PaymentPayload extends PaymentResource{
 }
 
 interface PaymentResource {
@@ -373,35 +371,5 @@ export class PaymentInstance {
   }
 }
 
-export class PaymentPage extends Page<V2010, PaymentPayload, PaymentResource, PaymentInstance> {
-  /**
-   * Initialize the PaymentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: PaymentSolution) {
-    super(version, response, solution);
-  }
 
-  /**
-   * Build an instance of PaymentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PaymentPayload): PaymentInstance {
-    return new PaymentInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.callSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

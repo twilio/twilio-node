@@ -22,6 +22,8 @@ const serialize = require("../../../../base/serialize");
 import { UsAppToPersonUsecaseListInstance } from "./usAppToPerson/usAppToPersonUsecase";
 
 
+
+
 /**
  * Options to pass to create a UsAppToPersonInstance
  *
@@ -300,7 +302,6 @@ export function UsAppToPersonListInstance(version: V1, messagingServiceSid: stri
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<UsAppToPersonPage> {
@@ -338,7 +339,6 @@ export function UsAppToPersonListInstance(version: V1, messagingServiceSid: stri
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -408,7 +408,6 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<UsAppToPersonInstance> {
@@ -421,7 +420,6 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -620,33 +618,33 @@ export class UsAppToPersonInstance {
 }
 
 export class UsAppToPersonPage extends Page<V1, UsAppToPersonPayload, UsAppToPersonResource, UsAppToPersonInstance> {
-  /**
-   * Initialize the UsAppToPersonPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: UsAppToPersonSolution) {
+/**
+* Initialize the UsAppToPersonPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: UsAppToPersonSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of UsAppToPersonInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UsAppToPersonPayload): UsAppToPersonInstance {
+    /**
+    * Build an instance of UsAppToPersonInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UsAppToPersonPayload): UsAppToPersonInstance {
     return new UsAppToPersonInstance(
-      this._version,
-      payload,
-      this._solution.messagingServiceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.messagingServiceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 
 /**
@@ -104,7 +103,6 @@ export function NewSigningKeyListInstance(version: V2010, accountSid: string): N
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -118,7 +116,7 @@ export function NewSigningKeyListInstance(version: V2010, accountSid: string): N
   return instance;
 }
 
-interface NewSigningKeyPayload extends NewSigningKeyResource, Page.TwilioResponsePayload {
+interface NewSigningKeyPayload extends NewSigningKeyResource{
 }
 
 interface NewSigningKeyResource {
@@ -181,33 +179,4 @@ export class NewSigningKeyInstance {
   }
 }
 
-export class NewSigningKeyPage extends Page<V2010, NewSigningKeyPayload, NewSigningKeyResource, NewSigningKeyInstance> {
-  /**
-   * Initialize the NewSigningKeyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: NewSigningKeySolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of NewSigningKeyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NewSigningKeyPayload): NewSigningKeyInstance {
-    return new NewSigningKeyInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

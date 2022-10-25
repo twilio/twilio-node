@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type LogLevel = 'info'|'warn'|'error';
 
 /**
@@ -267,7 +269,6 @@ export function LogListInstance(version: V1, serviceSid: string, environmentSid:
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -326,7 +327,6 @@ export class LogContextImpl implements LogContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -475,34 +475,34 @@ export class LogInstance {
 }
 
 export class LogPage extends Page<V1, LogPayload, LogResource, LogInstance> {
-  /**
-   * Initialize the LogPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: LogSolution) {
+/**
+* Initialize the LogPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: LogSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of LogInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: LogPayload): LogInstance {
+    /**
+    * Build an instance of LogInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: LogPayload): LogInstance {
     return new LogInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.environmentSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.environmentSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

@@ -19,7 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { StreamMessageListInstance } from "./syncStream/streamMessage";
+
 
 
 /**
@@ -273,7 +275,6 @@ export function SyncStreamListInstance(version: V1, serviceSid: string): SyncStr
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SyncStreamPage> {
@@ -311,7 +312,6 @@ export function SyncStreamListInstance(version: V1, serviceSid: string): SyncStr
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -408,7 +408,6 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SyncStreamInstance> {
@@ -421,7 +420,6 @@ export class SyncStreamContextImpl implements SyncStreamContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -449,7 +447,6 @@ export class SyncStreamContextImpl implements SyncStreamContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -628,33 +625,33 @@ export class SyncStreamInstance {
 }
 
 export class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResource, SyncStreamInstance> {
-  /**
-   * Initialize the SyncStreamPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SyncStreamSolution) {
+/**
+* Initialize the SyncStreamPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SyncStreamSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SyncStreamInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SyncStreamPayload): SyncStreamInstance {
+    /**
+    * Build an instance of SyncStreamInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SyncStreamPayload): SyncStreamInstance {
     return new SyncStreamInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

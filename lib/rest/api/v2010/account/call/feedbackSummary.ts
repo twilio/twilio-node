@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
+
 
 type CallFeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
 
@@ -26,15 +26,15 @@ type CallFeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
 /**
  * Options to pass to create a FeedbackSummaryInstance
  *
- * @property { string } startDate Only include feedback given on or after this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC.
- * @property { string } endDate Only include feedback given on or before this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC.
+ * @property { Date } startDate Only include feedback given on or after this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC.
+ * @property { Date } endDate Only include feedback given on or before this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC.
  * @property { boolean } [includeSubaccounts] Whether to also include Feedback resources from all subaccounts. &#x60;true&#x60; includes feedback from all subaccounts and &#x60;false&#x60;, the default, includes feedback from only the specified account.
  * @property { string } [statusCallback] The URL that we will request when the feedback summary is complete.
  * @property { string } [statusCallbackMethod] The HTTP method (&#x60;GET&#x60; or &#x60;POST&#x60;) we use to make the request to the &#x60;StatusCallback&#x60; URL.
  */
 export interface FeedbackSummaryListInstanceCreateOptions {
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   includeSubaccounts?: boolean;
   statusCallback?: string;
   statusCallbackMethod?: string;
@@ -95,7 +95,6 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<FeedbackSummaryInstance> {
@@ -108,7 +107,6 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -127,7 +125,7 @@ export class FeedbackSummaryContextImpl implements FeedbackSummaryContext {
   }
 }
 
-interface FeedbackSummaryPayload extends FeedbackSummaryResource, Page.TwilioResponsePayload {
+interface FeedbackSummaryPayload extends FeedbackSummaryResource{
 }
 
 interface FeedbackSummaryResource {
@@ -136,14 +134,14 @@ interface FeedbackSummaryResource {
   call_feedback_count?: number | null;
   date_created?: string | null;
   date_updated?: string | null;
-  end_date?: string | null;
+  end_date?: Date | null;
   include_subaccounts?: boolean | null;
   issues?: Array<any> | null;
   quality_score_average?: number | null;
   quality_score_median?: number | null;
   quality_score_standard_deviation?: number | null;
   sid?: string | null;
-  start_date?: string | null;
+  start_date?: Date | null;
   status?: CallFeedbackSummaryStatus;
 }
 
@@ -193,7 +191,7 @@ export class FeedbackSummaryInstance {
   /**
    * The latest feedback entry date in the summary
    */
-  endDate?: string | null;
+  endDate?: Date | null;
   /**
    * Whether the feedback summary includes subaccounts
    */
@@ -221,7 +219,7 @@ export class FeedbackSummaryInstance {
   /**
    * The earliest feedback entry date in the summary
    */
-  startDate?: string | null;
+  startDate?: Date | null;
   status?: CallFeedbackSummaryStatus;
 
   private get _proxy(): FeedbackSummaryContext {
@@ -278,37 +276,6 @@ export class FeedbackSummaryInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class FeedbackSummaryPage extends Page<V2010, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummaryInstance> {
-  /**
-   * Initialize the FeedbackSummaryPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: FeedbackSummarySolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of FeedbackSummaryInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FeedbackSummaryPayload): FeedbackSummaryInstance {
-    return new FeedbackSummaryInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -395,7 +362,6 @@ export function FeedbackSummaryListInstance(version: V2010, accountSid: string):
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -408,4 +374,6 @@ export function FeedbackSummaryListInstance(version: V2010, accountSid: string):
 
   return instance;
 }
+
+
 

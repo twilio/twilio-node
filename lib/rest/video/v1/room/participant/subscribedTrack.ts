@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type RoomParticipantSubscribedTrackKind = 'audio'|'video'|'data';
 
 /**
@@ -246,7 +248,6 @@ export function SubscribedTrackListInstance(version: V1, roomSid: string, partic
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -305,7 +306,6 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -440,34 +440,34 @@ export class SubscribedTrackInstance {
 }
 
 export class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackInstance> {
-  /**
-   * Initialize the SubscribedTrackPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SubscribedTrackSolution) {
+/**
+* Initialize the SubscribedTrackPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SubscribedTrackSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SubscribedTrackInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SubscribedTrackPayload): SubscribedTrackInstance {
+    /**
+    * Build an instance of SubscribedTrackInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SubscribedTrackPayload): SubscribedTrackInstance {
     return new SubscribedTrackInstance(
-      this._version,
-      payload,
-      this._solution.roomSid,
-      this._solution.participantSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.roomSid,
+        this._solution.participantSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

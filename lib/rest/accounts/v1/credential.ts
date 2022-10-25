@@ -14,13 +14,12 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { PublicKeyListInstance } from "./credential/publicKey";
 import { AWSListInstance } from "./credential/aws";
+
 
 
 export interface CredentialListInstance {
@@ -83,4 +82,5 @@ export function CredentialListInstance(version: V1): CredentialListInstance {
 
   return instance;
 }
+
 

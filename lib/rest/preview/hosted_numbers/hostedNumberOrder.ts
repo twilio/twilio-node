@@ -19,6 +19,9 @@ import Response from "../../../http/response";
 import HostedNumbers from "../HostedNumbers";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+import PhoneNumberCapabilities from "../../../interfaces";
+
+
 
 /**
  * A mapping of phone number capabilities.
@@ -256,7 +259,6 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<HostedNumberOrderInstance> {
@@ -269,7 +271,6 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -308,7 +309,6 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -335,7 +335,7 @@ interface HostedNumberOrderResource {
   address_sid?: string | null;
   signing_document_sid?: string | null;
   phone_number?: string | null;
-  capabilities?: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities | null;
+  capabilities?: PhoneNumberCapabilities | null;
   friendly_name?: string | null;
   unique_name?: string | null;
   status?: HostedNumberOrderStatus;
@@ -410,7 +410,7 @@ export class HostedNumberOrderInstance {
    * An E164 formatted phone number.
    */
   phoneNumber?: string | null;
-  capabilities?: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities | null;
+  capabilities?: PhoneNumberCapabilities | null;
   /**
    * A human readable description of this resource.
    */
@@ -555,36 +555,6 @@ export class HostedNumberOrderInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class HostedNumberOrderPage extends Page<HostedNumbers, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderInstance> {
-  /**
-   * Initialize the HostedNumberOrderPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: HostedNumbers, response: Response<string>, solution: HostedNumberOrderSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of HostedNumberOrderInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: HostedNumberOrderPayload): HostedNumberOrderInstance {
-    return new HostedNumberOrderInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -784,7 +754,6 @@ export function HostedNumberOrderListInstance(version: HostedNumbers): HostedNum
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<HostedNumberOrderPage> {
@@ -829,7 +798,6 @@ export function HostedNumberOrderListInstance(version: HostedNumbers): HostedNum
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -840,4 +808,34 @@ export function HostedNumberOrderListInstance(version: HostedNumbers): HostedNum
 
   return instance;
 }
+
+
+export class HostedNumberOrderPage extends Page<HostedNumbers, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderInstance> {
+/**
+* Initialize the HostedNumberOrderPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: HostedNumbers, response: Response<string>, solution: HostedNumberOrderSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of HostedNumberOrderInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: HostedNumberOrderPayload): HostedNumberOrderInstance {
+    return new HostedNumberOrderInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

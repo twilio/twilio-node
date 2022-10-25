@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a ItemAssignmentInstance
  *
@@ -133,7 +135,6 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ItemAssignmentInstance> {
@@ -146,7 +147,6 @@ export class ItemAssignmentContextImpl implements ItemAssignmentContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -263,37 +263,6 @@ export class ItemAssignmentInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class ItemAssignmentPage extends Page<V2, ItemAssignmentPayload, ItemAssignmentResource, ItemAssignmentInstance> {
-  /**
-   * Initialize the ItemAssignmentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: ItemAssignmentSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ItemAssignmentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ItemAssignmentPayload): ItemAssignmentInstance {
-    return new ItemAssignmentInstance(
-      this._version,
-      payload,
-      this._solution.bundleSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -474,7 +443,6 @@ export function ItemAssignmentListInstance(version: V2, bundleSid: string): Item
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ItemAssignmentPage> {
@@ -514,7 +482,6 @@ export function ItemAssignmentListInstance(version: V2, bundleSid: string): Item
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -525,4 +492,35 @@ export function ItemAssignmentListInstance(version: V2, bundleSid: string): Item
 
   return instance;
 }
+
+
+export class ItemAssignmentPage extends Page<V2, ItemAssignmentPayload, ItemAssignmentResource, ItemAssignmentInstance> {
+/**
+* Initialize the ItemAssignmentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: ItemAssignmentSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of ItemAssignmentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ItemAssignmentPayload): ItemAssignmentInstance {
+    return new ItemAssignmentInstance(
+    this._version,
+    payload,
+        this._solution.bundleSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

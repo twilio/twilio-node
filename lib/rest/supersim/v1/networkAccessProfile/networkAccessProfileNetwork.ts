@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a NetworkAccessProfileNetworkInstance
  *
@@ -133,7 +135,6 @@ export class NetworkAccessProfileNetworkContextImpl implements NetworkAccessProf
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<NetworkAccessProfileNetworkInstance> {
@@ -146,7 +147,6 @@ export class NetworkAccessProfileNetworkContextImpl implements NetworkAccessProf
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -263,37 +263,6 @@ export class NetworkAccessProfileNetworkInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class NetworkAccessProfileNetworkPage extends Page<V1, NetworkAccessProfileNetworkPayload, NetworkAccessProfileNetworkResource, NetworkAccessProfileNetworkInstance> {
-  /**
-   * Initialize the NetworkAccessProfileNetworkPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: NetworkAccessProfileNetworkSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of NetworkAccessProfileNetworkInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NetworkAccessProfileNetworkPayload): NetworkAccessProfileNetworkInstance {
-    return new NetworkAccessProfileNetworkInstance(
-      this._version,
-      payload,
-      this._solution.networkAccessProfileSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -474,7 +443,6 @@ export function NetworkAccessProfileNetworkListInstance(version: V1, networkAcce
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<NetworkAccessProfileNetworkPage> {
@@ -514,7 +482,6 @@ export function NetworkAccessProfileNetworkListInstance(version: V1, networkAcce
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -525,4 +492,35 @@ export function NetworkAccessProfileNetworkListInstance(version: V1, networkAcce
 
   return instance;
 }
+
+
+export class NetworkAccessProfileNetworkPage extends Page<V1, NetworkAccessProfileNetworkPayload, NetworkAccessProfileNetworkResource, NetworkAccessProfileNetworkInstance> {
+/**
+* Initialize the NetworkAccessProfileNetworkPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: NetworkAccessProfileNetworkSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of NetworkAccessProfileNetworkInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: NetworkAccessProfileNetworkPayload): NetworkAccessProfileNetworkInstance {
+    return new NetworkAccessProfileNetworkInstance(
+    this._version,
+    payload,
+        this._solution.networkAccessProfileSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

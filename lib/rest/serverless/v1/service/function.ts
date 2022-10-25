@@ -19,7 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { FunctionVersionListInstance } from "./function/functionVersion";
+
 
 
 /**
@@ -263,7 +265,6 @@ export function FunctionListInstance(version: V1, serviceSid: string): FunctionL
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<FunctionPage> {
@@ -301,7 +302,6 @@ export function FunctionListInstance(version: V1, serviceSid: string): FunctionL
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -390,7 +390,6 @@ export class FunctionContextImpl implements FunctionContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<FunctionInstance> {
@@ -403,7 +402,6 @@ export class FunctionContextImpl implements FunctionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -432,7 +430,6 @@ export class FunctionContextImpl implements FunctionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -589,33 +586,33 @@ export class FunctionInstance {
 }
 
 export class FunctionPage extends Page<V1, FunctionPayload, FunctionResource, FunctionInstance> {
-  /**
-   * Initialize the FunctionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: FunctionSolution) {
+/**
+* Initialize the FunctionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: FunctionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of FunctionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FunctionPayload): FunctionInstance {
+    /**
+    * Build an instance of FunctionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FunctionPayload): FunctionInstance {
     return new FunctionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

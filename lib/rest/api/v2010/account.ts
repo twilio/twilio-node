@@ -44,6 +44,8 @@ import { QueueListInstance } from "./account/queue";
 import { KeyListInstance } from "./account/key";
 import { NewKeyListInstance } from "./account/newKey";
 
+
+
 type AccountStatus = 'active'|'suspended'|'closed';
 
 type AccountType = 'Trial'|'Full';
@@ -363,7 +365,6 @@ export class AccountContextImpl implements AccountContext {
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<AccountInstance> {
@@ -390,7 +391,6 @@ export class AccountContextImpl implements AccountContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -711,36 +711,6 @@ export class AccountInstance {
   }
 }
 
-export class AccountPage extends Page<V2010, AccountPayload, AccountResource, AccountInstance> {
-  /**
-   * Initialize the AccountPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: AccountSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AccountInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AccountPayload): AccountInstance {
-    return new AccountInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface AccountListInstance {
   (sid: string): AccountContext;
@@ -923,7 +893,6 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<AccountPage> {
@@ -965,7 +934,6 @@ export function AccountListInstance(version: V2010): AccountListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -976,4 +944,34 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
   return instance;
 }
+
+
+export class AccountPage extends Page<V2010, AccountPayload, AccountResource, AccountInstance> {
+/**
+* Initialize the AccountPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AccountSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of AccountInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AccountPayload): AccountInstance {
+    return new AccountInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type InteractionType = 'message'|'voice'|'unknown';
 
 type InteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
@@ -248,7 +250,6 @@ export function InteractionListInstance(version: V1, serviceSid: string, session
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -317,7 +318,6 @@ export class InteractionContextImpl implements InteractionContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<InteractionInstance> {
@@ -330,7 +330,6 @@ export class InteractionContextImpl implements InteractionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -534,34 +533,34 @@ export class InteractionInstance {
 }
 
 export class InteractionPage extends Page<V1, InteractionPayload, InteractionResource, InteractionInstance> {
-  /**
-   * Initialize the InteractionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: InteractionSolution) {
+/**
+* Initialize the InteractionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InteractionSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of InteractionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: InteractionPayload): InteractionInstance {
+    /**
+    * Build an instance of InteractionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InteractionPayload): InteractionInstance {
     return new InteractionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sessionSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.sessionSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

@@ -23,6 +23,8 @@ import { MessageListInstance } from "./channel/message";
 import { MemberListInstance } from "./channel/member";
 import { InviteListInstance } from "./channel/invite";
 
+
+
 type ChannelChannelType = 'public'|'private';
 
 
@@ -204,7 +206,6 @@ export class ChannelContextImpl implements ChannelContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<ChannelInstance> {
@@ -217,7 +218,6 @@ export class ChannelContextImpl implements ChannelContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -247,7 +247,6 @@ export class ChannelContextImpl implements ChannelContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -421,37 +420,6 @@ export class ChannelInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, ChannelInstance> {
-  /**
-   * Initialize the ChannelPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: ChannelSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ChannelInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ChannelPayload): ChannelInstance {
-    return new ChannelInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -642,7 +610,6 @@ export function ChannelListInstance(version: V1, serviceSid: string): ChannelLis
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ChannelPage> {
@@ -683,7 +650,6 @@ export function ChannelListInstance(version: V1, serviceSid: string): ChannelLis
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -694,4 +660,35 @@ export function ChannelListInstance(version: V1, serviceSid: string): ChannelLis
 
   return instance;
 }
+
+
+export class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, ChannelInstance> {
+/**
+* Initialize the ChannelPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ChannelSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of ChannelInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ChannelPayload): ChannelInstance {
+    return new ChannelInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

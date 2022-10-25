@@ -20,6 +20,8 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -113,7 +115,6 @@ export class SupportingDocumentTypeContextImpl implements SupportingDocumentType
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -211,36 +212,6 @@ export class SupportingDocumentTypeInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class SupportingDocumentTypePage extends Page<V2, SupportingDocumentTypePayload, SupportingDocumentTypeResource, SupportingDocumentTypeInstance> {
-  /**
-   * Initialize the SupportingDocumentTypePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: SupportingDocumentTypeSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SupportingDocumentTypeInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SupportingDocumentTypePayload): SupportingDocumentTypeInstance {
-    return new SupportingDocumentTypeInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -419,7 +390,6 @@ export function SupportingDocumentTypeListInstance(version: V2): SupportingDocum
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -430,4 +400,34 @@ export function SupportingDocumentTypeListInstance(version: V2): SupportingDocum
 
   return instance;
 }
+
+
+export class SupportingDocumentTypePage extends Page<V2, SupportingDocumentTypePayload, SupportingDocumentTypeResource, SupportingDocumentTypeInstance> {
+/**
+* Initialize the SupportingDocumentTypePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: SupportingDocumentTypeSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SupportingDocumentTypeInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SupportingDocumentTypePayload): SupportingDocumentTypeInstance {
+    return new SupportingDocumentTypeInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

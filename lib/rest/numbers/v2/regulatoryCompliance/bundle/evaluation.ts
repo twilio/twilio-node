@@ -20,6 +20,8 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type EvaluationStatus = 'compliant'|'noncompliant';
 
 /**
@@ -116,7 +118,6 @@ export class EvaluationContextImpl implements EvaluationContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -226,37 +227,6 @@ export class EvaluationInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class EvaluationPage extends Page<V2, EvaluationPayload, EvaluationResource, EvaluationInstance> {
-  /**
-   * Initialize the EvaluationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: EvaluationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of EvaluationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EvaluationPayload): EvaluationInstance {
-    return new EvaluationInstance(
-      this._version,
-      payload,
-      this._solution.bundleSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -421,7 +391,6 @@ export function EvaluationListInstance(version: V2, bundleSid: string): Evaluati
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<EvaluationPage> {
@@ -461,7 +430,6 @@ export function EvaluationListInstance(version: V2, bundleSid: string): Evaluati
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -472,4 +440,35 @@ export function EvaluationListInstance(version: V2, bundleSid: string): Evaluati
 
   return instance;
 }
+
+
+export class EvaluationPage extends Page<V2, EvaluationPayload, EvaluationResource, EvaluationInstance> {
+/**
+* Initialize the EvaluationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: EvaluationSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of EvaluationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EvaluationPayload): EvaluationInstance {
+    return new EvaluationInstance(
+    this._version,
+    payload,
+        this._solution.bundleSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

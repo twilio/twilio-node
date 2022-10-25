@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
 
 
 /**
@@ -98,7 +97,6 @@ export function StreamMessageListInstance(version: V1, serviceSid: string, strea
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -112,7 +110,7 @@ export function StreamMessageListInstance(version: V1, serviceSid: string, strea
   return instance;
 }
 
-interface StreamMessagePayload extends StreamMessageResource, Page.TwilioResponsePayload {
+interface StreamMessagePayload extends StreamMessageResource{
 }
 
 interface StreamMessageResource {
@@ -154,34 +152,4 @@ export class StreamMessageInstance {
   }
 }
 
-export class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {
-  /**
-   * Initialize the StreamMessagePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: StreamMessageSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of StreamMessageInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: StreamMessagePayload): StreamMessageInstance {
-    return new StreamMessageInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.streamSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

@@ -20,6 +20,83 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+export class ConversationsV1ServiceServiceParticipantConversation {
+  /**
+   * The unique ID of the Account responsible for this conversation.
+   */
+  "accountSid"?: string | null;
+  /**
+   * The unique ID of the Conversation Service this conversation belongs to.
+   */
+  "chatServiceSid"?: string | null;
+  /**
+   * The unique ID of the Participant.
+   */
+  "participantSid"?: string | null;
+  /**
+   * The unique ID for the conversation participant as Conversation User.
+   */
+  "participantUserSid"?: string | null;
+  /**
+   * A unique string identifier for the conversation participant as Conversation User.
+   */
+  "participantIdentity"?: string | null;
+  /**
+   * Information about how this participant exchanges messages with the conversation.
+   */
+  "participantMessagingBinding"?: any | null;
+  /**
+   * The unique ID of the Conversation this Participant belongs to.
+   */
+  "conversationSid"?: string | null;
+  /**
+   * An application-defined string that uniquely identifies the Conversation resource.
+   */
+  "conversationUniqueName"?: string | null;
+  /**
+   * The human-readable name of this conversation.
+   */
+  "conversationFriendlyName"?: string | null;
+  /**
+   * An optional string metadata field you can use to store any data you wish.
+   */
+  "conversationAttributes"?: string | null;
+  /**
+   * The date that this conversation was created.
+   */
+  "conversationDateCreated"?: Date | null;
+  /**
+   * The date that this conversation was last updated.
+   */
+  "conversationDateUpdated"?: Date | null;
+  /**
+   * Creator of this conversation.
+   */
+  "conversationCreatedBy"?: string | null;
+  "conversationState"?: ServiceParticipantConversationEnumState;
+  /**
+   * Timer date values for this conversation.
+   */
+  "conversationTimers"?: any | null;
+  /**
+   * Absolute URLs to access the participant and conversation of this Participant Conversation.
+   */
+  "links"?: object | null;
+}
+
+
+export class ListConfigurationAddressResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -251,7 +328,6 @@ export function ParticipantConversationListInstance(version: V1, chatServiceSid:
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -262,4 +338,70 @@ export function ParticipantConversationListInstance(version: V1, chatServiceSid:
 
   return instance;
 }
+
+interface ParticipantConversationPayload extends ParticipantConversationResource, Page.TwilioResponsePayload {
+}
+
+interface ParticipantConversationResource {
+  conversations?: Array<ConversationsV1ServiceServiceParticipantConversation>;
+  meta?: ListConfigurationAddressResponseMeta;
+}
+
+export class ParticipantConversationInstance {
+
+  constructor(protected _version: V1, payload: ParticipantConversationPayload, chatServiceSid?: string) {
+    this.conversations = payload.conversations;
+    this.meta = payload.meta;
+
+  }
+
+  conversations?: Array<ConversationsV1ServiceServiceParticipantConversation>;
+  meta?: ListConfigurationAddressResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      conversations: this.conversations, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class ParticipantConversationPage extends Page<V1, ParticipantConversationPayload, ParticipantConversationResource, ParticipantConversationInstance> {
+/**
+* Initialize the ParticipantConversationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: ParticipantConversationSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of ParticipantConversationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ParticipantConversationPayload): ParticipantConversationInstance {
+    return new ParticipantConversationInstance(
+    this._version,
+    payload,
+        this._solution.chatServiceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

@@ -27,6 +27,8 @@ import { MachineToMachineListInstance } from "./availablePhoneNumberCountry/mach
 import { MobileListInstance } from "./availablePhoneNumberCountry/mobile";
 import { SharedCostListInstance } from "./availablePhoneNumberCountry/sharedCost";
 
+
+
 /**
  * Options to pass to each
  *
@@ -170,7 +172,6 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -317,37 +318,6 @@ export class AvailablePhoneNumberCountryInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class AvailablePhoneNumberCountryPage extends Page<V2010, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountryInstance> {
-  /**
-   * Initialize the AvailablePhoneNumberCountryPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: AvailablePhoneNumberCountrySolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AvailablePhoneNumberCountryInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AvailablePhoneNumberCountryPayload): AvailablePhoneNumberCountryInstance {
-    return new AvailablePhoneNumberCountryInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.countryCode,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -527,7 +497,6 @@ export function AvailablePhoneNumberCountryListInstance(version: V2010, accountS
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -538,4 +507,35 @@ export function AvailablePhoneNumberCountryListInstance(version: V2010, accountS
 
   return instance;
 }
+
+
+export class AvailablePhoneNumberCountryPage extends Page<V2010, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountryInstance> {
+/**
+* Initialize the AvailablePhoneNumberCountryPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AvailablePhoneNumberCountrySolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of AvailablePhoneNumberCountryInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AvailablePhoneNumberCountryPayload): AvailablePhoneNumberCountryInstance {
+    return new AvailablePhoneNumberCountryInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

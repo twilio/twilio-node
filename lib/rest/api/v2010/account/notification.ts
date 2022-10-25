@@ -20,13 +20,15 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
  * @property { number } [log] Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read.
- * @property { string } [messageDate] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
- * @property { string } [messageDateBefore] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
- * @property { string } [messageDateAfter] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDate] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDateBefore] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDateAfter] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -39,9 +41,9 @@ const serialize = require("../../../../base/serialize");
  */
 export interface NotificationListInstanceEachOptions {
   log?: number;
-  messageDate?: string;
-  messageDateBefore?: string;
-  messageDateAfter?: string;
+  messageDate?: Date;
+  messageDateBefore?: Date;
+  messageDateAfter?: Date;
   pageSize?: number;
   callback?: (item: NotificationInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -52,9 +54,9 @@ export interface NotificationListInstanceEachOptions {
  * Options to pass to list
  *
  * @property { number } [log] Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read.
- * @property { string } [messageDate] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
- * @property { string } [messageDateBefore] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
- * @property { string } [messageDateAfter] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDate] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDateBefore] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDateAfter] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -63,9 +65,9 @@ export interface NotificationListInstanceEachOptions {
  */
 export interface NotificationListInstanceOptions {
   log?: number;
-  messageDate?: string;
-  messageDateBefore?: string;
-  messageDateAfter?: string;
+  messageDate?: Date;
+  messageDateBefore?: Date;
+  messageDateAfter?: Date;
   pageSize?: number;
   limit?: number;
 }
@@ -74,18 +76,18 @@ export interface NotificationListInstanceOptions {
  * Options to pass to page
  *
  * @property { number } [log] Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read.
- * @property { string } [messageDate] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
- * @property { string } [messageDateBefore] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
- * @property { string } [messageDateAfter] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDate] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDateBefore] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
+ * @property { Date } [messageDateAfter] Only show notifications for the specified date, formatted as &#x60;YYYY-MM-DD&#x60;. You can also specify an inequality, such as &#x60;&lt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or before midnight on a date, or &#x60;&gt;&#x3D;YYYY-MM-DD&#x60; for messages logged at or after midnight on a date.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface NotificationListInstancePageOptions {
   log?: number;
-  messageDate?: string;
-  messageDateBefore?: string;
-  messageDateAfter?: string;
+  messageDate?: Date;
+  messageDateBefore?: Date;
+  messageDateAfter?: Date;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -138,7 +140,6 @@ export class NotificationContextImpl implements NotificationContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -325,37 +326,6 @@ export class NotificationInstance {
   }
 }
 
-export class NotificationPage extends Page<V2010, NotificationPayload, NotificationResource, NotificationInstance> {
-  /**
-   * Initialize the NotificationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: NotificationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of NotificationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NotificationPayload): NotificationInstance {
-    return new NotificationInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface NotificationListInstance {
   (sid: string): NotificationContext;
@@ -535,7 +505,6 @@ export function NotificationListInstance(version: V2010, accountSid: string): No
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -546,4 +515,35 @@ export function NotificationListInstance(version: V2010, accountSid: string): No
 
   return instance;
 }
+
+
+export class NotificationPage extends Page<V2010, NotificationPayload, NotificationResource, NotificationInstance> {
+/**
+* Initialize the NotificationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: NotificationSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of NotificationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: NotificationPayload): NotificationInstance {
+    return new NotificationInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

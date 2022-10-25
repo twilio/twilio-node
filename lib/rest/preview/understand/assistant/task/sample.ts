@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a SampleInstance
  *
@@ -177,7 +179,6 @@ export class SampleContextImpl implements SampleContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SampleInstance> {
@@ -190,7 +191,6 @@ export class SampleContextImpl implements SampleContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -220,7 +220,6 @@ export class SampleContextImpl implements SampleContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -384,38 +383,6 @@ export class SampleInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class SamplePage extends Page<Understand, SamplePayload, SampleResource, SampleInstance> {
-  /**
-   * Initialize the SamplePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Understand, response: Response<string>, solution: SampleSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SampleInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SamplePayload): SampleInstance {
-    return new SampleInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-      this._solution.taskSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -603,7 +570,6 @@ export function SampleListInstance(version: Understand, assistantSid: string, ta
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SamplePage> {
@@ -644,7 +610,6 @@ export function SampleListInstance(version: Understand, assistantSid: string, ta
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -655,4 +620,36 @@ export function SampleListInstance(version: Understand, assistantSid: string, ta
 
   return instance;
 }
+
+
+export class SamplePage extends Page<Understand, SamplePayload, SampleResource, SampleInstance> {
+/**
+* Initialize the SamplePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Understand, response: Response<string>, solution: SampleSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SampleInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SamplePayload): SampleInstance {
+    return new SampleInstance(
+    this._version,
+    payload,
+        this._solution.assistantSid,
+        this._solution.taskSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

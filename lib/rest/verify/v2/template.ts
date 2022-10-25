@@ -20,6 +20,39 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+export class VerifyV2VerificationTemplate {
+  /**
+   * A string that uniquely identifies this Template
+   */
+  "sid"?: string | null;
+  /**
+   * Account Sid
+   */
+  "accountSid"?: string | null;
+  /**
+   * A string to describe the verification template
+   */
+  "friendlyName"?: string | null;
+  "channels"?: Array<string> | null;
+  /**
+   * Object with the template translations.
+   */
+  "translations"?: any | null;
+}
+
+
+export class ListBucketResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -243,7 +276,6 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -254,4 +286,69 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
 
   return instance;
 }
+
+interface TemplatePayload extends TemplateResource, Page.TwilioResponsePayload {
+}
+
+interface TemplateResource {
+  templates?: Array<VerifyV2VerificationTemplate>;
+  meta?: ListBucketResponseMeta;
+}
+
+export class TemplateInstance {
+
+  constructor(protected _version: V2, payload: TemplatePayload) {
+    this.templates = payload.templates;
+    this.meta = payload.meta;
+
+  }
+
+  templates?: Array<VerifyV2VerificationTemplate>;
+  meta?: ListBucketResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      templates: this.templates, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class TemplatePage extends Page<V2, TemplatePayload, TemplateResource, TemplateInstance> {
+/**
+* Initialize the TemplatePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: TemplateSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of TemplateInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TemplatePayload): TemplateInstance {
+    return new TemplateInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

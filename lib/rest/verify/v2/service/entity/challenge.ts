@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { NotificationListInstance } from "./challenge/notification";
 
+
+
 type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
 
 type ChallengeListOrders = 'asc'|'desc';
@@ -201,7 +203,6 @@ export class ChallengeContextImpl implements ChallengeContext {
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<ChallengeInstance> {
@@ -228,7 +229,6 @@ export class ChallengeContextImpl implements ChallengeContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -441,38 +441,6 @@ export class ChallengeInstance {
   }
 }
 
-export class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource, ChallengeInstance> {
-  /**
-   * Initialize the ChallengePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: ChallengeSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ChallengeInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ChallengePayload): ChallengeInstance {
-    return new ChallengeInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.identity,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface ChallengeListInstance {
   (sid: string): ChallengeContext;
@@ -655,7 +623,6 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<ChallengePage> {
@@ -698,7 +665,6 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -709,4 +675,36 @@ export function ChallengeListInstance(version: V2, serviceSid: string, identity:
 
   return instance;
 }
+
+
+export class ChallengePage extends Page<V2, ChallengePayload, ChallengeResource, ChallengeInstance> {
+/**
+* Initialize the ChallengePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: ChallengeSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of ChallengeInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ChallengePayload): ChallengeInstance {
+    return new ChallengeInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.identity,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

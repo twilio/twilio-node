@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
+
 
 type FormFormTypes = 'form-push';
 
@@ -99,7 +99,6 @@ export class FormContextImpl implements FormContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -116,7 +115,7 @@ export class FormContextImpl implements FormContext {
   }
 }
 
-interface FormPayload extends FormResource, Page.TwilioResponsePayload {
+interface FormPayload extends FormResource{
 }
 
 interface FormResource {
@@ -199,36 +198,6 @@ export class FormInstance {
   }
 }
 
-export class FormPage extends Page<V2, FormPayload, FormResource, FormInstance> {
-  /**
-   * Initialize the FormPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: FormSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of FormInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FormPayload): FormInstance {
-    return new FormInstance(
-      this._version,
-      payload,
-      this._solution.formType,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface FormListInstance {
   (formType: FormEnumFormTypes): FormContext;
@@ -274,4 +243,6 @@ export function FormListInstance(version: V2): FormListInstance {
 
   return instance;
 }
+
+
 

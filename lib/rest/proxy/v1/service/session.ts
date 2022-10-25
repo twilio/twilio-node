@@ -22,6 +22,8 @@ const serialize = require("../../../../base/serialize");
 import { ParticipantListInstance } from "./session/participant";
 import { InteractionListInstance } from "./session/interaction";
 
+
+
 type SessionMode = 'message-only'|'voice-only'|'voice-and-message';
 
 type SessionStatus = 'open'|'in-progress'|'closed'|'failed'|'unknown';
@@ -200,7 +202,6 @@ export class SessionContextImpl implements SessionContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SessionInstance> {
@@ -213,7 +214,6 @@ export class SessionContextImpl implements SessionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -244,7 +244,6 @@ export class SessionContextImpl implements SessionContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -465,37 +464,6 @@ export class SessionInstance {
   }
 }
 
-export class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
-  /**
-   * Initialize the SessionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SessionSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SessionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SessionPayload): SessionInstance {
-    return new SessionInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface SessionListInstance {
   (sid: string): SessionContext;
@@ -685,7 +653,6 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SessionPage> {
@@ -725,7 +692,6 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -736,4 +702,35 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
 
   return instance;
 }
+
+
+export class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
+/**
+* Initialize the SessionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: SessionSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of SessionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SessionPayload): SessionInstance {
+    return new SessionInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

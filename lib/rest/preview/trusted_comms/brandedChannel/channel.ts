@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import TrustedComms from "../../TrustedComms";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 
 /**
@@ -97,7 +96,6 @@ export function ChannelListInstance(version: TrustedComms, brandedChannelSid: st
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -111,7 +109,7 @@ export function ChannelListInstance(version: TrustedComms, brandedChannelSid: st
   return instance;
 }
 
-interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {
+interface ChannelPayload extends ChannelResource{
 }
 
 interface ChannelResource {
@@ -188,33 +186,4 @@ export class ChannelInstance {
   }
 }
 
-export class ChannelPage extends Page<TrustedComms, ChannelPayload, ChannelResource, ChannelInstance> {
-  /**
-   * Initialize the ChannelPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: TrustedComms, response: Response<string>, solution: ChannelSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of ChannelInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ChannelPayload): ChannelInstance {
-    return new ChannelInstance(
-      this._version,
-      payload,
-      this._solution.brandedChannelSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

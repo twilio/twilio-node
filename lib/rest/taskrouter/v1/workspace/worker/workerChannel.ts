@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -255,7 +257,6 @@ export function WorkerChannelListInstance(version: V1, workspaceSid: string, wor
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -336,7 +337,6 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<WorkerChannelInstance> {
@@ -363,7 +363,6 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -544,34 +543,34 @@ export class WorkerChannelInstance {
 }
 
 export class WorkerChannelPage extends Page<V1, WorkerChannelPayload, WorkerChannelResource, WorkerChannelInstance> {
-  /**
-   * Initialize the WorkerChannelPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: WorkerChannelSolution) {
+/**
+* Initialize the WorkerChannelPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: WorkerChannelSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of WorkerChannelInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: WorkerChannelPayload): WorkerChannelInstance {
+    /**
+    * Build an instance of WorkerChannelInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: WorkerChannelPayload): WorkerChannelInstance {
     return new WorkerChannelInstance(
-      this._version,
-      payload,
-      this._solution.workspaceSid,
-      this._solution.workerSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.workspaceSid,
+        this._solution.workerSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

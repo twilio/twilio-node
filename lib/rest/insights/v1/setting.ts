@@ -14,69 +14,29 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 /**
- * Options to pass to each
+ * Options to pass to fetch a SettingInstance
  *
  * @property { string } [subaccountSid] 
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface SettingListInstanceEachOptions {
+export interface SettingListInstanceFetchOptions {
   subaccountSid?: string;
-  callback?: (item: SettingInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
 }
 
 /**
- * Options to pass to list
- *
- * @property { string } [subaccountSid] 
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface SettingListInstanceOptions {
-  subaccountSid?: string;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { string } [subaccountSid] 
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface SettingListInstancePageOptions {
-  subaccountSid?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
-
-/**
- * Options to pass to create a SettingInstance
+ * Options to pass to update a SettingInstance
  *
  * @property { boolean } [advancedFeatures] 
  * @property { boolean } [voiceTrace] 
  * @property { string } [subaccountSid] 
  */
-export interface SettingListInstanceCreateOptions {
+export interface SettingListInstanceUpdateOptions {
   advancedFeatures?: boolean;
   voiceTrace?: boolean;
   subaccountSid?: string;
@@ -85,126 +45,44 @@ export interface SettingListInstanceCreateOptions {
 export interface SettingListInstance {
 
 
-
   /**
-   * Streams SettingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: SettingInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams SettingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SettingListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: SettingListInstanceEachOptions, callback?: (item: SettingInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of SettingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: SettingPage) => any): Promise<SettingPage>;
-  /**
-   * Retrieve a single target page of SettingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SettingPage) => any): Promise<SettingPage>;
-  getPage(params?: any, callback?: any): Promise<SettingPage>;
-  /**
-   * Lists SettingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: SettingInstance[]) => any): Promise<SettingInstance[]>;
-  /**
-   * Lists SettingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SettingListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: SettingListInstanceOptions, callback?: (error: Error | null, items: SettingInstance[]) => any): Promise<SettingInstance[]>;
-  list(params?: any, callback?: any): Promise<SettingInstance[]>;
-  /**
-   * Retrieve a single page of SettingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: SettingPage) => any): Promise<SettingPage>;
-  /**
-   * Retrieve a single page of SettingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SettingListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: SettingListInstancePageOptions, callback?: (error: Error | null, items: SettingPage) => any): Promise<SettingPage>;
-  page(params?: any, callback?: any): Promise<SettingPage>;
-
-  /**
-   * Create a SettingInstance
+   * Fetch a SettingInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  create(callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
+  fetch(callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
   /**
-   * Create a SettingInstance
+   * Fetch a SettingInstance
    *
-   * @param { SettingListInstanceCreateOptions } params - Parameter for request
+   * @param { SettingListInstanceFetchOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed SettingInstance
    */
-  create(params: SettingListInstanceCreateOptions, callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
-  create(params?: any, callback?: any): Promise<SettingInstance>
+  fetch(params: SettingListInstanceFetchOptions, callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
+  fetch(params?: any, callback?: any): Promise<SettingInstance>
+
+
+  /**
+   * Update a SettingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingInstance
+   */
+  update(callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
+  /**
+   * Update a SettingInstance
+   *
+   * @param { SettingListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SettingInstance
+   */
+  update(params: SettingListInstanceUpdateOptions, callback?: (error: Error | null, item?: SettingInstance) => any): Promise<SettingInstance>;
+  update(params?: any, callback?: any): Promise<SettingInstance>
 
 
   /**
@@ -232,7 +110,7 @@ export function SettingListInstance(version: V1): SettingListInstance {
   instance._solution = {  };
   instance._uri = `/Voice/Settings`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<SettingPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<SettingInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -243,34 +121,22 @@ export function SettingListInstance(version: V1): SettingListInstance {
     const data: any = {};
 
     if (params.subaccountSid !== undefined) data['SubaccountSid'] = params.subaccountSid;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new SettingPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new SettingInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SettingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new SettingPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<SettingInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<SettingInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -288,14 +154,13 @@ export function SettingListInstance(version: V1): SettingListInstance {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new SettingInstance(operationVersion, payload));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -311,7 +176,7 @@ export function SettingListInstance(version: V1): SettingListInstance {
   return instance;
 }
 
-interface SettingPayload extends SettingResource, Page.TwilioResponsePayload {
+interface SettingPayload extends SettingResource{
 }
 
 interface SettingResource {
@@ -355,32 +220,4 @@ export class SettingInstance {
   }
 }
 
-export class SettingPage extends Page<V1, SettingPayload, SettingResource, SettingInstance> {
-  /**
-   * Initialize the SettingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SettingSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of SettingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SettingPayload): SettingInstance {
-    return new SettingInstance(
-      this._version,
-      payload,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

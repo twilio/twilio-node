@@ -20,9 +20,11 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { FlowValidateListInstance } from "./flow/flowValidate";
+
 import { ExecutionListInstance } from "./flow/execution";
 import { FlowRevisionListInstance } from "./flow/flowRevision";
 import { FlowTestUserListInstance } from "./flow/flowTestUser";
+
 
 type FlowStatus = 'draft'|'published';
 
@@ -301,7 +303,6 @@ export function FlowListInstance(version: V2): FlowListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<FlowPage> {
@@ -339,7 +340,6 @@ export function FlowListInstance(version: V2): FlowListInstance {
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -441,7 +441,6 @@ export class FlowContextImpl implements FlowContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<FlowInstance> {
@@ -454,7 +453,6 @@ export class FlowContextImpl implements FlowContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -486,7 +484,6 @@ export class FlowContextImpl implements FlowContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -700,32 +697,32 @@ export class FlowInstance {
 }
 
 export class FlowPage extends Page<V2, FlowPayload, FlowResource, FlowInstance> {
-  /**
-   * Initialize the FlowPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: FlowSolution) {
+/**
+* Initialize the FlowPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: FlowSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of FlowInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FlowPayload): FlowInstance {
+    /**
+    * Build an instance of FlowInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: FlowPayload): FlowInstance {
     return new FlowInstance(
-      this._version,
-      payload,
-      this._solution.sid,
+    this._version,
+    payload,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
+
 
 type VerificationStatus = 'canceled'|'approved';
 
@@ -128,7 +128,6 @@ export class VerificationContextImpl implements VerificationContext {
     return operationPromise;
 
 
-
   }
 
   update(params: any, callback?: any): Promise<VerificationInstance> {
@@ -157,7 +156,6 @@ export class VerificationContextImpl implements VerificationContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -174,7 +172,7 @@ export class VerificationContextImpl implements VerificationContext {
   }
 }
 
-interface VerificationPayload extends VerificationResource, Page.TwilioResponsePayload {
+interface VerificationPayload extends VerificationResource{
 }
 
 interface VerificationResource {
@@ -338,37 +336,6 @@ export class VerificationInstance {
   }
 }
 
-export class VerificationPage extends Page<V2, VerificationPayload, VerificationResource, VerificationInstance> {
-  /**
-   * Initialize the VerificationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: VerificationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of VerificationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: VerificationPayload): VerificationInstance {
-    return new VerificationInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface VerificationListInstance {
   (sid: string): VerificationContext;
@@ -460,7 +427,6 @@ export function VerificationListInstance(version: V2, serviceSid: string): Verif
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -473,4 +439,6 @@ export function VerificationListInstance(version: V2, serviceSid: string): Verif
 
   return instance;
 }
+
+
 

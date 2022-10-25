@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to create a CredentialListInstance
  *
@@ -253,7 +255,6 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<CredentialListPage> {
@@ -291,7 +292,6 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -361,7 +361,6 @@ export class CredentialListContextImpl implements CredentialListContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<CredentialListInstance> {
@@ -374,7 +373,6 @@ export class CredentialListContextImpl implements CredentialListContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -503,33 +501,33 @@ export class CredentialListInstance {
 }
 
 export class CredentialListPage extends Page<V1, CredentialListPayload, CredentialListResource, CredentialListInstance> {
-  /**
-   * Initialize the CredentialListPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: CredentialListSolution) {
+/**
+* Initialize the CredentialListPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: CredentialListSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of CredentialListInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CredentialListPayload): CredentialListInstance {
+    /**
+    * Build an instance of CredentialListInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CredentialListPayload): CredentialListInstance {
     return new CredentialListInstance(
-      this._version,
-      payload,
-      this._solution.trunkSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.trunkSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

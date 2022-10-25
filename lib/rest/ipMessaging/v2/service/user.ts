@@ -22,6 +22,8 @@ const serialize = require("../../../../base/serialize");
 import { UserBindingListInstance } from "./user/userBinding";
 import { UserChannelListInstance } from "./user/userChannel";
 
+
+
 type UserWebhookEnabledType = 'true'|'false';
 
 
@@ -194,7 +196,6 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<UserInstance> {
@@ -207,7 +208,6 @@ export class UserContextImpl implements UserContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -238,7 +238,6 @@ export class UserContextImpl implements UserContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -405,37 +404,6 @@ export class UserInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class UserPage extends Page<V2, UserPayload, UserResource, UserInstance> {
-  /**
-   * Initialize the UserPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: UserSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of UserInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UserPayload): UserInstance {
-    return new UserInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -620,7 +588,6 @@ export function UserListInstance(version: V2, serviceSid: string): UserListInsta
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<UserPage> {
@@ -660,7 +627,6 @@ export function UserListInstance(version: V2, serviceSid: string): UserListInsta
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -671,4 +637,35 @@ export function UserListInstance(version: V2, serviceSid: string): UserListInsta
 
   return instance;
 }
+
+
+export class UserPage extends Page<V2, UserPayload, UserResource, UserInstance> {
+/**
+* Initialize the UserPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: UserSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of UserInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UserPayload): UserInstance {
+    return new UserInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

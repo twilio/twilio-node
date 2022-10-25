@@ -14,183 +14,49 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 /**
- * Options to pass to each
+ * Options to pass to fetch a WorkerStatisticsInstance
  *
  * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
  * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
  * @property { Date } [endDate] Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface WorkerStatisticsListInstanceEachOptions {
+export interface WorkerStatisticsListInstanceFetchOptions {
   minutes?: number;
   startDate?: Date;
   endDate?: Date;
   taskChannel?: string;
-  callback?: (item: WorkerStatisticsInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
 }
-
-/**
- * Options to pass to list
- *
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface WorkerStatisticsListInstanceOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskChannel?: string;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { Date } [endDate] Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { string } [taskChannel] Only calculate statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface WorkerStatisticsListInstancePageOptions {
-  minutes?: number;
-  startDate?: Date;
-  endDate?: Date;
-  taskChannel?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface WorkerStatisticsListInstance {
 
 
+  /**
+   * Fetch a WorkerStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any): Promise<WorkerStatisticsInstance>;
+  /**
+   * Fetch a WorkerStatisticsInstance
+   *
+   * @param { WorkerStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkerStatisticsInstance
+   */
+  fetch(params: WorkerStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: WorkerStatisticsInstance) => any): Promise<WorkerStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<WorkerStatisticsInstance>
 
-  /**
-   * Streams WorkerStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: WorkerStatisticsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams WorkerStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkerStatisticsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: WorkerStatisticsListInstanceEachOptions, callback?: (item: WorkerStatisticsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of WorkerStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: WorkerStatisticsPage) => any): Promise<WorkerStatisticsPage>;
-  /**
-   * Retrieve a single target page of WorkerStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkerStatisticsPage) => any): Promise<WorkerStatisticsPage>;
-  getPage(params?: any, callback?: any): Promise<WorkerStatisticsPage>;
-  /**
-   * Lists WorkerStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: WorkerStatisticsInstance[]) => any): Promise<WorkerStatisticsInstance[]>;
-  /**
-   * Lists WorkerStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkerStatisticsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: WorkerStatisticsListInstanceOptions, callback?: (error: Error | null, items: WorkerStatisticsInstance[]) => any): Promise<WorkerStatisticsInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkerStatisticsInstance[]>;
-  /**
-   * Retrieve a single page of WorkerStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: WorkerStatisticsPage) => any): Promise<WorkerStatisticsPage>;
-  /**
-   * Retrieve a single page of WorkerStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkerStatisticsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: WorkerStatisticsListInstancePageOptions, callback?: (error: Error | null, items: WorkerStatisticsPage) => any): Promise<WorkerStatisticsPage>;
-  page(params?: any, callback?: any): Promise<WorkerStatisticsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -219,7 +85,7 @@ export function WorkerStatisticsListInstance(version: V1, workspaceSid: string, 
   instance._solution = { workspaceSid, workerSid };
   instance._uri = `/Workspaces/${workspaceSid}/Workers/${workerSid}/Statistics`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<WorkerStatisticsPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<WorkerStatisticsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -233,32 +99,20 @@ export function WorkerStatisticsListInstance(version: V1, workspaceSid: string, 
     if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
     if (params.endDate !== undefined) data['EndDate'] = serialize.iso8601DateTime(params.endDate);
     if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new WorkerStatisticsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new WorkerStatisticsInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.workerSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkerStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new WorkerStatisticsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -270,4 +124,68 @@ export function WorkerStatisticsListInstance(version: V1, workspaceSid: string, 
 
   return instance;
 }
+
+interface WorkerStatisticsPayload extends WorkerStatisticsResource{
+}
+
+interface WorkerStatisticsResource {
+  account_sid?: string | null;
+  cumulative?: any | null;
+  worker_sid?: string | null;
+  workspace_sid?: string | null;
+  url?: string | null;
+}
+
+export class WorkerStatisticsInstance {
+
+  constructor(protected _version: V1, payload: WorkerStatisticsPayload, workspaceSid: string, workerSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.cumulative = payload.cumulative;
+    this.workerSid = payload.worker_sid;
+    this.workspaceSid = payload.workspace_sid;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * An object that contains the cumulative statistics for the Worker
+   */
+  cumulative?: any | null;
+  /**
+   * The SID of the Worker that contains the WorkerChannel
+   */
+  workerSid?: string | null;
+  /**
+   * The SID of the Workspace that contains the WorkerChannel
+   */
+  workspaceSid?: string | null;
+  /**
+   * The absolute URL of the WorkerChannel statistics resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      cumulative: this.cumulative, 
+      workerSid: this.workerSid, 
+      workspaceSid: this.workspaceSid, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

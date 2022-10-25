@@ -20,6 +20,8 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type UserChannelNotificationLevel = 'default'|'muted';
 
 type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
@@ -261,7 +263,6 @@ export function UserChannelListInstance(version: V2, serviceSid: string, userSid
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -350,7 +351,6 @@ export class UserChannelContextImpl implements UserChannelContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<UserChannelInstance> {
@@ -363,7 +363,6 @@ export class UserChannelContextImpl implements UserChannelContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -393,7 +392,6 @@ export class UserChannelContextImpl implements UserChannelContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -539,34 +537,34 @@ export class UserChannelInstance {
 }
 
 export class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelResource, UserChannelInstance> {
-  /**
-   * Initialize the UserChannelPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: UserChannelSolution) {
+/**
+* Initialize the UserChannelPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: UserChannelSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of UserChannelInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UserChannelPayload): UserChannelInstance {
+    /**
+    * Build an instance of UserChannelInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UserChannelPayload): UserChannelInstance {
     return new UserChannelInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.userSid,
-      this._solution.channelSid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.userSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

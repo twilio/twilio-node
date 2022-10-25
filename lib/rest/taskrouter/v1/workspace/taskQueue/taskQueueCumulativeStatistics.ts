@@ -14,189 +14,51 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 /**
- * Options to pass to each
+ * Options to pass to fetch a TaskQueueCumulativeStatisticsInstance
  *
  * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
  * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default is 15 minutes.
  * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
  * @property { string } [taskChannel] Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
  * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. TaskRouter will calculate statistics on up to 10,000 Tasks/Reservations for any given threshold.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface TaskQueueCumulativeStatisticsListInstanceEachOptions {
+export interface TaskQueueCumulativeStatisticsListInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   startDate?: Date;
   taskChannel?: string;
   splitByWaitTime?: string;
-  callback?: (item: TaskQueueCumulativeStatisticsInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
 }
-
-/**
- * Options to pass to list
- *
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default is 15 minutes.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { string } [taskChannel] Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. TaskRouter will calculate statistics on up to 10,000 Tasks/Reservations for any given threshold.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface TaskQueueCumulativeStatisticsListInstanceOptions {
-  endDate?: Date;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { Date } [endDate] Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
- * @property { number } [minutes] Only calculate statistics since this many minutes in the past. The default is 15 minutes.
- * @property { Date } [startDate] Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
- * @property { string } [taskChannel] Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { string } [splitByWaitTime] A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. TaskRouter will calculate statistics on up to 10,000 Tasks/Reservations for any given threshold.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface TaskQueueCumulativeStatisticsListInstancePageOptions {
-  endDate?: Date;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
-  splitByWaitTime?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface TaskQueueCumulativeStatisticsListInstance {
 
 
+  /**
+   * Fetch a TaskQueueCumulativeStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: TaskQueueCumulativeStatisticsInstance) => any): Promise<TaskQueueCumulativeStatisticsInstance>;
+  /**
+   * Fetch a TaskQueueCumulativeStatisticsInstance
+   *
+   * @param { TaskQueueCumulativeStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskQueueCumulativeStatisticsInstance
+   */
+  fetch(params: TaskQueueCumulativeStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: TaskQueueCumulativeStatisticsInstance) => any): Promise<TaskQueueCumulativeStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<TaskQueueCumulativeStatisticsInstance>
 
-  /**
-   * Streams TaskQueueCumulativeStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: TaskQueueCumulativeStatisticsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams TaskQueueCumulativeStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskQueueCumulativeStatisticsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: TaskQueueCumulativeStatisticsListInstanceEachOptions, callback?: (item: TaskQueueCumulativeStatisticsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of TaskQueueCumulativeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsPage) => any): Promise<TaskQueueCumulativeStatisticsPage>;
-  /**
-   * Retrieve a single target page of TaskQueueCumulativeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsPage) => any): Promise<TaskQueueCumulativeStatisticsPage>;
-  getPage(params?: any, callback?: any): Promise<TaskQueueCumulativeStatisticsPage>;
-  /**
-   * Lists TaskQueueCumulativeStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance[]) => any): Promise<TaskQueueCumulativeStatisticsInstance[]>;
-  /**
-   * Lists TaskQueueCumulativeStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskQueueCumulativeStatisticsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: TaskQueueCumulativeStatisticsListInstanceOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance[]) => any): Promise<TaskQueueCumulativeStatisticsInstance[]>;
-  list(params?: any, callback?: any): Promise<TaskQueueCumulativeStatisticsInstance[]>;
-  /**
-   * Retrieve a single page of TaskQueueCumulativeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsPage) => any): Promise<TaskQueueCumulativeStatisticsPage>;
-  /**
-   * Retrieve a single page of TaskQueueCumulativeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskQueueCumulativeStatisticsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: TaskQueueCumulativeStatisticsListInstancePageOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsPage) => any): Promise<TaskQueueCumulativeStatisticsPage>;
-  page(params?: any, callback?: any): Promise<TaskQueueCumulativeStatisticsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -225,7 +87,7 @@ export function TaskQueueCumulativeStatisticsListInstance(version: V1, workspace
   instance._solution = { workspaceSid, taskQueueSid };
   instance._uri = `/Workspaces/${workspaceSid}/TaskQueues/${taskQueueSid}/CumulativeStatistics`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<TaskQueueCumulativeStatisticsPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<TaskQueueCumulativeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -240,32 +102,20 @@ export function TaskQueueCumulativeStatisticsListInstance(version: V1, workspace
     if (params.startDate !== undefined) data['StartDate'] = serialize.iso8601DateTime(params.startDate);
     if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
     if (params.splitByWaitTime !== undefined) data['SplitByWaitTime'] = params.splitByWaitTime;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new TaskQueueCumulativeStatisticsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new TaskQueueCumulativeStatisticsInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.taskQueueSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskQueueCumulativeStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new TaskQueueCumulativeStatisticsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -277,4 +127,187 @@ export function TaskQueueCumulativeStatisticsListInstance(version: V1, workspace
 
   return instance;
 }
+
+interface TaskQueueCumulativeStatisticsPayload extends TaskQueueCumulativeStatisticsResource{
+}
+
+interface TaskQueueCumulativeStatisticsResource {
+  account_sid?: string | null;
+  avg_task_acceptance_time?: number | null;
+  start_time?: Date | null;
+  end_time?: Date | null;
+  reservations_created?: number | null;
+  reservations_accepted?: number | null;
+  reservations_rejected?: number | null;
+  reservations_timed_out?: number | null;
+  reservations_canceled?: number | null;
+  reservations_rescinded?: number | null;
+  split_by_wait_time?: any | null;
+  task_queue_sid?: string | null;
+  wait_duration_until_accepted?: any | null;
+  wait_duration_until_canceled?: any | null;
+  wait_duration_in_queue_until_accepted?: any | null;
+  tasks_canceled?: number | null;
+  tasks_completed?: number | null;
+  tasks_deleted?: number | null;
+  tasks_entered?: number | null;
+  tasks_moved?: number | null;
+  workspace_sid?: string | null;
+  url?: string | null;
+}
+
+export class TaskQueueCumulativeStatisticsInstance {
+
+  constructor(protected _version: V1, payload: TaskQueueCumulativeStatisticsPayload, workspaceSid: string, taskQueueSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.avgTaskAcceptanceTime = deserialize.integer(payload.avg_task_acceptance_time);
+    this.startTime = deserialize.iso8601DateTime(payload.start_time);
+    this.endTime = deserialize.iso8601DateTime(payload.end_time);
+    this.reservationsCreated = deserialize.integer(payload.reservations_created);
+    this.reservationsAccepted = deserialize.integer(payload.reservations_accepted);
+    this.reservationsRejected = deserialize.integer(payload.reservations_rejected);
+    this.reservationsTimedOut = deserialize.integer(payload.reservations_timed_out);
+    this.reservationsCanceled = deserialize.integer(payload.reservations_canceled);
+    this.reservationsRescinded = deserialize.integer(payload.reservations_rescinded);
+    this.splitByWaitTime = payload.split_by_wait_time;
+    this.taskQueueSid = payload.task_queue_sid;
+    this.waitDurationUntilAccepted = payload.wait_duration_until_accepted;
+    this.waitDurationUntilCanceled = payload.wait_duration_until_canceled;
+    this.waitDurationInQueueUntilAccepted = payload.wait_duration_in_queue_until_accepted;
+    this.tasksCanceled = deserialize.integer(payload.tasks_canceled);
+    this.tasksCompleted = deserialize.integer(payload.tasks_completed);
+    this.tasksDeleted = deserialize.integer(payload.tasks_deleted);
+    this.tasksEntered = deserialize.integer(payload.tasks_entered);
+    this.tasksMoved = deserialize.integer(payload.tasks_moved);
+    this.workspaceSid = payload.workspace_sid;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The average time in seconds between Task creation and acceptance
+   */
+  avgTaskAcceptanceTime?: number | null;
+  /**
+   * The beginning of the interval during which these statistics were calculated
+   */
+  startTime?: Date | null;
+  /**
+   * The end of the interval during which these statistics were calculated
+   */
+  endTime?: Date | null;
+  /**
+   * The total number of Reservations created for Tasks in the TaskQueue
+   */
+  reservationsCreated?: number | null;
+  /**
+   * The total number of Reservations accepted for Tasks in the TaskQueue
+   */
+  reservationsAccepted?: number | null;
+  /**
+   * The total number of Reservations rejected for Tasks in the TaskQueue
+   */
+  reservationsRejected?: number | null;
+  /**
+   * The total number of Reservations that timed out for Tasks in the TaskQueue
+   */
+  reservationsTimedOut?: number | null;
+  /**
+   * The total number of Reservations canceled for Tasks in the TaskQueue
+   */
+  reservationsCanceled?: number | null;
+  /**
+   * The total number of Reservations rescinded
+   */
+  reservationsRescinded?: number | null;
+  /**
+   * A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
+   */
+  splitByWaitTime?: any | null;
+  /**
+   * The SID of the TaskQueue from which these statistics were calculated
+   */
+  taskQueueSid?: string | null;
+  /**
+   * The wait duration statistics for Tasks accepted while in the TaskQueue
+   */
+  waitDurationUntilAccepted?: any | null;
+  /**
+   * The wait duration statistics for Tasks canceled while in the TaskQueue
+   */
+  waitDurationUntilCanceled?: any | null;
+  /**
+   * The relative wait duration statistics for Tasks accepted while in the TaskQueue
+   */
+  waitDurationInQueueUntilAccepted?: any | null;
+  /**
+   * The total number of Tasks canceled in the TaskQueue
+   */
+  tasksCanceled?: number | null;
+  /**
+   * The total number of Tasks completed in the TaskQueue
+   */
+  tasksCompleted?: number | null;
+  /**
+   * The total number of Tasks deleted in the TaskQueue
+   */
+  tasksDeleted?: number | null;
+  /**
+   * The total number of Tasks entered into the TaskQueue
+   */
+  tasksEntered?: number | null;
+  /**
+   * The total number of Tasks that were moved from one queue to another
+   */
+  tasksMoved?: number | null;
+  /**
+   * The SID of the Workspace that contains the TaskQueue
+   */
+  workspaceSid?: string | null;
+  /**
+   * The absolute URL of the TaskQueue statistics resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      avgTaskAcceptanceTime: this.avgTaskAcceptanceTime, 
+      startTime: this.startTime, 
+      endTime: this.endTime, 
+      reservationsCreated: this.reservationsCreated, 
+      reservationsAccepted: this.reservationsAccepted, 
+      reservationsRejected: this.reservationsRejected, 
+      reservationsTimedOut: this.reservationsTimedOut, 
+      reservationsCanceled: this.reservationsCanceled, 
+      reservationsRescinded: this.reservationsRescinded, 
+      splitByWaitTime: this.splitByWaitTime, 
+      taskQueueSid: this.taskQueueSid, 
+      waitDurationUntilAccepted: this.waitDurationUntilAccepted, 
+      waitDurationUntilCanceled: this.waitDurationUntilCanceled, 
+      waitDurationInQueueUntilAccepted: this.waitDurationInQueueUntilAccepted, 
+      tasksCanceled: this.tasksCanceled, 
+      tasksCompleted: this.tasksCompleted, 
+      tasksDeleted: this.tasksDeleted, 
+      tasksEntered: this.tasksEntered, 
+      tasksMoved: this.tasksMoved, 
+      workspaceSid: this.workspaceSid, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

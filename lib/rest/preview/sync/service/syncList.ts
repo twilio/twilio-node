@@ -19,8 +19,10 @@ import Response from "../../../../http/response";
 import Sync from "../../Sync";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { SyncListPermissionListInstance } from "./syncList/syncListPermission";
 import { SyncListItemListInstance } from "./syncList/syncListItem";
+
 
 
 /**
@@ -262,7 +264,6 @@ export function SyncListListInstance(version: Sync, serviceSid: string): SyncLis
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<SyncListPage> {
@@ -300,7 +301,6 @@ export function SyncListListInstance(version: Sync, serviceSid: string): SyncLis
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -384,7 +384,6 @@ export class SyncListContextImpl implements SyncListContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<SyncListInstance> {
@@ -397,7 +396,6 @@ export class SyncListContextImpl implements SyncListContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -531,33 +529,33 @@ export class SyncListInstance {
 }
 
 export class SyncListPage extends Page<Sync, SyncListPayload, SyncListResource, SyncListInstance> {
-  /**
-   * Initialize the SyncListPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: Sync, response: Response<string>, solution: SyncListSolution) {
+/**
+* Initialize the SyncListPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: Sync, response: Response<string>, solution: SyncListSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of SyncListInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SyncListPayload): SyncListInstance {
+    /**
+    * Build an instance of SyncListInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: SyncListPayload): SyncListInstance {
     return new SyncListInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

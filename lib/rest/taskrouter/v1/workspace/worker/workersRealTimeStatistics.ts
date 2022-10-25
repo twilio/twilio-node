@@ -14,165 +14,43 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
-/**
- * Options to pass to each
- *
- * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface WorkersRealTimeStatisticsListInstanceEachOptions {
-  taskChannel?: string;
-  callback?: (item: WorkersRealTimeStatisticsInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
+
 
 /**
- * Options to pass to list
+ * Options to pass to fetch a WorkersRealTimeStatisticsInstance
  *
  * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface WorkersRealTimeStatisticsListInstanceOptions {
+export interface WorkersRealTimeStatisticsListInstanceFetchOptions {
   taskChannel?: string;
-  limit?: number;
 }
-
-/**
- * Options to pass to page
- *
- * @property { string } [taskChannel] Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel\&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface WorkersRealTimeStatisticsListInstancePageOptions {
-  taskChannel?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface WorkersRealTimeStatisticsListInstance {
 
 
+  /**
+   * Fetch a WorkersRealTimeStatisticsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
+  /**
+   * Fetch a WorkersRealTimeStatisticsInstance
+   *
+   * @param { WorkersRealTimeStatisticsListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkersRealTimeStatisticsInstance
+   */
+  fetch(params: WorkersRealTimeStatisticsListInstanceFetchOptions, callback?: (error: Error | null, item?: WorkersRealTimeStatisticsInstance) => any): Promise<WorkersRealTimeStatisticsInstance>;
+  fetch(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsInstance>
 
-  /**
-   * Streams WorkersRealTimeStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: WorkersRealTimeStatisticsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams WorkersRealTimeStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkersRealTimeStatisticsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: WorkersRealTimeStatisticsListInstanceEachOptions, callback?: (item: WorkersRealTimeStatisticsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of WorkersRealTimeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: WorkersRealTimeStatisticsPage) => any): Promise<WorkersRealTimeStatisticsPage>;
-  /**
-   * Retrieve a single target page of WorkersRealTimeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkersRealTimeStatisticsPage) => any): Promise<WorkersRealTimeStatisticsPage>;
-  getPage(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsPage>;
-  /**
-   * Lists WorkersRealTimeStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance[]) => any): Promise<WorkersRealTimeStatisticsInstance[]>;
-  /**
-   * Lists WorkersRealTimeStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkersRealTimeStatisticsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: WorkersRealTimeStatisticsListInstanceOptions, callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance[]) => any): Promise<WorkersRealTimeStatisticsInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsInstance[]>;
-  /**
-   * Retrieve a single page of WorkersRealTimeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: WorkersRealTimeStatisticsPage) => any): Promise<WorkersRealTimeStatisticsPage>;
-  /**
-   * Retrieve a single page of WorkersRealTimeStatisticsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkersRealTimeStatisticsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: WorkersRealTimeStatisticsListInstancePageOptions, callback?: (error: Error | null, items: WorkersRealTimeStatisticsPage) => any): Promise<WorkersRealTimeStatisticsPage>;
-  page(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -200,7 +78,7 @@ export function WorkersRealTimeStatisticsListInstance(version: V1, workspaceSid:
   instance._solution = { workspaceSid };
   instance._uri = `/Workspaces/${workspaceSid}/Workers/RealTimeStatistics`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<WorkersRealTimeStatisticsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -211,32 +89,20 @@ export function WorkersRealTimeStatisticsListInstance(version: V1, workspaceSid:
     const data: any = {};
 
     if (params.taskChannel !== undefined) data['TaskChannel'] = params.taskChannel;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new WorkersRealTimeStatisticsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new WorkersRealTimeStatisticsInstance(operationVersion, payload, this._solution.workspaceSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkersRealTimeStatisticsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new WorkersRealTimeStatisticsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -248,4 +114,68 @@ export function WorkersRealTimeStatisticsListInstance(version: V1, workspaceSid:
 
   return instance;
 }
+
+interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsResource{
+}
+
+interface WorkersRealTimeStatisticsResource {
+  account_sid?: string | null;
+  activity_statistics?: Array<any> | null;
+  total_workers?: number | null;
+  workspace_sid?: string | null;
+  url?: string | null;
+}
+
+export class WorkersRealTimeStatisticsInstance {
+
+  constructor(protected _version: V1, payload: WorkersRealTimeStatisticsPayload, workspaceSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.activityStatistics = payload.activity_statistics;
+    this.totalWorkers = deserialize.integer(payload.total_workers);
+    this.workspaceSid = payload.workspace_sid;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The number of current Workers by Activity
+   */
+  activityStatistics?: Array<any> | null;
+  /**
+   * The total number of Workers
+   */
+  totalWorkers?: number | null;
+  /**
+   * The SID of the Workspace that contains the Workers
+   */
+  workspaceSid?: string | null;
+  /**
+   * The absolute URL of the Workers statistics resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      activityStatistics: this.activityStatistics, 
+      totalWorkers: this.totalWorkers, 
+      workspaceSid: this.workspaceSid, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

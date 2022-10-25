@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type ServiceUserConversationState = 'inactive'|'active'|'closed';
 
 type ServiceUserConversationNotificationLevel = 'default'|'muted';
@@ -162,7 +164,6 @@ export class UserConversationContextImpl implements UserConversationContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<UserConversationInstance> {
@@ -175,7 +176,6 @@ export class UserConversationContextImpl implements UserConversationContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -205,7 +205,6 @@ export class UserConversationContextImpl implements UserConversationContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -423,38 +422,6 @@ export class UserConversationInstance {
   }
 }
 
-export class UserConversationPage extends Page<V1, UserConversationPayload, UserConversationResource, UserConversationInstance> {
-  /**
-   * Initialize the UserConversationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: UserConversationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of UserConversationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UserConversationPayload): UserConversationInstance {
-    return new UserConversationInstance(
-      this._version,
-      payload,
-      this._solution.chatServiceSid,
-      this._solution.userSid,
-      this._solution.conversationSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface UserConversationListInstance {
   (conversationSid: string): UserConversationContext;
@@ -631,7 +598,6 @@ export function UserConversationListInstance(version: V1, chatServiceSid: string
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -642,4 +608,36 @@ export function UserConversationListInstance(version: V1, chatServiceSid: string
 
   return instance;
 }
+
+
+export class UserConversationPage extends Page<V1, UserConversationPayload, UserConversationResource, UserConversationInstance> {
+/**
+* Initialize the UserConversationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: UserConversationSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of UserConversationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: UserConversationPayload): UserConversationInstance {
+    return new UserConversationInstance(
+    this._version,
+    payload,
+        this._solution.chatServiceSid,
+        this._solution.userSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

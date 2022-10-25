@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
+
 
 type UserStateType = 'active'|'deactivated';
 
@@ -104,7 +104,6 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<UserInstance> {
@@ -135,7 +134,6 @@ export class UserContextImpl implements UserContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -152,7 +150,7 @@ export class UserContextImpl implements UserContext {
   }
 }
 
-interface UserPayload extends UserResource, Page.TwilioResponsePayload {
+interface UserPayload extends UserResource{
 }
 
 interface UserResource {
@@ -268,36 +266,6 @@ export class UserInstance {
   }
 }
 
-export class UserPage extends Page<V1, UserPayload, UserResource, UserInstance> {
-  /**
-   * Initialize the UserPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: UserSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of UserInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UserPayload): UserInstance {
-    return new UserInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface UserListInstance {
   (sid: string): UserContext;
@@ -343,4 +311,6 @@ export function UserListInstance(version: V1): UserListInstance {
 
   return instance;
 }
+
+
 

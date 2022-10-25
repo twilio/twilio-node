@@ -21,6 +21,8 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a DeviceInstance
  *
@@ -148,7 +150,6 @@ export class DeviceContextImpl implements DeviceContext {
     return operationPromise;
 
 
-
   }
 
   update(params?: any, callback?: any): Promise<DeviceInstance> {
@@ -176,7 +177,6 @@ export class DeviceContextImpl implements DeviceContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -317,36 +317,6 @@ export class DeviceInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class DevicePage extends Page<V1, DevicePayload, DeviceResource, DeviceInstance> {
-  /**
-   * Initialize the DevicePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: DeviceSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of DeviceInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DevicePayload): DeviceInstance {
-    return new DeviceInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -525,7 +495,6 @@ export function DeviceListInstance(version: V1): DeviceListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -536,4 +505,34 @@ export function DeviceListInstance(version: V1): DeviceListInstance {
 
   return instance;
 }
+
+
+export class DevicePage extends Page<V1, DevicePayload, DeviceResource, DeviceInstance> {
+/**
+* Initialize the DevicePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: DeviceSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of DeviceInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: DevicePayload): DeviceInstance {
+    return new DeviceInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

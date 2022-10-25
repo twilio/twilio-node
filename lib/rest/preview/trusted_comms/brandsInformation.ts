@@ -14,165 +14,43 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import TrustedComms from "../TrustedComms";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-/**
- * Options to pass to each
- *
- * @property { string } [ifNoneMatch] Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface BrandsInformationListInstanceEachOptions {
-  ifNoneMatch?: string;
-  callback?: (item: BrandsInformationInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
+
 
 /**
- * Options to pass to list
+ * Options to pass to fetch a BrandsInformationInstance
  *
  * @property { string } [ifNoneMatch] Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface BrandsInformationListInstanceOptions {
+export interface BrandsInformationListInstanceFetchOptions {
   ifNoneMatch?: string;
-  limit?: number;
 }
-
-/**
- * Options to pass to page
- *
- * @property { string } [ifNoneMatch] Standard &#x60;If-None-Match&#x60; HTTP header. For more information visit: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface BrandsInformationListInstancePageOptions {
-  ifNoneMatch?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface BrandsInformationListInstance {
 
 
+  /**
+   * Fetch a BrandsInformationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BrandsInformationInstance
+   */
+  fetch(callback?: (error: Error | null, item?: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
+  /**
+   * Fetch a BrandsInformationInstance
+   *
+   * @param { BrandsInformationListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BrandsInformationInstance
+   */
+  fetch(params: BrandsInformationListInstanceFetchOptions, callback?: (error: Error | null, item?: BrandsInformationInstance) => any): Promise<BrandsInformationInstance>;
+  fetch(params?: any, callback?: any): Promise<BrandsInformationInstance>
 
-  /**
-   * Streams BrandsInformationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: BrandsInformationInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams BrandsInformationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BrandsInformationListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: BrandsInformationListInstanceEachOptions, callback?: (item: BrandsInformationInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of BrandsInformationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: BrandsInformationPage) => any): Promise<BrandsInformationPage>;
-  /**
-   * Retrieve a single target page of BrandsInformationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BrandsInformationPage) => any): Promise<BrandsInformationPage>;
-  getPage(params?: any, callback?: any): Promise<BrandsInformationPage>;
-  /**
-   * Lists BrandsInformationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: BrandsInformationInstance[]) => any): Promise<BrandsInformationInstance[]>;
-  /**
-   * Lists BrandsInformationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BrandsInformationListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: BrandsInformationListInstanceOptions, callback?: (error: Error | null, items: BrandsInformationInstance[]) => any): Promise<BrandsInformationInstance[]>;
-  list(params?: any, callback?: any): Promise<BrandsInformationInstance[]>;
-  /**
-   * Retrieve a single page of BrandsInformationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: BrandsInformationPage) => any): Promise<BrandsInformationPage>;
-  /**
-   * Retrieve a single page of BrandsInformationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BrandsInformationListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: BrandsInformationListInstancePageOptions, callback?: (error: Error | null, items: BrandsInformationPage) => any): Promise<BrandsInformationPage>;
-  page(params?: any, callback?: any): Promise<BrandsInformationPage>;
 
   /**
    * Provide a user-friendly representation
@@ -199,7 +77,7 @@ export function BrandsInformationListInstance(version: TrustedComms): BrandsInfo
   instance._solution = {  };
   instance._uri = `/BrandsInformation`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<BrandsInformationPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<BrandsInformationInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -209,33 +87,21 @@ export function BrandsInformationListInstance(version: TrustedComms): BrandsInfo
 
     const data: any = {};
 
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
     if (params.ifNoneMatch !== undefined) headers['If-None-Match'] = params.ifNoneMatch;
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new BrandsInformationPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new BrandsInformationInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BrandsInformationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new BrandsInformationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -247,4 +113,61 @@ export function BrandsInformationListInstance(version: TrustedComms): BrandsInfo
 
   return instance;
 }
+
+interface BrandsInformationPayload extends BrandsInformationResource{
+}
+
+interface BrandsInformationResource {
+  update_time?: Date | null;
+  file_link?: string | null;
+  file_link_ttl_in_seconds?: string | null;
+  url?: string | null;
+}
+
+export class BrandsInformationInstance {
+
+  constructor(protected _version: TrustedComms, payload: BrandsInformationPayload) {
+    this.updateTime = deserialize.iso8601DateTime(payload.update_time);
+    this.fileLink = payload.file_link;
+    this.fileLinkTtlInSeconds = payload.file_link_ttl_in_seconds;
+    this.url = payload.url;
+
+  }
+
+  /**
+   * Creation time of the information retrieved
+   */
+  updateTime?: Date | null;
+  /**
+   * The URL to the brands information
+   */
+  fileLink?: string | null;
+  /**
+   * How long will be the `file_link` valid
+   */
+  fileLinkTtlInSeconds?: string | null;
+  /**
+   * The URL of this resource
+   */
+  url?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      updateTime: this.updateTime, 
+      fileLink: this.fileLink, 
+      fileLinkTtlInSeconds: this.fileLinkTtlInSeconds, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

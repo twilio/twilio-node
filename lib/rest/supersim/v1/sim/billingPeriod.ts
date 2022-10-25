@@ -20,6 +20,51 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+export class SupersimV1SimBillingPeriod {
+  /**
+   * The SID of the Billing Period
+   */
+  "sid"?: string | null;
+  /**
+   * The SID of the Account the Super SIM belongs to
+   */
+  "accountSid"?: string | null;
+  /**
+   * The SID of the Super SIM the Billing Period belongs to
+   */
+  "simSid"?: string | null;
+  /**
+   * The start time of the Billing Period
+   */
+  "startTime"?: Date | null;
+  /**
+   * The end time of the Billing Period
+   */
+  "endTime"?: Date | null;
+  "periodType"?: BillingPeriodEnumBpType;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was created
+   */
+  "dateCreated"?: Date | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was last updated
+   */
+  "dateUpdated"?: Date | null;
+}
+
+
+export class ListBillingPeriodResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 /**
  * Options to pass to each
  *
@@ -237,7 +282,6 @@ export function BillingPeriodListInstance(version: V1, simSid: string): BillingP
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -248,4 +292,70 @@ export function BillingPeriodListInstance(version: V1, simSid: string): BillingP
 
   return instance;
 }
+
+interface BillingPeriodPayload extends BillingPeriodResource, Page.TwilioResponsePayload {
+}
+
+interface BillingPeriodResource {
+  billing_periods?: Array<SupersimV1SimBillingPeriod>;
+  meta?: ListBillingPeriodResponseMeta;
+}
+
+export class BillingPeriodInstance {
+
+  constructor(protected _version: V1, payload: BillingPeriodPayload, simSid?: string) {
+    this.billingPeriods = payload.billing_periods;
+    this.meta = payload.meta;
+
+  }
+
+  billingPeriods?: Array<SupersimV1SimBillingPeriod>;
+  meta?: ListBillingPeriodResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      billingPeriods: this.billingPeriods, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class BillingPeriodPage extends Page<V1, BillingPeriodPayload, BillingPeriodResource, BillingPeriodInstance> {
+/**
+* Initialize the BillingPeriodPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: BillingPeriodSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of BillingPeriodInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BillingPeriodPayload): BillingPeriodInstance {
+    return new BillingPeriodInstance(
+    this._version,
+    payload,
+        this._solution.simSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

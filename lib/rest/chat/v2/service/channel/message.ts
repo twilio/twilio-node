@@ -20,6 +20,8 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type MessageWebhookEnabledType = 'true'|'false';
 
 type MessageOrderType = 'asc'|'desc';
@@ -322,7 +324,6 @@ export function MessageListInstance(version: V2, serviceSid: string, channelSid:
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<MessagePage> {
@@ -361,7 +362,6 @@ export function MessageListInstance(version: V2, serviceSid: string, channelSid:
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -474,7 +474,6 @@ export class MessageContextImpl implements MessageContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<MessageInstance> {
@@ -487,7 +486,6 @@ export class MessageContextImpl implements MessageContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -521,7 +519,6 @@ export class MessageContextImpl implements MessageContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -745,34 +742,34 @@ export class MessageInstance {
 }
 
 export class MessagePage extends Page<V2, MessagePayload, MessageResource, MessageInstance> {
-  /**
-   * Initialize the MessagePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: MessageSolution) {
+/**
+* Initialize the MessagePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: MessageSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MessageInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MessagePayload): MessageInstance {
+    /**
+    * Build an instance of MessageInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MessagePayload): MessageInstance {
     return new MessageInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.channelSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.channelSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

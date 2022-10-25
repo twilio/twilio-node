@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
 
 
 /**
@@ -55,107 +54,15 @@ export interface CompositionSettingsListInstance {
   create(params: any, callback?: any): Promise<CompositionSettingsInstance>
 
 
+  /**
+   * Fetch a CompositionSettingsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CompositionSettingsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>
 
-  /**
-   * Streams CompositionSettingsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: CompositionSettingsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams CompositionSettingsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CompositionSettingsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: CompositionSettingsListInstanceEachOptions, callback?: (item: CompositionSettingsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of CompositionSettingsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: CompositionSettingsPage) => any): Promise<CompositionSettingsPage>;
-  /**
-   * Retrieve a single target page of CompositionSettingsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CompositionSettingsPage) => any): Promise<CompositionSettingsPage>;
-  getPage(params?: any, callback?: any): Promise<CompositionSettingsPage>;
-  /**
-   * Lists CompositionSettingsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: CompositionSettingsInstance[]) => any): Promise<CompositionSettingsInstance[]>;
-  /**
-   * Lists CompositionSettingsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CompositionSettingsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: CompositionSettingsListInstanceOptions, callback?: (error: Error | null, items: CompositionSettingsInstance[]) => any): Promise<CompositionSettingsInstance[]>;
-  list(params?: any, callback?: any): Promise<CompositionSettingsInstance[]>;
-  /**
-   * Retrieve a single page of CompositionSettingsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: CompositionSettingsPage) => any): Promise<CompositionSettingsPage>;
-  /**
-   * Retrieve a single page of CompositionSettingsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CompositionSettingsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: CompositionSettingsListInstancePageOptions, callback?: (error: Error | null, items: CompositionSettingsPage) => any): Promise<CompositionSettingsPage>;
-  page(params?: any, callback?: any): Promise<CompositionSettingsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -213,32 +120,21 @@ export function CompositionSettingsListInstance(version: V1): CompositionSetting
     return operationPromise;
 
 
-
     }
 
-  instance.page = function page(callback?: any): Promise<CompositionSettingsPage> {
+  instance.fetch = function fetch(callback?: any): Promise<CompositionSettingsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new CompositionSettingsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new CompositionSettingsInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CompositionSettingsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new CompositionSettingsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -251,7 +147,7 @@ export function CompositionSettingsListInstance(version: V1): CompositionSetting
   return instance;
 }
 
-interface CompositionSettingsPayload extends CompositionSettingsResource, Page.TwilioResponsePayload {
+interface CompositionSettingsPayload extends CompositionSettingsResource{
 }
 
 interface CompositionSettingsResource {
@@ -335,32 +231,4 @@ export class CompositionSettingsInstance {
   }
 }
 
-export class CompositionSettingsPage extends Page<V1, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsInstance> {
-  /**
-   * Initialize the CompositionSettingsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: CompositionSettingsSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of CompositionSettingsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: CompositionSettingsPayload): CompositionSettingsInstance {
-    return new CompositionSettingsInstance(
-      this._version,
-      payload,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

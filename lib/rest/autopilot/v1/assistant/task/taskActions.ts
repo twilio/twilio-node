@@ -14,145 +14,52 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+
 /**
- * Options to pass to create a TaskActionsInstance
+ * Options to pass to update a TaskActionsInstance
  *
  * @property { any } [actions] The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
  */
-export interface TaskActionsListInstanceCreateOptions {
+export interface TaskActionsListInstanceUpdateOptions {
   actions?: any;
 }
 
 export interface TaskActionsListInstance {
 
 
-
   /**
-   * Streams TaskActionsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: TaskActionsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams TaskActionsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskActionsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: TaskActionsListInstanceEachOptions, callback?: (item: TaskActionsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of TaskActionsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: TaskActionsPage) => any): Promise<TaskActionsPage>;
-  /**
-   * Retrieve a single target page of TaskActionsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskActionsPage) => any): Promise<TaskActionsPage>;
-  getPage(params?: any, callback?: any): Promise<TaskActionsPage>;
-  /**
-   * Lists TaskActionsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: TaskActionsInstance[]) => any): Promise<TaskActionsInstance[]>;
-  /**
-   * Lists TaskActionsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskActionsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: TaskActionsListInstanceOptions, callback?: (error: Error | null, items: TaskActionsInstance[]) => any): Promise<TaskActionsInstance[]>;
-  list(params?: any, callback?: any): Promise<TaskActionsInstance[]>;
-  /**
-   * Retrieve a single page of TaskActionsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: TaskActionsPage) => any): Promise<TaskActionsPage>;
-  /**
-   * Retrieve a single page of TaskActionsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TaskActionsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: TaskActionsListInstancePageOptions, callback?: (error: Error | null, items: TaskActionsPage) => any): Promise<TaskActionsPage>;
-  page(params?: any, callback?: any): Promise<TaskActionsPage>;
-
-  /**
-   * Create a TaskActionsInstance
+   * Fetch a TaskActionsInstance
    *
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  create(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
+  fetch(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>
+
+
   /**
-   * Create a TaskActionsInstance
+   * Update a TaskActionsInstance
    *
-   * @param { TaskActionsListInstanceCreateOptions } params - Parameter for request
    * @param { function } [callback] - Callback to handle processed record
    *
    * @returns { Promise } Resolves to processed TaskActionsInstance
    */
-  create(params: TaskActionsListInstanceCreateOptions, callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
-  create(params?: any, callback?: any): Promise<TaskActionsInstance>
+  update(callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
+  /**
+   * Update a TaskActionsInstance
+   *
+   * @param { TaskActionsListInstanceUpdateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TaskActionsInstance
+   */
+  update(params: TaskActionsListInstanceUpdateOptions, callback?: (error: Error | null, item?: TaskActionsInstance) => any): Promise<TaskActionsInstance>;
+  update(params?: any, callback?: any): Promise<TaskActionsInstance>
 
 
   /**
@@ -182,31 +89,21 @@ export function TaskActionsListInstance(version: V1, assistantSid: string, taskS
   instance._solution = { assistantSid, taskSid };
   instance._uri = `/Assistants/${assistantSid}/Tasks/${taskSid}/Actions`;
 
-  instance.page = function page(callback?: any): Promise<TaskActionsPage> {
+  instance.fetch = function fetch(callback?: any): Promise<TaskActionsInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new TaskActionsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new TaskActionsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TaskActionsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+    }
 
-    operationPromise = operationPromise.then(payload => new TaskActionsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-
-  instance.create = function create(params?: any, callback?: any): Promise<TaskActionsInstance> {
+  instance.update = function update(params?: any, callback?: any): Promise<TaskActionsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -222,14 +119,13 @@ export function TaskActionsListInstance(version: V1, assistantSid: string, taskS
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskActionsInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
     
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
     }
@@ -245,7 +141,7 @@ export function TaskActionsListInstance(version: V1, assistantSid: string, taskS
   return instance;
 }
 
-interface TaskActionsPayload extends TaskActionsResource, Page.TwilioResponsePayload {
+interface TaskActionsPayload extends TaskActionsResource{
 }
 
 interface TaskActionsResource {
@@ -308,34 +204,4 @@ export class TaskActionsInstance {
   }
 }
 
-export class TaskActionsPage extends Page<V1, TaskActionsPayload, TaskActionsResource, TaskActionsInstance> {
-  /**
-   * Initialize the TaskActionsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: TaskActionsSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of TaskActionsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TaskActionsPayload): TaskActionsInstance {
-    return new TaskActionsInstance(
-      this._version,
-      payload,
-      this._solution.assistantSid,
-      this._solution.taskSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

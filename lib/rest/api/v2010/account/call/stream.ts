@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../../base/Page";
-import Response from "../../../../../http/response";
 import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
+
+
 
 type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
@@ -513,7 +513,6 @@ export class StreamContextImpl implements StreamContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -530,7 +529,7 @@ export class StreamContextImpl implements StreamContext {
   }
 }
 
-interface StreamPayload extends StreamResource, Page.TwilioResponsePayload {
+interface StreamPayload extends StreamResource{
 }
 
 interface StreamResource {
@@ -622,38 +621,6 @@ export class StreamInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class StreamPage extends Page<V2010, StreamPayload, StreamResource, StreamInstance> {
-  /**
-   * Initialize the StreamPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: StreamSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of StreamInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: StreamPayload): StreamInstance {
-    return new StreamInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.callSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -935,7 +902,6 @@ export function StreamListInstance(version: V2010, accountSid: string, callSid: 
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -948,4 +914,6 @@ export function StreamListInstance(version: V2010, accountSid: string, callSid: 
 
   return instance;
 }
+
+
 

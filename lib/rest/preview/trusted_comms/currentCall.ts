@@ -14,171 +14,45 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import TrustedComms from "../TrustedComms";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 /**
- * Options to pass to each
+ * Options to pass to fetch a CurrentCallInstance
  *
  * @property { string } [xXcnamSensitivePhoneNumberFrom] The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400.
  * @property { string } [xXcnamSensitivePhoneNumberTo] The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
  */
-export interface CurrentCallListInstanceEachOptions {
+export interface CurrentCallListInstanceFetchOptions {
   xXcnamSensitivePhoneNumberFrom?: string;
   xXcnamSensitivePhoneNumberTo?: string;
-  callback?: (item: CurrentCallInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
 }
-
-/**
- * Options to pass to list
- *
- * @property { string } [xXcnamSensitivePhoneNumberFrom] The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400.
- * @property { string } [xXcnamSensitivePhoneNumberTo] The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface CurrentCallListInstanceOptions {
-  xXcnamSensitivePhoneNumberFrom?: string;
-  xXcnamSensitivePhoneNumberTo?: string;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { string } [xXcnamSensitivePhoneNumberFrom] The originating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164). This phone number should be a Twilio number, otherwise it will return an error with HTTP Status Code 400.
- * @property { string } [xXcnamSensitivePhoneNumberTo] The terminating Phone Number, given in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface CurrentCallListInstancePageOptions {
-  xXcnamSensitivePhoneNumberFrom?: string;
-  xXcnamSensitivePhoneNumberTo?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface CurrentCallListInstance {
 
 
+  /**
+   * Fetch a CurrentCallInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CurrentCallInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  /**
+   * Fetch a CurrentCallInstance
+   *
+   * @param { CurrentCallListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CurrentCallInstance
+   */
+  fetch(params: CurrentCallListInstanceFetchOptions, callback?: (error: Error | null, item?: CurrentCallInstance) => any): Promise<CurrentCallInstance>;
+  fetch(params?: any, callback?: any): Promise<CurrentCallInstance>
 
-  /**
-   * Streams CurrentCallInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: CurrentCallInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams CurrentCallInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CurrentCallListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: CurrentCallListInstanceEachOptions, callback?: (item: CurrentCallInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of CurrentCallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: CurrentCallPage) => any): Promise<CurrentCallPage>;
-  /**
-   * Retrieve a single target page of CurrentCallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CurrentCallPage) => any): Promise<CurrentCallPage>;
-  getPage(params?: any, callback?: any): Promise<CurrentCallPage>;
-  /**
-   * Lists CurrentCallInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: CurrentCallInstance[]) => any): Promise<CurrentCallInstance[]>;
-  /**
-   * Lists CurrentCallInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CurrentCallListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: CurrentCallListInstanceOptions, callback?: (error: Error | null, items: CurrentCallInstance[]) => any): Promise<CurrentCallInstance[]>;
-  list(params?: any, callback?: any): Promise<CurrentCallInstance[]>;
-  /**
-   * Retrieve a single page of CurrentCallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: CurrentCallPage) => any): Promise<CurrentCallPage>;
-  /**
-   * Retrieve a single page of CurrentCallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CurrentCallListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: CurrentCallListInstancePageOptions, callback?: (error: Error | null, items: CurrentCallPage) => any): Promise<CurrentCallPage>;
-  page(params?: any, callback?: any): Promise<CurrentCallPage>;
 
   /**
    * Provide a user-friendly representation
@@ -205,7 +79,7 @@ export function CurrentCallListInstance(version: TrustedComms): CurrentCallListI
   instance._solution = {  };
   instance._uri = `/CurrentCall`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<CurrentCallPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<CurrentCallInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -215,34 +89,22 @@ export function CurrentCallListInstance(version: TrustedComms): CurrentCallListI
 
     const data: any = {};
 
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
     if (params.xXcnamSensitivePhoneNumberFrom !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-From'] = params.xXcnamSensitivePhoneNumberFrom;
     if (params.xXcnamSensitivePhoneNumberTo !== undefined) headers['X-Xcnam-Sensitive-Phone-Number-To'] = params.xXcnamSensitivePhoneNumberTo;
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new CurrentCallPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new CurrentCallInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CurrentCallPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new CurrentCallPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -254,4 +116,131 @@ export function CurrentCallListInstance(version: TrustedComms): CurrentCallListI
 
   return instance;
 }
+
+interface CurrentCallPayload extends CurrentCallResource{
+}
+
+interface CurrentCallResource {
+  bg_color?: string | null;
+  caller?: string | null;
+  created_at?: Date | null;
+  font_color?: string | null;
+  from?: string | null;
+  logo?: string | null;
+  manager?: string | null;
+  reason?: string | null;
+  shield_img?: string | null;
+  sid?: string | null;
+  status?: string | null;
+  to?: string | null;
+  url?: string | null;
+  use_case?: string | null;
+}
+
+export class CurrentCallInstance {
+
+  constructor(protected _version: TrustedComms, payload: CurrentCallPayload) {
+    this.bgColor = payload.bg_color;
+    this.caller = payload.caller;
+    this.createdAt = deserialize.iso8601DateTime(payload.created_at);
+    this.fontColor = payload.font_color;
+    this.from = payload.from;
+    this.logo = payload.logo;
+    this.manager = payload.manager;
+    this.reason = payload.reason;
+    this.shieldImg = payload.shield_img;
+    this.sid = payload.sid;
+    this.status = payload.status;
+    this.to = payload.to;
+    this.url = payload.url;
+    this.useCase = payload.use_case;
+
+  }
+
+  /**
+   * Background color of the current phone call
+   */
+  bgColor?: string | null;
+  /**
+   * Caller name of the current phone call
+   */
+  caller?: string | null;
+  /**
+   * The date this current phone call was created
+   */
+  createdAt?: Date | null;
+  /**
+   * Font color of the current phone call
+   */
+  fontColor?: string | null;
+  /**
+   * The originating phone number
+   */
+  from?: string | null;
+  /**
+   * Logo URL of the caller
+   */
+  logo?: string | null;
+  /**
+   * The name of the CPS organization
+   */
+  manager?: string | null;
+  /**
+   * The business reason for this current phone call
+   */
+  reason?: string | null;
+  /**
+   * Shield image URL that serves as authenticity proof of the current phone call
+   */
+  shieldImg?: string | null;
+  /**
+   * A string that uniquely identifies this current branded phone call.
+   */
+  sid?: string | null;
+  /**
+   * The status of the current phone call
+   */
+  status?: string | null;
+  /**
+   * The terminating phone number
+   */
+  to?: string | null;
+  /**
+   * The URL of this resource.
+   */
+  url?: string | null;
+  /**
+   * The use case for the current phone call
+   */
+  useCase?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      bgColor: this.bgColor, 
+      caller: this.caller, 
+      createdAt: this.createdAt, 
+      fontColor: this.fontColor, 
+      from: this.from, 
+      logo: this.logo, 
+      manager: this.manager, 
+      reason: this.reason, 
+      shieldImg: this.shieldImg, 
+      sid: this.sid, 
+      status: this.status, 
+      to: this.to, 
+      url: this.url, 
+      useCase: this.useCase
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

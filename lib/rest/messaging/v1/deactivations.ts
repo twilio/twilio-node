@@ -14,165 +14,43 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-/**
- * Options to pass to each
- *
- * @property { string } [date] The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface DeactivationsListInstanceEachOptions {
-  date?: string;
-  callback?: (item: DeactivationsInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
+
 
 /**
- * Options to pass to list
+ * Options to pass to fetch a DeactivationsInstance
  *
- * @property { string } [date] The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
+ * @property { Date } [date] The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
  */
-export interface DeactivationsListInstanceOptions {
-  date?: string;
-  limit?: number;
+export interface DeactivationsListInstanceFetchOptions {
+  date?: Date;
 }
-
-/**
- * Options to pass to page
- *
- * @property { string } [date] The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface DeactivationsListInstancePageOptions {
-  date?: string;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
-
 
 export interface DeactivationsListInstance {
 
 
+  /**
+   * Fetch a DeactivationsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeactivationsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: DeactivationsInstance) => any): Promise<DeactivationsInstance>;
+  /**
+   * Fetch a DeactivationsInstance
+   *
+   * @param { DeactivationsListInstanceFetchOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeactivationsInstance
+   */
+  fetch(params: DeactivationsListInstanceFetchOptions, callback?: (error: Error | null, item?: DeactivationsInstance) => any): Promise<DeactivationsInstance>;
+  fetch(params?: any, callback?: any): Promise<DeactivationsInstance>
 
-  /**
-   * Streams DeactivationsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: DeactivationsInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams DeactivationsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DeactivationsListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: DeactivationsListInstanceEachOptions, callback?: (item: DeactivationsInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of DeactivationsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: DeactivationsPage) => any): Promise<DeactivationsPage>;
-  /**
-   * Retrieve a single target page of DeactivationsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DeactivationsPage) => any): Promise<DeactivationsPage>;
-  getPage(params?: any, callback?: any): Promise<DeactivationsPage>;
-  /**
-   * Lists DeactivationsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: DeactivationsInstance[]) => any): Promise<DeactivationsInstance[]>;
-  /**
-   * Lists DeactivationsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DeactivationsListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: DeactivationsListInstanceOptions, callback?: (error: Error | null, items: DeactivationsInstance[]) => any): Promise<DeactivationsInstance[]>;
-  list(params?: any, callback?: any): Promise<DeactivationsInstance[]>;
-  /**
-   * Retrieve a single page of DeactivationsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: DeactivationsPage) => any): Promise<DeactivationsPage>;
-  /**
-   * Retrieve a single page of DeactivationsInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DeactivationsListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: DeactivationsListInstancePageOptions, callback?: (error: Error | null, items: DeactivationsPage) => any): Promise<DeactivationsPage>;
-  page(params?: any, callback?: any): Promise<DeactivationsPage>;
 
   /**
    * Provide a user-friendly representation
@@ -199,7 +77,7 @@ export function DeactivationsListInstance(version: V1): DeactivationsListInstanc
   instance._solution = {  };
   instance._uri = `/Deactivations`;
 
-  instance.page = function page(params?: any, callback?: any): Promise<DeactivationsPage> {
+  instance.fetch = function fetch(params?: any, callback?: any): Promise<DeactivationsInstance> {
     if (typeof params === "function") {
       callback = params;
       params = {};
@@ -210,32 +88,20 @@ export function DeactivationsListInstance(version: V1): DeactivationsListInstanc
     const data: any = {};
 
     if (params.date !== undefined) data['Date'] = serialize.iso8601Date(params.date);
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
 
     const headers: any = {};
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get', params: data, headers });
     
-    operationPromise = operationPromise.then(payload => new DeactivationsPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new DeactivationsInstance(operationVersion, payload));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DeactivationsPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new DeactivationsPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -247,4 +113,40 @@ export function DeactivationsListInstance(version: V1): DeactivationsListInstanc
 
   return instance;
 }
+
+interface DeactivationsPayload extends DeactivationsResource{
+}
+
+interface DeactivationsResource {
+  redirect_to?: string | null;
+}
+
+export class DeactivationsInstance {
+
+  constructor(protected _version: V1, payload: DeactivationsPayload) {
+    this.redirectTo = payload.redirect_to;
+
+  }
+
+  /**
+   * Redirect url to the list of deactivated numbers.
+   */
+  redirectTo?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      redirectTo: this.redirectTo
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

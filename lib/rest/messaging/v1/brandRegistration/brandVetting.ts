@@ -20,6 +20,8 @@ import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type BrandVettingVettingProvider = 'campaign-verify';
 
 
@@ -133,7 +135,6 @@ export class BrandVettingContextImpl implements BrandVettingContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -263,37 +264,6 @@ export class BrandVettingInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class BrandVettingPage extends Page<V1, BrandVettingPayload, BrandVettingResource, BrandVettingInstance> {
-  /**
-   * Initialize the BrandVettingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: BrandVettingSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of BrandVettingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BrandVettingPayload): BrandVettingInstance {
-    return new BrandVettingInstance(
-      this._version,
-      payload,
-      this._solution.brandSid,
-      this._solution.brandVettingSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -475,7 +445,6 @@ export function BrandVettingListInstance(version: V1, brandSid: string): BrandVe
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<BrandVettingPage> {
@@ -516,7 +485,6 @@ export function BrandVettingListInstance(version: V1, brandSid: string): BrandVe
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -527,4 +495,35 @@ export function BrandVettingListInstance(version: V1, brandSid: string): BrandVe
 
   return instance;
 }
+
+
+export class BrandVettingPage extends Page<V1, BrandVettingPayload, BrandVettingResource, BrandVettingInstance> {
+/**
+* Initialize the BrandVettingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: BrandVettingSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of BrandVettingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BrandVettingPayload): BrandVettingInstance {
+    return new BrandVettingInstance(
+    this._version,
+    payload,
+        this._solution.brandSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

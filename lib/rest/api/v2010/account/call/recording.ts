@@ -20,6 +20,8 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type CallRecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
 
 type CallRecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent';
@@ -57,9 +59,9 @@ export interface RecordingListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property { string } [dateCreated] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
- * @property { string } [dateCreatedBefore] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
- * @property { string } [dateCreatedAfter] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreated] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreatedBefore] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreatedAfter] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { Function } [callback] -
  *                         Function to process each record. If this and a positional
@@ -71,9 +73,9 @@ export interface RecordingListInstanceCreateOptions {
  *                         Default is no limit
  */
 export interface RecordingListInstanceEachOptions {
-  dateCreated?: string;
-  dateCreatedBefore?: string;
-  dateCreatedAfter?: string;
+  dateCreated?: Date;
+  dateCreatedBefore?: Date;
+  dateCreatedAfter?: Date;
   pageSize?: number;
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
   done?: Function;
@@ -83,9 +85,9 @@ export interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property { string } [dateCreated] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
- * @property { string } [dateCreatedBefore] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
- * @property { string } [dateCreatedAfter] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreated] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreatedBefore] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreatedAfter] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [limit] -
  *                         Upper limit for the number of records to return.
@@ -93,9 +95,9 @@ export interface RecordingListInstanceEachOptions {
  *                         Default is no limit
  */
 export interface RecordingListInstanceOptions {
-  dateCreated?: string;
-  dateCreatedBefore?: string;
-  dateCreatedAfter?: string;
+  dateCreated?: Date;
+  dateCreatedBefore?: Date;
+  dateCreatedAfter?: Date;
   pageSize?: number;
   limit?: number;
 }
@@ -103,17 +105,17 @@ export interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property { string } [dateCreated] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
- * @property { string } [dateCreatedBefore] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
- * @property { string } [dateCreatedAfter] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreated] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreatedBefore] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
+ * @property { Date } [dateCreatedAfter] The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
  * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
  * @property { number } [pageNumber] - Page Number, this value is simply for client state
  * @property { string } [pageToken] - PageToken provided by the API
  */
 export interface RecordingListInstancePageOptions {
-  dateCreated?: string;
-  dateCreatedBefore?: string;
-  dateCreatedAfter?: string;
+  dateCreated?: Date;
+  dateCreatedBefore?: Date;
+  dateCreatedAfter?: Date;
   pageSize?: number;
   pageNumber?: number;
   pageToken?: string;
@@ -189,7 +191,6 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<RecordingInstance> {
@@ -202,7 +203,6 @@ export class RecordingContextImpl implements RecordingContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -232,7 +232,6 @@ export class RecordingContextImpl implements RecordingContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -445,38 +444,6 @@ export class RecordingInstance {
   }
 }
 
-export class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
-  /**
-   * Initialize the RecordingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: RecordingSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of RecordingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RecordingPayload): RecordingInstance {
-    return new RecordingInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.callSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface RecordingListInstance {
   (sid: string): RecordingContext;
@@ -666,7 +633,6 @@ export function RecordingListInstance(version: V2010, accountSid: string, callSi
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<RecordingPage> {
@@ -709,7 +675,6 @@ export function RecordingListInstance(version: V2010, accountSid: string, callSi
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -720,4 +685,36 @@ export function RecordingListInstance(version: V2010, accountSid: string, callSi
 
   return instance;
 }
+
+
+export class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
+/**
+* Initialize the RecordingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: RecordingSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of RecordingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RecordingPayload): RecordingInstance {
+    return new RecordingInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.callSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

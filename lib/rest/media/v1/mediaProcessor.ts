@@ -20,6 +20,8 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+
 type MediaProcessorUpdateStatus = 'ended';
 
 type MediaProcessorOrder = 'asc'|'desc';
@@ -173,7 +175,6 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
     return operationPromise;
 
 
-
   }
 
   update(params: any, callback?: any): Promise<MediaProcessorInstance> {
@@ -200,7 +201,6 @@ export class MediaProcessorContextImpl implements MediaProcessorContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -359,36 +359,6 @@ export class MediaProcessorInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class MediaProcessorPage extends Page<V1, MediaProcessorPayload, MediaProcessorResource, MediaProcessorInstance> {
-  /**
-   * Initialize the MediaProcessorPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: MediaProcessorSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of MediaProcessorInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MediaProcessorPayload): MediaProcessorInstance {
-    return new MediaProcessorInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -577,7 +547,6 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<MediaProcessorPage> {
@@ -619,7 +588,6 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -630,4 +598,34 @@ export function MediaProcessorListInstance(version: V1): MediaProcessorListInsta
 
   return instance;
 }
+
+
+export class MediaProcessorPage extends Page<V1, MediaProcessorPayload, MediaProcessorResource, MediaProcessorInstance> {
+/**
+* Initialize the MediaProcessorPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: MediaProcessorSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of MediaProcessorInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MediaProcessorPayload): MediaProcessorInstance {
+    return new MediaProcessorInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

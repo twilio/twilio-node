@@ -20,6 +20,8 @@ import V2010 from "../../../V2010";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 /**
  * Options to pass to each
  *
@@ -265,7 +267,6 @@ export function MediaListInstance(version: V2010, accountSid: string, messageSid
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -334,7 +335,6 @@ export class MediaContextImpl implements MediaContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<MediaInstance> {
@@ -347,7 +347,6 @@ export class MediaContextImpl implements MediaContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -476,34 +475,34 @@ export class MediaInstance {
 }
 
 export class MediaPage extends Page<V2010, MediaPayload, MediaResource, MediaInstance> {
-  /**
-   * Initialize the MediaPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: MediaSolution) {
+/**
+* Initialize the MediaPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: MediaSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MediaInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MediaPayload): MediaInstance {
+    /**
+    * Build an instance of MediaInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MediaPayload): MediaInstance {
     return new MediaInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.messageSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
+        this._solution.messageSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

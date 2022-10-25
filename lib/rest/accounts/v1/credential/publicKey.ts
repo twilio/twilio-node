@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a PublicKeyInstance
  *
@@ -165,7 +167,6 @@ export class PublicKeyContextImpl implements PublicKeyContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<PublicKeyInstance> {
@@ -178,7 +179,6 @@ export class PublicKeyContextImpl implements PublicKeyContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -206,7 +206,6 @@ export class PublicKeyContextImpl implements PublicKeyContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -345,36 +344,6 @@ export class PublicKeyInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource, PublicKeyInstance> {
-  /**
-   * Initialize the PublicKeyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: PublicKeySolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of PublicKeyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PublicKeyPayload): PublicKeyInstance {
-    return new PublicKeyInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -556,7 +525,6 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<PublicKeyPage> {
@@ -596,7 +564,6 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -607,4 +574,34 @@ export function PublicKeyListInstance(version: V1): PublicKeyListInstance {
 
   return instance;
 }
+
+
+export class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource, PublicKeyInstance> {
+/**
+* Initialize the PublicKeyPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: PublicKeySolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of PublicKeyInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: PublicKeyPayload): PublicKeyInstance {
+    return new PublicKeyInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

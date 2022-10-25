@@ -14,117 +14,24 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
 export interface BalanceListInstance {
 
 
+  /**
+   * Fetch a BalanceInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BalanceInstance
+   */
+  fetch(callback?: (error: Error | null, item?: BalanceInstance) => any): Promise<BalanceInstance>
 
-  /**
-   * Streams BalanceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: BalanceInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams BalanceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BalanceListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: BalanceListInstanceEachOptions, callback?: (item: BalanceInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of BalanceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: BalancePage) => any): Promise<BalancePage>;
-  /**
-   * Retrieve a single target page of BalanceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BalancePage) => any): Promise<BalancePage>;
-  getPage(params?: any, callback?: any): Promise<BalancePage>;
-  /**
-   * Lists BalanceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: BalanceInstance[]) => any): Promise<BalanceInstance[]>;
-  /**
-   * Lists BalanceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BalanceListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: BalanceListInstanceOptions, callback?: (error: Error | null, items: BalanceInstance[]) => any): Promise<BalanceInstance[]>;
-  list(params?: any, callback?: any): Promise<BalanceInstance[]>;
-  /**
-   * Retrieve a single page of BalanceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: BalancePage) => any): Promise<BalancePage>;
-  /**
-   * Retrieve a single page of BalanceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BalanceListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: BalanceListInstancePageOptions, callback?: (error: Error | null, items: BalancePage) => any): Promise<BalancePage>;
-  page(params?: any, callback?: any): Promise<BalancePage>;
 
   /**
    * Provide a user-friendly representation
@@ -152,29 +59,19 @@ export function BalanceListInstance(version: V2010, accountSid: string): Balance
   instance._solution = { accountSid };
   instance._uri = `/Accounts/${accountSid}/Balance.json`;
 
-  instance.page = function page(callback?: any): Promise<BalancePage> {
+  instance.fetch = function fetch(callback?: any): Promise<BalanceInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new BalancePage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new BalanceInstance(operationVersion, payload, this._solution.accountSid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BalancePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new BalancePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -186,4 +83,54 @@ export function BalanceListInstance(version: V2010, accountSid: string): Balance
 
   return instance;
 }
+
+interface BalancePayload extends BalanceResource{
+}
+
+interface BalanceResource {
+  account_sid?: string | null;
+  balance?: string | null;
+  currency?: string | null;
+}
+
+export class BalanceInstance {
+
+  constructor(protected _version: V2010, payload: BalancePayload, accountSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.balance = payload.balance;
+    this.currency = payload.currency;
+
+  }
+
+  /**
+   * Account Sid.
+   */
+  accountSid?: string | null;
+  /**
+   * Account balance
+   */
+  balance?: string | null;
+  /**
+   * Currency units
+   */
+  currency?: string | null;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      balance: this.balance, 
+      currency: this.currency
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 

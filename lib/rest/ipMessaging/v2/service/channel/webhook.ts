@@ -20,6 +20,8 @@ import V2 from "../../../V2";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type ChannelWebhookType = 'webhook'|'trigger'|'studio';
 
 type ChannelWebhookMethod = 'GET'|'POST';
@@ -295,7 +297,6 @@ export function WebhookListInstance(version: V2, serviceSid: string, channelSid:
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<WebhookPage> {
@@ -333,7 +334,6 @@ export function WebhookListInstance(version: V2, serviceSid: string, channelSid:
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -424,7 +424,6 @@ export class WebhookContextImpl implements WebhookContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<WebhookInstance> {
@@ -437,7 +436,6 @@ export class WebhookContextImpl implements WebhookContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -470,7 +468,6 @@ export class WebhookContextImpl implements WebhookContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -608,34 +605,34 @@ export class WebhookInstance {
 }
 
 export class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
-  /**
-   * Initialize the WebhookPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: WebhookSolution) {
+/**
+* Initialize the WebhookPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: WebhookSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of WebhookInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: WebhookPayload): WebhookInstance {
+    /**
+    * Build an instance of WebhookInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: WebhookPayload): WebhookInstance {
     return new WebhookInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.channelSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.serviceSid,
+        this._solution.channelSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

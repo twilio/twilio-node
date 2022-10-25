@@ -14,11 +14,11 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../base/Page";
-import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
+
+
 
 export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
   "originationPrefixes"?: Array<string>;
@@ -163,7 +163,6 @@ export class NumberContextImpl implements NumberContext {
     return operationPromise;
 
 
-
   }
 
   /**
@@ -180,7 +179,7 @@ export class NumberContextImpl implements NumberContext {
   }
 }
 
-interface NumberPayload extends NumberResource, Page.TwilioResponsePayload {
+interface NumberPayload extends NumberResource{
 }
 
 interface NumberResource {
@@ -288,33 +287,5 @@ export class NumberInstance {
   }
 }
 
-export class NumberPage extends Page<V2, NumberPayload, NumberResource, NumberInstance> {
-  /**
-   * Initialize the NumberPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: NumberSolution) {
-    super(version, response, solution);
-  }
 
-  /**
-   * Build an instance of NumberInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NumberPayload): NumberInstance {
-    return new NumberInstance(
-      this._version,
-      payload,
-      this._solution.destinationNumber,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

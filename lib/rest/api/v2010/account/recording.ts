@@ -19,8 +19,10 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { AddOnResultListInstance } from "./recording/addOnResult";
 import { TranscriptionListInstance } from "./recording/transcription";
+
 
 type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
 
@@ -300,7 +302,6 @@ export function RecordingListInstance(version: V2010, accountSid: string): Recor
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -392,7 +393,6 @@ export class RecordingContextImpl implements RecordingContext {
     return operationPromise;
 
 
-
   }
 
   fetch(params?: any, callback?: any): Promise<RecordingInstance> {
@@ -417,7 +417,6 @@ export class RecordingContextImpl implements RecordingContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -648,33 +647,33 @@ export class RecordingInstance {
 }
 
 export class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
-  /**
-   * Initialize the RecordingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: RecordingSolution) {
+/**
+* Initialize the RecordingPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: RecordingSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of RecordingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RecordingPayload): RecordingInstance {
+    /**
+    * Build an instance of RecordingInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RecordingPayload): RecordingInstance {
     return new RecordingInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

@@ -20,6 +20,8 @@ import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type AuthorizedConnectAppPermission = 'get-all'|'post-all';
 
 /**
@@ -245,7 +247,6 @@ export function AuthorizedConnectAppListInstance(version: V2010, accountSid: str
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -303,7 +304,6 @@ export class AuthorizedConnectAppContextImpl implements AuthorizedConnectAppCont
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -441,33 +441,33 @@ export class AuthorizedConnectAppInstance {
 }
 
 export class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppInstance> {
-  /**
-   * Initialize the AuthorizedConnectAppPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: AuthorizedConnectAppSolution) {
+/**
+* Initialize the AuthorizedConnectAppPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AuthorizedConnectAppSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of AuthorizedConnectAppInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AuthorizedConnectAppPayload): AuthorizedConnectAppInstance {
+    /**
+    * Build an instance of AuthorizedConnectAppInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AuthorizedConnectAppPayload): AuthorizedConnectAppInstance {
     return new AuthorizedConnectAppInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.connectAppSid,
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

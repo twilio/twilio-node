@@ -22,6 +22,8 @@ const serialize = require("../../../../base/serialize");
 import { DependentPhoneNumberListInstance } from "./address/dependentPhoneNumber";
 
 
+
+
 /**
  * Options to pass to update a AddressInstance
  *
@@ -218,7 +220,6 @@ export class AddressContextImpl implements AddressContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<AddressInstance> {
@@ -231,7 +232,6 @@ export class AddressContextImpl implements AddressContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -266,7 +266,6 @@ export class AddressContextImpl implements AddressContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -479,37 +478,6 @@ export class AddressInstance {
   }
 }
 
-export class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
-  /**
-   * Initialize the AddressPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: AddressSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of AddressInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: AddressPayload): AddressInstance {
-    return new AddressInstance(
-      this._version,
-      payload,
-      this._solution.accountSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 
 export interface AddressListInstance {
   (sid: string): AddressContext;
@@ -714,7 +682,6 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<AddressPage> {
@@ -757,7 +724,6 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -768,4 +734,35 @@ export function AddressListInstance(version: V2010, accountSid: string): Address
 
   return instance;
 }
+
+
+export class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
+/**
+* Initialize the AddressPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: AddressSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of AddressInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: AddressPayload): AddressInstance {
+    return new AddressInstance(
+    this._version,
+    payload,
+        this._solution.accountSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

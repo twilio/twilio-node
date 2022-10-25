@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 
 /**
@@ -55,107 +54,15 @@ export interface PlaybackGrantListInstance {
   create(params?: any, callback?: any): Promise<PlaybackGrantInstance>
 
 
+  /**
+   * Fetch a PlaybackGrantInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PlaybackGrantInstance
+   */
+  fetch(callback?: (error: Error | null, item?: PlaybackGrantInstance) => any): Promise<PlaybackGrantInstance>
 
-  /**
-   * Streams PlaybackGrantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: PlaybackGrantInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams PlaybackGrantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { PlaybackGrantListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: PlaybackGrantListInstanceEachOptions, callback?: (item: PlaybackGrantInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of PlaybackGrantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: PlaybackGrantPage) => any): Promise<PlaybackGrantPage>;
-  /**
-   * Retrieve a single target page of PlaybackGrantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: PlaybackGrantPage) => any): Promise<PlaybackGrantPage>;
-  getPage(params?: any, callback?: any): Promise<PlaybackGrantPage>;
-  /**
-   * Lists PlaybackGrantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: PlaybackGrantInstance[]) => any): Promise<PlaybackGrantInstance[]>;
-  /**
-   * Lists PlaybackGrantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { PlaybackGrantListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: PlaybackGrantListInstanceOptions, callback?: (error: Error | null, items: PlaybackGrantInstance[]) => any): Promise<PlaybackGrantInstance[]>;
-  list(params?: any, callback?: any): Promise<PlaybackGrantInstance[]>;
-  /**
-   * Retrieve a single page of PlaybackGrantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: PlaybackGrantPage) => any): Promise<PlaybackGrantPage>;
-  /**
-   * Retrieve a single page of PlaybackGrantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { PlaybackGrantListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: PlaybackGrantListInstancePageOptions, callback?: (error: Error | null, items: PlaybackGrantPage) => any): Promise<PlaybackGrantPage>;
-  page(params?: any, callback?: any): Promise<PlaybackGrantPage>;
 
   /**
    * Provide a user-friendly representation
@@ -209,32 +116,21 @@ export function PlaybackGrantListInstance(version: V1, sid: string): PlaybackGra
     return operationPromise;
 
 
-
     }
 
-  instance.page = function page(callback?: any): Promise<PlaybackGrantPage> {
+  instance.fetch = function fetch(callback?: any): Promise<PlaybackGrantInstance> {
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get' });
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
     
-    operationPromise = operationPromise.then(payload => new PlaybackGrantPage(operationVersion, payload, this._solution));
+    operationPromise = operationPromise.then(payload => new PlaybackGrantInstance(operationVersion, payload, this._solution.sid));
+    
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
 
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
 
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PlaybackGrantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new PlaybackGrantPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
+    }
 
   instance.toJSON = function toJSON() {
     return this._solution;
@@ -247,7 +143,7 @@ export function PlaybackGrantListInstance(version: V1, sid: string): PlaybackGra
   return instance;
 }
 
-interface PlaybackGrantPayload extends PlaybackGrantResource, Page.TwilioResponsePayload {
+interface PlaybackGrantPayload extends PlaybackGrantResource{
 }
 
 interface PlaybackGrantResource {
@@ -310,33 +206,4 @@ export class PlaybackGrantInstance {
   }
 }
 
-export class PlaybackGrantPage extends Page<V1, PlaybackGrantPayload, PlaybackGrantResource, PlaybackGrantInstance> {
-  /**
-   * Initialize the PlaybackGrantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: PlaybackGrantSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of PlaybackGrantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PlaybackGrantPayload): PlaybackGrantInstance {
-    return new PlaybackGrantInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 

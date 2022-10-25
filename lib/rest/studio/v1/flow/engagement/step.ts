@@ -21,6 +21,8 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 import { StepContextListInstance } from "./step/stepContext";
 
+
+
 /**
  * Options to pass to each
  *
@@ -123,7 +125,6 @@ export class StepContextImpl implements StepContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -277,38 +278,6 @@ export class StepInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class StepPage extends Page<V1, StepPayload, StepResource, StepInstance> {
-  /**
-   * Initialize the StepPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: StepSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of StepInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: StepPayload): StepInstance {
-    return new StepInstance(
-      this._version,
-      payload,
-      this._solution.flowSid,
-      this._solution.engagementSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -489,7 +458,6 @@ export function StepListInstance(version: V1, flowSid: string, engagementSid: st
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -500,4 +468,36 @@ export function StepListInstance(version: V1, flowSid: string, engagementSid: st
 
   return instance;
 }
+
+
+export class StepPage extends Page<V1, StepPayload, StepResource, StepInstance> {
+/**
+* Initialize the StepPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: StepSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of StepInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: StepPayload): StepInstance {
+    return new StepInstance(
+    this._version,
+    payload,
+        this._solution.flowSid,
+        this._solution.engagementSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

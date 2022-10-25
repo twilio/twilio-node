@@ -20,6 +20,43 @@ import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
+
+export class InsightsV1CallSummaries {
+  "accountSid"?: string | null;
+  "callSid"?: string | null;
+  "callType"?: CallSummariesEnumCallType;
+  "callState"?: CallSummariesEnumCallState;
+  "processingState"?: CallSummariesEnumProcessingState;
+  "createdTime"?: Date | null;
+  "startTime"?: Date | null;
+  "endTime"?: Date | null;
+  "duration"?: number | null;
+  "connectDuration"?: number | null;
+  "from"?: any | null;
+  "to"?: any | null;
+  "carrierEdge"?: any | null;
+  "clientEdge"?: any | null;
+  "sdkEdge"?: any | null;
+  "sipEdge"?: any | null;
+  "tags"?: Array<string> | null;
+  "url"?: string | null;
+  "attributes"?: any | null;
+  "properties"?: any | null;
+  "trust"?: any | null;
+}
+
+
+export class ListCallSummariesResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 type CallSummariesProcessingStateRequest = 'completed'|'started'|'partial'|'all';
 
 type CallSummariesSortBy = 'start_time'|'end_time';
@@ -366,7 +403,6 @@ export function CallSummariesListInstance(version: V1): CallSummariesListInstanc
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -377,4 +413,69 @@ export function CallSummariesListInstance(version: V1): CallSummariesListInstanc
 
   return instance;
 }
+
+interface CallSummariesPayload extends CallSummariesResource, Page.TwilioResponsePayload {
+}
+
+interface CallSummariesResource {
+  call_summaries?: Array<InsightsV1CallSummaries>;
+  meta?: ListCallSummariesResponseMeta;
+}
+
+export class CallSummariesInstance {
+
+  constructor(protected _version: V1, payload: CallSummariesPayload) {
+    this.callSummaries = payload.call_summaries;
+    this.meta = payload.meta;
+
+  }
+
+  callSummaries?: Array<InsightsV1CallSummaries>;
+  meta?: ListCallSummariesResponseMeta;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      callSummaries: this.callSummaries, 
+      meta: this.meta
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+export class CallSummariesPage extends Page<V1, CallSummariesPayload, CallSummariesResource, CallSummariesInstance> {
+/**
+* Initialize the CallSummariesPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: CallSummariesSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of CallSummariesInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: CallSummariesPayload): CallSummariesInstance {
+    return new CallSummariesInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+
+
 /**
  * Options to pass to update a MessagingConfigurationInstance
  *
@@ -156,7 +158,6 @@ export class MessagingConfigurationContextImpl implements MessagingConfiguration
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<MessagingConfigurationInstance> {
@@ -169,7 +170,6 @@ export class MessagingConfigurationContextImpl implements MessagingConfiguration
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -198,7 +198,6 @@ export class MessagingConfigurationContextImpl implements MessagingConfiguration
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -336,37 +335,6 @@ export class MessagingConfigurationInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class MessagingConfigurationPage extends Page<V2, MessagingConfigurationPayload, MessagingConfigurationResource, MessagingConfigurationInstance> {
-  /**
-   * Initialize the MessagingConfigurationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: MessagingConfigurationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of MessagingConfigurationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MessagingConfigurationPayload): MessagingConfigurationInstance {
-    return new MessagingConfigurationInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.country,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -552,7 +520,6 @@ export function MessagingConfigurationListInstance(version: V2, serviceSid: stri
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<MessagingConfigurationPage> {
@@ -592,7 +559,6 @@ export function MessagingConfigurationListInstance(version: V2, serviceSid: stri
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -603,4 +569,35 @@ export function MessagingConfigurationListInstance(version: V2, serviceSid: stri
 
   return instance;
 }
+
+
+export class MessagingConfigurationPage extends Page<V2, MessagingConfigurationPayload, MessagingConfigurationResource, MessagingConfigurationInstance> {
+/**
+* Initialize the MessagingConfigurationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: MessagingConfigurationSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of MessagingConfigurationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MessagingConfigurationPayload): MessagingConfigurationInstance {
+    return new MessagingConfigurationInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

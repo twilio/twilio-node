@@ -20,6 +20,8 @@ import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
+
+
 type InteractionChannelParticipantStatus = 'closed'|'wrapup';
 
 type InteractionChannelParticipantType = 'supervisor'|'customer'|'external'|'agent'|'unknown';
@@ -157,7 +159,6 @@ export class InteractionChannelParticipantContextImpl implements InteractionChan
     return operationPromise;
 
 
-
   }
 
   /**
@@ -249,38 +250,6 @@ export class InteractionChannelParticipantInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class InteractionChannelParticipantPage extends Page<V1, InteractionChannelParticipantPayload, InteractionChannelParticipantResource, InteractionChannelParticipantInstance> {
-  /**
-   * Initialize the InteractionChannelParticipantPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: InteractionChannelParticipantSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of InteractionChannelParticipantInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: InteractionChannelParticipantPayload): InteractionChannelParticipantInstance {
-    return new InteractionChannelParticipantInstance(
-      this._version,
-      payload,
-      this._solution.interactionSid,
-      this._solution.channelSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -467,7 +436,6 @@ export function InteractionChannelParticipantListInstance(version: V1, interacti
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<InteractionChannelParticipantPage> {
@@ -507,7 +475,6 @@ export function InteractionChannelParticipantListInstance(version: V1, interacti
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -518,4 +485,36 @@ export function InteractionChannelParticipantListInstance(version: V1, interacti
 
   return instance;
 }
+
+
+export class InteractionChannelParticipantPage extends Page<V1, InteractionChannelParticipantPayload, InteractionChannelParticipantResource, InteractionChannelParticipantInstance> {
+/**
+* Initialize the InteractionChannelParticipantPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InteractionChannelParticipantSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of InteractionChannelParticipantInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InteractionChannelParticipantPayload): InteractionChannelParticipantInstance {
+    return new InteractionChannelParticipantInstance(
+    this._version,
+    payload,
+        this._solution.interactionSid,
+        this._solution.channelSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

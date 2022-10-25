@@ -19,8 +19,10 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { InteractionChannelParticipantListInstance } from "./interactionChannel/interactionChannelParticipant";
 import { InteractionChannelInviteListInstance } from "./interactionChannel/interactionChannelInvite";
+
 
 type InteractionChannelChannelStatus = 'setup'|'active'|'failed'|'closed';
 
@@ -262,7 +264,6 @@ export function InteractionChannelListInstance(version: V1, interactionSid: stri
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -348,7 +349,6 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
     return operationPromise;
 
 
-
   }
 
   update(params: any, callback?: any): Promise<InteractionChannelInstance> {
@@ -376,7 +376,6 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -516,33 +515,33 @@ export class InteractionChannelInstance {
 }
 
 export class InteractionChannelPage extends Page<V1, InteractionChannelPayload, InteractionChannelResource, InteractionChannelInstance> {
-  /**
-   * Initialize the InteractionChannelPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: InteractionChannelSolution) {
+/**
+* Initialize the InteractionChannelPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InteractionChannelSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of InteractionChannelInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: InteractionChannelPayload): InteractionChannelInstance {
+    /**
+    * Build an instance of InteractionChannelInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InteractionChannelPayload): InteractionChannelInstance {
     return new InteractionChannelInstance(
-      this._version,
-      payload,
-      this._solution.interactionSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.interactionSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

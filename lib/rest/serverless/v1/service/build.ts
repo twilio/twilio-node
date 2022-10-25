@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { BuildStatusListInstance } from "./build/buildStatus";
 
+
+
 type BuildStatus = 'building'|'completed'|'failed';
 
 type BuildRuntime = 'node8'|'node10'|'node12'|'node14';
@@ -151,7 +153,6 @@ export class BuildContextImpl implements BuildContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<BuildInstance> {
@@ -164,7 +165,6 @@ export class BuildContextImpl implements BuildContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -321,37 +321,6 @@ export class BuildInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
-  /**
-   * Initialize the BuildPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: BuildSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of BuildInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BuildPayload): BuildInstance {
-    return new BuildInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -542,7 +511,6 @@ export function BuildListInstance(version: V1, serviceSid: string): BuildListIns
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<BuildPage> {
@@ -582,7 +550,6 @@ export function BuildListInstance(version: V1, serviceSid: string): BuildListIns
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -593,4 +560,35 @@ export function BuildListInstance(version: V1, serviceSid: string): BuildListIns
 
   return instance;
 }
+
+
+export class BuildPage extends Page<V1, BuildPayload, BuildResource, BuildInstance> {
+/**
+* Initialize the BuildPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: BuildSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of BuildInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BuildPayload): BuildInstance {
+    return new BuildInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

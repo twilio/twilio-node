@@ -19,8 +19,10 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 import { StepListInstance } from "./engagement/step";
 import { EngagementContextListInstance } from "./engagement/engagementContext";
+
 
 type EngagementStatus = 'active'|'ended';
 
@@ -267,7 +269,6 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<EngagementPage> {
@@ -305,7 +306,6 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
   }
-
 
 
   instance.toJSON = function toJSON() {
@@ -389,7 +389,6 @@ export class EngagementContextImpl implements EngagementContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<EngagementInstance> {
@@ -402,7 +401,6 @@ export class EngagementContextImpl implements EngagementContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -570,33 +568,33 @@ export class EngagementInstance {
 }
 
 export class EngagementPage extends Page<V1, EngagementPayload, EngagementResource, EngagementInstance> {
-  /**
-   * Initialize the EngagementPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: EngagementSolution) {
+/**
+* Initialize the EngagementPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: EngagementSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of EngagementInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EngagementPayload): EngagementInstance {
+    /**
+    * Build an instance of EngagementInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EngagementPayload): EngagementInstance {
     return new EngagementInstance(
-      this._version,
-      payload,
-      this._solution.flowSid,
-      this._solution.sid,
+    this._version,
+    payload,
+        this._solution.flowSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+
 

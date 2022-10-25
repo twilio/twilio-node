@@ -24,6 +24,8 @@ import { LogListInstance } from "./environment/log";
 import { DeploymentListInstance } from "./environment/deployment";
 
 
+
+
 /**
  * Options to pass to create a EnvironmentInstance
  *
@@ -159,7 +161,6 @@ export class EnvironmentContextImpl implements EnvironmentContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<EnvironmentInstance> {
@@ -172,7 +173,6 @@ export class EnvironmentContextImpl implements EnvironmentContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -345,37 +345,6 @@ export class EnvironmentInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class EnvironmentPage extends Page<V1, EnvironmentPayload, EnvironmentResource, EnvironmentInstance> {
-  /**
-   * Initialize the EnvironmentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: EnvironmentSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of EnvironmentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EnvironmentPayload): EnvironmentInstance {
-    return new EnvironmentInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -557,7 +526,6 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<EnvironmentPage> {
@@ -597,7 +565,6 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -608,4 +575,35 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
 
   return instance;
 }
+
+
+export class EnvironmentPage extends Page<V1, EnvironmentPayload, EnvironmentResource, EnvironmentInstance> {
+/**
+* Initialize the EnvironmentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: EnvironmentSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of EnvironmentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EnvironmentPayload): EnvironmentInstance {
+    return new EnvironmentInstance(
+    this._version,
+    payload,
+        this._solution.serviceSid,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

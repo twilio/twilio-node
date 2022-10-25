@@ -20,6 +20,8 @@ import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
+
+
 type EndUserType = 'individual'|'business';
 
 
@@ -169,7 +171,6 @@ export class EndUserContextImpl implements EndUserContext {
     return operationPromise;
 
 
-
   }
 
   fetch(callback?: any): Promise<EndUserInstance> {
@@ -182,7 +183,6 @@ export class EndUserContextImpl implements EndUserContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -211,7 +211,6 @@ export class EndUserContextImpl implements EndUserContext {
 
     operationPromise = this._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-
 
 
   }
@@ -361,36 +360,6 @@ export class EndUserInstance {
   }
 
   [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-export class EndUserPage extends Page<V2, EndUserPayload, EndUserResource, EndUserInstance> {
-  /**
-   * Initialize the EndUserPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: EndUserSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of EndUserInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: EndUserPayload): EndUserInstance {
-    return new EndUserInstance(
-      this._version,
-      payload,
-      this._solution.sid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }
@@ -576,7 +545,6 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
     return operationPromise;
 
 
-
     }
 
   instance.page = function page(params?: any, callback?: any): Promise<EndUserPage> {
@@ -616,7 +584,6 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
   }
 
 
-
   instance.toJSON = function toJSON() {
     return this._solution;
   }
@@ -627,4 +594,34 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
 
   return instance;
 }
+
+
+export class EndUserPage extends Page<V2, EndUserPayload, EndUserResource, EndUserInstance> {
+/**
+* Initialize the EndUserPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, solution: EndUserSolution) {
+    super(version, response, solution);
+    }
+
+    /**
+    * Build an instance of EndUserInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: EndUserPayload): EndUserInstance {
+    return new EndUserInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+    }
+    }
 

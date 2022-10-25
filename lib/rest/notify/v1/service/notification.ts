@@ -14,11 +14,10 @@
 
 
 import { inspect, InspectOptions } from "util";
-import Page from "../../../../base/Page";
-import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+
 
 type NotificationPriority = 'high'|'low';
 
@@ -157,7 +156,6 @@ export function NotificationListInstance(version: V1, serviceSid: string): Notif
     return operationPromise;
 
 
-
     }
 
   instance.toJSON = function toJSON() {
@@ -171,7 +169,7 @@ export function NotificationListInstance(version: V1, serviceSid: string): Notif
   return instance;
 }
 
-interface NotificationPayload extends NotificationResource, Page.TwilioResponsePayload {
+interface NotificationPayload extends NotificationResource{
 }
 
 interface NotificationResource {
@@ -336,33 +334,4 @@ export class NotificationInstance {
   }
 }
 
-export class NotificationPage extends Page<V1, NotificationPayload, NotificationResource, NotificationInstance> {
-  /**
-   * Initialize the NotificationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: NotificationSolution) {
-    super(version, response, solution);
-  }
-
-  /**
-   * Build an instance of NotificationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NotificationPayload): NotificationInstance {
-    return new NotificationInstance(
-      this._version,
-      payload,
-      this._solution.serviceSid,
-    );
-  }
-
-  [inspect.custom](depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
 
