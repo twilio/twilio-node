@@ -13,7 +13,7 @@ e.g.
 Fixes #1
 Closes #2
 
-Note: If you made changes to the Request Validation logic, please run `make test` locally and ensure all test cases pass
+Note: If you made changes to the Request Validation logic, please run `npm run webhook-test` locally and ensure all test cases pass
 -->
 
 # Fixes #
