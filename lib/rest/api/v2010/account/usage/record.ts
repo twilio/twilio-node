@@ -477,62 +477,6 @@ export class RecordInstance {
   uri?: string;
 
   /**
-   * Access the today.
-   */
-  today(): TodayListInstance {
-    return this._proxy.today;
-  }
-
-  /**
-   * Access the daily.
-   */
-  daily(): DailyListInstance {
-    return this._proxy.daily;
-  }
-
-  /**
-   * Access the monthly.
-   */
-  monthly(): MonthlyListInstance {
-    return this._proxy.monthly;
-  }
-
-  /**
-   * Access the allTime.
-   */
-  allTime(): AllTimeListInstance {
-    return this._proxy.allTime;
-  }
-
-  /**
-   * Access the yearly.
-   */
-  yearly(): YearlyListInstance {
-    return this._proxy.yearly;
-  }
-
-  /**
-   * Access the yesterday.
-   */
-  yesterday(): YesterdayListInstance {
-    return this._proxy.yesterday;
-  }
-
-  /**
-   * Access the lastMonth.
-   */
-  lastMonth(): LastMonthListInstance {
-    return this._proxy.lastMonth;
-  }
-
-  /**
-   * Access the thisMonth.
-   */
-  thisMonth(): ThisMonthListInstance {
-    return this._proxy.thisMonth;
-  }
-
-  /**
    * Provide a user-friendly representation
    *
    * @returns Object

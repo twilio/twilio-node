@@ -229,20 +229,6 @@ export class ConfigurationInstance {
   reachabilityEnabled?: boolean | null;
 
   /**
-   * Access the webhooks.
-   */
-  webhooks(): WebhookListInstance {
-    return this._proxy.webhooks;
-  }
-
-  /**
-   * Access the notifications.
-   */
-  notifications(): NotificationListInstance {
-    return this._proxy.notifications;
-  }
-
-  /**
    * Provide a user-friendly representation
    *
    * @returns Object

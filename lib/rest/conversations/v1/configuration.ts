@@ -228,20 +228,6 @@ export class ConfigurationInstance {
   links?: object | null;
 
   /**
-   * Access the addressConfigurations.
-   */
-  addressConfigurations(): AddressConfigurationListInstance {
-    return this._proxy.addressConfigurations;
-  }
-
-  /**
-   * Access the webhooks.
-   */
-  webhooks(): WebhookListInstance {
-    return this._proxy.webhooks;
-  }
-
-  /**
    * Provide a user-friendly representation
    *
    * @returns Object
