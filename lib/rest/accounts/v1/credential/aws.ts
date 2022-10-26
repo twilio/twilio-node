@@ -199,7 +199,7 @@ export class AWSContextImpl implements AWSContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AWSInstance(operationVersion, payload, this._solution.sid));
     
@@ -516,7 +516,7 @@ export function AWSListInstance(version: V1): AWSListInstance {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AWSInstance(operationVersion, payload));
     

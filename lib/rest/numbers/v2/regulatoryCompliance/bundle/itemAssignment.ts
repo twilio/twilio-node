@@ -434,7 +434,7 @@ export function ItemAssignmentListInstance(version: V2, bundleSid: string): Item
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ItemAssignmentInstance(operationVersion, payload, this._solution.bundleSid));
     

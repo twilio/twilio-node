@@ -286,7 +286,7 @@ export function SinkListInstance(version: V1): SinkListInstance {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SinkInstance(operationVersion, payload));
     
@@ -461,7 +461,7 @@ export class SinkContextImpl implements SinkContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SinkInstance(operationVersion, payload, this._solution.sid));
     

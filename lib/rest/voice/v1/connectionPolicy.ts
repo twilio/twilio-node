@@ -262,7 +262,7 @@ export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListI
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectionPolicyInstance(operationVersion, payload));
     
@@ -435,7 +435,7 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectionPolicyInstance(operationVersion, payload, this._solution.sid));
     

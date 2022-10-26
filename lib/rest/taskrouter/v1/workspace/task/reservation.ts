@@ -527,7 +527,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ReservationInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.taskSid, this._solution.sid));
     

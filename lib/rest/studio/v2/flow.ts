@@ -294,7 +294,7 @@ export function FlowListInstance(version: V2): FlowListInstance {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new FlowInstance(operationVersion, payload));
     
@@ -477,7 +477,7 @@ export class FlowContextImpl implements FlowContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new FlowInstance(operationVersion, payload, this._solution.sid));
     

@@ -124,7 +124,7 @@ export function ExportConfigurationListInstance(version: V1, resourceType: strin
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ExportConfigurationInstance(operationVersion, payload, this._solution.resourceType));
     

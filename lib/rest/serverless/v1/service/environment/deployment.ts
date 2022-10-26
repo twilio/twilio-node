@@ -423,7 +423,7 @@ export function DeploymentListInstance(version: V1, serviceSid: string, environm
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new DeploymentInstance(operationVersion, payload, this._solution.serviceSid, this._solution.environmentSid));
     

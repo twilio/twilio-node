@@ -293,7 +293,7 @@ export function UsAppToPersonListInstance(version: V1, messagingServiceSid: stri
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new UsAppToPersonInstance(operationVersion, payload, this._solution.messagingServiceSid));
     

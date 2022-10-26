@@ -278,7 +278,7 @@ export function WebhookListInstance(version: V1, assistantSid: string): WebhookL
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.assistantSid));
     
@@ -448,7 +448,7 @@ export class WebhookContextImpl implements WebhookContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
     

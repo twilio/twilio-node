@@ -216,7 +216,7 @@ export class ConnectionPolicyTargetContextImpl implements ConnectionPolicyTarget
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectionPolicyTargetInstance(operationVersion, payload, this._solution.connectionPolicySid, this._solution.sid));
     
@@ -571,7 +571,7 @@ export function ConnectionPolicyTargetListInstance(version: V1, connectionPolicy
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ConnectionPolicyTargetInstance(operationVersion, payload, this._solution.connectionPolicySid));
     

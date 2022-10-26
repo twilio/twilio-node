@@ -216,7 +216,7 @@ export class OriginationUrlContextImpl implements OriginationUrlContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new OriginationUrlInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
     
@@ -587,7 +587,7 @@ export function OriginationUrlListInstance(version: V1, trunkSid: string): Origi
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new OriginationUrlInstance(operationVersion, payload, this._solution.trunkSid));
     

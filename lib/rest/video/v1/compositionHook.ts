@@ -259,7 +259,7 @@ export class CompositionHookContextImpl implements CompositionHookContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new CompositionHookInstance(operationVersion, payload, this._solution.sid));
     
@@ -636,7 +636,7 @@ export function CompositionHookListInstance(version: V1): CompositionHookListIns
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new CompositionHookInstance(operationVersion, payload));
     

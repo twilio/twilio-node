@@ -246,7 +246,7 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new CredentialListInstance(operationVersion, payload, this._solution.trunkSid));
     

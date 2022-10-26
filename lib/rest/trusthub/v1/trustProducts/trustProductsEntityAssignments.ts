@@ -434,7 +434,7 @@ export function TrustProductsEntityAssignmentsListInstance(version: V1, trustPro
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new TrustProductsEntityAssignmentsInstance(operationVersion, payload, this._solution.trustProductSid));
     

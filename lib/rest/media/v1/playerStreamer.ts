@@ -291,7 +291,7 @@ export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInsta
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new PlayerStreamerInstance(operationVersion, payload));
     
@@ -437,7 +437,7 @@ export class PlayerStreamerContextImpl implements PlayerStreamerContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new PlayerStreamerInstance(operationVersion, payload, this._solution.sid));
     

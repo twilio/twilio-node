@@ -212,7 +212,7 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -576,7 +576,7 @@ export function PhoneNumberListInstance(version: V1, serviceSid: string): PhoneN
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new PhoneNumberInstance(operationVersion, payload, this._solution.serviceSid));
     

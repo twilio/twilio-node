@@ -486,7 +486,7 @@ export function AssignedAddOnListInstance(version: V2010, accountSid: string, re
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AssignedAddOnInstance(operationVersion, payload, this._solution.accountSid, this._solution.resourceSid));
     

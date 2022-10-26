@@ -251,7 +251,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AddressConfigurationInstance(operationVersion, payload, this._solution.sid));
     
@@ -601,7 +601,7 @@ export function AddressConfigurationListInstance(version: V1): AddressConfigurat
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AddressConfigurationInstance(operationVersion, payload));
     

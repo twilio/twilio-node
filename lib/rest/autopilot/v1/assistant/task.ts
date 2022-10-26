@@ -243,7 +243,7 @@ export class TaskContextImpl implements TaskContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
     
@@ -618,7 +618,7 @@ export function TaskListInstance(version: V1, assistantSid: string): TaskListIns
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new TaskInstance(operationVersion, payload, this._solution.assistantSid));
     

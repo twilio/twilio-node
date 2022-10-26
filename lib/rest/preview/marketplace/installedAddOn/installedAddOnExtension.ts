@@ -344,7 +344,7 @@ export class InstalledAddOnExtensionContextImpl implements InstalledAddOnExtensi
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new InstalledAddOnExtensionInstance(operationVersion, payload, this._solution.installedAddOnSid, this._solution.sid));
     

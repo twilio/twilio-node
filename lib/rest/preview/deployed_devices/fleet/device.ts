@@ -219,7 +219,7 @@ export class DeviceContextImpl implements DeviceContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new DeviceInstance(operationVersion, payload, this._solution.fleetSid, this._solution.sid));
     
@@ -588,7 +588,7 @@ export function DeviceListInstance(version: DeployedDevices, fleetSid: string): 
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new DeviceInstance(operationVersion, payload, this._solution.fleetSid));
     

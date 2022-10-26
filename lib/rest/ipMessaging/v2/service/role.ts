@@ -271,7 +271,7 @@ export function RoleListInstance(version: V2, serviceSid: string): RoleListInsta
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new RoleInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -431,7 +431,7 @@ export class RoleContextImpl implements RoleContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new RoleInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     

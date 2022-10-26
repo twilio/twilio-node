@@ -213,7 +213,7 @@ export class SampleContextImpl implements SampleContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SampleInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid, this._solution.sid));
     
@@ -564,7 +564,7 @@ export function SampleListInstance(version: V1, assistantSid: string, taskSid: s
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SampleInstance(operationVersion, payload, this._solution.assistantSid, this._solution.taskSid));
     

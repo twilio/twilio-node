@@ -260,7 +260,7 @@ export function EngagementListInstance(version: V1, flowSid: string): Engagement
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new EngagementInstance(operationVersion, payload, this._solution.flowSid));
     

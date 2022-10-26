@@ -127,7 +127,7 @@ export function RecordingRulesListInstance(version: V1, roomSid: string): Record
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new RecordingRulesInstance(operationVersion, payload, this._solution.roomSid));
     

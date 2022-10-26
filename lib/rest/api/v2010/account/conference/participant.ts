@@ -437,7 +437,7 @@ export function ParticipantListInstance(version: V2010, accountSid: string, conf
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.accountSid, this._solution.conferenceSid));
     
@@ -619,7 +619,7 @@ export class ParticipantContextImpl implements ParticipantContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.accountSid, this._solution.conferenceSid, this._solution.callSid));
     

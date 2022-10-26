@@ -385,7 +385,7 @@ export class UserChannelContextImpl implements UserChannelContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new UserChannelInstance(operationVersion, payload, this._solution.serviceSid, this._solution.userSid, this._solution.channelSid));
     

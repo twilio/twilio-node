@@ -502,7 +502,7 @@ export function BuildListInstance(version: V1, serviceSid: string): BuildListIns
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new BuildInstance(operationVersion, payload, this._solution.serviceSid));
     

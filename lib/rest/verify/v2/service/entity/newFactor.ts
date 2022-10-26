@@ -139,7 +139,7 @@ export function NewFactorListInstance(version: V2, serviceSid: string, identity:
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new NewFactorInstance(operationVersion, payload, this._solution.serviceSid, this._solution.identity));
     

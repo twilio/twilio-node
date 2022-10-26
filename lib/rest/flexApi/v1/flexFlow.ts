@@ -285,7 +285,7 @@ export class FlexFlowContextImpl implements FlexFlowContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new FlexFlowInstance(operationVersion, payload, this._solution.sid));
     
@@ -674,7 +674,7 @@ export function FlexFlowListInstance(version: V1): FlexFlowListInstance {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new FlexFlowInstance(operationVersion, payload));
     

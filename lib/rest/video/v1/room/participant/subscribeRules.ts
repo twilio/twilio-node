@@ -129,7 +129,7 @@ export function SubscribeRulesListInstance(version: V1, roomSid: string, partici
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SubscribeRulesInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid));
     

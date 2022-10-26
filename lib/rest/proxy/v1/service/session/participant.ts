@@ -260,7 +260,7 @@ export function ParticipantListInstance(version: V1, serviceSid: string, session
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sessionSid));
     

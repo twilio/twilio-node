@@ -517,7 +517,7 @@ export function EnvironmentListInstance(version: V1, serviceSid: string): Enviro
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new EnvironmentInstance(operationVersion, payload, this._solution.serviceSid));
     

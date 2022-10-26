@@ -256,7 +256,7 @@ export function AssetListInstance(version: V1, serviceSid: string): AssetListIns
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -423,7 +423,7 @@ export class AssetContextImpl implements AssetContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     

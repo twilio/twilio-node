@@ -369,7 +369,7 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new InteractionChannelInstance(operationVersion, payload, this._solution.interactionSid, this._solution.sid));
     

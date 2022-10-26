@@ -311,7 +311,7 @@ export class WorkspaceContextImpl implements WorkspaceContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkspaceInstance(operationVersion, payload, this._solution.sid));
     
@@ -761,7 +761,7 @@ export function WorkspaceListInstance(version: V1): WorkspaceListInstance {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkspaceInstance(operationVersion, payload));
     

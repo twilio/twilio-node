@@ -229,7 +229,7 @@ export class QueryContextImpl implements QueryContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload, this._solution.assistantSid, this._solution.sid));
     
@@ -608,7 +608,7 @@ export function QueryListInstance(version: V1, assistantSid: string): QueryListI
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new QueryInstance(operationVersion, payload, this._solution.assistantSid));
     

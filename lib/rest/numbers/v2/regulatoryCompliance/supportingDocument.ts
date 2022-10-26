@@ -268,7 +268,7 @@ export function SupportingDocumentListInstance(version: V2): SupportingDocumentL
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SupportingDocumentInstance(operationVersion, payload));
     
@@ -435,7 +435,7 @@ export class SupportingDocumentContextImpl implements SupportingDocumentContext 
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SupportingDocumentInstance(operationVersion, payload, this._solution.sid));
     

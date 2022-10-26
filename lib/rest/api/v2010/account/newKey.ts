@@ -94,7 +94,7 @@ export function NewKeyListInstance(version: V2010, accountSid: string): NewKeyLi
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new NewKeyInstance(operationVersion, payload, this._solution.accountSid));
     

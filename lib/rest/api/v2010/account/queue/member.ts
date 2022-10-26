@@ -162,7 +162,7 @@ export class MemberContextImpl implements MemberContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new MemberInstance(operationVersion, payload, this._solution.accountSid, this._solution.queueSid, this._solution.callSid));
     

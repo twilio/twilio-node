@@ -300,7 +300,7 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new HostedNumberOrderInstance(operationVersion, payload, this._solution.sid));
     
@@ -745,7 +745,7 @@ export function HostedNumberOrderListInstance(version: HostedNumbers): HostedNum
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new HostedNumberOrderInstance(operationVersion, payload));
     

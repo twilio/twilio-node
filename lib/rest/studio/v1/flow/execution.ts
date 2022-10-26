@@ -223,7 +223,7 @@ export class ExecutionContextImpl implements ExecutionContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ExecutionInstance(operationVersion, payload, this._solution.flowSid, this._solution.sid));
     
@@ -583,7 +583,7 @@ export function ExecutionListInstance(version: V1, flowSid: string): ExecutionLi
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ExecutionInstance(operationVersion, payload, this._solution.flowSid));
     

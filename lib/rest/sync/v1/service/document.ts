@@ -273,7 +273,7 @@ export function DocumentListInstance(version: V1, serviceSid: string): DocumentL
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, this._solution.serviceSid));
     
@@ -449,7 +449,7 @@ export class DocumentContextImpl implements DocumentContext {
     if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     

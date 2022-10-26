@@ -321,7 +321,7 @@ export function ExportCustomJobListInstance(version: V1, resourceType: string): 
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new ExportCustomJobInstance(operationVersion, payload, this._solution.resourceType));
     

@@ -86,7 +86,7 @@ export function RestoreAssistantListInstance(version: V1): RestoreAssistantListI
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new RestoreAssistantInstance(operationVersion, payload));
     

@@ -237,7 +237,7 @@ export class SessionContextImpl implements SessionContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
     
@@ -644,7 +644,7 @@ export function SessionListInstance(version: V1, serviceSid: string): SessionLis
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SessionInstance(operationVersion, payload, this._solution.serviceSid));
     

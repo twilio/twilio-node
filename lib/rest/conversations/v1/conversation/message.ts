@@ -310,7 +310,7 @@ export function MessageListInstance(version: V1, conversationSid: string): Messa
     if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.conversationSid));
     
@@ -512,7 +512,7 @@ export class MessageContextImpl implements MessageContext {
     if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.conversationSid, this._solution.sid));
     

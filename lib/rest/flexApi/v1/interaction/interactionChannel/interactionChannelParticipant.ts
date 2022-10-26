@@ -150,7 +150,7 @@ export class InteractionChannelParticipantContextImpl implements InteractionChan
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new InteractionChannelParticipantInstance(operationVersion, payload, this._solution.interactionSid, this._solution.channelSid, this._solution.sid));
     
@@ -427,7 +427,7 @@ export function InteractionChannelParticipantListInstance(version: V1, interacti
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new InteractionChannelParticipantInstance(operationVersion, payload, this._solution.interactionSid, this._solution.channelSid));
     

@@ -198,7 +198,7 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SubscribedEventInstance(operationVersion, payload, this._solution.subscriptionSid, this._solution.type));
     
@@ -508,7 +508,7 @@ export function SubscribedEventListInstance(version: V1, subscriptionSid: string
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SubscribedEventInstance(operationVersion, payload, this._solution.subscriptionSid));
     

@@ -359,7 +359,7 @@ export function WorkerListInstance(version: V1, workspaceSid: string): WorkerLis
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkerInstance(operationVersion, payload, this._solution.workspaceSid));
     
@@ -580,7 +580,7 @@ export class WorkerContextImpl implements WorkerContext {
     if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new WorkerInstance(operationVersion, payload, this._solution.workspaceSid, this._solution.sid));
     

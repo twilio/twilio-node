@@ -248,7 +248,7 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
     if (params.ifMatch !== undefined) headers['If-Match'] = params.ifMatch;
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SyncMapItemInstance(operationVersion, payload, this._solution.serviceSid, this._solution.mapSid, this._solution.key));
     
@@ -570,7 +570,7 @@ export function SyncMapItemListInstance(version: Sync, serviceSid: string, mapSi
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new SyncMapItemInstance(operationVersion, payload, this._solution.serviceSid, this._solution.mapSid));
     

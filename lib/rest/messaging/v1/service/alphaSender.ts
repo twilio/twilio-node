@@ -448,7 +448,7 @@ export function AlphaSenderListInstance(version: V1, serviceSid: string): AlphaS
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AlphaSenderInstance(operationVersion, payload, this._solution.serviceSid));
     

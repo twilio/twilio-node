@@ -300,7 +300,7 @@ export function TrustProductsListInstance(version: V1): TrustProductsListInstanc
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new TrustProductsInstance(operationVersion, payload));
     
@@ -493,7 +493,7 @@ export class TrustProductsContextImpl implements TrustProductsContext {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = this._version,
-        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.update({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new TrustProductsInstance(operationVersion, payload, this._solution.sid));
     

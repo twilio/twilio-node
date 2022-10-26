@@ -429,7 +429,7 @@ export function AuthRegistrationsCredentialListMappingListInstance(version: V201
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', params: data, headers });
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
     
     operationPromise = operationPromise.then(payload => new AuthRegistrationsCredentialListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid));
     
