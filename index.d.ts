@@ -22,6 +22,7 @@ declare function twilio(
 ): any;
 
 declare namespace twilio {
+  // @ts-ignore
   export import Twilio = TwilioClient;
   export interface TwimlInterface {
     VoiceResponse: TwimlConstructor<VoiceResponse>;

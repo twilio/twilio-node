@@ -1,8 +1,11 @@
 import Domain = require('./Domain');
-import { RequestOpts } from "../base/BaseTwilio";
+import { RequestOpts } from "./BaseTwilio";
 
 declare class Version {
-  constructor(solutelydomain: Domain, version: string);
+  constructor(domain: Domain, version: string);
+
+  get domain(): Domain;
+
   /**
    * Generate absolute url from a uri
    *

@@ -1,5 +1,5 @@
 const Version = require('../../../lib/base/Version');
-const Holodeck = require('../../integration/holodeck')
+const Holodeck = require('../../integration/holodeck');
 const Response = require('../../../lib/http/response');
 const Twilio = require('../../../lib');
 
@@ -57,34 +57,25 @@ describe('streaming results', function () {
 
   it('streams all results',
     function (done) {
-      const messages = [];
       holodeck.mock(new Response(200, bodyOne));
       holodeck.mock(new Response(200, bodyTwo));
       holodeck.mock(new Response(200, bodyThree));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-        .messages.list().then(m => {
-        m.foreach(message => {
-          messages.push(message);
-        })
-        expect(messages.length).toEqual(5);
-      });
+        .messages.list().then(messages => {
+          expect(messages.length).toEqual(5);
+        });
       done();
     });
 
   it('limits results',
     function (done) {
-      const messages = [];
       holodeck.mock(new Response(200, bodyOne));
       holodeck.mock(new Response(200, bodyTwo));
       holodeck.mock(new Response(200, bodyThree));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-        .messages.list({limit: 3}).then(m => {
-        m.foreach(message => {
-          messages.push(message);
-        })
-        expect(messages.length).toEqual(3);
-      });
+        .messages.list({limit: 3}).then(messages => {
+          expect(messages.length).toEqual(3);
+        });
       done();
     });
 });
-
