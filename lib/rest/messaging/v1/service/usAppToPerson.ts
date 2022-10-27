@@ -90,257 +90,6 @@ export interface UsAppToPersonListInstancePageOptions {
 
 
 
-export interface UsAppToPersonListInstance {
-  (sid: string): UsAppToPersonContext;
-  get(sid: string): UsAppToPersonContext;
-
-
-  /**
-   * Create a UsAppToPersonInstance
-   *
-   * @param { UsAppToPersonListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed UsAppToPersonInstance
-   */
-  create(params: UsAppToPersonListInstanceCreateOptions, callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>;
-  create(params: any, callback?: any): Promise<UsAppToPersonInstance>
-
-
-
-  /**
-   * Streams UsAppToPersonInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams UsAppToPersonInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsAppToPersonListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: UsAppToPersonListInstanceEachOptions, callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of UsAppToPersonInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
-  /**
-   * Retrieve a single target page of UsAppToPersonInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
-  getPage(params?: any, callback?: any): Promise<UsAppToPersonPage>;
-  /**
-   * Lists UsAppToPersonInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any): Promise<UsAppToPersonInstance[]>;
-  /**
-   * Lists UsAppToPersonInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsAppToPersonListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: UsAppToPersonListInstanceOptions, callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any): Promise<UsAppToPersonInstance[]>;
-  list(params?: any, callback?: any): Promise<UsAppToPersonInstance[]>;
-  /**
-   * Retrieve a single page of UsAppToPersonInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
-  /**
-   * Retrieve a single page of UsAppToPersonInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UsAppToPersonListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: UsAppToPersonListInstancePageOptions, callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
-  page(params?: any, callback?: any): Promise<UsAppToPersonPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface UsAppToPersonSolution {
-  messagingServiceSid?: string;
-}
-
-interface UsAppToPersonListInstanceImpl extends UsAppToPersonListInstance {}
-class UsAppToPersonListInstanceImpl implements UsAppToPersonListInstance {
-  _version?: V1;
-  _solution?: UsAppToPersonSolution;
-  _uri?: string;
-
-}
-
-export function UsAppToPersonListInstance(version: V1, messagingServiceSid: string): UsAppToPersonListInstance {
-  const instance = ((sid) => instance.get(sid)) as UsAppToPersonListInstanceImpl;
-
-  instance.get = function get(sid): UsAppToPersonContext {
-    return new UsAppToPersonContextImpl(version, messagingServiceSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { messagingServiceSid };
-  instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p`;
-
-  instance.create = function create(params: any, callback?: any): Promise<UsAppToPersonInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.brandRegistrationSid === null || params.brandRegistrationSid === undefined) {
-      throw new Error('Required parameter "params.brandRegistrationSid" missing.');
-    }
-
-    if (params.description === null || params.description === undefined) {
-      throw new Error('Required parameter "params.description" missing.');
-    }
-
-    if (params.messageSamples === null || params.messageSamples === undefined) {
-      throw new Error('Required parameter "params.messageSamples" missing.');
-    }
-
-    if (params.usAppToPersonUsecase === null || params.usAppToPersonUsecase === undefined) {
-      throw new Error('Required parameter "params.usAppToPersonUsecase" missing.');
-    }
-
-    if (params.hasEmbeddedLinks === null || params.hasEmbeddedLinks === undefined) {
-      throw new Error('Required parameter "params.hasEmbeddedLinks" missing.');
-    }
-
-    if (params.hasEmbeddedPhone === null || params.hasEmbeddedPhone === undefined) {
-      throw new Error('Required parameter "params.hasEmbeddedPhone" missing.');
-    }
-
-    const data: any = {};
-
-    data['BrandRegistrationSid'] = params.brandRegistrationSid;
-    data['Description'] = params.description;
-    data['MessageSamples'] = serialize.map(params.messageSamples, ((e) => e));
-    data['UsAppToPersonUsecase'] = params.usAppToPersonUsecase;
-    data['HasEmbeddedLinks'] = serialize.bool(params.hasEmbeddedLinks);
-    data['HasEmbeddedPhone'] = serialize.bool(params.hasEmbeddedPhone);
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UsAppToPersonInstance(operationVersion, payload, this._solution.messagingServiceSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<UsAppToPersonPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UsAppToPersonPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UsAppToPersonPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new UsAppToPersonPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
-
 export interface UsAppToPersonContext {
 
 
@@ -605,6 +354,258 @@ export class UsAppToPersonInstance {
   }
 }
 
+
+export interface UsAppToPersonListInstance {
+  (sid: string): UsAppToPersonContext;
+  get(sid: string): UsAppToPersonContext;
+
+
+  /**
+   * Create a UsAppToPersonInstance
+   *
+   * @param { UsAppToPersonListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed UsAppToPersonInstance
+   */
+  create(params: UsAppToPersonListInstanceCreateOptions, callback?: (error: Error | null, item?: UsAppToPersonInstance) => any): Promise<UsAppToPersonInstance>;
+  create(params: any, callback?: any): Promise<UsAppToPersonInstance>
+
+
+
+  /**
+   * Streams UsAppToPersonInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams UsAppToPersonInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UsAppToPersonListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: UsAppToPersonListInstanceEachOptions, callback?: (item: UsAppToPersonInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of UsAppToPersonInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
+  /**
+   * Retrieve a single target page of UsAppToPersonInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
+  getPage(params?: any, callback?: any): Promise<UsAppToPersonPage>;
+  /**
+   * Lists UsAppToPersonInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any): Promise<UsAppToPersonInstance[]>;
+  /**
+   * Lists UsAppToPersonInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UsAppToPersonListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: UsAppToPersonListInstanceOptions, callback?: (error: Error | null, items: UsAppToPersonInstance[]) => any): Promise<UsAppToPersonInstance[]>;
+  list(params?: any, callback?: any): Promise<UsAppToPersonInstance[]>;
+  /**
+   * Retrieve a single page of UsAppToPersonInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
+  /**
+   * Retrieve a single page of UsAppToPersonInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UsAppToPersonListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: UsAppToPersonListInstancePageOptions, callback?: (error: Error | null, items: UsAppToPersonPage) => any): Promise<UsAppToPersonPage>;
+  page(params?: any, callback?: any): Promise<UsAppToPersonPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface UsAppToPersonSolution {
+  messagingServiceSid?: string;
+}
+
+interface UsAppToPersonListInstanceImpl extends UsAppToPersonListInstance {}
+class UsAppToPersonListInstanceImpl implements UsAppToPersonListInstance {
+  _version?: V1;
+  _solution?: UsAppToPersonSolution;
+  _uri?: string;
+
+}
+
+export function UsAppToPersonListInstance(version: V1, messagingServiceSid: string): UsAppToPersonListInstance {
+  const instance = ((sid) => instance.get(sid)) as UsAppToPersonListInstanceImpl;
+
+  instance.get = function get(sid): UsAppToPersonContext {
+    return new UsAppToPersonContextImpl(version, messagingServiceSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { messagingServiceSid };
+  instance._uri = `/Services/${messagingServiceSid}/Compliance/Usa2p`;
+
+  instance.create = function create(params: any, callback?: any): Promise<UsAppToPersonInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.brandRegistrationSid === null || params.brandRegistrationSid === undefined) {
+      throw new Error('Required parameter "params.brandRegistrationSid" missing.');
+    }
+
+    if (params.description === null || params.description === undefined) {
+      throw new Error('Required parameter "params.description" missing.');
+    }
+
+    if (params.messageSamples === null || params.messageSamples === undefined) {
+      throw new Error('Required parameter "params.messageSamples" missing.');
+    }
+
+    if (params.usAppToPersonUsecase === null || params.usAppToPersonUsecase === undefined) {
+      throw new Error('Required parameter "params.usAppToPersonUsecase" missing.');
+    }
+
+    if (params.hasEmbeddedLinks === null || params.hasEmbeddedLinks === undefined) {
+      throw new Error('Required parameter "params.hasEmbeddedLinks" missing.');
+    }
+
+    if (params.hasEmbeddedPhone === null || params.hasEmbeddedPhone === undefined) {
+      throw new Error('Required parameter "params.hasEmbeddedPhone" missing.');
+    }
+
+    const data: any = {};
+
+    data['BrandRegistrationSid'] = params.brandRegistrationSid;
+    data['Description'] = params.description;
+    data['MessageSamples'] = serialize.map(params.messageSamples, ((e) => e));
+    data['UsAppToPersonUsecase'] = params.usAppToPersonUsecase;
+    data['HasEmbeddedLinks'] = serialize.bool(params.hasEmbeddedLinks);
+    data['HasEmbeddedPhone'] = serialize.bool(params.hasEmbeddedPhone);
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new UsAppToPersonInstance(operationVersion, payload, this._solution.messagingServiceSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<UsAppToPersonPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new UsAppToPersonPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UsAppToPersonPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new UsAppToPersonPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class UsAppToPersonPage extends Page<V1, UsAppToPersonPayload, UsAppToPersonResource, UsAppToPersonInstance> {
 /**
 * Initialize the UsAppToPersonPage
@@ -634,5 +635,4 @@ constructor(version: V1, response: Response<string>, solution: UsAppToPersonSolu
     return inspect(this.toJSON(), options);
     }
     }
-
 

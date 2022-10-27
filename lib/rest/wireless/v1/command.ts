@@ -24,9 +24,9 @@ const serialize = require("../../../base/serialize");
 
 type CommandCommandMode = 'text'|'binary';
 
-type CommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
-
 type CommandDirection = 'from_sim'|'to_sim';
+
+type CommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
 
 type CommandTransport = 'sms'|'ip';
 

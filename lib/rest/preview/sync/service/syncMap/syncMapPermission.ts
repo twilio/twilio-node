@@ -22,6 +22,19 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+
+/**
+ * Options to pass to update a SyncMapPermissionInstance
+ *
+ * @property { boolean } read Boolean flag specifying whether the identity can read the Sync Map.
+ * @property { boolean } write Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
+ * @property { boolean } manage Boolean flag specifying whether the identity can delete the Sync Map.
+ */
+export interface SyncMapPermissionContextUpdateOptions {
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+}
 /**
  * Options to pass to each
  *
@@ -69,206 +82,6 @@ export interface SyncMapPermissionListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a SyncMapPermissionInstance
- *
- * @property { boolean } read Boolean flag specifying whether the identity can read the Sync Map.
- * @property { boolean } write Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
- * @property { boolean } manage Boolean flag specifying whether the identity can delete the Sync Map.
- */
-export interface SyncMapPermissionContextUpdateOptions {
-  read: boolean;
-  write: boolean;
-  manage: boolean;
-}
-
-export interface SyncMapPermissionListInstance {
-  (identity: string): SyncMapPermissionContext;
-  get(identity: string): SyncMapPermissionContext;
-
-
-
-  /**
-   * Streams SyncMapPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams SyncMapPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncMapPermissionListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: SyncMapPermissionListInstanceEachOptions, callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of SyncMapPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
-  /**
-   * Retrieve a single target page of SyncMapPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
-  getPage(params?: any, callback?: any): Promise<SyncMapPermissionPage>;
-  /**
-   * Lists SyncMapPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any): Promise<SyncMapPermissionInstance[]>;
-  /**
-   * Lists SyncMapPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncMapPermissionListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: SyncMapPermissionListInstanceOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any): Promise<SyncMapPermissionInstance[]>;
-  list(params?: any, callback?: any): Promise<SyncMapPermissionInstance[]>;
-  /**
-   * Retrieve a single page of SyncMapPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
-  /**
-   * Retrieve a single page of SyncMapPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncMapPermissionListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: SyncMapPermissionListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
-  page(params?: any, callback?: any): Promise<SyncMapPermissionPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SyncMapPermissionSolution {
-  serviceSid?: string;
-  mapSid?: string;
-}
-
-interface SyncMapPermissionListInstanceImpl extends SyncMapPermissionListInstance {}
-class SyncMapPermissionListInstanceImpl implements SyncMapPermissionListInstance {
-  _version?: Sync;
-  _solution?: SyncMapPermissionSolution;
-  _uri?: string;
-
-}
-
-export function SyncMapPermissionListInstance(version: Sync, serviceSid: string, mapSid: string): SyncMapPermissionListInstance {
-  const instance = ((identity) => instance.get(identity)) as SyncMapPermissionListInstanceImpl;
-
-  instance.get = function get(identity): SyncMapPermissionContext {
-    return new SyncMapPermissionContextImpl(version, serviceSid, mapSid, identity);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid, mapSid };
-  instance._uri = `/Services/${serviceSid}/Maps/${mapSid}/Permissions`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<SyncMapPermissionPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncMapPermissionPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncMapPermissionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new SyncMapPermissionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface SyncMapPermissionContext {
@@ -537,6 +350,194 @@ export class SyncMapPermissionInstance {
   }
 }
 
+
+export interface SyncMapPermissionListInstance {
+  (identity: string): SyncMapPermissionContext;
+  get(identity: string): SyncMapPermissionContext;
+
+
+
+  /**
+   * Streams SyncMapPermissionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams SyncMapPermissionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncMapPermissionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: SyncMapPermissionListInstanceEachOptions, callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of SyncMapPermissionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
+  /**
+   * Retrieve a single target page of SyncMapPermissionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
+  getPage(params?: any, callback?: any): Promise<SyncMapPermissionPage>;
+  /**
+   * Lists SyncMapPermissionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any): Promise<SyncMapPermissionInstance[]>;
+  /**
+   * Lists SyncMapPermissionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncMapPermissionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: SyncMapPermissionListInstanceOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance[]) => any): Promise<SyncMapPermissionInstance[]>;
+  list(params?: any, callback?: any): Promise<SyncMapPermissionInstance[]>;
+  /**
+   * Retrieve a single page of SyncMapPermissionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
+  /**
+   * Retrieve a single page of SyncMapPermissionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncMapPermissionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: SyncMapPermissionListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPermissionPage) => any): Promise<SyncMapPermissionPage>;
+  page(params?: any, callback?: any): Promise<SyncMapPermissionPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SyncMapPermissionSolution {
+  serviceSid?: string;
+  mapSid?: string;
+}
+
+interface SyncMapPermissionListInstanceImpl extends SyncMapPermissionListInstance {}
+class SyncMapPermissionListInstanceImpl implements SyncMapPermissionListInstance {
+  _version?: Sync;
+  _solution?: SyncMapPermissionSolution;
+  _uri?: string;
+
+}
+
+export function SyncMapPermissionListInstance(version: Sync, serviceSid: string, mapSid: string): SyncMapPermissionListInstance {
+  const instance = ((identity) => instance.get(identity)) as SyncMapPermissionListInstanceImpl;
+
+  instance.get = function get(identity): SyncMapPermissionContext {
+    return new SyncMapPermissionContextImpl(version, serviceSid, mapSid, identity);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid, mapSid };
+  instance._uri = `/Services/${serviceSid}/Maps/${mapSid}/Permissions`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<SyncMapPermissionPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SyncMapPermissionPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncMapPermissionPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new SyncMapPermissionPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class SyncMapPermissionPage extends Page<Sync, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {
 /**
 * Initialize the SyncMapPermissionPage
@@ -567,5 +568,4 @@ constructor(version: Sync, response: Response<string>, solution: SyncMapPermissi
     return inspect(this.toJSON(), options);
     }
     }
-
 

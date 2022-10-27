@@ -22,67 +22,13 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+type TaskReservationCallStatus = 'initiated'|'ringing'|'answered'|'completed';
+
 type TaskReservationConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
 
 type TaskReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded'|'wrapping'|'completed';
 
-type TaskReservationCallStatus = 'initiated'|'ringing'|'answered'|'completed';
-
 type TaskReservationSupervisorMode = 'monitor'|'whisper'|'barge';
-
-/**
- * Options to pass to each
- *
- * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface ReservationListInstanceEachOptions {
-  reservationStatus?: TaskReservationStatus;
-  pageSize?: number;
-  callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface ReservationListInstanceOptions {
-  reservationStatus?: TaskReservationStatus;
-  pageSize?: number;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface ReservationListInstancePageOptions {
-  reservationStatus?: TaskReservationStatus;
-  pageSize?: number;
-  pageNumber?: number;
-  pageToken?: string;
-}
-
 
 
 /**
@@ -199,193 +145,59 @@ export interface ReservationContextUpdateOptions {
   endConferenceOnCustomerExit?: boolean;
   beepOnCustomerEntrance?: boolean;
 }
-
-export interface ReservationListInstance {
-  (sid: string): ReservationContext;
-  get(sid: string): ReservationContext;
-
-
-
-  /**
-   * Streams ReservationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ReservationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ReservationListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ReservationListInstanceEachOptions, callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ReservationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
-  /**
-   * Retrieve a single target page of ReservationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
-  getPage(params?: any, callback?: any): Promise<ReservationPage>;
-  /**
-   * Lists ReservationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ReservationInstance[]) => any): Promise<ReservationInstance[]>;
-  /**
-   * Lists ReservationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ReservationListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ReservationListInstanceOptions, callback?: (error: Error | null, items: ReservationInstance[]) => any): Promise<ReservationInstance[]>;
-  list(params?: any, callback?: any): Promise<ReservationInstance[]>;
-  /**
-   * Retrieve a single page of ReservationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
-  /**
-   * Retrieve a single page of ReservationInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ReservationListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ReservationListInstancePageOptions, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
-  page(params?: any, callback?: any): Promise<ReservationPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
+/**
+ * Options to pass to each
+ *
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ * @property { Function } [callback] -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property { Function } [done] - Function to be called upon completion of streaming
+ * @property { number } [limit] -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ */
+export interface ReservationListInstanceEachOptions {
+  reservationStatus?: TaskReservationStatus;
+  pageSize?: number;
+  callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
 }
 
-export interface ReservationSolution {
-  workspaceSid?: string;
-  taskSid?: string;
+/**
+ * Options to pass to list
+ *
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ * @property { number } [limit] -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ */
+export interface ReservationListInstanceOptions {
+  reservationStatus?: TaskReservationStatus;
+  pageSize?: number;
+  limit?: number;
 }
 
-interface ReservationListInstanceImpl extends ReservationListInstance {}
-class ReservationListInstanceImpl implements ReservationListInstance {
-  _version?: V1;
-  _solution?: ReservationSolution;
-  _uri?: string;
-
+/**
+ * Options to pass to page
+ *
+ * @property { TaskReservationStatus } [reservationStatus] Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
+ * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ * @property { number } [pageNumber] - Page Number, this value is simply for client state
+ * @property { string } [pageToken] - PageToken provided by the API
+ */
+export interface ReservationListInstancePageOptions {
+  reservationStatus?: TaskReservationStatus;
+  pageSize?: number;
+  pageNumber?: number;
+  pageToken?: string;
 }
 
-export function ReservationListInstance(version: V1, workspaceSid: string, taskSid: string): ReservationListInstance {
-  const instance = ((sid) => instance.get(sid)) as ReservationListInstanceImpl;
-
-  instance.get = function get(sid): ReservationContext {
-    return new ReservationContextImpl(version, workspaceSid, taskSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { workspaceSid, taskSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Tasks/${taskSid}/Reservations`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<ReservationPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.reservationStatus !== undefined) data['ReservationStatus'] = params.reservationStatus;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ReservationPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ReservationPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ReservationPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ReservationContext {
@@ -696,6 +508,195 @@ export class ReservationInstance {
   }
 }
 
+
+export interface ReservationListInstance {
+  (sid: string): ReservationContext;
+  get(sid: string): ReservationContext;
+
+
+
+  /**
+   * Streams ReservationInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ReservationInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ReservationListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: ReservationListInstanceEachOptions, callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of ReservationInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
+  /**
+   * Retrieve a single target page of ReservationInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
+  getPage(params?: any, callback?: any): Promise<ReservationPage>;
+  /**
+   * Lists ReservationInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ReservationInstance[]) => any): Promise<ReservationInstance[]>;
+  /**
+   * Lists ReservationInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ReservationListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: ReservationListInstanceOptions, callback?: (error: Error | null, items: ReservationInstance[]) => any): Promise<ReservationInstance[]>;
+  list(params?: any, callback?: any): Promise<ReservationInstance[]>;
+  /**
+   * Retrieve a single page of ReservationInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
+  /**
+   * Retrieve a single page of ReservationInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ReservationListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: ReservationListInstancePageOptions, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
+  page(params?: any, callback?: any): Promise<ReservationPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ReservationSolution {
+  workspaceSid?: string;
+  taskSid?: string;
+}
+
+interface ReservationListInstanceImpl extends ReservationListInstance {}
+class ReservationListInstanceImpl implements ReservationListInstance {
+  _version?: V1;
+  _solution?: ReservationSolution;
+  _uri?: string;
+
+}
+
+export function ReservationListInstance(version: V1, workspaceSid: string, taskSid: string): ReservationListInstance {
+  const instance = ((sid) => instance.get(sid)) as ReservationListInstanceImpl;
+
+  instance.get = function get(sid): ReservationContext {
+    return new ReservationContextImpl(version, workspaceSid, taskSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { workspaceSid, taskSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Tasks/${taskSid}/Reservations`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<ReservationPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.reservationStatus !== undefined) data['ReservationStatus'] = params.reservationStatus;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ReservationPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ReservationPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new ReservationPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class ReservationPage extends Page<V1, ReservationPayload, ReservationResource, ReservationInstance> {
 /**
 * Initialize the ReservationPage
@@ -726,5 +727,4 @@ constructor(version: V1, response: Response<string>, solution: ReservationSoluti
     return inspect(this.toJSON(), options);
     }
     }
-
 

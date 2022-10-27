@@ -22,18 +22,18 @@ const serialize = require("../../../../base/serialize");
 
 
 
+export class PricingV1MessagingMessagingCountryInstanceInboundSmsPrices {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
+}
+
+
 export class PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices {
   "carrier"?: string;
   "mcc"?: string;
   "mnc"?: string;
   "prices"?: Array<PricingV1MessagingMessagingCountryInstanceOutboundSmsPricesPrices>;
-}
-
-
-export class PricingV1MessagingMessagingCountryInstanceInboundSmsPrices {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "numberType"?: string;
 }
 
 

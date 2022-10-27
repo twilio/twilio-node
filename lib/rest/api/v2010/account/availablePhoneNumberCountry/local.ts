@@ -21,17 +21,6 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
-/**
- * Whether a phone number can receive calls or messages
- */
-export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities {
-  "mms"?: boolean;
-  "sms"?: boolean;
-  "voice"?: boolean;
-  "fax"?: boolean;
-}
-
-
 export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal {
   /**
    * A formatted version of the phone number
@@ -82,6 +71,17 @@ export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal
    */
   "beta"?: boolean | null;
   "capabilities"?: ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities | null;
+}
+
+
+/**
+ * Whether a phone number can receive calls or messages
+ */
+export class ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities {
+  "mms"?: boolean;
+  "sms"?: boolean;
+  "voice"?: boolean;
+  "fax"?: boolean;
 }
 
 

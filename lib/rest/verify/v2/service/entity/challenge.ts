@@ -25,11 +25,11 @@ import { NotificationListInstance } from "./challenge/notification";
 
 type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
 
-type ChallengeListOrders = 'asc'|'desc';
-
 type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
 
 type ChallengeFactorTypes = 'push'|'totp';
+
+type ChallengeListOrders = 'asc'|'desc';
 
 
 /**

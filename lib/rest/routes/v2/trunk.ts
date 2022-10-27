@@ -32,52 +32,6 @@ export interface TrunkContextUpdateOptions {
   friendlyName?: string;
 }
 
-export interface TrunkListInstance {
-  (sipTrunkDomain: string): TrunkContext;
-  get(sipTrunkDomain: string): TrunkContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TrunkSolution {
-}
-
-interface TrunkListInstanceImpl extends TrunkListInstance {}
-class TrunkListInstanceImpl implements TrunkListInstance {
-  _version?: V2;
-  _solution?: TrunkSolution;
-  _uri?: string;
-
-}
-
-export function TrunkListInstance(version: V2): TrunkListInstance {
-  const instance = ((sipTrunkDomain) => instance.get(sipTrunkDomain)) as TrunkListInstanceImpl;
-
-  instance.get = function get(sipTrunkDomain): TrunkContext {
-    return new TrunkContextImpl(version, sipTrunkDomain);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Trunks`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
-
 export interface TrunkContext {
 
 
@@ -312,6 +266,52 @@ export class TrunkInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface TrunkListInstance {
+  (sipTrunkDomain: string): TrunkContext;
+  get(sipTrunkDomain: string): TrunkContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TrunkSolution {
+}
+
+interface TrunkListInstanceImpl extends TrunkListInstance {}
+class TrunkListInstanceImpl implements TrunkListInstance {
+  _version?: V2;
+  _solution?: TrunkSolution;
+  _uri?: string;
+
+}
+
+export function TrunkListInstance(version: V2): TrunkListInstance {
+  const instance = ((sipTrunkDomain) => instance.get(sipTrunkDomain)) as TrunkListInstanceImpl;
+
+  instance.get = function get(sipTrunkDomain): TrunkContext {
+    return new TrunkContextImpl(version, sipTrunkDomain);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Trunks`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

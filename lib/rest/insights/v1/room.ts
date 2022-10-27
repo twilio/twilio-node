@@ -23,21 +23,21 @@ import { ParticipantListInstance } from "./room/participant";
 
 
 
-type VideoRoomSummaryCreatedMethod = 'sdk'|'ad_hoc'|'api';
-
 type VideoRoomSummaryCodec = 'VP8'|'H264'|'VP9';
 
-type VideoRoomSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
+type VideoRoomSummaryCreatedMethod = 'sdk'|'ad_hoc'|'api';
 
-type VideoRoomSummaryProcessingState = 'complete'|'in_progress';
-
-type VideoRoomSummaryRoomType = 'go'|'peer_to_peer'|'group'|'group_small';
+type VideoRoomSummaryEdgeLocation = 'ashburn'|'dublin'|'frankfurt'|'singapore'|'sydney'|'sao_paulo'|'roaming'|'umatilla'|'tokyo';
 
 type VideoRoomSummaryEndReason = 'room_ended_via_api'|'timeout';
 
+type VideoRoomSummaryProcessingState = 'complete'|'in_progress';
+
 type VideoRoomSummaryRoomStatus = 'in_progress'|'completed';
 
-type VideoRoomSummaryEdgeLocation = 'ashburn'|'dublin'|'frankfurt'|'singapore'|'sydney'|'sao_paulo'|'roaming'|'umatilla'|'tokyo';
+type VideoRoomSummaryRoomType = 'go'|'peer_to_peer'|'group'|'group_small';
+
+type VideoRoomSummaryTwilioRealm = 'us1'|'us2'|'au1'|'br1'|'ie1'|'jp1'|'sg1'|'in1'|'de1'|'gll';
 
 /**
  * Options to pass to each

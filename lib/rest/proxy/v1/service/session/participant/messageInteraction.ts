@@ -22,9 +22,9 @@ const serialize = require("../../../../../../base/serialize");
 
 
 
-type MessageInteractionType = 'message'|'voice'|'unknown';
-
 type MessageInteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
+
+type MessageInteractionType = 'message'|'voice'|'unknown';
 
 
 /**

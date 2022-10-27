@@ -19,68 +19,11 @@ import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { BindingListInstance } from "./service/binding";
 import { ChannelListInstance } from "./service/channel";
 import { RoleListInstance } from "./service/role";
 import { UserListInstance } from "./service/user";
 
-
-
-/**
- * Options to pass to create a ServiceInstance
- *
- * @property { string } friendlyName 
- */
-export interface ServiceListInstanceCreateOptions {
-  friendlyName: string;
-}
-/**
- * Options to pass to each
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { Function } [callback] -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property { Function } [done] - Function to be called upon completion of streaming
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface ServiceListInstanceEachOptions {
-  pageSize?: number;
-  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [limit] -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- */
-export interface ServiceListInstanceOptions {
-  pageSize?: number;
-  limit?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
- * @property { number } [pageNumber] - Page Number, this value is simply for client state
- * @property { string } [pageToken] - PageToken provided by the API
- */
-export interface ServiceListInstancePageOptions {
-  pageSize?: number;
-  pageNumber?: number;
-  pageToken?: string;
-}
 
 
 
@@ -153,229 +96,61 @@ export interface ServiceContextUpdateOptions {
   notificationsLogEnabled?: boolean;
 }
 
-export interface ServiceListInstance {
-  (sid: string): ServiceContext;
-  get(sid: string): ServiceContext;
-
-
-  /**
-   * Create a ServiceInstance
-   *
-   * @param { ServiceListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ServiceInstance
-   */
-  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
-  create(params: any, callback?: any): Promise<ServiceInstance>
-
-
-
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ServiceListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  getPage(params?: any, callback?: any): Promise<ServicePage>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ServiceListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
-  list(params?: any, callback?: any): Promise<ServiceInstance[]>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ServiceListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  page(params?: any, callback?: any): Promise<ServicePage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
+/**
+ * Options to pass to create a ServiceInstance
+ *
+ * @property { string } friendlyName 
+ */
+export interface ServiceListInstanceCreateOptions {
+  friendlyName: string;
+}
+/**
+ * Options to pass to each
+ *
+ * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ * @property { Function } [callback] -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property { Function } [done] - Function to be called upon completion of streaming
+ * @property { number } [limit] -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ */
+export interface ServiceListInstanceEachOptions {
+  pageSize?: number;
+  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
 }
 
-export interface ServiceSolution {
+/**
+ * Options to pass to list
+ *
+ * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ * @property { number } [limit] -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ */
+export interface ServiceListInstanceOptions {
+  pageSize?: number;
+  limit?: number;
 }
 
-interface ServiceListInstanceImpl extends ServiceListInstance {}
-class ServiceListInstanceImpl implements ServiceListInstance {
-  _version?: V2;
-  _solution?: ServiceSolution;
-  _uri?: string;
-
+/**
+ * Options to pass to page
+ *
+ * @property { number } [pageSize] How many resources to return in each list page. The default is 50, and the maximum is 1000.
+ * @property { number } [pageNumber] - Page Number, this value is simply for client state
+ * @property { string } [pageToken] - PageToken provided by the API
+ */
+export interface ServiceListInstancePageOptions {
+  pageSize?: number;
+  pageNumber?: number;
+  pageToken?: string;
 }
 
-export function ServiceListInstance(version: V2): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
-
-  instance.get = function get(sid): ServiceContext {
-    return new ServiceContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Services`;
-
-  instance.create = function create(params: any, callback?: any): Promise<ServiceInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ServicePage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ServiceContext {
@@ -769,6 +544,232 @@ export class ServiceInstance {
   }
 }
 
+
+export interface ServiceListInstance {
+  (sid: string): ServiceContext;
+  get(sid: string): ServiceContext;
+
+
+  /**
+   * Create a ServiceInstance
+   *
+   * @param { ServiceListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ServiceInstance
+   */
+  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  create(params: any, callback?: any): Promise<ServiceInstance>
+
+
+
+  /**
+   * Streams ServiceInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ServiceInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ServiceListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  /**
+   * Retrieve a single target page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(params?: any, callback?: any): Promise<ServicePage>;
+  /**
+   * Lists ServiceInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  /**
+   * Lists ServiceInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ServiceListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(params?: any, callback?: any): Promise<ServiceInstance[]>;
+  /**
+   * Retrieve a single page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  /**
+   * Retrieve a single page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ServiceListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(params?: any, callback?: any): Promise<ServicePage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ServiceSolution {
+}
+
+interface ServiceListInstanceImpl extends ServiceListInstance {}
+class ServiceListInstanceImpl implements ServiceListInstance {
+  _version?: V2;
+  _solution?: ServiceSolution;
+  _uri?: string;
+
+}
+
+export function ServiceListInstance(version: V2): ServiceListInstance {
+  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
+
+  instance.get = function get(sid): ServiceContext {
+    return new ServiceContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Services`;
+
+  instance.create = function create(params: any, callback?: any): Promise<ServiceInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<ServicePage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class ServicePage extends Page<V2, ServicePayload, ServiceResource, ServiceInstance> {
 /**
 * Initialize the ServicePage
@@ -797,5 +798,4 @@ constructor(version: V2, response: Response<string>, solution: ServiceSolution) 
     return inspect(this.toJSON(), options);
     }
     }
-
 

@@ -19,15 +19,24 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { SinkTestListInstance } from "./sink/sinkTest";
 import { SinkValidateListInstance } from "./sink/sinkValidate";
 
 
-type SinkStatus = 'initialized'|'validating'|'active'|'failed';
 
 type SinkSinkType = 'kinesis'|'webhook'|'segment';
 
+type SinkStatus = 'initialized'|'validating'|'active'|'failed';
+
+
+/**
+ * Options to pass to update a SinkInstance
+ *
+ * @property { string } description A human readable description for the Sink **This value should not contain PII.**
+ */
+export interface SinkContextUpdateOptions {
+  description: string;
+}
 
 /**
  * Options to pass to create a SinkInstance
@@ -100,252 +109,6 @@ export interface SinkListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a SinkInstance
- *
- * @property { string } description A human readable description for the Sink **This value should not contain PII.**
- */
-export interface SinkContextUpdateOptions {
-  description: string;
-}
-
-export interface SinkListInstance {
-  (sid: string): SinkContext;
-  get(sid: string): SinkContext;
-
-
-  /**
-   * Create a SinkInstance
-   *
-   * @param { SinkListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SinkInstance
-   */
-  create(params: SinkListInstanceCreateOptions, callback?: (error: Error | null, item?: SinkInstance) => any): Promise<SinkInstance>;
-  create(params: any, callback?: any): Promise<SinkInstance>
-
-
-
-  /**
-   * Streams SinkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: SinkInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams SinkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SinkListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: SinkListInstanceEachOptions, callback?: (item: SinkInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of SinkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
-  /**
-   * Retrieve a single target page of SinkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
-  getPage(params?: any, callback?: any): Promise<SinkPage>;
-  /**
-   * Lists SinkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: SinkInstance[]) => any): Promise<SinkInstance[]>;
-  /**
-   * Lists SinkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SinkListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: SinkListInstanceOptions, callback?: (error: Error | null, items: SinkInstance[]) => any): Promise<SinkInstance[]>;
-  list(params?: any, callback?: any): Promise<SinkInstance[]>;
-  /**
-   * Retrieve a single page of SinkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
-  /**
-   * Retrieve a single page of SinkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SinkListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: SinkListInstancePageOptions, callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
-  page(params?: any, callback?: any): Promise<SinkPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SinkSolution {
-}
-
-interface SinkListInstanceImpl extends SinkListInstance {}
-class SinkListInstanceImpl implements SinkListInstance {
-  _version?: V1;
-  _solution?: SinkSolution;
-  _uri?: string;
-
-}
-
-export function SinkListInstance(version: V1): SinkListInstance {
-  const instance = ((sid) => instance.get(sid)) as SinkListInstanceImpl;
-
-  instance.get = function get(sid): SinkContext {
-    return new SinkContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Sinks`;
-
-  instance.create = function create(params: any, callback?: any): Promise<SinkInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.description === null || params.description === undefined) {
-      throw new Error('Required parameter "params.description" missing.');
-    }
-
-    if (params.sinkConfiguration === null || params.sinkConfiguration === undefined) {
-      throw new Error('Required parameter "params.sinkConfiguration" missing.');
-    }
-
-    if (params.sinkType === null || params.sinkType === undefined) {
-      throw new Error('Required parameter "params.sinkType" missing.');
-    }
-
-    const data: any = {};
-
-    data['Description'] = params.description;
-    data['SinkConfiguration'] = params.sinkConfiguration;
-    data['SinkType'] = params.sinkType;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SinkInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<SinkPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.inUse !== undefined) data['InUse'] = serialize.bool(params.inUse);
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SinkPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SinkPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new SinkPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface SinkContext {
@@ -631,6 +394,244 @@ export class SinkInstance {
   }
 }
 
+
+export interface SinkListInstance {
+  (sid: string): SinkContext;
+  get(sid: string): SinkContext;
+
+
+  /**
+   * Create a SinkInstance
+   *
+   * @param { SinkListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SinkInstance
+   */
+  create(params: SinkListInstanceCreateOptions, callback?: (error: Error | null, item?: SinkInstance) => any): Promise<SinkInstance>;
+  create(params: any, callback?: any): Promise<SinkInstance>
+
+
+
+  /**
+   * Streams SinkInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: SinkInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams SinkInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SinkListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: SinkListInstanceEachOptions, callback?: (item: SinkInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of SinkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
+  /**
+   * Retrieve a single target page of SinkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
+  getPage(params?: any, callback?: any): Promise<SinkPage>;
+  /**
+   * Lists SinkInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: SinkInstance[]) => any): Promise<SinkInstance[]>;
+  /**
+   * Lists SinkInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SinkListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: SinkListInstanceOptions, callback?: (error: Error | null, items: SinkInstance[]) => any): Promise<SinkInstance[]>;
+  list(params?: any, callback?: any): Promise<SinkInstance[]>;
+  /**
+   * Retrieve a single page of SinkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
+  /**
+   * Retrieve a single page of SinkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SinkListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: SinkListInstancePageOptions, callback?: (error: Error | null, items: SinkPage) => any): Promise<SinkPage>;
+  page(params?: any, callback?: any): Promise<SinkPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SinkSolution {
+}
+
+interface SinkListInstanceImpl extends SinkListInstance {}
+class SinkListInstanceImpl implements SinkListInstance {
+  _version?: V1;
+  _solution?: SinkSolution;
+  _uri?: string;
+
+}
+
+export function SinkListInstance(version: V1): SinkListInstance {
+  const instance = ((sid) => instance.get(sid)) as SinkListInstanceImpl;
+
+  instance.get = function get(sid): SinkContext {
+    return new SinkContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Sinks`;
+
+  instance.create = function create(params: any, callback?: any): Promise<SinkInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.description === null || params.description === undefined) {
+      throw new Error('Required parameter "params.description" missing.');
+    }
+
+    if (params.sinkConfiguration === null || params.sinkConfiguration === undefined) {
+      throw new Error('Required parameter "params.sinkConfiguration" missing.');
+    }
+
+    if (params.sinkType === null || params.sinkType === undefined) {
+      throw new Error('Required parameter "params.sinkType" missing.');
+    }
+
+    const data: any = {};
+
+    data['Description'] = params.description;
+    data['SinkConfiguration'] = params.sinkConfiguration;
+    data['SinkType'] = params.sinkType;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SinkInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<SinkPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.inUse !== undefined) data['InUse'] = serialize.bool(params.inUse);
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SinkPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SinkPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new SinkPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class SinkPage extends Page<V1, SinkPayload, SinkResource, SinkInstance> {
 /**
 * Initialize the SinkPage
@@ -659,5 +660,4 @@ constructor(version: V1, response: Response<string>, solution: SinkSolution) {
     return inspect(this.toJSON(), options);
     }
     }
-
 

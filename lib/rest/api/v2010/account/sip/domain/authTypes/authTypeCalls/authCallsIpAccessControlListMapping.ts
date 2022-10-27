@@ -80,6 +80,188 @@ export interface AuthCallsIpAccessControlListMappingListInstancePageOptions {
 
 
 
+export interface AuthCallsIpAccessControlListMappingContext {
+
+
+  /**
+   * Remove a AuthCallsIpAccessControlListMappingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+
+  /**
+   * Fetch a AuthCallsIpAccessControlListMappingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AuthCallsIpAccessControlListMappingInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AuthCallsIpAccessControlListMappingInstance) => any): Promise<AuthCallsIpAccessControlListMappingInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AuthCallsIpAccessControlListMappingContextSolution {
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
+}
+
+export class AuthCallsIpAccessControlListMappingContextImpl implements AuthCallsIpAccessControlListMappingContext {
+  protected _solution: AuthCallsIpAccessControlListMappingContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V2010, accountSid: string, domainSid: string, sid: string) {
+    this._solution = { accountSid, domainSid, sid };
+    this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Calls/IpAccessControlListMappings/${sid}.json`;
+  }
+
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  fetch(callback?: any): Promise<AuthCallsIpAccessControlListMappingInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new AuthCallsIpAccessControlListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface AuthCallsIpAccessControlListMappingPayload extends AuthCallsIpAccessControlListMappingResource, Page.TwilioResponsePayload {
+}
+
+interface AuthCallsIpAccessControlListMappingResource {
+  account_sid?: string | null;
+  date_created?: string | null;
+  date_updated?: string | null;
+  friendly_name?: string | null;
+  sid?: string | null;
+}
+
+export class AuthCallsIpAccessControlListMappingInstance {
+  protected _solution: AuthCallsIpAccessControlListMappingContextSolution;
+  protected _context?: AuthCallsIpAccessControlListMappingContext;
+
+  constructor(protected _version: V2010, payload: AuthCallsIpAccessControlListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
+    this.accountSid = payload.account_sid;
+    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
+    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
+    this.friendlyName = payload.friendly_name;
+    this.sid = payload.sid;
+
+    this._solution = { accountSid, domainSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was created
+   */
+  dateCreated?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was last updated
+   */
+  dateUpdated?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  friendlyName?: string | null;
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+
+  private get _proxy(): AuthCallsIpAccessControlListMappingContext {
+    this._context = this._context || new AuthCallsIpAccessControlListMappingContextImpl(this._version, this._solution.accountSid, this._solution.domainSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Remove a AuthCallsIpAccessControlListMappingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+     {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Fetch a AuthCallsIpAccessControlListMappingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AuthCallsIpAccessControlListMappingInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AuthCallsIpAccessControlListMappingInstance) => any): Promise<AuthCallsIpAccessControlListMappingInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      friendlyName: this.friendlyName, 
+      sid: this.sid
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface AuthCallsIpAccessControlListMappingListInstance {
   (sid: string): AuthCallsIpAccessControlListMappingContext;
   get(sid: string): AuthCallsIpAccessControlListMappingContext;
@@ -307,187 +489,6 @@ export function AuthCallsIpAccessControlListMappingListInstance(version: V2010, 
 }
 
 
-export interface AuthCallsIpAccessControlListMappingContext {
-
-
-  /**
-   * Remove a AuthCallsIpAccessControlListMappingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-
-  /**
-   * Fetch a AuthCallsIpAccessControlListMappingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AuthCallsIpAccessControlListMappingInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AuthCallsIpAccessControlListMappingInstance) => any): Promise<AuthCallsIpAccessControlListMappingInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AuthCallsIpAccessControlListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
-}
-
-export class AuthCallsIpAccessControlListMappingContextImpl implements AuthCallsIpAccessControlListMappingContext {
-  protected _solution: AuthCallsIpAccessControlListMappingContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V2010, accountSid: string, domainSid: string, sid: string) {
-    this._solution = { accountSid, domainSid, sid };
-    this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/Auth/Calls/IpAccessControlListMappings/${sid}.json`;
-  }
-
-  remove(callback?: any): Promise<boolean> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  fetch(callback?: any): Promise<AuthCallsIpAccessControlListMappingInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new AuthCallsIpAccessControlListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface AuthCallsIpAccessControlListMappingPayload extends AuthCallsIpAccessControlListMappingResource, Page.TwilioResponsePayload {
-}
-
-interface AuthCallsIpAccessControlListMappingResource {
-  account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-}
-
-export class AuthCallsIpAccessControlListMappingInstance {
-  protected _solution: AuthCallsIpAccessControlListMappingContextSolution;
-  protected _context?: AuthCallsIpAccessControlListMappingContext;
-
-  constructor(protected _version: V2010, payload: AuthCallsIpAccessControlListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
-    this.accountSid = payload.account_sid;
-    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
-    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.sid = payload.sid;
-
-    this._solution = { accountSid, domainSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was created
-   */
-  dateCreated?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
-   */
-  dateUpdated?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  friendlyName?: string | null;
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-
-  private get _proxy(): AuthCallsIpAccessControlListMappingContext {
-    this._context = this._context || new AuthCallsIpAccessControlListMappingContextImpl(this._version, this._solution.accountSid, this._solution.domainSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Remove a AuthCallsIpAccessControlListMappingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
-    return this._proxy.remove(callback);
-  }
-
-  /**
-   * Fetch a AuthCallsIpAccessControlListMappingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AuthCallsIpAccessControlListMappingInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AuthCallsIpAccessControlListMappingInstance) => any): Promise<AuthCallsIpAccessControlListMappingInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      friendlyName: this.friendlyName, 
-      sid: this.sid
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class AuthCallsIpAccessControlListMappingPage extends Page<V2010, AuthCallsIpAccessControlListMappingPayload, AuthCallsIpAccessControlListMappingResource, AuthCallsIpAccessControlListMappingInstance> {
 /**
 * Initialize the AuthCallsIpAccessControlListMappingPage
@@ -518,5 +519,4 @@ constructor(version: V2010, response: Response<string>, solution: AuthCallsIpAcc
     return inspect(this.toJSON(), options);
     }
     }
-
 

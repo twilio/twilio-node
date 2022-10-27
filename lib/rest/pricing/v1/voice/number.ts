@@ -40,52 +40,6 @@ export class PricingV1VoiceVoiceNumberOutboundCallPrice {
 
 
 
-export interface NumberListInstance {
-  (number: string): NumberContext;
-  get(number: string): NumberContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface NumberSolution {
-}
-
-interface NumberListInstanceImpl extends NumberListInstance {}
-class NumberListInstanceImpl implements NumberListInstance {
-  _version?: V1;
-  _solution?: NumberSolution;
-  _uri?: string;
-
-}
-
-export function NumberListInstance(version: V1): NumberListInstance {
-  const instance = ((number) => instance.get(number)) as NumberListInstanceImpl;
-
-  instance.get = function get(number): NumberContext {
-    return new NumberContextImpl(version, number);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Voice/Numbers`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
-
 export interface NumberContext {
 
 
@@ -237,6 +191,52 @@ export class NumberInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface NumberListInstance {
+  (number: string): NumberContext;
+  get(number: string): NumberContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface NumberSolution {
+}
+
+interface NumberListInstanceImpl extends NumberListInstance {}
+class NumberListInstanceImpl implements NumberListInstance {
+  _version?: V1;
+  _solution?: NumberSolution;
+  _uri?: string;
+
+}
+
+export function NumberListInstance(version: V1): NumberListInstance {
+  const instance = ((number) => instance.get(number)) as NumberListInstanceImpl;
+
+  instance.get = function get(number): NumberContext {
+    return new NumberContextImpl(version, number);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Voice/Numbers`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

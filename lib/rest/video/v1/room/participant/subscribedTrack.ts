@@ -73,6 +73,186 @@ export interface SubscribedTrackListInstancePageOptions {
 
 
 
+export interface SubscribedTrackContext {
+
+
+  /**
+   * Fetch a SubscribedTrackInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SubscribedTrackInstance
+   */
+  fetch(callback?: (error: Error | null, item?: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SubscribedTrackContextSolution {
+  roomSid?: string;
+  participantSid?: string;
+  sid?: string;
+}
+
+export class SubscribedTrackContextImpl implements SubscribedTrackContext {
+  protected _solution: SubscribedTrackContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, roomSid: string, participantSid: string, sid: string) {
+    this._solution = { roomSid, participantSid, sid };
+    this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks/${sid}`;
+  }
+
+  fetch(callback?: any): Promise<SubscribedTrackInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new SubscribedTrackInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface SubscribedTrackPayload extends SubscribedTrackResource, Page.TwilioResponsePayload {
+}
+
+interface SubscribedTrackResource {
+  sid?: string | null;
+  participant_sid?: string | null;
+  publisher_sid?: string | null;
+  room_sid?: string | null;
+  name?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  enabled?: boolean | null;
+  kind?: RoomParticipantSubscribedTrackKind;
+  url?: string | null;
+}
+
+export class SubscribedTrackInstance {
+  protected _solution: SubscribedTrackContextSolution;
+  protected _context?: SubscribedTrackContext;
+
+  constructor(protected _version: V1, payload: SubscribedTrackPayload, roomSid: string, participantSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.participantSid = payload.participant_sid;
+    this.publisherSid = payload.publisher_sid;
+    this.roomSid = payload.room_sid;
+    this.name = payload.name;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.enabled = payload.enabled;
+    this.kind = payload.kind;
+    this.url = payload.url;
+
+    this._solution = { roomSid, participantSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the participant that subscribes to the track
+   */
+  participantSid?: string | null;
+  /**
+   * The SID of the participant that publishes the track
+   */
+  publisherSid?: string | null;
+  /**
+   * The SID of the room where the track is published
+   */
+  roomSid?: string | null;
+  /**
+   * The track name
+   */
+  name?: string | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was last updated
+   */
+  dateUpdated?: Date | null;
+  /**
+   * Whether the track is enabled
+   */
+  enabled?: boolean | null;
+  kind?: RoomParticipantSubscribedTrackKind;
+  /**
+   * The absolute URL of the resource
+   */
+  url?: string | null;
+
+  private get _proxy(): SubscribedTrackContext {
+    this._context = this._context || new SubscribedTrackContextImpl(this._version, this._solution.roomSid, this._solution.participantSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a SubscribedTrackInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SubscribedTrackInstance
+   */
+  fetch(callback?: (error: Error | null, item?: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      participantSid: this.participantSid, 
+      publisherSid: this.publisherSid, 
+      roomSid: this.roomSid, 
+      name: this.name, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      enabled: this.enabled, 
+      kind: this.kind, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface SubscribedTrackListInstance {
   (sid: string): SubscribedTrackContext;
   get(sid: string): SubscribedTrackContext;
@@ -260,185 +440,6 @@ export function SubscribedTrackListInstance(version: V1, roomSid: string, partic
 }
 
 
-export interface SubscribedTrackContext {
-
-
-  /**
-   * Fetch a SubscribedTrackInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SubscribedTrackInstance
-   */
-  fetch(callback?: (error: Error | null, item?: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SubscribedTrackContextSolution {
-  roomSid?: string;
-  participantSid?: string;
-  sid?: string;
-}
-
-export class SubscribedTrackContextImpl implements SubscribedTrackContext {
-  protected _solution: SubscribedTrackContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, roomSid: string, participantSid: string, sid: string) {
-    this._solution = { roomSid, participantSid, sid };
-    this._uri = `/Rooms/${roomSid}/Participants/${participantSid}/SubscribedTracks/${sid}`;
-  }
-
-  fetch(callback?: any): Promise<SubscribedTrackInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new SubscribedTrackInstance(operationVersion, payload, this._solution.roomSid, this._solution.participantSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface SubscribedTrackPayload extends SubscribedTrackResource, Page.TwilioResponsePayload {
-}
-
-interface SubscribedTrackResource {
-  sid?: string | null;
-  participant_sid?: string | null;
-  publisher_sid?: string | null;
-  room_sid?: string | null;
-  name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  enabled?: boolean | null;
-  kind?: RoomParticipantSubscribedTrackKind;
-  url?: string | null;
-}
-
-export class SubscribedTrackInstance {
-  protected _solution: SubscribedTrackContextSolution;
-  protected _context?: SubscribedTrackContext;
-
-  constructor(protected _version: V1, payload: SubscribedTrackPayload, roomSid: string, participantSid: string, sid?: string) {
-    this.sid = payload.sid;
-    this.participantSid = payload.participant_sid;
-    this.publisherSid = payload.publisher_sid;
-    this.roomSid = payload.room_sid;
-    this.name = payload.name;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.enabled = payload.enabled;
-    this.kind = payload.kind;
-    this.url = payload.url;
-
-    this._solution = { roomSid, participantSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the participant that subscribes to the track
-   */
-  participantSid?: string | null;
-  /**
-   * The SID of the participant that publishes the track
-   */
-  publisherSid?: string | null;
-  /**
-   * The SID of the room where the track is published
-   */
-  roomSid?: string | null;
-  /**
-   * The track name
-   */
-  name?: string | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
-   */
-  dateUpdated?: Date | null;
-  /**
-   * Whether the track is enabled
-   */
-  enabled?: boolean | null;
-  kind?: RoomParticipantSubscribedTrackKind;
-  /**
-   * The absolute URL of the resource
-   */
-  url?: string | null;
-
-  private get _proxy(): SubscribedTrackContext {
-    this._context = this._context || new SubscribedTrackContextImpl(this._version, this._solution.roomSid, this._solution.participantSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a SubscribedTrackInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SubscribedTrackInstance
-   */
-  fetch(callback?: (error: Error | null, item?: SubscribedTrackInstance) => any): Promise<SubscribedTrackInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      participantSid: this.participantSid, 
-      publisherSid: this.publisherSid, 
-      roomSid: this.roomSid, 
-      name: this.name, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      enabled: this.enabled, 
-      kind: this.kind, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackInstance> {
 /**
 * Initialize the SubscribedTrackPage
@@ -469,5 +470,4 @@ constructor(version: V1, response: Response<string>, solution: SubscribedTrackSo
     return inspect(this.toJSON(), options);
     }
     }
-
 

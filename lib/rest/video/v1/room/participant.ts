@@ -19,15 +19,24 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { AnonymizeListInstance } from "./participant/anonymize";
 import { PublishedTrackListInstance } from "./participant/publishedTrack";
 import { SubscribeRulesListInstance } from "./participant/subscribeRules";
 import { SubscribedTrackListInstance } from "./participant/subscribedTrack";
 
 
+
 type RoomParticipantStatus = 'connected'|'disconnected';
 
+
+/**
+ * Options to pass to update a ParticipantInstance
+ *
+ * @property { RoomParticipantStatus } [status] 
+ */
+export interface ParticipantContextUpdateOptions {
+  status?: RoomParticipantStatus;
+}
 /**
  * Options to pass to each
  *
@@ -99,205 +108,6 @@ export interface ParticipantListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a ParticipantInstance
- *
- * @property { RoomParticipantStatus } [status] 
- */
-export interface ParticipantContextUpdateOptions {
-  status?: RoomParticipantStatus;
-}
-
-export interface ParticipantListInstance {
-  (sid: string): ParticipantContext;
-  get(sid: string): ParticipantContext;
-
-
-
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ParticipantListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-  getPage(params?: any, callback?: any): Promise<ParticipantPage>;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ParticipantListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
-  list(params?: any, callback?: any): Promise<ParticipantInstance[]>;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ParticipantListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-  page(params?: any, callback?: any): Promise<ParticipantPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ParticipantSolution {
-  roomSid?: string;
-}
-
-interface ParticipantListInstanceImpl extends ParticipantListInstance {}
-class ParticipantListInstanceImpl implements ParticipantListInstance {
-  _version?: V1;
-  _solution?: ParticipantSolution;
-  _uri?: string;
-
-}
-
-export function ParticipantListInstance(version: V1, roomSid: string): ParticipantListInstance {
-  const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
-
-  instance.get = function get(sid): ParticipantContext {
-    return new ParticipantContextImpl(version, roomSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { roomSid };
-  instance._uri = `/Rooms/${roomSid}/Participants`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.identity !== undefined) data['Identity'] = params.identity;
-    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
-    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ParticipantContext {
@@ -617,6 +427,197 @@ export class ParticipantInstance {
   }
 }
 
+
+export interface ParticipantListInstance {
+  (sid: string): ParticipantContext;
+  get(sid: string): ParticipantContext;
+
+
+
+  /**
+   * Streams ParticipantInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ParticipantInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single target page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  getPage(params?: any, callback?: any): Promise<ParticipantPage>;
+  /**
+   * Lists ParticipantInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  /**
+   * Lists ParticipantInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(params?: any, callback?: any): Promise<ParticipantInstance[]>;
+  /**
+   * Retrieve a single page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(params?: any, callback?: any): Promise<ParticipantPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ParticipantSolution {
+  roomSid?: string;
+}
+
+interface ParticipantListInstanceImpl extends ParticipantListInstance {}
+class ParticipantListInstanceImpl implements ParticipantListInstance {
+  _version?: V1;
+  _solution?: ParticipantSolution;
+  _uri?: string;
+
+}
+
+export function ParticipantListInstance(version: V1, roomSid: string): ParticipantListInstance {
+  const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
+
+  instance.get = function get(sid): ParticipantContext {
+    return new ParticipantContextImpl(version, roomSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { roomSid };
+  instance._uri = `/Rooms/${roomSid}/Participants`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.identity !== undefined) data['Identity'] = params.identity;
+    if (params.dateCreatedAfter !== undefined) data['DateCreatedAfter'] = serialize.iso8601DateTime(params.dateCreatedAfter);
+    if (params.dateCreatedBefore !== undefined) data['DateCreatedBefore'] = serialize.iso8601DateTime(params.dateCreatedBefore);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
 /**
 * Initialize the ParticipantPage
@@ -646,5 +647,4 @@ constructor(version: V1, response: Response<string>, solution: ParticipantSoluti
     return inspect(this.toJSON(), options);
     }
     }
-
 

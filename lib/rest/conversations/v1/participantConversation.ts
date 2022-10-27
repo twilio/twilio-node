@@ -21,17 +21,6 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
-export class ListConfigurationAddressResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-
 export class ConversationsV1ParticipantConversation {
   /**
    * The unique ID of the Account responsible for this conversation.
@@ -94,6 +83,17 @@ export class ConversationsV1ParticipantConversation {
    * Absolute URLs to access the participant and conversation of this Participant Conversation.
    */
   "links"?: object | null;
+}
+
+
+export class ListConfigurationAddressResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
 }
 
 

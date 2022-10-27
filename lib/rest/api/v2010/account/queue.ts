@@ -19,10 +19,21 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { MemberListInstance } from "./queue/member";
 
 
+
+
+/**
+ * Options to pass to update a QueueInstance
+ *
+ * @property { string } [friendlyName] A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+ * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+ */
+export interface QueueContextUpdateOptions {
+  friendlyName?: string;
+  maxSize?: number;
+}
 
 /**
  * Options to pass to create a QueueInstance
@@ -81,244 +92,6 @@ export interface QueueListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a QueueInstance
- *
- * @property { string } [friendlyName] A descriptive string that you created to describe this resource. It can be up to 64 characters long.
- * @property { number } [maxSize] The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
- */
-export interface QueueContextUpdateOptions {
-  friendlyName?: string;
-  maxSize?: number;
-}
-
-export interface QueueListInstance {
-  (sid: string): QueueContext;
-  get(sid: string): QueueContext;
-
-
-  /**
-   * Create a QueueInstance
-   *
-   * @param { QueueListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed QueueInstance
-   */
-  create(params: QueueListInstanceCreateOptions, callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>;
-  create(params: any, callback?: any): Promise<QueueInstance>
-
-
-
-  /**
-   * Streams QueueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: QueueInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams QueueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { QueueListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: QueueListInstanceEachOptions, callback?: (item: QueueInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of QueueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
-  /**
-   * Retrieve a single target page of QueueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
-  getPage(params?: any, callback?: any): Promise<QueuePage>;
-  /**
-   * Lists QueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: QueueInstance[]) => any): Promise<QueueInstance[]>;
-  /**
-   * Lists QueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { QueueListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: QueueListInstanceOptions, callback?: (error: Error | null, items: QueueInstance[]) => any): Promise<QueueInstance[]>;
-  list(params?: any, callback?: any): Promise<QueueInstance[]>;
-  /**
-   * Retrieve a single page of QueueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
-  /**
-   * Retrieve a single page of QueueInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { QueueListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: QueueListInstancePageOptions, callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
-  page(params?: any, callback?: any): Promise<QueuePage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface QueueSolution {
-  accountSid?: string;
-}
-
-interface QueueListInstanceImpl extends QueueListInstance {}
-class QueueListInstanceImpl implements QueueListInstance {
-  _version?: V2010;
-  _solution?: QueueSolution;
-  _uri?: string;
-
-}
-
-export function QueueListInstance(version: V2010, accountSid: string): QueueListInstance {
-  const instance = ((sid) => instance.get(sid)) as QueueListInstanceImpl;
-
-  instance.get = function get(sid): QueueContext {
-    return new QueueContextImpl(version, accountSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { accountSid };
-  instance._uri = `/Accounts/${accountSid}/Queues.json`;
-
-  instance.create = function create(params: any, callback?: any): Promise<QueueInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-    if (params.maxSize !== undefined) data['MaxSize'] = params.maxSize;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new QueueInstance(operationVersion, payload, this._solution.accountSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<QueuePage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new QueuePage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<QueuePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new QueuePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface QueueContext {
@@ -613,6 +386,234 @@ export class QueueInstance {
   }
 }
 
+
+export interface QueueListInstance {
+  (sid: string): QueueContext;
+  get(sid: string): QueueContext;
+
+
+  /**
+   * Create a QueueInstance
+   *
+   * @param { QueueListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed QueueInstance
+   */
+  create(params: QueueListInstanceCreateOptions, callback?: (error: Error | null, item?: QueueInstance) => any): Promise<QueueInstance>;
+  create(params: any, callback?: any): Promise<QueueInstance>
+
+
+
+  /**
+   * Streams QueueInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: QueueInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams QueueInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { QueueListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: QueueListInstanceEachOptions, callback?: (item: QueueInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of QueueInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  /**
+   * Retrieve a single target page of QueueInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  getPage(params?: any, callback?: any): Promise<QueuePage>;
+  /**
+   * Lists QueueInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: QueueInstance[]) => any): Promise<QueueInstance[]>;
+  /**
+   * Lists QueueInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { QueueListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: QueueListInstanceOptions, callback?: (error: Error | null, items: QueueInstance[]) => any): Promise<QueueInstance[]>;
+  list(params?: any, callback?: any): Promise<QueueInstance[]>;
+  /**
+   * Retrieve a single page of QueueInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  /**
+   * Retrieve a single page of QueueInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { QueueListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: QueueListInstancePageOptions, callback?: (error: Error | null, items: QueuePage) => any): Promise<QueuePage>;
+  page(params?: any, callback?: any): Promise<QueuePage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface QueueSolution {
+  accountSid?: string;
+}
+
+interface QueueListInstanceImpl extends QueueListInstance {}
+class QueueListInstanceImpl implements QueueListInstance {
+  _version?: V2010;
+  _solution?: QueueSolution;
+  _uri?: string;
+
+}
+
+export function QueueListInstance(version: V2010, accountSid: string): QueueListInstance {
+  const instance = ((sid) => instance.get(sid)) as QueueListInstanceImpl;
+
+  instance.get = function get(sid): QueueContext {
+    return new QueueContextImpl(version, accountSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { accountSid };
+  instance._uri = `/Accounts/${accountSid}/Queues.json`;
+
+  instance.create = function create(params: any, callback?: any): Promise<QueueInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+    if (params.maxSize !== undefined) data['MaxSize'] = params.maxSize;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new QueueInstance(operationVersion, payload, this._solution.accountSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<QueuePage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new QueuePage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<QueuePage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new QueuePage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueInstance> {
 /**
 * Initialize the QueuePage
@@ -642,5 +643,4 @@ constructor(version: V2010, response: Response<string>, solution: QueueSolution)
     return inspect(this.toJSON(), options);
     }
     }
-
 

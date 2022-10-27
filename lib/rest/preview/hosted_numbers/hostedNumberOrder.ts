@@ -23,6 +23,10 @@ import PhoneNumberCapabilities from "../../../interfaces";
 
 
 
+type HostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
+
+type HostedNumberOrderVerificationType = 'phone-call'|'phone-bill';
+
 /**
  * A mapping of phone number capabilities.
  */
@@ -33,10 +37,6 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
   "fax"?: boolean;
 }
 
-
-type HostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
-
-type HostedNumberOrderVerificationType = 'phone-call'|'phone-bill';
 
 
 /**

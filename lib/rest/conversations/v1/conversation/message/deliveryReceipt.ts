@@ -73,6 +73,193 @@ export interface DeliveryReceiptListInstancePageOptions {
 
 
 
+export interface DeliveryReceiptContext {
+
+
+  /**
+   * Fetch a DeliveryReceiptInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeliveryReceiptInstance
+   */
+  fetch(callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any): Promise<DeliveryReceiptInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DeliveryReceiptContextSolution {
+  conversationSid?: string;
+  messageSid?: string;
+  sid?: string;
+}
+
+export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
+  protected _solution: DeliveryReceiptContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, conversationSid: string, messageSid: string, sid: string) {
+    this._solution = { conversationSid, messageSid, sid };
+    this._uri = `/Conversations/${conversationSid}/Messages/${messageSid}/Receipts/${sid}`;
+  }
+
+  fetch(callback?: any): Promise<DeliveryReceiptInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new DeliveryReceiptInstance(operationVersion, payload, this._solution.conversationSid, this._solution.messageSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface DeliveryReceiptPayload extends DeliveryReceiptResource, Page.TwilioResponsePayload {
+}
+
+interface DeliveryReceiptResource {
+  account_sid?: string | null;
+  conversation_sid?: string | null;
+  sid?: string | null;
+  message_sid?: string | null;
+  channel_message_sid?: string | null;
+  participant_sid?: string | null;
+  status?: ConversationMessageReceiptDeliveryStatus;
+  error_code?: number | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  url?: string | null;
+}
+
+export class DeliveryReceiptInstance {
+  protected _solution: DeliveryReceiptContextSolution;
+  protected _context?: DeliveryReceiptContext;
+
+  constructor(protected _version: V1, payload: DeliveryReceiptPayload, conversationSid: string, messageSid: string, sid?: string) {
+    this.accountSid = payload.account_sid;
+    this.conversationSid = payload.conversation_sid;
+    this.sid = payload.sid;
+    this.messageSid = payload.message_sid;
+    this.channelMessageSid = payload.channel_message_sid;
+    this.participantSid = payload.participant_sid;
+    this.status = payload.status;
+    this.errorCode = deserialize.integer(payload.error_code);
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.url = payload.url;
+
+    this._solution = { conversationSid, messageSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique ID of the Account responsible for this participant.
+   */
+  accountSid?: string | null;
+  /**
+   * The unique ID of the Conversation for this message.
+   */
+  conversationSid?: string | null;
+  /**
+   * A 34 character string that uniquely identifies this resource.
+   */
+  sid?: string | null;
+  /**
+   * The SID of the message the delivery receipt belongs to
+   */
+  messageSid?: string | null;
+  /**
+   * A messaging channel-specific identifier for the message delivered to participant
+   */
+  channelMessageSid?: string | null;
+  /**
+   * The unique ID of the participant the delivery receipt belongs to.
+   */
+  participantSid?: string | null;
+  status?: ConversationMessageReceiptDeliveryStatus;
+  /**
+   * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
+   */
+  errorCode?: number | null;
+  /**
+   * The date that this resource was created.
+   */
+  dateCreated?: Date | null;
+  /**
+   * The date that this resource was last updated.
+   */
+  dateUpdated?: Date | null;
+  /**
+   * An absolute URL for this delivery receipt.
+   */
+  url?: string | null;
+
+  private get _proxy(): DeliveryReceiptContext {
+    this._context = this._context || new DeliveryReceiptContextImpl(this._version, this._solution.conversationSid, this._solution.messageSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a DeliveryReceiptInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DeliveryReceiptInstance
+   */
+  fetch(callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any): Promise<DeliveryReceiptInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      conversationSid: this.conversationSid, 
+      sid: this.sid, 
+      messageSid: this.messageSid, 
+      channelMessageSid: this.channelMessageSid, 
+      participantSid: this.participantSid, 
+      status: this.status, 
+      errorCode: this.errorCode, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface DeliveryReceiptListInstance {
   (sid: string): DeliveryReceiptContext;
   get(sid: string): DeliveryReceiptContext;
@@ -260,192 +447,6 @@ export function DeliveryReceiptListInstance(version: V1, conversationSid: string
 }
 
 
-export interface DeliveryReceiptContext {
-
-
-  /**
-   * Fetch a DeliveryReceiptInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeliveryReceiptInstance
-   */
-  fetch(callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any): Promise<DeliveryReceiptInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DeliveryReceiptContextSolution {
-  conversationSid?: string;
-  messageSid?: string;
-  sid?: string;
-}
-
-export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
-  protected _solution: DeliveryReceiptContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, conversationSid: string, messageSid: string, sid: string) {
-    this._solution = { conversationSid, messageSid, sid };
-    this._uri = `/Conversations/${conversationSid}/Messages/${messageSid}/Receipts/${sid}`;
-  }
-
-  fetch(callback?: any): Promise<DeliveryReceiptInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new DeliveryReceiptInstance(operationVersion, payload, this._solution.conversationSid, this._solution.messageSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface DeliveryReceiptPayload extends DeliveryReceiptResource, Page.TwilioResponsePayload {
-}
-
-interface DeliveryReceiptResource {
-  account_sid?: string | null;
-  conversation_sid?: string | null;
-  sid?: string | null;
-  message_sid?: string | null;
-  channel_message_sid?: string | null;
-  participant_sid?: string | null;
-  status?: ConversationMessageReceiptDeliveryStatus;
-  error_code?: number | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-}
-
-export class DeliveryReceiptInstance {
-  protected _solution: DeliveryReceiptContextSolution;
-  protected _context?: DeliveryReceiptContext;
-
-  constructor(protected _version: V1, payload: DeliveryReceiptPayload, conversationSid: string, messageSid: string, sid?: string) {
-    this.accountSid = payload.account_sid;
-    this.conversationSid = payload.conversation_sid;
-    this.sid = payload.sid;
-    this.messageSid = payload.message_sid;
-    this.channelMessageSid = payload.channel_message_sid;
-    this.participantSid = payload.participant_sid;
-    this.status = payload.status;
-    this.errorCode = deserialize.integer(payload.error_code);
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-
-    this._solution = { conversationSid, messageSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique ID of the Account responsible for this participant.
-   */
-  accountSid?: string | null;
-  /**
-   * The unique ID of the Conversation for this message.
-   */
-  conversationSid?: string | null;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid?: string | null;
-  /**
-   * The SID of the message the delivery receipt belongs to
-   */
-  messageSid?: string | null;
-  /**
-   * A messaging channel-specific identifier for the message delivered to participant
-   */
-  channelMessageSid?: string | null;
-  /**
-   * The unique ID of the participant the delivery receipt belongs to.
-   */
-  participantSid?: string | null;
-  status?: ConversationMessageReceiptDeliveryStatus;
-  /**
-   * The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
-   */
-  errorCode?: number | null;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated?: Date | null;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated?: Date | null;
-  /**
-   * An absolute URL for this delivery receipt.
-   */
-  url?: string | null;
-
-  private get _proxy(): DeliveryReceiptContext {
-    this._context = this._context || new DeliveryReceiptContextImpl(this._version, this._solution.conversationSid, this._solution.messageSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a DeliveryReceiptInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DeliveryReceiptInstance
-   */
-  fetch(callback?: (error: Error | null, item?: DeliveryReceiptInstance) => any): Promise<DeliveryReceiptInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      accountSid: this.accountSid, 
-      conversationSid: this.conversationSid, 
-      sid: this.sid, 
-      messageSid: this.messageSid, 
-      channelMessageSid: this.channelMessageSid, 
-      participantSid: this.participantSid, 
-      status: this.status, 
-      errorCode: this.errorCode, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class DeliveryReceiptPage extends Page<V1, DeliveryReceiptPayload, DeliveryReceiptResource, DeliveryReceiptInstance> {
 /**
 * Initialize the DeliveryReceiptPage
@@ -476,5 +477,4 @@ constructor(version: V1, response: Response<string>, solution: DeliveryReceiptSo
     return inspect(this.toJSON(), options);
     }
     }
-
 

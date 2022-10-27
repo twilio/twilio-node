@@ -21,6 +21,17 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
+export class ListBucketResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 export class VerifyV2VerificationTemplate {
   /**
    * A string that uniquely identifies this Template
@@ -39,17 +50,6 @@ export class VerifyV2VerificationTemplate {
    * Object with the template translations.
    */
   "translations"?: any | null;
-}
-
-
-export class ListBucketResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
 }
 
 

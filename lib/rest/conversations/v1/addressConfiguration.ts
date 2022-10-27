@@ -22,11 +22,11 @@ const serialize = require("../../../base/serialize");
 
 
 
-type ConfigurationAddressType = 'sms'|'whatsapp'|'messenger'|'gbm';
-
 type ConfigurationAddressAutoCreationType = 'webhook'|'studio'|'default';
 
 type ConfigurationAddressMethod = 'GET'|'POST';
+
+type ConfigurationAddressType = 'sms'|'whatsapp'|'messenger'|'gbm';
 
 
 /**

@@ -19,8 +19,6 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
-
 import { EventListInstance } from "./call/event";
 import { FeedbackListInstance } from "./call/feedback";
 import { NotificationListInstance } from "./call/notification";
@@ -29,11 +27,38 @@ import { RecordingListInstance } from "./call/recording";
 import { SiprecListInstance } from "./call/siprec";
 import { StreamListInstance } from "./call/stream";
 
+import { FeedbackSummaryListInstance } from "./call/feedbackSummary";
+
 
 type CallStatus = 'queued'|'ringing'|'in-progress'|'completed'|'busy'|'failed'|'no-answer'|'canceled';
 
 type CallUpdateStatus = 'canceled'|'completed';
 
+
+/**
+ * Options to pass to update a CallInstance
+ *
+ * @property { string } [url] The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+ * @property { string } [method] The HTTP method we should use when calling the &#x60;url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
+ * @property { CallUpdateStatus } [status] 
+ * @property { string } [fallbackUrl] The URL that we call using the &#x60;fallback_method&#x60; if an error occurs when requesting or executing the TwiML at &#x60;url&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
+ * @property { string } [fallbackMethod] The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
+ * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+ * @property { string } [statusCallbackMethod] The HTTP method we should use when requesting the &#x60;status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
+ * @property { string } [twiml] TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
+ * @property { number } [timeLimit] The maximum duration of the call in seconds. Constraints depend on account and configuration.
+ */
+export interface CallContextUpdateOptions {
+  url?: string;
+  method?: string;
+  status?: CallUpdateStatus;
+  fallbackUrl?: string;
+  fallbackMethod?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  twiml?: string;
+  timeLimit?: number;
+}
 
 /**
  * Options to pass to create a CallInstance
@@ -218,316 +243,6 @@ export interface CallListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a CallInstance
- *
- * @property { string } [url] The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
- * @property { string } [method] The HTTP method we should use when calling the &#x60;url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
- * @property { CallUpdateStatus } [status] 
- * @property { string } [fallbackUrl] The URL that we call using the &#x60;fallback_method&#x60; if an error occurs when requesting or executing the TwiML at &#x60;url&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
- * @property { string } [fallbackMethod] The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
- * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
- * @property { string } [statusCallbackMethod] The HTTP method we should use when requesting the &#x60;status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
- * @property { string } [twiml] TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
- * @property { number } [timeLimit] The maximum duration of the call in seconds. Constraints depend on account and configuration.
- */
-export interface CallContextUpdateOptions {
-  url?: string;
-  method?: string;
-  status?: CallUpdateStatus;
-  fallbackUrl?: string;
-  fallbackMethod?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  twiml?: string;
-  timeLimit?: number;
-}
-
-export interface CallListInstance {
-  (sid: string): CallContext;
-  get(sid: string): CallContext;
-
-  feedbackSummaries: FeedbackSummaryListInstance;
-
-  /**
-   * Create a CallInstance
-   *
-   * @param { CallListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CallInstance
-   */
-  create(params: CallListInstanceCreateOptions, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
-  create(params: any, callback?: any): Promise<CallInstance>
-
-
-
-  /**
-   * Streams CallInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams CallInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CallListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of CallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
-  /**
-   * Retrieve a single target page of CallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
-  getPage(params?: any, callback?: any): Promise<CallPage>;
-  /**
-   * Lists CallInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
-  /**
-   * Lists CallInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CallListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: CallListInstanceOptions, callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
-  list(params?: any, callback?: any): Promise<CallInstance[]>;
-  /**
-   * Retrieve a single page of CallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
-  /**
-   * Retrieve a single page of CallInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CallListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: CallListInstancePageOptions, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
-  page(params?: any, callback?: any): Promise<CallPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface CallSolution {
-  accountSid?: string;
-}
-
-interface CallListInstanceImpl extends CallListInstance {}
-class CallListInstanceImpl implements CallListInstance {
-  _version?: V2010;
-  _solution?: CallSolution;
-  _uri?: string;
-
-  _feedbackSummaries?: FeedbackSummaryListInstance;
-}
-
-export function CallListInstance(version: V2010, accountSid: string): CallListInstance {
-  const instance = ((sid) => instance.get(sid)) as CallListInstanceImpl;
-
-  instance.get = function get(sid): CallContext {
-    return new CallContextImpl(version, accountSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { accountSid };
-  instance._uri = `/Accounts/${accountSid}/Calls.json`;
-
-  Object.defineProperty(instance, "feedbackSummaries", {
-    get: function feedbackSummaries() {
-      if (!this._feedbackSummaries) {
-        this._feedbackSummaries = FeedbackSummaryListInstance(this._version, this._solution.accountSid);
-      }
-      return this._feedbackSummaries;
-    }
-  });
-
-  instance.create = function create(params: any, callback?: any): Promise<CallInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.to === null || params.to === undefined) {
-      throw new Error('Required parameter "params.to" missing.');
-    }
-
-    if (params.from === null || params.from === undefined) {
-      throw new Error('Required parameter "params.from" missing.');
-    }
-
-    const data: any = {};
-
-    data['To'] = params.to;
-    data['From'] = params.from;
-    if (params.method !== undefined) data['Method'] = params.method;
-    if (params.fallbackUrl !== undefined) data['FallbackUrl'] = params.fallbackUrl;
-    if (params.fallbackMethod !== undefined) data['FallbackMethod'] = params.fallbackMethod;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackEvent !== undefined) data['StatusCallbackEvent'] = serialize.map(params.statusCallbackEvent, ((e) => e));
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.sendDigits !== undefined) data['SendDigits'] = params.sendDigits;
-    if (params.timeout !== undefined) data['Timeout'] = params.timeout;
-    if (params.record !== undefined) data['Record'] = serialize.bool(params.record);
-    if (params.recordingChannels !== undefined) data['RecordingChannels'] = params.recordingChannels;
-    if (params.recordingStatusCallback !== undefined) data['RecordingStatusCallback'] = params.recordingStatusCallback;
-    if (params.recordingStatusCallbackMethod !== undefined) data['RecordingStatusCallbackMethod'] = params.recordingStatusCallbackMethod;
-    if (params.sipAuthUsername !== undefined) data['SipAuthUsername'] = params.sipAuthUsername;
-    if (params.sipAuthPassword !== undefined) data['SipAuthPassword'] = params.sipAuthPassword;
-    if (params.machineDetection !== undefined) data['MachineDetection'] = params.machineDetection;
-    if (params.machineDetectionTimeout !== undefined) data['MachineDetectionTimeout'] = params.machineDetectionTimeout;
-    if (params.recordingStatusCallbackEvent !== undefined) data['RecordingStatusCallbackEvent'] = serialize.map(params.recordingStatusCallbackEvent, ((e) => e));
-    if (params.trim !== undefined) data['Trim'] = params.trim;
-    if (params.callerId !== undefined) data['CallerId'] = params.callerId;
-    if (params.machineDetectionSpeechThreshold !== undefined) data['MachineDetectionSpeechThreshold'] = params.machineDetectionSpeechThreshold;
-    if (params.machineDetectionSpeechEndThreshold !== undefined) data['MachineDetectionSpeechEndThreshold'] = params.machineDetectionSpeechEndThreshold;
-    if (params.machineDetectionSilenceTimeout !== undefined) data['MachineDetectionSilenceTimeout'] = params.machineDetectionSilenceTimeout;
-    if (params.asyncAmd !== undefined) data['AsyncAmd'] = params.asyncAmd;
-    if (params.asyncAmdStatusCallback !== undefined) data['AsyncAmdStatusCallback'] = params.asyncAmdStatusCallback;
-    if (params.asyncAmdStatusCallbackMethod !== undefined) data['AsyncAmdStatusCallbackMethod'] = params.asyncAmdStatusCallbackMethod;
-    if (params.byoc !== undefined) data['Byoc'] = params.byoc;
-    if (params.callReason !== undefined) data['CallReason'] = params.callReason;
-    if (params.callToken !== undefined) data['CallToken'] = params.callToken;
-    if (params.recordingTrack !== undefined) data['RecordingTrack'] = params.recordingTrack;
-    if (params.timeLimit !== undefined) data['TimeLimit'] = params.timeLimit;
-    if (params.url !== undefined) data['Url'] = params.url;
-    if (params.twiml !== undefined) data['Twiml'] = params.twiml;
-    if (params.applicationSid !== undefined) data['ApplicationSid'] = params.applicationSid;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, this._solution.accountSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<CallPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.to !== undefined) data['To'] = params.to;
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.parentCallSid !== undefined) data['ParentCallSid'] = params.parentCallSid;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.startTime !== undefined) data['StartTime'] = serialize.iso8601DateTime(params.startTime);
-    if (params.startTimeBefore !== undefined) data['StartTime<'] = serialize.iso8601DateTime(params.startTimeBefore);
-    if (params.startTimeAfter !== undefined) data['StartTime>'] = serialize.iso8601DateTime(params.startTimeAfter);
-    if (params.endTime !== undefined) data['EndTime'] = serialize.iso8601DateTime(params.endTime);
-    if (params.endTimeBefore !== undefined) data['EndTime<'] = serialize.iso8601DateTime(params.endTimeBefore);
-    if (params.endTimeAfter !== undefined) data['EndTime>'] = serialize.iso8601DateTime(params.endTimeAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CallPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CallPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new CallPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface CallContext {
@@ -1029,6 +744,292 @@ export class CallInstance {
   }
 }
 
+
+export interface CallListInstance {
+  (sid: string): CallContext;
+  get(sid: string): CallContext;
+
+  feedbackSummaries: FeedbackSummaryListInstance;
+
+  /**
+   * Create a CallInstance
+   *
+   * @param { CallListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CallInstance
+   */
+  create(params: CallListInstanceCreateOptions, callback?: (error: Error | null, item?: CallInstance) => any): Promise<CallInstance>;
+  create(params: any, callback?: any): Promise<CallInstance>
+
+
+
+  /**
+   * Streams CallInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams CallInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of CallInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  /**
+   * Retrieve a single target page of CallInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  getPage(params?: any, callback?: any): Promise<CallPage>;
+  /**
+   * Lists CallInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
+  /**
+   * Lists CallInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: CallListInstanceOptions, callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
+  list(params?: any, callback?: any): Promise<CallInstance[]>;
+  /**
+   * Retrieve a single page of CallInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  /**
+   * Retrieve a single page of CallInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CallListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: CallListInstancePageOptions, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
+  page(params?: any, callback?: any): Promise<CallPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CallSolution {
+  accountSid?: string;
+}
+
+interface CallListInstanceImpl extends CallListInstance {}
+class CallListInstanceImpl implements CallListInstance {
+  _version?: V2010;
+  _solution?: CallSolution;
+  _uri?: string;
+
+  _feedbackSummaries?: FeedbackSummaryListInstance;
+}
+
+export function CallListInstance(version: V2010, accountSid: string): CallListInstance {
+  const instance = ((sid) => instance.get(sid)) as CallListInstanceImpl;
+
+  instance.get = function get(sid): CallContext {
+    return new CallContextImpl(version, accountSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { accountSid };
+  instance._uri = `/Accounts/${accountSid}/Calls.json`;
+
+  Object.defineProperty(instance, "feedbackSummaries", {
+    get: function feedbackSummaries() {
+      if (!this._feedbackSummaries) {
+        this._feedbackSummaries = FeedbackSummaryListInstance(this._version, this._solution.accountSid);
+      }
+      return this._feedbackSummaries;
+    }
+  });
+
+  instance.create = function create(params: any, callback?: any): Promise<CallInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.to === null || params.to === undefined) {
+      throw new Error('Required parameter "params.to" missing.');
+    }
+
+    if (params.from === null || params.from === undefined) {
+      throw new Error('Required parameter "params.from" missing.');
+    }
+
+    const data: any = {};
+
+    data['To'] = params.to;
+    data['From'] = params.from;
+    if (params.method !== undefined) data['Method'] = params.method;
+    if (params.fallbackUrl !== undefined) data['FallbackUrl'] = params.fallbackUrl;
+    if (params.fallbackMethod !== undefined) data['FallbackMethod'] = params.fallbackMethod;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.statusCallbackEvent !== undefined) data['StatusCallbackEvent'] = serialize.map(params.statusCallbackEvent, ((e) => e));
+    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    if (params.sendDigits !== undefined) data['SendDigits'] = params.sendDigits;
+    if (params.timeout !== undefined) data['Timeout'] = params.timeout;
+    if (params.record !== undefined) data['Record'] = serialize.bool(params.record);
+    if (params.recordingChannels !== undefined) data['RecordingChannels'] = params.recordingChannels;
+    if (params.recordingStatusCallback !== undefined) data['RecordingStatusCallback'] = params.recordingStatusCallback;
+    if (params.recordingStatusCallbackMethod !== undefined) data['RecordingStatusCallbackMethod'] = params.recordingStatusCallbackMethod;
+    if (params.sipAuthUsername !== undefined) data['SipAuthUsername'] = params.sipAuthUsername;
+    if (params.sipAuthPassword !== undefined) data['SipAuthPassword'] = params.sipAuthPassword;
+    if (params.machineDetection !== undefined) data['MachineDetection'] = params.machineDetection;
+    if (params.machineDetectionTimeout !== undefined) data['MachineDetectionTimeout'] = params.machineDetectionTimeout;
+    if (params.recordingStatusCallbackEvent !== undefined) data['RecordingStatusCallbackEvent'] = serialize.map(params.recordingStatusCallbackEvent, ((e) => e));
+    if (params.trim !== undefined) data['Trim'] = params.trim;
+    if (params.callerId !== undefined) data['CallerId'] = params.callerId;
+    if (params.machineDetectionSpeechThreshold !== undefined) data['MachineDetectionSpeechThreshold'] = params.machineDetectionSpeechThreshold;
+    if (params.machineDetectionSpeechEndThreshold !== undefined) data['MachineDetectionSpeechEndThreshold'] = params.machineDetectionSpeechEndThreshold;
+    if (params.machineDetectionSilenceTimeout !== undefined) data['MachineDetectionSilenceTimeout'] = params.machineDetectionSilenceTimeout;
+    if (params.asyncAmd !== undefined) data['AsyncAmd'] = params.asyncAmd;
+    if (params.asyncAmdStatusCallback !== undefined) data['AsyncAmdStatusCallback'] = params.asyncAmdStatusCallback;
+    if (params.asyncAmdStatusCallbackMethod !== undefined) data['AsyncAmdStatusCallbackMethod'] = params.asyncAmdStatusCallbackMethod;
+    if (params.byoc !== undefined) data['Byoc'] = params.byoc;
+    if (params.callReason !== undefined) data['CallReason'] = params.callReason;
+    if (params.callToken !== undefined) data['CallToken'] = params.callToken;
+    if (params.recordingTrack !== undefined) data['RecordingTrack'] = params.recordingTrack;
+    if (params.timeLimit !== undefined) data['TimeLimit'] = params.timeLimit;
+    if (params.url !== undefined) data['Url'] = params.url;
+    if (params.twiml !== undefined) data['Twiml'] = params.twiml;
+    if (params.applicationSid !== undefined) data['ApplicationSid'] = params.applicationSid;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new CallInstance(operationVersion, payload, this._solution.accountSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<CallPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.to !== undefined) data['To'] = params.to;
+    if (params.from !== undefined) data['From'] = params.from;
+    if (params.parentCallSid !== undefined) data['ParentCallSid'] = params.parentCallSid;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.startTime !== undefined) data['StartTime'] = serialize.iso8601DateTime(params.startTime);
+    if (params.startTimeBefore !== undefined) data['StartTime<'] = serialize.iso8601DateTime(params.startTimeBefore);
+    if (params.startTimeAfter !== undefined) data['StartTime>'] = serialize.iso8601DateTime(params.startTimeAfter);
+    if (params.endTime !== undefined) data['EndTime'] = serialize.iso8601DateTime(params.endTime);
+    if (params.endTimeBefore !== undefined) data['EndTime<'] = serialize.iso8601DateTime(params.endTimeBefore);
+    if (params.endTimeAfter !== undefined) data['EndTime>'] = serialize.iso8601DateTime(params.endTimeAfter);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new CallPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CallPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new CallPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {
 /**
 * Initialize the CallPage
@@ -1058,5 +1059,4 @@ constructor(version: V2010, response: Response<string>, solution: CallSolution) 
     return inspect(this.toJSON(), options);
     }
     }
-
 

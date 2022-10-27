@@ -19,18 +19,27 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { PlaybackGrantListInstance } from "./playerStreamer/playbackGrant";
+
 
 
 type PlayerStreamerEndedReason = 'ended-via-api'|'max-duration-exceeded'|'stream-disconnected-by-source'|'unexpected-failure';
 
 type PlayerStreamerOrder = 'asc'|'desc';
 
-type PlayerStreamerUpdateStatus = 'ended';
-
 type PlayerStreamerStatus = 'created'|'started'|'ended'|'failed';
 
+type PlayerStreamerUpdateStatus = 'ended';
+
+
+/**
+ * Options to pass to update a PlayerStreamerInstance
+ *
+ * @property { PlayerStreamerUpdateStatus } status 
+ */
+export interface PlayerStreamerContextUpdateOptions {
+  status: PlayerStreamerUpdateStatus;
+}
 
 /**
  * Options to pass to create a PlayerStreamerInstance
@@ -105,252 +114,6 @@ export interface PlayerStreamerListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a PlayerStreamerInstance
- *
- * @property { PlayerStreamerUpdateStatus } status 
- */
-export interface PlayerStreamerContextUpdateOptions {
-  status: PlayerStreamerUpdateStatus;
-}
-
-export interface PlayerStreamerListInstance {
-  (sid: string): PlayerStreamerContext;
-  get(sid: string): PlayerStreamerContext;
-
-
-  /**
-   * Create a PlayerStreamerInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
-   */
-  create(callback?: (error: Error | null, item?: PlayerStreamerInstance) => any): Promise<PlayerStreamerInstance>;
-  /**
-   * Create a PlayerStreamerInstance
-   *
-   * @param { PlayerStreamerListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PlayerStreamerInstance
-   */
-  create(params: PlayerStreamerListInstanceCreateOptions, callback?: (error: Error | null, item?: PlayerStreamerInstance) => any): Promise<PlayerStreamerInstance>;
-  create(params?: any, callback?: any): Promise<PlayerStreamerInstance>
-
-
-
-  /**
-   * Streams PlayerStreamerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: PlayerStreamerInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams PlayerStreamerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { PlayerStreamerListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: PlayerStreamerListInstanceEachOptions, callback?: (item: PlayerStreamerInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of PlayerStreamerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: PlayerStreamerPage) => any): Promise<PlayerStreamerPage>;
-  /**
-   * Retrieve a single target page of PlayerStreamerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: PlayerStreamerPage) => any): Promise<PlayerStreamerPage>;
-  getPage(params?: any, callback?: any): Promise<PlayerStreamerPage>;
-  /**
-   * Lists PlayerStreamerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: PlayerStreamerInstance[]) => any): Promise<PlayerStreamerInstance[]>;
-  /**
-   * Lists PlayerStreamerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { PlayerStreamerListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: PlayerStreamerListInstanceOptions, callback?: (error: Error | null, items: PlayerStreamerInstance[]) => any): Promise<PlayerStreamerInstance[]>;
-  list(params?: any, callback?: any): Promise<PlayerStreamerInstance[]>;
-  /**
-   * Retrieve a single page of PlayerStreamerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: PlayerStreamerPage) => any): Promise<PlayerStreamerPage>;
-  /**
-   * Retrieve a single page of PlayerStreamerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { PlayerStreamerListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: PlayerStreamerListInstancePageOptions, callback?: (error: Error | null, items: PlayerStreamerPage) => any): Promise<PlayerStreamerPage>;
-  page(params?: any, callback?: any): Promise<PlayerStreamerPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface PlayerStreamerSolution {
-}
-
-interface PlayerStreamerListInstanceImpl extends PlayerStreamerListInstance {}
-class PlayerStreamerListInstanceImpl implements PlayerStreamerListInstance {
-  _version?: V1;
-  _solution?: PlayerStreamerSolution;
-  _uri?: string;
-
-}
-
-export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInstance {
-  const instance = ((sid) => instance.get(sid)) as PlayerStreamerListInstanceImpl;
-
-  instance.get = function get(sid): PlayerStreamerContext {
-    return new PlayerStreamerContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/PlayerStreamers`;
-
-  instance.create = function create(params?: any, callback?: any): Promise<PlayerStreamerInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.video !== undefined) data['Video'] = serialize.bool(params.video);
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.maxDuration !== undefined) data['MaxDuration'] = params.maxDuration;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new PlayerStreamerInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<PlayerStreamerPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new PlayerStreamerPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PlayerStreamerPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new PlayerStreamerPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface PlayerStreamerContext {
@@ -610,6 +373,244 @@ export class PlayerStreamerInstance {
   }
 }
 
+
+export interface PlayerStreamerListInstance {
+  (sid: string): PlayerStreamerContext;
+  get(sid: string): PlayerStreamerContext;
+
+
+  /**
+   * Create a PlayerStreamerInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   */
+  create(callback?: (error: Error | null, item?: PlayerStreamerInstance) => any): Promise<PlayerStreamerInstance>;
+  /**
+   * Create a PlayerStreamerInstance
+   *
+   * @param { PlayerStreamerListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PlayerStreamerInstance
+   */
+  create(params: PlayerStreamerListInstanceCreateOptions, callback?: (error: Error | null, item?: PlayerStreamerInstance) => any): Promise<PlayerStreamerInstance>;
+  create(params?: any, callback?: any): Promise<PlayerStreamerInstance>
+
+
+
+  /**
+   * Streams PlayerStreamerInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: PlayerStreamerInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams PlayerStreamerInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PlayerStreamerListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: PlayerStreamerListInstanceEachOptions, callback?: (item: PlayerStreamerInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of PlayerStreamerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: PlayerStreamerPage) => any): Promise<PlayerStreamerPage>;
+  /**
+   * Retrieve a single target page of PlayerStreamerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: PlayerStreamerPage) => any): Promise<PlayerStreamerPage>;
+  getPage(params?: any, callback?: any): Promise<PlayerStreamerPage>;
+  /**
+   * Lists PlayerStreamerInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: PlayerStreamerInstance[]) => any): Promise<PlayerStreamerInstance[]>;
+  /**
+   * Lists PlayerStreamerInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PlayerStreamerListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: PlayerStreamerListInstanceOptions, callback?: (error: Error | null, items: PlayerStreamerInstance[]) => any): Promise<PlayerStreamerInstance[]>;
+  list(params?: any, callback?: any): Promise<PlayerStreamerInstance[]>;
+  /**
+   * Retrieve a single page of PlayerStreamerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: PlayerStreamerPage) => any): Promise<PlayerStreamerPage>;
+  /**
+   * Retrieve a single page of PlayerStreamerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { PlayerStreamerListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: PlayerStreamerListInstancePageOptions, callback?: (error: Error | null, items: PlayerStreamerPage) => any): Promise<PlayerStreamerPage>;
+  page(params?: any, callback?: any): Promise<PlayerStreamerPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PlayerStreamerSolution {
+}
+
+interface PlayerStreamerListInstanceImpl extends PlayerStreamerListInstance {}
+class PlayerStreamerListInstanceImpl implements PlayerStreamerListInstance {
+  _version?: V1;
+  _solution?: PlayerStreamerSolution;
+  _uri?: string;
+
+}
+
+export function PlayerStreamerListInstance(version: V1): PlayerStreamerListInstance {
+  const instance = ((sid) => instance.get(sid)) as PlayerStreamerListInstanceImpl;
+
+  instance.get = function get(sid): PlayerStreamerContext {
+    return new PlayerStreamerContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/PlayerStreamers`;
+
+  instance.create = function create(params?: any, callback?: any): Promise<PlayerStreamerInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.video !== undefined) data['Video'] = serialize.bool(params.video);
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    if (params.maxDuration !== undefined) data['MaxDuration'] = params.maxDuration;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PlayerStreamerInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<PlayerStreamerPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.order !== undefined) data['Order'] = params.order;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PlayerStreamerPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<PlayerStreamerPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new PlayerStreamerPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class PlayerStreamerPage extends Page<V1, PlayerStreamerPayload, PlayerStreamerResource, PlayerStreamerInstance> {
 /**
 * Initialize the PlayerStreamerPage
@@ -638,5 +639,4 @@ constructor(version: V1, response: Response<string>, solution: PlayerStreamerSol
     return inspect(this.toJSON(), options);
     }
     }
-
 

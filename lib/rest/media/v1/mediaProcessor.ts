@@ -22,11 +22,11 @@ const serialize = require("../../../base/serialize");
 
 
 
-type MediaProcessorUpdateStatus = 'ended';
-
 type MediaProcessorOrder = 'asc'|'desc';
 
 type MediaProcessorStatus = 'failed'|'started'|'ended';
+
+type MediaProcessorUpdateStatus = 'ended';
 
 
 /**

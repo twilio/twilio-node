@@ -21,6 +21,17 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+export class ListBillingPeriodResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 export class SupersimV1SimBillingPeriod {
   /**
    * The SID of the Billing Period
@@ -51,17 +62,6 @@ export class SupersimV1SimBillingPeriod {
    * The ISO 8601 date and time in GMT when the resource was last updated
    */
   "dateUpdated"?: Date | null;
-}
-
-
-export class ListBillingPeriodResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
 }
 
 

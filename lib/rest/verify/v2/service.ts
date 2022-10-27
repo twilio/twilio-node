@@ -19,7 +19,6 @@ import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { AccessTokenListInstance } from "./service/accessToken";
 import { EntityListInstance } from "./service/entity";
 import { MessagingConfigurationListInstance } from "./service/messagingConfiguration";
@@ -29,6 +28,48 @@ import { VerificationCheckListInstance } from "./service/verificationCheck";
 import { WebhookListInstance } from "./service/webhook";
 
 
+
+
+/**
+ * Options to pass to update a ServiceInstance
+ *
+ * @property { string } [friendlyName] A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+ * @property { number } [codeLength] The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+ * @property { boolean } [lookupEnabled] Whether to perform a lookup with each verification started and return info about the phone number.
+ * @property { boolean } [skipSmsToLandlines] Whether to skip sending SMS verifications to landlines. Requires &#x60;lookup_enabled&#x60;.
+ * @property { boolean } [dtmfInputRequired] Whether to ask the user to press a number before delivering the verify code in a phone call.
+ * @property { string } [ttsName] The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+ * @property { boolean } [psd2Enabled] Whether to pass PSD2 transaction parameters when starting a verification.
+ * @property { boolean } [doNotShareWarningEnabled] Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+ * @property { boolean } [customCodeEnabled] Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+ * @property { boolean } [pushIncludeDate] Optional configuration for the Push factors. If true, include the date in the Challenge\\\&#39;s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
+ * @property { string } [pushApnCredentialSid] Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+ * @property { string } [pushFcmCredentialSid] Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+ * @property { string } [totpIssuer] Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+ * @property { number } [totpTimeStep] Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+ * @property { number } [totpCodeLength] Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+ * @property { number } [totpSkew] Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+ * @property { string } [defaultTemplateSid] The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+ */
+export interface ServiceContextUpdateOptions {
+  friendlyName?: string;
+  codeLength?: number;
+  lookupEnabled?: boolean;
+  skipSmsToLandlines?: boolean;
+  dtmfInputRequired?: boolean;
+  ttsName?: string;
+  psd2Enabled?: boolean;
+  doNotShareWarningEnabled?: boolean;
+  customCodeEnabled?: boolean;
+  pushIncludeDate?: boolean;
+  pushApnCredentialSid?: string;
+  pushFcmCredentialSid?: string;
+  totpIssuer?: string;
+  totpTimeStep?: number;
+  totpCodeLength?: number;
+  totpSkew?: number;
+  defaultTemplateSid?: string;
+}
 
 /**
  * Options to pass to create a ServiceInstance
@@ -117,288 +158,6 @@ export interface ServiceListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a ServiceInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
- * @property { number } [codeLength] The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
- * @property { boolean } [lookupEnabled] Whether to perform a lookup with each verification started and return info about the phone number.
- * @property { boolean } [skipSmsToLandlines] Whether to skip sending SMS verifications to landlines. Requires &#x60;lookup_enabled&#x60;.
- * @property { boolean } [dtmfInputRequired] Whether to ask the user to press a number before delivering the verify code in a phone call.
- * @property { string } [ttsName] The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
- * @property { boolean } [psd2Enabled] Whether to pass PSD2 transaction parameters when starting a verification.
- * @property { boolean } [doNotShareWarningEnabled] Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
- * @property { boolean } [customCodeEnabled] Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
- * @property { boolean } [pushIncludeDate] Optional configuration for the Push factors. If true, include the date in the Challenge\\\&#39;s response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
- * @property { string } [pushApnCredentialSid] Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [pushFcmCredentialSid] Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
- * @property { string } [totpIssuer] Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
- * @property { number } [totpTimeStep] Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
- * @property { number } [totpCodeLength] Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
- * @property { number } [totpSkew] Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
- * @property { string } [defaultTemplateSid] The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
- */
-export interface ServiceContextUpdateOptions {
-  friendlyName?: string;
-  codeLength?: number;
-  lookupEnabled?: boolean;
-  skipSmsToLandlines?: boolean;
-  dtmfInputRequired?: boolean;
-  ttsName?: string;
-  psd2Enabled?: boolean;
-  doNotShareWarningEnabled?: boolean;
-  customCodeEnabled?: boolean;
-  pushIncludeDate?: boolean;
-  pushApnCredentialSid?: string;
-  pushFcmCredentialSid?: string;
-  totpIssuer?: string;
-  totpTimeStep?: number;
-  totpCodeLength?: number;
-  totpSkew?: number;
-  defaultTemplateSid?: string;
-}
-
-export interface ServiceListInstance {
-  (sid: string): ServiceContext;
-  get(sid: string): ServiceContext;
-
-
-  /**
-   * Create a ServiceInstance
-   *
-   * @param { ServiceListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ServiceInstance
-   */
-  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
-  create(params: any, callback?: any): Promise<ServiceInstance>
-
-
-
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ServiceListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  getPage(params?: any, callback?: any): Promise<ServicePage>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ServiceListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
-  list(params?: any, callback?: any): Promise<ServiceInstance[]>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ServiceListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-  page(params?: any, callback?: any): Promise<ServicePage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ServiceSolution {
-}
-
-interface ServiceListInstanceImpl extends ServiceListInstance {}
-class ServiceListInstanceImpl implements ServiceListInstance {
-  _version?: V2;
-  _solution?: ServiceSolution;
-  _uri?: string;
-
-}
-
-export function ServiceListInstance(version: V2): ServiceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
-
-  instance.get = function get(sid): ServiceContext {
-    return new ServiceContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Services`;
-
-  instance.create = function create(params: any, callback?: any): Promise<ServiceInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-    if (params.codeLength !== undefined) data['CodeLength'] = params.codeLength;
-    if (params.lookupEnabled !== undefined) data['LookupEnabled'] = serialize.bool(params.lookupEnabled);
-    if (params.skipSmsToLandlines !== undefined) data['SkipSmsToLandlines'] = serialize.bool(params.skipSmsToLandlines);
-    if (params.dtmfInputRequired !== undefined) data['DtmfInputRequired'] = serialize.bool(params.dtmfInputRequired);
-    if (params.ttsName !== undefined) data['TtsName'] = params.ttsName;
-    if (params.psd2Enabled !== undefined) data['Psd2Enabled'] = serialize.bool(params.psd2Enabled);
-    if (params.doNotShareWarningEnabled !== undefined) data['DoNotShareWarningEnabled'] = serialize.bool(params.doNotShareWarningEnabled);
-    if (params.customCodeEnabled !== undefined) data['CustomCodeEnabled'] = serialize.bool(params.customCodeEnabled);
-    if (params.pushIncludeDate !== undefined) data['Push.IncludeDate'] = serialize.bool(params.pushIncludeDate);
-    if (params.pushApnCredentialSid !== undefined) data['Push.ApnCredentialSid'] = params.pushApnCredentialSid;
-    if (params.pushFcmCredentialSid !== undefined) data['Push.FcmCredentialSid'] = params.pushFcmCredentialSid;
-    if (params.totpIssuer !== undefined) data['Totp.Issuer'] = params.totpIssuer;
-    if (params.totpTimeStep !== undefined) data['Totp.TimeStep'] = params.totpTimeStep;
-    if (params.totpCodeLength !== undefined) data['Totp.CodeLength'] = params.totpCodeLength;
-    if (params.totpSkew !== undefined) data['Totp.Skew'] = params.totpSkew;
-    if (params.defaultTemplateSid !== undefined) data['DefaultTemplateSid'] = params.defaultTemplateSid;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ServicePage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ServiceContext {
@@ -851,6 +610,248 @@ export class ServiceInstance {
   }
 }
 
+
+export interface ServiceListInstance {
+  (sid: string): ServiceContext;
+  get(sid: string): ServiceContext;
+
+
+  /**
+   * Create a ServiceInstance
+   *
+   * @param { ServiceListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ServiceInstance
+   */
+  create(params: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item?: ServiceInstance) => any): Promise<ServiceInstance>;
+  create(params: any, callback?: any): Promise<ServiceInstance>
+
+
+
+  /**
+   * Streams ServiceInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ServiceInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ServiceListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  /**
+   * Retrieve a single target page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  getPage(params?: any, callback?: any): Promise<ServicePage>;
+  /**
+   * Lists ServiceInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  /**
+   * Lists ServiceInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ServiceListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
+  list(params?: any, callback?: any): Promise<ServiceInstance[]>;
+  /**
+   * Retrieve a single page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  /**
+   * Retrieve a single page of ServiceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ServiceListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
+  page(params?: any, callback?: any): Promise<ServicePage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ServiceSolution {
+}
+
+interface ServiceListInstanceImpl extends ServiceListInstance {}
+class ServiceListInstanceImpl implements ServiceListInstance {
+  _version?: V2;
+  _solution?: ServiceSolution;
+  _uri?: string;
+
+}
+
+export function ServiceListInstance(version: V2): ServiceListInstance {
+  const instance = ((sid) => instance.get(sid)) as ServiceListInstanceImpl;
+
+  instance.get = function get(sid): ServiceContext {
+    return new ServiceContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Services`;
+
+  instance.create = function create(params: any, callback?: any): Promise<ServiceInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+    if (params.codeLength !== undefined) data['CodeLength'] = params.codeLength;
+    if (params.lookupEnabled !== undefined) data['LookupEnabled'] = serialize.bool(params.lookupEnabled);
+    if (params.skipSmsToLandlines !== undefined) data['SkipSmsToLandlines'] = serialize.bool(params.skipSmsToLandlines);
+    if (params.dtmfInputRequired !== undefined) data['DtmfInputRequired'] = serialize.bool(params.dtmfInputRequired);
+    if (params.ttsName !== undefined) data['TtsName'] = params.ttsName;
+    if (params.psd2Enabled !== undefined) data['Psd2Enabled'] = serialize.bool(params.psd2Enabled);
+    if (params.doNotShareWarningEnabled !== undefined) data['DoNotShareWarningEnabled'] = serialize.bool(params.doNotShareWarningEnabled);
+    if (params.customCodeEnabled !== undefined) data['CustomCodeEnabled'] = serialize.bool(params.customCodeEnabled);
+    if (params.pushIncludeDate !== undefined) data['Push.IncludeDate'] = serialize.bool(params.pushIncludeDate);
+    if (params.pushApnCredentialSid !== undefined) data['Push.ApnCredentialSid'] = params.pushApnCredentialSid;
+    if (params.pushFcmCredentialSid !== undefined) data['Push.FcmCredentialSid'] = params.pushFcmCredentialSid;
+    if (params.totpIssuer !== undefined) data['Totp.Issuer'] = params.totpIssuer;
+    if (params.totpTimeStep !== undefined) data['Totp.TimeStep'] = params.totpTimeStep;
+    if (params.totpCodeLength !== undefined) data['Totp.CodeLength'] = params.totpCodeLength;
+    if (params.totpSkew !== undefined) data['Totp.Skew'] = params.totpSkew;
+    if (params.defaultTemplateSid !== undefined) data['DefaultTemplateSid'] = params.defaultTemplateSid;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ServiceInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<ServicePage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ServicePage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ServicePage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new ServicePage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class ServicePage extends Page<V2, ServicePayload, ServiceResource, ServiceInstance> {
 /**
 * Initialize the ServicePage
@@ -879,5 +880,4 @@ constructor(version: V2, response: Response<string>, solution: ServiceSolution) 
     return inspect(this.toJSON(), options);
     }
     }
-
 

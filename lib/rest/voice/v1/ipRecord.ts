@@ -24,6 +24,15 @@ const serialize = require("../../../base/serialize");
 
 
 /**
+ * Options to pass to update a IpRecordInstance
+ *
+ * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+ */
+export interface IpRecordContextUpdateOptions {
+  friendlyName?: string;
+}
+
+/**
  * Options to pass to create a IpRecordInstance
  *
  * @property { string } ipAddress An IP address in dotted decimal notation, IPv4 only.
@@ -82,242 +91,6 @@ export interface IpRecordListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a IpRecordInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
- */
-export interface IpRecordContextUpdateOptions {
-  friendlyName?: string;
-}
-
-export interface IpRecordListInstance {
-  (sid: string): IpRecordContext;
-  get(sid: string): IpRecordContext;
-
-
-  /**
-   * Create a IpRecordInstance
-   *
-   * @param { IpRecordListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpRecordInstance
-   */
-  create(params: IpRecordListInstanceCreateOptions, callback?: (error: Error | null, item?: IpRecordInstance) => any): Promise<IpRecordInstance>;
-  create(params: any, callback?: any): Promise<IpRecordInstance>
-
-
-
-  /**
-   * Streams IpRecordInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams IpRecordInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { IpRecordListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: IpRecordListInstanceEachOptions, callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of IpRecordInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: IpRecordPage) => any): Promise<IpRecordPage>;
-  /**
-   * Retrieve a single target page of IpRecordInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: IpRecordPage) => any): Promise<IpRecordPage>;
-  getPage(params?: any, callback?: any): Promise<IpRecordPage>;
-  /**
-   * Lists IpRecordInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: IpRecordInstance[]) => any): Promise<IpRecordInstance[]>;
-  /**
-   * Lists IpRecordInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { IpRecordListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: IpRecordListInstanceOptions, callback?: (error: Error | null, items: IpRecordInstance[]) => any): Promise<IpRecordInstance[]>;
-  list(params?: any, callback?: any): Promise<IpRecordInstance[]>;
-  /**
-   * Retrieve a single page of IpRecordInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: IpRecordPage) => any): Promise<IpRecordPage>;
-  /**
-   * Retrieve a single page of IpRecordInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { IpRecordListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: IpRecordListInstancePageOptions, callback?: (error: Error | null, items: IpRecordPage) => any): Promise<IpRecordPage>;
-  page(params?: any, callback?: any): Promise<IpRecordPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface IpRecordSolution {
-}
-
-interface IpRecordListInstanceImpl extends IpRecordListInstance {}
-class IpRecordListInstanceImpl implements IpRecordListInstance {
-  _version?: V1;
-  _solution?: IpRecordSolution;
-  _uri?: string;
-
-}
-
-export function IpRecordListInstance(version: V1): IpRecordListInstance {
-  const instance = ((sid) => instance.get(sid)) as IpRecordListInstanceImpl;
-
-  instance.get = function get(sid): IpRecordContext {
-    return new IpRecordContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/IpRecords`;
-
-  instance.create = function create(params: any, callback?: any): Promise<IpRecordInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.ipAddress === null || params.ipAddress === undefined) {
-      throw new Error('Required parameter "params.ipAddress" missing.');
-    }
-
-    const data: any = {};
-
-    data['IpAddress'] = params.ipAddress;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.cidrPrefixLength !== undefined) data['CidrPrefixLength'] = params.cidrPrefixLength;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IpRecordInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<IpRecordPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IpRecordPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<IpRecordPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new IpRecordPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface IpRecordContext {
@@ -589,6 +362,234 @@ export class IpRecordInstance {
   }
 }
 
+
+export interface IpRecordListInstance {
+  (sid: string): IpRecordContext;
+  get(sid: string): IpRecordContext;
+
+
+  /**
+   * Create a IpRecordInstance
+   *
+   * @param { IpRecordListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpRecordInstance
+   */
+  create(params: IpRecordListInstanceCreateOptions, callback?: (error: Error | null, item?: IpRecordInstance) => any): Promise<IpRecordInstance>;
+  create(params: any, callback?: any): Promise<IpRecordInstance>
+
+
+
+  /**
+   * Streams IpRecordInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams IpRecordInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IpRecordListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: IpRecordListInstanceEachOptions, callback?: (item: IpRecordInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of IpRecordInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: IpRecordPage) => any): Promise<IpRecordPage>;
+  /**
+   * Retrieve a single target page of IpRecordInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: IpRecordPage) => any): Promise<IpRecordPage>;
+  getPage(params?: any, callback?: any): Promise<IpRecordPage>;
+  /**
+   * Lists IpRecordInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: IpRecordInstance[]) => any): Promise<IpRecordInstance[]>;
+  /**
+   * Lists IpRecordInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IpRecordListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: IpRecordListInstanceOptions, callback?: (error: Error | null, items: IpRecordInstance[]) => any): Promise<IpRecordInstance[]>;
+  list(params?: any, callback?: any): Promise<IpRecordInstance[]>;
+  /**
+   * Retrieve a single page of IpRecordInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: IpRecordPage) => any): Promise<IpRecordPage>;
+  /**
+   * Retrieve a single page of IpRecordInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IpRecordListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: IpRecordListInstancePageOptions, callback?: (error: Error | null, items: IpRecordPage) => any): Promise<IpRecordPage>;
+  page(params?: any, callback?: any): Promise<IpRecordPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface IpRecordSolution {
+}
+
+interface IpRecordListInstanceImpl extends IpRecordListInstance {}
+class IpRecordListInstanceImpl implements IpRecordListInstance {
+  _version?: V1;
+  _solution?: IpRecordSolution;
+  _uri?: string;
+
+}
+
+export function IpRecordListInstance(version: V1): IpRecordListInstance {
+  const instance = ((sid) => instance.get(sid)) as IpRecordListInstanceImpl;
+
+  instance.get = function get(sid): IpRecordContext {
+    return new IpRecordContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/IpRecords`;
+
+  instance.create = function create(params: any, callback?: any): Promise<IpRecordInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.ipAddress === null || params.ipAddress === undefined) {
+      throw new Error('Required parameter "params.ipAddress" missing.');
+    }
+
+    const data: any = {};
+
+    data['IpAddress'] = params.ipAddress;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.cidrPrefixLength !== undefined) data['CidrPrefixLength'] = params.cidrPrefixLength;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new IpRecordInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<IpRecordPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new IpRecordPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<IpRecordPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new IpRecordPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class IpRecordPage extends Page<V1, IpRecordPayload, IpRecordResource, IpRecordInstance> {
 /**
 * Initialize the IpRecordPage
@@ -617,5 +618,4 @@ constructor(version: V1, response: Response<string>, solution: IpRecordSolution)
     return inspect(this.toJSON(), options);
     }
     }
-
 

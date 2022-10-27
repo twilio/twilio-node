@@ -91,6 +91,163 @@ export interface RegulationListInstancePageOptions {
 
 
 
+export interface RegulationContext {
+
+
+  /**
+   * Fetch a RegulationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RegulationInstance
+   */
+  fetch(callback?: (error: Error | null, item?: RegulationInstance) => any): Promise<RegulationInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface RegulationContextSolution {
+  sid?: string;
+}
+
+export class RegulationContextImpl implements RegulationContext {
+  protected _solution: RegulationContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V2, sid: string) {
+    this._solution = { sid };
+    this._uri = `/RegulatoryCompliance/Regulations/${sid}`;
+  }
+
+  fetch(callback?: any): Promise<RegulationInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new RegulationInstance(operationVersion, payload, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface RegulationPayload extends RegulationResource, Page.TwilioResponsePayload {
+}
+
+interface RegulationResource {
+  sid?: string | null;
+  friendly_name?: string | null;
+  iso_country?: string | null;
+  number_type?: string | null;
+  end_user_type?: RegulationEndUserType;
+  requirements?: any | null;
+  url?: string | null;
+}
+
+export class RegulationInstance {
+  protected _solution: RegulationContextSolution;
+  protected _context?: RegulationContext;
+
+  constructor(protected _version: V2, payload: RegulationPayload, sid?: string) {
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
+    this.isoCountry = payload.iso_country;
+    this.numberType = payload.number_type;
+    this.endUserType = payload.end_user_type;
+    this.requirements = payload.requirements;
+    this.url = payload.url;
+
+    this._solution = { sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the Regulation resource
+   */
+  sid?: string | null;
+  /**
+   * A human-readable description of the Regulation resource
+   */
+  friendlyName?: string | null;
+  /**
+   * The ISO country code of the phone number\'s country
+   */
+  isoCountry?: string | null;
+  /**
+   * The type of phone number restricted by the regulatory requirement
+   */
+  numberType?: string | null;
+  endUserType?: RegulationEndUserType;
+  /**
+   * The sid of a regulation object that dictates requirements
+   */
+  requirements?: any | null;
+  /**
+   * The absolute URL of the Regulation resource
+   */
+  url?: string | null;
+
+  private get _proxy(): RegulationContext {
+    this._context = this._context || new RegulationContextImpl(this._version, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a RegulationInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed RegulationInstance
+   */
+  fetch(callback?: (error: Error | null, item?: RegulationInstance) => any): Promise<RegulationInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      friendlyName: this.friendlyName, 
+      isoCountry: this.isoCountry, 
+      numberType: this.numberType, 
+      endUserType: this.endUserType, 
+      requirements: this.requirements, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface RegulationListInstance {
   (sid: string): RegulationContext;
   get(sid: string): RegulationContext;
@@ -279,162 +436,6 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
 }
 
 
-export interface RegulationContext {
-
-
-  /**
-   * Fetch a RegulationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RegulationInstance
-   */
-  fetch(callback?: (error: Error | null, item?: RegulationInstance) => any): Promise<RegulationInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface RegulationContextSolution {
-  sid?: string;
-}
-
-export class RegulationContextImpl implements RegulationContext {
-  protected _solution: RegulationContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V2, sid: string) {
-    this._solution = { sid };
-    this._uri = `/RegulatoryCompliance/Regulations/${sid}`;
-  }
-
-  fetch(callback?: any): Promise<RegulationInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new RegulationInstance(operationVersion, payload, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface RegulationPayload extends RegulationResource, Page.TwilioResponsePayload {
-}
-
-interface RegulationResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  iso_country?: string | null;
-  number_type?: string | null;
-  end_user_type?: RegulationEndUserType;
-  requirements?: any | null;
-  url?: string | null;
-}
-
-export class RegulationInstance {
-  protected _solution: RegulationContextSolution;
-  protected _context?: RegulationContext;
-
-  constructor(protected _version: V2, payload: RegulationPayload, sid?: string) {
-    this.sid = payload.sid;
-    this.friendlyName = payload.friendly_name;
-    this.isoCountry = payload.iso_country;
-    this.numberType = payload.number_type;
-    this.endUserType = payload.end_user_type;
-    this.requirements = payload.requirements;
-    this.url = payload.url;
-
-    this._solution = { sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the Regulation resource
-   */
-  sid?: string | null;
-  /**
-   * A human-readable description of the Regulation resource
-   */
-  friendlyName?: string | null;
-  /**
-   * The ISO country code of the phone number\'s country
-   */
-  isoCountry?: string | null;
-  /**
-   * The type of phone number restricted by the regulatory requirement
-   */
-  numberType?: string | null;
-  endUserType?: RegulationEndUserType;
-  /**
-   * The sid of a regulation object that dictates requirements
-   */
-  requirements?: any | null;
-  /**
-   * The absolute URL of the Regulation resource
-   */
-  url?: string | null;
-
-  private get _proxy(): RegulationContext {
-    this._context = this._context || new RegulationContextImpl(this._version, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a RegulationInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed RegulationInstance
-   */
-  fetch(callback?: (error: Error | null, item?: RegulationInstance) => any): Promise<RegulationInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      isoCountry: this.isoCountry, 
-      numberType: this.numberType, 
-      endUserType: this.endUserType, 
-      requirements: this.requirements, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class RegulationPage extends Page<V2, RegulationPayload, RegulationResource, RegulationInstance> {
 /**
 * Initialize the RegulationPage
@@ -463,5 +464,4 @@ constructor(version: V2, response: Response<string>, solution: RegulationSolutio
     return inspect(this.toJSON(), options);
     }
     }
-
 

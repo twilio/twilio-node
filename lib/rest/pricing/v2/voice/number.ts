@@ -20,13 +20,6 @@ const serialize = require("../../../../base/serialize");
 
 
 
-export class PricingV2VoiceVoiceNumberOutboundCallPrices {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "originationPrefixes"?: Array<string>;
-}
-
-
 /**
  * The InboundCallPrice record
  */
@@ -34,6 +27,13 @@ export class PricingV2VoiceVoiceNumberInboundCallPrice {
   "basePrice"?: number;
   "currentPrice"?: number;
   "numberType"?: string;
+}
+
+
+export class PricingV2VoiceVoiceNumberOutboundCallPrices {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "originationPrefixes"?: Array<string>;
 }
 
 
@@ -46,52 +46,6 @@ export class PricingV2VoiceVoiceNumberInboundCallPrice {
 export interface NumberContextFetchOptions {
   originationNumber?: string;
 }
-
-export interface NumberListInstance {
-  (destinationNumber: string): NumberContext;
-  get(destinationNumber: string): NumberContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface NumberSolution {
-}
-
-interface NumberListInstanceImpl extends NumberListInstance {}
-class NumberListInstanceImpl implements NumberListInstance {
-  _version?: V2;
-  _solution?: NumberSolution;
-  _uri?: string;
-
-}
-
-export function NumberListInstance(version: V2): NumberListInstance {
-  const instance = ((destinationNumber) => instance.get(destinationNumber)) as NumberListInstanceImpl;
-
-  instance.get = function get(destinationNumber): NumberContext {
-    return new NumberContextImpl(version, destinationNumber);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Voice/Numbers`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 export interface NumberContext {
 
@@ -286,6 +240,52 @@ export class NumberInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface NumberListInstance {
+  (destinationNumber: string): NumberContext;
+  get(destinationNumber: string): NumberContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface NumberSolution {
+}
+
+interface NumberListInstanceImpl extends NumberListInstance {}
+class NumberListInstanceImpl implements NumberListInstance {
+  _version?: V2;
+  _solution?: NumberSolution;
+  _uri?: string;
+
+}
+
+export function NumberListInstance(version: V2): NumberListInstance {
+  const instance = ((destinationNumber) => instance.get(destinationNumber)) as NumberListInstanceImpl;
+
+  instance.get = function get(destinationNumber): NumberContext {
+    return new NumberContextImpl(version, destinationNumber);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Voice/Numbers`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

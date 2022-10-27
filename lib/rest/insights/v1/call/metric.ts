@@ -34,10 +34,6 @@ export class InsightsV1CallMetric {
 }
 
 
-type MetricStreamDirection = 'unknown'|'inbound'|'outbound'|'both';
-
-type MetricTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
-
 export class ListCallSummariesResponseMeta {
   "firstPageUrl"?: string;
   "nextPageUrl"?: string;
@@ -48,6 +44,10 @@ export class ListCallSummariesResponseMeta {
   "key"?: string;
 }
 
+
+type MetricStreamDirection = 'unknown'|'inbound'|'outbound'|'both';
+
+type MetricTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
 
 /**
  * Options to pass to each

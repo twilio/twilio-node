@@ -19,9 +19,9 @@ import Response from "../../../../http/response";
 import Sync from "../../Sync";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { SyncMapItemListInstance } from "./syncMap/syncMapItem";
 import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
+
 
 
 
@@ -80,6 +80,220 @@ export interface SyncMapListInstancePageOptions {
   pageToken?: string;
 }
 
+
+
+export interface SyncMapContext {
+
+  syncMapItems: SyncMapItemListInstance;
+  syncMapPermissions: SyncMapPermissionListInstance;
+
+  /**
+   * Remove a SyncMapInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+
+  /**
+   * Fetch a SyncMapInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncMapInstance
+   */
+  fetch(callback?: (error: Error | null, item?: SyncMapInstance) => any): Promise<SyncMapInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SyncMapContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
+export class SyncMapContextImpl implements SyncMapContext {
+  protected _solution: SyncMapContextSolution;
+  protected _uri: string;
+
+  protected _syncMapItems?: SyncMapItemListInstance;
+  protected _syncMapPermissions?: SyncMapPermissionListInstance;
+
+  constructor(protected _version: Sync, serviceSid: string, sid: string) {
+    this._solution = { serviceSid, sid };
+    this._uri = `/Services/${serviceSid}/Maps/${sid}`;
+  }
+
+  get syncMapItems(): SyncMapItemListInstance {
+    this._syncMapItems = this._syncMapItems || SyncMapItemListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._syncMapItems;
+  }
+
+  get syncMapPermissions(): SyncMapPermissionListInstance {
+    this._syncMapPermissions = this._syncMapPermissions || SyncMapPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._syncMapPermissions;
+  }
+
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  fetch(callback?: any): Promise<SyncMapInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new SyncMapInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface SyncMapPayload extends SyncMapResource, Page.TwilioResponsePayload {
+}
+
+interface SyncMapResource {
+  sid?: string | null;
+  unique_name?: string | null;
+  account_sid?: string | null;
+  service_sid?: string | null;
+  url?: string | null;
+  links?: object | null;
+  revision?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  created_by?: string | null;
+}
+
+export class SyncMapInstance {
+  protected _solution: SyncMapContextSolution;
+  protected _context?: SyncMapContext;
+
+  constructor(protected _version: Sync, payload: SyncMapPayload, serviceSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.uniqueName = payload.unique_name;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.url = payload.url;
+    this.links = payload.links;
+    this.revision = payload.revision;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.createdBy = payload.created_by;
+
+    this._solution = { serviceSid, sid: sid || this.sid };
+  }
+
+  sid?: string | null;
+  uniqueName?: string | null;
+  accountSid?: string | null;
+  serviceSid?: string | null;
+  url?: string | null;
+  links?: object | null;
+  revision?: string | null;
+  dateCreated?: Date | null;
+  dateUpdated?: Date | null;
+  createdBy?: string | null;
+
+  private get _proxy(): SyncMapContext {
+    this._context = this._context || new SyncMapContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Remove a SyncMapInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+     {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Fetch a SyncMapInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncMapInstance
+   */
+  fetch(callback?: (error: Error | null, item?: SyncMapInstance) => any): Promise<SyncMapInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Access the syncMapItems.
+   */
+  syncMapItems(): SyncMapItemListInstance {
+    return this._proxy.syncMapItems;
+  }
+
+  /**
+   * Access the syncMapPermissions.
+   */
+  syncMapPermissions(): SyncMapPermissionListInstance {
+    return this._proxy.syncMapPermissions;
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      uniqueName: this.uniqueName, 
+      accountSid: this.accountSid, 
+      serviceSid: this.serviceSid, 
+      url: this.url, 
+      links: this.links, 
+      revision: this.revision, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      createdBy: this.createdBy
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
 
 
 export interface SyncMapListInstance {
@@ -315,219 +529,6 @@ export function SyncMapListInstance(version: Sync, serviceSid: string): SyncMapL
 }
 
 
-export interface SyncMapContext {
-
-  syncMapItems: SyncMapItemListInstance;
-  syncMapPermissions: SyncMapPermissionListInstance;
-
-  /**
-   * Remove a SyncMapInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-
-  /**
-   * Fetch a SyncMapInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncMapInstance
-   */
-  fetch(callback?: (error: Error | null, item?: SyncMapInstance) => any): Promise<SyncMapInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SyncMapContextSolution {
-  serviceSid?: string;
-  sid?: string;
-}
-
-export class SyncMapContextImpl implements SyncMapContext {
-  protected _solution: SyncMapContextSolution;
-  protected _uri: string;
-
-  protected _syncMapItems?: SyncMapItemListInstance;
-  protected _syncMapPermissions?: SyncMapPermissionListInstance;
-
-  constructor(protected _version: Sync, serviceSid: string, sid: string) {
-    this._solution = { serviceSid, sid };
-    this._uri = `/Services/${serviceSid}/Maps/${sid}`;
-  }
-
-  get syncMapItems(): SyncMapItemListInstance {
-    this._syncMapItems = this._syncMapItems || SyncMapItemListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._syncMapItems;
-  }
-
-  get syncMapPermissions(): SyncMapPermissionListInstance {
-    this._syncMapPermissions = this._syncMapPermissions || SyncMapPermissionListInstance(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._syncMapPermissions;
-  }
-
-  remove(callback?: any): Promise<boolean> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  fetch(callback?: any): Promise<SyncMapInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new SyncMapInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface SyncMapPayload extends SyncMapResource, Page.TwilioResponsePayload {
-}
-
-interface SyncMapResource {
-  sid?: string | null;
-  unique_name?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  created_by?: string | null;
-}
-
-export class SyncMapInstance {
-  protected _solution: SyncMapContextSolution;
-  protected _context?: SyncMapContext;
-
-  constructor(protected _version: Sync, payload: SyncMapPayload, serviceSid: string, sid?: string) {
-    this.sid = payload.sid;
-    this.uniqueName = payload.unique_name;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.url = payload.url;
-    this.links = payload.links;
-    this.revision = payload.revision;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.createdBy = payload.created_by;
-
-    this._solution = { serviceSid, sid: sid || this.sid };
-  }
-
-  sid?: string | null;
-  uniqueName?: string | null;
-  accountSid?: string | null;
-  serviceSid?: string | null;
-  url?: string | null;
-  links?: object | null;
-  revision?: string | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
-  createdBy?: string | null;
-
-  private get _proxy(): SyncMapContext {
-    this._context = this._context || new SyncMapContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Remove a SyncMapInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
-    return this._proxy.remove(callback);
-  }
-
-  /**
-   * Fetch a SyncMapInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncMapInstance
-   */
-  fetch(callback?: (error: Error | null, item?: SyncMapInstance) => any): Promise<SyncMapInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Access the syncMapItems.
-   */
-  syncMapItems(): SyncMapItemListInstance {
-    return this._proxy.syncMapItems;
-  }
-
-  /**
-   * Access the syncMapPermissions.
-   */
-  syncMapPermissions(): SyncMapPermissionListInstance {
-    return this._proxy.syncMapPermissions;
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      uniqueName: this.uniqueName, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      url: this.url, 
-      links: this.links, 
-      revision: this.revision, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      createdBy: this.createdBy
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class SyncMapPage extends Page<Sync, SyncMapPayload, SyncMapResource, SyncMapInstance> {
 /**
 * Initialize the SyncMapPage
@@ -557,5 +558,4 @@ constructor(version: Sync, response: Response<string>, solution: SyncMapSolution
     return inspect(this.toJSON(), options);
     }
     }
-
 

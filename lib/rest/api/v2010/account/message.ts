@@ -19,23 +19,34 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { FeedbackListInstance } from "./message/feedback";
 import { MediaListInstance } from "./message/media";
 
 
-type MessageContentRetention = 'retain';
-
-type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read'|'partially_delivered'|'canceled';
-
-type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
 
 type MessageAddressRetention = 'retain';
 
+type MessageContentRetention = 'retain';
+
+type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
+
 type MessageScheduleType = 'fixed';
+
+type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted'|'scheduled'|'read'|'partially_delivered'|'canceled';
 
 type MessageUpdateStatus = 'canceled';
 
+
+/**
+ * Options to pass to update a MessageInstance
+ *
+ * @property { string } [body] The text of the message you want to send. Can be up to 1,600 characters long.
+ * @property { MessageUpdateStatus } [status] 
+ */
+export interface MessageContextUpdateOptions {
+  body?: string;
+  status?: MessageUpdateStatus;
+}
 
 /**
  * Options to pass to create a MessageInstance
@@ -160,267 +171,6 @@ export interface MessageListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a MessageInstance
- *
- * @property { string } [body] The text of the message you want to send. Can be up to 1,600 characters long.
- * @property { MessageUpdateStatus } [status] 
- */
-export interface MessageContextUpdateOptions {
-  body?: string;
-  status?: MessageUpdateStatus;
-}
-
-export interface MessageListInstance {
-  (sid: string): MessageContext;
-  get(sid: string): MessageContext;
-
-
-  /**
-   * Create a MessageInstance
-   *
-   * @param { MessageListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInstance
-   */
-  create(params: MessageListInstanceCreateOptions, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
-  create(params: any, callback?: any): Promise<MessageInstance>
-
-
-
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MessageListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-  getPage(params?: any, callback?: any): Promise<MessagePage>;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MessageListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
-  list(params?: any, callback?: any): Promise<MessageInstance[]>;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MessageListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-  page(params?: any, callback?: any): Promise<MessagePage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface MessageSolution {
-  accountSid?: string;
-}
-
-interface MessageListInstanceImpl extends MessageListInstance {}
-class MessageListInstanceImpl implements MessageListInstance {
-  _version?: V2010;
-  _solution?: MessageSolution;
-  _uri?: string;
-
-}
-
-export function MessageListInstance(version: V2010, accountSid: string): MessageListInstance {
-  const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
-
-  instance.get = function get(sid): MessageContext {
-    return new MessageContextImpl(version, accountSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { accountSid };
-  instance._uri = `/Accounts/${accountSid}/Messages.json`;
-
-  instance.create = function create(params: any, callback?: any): Promise<MessageInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.to === null || params.to === undefined) {
-      throw new Error('Required parameter "params.to" missing.');
-    }
-
-    const data: any = {};
-
-    data['To'] = params.to;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.applicationSid !== undefined) data['ApplicationSid'] = params.applicationSid;
-    if (params.maxPrice !== undefined) data['MaxPrice'] = params.maxPrice;
-    if (params.provideFeedback !== undefined) data['ProvideFeedback'] = serialize.bool(params.provideFeedback);
-    if (params.attempt !== undefined) data['Attempt'] = params.attempt;
-    if (params.validityPeriod !== undefined) data['ValidityPeriod'] = params.validityPeriod;
-    if (params.forceDelivery !== undefined) data['ForceDelivery'] = serialize.bool(params.forceDelivery);
-    if (params.contentRetention !== undefined) data['ContentRetention'] = params.contentRetention;
-    if (params.addressRetention !== undefined) data['AddressRetention'] = params.addressRetention;
-    if (params.smartEncoded !== undefined) data['SmartEncoded'] = serialize.bool(params.smartEncoded);
-    if (params.persistentAction !== undefined) data['PersistentAction'] = serialize.map(params.persistentAction, ((e) => e));
-    if (params.shortenUrls !== undefined) data['ShortenUrls'] = serialize.bool(params.shortenUrls);
-    if (params.scheduleType !== undefined) data['ScheduleType'] = params.scheduleType;
-    if (params.sendAt !== undefined) data['SendAt'] = serialize.iso8601DateTime(params.sendAt);
-    if (params.sendAsMms !== undefined) data['SendAsMms'] = serialize.bool(params.sendAsMms);
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.messagingServiceSid !== undefined) data['MessagingServiceSid'] = params.messagingServiceSid;
-    if (params.body !== undefined) data['Body'] = params.body;
-    if (params.mediaUrl !== undefined) data['MediaUrl'] = serialize.map(params.mediaUrl, ((e) => e));
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.accountSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<MessagePage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.to !== undefined) data['To'] = params.to;
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.dateSent !== undefined) data['DateSent'] = serialize.iso8601DateTime(params.dateSent);
-    if (params.dateSentBefore !== undefined) data['DateSent<'] = serialize.iso8601DateTime(params.dateSentBefore);
-    if (params.dateSentAfter !== undefined) data['DateSent>'] = serialize.iso8601DateTime(params.dateSentAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessagePage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MessagePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new MessagePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface MessageContext {
@@ -800,6 +550,257 @@ export class MessageInstance {
   }
 }
 
+
+export interface MessageListInstance {
+  (sid: string): MessageContext;
+  get(sid: string): MessageContext;
+
+
+  /**
+   * Create a MessageInstance
+   *
+   * @param { MessageListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MessageInstance
+   */
+  create(params: MessageListInstanceCreateOptions, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
+  create(params: any, callback?: any): Promise<MessageInstance>
+
+
+
+  /**
+   * Streams MessageInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams MessageInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of MessageInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  /**
+   * Retrieve a single target page of MessageInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  getPage(params?: any, callback?: any): Promise<MessagePage>;
+  /**
+   * Lists MessageInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
+  /**
+   * Lists MessageInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
+  list(params?: any, callback?: any): Promise<MessageInstance[]>;
+  /**
+   * Retrieve a single page of MessageInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  /**
+   * Retrieve a single page of MessageInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  page(params?: any, callback?: any): Promise<MessagePage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface MessageSolution {
+  accountSid?: string;
+}
+
+interface MessageListInstanceImpl extends MessageListInstance {}
+class MessageListInstanceImpl implements MessageListInstance {
+  _version?: V2010;
+  _solution?: MessageSolution;
+  _uri?: string;
+
+}
+
+export function MessageListInstance(version: V2010, accountSid: string): MessageListInstance {
+  const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
+
+  instance.get = function get(sid): MessageContext {
+    return new MessageContextImpl(version, accountSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { accountSid };
+  instance._uri = `/Accounts/${accountSid}/Messages.json`;
+
+  instance.create = function create(params: any, callback?: any): Promise<MessageInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.to === null || params.to === undefined) {
+      throw new Error('Required parameter "params.to" missing.');
+    }
+
+    const data: any = {};
+
+    data['To'] = params.to;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.applicationSid !== undefined) data['ApplicationSid'] = params.applicationSid;
+    if (params.maxPrice !== undefined) data['MaxPrice'] = params.maxPrice;
+    if (params.provideFeedback !== undefined) data['ProvideFeedback'] = serialize.bool(params.provideFeedback);
+    if (params.attempt !== undefined) data['Attempt'] = params.attempt;
+    if (params.validityPeriod !== undefined) data['ValidityPeriod'] = params.validityPeriod;
+    if (params.forceDelivery !== undefined) data['ForceDelivery'] = serialize.bool(params.forceDelivery);
+    if (params.contentRetention !== undefined) data['ContentRetention'] = params.contentRetention;
+    if (params.addressRetention !== undefined) data['AddressRetention'] = params.addressRetention;
+    if (params.smartEncoded !== undefined) data['SmartEncoded'] = serialize.bool(params.smartEncoded);
+    if (params.persistentAction !== undefined) data['PersistentAction'] = serialize.map(params.persistentAction, ((e) => e));
+    if (params.shortenUrls !== undefined) data['ShortenUrls'] = serialize.bool(params.shortenUrls);
+    if (params.scheduleType !== undefined) data['ScheduleType'] = params.scheduleType;
+    if (params.sendAt !== undefined) data['SendAt'] = serialize.iso8601DateTime(params.sendAt);
+    if (params.sendAsMms !== undefined) data['SendAsMms'] = serialize.bool(params.sendAsMms);
+    if (params.from !== undefined) data['From'] = params.from;
+    if (params.messagingServiceSid !== undefined) data['MessagingServiceSid'] = params.messagingServiceSid;
+    if (params.body !== undefined) data['Body'] = params.body;
+    if (params.mediaUrl !== undefined) data['MediaUrl'] = serialize.map(params.mediaUrl, ((e) => e));
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.accountSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<MessagePage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.to !== undefined) data['To'] = params.to;
+    if (params.from !== undefined) data['From'] = params.from;
+    if (params.dateSent !== undefined) data['DateSent'] = serialize.iso8601DateTime(params.dateSent);
+    if (params.dateSentBefore !== undefined) data['DateSent<'] = serialize.iso8601DateTime(params.dateSentBefore);
+    if (params.dateSentAfter !== undefined) data['DateSent>'] = serialize.iso8601DateTime(params.dateSentAfter);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MessagePage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MessagePage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new MessagePage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class MessagePage extends Page<V2010, MessagePayload, MessageResource, MessageInstance> {
 /**
 * Initialize the MessagePage
@@ -829,5 +830,4 @@ constructor(version: V2010, response: Response<string>, solution: MessageSolutio
     return inspect(this.toJSON(), options);
     }
     }
-
 

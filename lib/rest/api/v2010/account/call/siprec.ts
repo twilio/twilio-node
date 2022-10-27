@@ -20,11 +20,11 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-type SiprecUpdateStatus = 'stopped';
+type SiprecStatus = 'in-progress'|'stopped';
 
 type SiprecTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
-type SiprecStatus = 'in-progress'|'stopped';
+type SiprecUpdateStatus = 'stopped';
 
 
 /**

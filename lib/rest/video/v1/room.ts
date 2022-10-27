@@ -25,11 +25,11 @@ import { RoomRecordingListInstance } from "./room/roomRecording";
 
 
 
+type RoomRoomStatus = 'in-progress'|'completed'|'failed';
+
 type RoomRoomType = 'go'|'peer-to-peer'|'group'|'group-small';
 
 type RoomVideoCodec = 'VP8'|'H264';
-
-type RoomRoomStatus = 'in-progress'|'completed'|'failed';
 
 
 /**

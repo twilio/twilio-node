@@ -19,9 +19,9 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
-type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
-
 type RecordingRecordingMode = 'do-not-record'|'record-from-ringing'|'record-from-answer'|'record-from-ringing-dual'|'record-from-answer-dual';
+
+type RecordingRecordingTrim = 'trim-silence'|'do-not-trim';
 
 
 /**

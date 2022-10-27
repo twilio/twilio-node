@@ -19,10 +19,21 @@ import Response from "../../../http/response";
 import Marketplace from "../Marketplace";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { InstalledAddOnExtensionListInstance } from "./installedAddOn/installedAddOnExtension";
 
 
+
+
+/**
+ * Options to pass to update a InstalledAddOnInstance
+ *
+ * @property { any } [configuration] Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
+ * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
+ */
+export interface InstalledAddOnContextUpdateOptions {
+  configuration?: any;
+  uniqueName?: string;
+}
 
 /**
  * Options to pass to create a InstalledAddOnInstance
@@ -85,249 +96,6 @@ export interface InstalledAddOnListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a InstalledAddOnInstance
- *
- * @property { any } [configuration] Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
- * @property { string } [uniqueName] An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
- */
-export interface InstalledAddOnContextUpdateOptions {
-  configuration?: any;
-  uniqueName?: string;
-}
-
-export interface InstalledAddOnListInstance {
-  (sid: string): InstalledAddOnContext;
-  get(sid: string): InstalledAddOnContext;
-
-
-  /**
-   * Create a InstalledAddOnInstance
-   *
-   * @param { InstalledAddOnListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed InstalledAddOnInstance
-   */
-  create(params: InstalledAddOnListInstanceCreateOptions, callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
-  create(params: any, callback?: any): Promise<InstalledAddOnInstance>
-
-
-
-  /**
-   * Streams InstalledAddOnInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams InstalledAddOnInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InstalledAddOnListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: InstalledAddOnListInstanceEachOptions, callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of InstalledAddOnInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
-  /**
-   * Retrieve a single target page of InstalledAddOnInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
-  getPage(params?: any, callback?: any): Promise<InstalledAddOnPage>;
-  /**
-   * Lists InstalledAddOnInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any): Promise<InstalledAddOnInstance[]>;
-  /**
-   * Lists InstalledAddOnInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InstalledAddOnListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: InstalledAddOnListInstanceOptions, callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any): Promise<InstalledAddOnInstance[]>;
-  list(params?: any, callback?: any): Promise<InstalledAddOnInstance[]>;
-  /**
-   * Retrieve a single page of InstalledAddOnInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
-  /**
-   * Retrieve a single page of InstalledAddOnInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InstalledAddOnListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: InstalledAddOnListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
-  page(params?: any, callback?: any): Promise<InstalledAddOnPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface InstalledAddOnSolution {
-}
-
-interface InstalledAddOnListInstanceImpl extends InstalledAddOnListInstance {}
-class InstalledAddOnListInstanceImpl implements InstalledAddOnListInstance {
-  _version?: Marketplace;
-  _solution?: InstalledAddOnSolution;
-  _uri?: string;
-
-}
-
-export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOnListInstance {
-  const instance = ((sid) => instance.get(sid)) as InstalledAddOnListInstanceImpl;
-
-  instance.get = function get(sid): InstalledAddOnContext {
-    return new InstalledAddOnContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/InstalledAddOns`;
-
-  instance.create = function create(params: any, callback?: any): Promise<InstalledAddOnInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.availableAddOnSid === null || params.availableAddOnSid === undefined) {
-      throw new Error('Required parameter "params.availableAddOnSid" missing.');
-    }
-
-    if (params.acceptTermsOfService === null || params.acceptTermsOfService === undefined) {
-      throw new Error('Required parameter "params.acceptTermsOfService" missing.');
-    }
-
-    const data: any = {};
-
-    data['AvailableAddOnSid'] = params.availableAddOnSid;
-    data['AcceptTermsOfService'] = serialize.bool(params.acceptTermsOfService);
-    if (params.configuration !== undefined) data['Configuration'] = params.configuration;
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new InstalledAddOnInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<InstalledAddOnPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new InstalledAddOnPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InstalledAddOnPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new InstalledAddOnPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface InstalledAddOnContext {
@@ -628,6 +396,239 @@ export class InstalledAddOnInstance {
   }
 }
 
+
+export interface InstalledAddOnListInstance {
+  (sid: string): InstalledAddOnContext;
+  get(sid: string): InstalledAddOnContext;
+
+
+  /**
+   * Create a InstalledAddOnInstance
+   *
+   * @param { InstalledAddOnListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed InstalledAddOnInstance
+   */
+  create(params: InstalledAddOnListInstanceCreateOptions, callback?: (error: Error | null, item?: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
+  create(params: any, callback?: any): Promise<InstalledAddOnInstance>
+
+
+
+  /**
+   * Streams InstalledAddOnInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams InstalledAddOnInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InstalledAddOnListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: InstalledAddOnListInstanceEachOptions, callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of InstalledAddOnInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  /**
+   * Retrieve a single target page of InstalledAddOnInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  getPage(params?: any, callback?: any): Promise<InstalledAddOnPage>;
+  /**
+   * Lists InstalledAddOnInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any): Promise<InstalledAddOnInstance[]>;
+  /**
+   * Lists InstalledAddOnInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InstalledAddOnListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: InstalledAddOnListInstanceOptions, callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any): Promise<InstalledAddOnInstance[]>;
+  list(params?: any, callback?: any): Promise<InstalledAddOnInstance[]>;
+  /**
+   * Retrieve a single page of InstalledAddOnInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  /**
+   * Retrieve a single page of InstalledAddOnInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InstalledAddOnListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: InstalledAddOnListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
+  page(params?: any, callback?: any): Promise<InstalledAddOnPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface InstalledAddOnSolution {
+}
+
+interface InstalledAddOnListInstanceImpl extends InstalledAddOnListInstance {}
+class InstalledAddOnListInstanceImpl implements InstalledAddOnListInstance {
+  _version?: Marketplace;
+  _solution?: InstalledAddOnSolution;
+  _uri?: string;
+
+}
+
+export function InstalledAddOnListInstance(version: Marketplace): InstalledAddOnListInstance {
+  const instance = ((sid) => instance.get(sid)) as InstalledAddOnListInstanceImpl;
+
+  instance.get = function get(sid): InstalledAddOnContext {
+    return new InstalledAddOnContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/InstalledAddOns`;
+
+  instance.create = function create(params: any, callback?: any): Promise<InstalledAddOnInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.availableAddOnSid === null || params.availableAddOnSid === undefined) {
+      throw new Error('Required parameter "params.availableAddOnSid" missing.');
+    }
+
+    if (params.acceptTermsOfService === null || params.acceptTermsOfService === undefined) {
+      throw new Error('Required parameter "params.acceptTermsOfService" missing.');
+    }
+
+    const data: any = {};
+
+    data['AvailableAddOnSid'] = params.availableAddOnSid;
+    data['AcceptTermsOfService'] = serialize.bool(params.acceptTermsOfService);
+    if (params.configuration !== undefined) data['Configuration'] = params.configuration;
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InstalledAddOnInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<InstalledAddOnPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InstalledAddOnPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InstalledAddOnPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new InstalledAddOnPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class InstalledAddOnPage extends Page<Marketplace, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnInstance> {
 /**
 * Initialize the InstalledAddOnPage
@@ -656,5 +657,4 @@ constructor(version: Marketplace, response: Response<string>, solution: Installe
     return inspect(this.toJSON(), options);
     }
     }
-
 

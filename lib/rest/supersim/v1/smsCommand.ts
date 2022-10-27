@@ -22,9 +22,9 @@ const serialize = require("../../../base/serialize");
 
 
 
-type SmsCommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
-
 type SmsCommandDirection = 'to_sim'|'from_sim';
+
+type SmsCommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
 
 
 /**

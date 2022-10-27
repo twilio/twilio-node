@@ -19,21 +19,36 @@ import Response from "../../../../http/response";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { BundleCopyListInstance } from "./bundle/bundleCopy";
 import { EvaluationListInstance } from "./bundle/evaluation";
 import { ItemAssignmentListInstance } from "./bundle/itemAssignment";
 import { ReplaceItemsListInstance } from "./bundle/replaceItems";
 
 
-type BundleSortBy = 'valid-until'|'date-updated';
-
-type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
-
-type BundleSortDirection = 'ASC'|'DESC';
 
 type BundleEndUserType = 'individual'|'business';
 
+type BundleSortBy = 'valid-until'|'date-updated';
+
+type BundleSortDirection = 'ASC'|'DESC';
+
+type BundleStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
+
+
+/**
+ * Options to pass to update a BundleInstance
+ *
+ * @property { BundleStatus } [status] 
+ * @property { string } [statusCallback] The URL we call to inform your application of status changes.
+ * @property { string } [friendlyName] The string that you assigned to describe the resource.
+ * @property { string } [email] The email address that will receive updates when the Bundle resource changes status.
+ */
+export interface BundleContextUpdateOptions {
+  status?: BundleStatus;
+  statusCallback?: string;
+  friendlyName?: string;
+  email?: string;
+}
 
 /**
  * Options to pass to create a BundleInstance
@@ -168,267 +183,6 @@ export interface BundleListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a BundleInstance
- *
- * @property { BundleStatus } [status] 
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [email] The email address that will receive updates when the Bundle resource changes status.
- */
-export interface BundleContextUpdateOptions {
-  status?: BundleStatus;
-  statusCallback?: string;
-  friendlyName?: string;
-  email?: string;
-}
-
-export interface BundleListInstance {
-  (sid: string): BundleContext;
-  get(sid: string): BundleContext;
-
-
-  /**
-   * Create a BundleInstance
-   *
-   * @param { BundleListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BundleInstance
-   */
-  create(params: BundleListInstanceCreateOptions, callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>;
-  create(params: any, callback?: any): Promise<BundleInstance>
-
-
-
-  /**
-   * Streams BundleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: BundleInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams BundleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BundleListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: BundleListInstanceEachOptions, callback?: (item: BundleInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of BundleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
-  /**
-   * Retrieve a single target page of BundleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
-  getPage(params?: any, callback?: any): Promise<BundlePage>;
-  /**
-   * Lists BundleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: BundleInstance[]) => any): Promise<BundleInstance[]>;
-  /**
-   * Lists BundleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BundleListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: BundleListInstanceOptions, callback?: (error: Error | null, items: BundleInstance[]) => any): Promise<BundleInstance[]>;
-  list(params?: any, callback?: any): Promise<BundleInstance[]>;
-  /**
-   * Retrieve a single page of BundleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
-  /**
-   * Retrieve a single page of BundleInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { BundleListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: BundleListInstancePageOptions, callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
-  page(params?: any, callback?: any): Promise<BundlePage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface BundleSolution {
-}
-
-interface BundleListInstanceImpl extends BundleListInstance {}
-class BundleListInstanceImpl implements BundleListInstance {
-  _version?: V2;
-  _solution?: BundleSolution;
-  _uri?: string;
-
-}
-
-export function BundleListInstance(version: V2): BundleListInstance {
-  const instance = ((sid) => instance.get(sid)) as BundleListInstanceImpl;
-
-  instance.get = function get(sid): BundleContext {
-    return new BundleContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/RegulatoryCompliance/Bundles`;
-
-  instance.create = function create(params: any, callback?: any): Promise<BundleInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    if (params.email === null || params.email === undefined) {
-      throw new Error('Required parameter "params.email" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-    data['Email'] = params.email;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.regulationSid !== undefined) data['RegulationSid'] = params.regulationSid;
-    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
-    if (params.endUserType !== undefined) data['EndUserType'] = params.endUserType;
-    if (params.numberType !== undefined) data['NumberType'] = params.numberType;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BundleInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<BundlePage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.regulationSid !== undefined) data['RegulationSid'] = params.regulationSid;
-    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
-    if (params.numberType !== undefined) data['NumberType'] = params.numberType;
-    if (params.hasValidUntilDate !== undefined) data['HasValidUntilDate'] = serialize.bool(params.hasValidUntilDate);
-    if (params.sortBy !== undefined) data['SortBy'] = params.sortBy;
-    if (params.sortDirection !== undefined) data['SortDirection'] = params.sortDirection;
-    if (params.validUntilDate !== undefined) data['ValidUntilDate'] = serialize.iso8601DateTime(params.validUntilDate);
-    if (params.validUntilDateBefore !== undefined) data['ValidUntilDate<'] = serialize.iso8601DateTime(params.validUntilDateBefore);
-    if (params.validUntilDateAfter !== undefined) data['ValidUntilDate>'] = serialize.iso8601DateTime(params.validUntilDateAfter);
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new BundlePage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BundlePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new BundlePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface BundleContext {
@@ -784,6 +538,253 @@ export class BundleInstance {
   }
 }
 
+
+export interface BundleListInstance {
+  (sid: string): BundleContext;
+  get(sid: string): BundleContext;
+
+
+  /**
+   * Create a BundleInstance
+   *
+   * @param { BundleListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BundleInstance
+   */
+  create(params: BundleListInstanceCreateOptions, callback?: (error: Error | null, item?: BundleInstance) => any): Promise<BundleInstance>;
+  create(params: any, callback?: any): Promise<BundleInstance>
+
+
+
+  /**
+   * Streams BundleInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: BundleInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams BundleInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { BundleListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: BundleListInstanceEachOptions, callback?: (item: BundleInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of BundleInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
+  /**
+   * Retrieve a single target page of BundleInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
+  getPage(params?: any, callback?: any): Promise<BundlePage>;
+  /**
+   * Lists BundleInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: BundleInstance[]) => any): Promise<BundleInstance[]>;
+  /**
+   * Lists BundleInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { BundleListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: BundleListInstanceOptions, callback?: (error: Error | null, items: BundleInstance[]) => any): Promise<BundleInstance[]>;
+  list(params?: any, callback?: any): Promise<BundleInstance[]>;
+  /**
+   * Retrieve a single page of BundleInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
+  /**
+   * Retrieve a single page of BundleInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { BundleListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: BundleListInstancePageOptions, callback?: (error: Error | null, items: BundlePage) => any): Promise<BundlePage>;
+  page(params?: any, callback?: any): Promise<BundlePage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface BundleSolution {
+}
+
+interface BundleListInstanceImpl extends BundleListInstance {}
+class BundleListInstanceImpl implements BundleListInstance {
+  _version?: V2;
+  _solution?: BundleSolution;
+  _uri?: string;
+
+}
+
+export function BundleListInstance(version: V2): BundleListInstance {
+  const instance = ((sid) => instance.get(sid)) as BundleListInstanceImpl;
+
+  instance.get = function get(sid): BundleContext {
+    return new BundleContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/RegulatoryCompliance/Bundles`;
+
+  instance.create = function create(params: any, callback?: any): Promise<BundleInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    if (params.email === null || params.email === undefined) {
+      throw new Error('Required parameter "params.email" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+    data['Email'] = params.email;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.regulationSid !== undefined) data['RegulationSid'] = params.regulationSid;
+    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
+    if (params.endUserType !== undefined) data['EndUserType'] = params.endUserType;
+    if (params.numberType !== undefined) data['NumberType'] = params.numberType;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BundleInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<BundlePage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.regulationSid !== undefined) data['RegulationSid'] = params.regulationSid;
+    if (params.isoCountry !== undefined) data['IsoCountry'] = params.isoCountry;
+    if (params.numberType !== undefined) data['NumberType'] = params.numberType;
+    if (params.hasValidUntilDate !== undefined) data['HasValidUntilDate'] = serialize.bool(params.hasValidUntilDate);
+    if (params.sortBy !== undefined) data['SortBy'] = params.sortBy;
+    if (params.sortDirection !== undefined) data['SortDirection'] = params.sortDirection;
+    if (params.validUntilDate !== undefined) data['ValidUntilDate'] = serialize.iso8601DateTime(params.validUntilDate);
+    if (params.validUntilDateBefore !== undefined) data['ValidUntilDate<'] = serialize.iso8601DateTime(params.validUntilDateBefore);
+    if (params.validUntilDateAfter !== undefined) data['ValidUntilDate>'] = serialize.iso8601DateTime(params.validUntilDateAfter);
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new BundlePage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<BundlePage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new BundlePage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class BundlePage extends Page<V2, BundlePayload, BundleResource, BundleInstance> {
 /**
 * Initialize the BundlePage
@@ -812,5 +813,4 @@ constructor(version: V2, response: Response<string>, solution: BundleSolution) {
     return inspect(this.toJSON(), options);
     }
     }
-
 

@@ -71,6 +71,122 @@ export interface DayListInstancePageOptions {
 
 
 
+export interface DayContext {
+
+
+  /**
+   * Fetch a DayInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DayInstance
+   */
+  fetch(callback?: (error: Error | null, item?: DayInstance) => any): Promise<DayInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DayContextSolution {
+  resourceType?: string;
+  day?: string;
+}
+
+export class DayContextImpl implements DayContext {
+  protected _solution: DayContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, resourceType: string, day: string) {
+    this._solution = { resourceType, day };
+    this._uri = `/Exports/${resourceType}/Days/${day}`;
+  }
+
+  fetch(callback?: any): Promise<DayInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new DayInstance(operationVersion, payload, this._solution.resourceType, this._solution.day));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface DayPayload extends DayResource, Page.TwilioResponsePayload {
+}
+
+interface DayResource {
+  redirect_to?: string | null;
+}
+
+export class DayInstance {
+  protected _solution: DayContextSolution;
+  protected _context?: DayContext;
+
+  constructor(protected _version: V1, payload: DayPayload, resourceType: string, day?: string) {
+    this.redirectTo = payload.redirect_to;
+
+    this._solution = { resourceType, day: day || this.day };
+  }
+
+  redirectTo?: string | null;
+
+  private get _proxy(): DayContext {
+    this._context = this._context || new DayContextImpl(this._version, this._solution.resourceType, this._solution.day);
+    return this._context;
+  }
+
+  /**
+   * Fetch a DayInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DayInstance
+   */
+  fetch(callback?: (error: Error | null, item?: DayInstance) => any): Promise<DayInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      redirectTo: this.redirectTo
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface DayListInstance {
   (day: string): DayContext;
   get(day: string): DayContext;
@@ -257,121 +373,6 @@ export function DayListInstance(version: V1, resourceType: string): DayListInsta
 }
 
 
-export interface DayContext {
-
-
-  /**
-   * Fetch a DayInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DayInstance
-   */
-  fetch(callback?: (error: Error | null, item?: DayInstance) => any): Promise<DayInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DayContextSolution {
-  resourceType?: string;
-  day?: string;
-}
-
-export class DayContextImpl implements DayContext {
-  protected _solution: DayContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, resourceType: string, day: string) {
-    this._solution = { resourceType, day };
-    this._uri = `/Exports/${resourceType}/Days/${day}`;
-  }
-
-  fetch(callback?: any): Promise<DayInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new DayInstance(operationVersion, payload, this._solution.resourceType, this._solution.day));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface DayPayload extends DayResource, Page.TwilioResponsePayload {
-}
-
-interface DayResource {
-  redirect_to?: string | null;
-}
-
-export class DayInstance {
-  protected _solution: DayContextSolution;
-  protected _context?: DayContext;
-
-  constructor(protected _version: V1, payload: DayPayload, resourceType: string, day?: string) {
-    this.redirectTo = payload.redirect_to;
-
-    this._solution = { resourceType, day: day || this.day };
-  }
-
-  redirectTo?: string | null;
-
-  private get _proxy(): DayContext {
-    this._context = this._context || new DayContextImpl(this._version, this._solution.resourceType, this._solution.day);
-    return this._context;
-  }
-
-  /**
-   * Fetch a DayInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DayInstance
-   */
-  fetch(callback?: (error: Error | null, item?: DayInstance) => any): Promise<DayInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      redirectTo: this.redirectTo
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class DayPage extends Page<V1, DayPayload, DayResource, DayInstance> {
 /**
 * Initialize the DayPage
@@ -401,5 +402,4 @@ constructor(version: V1, response: Response<string>, solution: DaySolution) {
     return inspect(this.toJSON(), options);
     }
     }
-
 

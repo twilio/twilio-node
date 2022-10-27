@@ -23,9 +23,9 @@ import { BuildStatusListInstance } from "./build/buildStatus";
 
 
 
-type BuildStatus = 'building'|'completed'|'failed';
-
 type BuildRuntime = 'node8'|'node10'|'node12'|'node14';
+
+type BuildStatus = 'building'|'completed'|'failed';
 
 
 /**

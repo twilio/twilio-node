@@ -19,10 +19,19 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { FunctionVersionListInstance } from "./function/functionVersion";
 
 
+
+
+/**
+ * Options to pass to update a FunctionInstance
+ *
+ * @property { string } friendlyName A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
+ */
+export interface FunctionContextUpdateOptions {
+  friendlyName: string;
+}
 
 /**
  * Options to pass to create a FunctionInstance
@@ -79,241 +88,6 @@ export interface FunctionListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a FunctionInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
- */
-export interface FunctionContextUpdateOptions {
-  friendlyName: string;
-}
-
-export interface FunctionListInstance {
-  (sid: string): FunctionContext;
-  get(sid: string): FunctionContext;
-
-
-  /**
-   * Create a FunctionInstance
-   *
-   * @param { FunctionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FunctionInstance
-   */
-  create(params: FunctionListInstanceCreateOptions, callback?: (error: Error | null, item?: FunctionInstance) => any): Promise<FunctionInstance>;
-  create(params: any, callback?: any): Promise<FunctionInstance>
-
-
-
-  /**
-   * Streams FunctionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: FunctionInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams FunctionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FunctionListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: FunctionListInstanceEachOptions, callback?: (item: FunctionInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of FunctionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
-  /**
-   * Retrieve a single target page of FunctionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
-  getPage(params?: any, callback?: any): Promise<FunctionPage>;
-  /**
-   * Lists FunctionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: FunctionInstance[]) => any): Promise<FunctionInstance[]>;
-  /**
-   * Lists FunctionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FunctionListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: FunctionListInstanceOptions, callback?: (error: Error | null, items: FunctionInstance[]) => any): Promise<FunctionInstance[]>;
-  list(params?: any, callback?: any): Promise<FunctionInstance[]>;
-  /**
-   * Retrieve a single page of FunctionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
-  /**
-   * Retrieve a single page of FunctionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FunctionListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: FunctionListInstancePageOptions, callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
-  page(params?: any, callback?: any): Promise<FunctionPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FunctionSolution {
-  serviceSid?: string;
-}
-
-interface FunctionListInstanceImpl extends FunctionListInstance {}
-class FunctionListInstanceImpl implements FunctionListInstance {
-  _version?: V1;
-  _solution?: FunctionSolution;
-  _uri?: string;
-
-}
-
-export function FunctionListInstance(version: V1, serviceSid: string): FunctionListInstance {
-  const instance = ((sid) => instance.get(sid)) as FunctionListInstanceImpl;
-
-  instance.get = function get(sid): FunctionContext {
-    return new FunctionContextImpl(version, serviceSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid };
-  instance._uri = `/Services/${serviceSid}/Functions`;
-
-  instance.create = function create(params: any, callback?: any): Promise<FunctionInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FunctionInstance(operationVersion, payload, this._solution.serviceSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<FunctionPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FunctionPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FunctionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new FunctionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface FunctionContext {
@@ -585,6 +359,233 @@ export class FunctionInstance {
   }
 }
 
+
+export interface FunctionListInstance {
+  (sid: string): FunctionContext;
+  get(sid: string): FunctionContext;
+
+
+  /**
+   * Create a FunctionInstance
+   *
+   * @param { FunctionListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FunctionInstance
+   */
+  create(params: FunctionListInstanceCreateOptions, callback?: (error: Error | null, item?: FunctionInstance) => any): Promise<FunctionInstance>;
+  create(params: any, callback?: any): Promise<FunctionInstance>
+
+
+
+  /**
+   * Streams FunctionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: FunctionInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams FunctionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: FunctionListInstanceEachOptions, callback?: (item: FunctionInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of FunctionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
+  /**
+   * Retrieve a single target page of FunctionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
+  getPage(params?: any, callback?: any): Promise<FunctionPage>;
+  /**
+   * Lists FunctionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: FunctionInstance[]) => any): Promise<FunctionInstance[]>;
+  /**
+   * Lists FunctionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: FunctionListInstanceOptions, callback?: (error: Error | null, items: FunctionInstance[]) => any): Promise<FunctionInstance[]>;
+  list(params?: any, callback?: any): Promise<FunctionInstance[]>;
+  /**
+   * Retrieve a single page of FunctionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
+  /**
+   * Retrieve a single page of FunctionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FunctionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: FunctionListInstancePageOptions, callback?: (error: Error | null, items: FunctionPage) => any): Promise<FunctionPage>;
+  page(params?: any, callback?: any): Promise<FunctionPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FunctionSolution {
+  serviceSid?: string;
+}
+
+interface FunctionListInstanceImpl extends FunctionListInstance {}
+class FunctionListInstanceImpl implements FunctionListInstance {
+  _version?: V1;
+  _solution?: FunctionSolution;
+  _uri?: string;
+
+}
+
+export function FunctionListInstance(version: V1, serviceSid: string): FunctionListInstance {
+  const instance = ((sid) => instance.get(sid)) as FunctionListInstanceImpl;
+
+  instance.get = function get(sid): FunctionContext {
+    return new FunctionContextImpl(version, serviceSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid };
+  instance._uri = `/Services/${serviceSid}/Functions`;
+
+  instance.create = function create(params: any, callback?: any): Promise<FunctionInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new FunctionInstance(operationVersion, payload, this._solution.serviceSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<FunctionPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new FunctionPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FunctionPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new FunctionPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class FunctionPage extends Page<V1, FunctionPayload, FunctionResource, FunctionInstance> {
 /**
 * Initialize the FunctionPage
@@ -614,5 +615,4 @@ constructor(version: V1, response: Response<string>, solution: FunctionSolution)
     return inspect(this.toJSON(), options);
     }
     }
-
 

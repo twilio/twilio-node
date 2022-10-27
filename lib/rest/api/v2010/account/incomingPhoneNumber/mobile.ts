@@ -156,11 +156,11 @@ export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile {
 
 type IncomingPhoneNumberMobileAddressRequirement = 'none'|'any'|'local'|'foreign';
 
-type IncomingPhoneNumberMobileVoiceReceiveMode = 'voice'|'fax';
-
 type IncomingPhoneNumberMobileEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
 
 type IncomingPhoneNumberMobileEmergencyStatus = 'Active'|'Inactive';
+
+type IncomingPhoneNumberMobileVoiceReceiveMode = 'voice'|'fax';
 
 
 /**

@@ -19,13 +19,13 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
-type NewFactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
-
-type NewFactorNotificationPlatforms = 'apn'|'fcm'|'none';
-
 type NewFactorFactorStatuses = 'unverified'|'verified';
 
 type NewFactorFactorTypes = 'push'|'totp';
+
+type NewFactorNotificationPlatforms = 'apn'|'fcm'|'none';
+
+type NewFactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
 
 
 /**

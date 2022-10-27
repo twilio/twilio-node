@@ -20,16 +20,31 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-type PaymentsTokenType = 'one-time'|'reusable';
-
 type PaymentsBankAccountType = 'consumer-checking'|'consumer-savings'|'commercial-checking';
+
+type PaymentsCapture = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'bank-routing-number'|'bank-account-number';
 
 type PaymentsPaymentMethod = 'credit-card'|'ach-debit';
 
 type PaymentsStatus = 'complete'|'cancel';
 
-type PaymentsCapture = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'bank-routing-number'|'bank-account-number';
+type PaymentsTokenType = 'one-time'|'reusable';
 
+
+/**
+ * Options to pass to update a PaymentInstance
+ *
+ * @property { string } idempotencyKey A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+ * @property { string } statusCallback Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+ * @property { PaymentsCapture } [capture] 
+ * @property { PaymentsStatus } [status] 
+ */
+export interface PaymentContextUpdateOptions {
+  idempotencyKey: string;
+  statusCallback: string;
+  capture?: PaymentsCapture;
+  status?: PaymentsStatus;
+}
 
 /**
  * Options to pass to create a PaymentInstance
@@ -69,128 +84,6 @@ export interface PaymentListInstanceCreateOptions {
   tokenType?: PaymentsTokenType;
   validCardTypes?: string;
 }
-
-/**
- * Options to pass to update a PaymentInstance
- *
- * @property { string } idempotencyKey A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
- * @property { string } statusCallback Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
- * @property { PaymentsCapture } [capture] 
- * @property { PaymentsStatus } [status] 
- */
-export interface PaymentContextUpdateOptions {
-  idempotencyKey: string;
-  statusCallback: string;
-  capture?: PaymentsCapture;
-  status?: PaymentsStatus;
-}
-
-export interface PaymentListInstance {
-  (sid: string): PaymentContext;
-  get(sid: string): PaymentContext;
-
-
-  /**
-   * Create a PaymentInstance
-   *
-   * @param { PaymentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PaymentInstance
-   */
-  create(params: PaymentListInstanceCreateOptions, callback?: (error: Error | null, item?: PaymentInstance) => any): Promise<PaymentInstance>;
-  create(params: any, callback?: any): Promise<PaymentInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface PaymentSolution {
-  accountSid?: string;
-  callSid?: string;
-}
-
-interface PaymentListInstanceImpl extends PaymentListInstance {}
-class PaymentListInstanceImpl implements PaymentListInstance {
-  _version?: V2010;
-  _solution?: PaymentSolution;
-  _uri?: string;
-
-}
-
-export function PaymentListInstance(version: V2010, accountSid: string, callSid: string): PaymentListInstance {
-  const instance = ((sid) => instance.get(sid)) as PaymentListInstanceImpl;
-
-  instance.get = function get(sid): PaymentContext {
-    return new PaymentContextImpl(version, accountSid, callSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { accountSid, callSid };
-  instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments.json`;
-
-  instance.create = function create(params: any, callback?: any): Promise<PaymentInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.idempotencyKey === null || params.idempotencyKey === undefined) {
-      throw new Error('Required parameter "params.idempotencyKey" missing.');
-    }
-
-    if (params.statusCallback === null || params.statusCallback === undefined) {
-      throw new Error('Required parameter "params.statusCallback" missing.');
-    }
-
-    const data: any = {};
-
-    data['IdempotencyKey'] = params.idempotencyKey;
-    data['StatusCallback'] = params.statusCallback;
-    if (params.bankAccountType !== undefined) data['BankAccountType'] = params.bankAccountType;
-    if (params.chargeAmount !== undefined) data['ChargeAmount'] = params.chargeAmount;
-    if (params.currency !== undefined) data['Currency'] = params.currency;
-    if (params.description !== undefined) data['Description'] = params.description;
-    if (params.input !== undefined) data['Input'] = params.input;
-    if (params.minPostalCodeLength !== undefined) data['MinPostalCodeLength'] = params.minPostalCodeLength;
-    if (params.parameter !== undefined) data['Parameter'] = params.parameter;
-    if (params.paymentConnector !== undefined) data['PaymentConnector'] = params.paymentConnector;
-    if (params.paymentMethod !== undefined) data['PaymentMethod'] = params.paymentMethod;
-    if (params.postalCode !== undefined) data['PostalCode'] = serialize.bool(params.postalCode);
-    if (params.securityCode !== undefined) data['SecurityCode'] = serialize.bool(params.securityCode);
-    if (params.timeout !== undefined) data['Timeout'] = params.timeout;
-    if (params.tokenType !== undefined) data['TokenType'] = params.tokenType;
-    if (params.validCardTypes !== undefined) data['ValidCardTypes'] = params.validCardTypes;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new PaymentInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 export interface PaymentContext {
 
@@ -369,6 +262,113 @@ export class PaymentInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface PaymentListInstance {
+  (sid: string): PaymentContext;
+  get(sid: string): PaymentContext;
+
+
+  /**
+   * Create a PaymentInstance
+   *
+   * @param { PaymentListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PaymentInstance
+   */
+  create(params: PaymentListInstanceCreateOptions, callback?: (error: Error | null, item?: PaymentInstance) => any): Promise<PaymentInstance>;
+  create(params: any, callback?: any): Promise<PaymentInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PaymentSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
+interface PaymentListInstanceImpl extends PaymentListInstance {}
+class PaymentListInstanceImpl implements PaymentListInstance {
+  _version?: V2010;
+  _solution?: PaymentSolution;
+  _uri?: string;
+
+}
+
+export function PaymentListInstance(version: V2010, accountSid: string, callSid: string): PaymentListInstance {
+  const instance = ((sid) => instance.get(sid)) as PaymentListInstanceImpl;
+
+  instance.get = function get(sid): PaymentContext {
+    return new PaymentContextImpl(version, accountSid, callSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { accountSid, callSid };
+  instance._uri = `/Accounts/${accountSid}/Calls/${callSid}/Payments.json`;
+
+  instance.create = function create(params: any, callback?: any): Promise<PaymentInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.idempotencyKey === null || params.idempotencyKey === undefined) {
+      throw new Error('Required parameter "params.idempotencyKey" missing.');
+    }
+
+    if (params.statusCallback === null || params.statusCallback === undefined) {
+      throw new Error('Required parameter "params.statusCallback" missing.');
+    }
+
+    const data: any = {};
+
+    data['IdempotencyKey'] = params.idempotencyKey;
+    data['StatusCallback'] = params.statusCallback;
+    if (params.bankAccountType !== undefined) data['BankAccountType'] = params.bankAccountType;
+    if (params.chargeAmount !== undefined) data['ChargeAmount'] = params.chargeAmount;
+    if (params.currency !== undefined) data['Currency'] = params.currency;
+    if (params.description !== undefined) data['Description'] = params.description;
+    if (params.input !== undefined) data['Input'] = params.input;
+    if (params.minPostalCodeLength !== undefined) data['MinPostalCodeLength'] = params.minPostalCodeLength;
+    if (params.parameter !== undefined) data['Parameter'] = params.parameter;
+    if (params.paymentConnector !== undefined) data['PaymentConnector'] = params.paymentConnector;
+    if (params.paymentMethod !== undefined) data['PaymentMethod'] = params.paymentMethod;
+    if (params.postalCode !== undefined) data['PostalCode'] = serialize.bool(params.postalCode);
+    if (params.securityCode !== undefined) data['SecurityCode'] = serialize.bool(params.securityCode);
+    if (params.timeout !== undefined) data['Timeout'] = params.timeout;
+    if (params.tokenType !== undefined) data['TokenType'] = params.tokenType;
+    if (params.validCardTypes !== undefined) data['ValidCardTypes'] = params.validCardTypes;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new PaymentInstance(operationVersion, payload, this._solution.accountSid, this._solution.callSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

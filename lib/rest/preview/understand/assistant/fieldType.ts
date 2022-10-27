@@ -19,10 +19,21 @@ import Response from "../../../../http/response";
 import Understand from "../../Understand";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { FieldValueListInstance } from "./fieldType/fieldValue";
 
 
+
+
+/**
+ * Options to pass to update a FieldTypeInstance
+ *
+ * @property { string } [friendlyName] A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+ * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ */
+export interface FieldTypeContextUpdateOptions {
+  friendlyName?: string;
+  uniqueName?: string;
+}
 
 /**
  * Options to pass to create a FieldTypeInstance
@@ -81,244 +92,6 @@ export interface FieldTypeListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a FieldTypeInstance
- *
- * @property { string } [friendlyName] A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- * @property { string } [uniqueName] A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- */
-export interface FieldTypeContextUpdateOptions {
-  friendlyName?: string;
-  uniqueName?: string;
-}
-
-export interface FieldTypeListInstance {
-  (sid: string): FieldTypeContext;
-  get(sid: string): FieldTypeContext;
-
-
-  /**
-   * Create a FieldTypeInstance
-   *
-   * @param { FieldTypeListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FieldTypeInstance
-   */
-  create(params: FieldTypeListInstanceCreateOptions, callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
-  create(params: any, callback?: any): Promise<FieldTypeInstance>
-
-
-
-  /**
-   * Streams FieldTypeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams FieldTypeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FieldTypeListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: FieldTypeListInstanceEachOptions, callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of FieldTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
-  /**
-   * Retrieve a single target page of FieldTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
-  getPage(params?: any, callback?: any): Promise<FieldTypePage>;
-  /**
-   * Lists FieldTypeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: FieldTypeInstance[]) => any): Promise<FieldTypeInstance[]>;
-  /**
-   * Lists FieldTypeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FieldTypeListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: FieldTypeListInstanceOptions, callback?: (error: Error | null, items: FieldTypeInstance[]) => any): Promise<FieldTypeInstance[]>;
-  list(params?: any, callback?: any): Promise<FieldTypeInstance[]>;
-  /**
-   * Retrieve a single page of FieldTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
-  /**
-   * Retrieve a single page of FieldTypeInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FieldTypeListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: FieldTypeListInstancePageOptions, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
-  page(params?: any, callback?: any): Promise<FieldTypePage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FieldTypeSolution {
-  assistantSid?: string;
-}
-
-interface FieldTypeListInstanceImpl extends FieldTypeListInstance {}
-class FieldTypeListInstanceImpl implements FieldTypeListInstance {
-  _version?: Understand;
-  _solution?: FieldTypeSolution;
-  _uri?: string;
-
-}
-
-export function FieldTypeListInstance(version: Understand, assistantSid: string): FieldTypeListInstance {
-  const instance = ((sid) => instance.get(sid)) as FieldTypeListInstanceImpl;
-
-  instance.get = function get(sid): FieldTypeContext {
-    return new FieldTypeContextImpl(version, assistantSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { assistantSid };
-  instance._uri = `/Assistants/${assistantSid}/FieldTypes`;
-
-  instance.create = function create(params: any, callback?: any): Promise<FieldTypeInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.uniqueName === null || params.uniqueName === undefined) {
-      throw new Error('Required parameter "params.uniqueName" missing.');
-    }
-
-    const data: any = {};
-
-    data['UniqueName'] = params.uniqueName;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldTypeInstance(operationVersion, payload, this._solution.assistantSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<FieldTypePage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FieldTypePage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FieldTypePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new FieldTypePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface FieldTypeContext {
@@ -607,6 +380,234 @@ export class FieldTypeInstance {
   }
 }
 
+
+export interface FieldTypeListInstance {
+  (sid: string): FieldTypeContext;
+  get(sid: string): FieldTypeContext;
+
+
+  /**
+   * Create a FieldTypeInstance
+   *
+   * @param { FieldTypeListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FieldTypeInstance
+   */
+  create(params: FieldTypeListInstanceCreateOptions, callback?: (error: Error | null, item?: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
+  create(params: any, callback?: any): Promise<FieldTypeInstance>
+
+
+
+  /**
+   * Streams FieldTypeInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams FieldTypeInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FieldTypeListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: FieldTypeListInstanceEachOptions, callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of FieldTypeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  /**
+   * Retrieve a single target page of FieldTypeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  getPage(params?: any, callback?: any): Promise<FieldTypePage>;
+  /**
+   * Lists FieldTypeInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: FieldTypeInstance[]) => any): Promise<FieldTypeInstance[]>;
+  /**
+   * Lists FieldTypeInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FieldTypeListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: FieldTypeListInstanceOptions, callback?: (error: Error | null, items: FieldTypeInstance[]) => any): Promise<FieldTypeInstance[]>;
+  list(params?: any, callback?: any): Promise<FieldTypeInstance[]>;
+  /**
+   * Retrieve a single page of FieldTypeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  /**
+   * Retrieve a single page of FieldTypeInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FieldTypeListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: FieldTypeListInstancePageOptions, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
+  page(params?: any, callback?: any): Promise<FieldTypePage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FieldTypeSolution {
+  assistantSid?: string;
+}
+
+interface FieldTypeListInstanceImpl extends FieldTypeListInstance {}
+class FieldTypeListInstanceImpl implements FieldTypeListInstance {
+  _version?: Understand;
+  _solution?: FieldTypeSolution;
+  _uri?: string;
+
+}
+
+export function FieldTypeListInstance(version: Understand, assistantSid: string): FieldTypeListInstance {
+  const instance = ((sid) => instance.get(sid)) as FieldTypeListInstanceImpl;
+
+  instance.get = function get(sid): FieldTypeContext {
+    return new FieldTypeContextImpl(version, assistantSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { assistantSid };
+  instance._uri = `/Assistants/${assistantSid}/FieldTypes`;
+
+  instance.create = function create(params: any, callback?: any): Promise<FieldTypeInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.uniqueName === null || params.uniqueName === undefined) {
+      throw new Error('Required parameter "params.uniqueName" missing.');
+    }
+
+    const data: any = {};
+
+    data['UniqueName'] = params.uniqueName;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new FieldTypeInstance(operationVersion, payload, this._solution.assistantSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<FieldTypePage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new FieldTypePage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FieldTypePage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new FieldTypePage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class FieldTypePage extends Page<Understand, FieldTypePayload, FieldTypeResource, FieldTypeInstance> {
 /**
 * Initialize the FieldTypePage
@@ -636,5 +637,4 @@ constructor(version: Understand, response: Response<string>, solution: FieldType
     return inspect(this.toJSON(), options);
     }
     }
-
 

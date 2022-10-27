@@ -22,11 +22,11 @@ const serialize = require("../../../base/serialize");
 
 
 
-type MediaRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
+type MediaRecordingFormat = 'mp4'|'webm';
 
 type MediaRecordingOrder = 'asc'|'desc';
 
-type MediaRecordingFormat = 'mp4'|'webm';
+type MediaRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
 
 /**
  * Options to pass to each
@@ -99,195 +99,6 @@ export interface MediaRecordingListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-export interface MediaRecordingListInstance {
-  (sid: string): MediaRecordingContext;
-  get(sid: string): MediaRecordingContext;
-
-
-
-  /**
-   * Streams MediaRecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: MediaRecordingInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams MediaRecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MediaRecordingListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: MediaRecordingListInstanceEachOptions, callback?: (item: MediaRecordingInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of MediaRecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
-  /**
-   * Retrieve a single target page of MediaRecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
-  getPage(params?: any, callback?: any): Promise<MediaRecordingPage>;
-  /**
-   * Lists MediaRecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: MediaRecordingInstance[]) => any): Promise<MediaRecordingInstance[]>;
-  /**
-   * Lists MediaRecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MediaRecordingListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: MediaRecordingListInstanceOptions, callback?: (error: Error | null, items: MediaRecordingInstance[]) => any): Promise<MediaRecordingInstance[]>;
-  list(params?: any, callback?: any): Promise<MediaRecordingInstance[]>;
-  /**
-   * Retrieve a single page of MediaRecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
-  /**
-   * Retrieve a single page of MediaRecordingInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MediaRecordingListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: MediaRecordingListInstancePageOptions, callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
-  page(params?: any, callback?: any): Promise<MediaRecordingPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface MediaRecordingSolution {
-}
-
-interface MediaRecordingListInstanceImpl extends MediaRecordingListInstance {}
-class MediaRecordingListInstanceImpl implements MediaRecordingListInstance {
-  _version?: V1;
-  _solution?: MediaRecordingSolution;
-  _uri?: string;
-
-}
-
-export function MediaRecordingListInstance(version: V1): MediaRecordingListInstance {
-  const instance = ((sid) => instance.get(sid)) as MediaRecordingListInstanceImpl;
-
-  instance.get = function get(sid): MediaRecordingContext {
-    return new MediaRecordingContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/MediaRecordings`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<MediaRecordingPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.processorSid !== undefined) data['ProcessorSid'] = params.processorSid;
-    if (params.sourceSid !== undefined) data['SourceSid'] = params.sourceSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MediaRecordingPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MediaRecordingPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new MediaRecordingPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface MediaRecordingContext {
@@ -534,6 +345,196 @@ export class MediaRecordingInstance {
   }
 }
 
+
+export interface MediaRecordingListInstance {
+  (sid: string): MediaRecordingContext;
+  get(sid: string): MediaRecordingContext;
+
+
+
+  /**
+   * Streams MediaRecordingInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: MediaRecordingInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams MediaRecordingInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MediaRecordingListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: MediaRecordingListInstanceEachOptions, callback?: (item: MediaRecordingInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of MediaRecordingInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
+  /**
+   * Retrieve a single target page of MediaRecordingInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
+  getPage(params?: any, callback?: any): Promise<MediaRecordingPage>;
+  /**
+   * Lists MediaRecordingInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: MediaRecordingInstance[]) => any): Promise<MediaRecordingInstance[]>;
+  /**
+   * Lists MediaRecordingInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MediaRecordingListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: MediaRecordingListInstanceOptions, callback?: (error: Error | null, items: MediaRecordingInstance[]) => any): Promise<MediaRecordingInstance[]>;
+  list(params?: any, callback?: any): Promise<MediaRecordingInstance[]>;
+  /**
+   * Retrieve a single page of MediaRecordingInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
+  /**
+   * Retrieve a single page of MediaRecordingInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MediaRecordingListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: MediaRecordingListInstancePageOptions, callback?: (error: Error | null, items: MediaRecordingPage) => any): Promise<MediaRecordingPage>;
+  page(params?: any, callback?: any): Promise<MediaRecordingPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface MediaRecordingSolution {
+}
+
+interface MediaRecordingListInstanceImpl extends MediaRecordingListInstance {}
+class MediaRecordingListInstanceImpl implements MediaRecordingListInstance {
+  _version?: V1;
+  _solution?: MediaRecordingSolution;
+  _uri?: string;
+
+}
+
+export function MediaRecordingListInstance(version: V1): MediaRecordingListInstance {
+  const instance = ((sid) => instance.get(sid)) as MediaRecordingListInstanceImpl;
+
+  instance.get = function get(sid): MediaRecordingContext {
+    return new MediaRecordingContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/MediaRecordings`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<MediaRecordingPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.order !== undefined) data['Order'] = params.order;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.processorSid !== undefined) data['ProcessorSid'] = params.processorSid;
+    if (params.sourceSid !== undefined) data['SourceSid'] = params.sourceSid;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MediaRecordingPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MediaRecordingPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new MediaRecordingPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class MediaRecordingPage extends Page<V1, MediaRecordingPayload, MediaRecordingResource, MediaRecordingInstance> {
 /**
 * Initialize the MediaRecordingPage
@@ -562,5 +563,4 @@ constructor(version: V1, response: Response<string>, solution: MediaRecordingSol
     return inspect(this.toJSON(), options);
     }
     }
-
 

@@ -19,8 +19,8 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
 import { FunctionVersionContentListInstance } from "./functionVersion/functionVersionContent";
+
 
 
 type FunctionVersionVisibility = 'public'|'private'|'protected';
@@ -72,6 +72,190 @@ export interface FunctionVersionListInstancePageOptions {
   pageToken?: string;
 }
 
+
+
+export interface FunctionVersionContext {
+
+  functionVersionContent: FunctionVersionContentListInstance;
+
+  /**
+   * Fetch a FunctionVersionInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FunctionVersionInstance
+   */
+  fetch(callback?: (error: Error | null, item?: FunctionVersionInstance) => any): Promise<FunctionVersionInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FunctionVersionContextSolution {
+  serviceSid?: string;
+  functionSid?: string;
+  sid?: string;
+}
+
+export class FunctionVersionContextImpl implements FunctionVersionContext {
+  protected _solution: FunctionVersionContextSolution;
+  protected _uri: string;
+
+  protected _functionVersionContent?: FunctionVersionContentListInstance;
+
+  constructor(protected _version: V1, serviceSid: string, functionSid: string, sid: string) {
+    this._solution = { serviceSid, functionSid, sid };
+    this._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}`;
+  }
+
+  get functionVersionContent(): FunctionVersionContentListInstance {
+    this._functionVersionContent = this._functionVersionContent || FunctionVersionContentListInstance(this._version, this._solution.serviceSid, this._solution.functionSid, this._solution.sid);
+    return this._functionVersionContent;
+  }
+
+  fetch(callback?: any): Promise<FunctionVersionInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new FunctionVersionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.functionSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface FunctionVersionPayload extends FunctionVersionResource, Page.TwilioResponsePayload {
+}
+
+interface FunctionVersionResource {
+  sid?: string | null;
+  account_sid?: string | null;
+  service_sid?: string | null;
+  function_sid?: string | null;
+  path?: string | null;
+  visibility?: FunctionVersionVisibility;
+  date_created?: Date | null;
+  url?: string | null;
+  links?: object | null;
+}
+
+export class FunctionVersionInstance {
+  protected _solution: FunctionVersionContextSolution;
+  protected _context?: FunctionVersionContext;
+
+  constructor(protected _version: V1, payload: FunctionVersionPayload, serviceSid: string, functionSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.functionSid = payload.function_sid;
+    this.path = payload.path;
+    this.visibility = payload.visibility;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.url = payload.url;
+    this.links = payload.links;
+
+    this._solution = { serviceSid, functionSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the Function Version resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the Function Version resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Service that the Function Version resource is associated with
+   */
+  serviceSid?: string | null;
+  /**
+   * The SID of the Function resource that is the parent of the Function Version resource
+   */
+  functionSid?: string | null;
+  /**
+   * The URL-friendly string by which the Function Version resource can be referenced
+   */
+  path?: string | null;
+  visibility?: FunctionVersionVisibility;
+  /**
+   * The ISO 8601 date and time in GMT when the Function Version resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The absolute URL of the Function Version resource
+   */
+  url?: string | null;
+  links?: object | null;
+
+  private get _proxy(): FunctionVersionContext {
+    this._context = this._context || new FunctionVersionContextImpl(this._version, this._solution.serviceSid, this._solution.functionSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a FunctionVersionInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FunctionVersionInstance
+   */
+  fetch(callback?: (error: Error | null, item?: FunctionVersionInstance) => any): Promise<FunctionVersionInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Access the functionVersionContent.
+   */
+  functionVersionContent(): FunctionVersionContentListInstance {
+    return this._proxy.functionVersionContent;
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      accountSid: this.accountSid, 
+      serviceSid: this.serviceSid, 
+      functionSid: this.functionSid, 
+      path: this.path, 
+      visibility: this.visibility, 
+      dateCreated: this.dateCreated, 
+      url: this.url, 
+      links: this.links
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
 
 
 export interface FunctionVersionListInstance {
@@ -261,189 +445,6 @@ export function FunctionVersionListInstance(version: V1, serviceSid: string, fun
 }
 
 
-export interface FunctionVersionContext {
-
-  functionVersionContent: FunctionVersionContentListInstance;
-
-  /**
-   * Fetch a FunctionVersionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FunctionVersionInstance
-   */
-  fetch(callback?: (error: Error | null, item?: FunctionVersionInstance) => any): Promise<FunctionVersionInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FunctionVersionContextSolution {
-  serviceSid?: string;
-  functionSid?: string;
-  sid?: string;
-}
-
-export class FunctionVersionContextImpl implements FunctionVersionContext {
-  protected _solution: FunctionVersionContextSolution;
-  protected _uri: string;
-
-  protected _functionVersionContent?: FunctionVersionContentListInstance;
-
-  constructor(protected _version: V1, serviceSid: string, functionSid: string, sid: string) {
-    this._solution = { serviceSid, functionSid, sid };
-    this._uri = `/Services/${serviceSid}/Functions/${functionSid}/Versions/${sid}`;
-  }
-
-  get functionVersionContent(): FunctionVersionContentListInstance {
-    this._functionVersionContent = this._functionVersionContent || FunctionVersionContentListInstance(this._version, this._solution.serviceSid, this._solution.functionSid, this._solution.sid);
-    return this._functionVersionContent;
-  }
-
-  fetch(callback?: any): Promise<FunctionVersionInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new FunctionVersionInstance(operationVersion, payload, this._solution.serviceSid, this._solution.functionSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface FunctionVersionPayload extends FunctionVersionResource, Page.TwilioResponsePayload {
-}
-
-interface FunctionVersionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  function_sid?: string | null;
-  path?: string | null;
-  visibility?: FunctionVersionVisibility;
-  date_created?: Date | null;
-  url?: string | null;
-  links?: object | null;
-}
-
-export class FunctionVersionInstance {
-  protected _solution: FunctionVersionContextSolution;
-  protected _context?: FunctionVersionContext;
-
-  constructor(protected _version: V1, payload: FunctionVersionPayload, serviceSid: string, functionSid: string, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.functionSid = payload.function_sid;
-    this.path = payload.path;
-    this.visibility = payload.visibility;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
-    this.links = payload.links;
-
-    this._solution = { serviceSid, functionSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the Function Version resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Account that created the Function Version resource
-   */
-  accountSid?: string | null;
-  /**
-   * The SID of the Service that the Function Version resource is associated with
-   */
-  serviceSid?: string | null;
-  /**
-   * The SID of the Function resource that is the parent of the Function Version resource
-   */
-  functionSid?: string | null;
-  /**
-   * The URL-friendly string by which the Function Version resource can be referenced
-   */
-  path?: string | null;
-  visibility?: FunctionVersionVisibility;
-  /**
-   * The ISO 8601 date and time in GMT when the Function Version resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The absolute URL of the Function Version resource
-   */
-  url?: string | null;
-  links?: object | null;
-
-  private get _proxy(): FunctionVersionContext {
-    this._context = this._context || new FunctionVersionContextImpl(this._version, this._solution.serviceSid, this._solution.functionSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a FunctionVersionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FunctionVersionInstance
-   */
-  fetch(callback?: (error: Error | null, item?: FunctionVersionInstance) => any): Promise<FunctionVersionInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Access the functionVersionContent.
-   */
-  functionVersionContent(): FunctionVersionContentListInstance {
-    return this._proxy.functionVersionContent;
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      functionSid: this.functionSid, 
-      path: this.path, 
-      visibility: this.visibility, 
-      dateCreated: this.dateCreated, 
-      url: this.url, 
-      links: this.links
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class FunctionVersionPage extends Page<V1, FunctionVersionPayload, FunctionVersionResource, FunctionVersionInstance> {
 /**
 * Initialize the FunctionVersionPage
@@ -474,5 +475,4 @@ constructor(version: V1, response: Response<string>, solution: FunctionVersionSo
     return inspect(this.toJSON(), options);
     }
     }
-
 

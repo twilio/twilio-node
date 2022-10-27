@@ -20,9 +20,9 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
-
 type StreamStatus = 'in-progress'|'stopped';
+
+type StreamTrack = 'inbound_track'|'outbound_track'|'both_tracks';
 
 type StreamUpdateStatus = 'stopped';
 

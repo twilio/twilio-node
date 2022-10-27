@@ -19,12 +19,12 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
+import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
+import PhoneNumberCapabilities from "../../../../interfaces";
+
 import { LocalListInstance } from "./incomingPhoneNumber/local";
 import { MobileListInstance } from "./incomingPhoneNumber/mobile";
 import { TollFreeListInstance } from "./incomingPhoneNumber/tollFree";
-
-import { AssignedAddOnListInstance } from "./incomingPhoneNumber/assignedAddOn";
-import PhoneNumberCapabilities from "../../../../interfaces";
 
 
 /**
@@ -40,12 +40,65 @@ export class ApiV2010AccountIncomingPhoneNumberCapabilities {
 
 type IncomingPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
 
-type IncomingPhoneNumberEmergencyStatus = 'Active'|'Inactive';
-
 type IncomingPhoneNumberEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
+type IncomingPhoneNumberEmergencyStatus = 'Active'|'Inactive';
 
 type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
 
+
+/**
+ * Options to pass to update a IncomingPhoneNumberInstance
+ *
+ * @property { string } [accountSid2] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
+ * @property { string } [apiVersion] The API version to use for incoming calls made to the phone number. The default is &#x60;2010-04-01&#x60;.
+ * @property { string } [friendlyName] A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+ * @property { string } [smsApplicationSid] The SID of the application that should handle SMS messages sent to the number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application.
+ * @property { string } [smsFallbackMethod] The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
+ * @property { string } [smsFallbackUrl] The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;.
+ * @property { string } [smsMethod] The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
+ * @property { string } [smsUrl] The URL we should call when the phone number receives an incoming SMS message.
+ * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
+ * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
+ * @property { string } [voiceApplicationSid] The SID of the application we should use to handle phone calls to the phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa.
+ * @property { boolean } [voiceCallerIdLookup] Whether to lookup the caller\\\&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;.
+ * @property { string } [voiceFallbackMethod] The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
+ * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;.
+ * @property { string } [voiceMethod] The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
+ * @property { string } [voiceUrl] The URL that we should call to answer a call to the phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
+ * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus] 
+ * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from this phone number.
+ * @property { string } [trunkSid] The SID of the Trunk we should use to handle phone calls to the phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
+ * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode] 
+ * @property { string } [identitySid] The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
+ * @property { string } [addressSid] The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
+ * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+ */
+export interface IncomingPhoneNumberContextUpdateOptions {
+  accountSid2?: string;
+  apiVersion?: string;
+  friendlyName?: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
+  emergencyAddressSid?: string;
+  trunkSid?: string;
+  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
+  identitySid?: string;
+  addressSid?: string;
+  bundleSid?: string;
+}
 
 /**
  * Options to pass to create a IncomingPhoneNumberInstance
@@ -172,352 +225,6 @@ export interface IncomingPhoneNumberListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a IncomingPhoneNumberInstance
- *
- * @property { string } [accountSid2] The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
- * @property { string } [apiVersion] The API version to use for incoming calls made to the phone number. The default is &#x60;2010-04-01&#x60;.
- * @property { string } [friendlyName] A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
- * @property { string } [smsApplicationSid] The SID of the application that should handle SMS messages sent to the number. If an &#x60;sms_application_sid&#x60; is present, we ignore all of the &#x60;sms_*_url&#x60; urls and use those set on the application.
- * @property { string } [smsFallbackMethod] The HTTP method that we should use to call &#x60;sms_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { string } [smsFallbackUrl] The URL that we should call when an error occurs while requesting or executing the TwiML defined by &#x60;sms_url&#x60;.
- * @property { string } [smsMethod] The HTTP method that we should use to call &#x60;sms_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { string } [smsUrl] The URL we should call when the phone number receives an incoming SMS message.
- * @property { string } [statusCallback] The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
- * @property { string } [statusCallbackMethod] The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { string } [voiceApplicationSid] The SID of the application we should use to handle phone calls to the phone number. If a &#x60;voice_application_sid&#x60; is present, we ignore all of the voice urls and use only those set on the application. Setting a &#x60;voice_application_sid&#x60; will automatically delete your &#x60;trunk_sid&#x60; and vice versa.
- * @property { boolean } [voiceCallerIdLookup] Whether to lookup the caller\\\&#39;s name from the CNAM database and post it to your app. Can be: &#x60;true&#x60; or &#x60;false&#x60; and defaults to &#x60;false&#x60;.
- * @property { string } [voiceFallbackMethod] The HTTP method that we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { string } [voiceFallbackUrl] The URL that we should call when an error occurs retrieving or executing the TwiML requested by &#x60;url&#x60;.
- * @property { string } [voiceMethod] The HTTP method that we should use to call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
- * @property { string } [voiceUrl] The URL that we should call to answer a call to the phone number. The &#x60;voice_url&#x60; will not be called if a &#x60;voice_application_sid&#x60; or a &#x60;trunk_sid&#x60; is set.
- * @property { IncomingPhoneNumberEmergencyStatus } [emergencyStatus] 
- * @property { string } [emergencyAddressSid] The SID of the emergency address configuration to use for emergency calling from this phone number.
- * @property { string } [trunkSid] The SID of the Trunk we should use to handle phone calls to the phone number. If a &#x60;trunk_sid&#x60; is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a &#x60;trunk_sid&#x60; will automatically delete your &#x60;voice_application_sid&#x60; and vice versa.
- * @property { IncomingPhoneNumberVoiceReceiveMode } [voiceReceiveMode] 
- * @property { string } [identitySid] The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
- * @property { string } [addressSid] The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
- * @property { string } [bundleSid] The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
- */
-export interface IncomingPhoneNumberContextUpdateOptions {
-  accountSid2?: string;
-  apiVersion?: string;
-  friendlyName?: string;
-  smsApplicationSid?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  voiceApplicationSid?: string;
-  voiceCallerIdLookup?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
-  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
-  emergencyAddressSid?: string;
-  trunkSid?: string;
-  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
-  identitySid?: string;
-  addressSid?: string;
-  bundleSid?: string;
-}
-
-export interface IncomingPhoneNumberListInstance {
-  (sid: string): IncomingPhoneNumberContext;
-  get(sid: string): IncomingPhoneNumberContext;
-
-  local: LocalListInstance;
-  mobile: MobileListInstance;
-  tollFree: TollFreeListInstance;
-
-  /**
-   * Create a IncomingPhoneNumberInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
-   */
-  create(callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * Create a IncomingPhoneNumberInstance
-   *
-   * @param { IncomingPhoneNumberListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
-   */
-  create(params: IncomingPhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
-  create(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>
-
-
-
-  /**
-   * Streams IncomingPhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams IncomingPhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { IncomingPhoneNumberListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: IncomingPhoneNumberListInstanceEachOptions, callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
-  /**
-   * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
-  getPage(params?: any, callback?: any): Promise<IncomingPhoneNumberPage>;
-  /**
-   * Lists IncomingPhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
-  /**
-   * Lists IncomingPhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { IncomingPhoneNumberListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: IncomingPhoneNumberListInstanceOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
-  list(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance[]>;
-  /**
-   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
-  /**
-   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { IncomingPhoneNumberListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: IncomingPhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
-  page(params?: any, callback?: any): Promise<IncomingPhoneNumberPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface IncomingPhoneNumberSolution {
-  accountSid?: string;
-}
-
-interface IncomingPhoneNumberListInstanceImpl extends IncomingPhoneNumberListInstance {}
-class IncomingPhoneNumberListInstanceImpl implements IncomingPhoneNumberListInstance {
-  _version?: V2010;
-  _solution?: IncomingPhoneNumberSolution;
-  _uri?: string;
-
-  _local?: LocalListInstance;
-  _mobile?: MobileListInstance;
-  _tollFree?: TollFreeListInstance;
-}
-
-export function IncomingPhoneNumberListInstance(version: V2010, accountSid: string): IncomingPhoneNumberListInstance {
-  const instance = ((sid) => instance.get(sid)) as IncomingPhoneNumberListInstanceImpl;
-
-  instance.get = function get(sid): IncomingPhoneNumberContext {
-    return new IncomingPhoneNumberContextImpl(version, accountSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { accountSid };
-  instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers.json`;
-
-  Object.defineProperty(instance, "local", {
-    get: function local() {
-      if (!this._local) {
-        this._local = LocalListInstance(this._version, this._solution.accountSid);
-      }
-      return this._local;
-    }
-  });
-
-  Object.defineProperty(instance, "mobile", {
-    get: function mobile() {
-      if (!this._mobile) {
-        this._mobile = MobileListInstance(this._version, this._solution.accountSid);
-      }
-      return this._mobile;
-    }
-  });
-
-  Object.defineProperty(instance, "tollFree", {
-    get: function tollFree() {
-      if (!this._tollFree) {
-        this._tollFree = TollFreeListInstance(this._version, this._solution.accountSid);
-      }
-      return this._tollFree;
-    }
-  });
-
-  instance.create = function create(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.apiVersion !== undefined) data['ApiVersion'] = params.apiVersion;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.smsApplicationSid !== undefined) data['SmsApplicationSid'] = params.smsApplicationSid;
-    if (params.smsFallbackMethod !== undefined) data['SmsFallbackMethod'] = params.smsFallbackMethod;
-    if (params.smsFallbackUrl !== undefined) data['SmsFallbackUrl'] = params.smsFallbackUrl;
-    if (params.smsMethod !== undefined) data['SmsMethod'] = params.smsMethod;
-    if (params.smsUrl !== undefined) data['SmsUrl'] = params.smsUrl;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
-    if (params.voiceApplicationSid !== undefined) data['VoiceApplicationSid'] = params.voiceApplicationSid;
-    if (params.voiceCallerIdLookup !== undefined) data['VoiceCallerIdLookup'] = serialize.bool(params.voiceCallerIdLookup);
-    if (params.voiceFallbackMethod !== undefined) data['VoiceFallbackMethod'] = params.voiceFallbackMethod;
-    if (params.voiceFallbackUrl !== undefined) data['VoiceFallbackUrl'] = params.voiceFallbackUrl;
-    if (params.voiceMethod !== undefined) data['VoiceMethod'] = params.voiceMethod;
-    if (params.voiceUrl !== undefined) data['VoiceUrl'] = params.voiceUrl;
-    if (params.emergencyStatus !== undefined) data['EmergencyStatus'] = params.emergencyStatus;
-    if (params.emergencyAddressSid !== undefined) data['EmergencyAddressSid'] = params.emergencyAddressSid;
-    if (params.trunkSid !== undefined) data['TrunkSid'] = params.trunkSid;
-    if (params.identitySid !== undefined) data['IdentitySid'] = params.identitySid;
-    if (params.addressSid !== undefined) data['AddressSid'] = params.addressSid;
-    if (params.voiceReceiveMode !== undefined) data['VoiceReceiveMode'] = params.voiceReceiveMode;
-    if (params.bundleSid !== undefined) data['BundleSid'] = params.bundleSid;
-    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
-    if (params.areaCode !== undefined) data['AreaCode'] = params.areaCode;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberInstance(operationVersion, payload, this._solution.accountSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<IncomingPhoneNumberPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.beta !== undefined) data['Beta'] = serialize.bool(params.beta);
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
-    if (params.origin !== undefined) data['Origin'] = params.origin;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<IncomingPhoneNumberPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface IncomingPhoneNumberContext {
@@ -995,6 +702,300 @@ export class IncomingPhoneNumberInstance {
   }
 }
 
+
+export interface IncomingPhoneNumberListInstance {
+  (sid: string): IncomingPhoneNumberContext;
+  get(sid: string): IncomingPhoneNumberContext;
+
+  local: LocalListInstance;
+  mobile: MobileListInstance;
+  tollFree: TollFreeListInstance;
+
+  /**
+   * Create a IncomingPhoneNumberInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   */
+  create(callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  /**
+   * Create a IncomingPhoneNumberInstance
+   *
+   * @param { IncomingPhoneNumberListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IncomingPhoneNumberInstance
+   */
+  create(params: IncomingPhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, item?: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  create(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance>
+
+
+
+  /**
+   * Streams IncomingPhoneNumberInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams IncomingPhoneNumberInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IncomingPhoneNumberListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: IncomingPhoneNumberListInstanceEachOptions, callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  /**
+   * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  getPage(params?: any, callback?: any): Promise<IncomingPhoneNumberPage>;
+  /**
+   * Lists IncomingPhoneNumberInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
+  /**
+   * Lists IncomingPhoneNumberInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IncomingPhoneNumberListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: IncomingPhoneNumberListInstanceOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): Promise<IncomingPhoneNumberInstance[]>;
+  list(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance[]>;
+  /**
+   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  /**
+   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { IncomingPhoneNumberListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: IncomingPhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: IncomingPhoneNumberPage) => any): Promise<IncomingPhoneNumberPage>;
+  page(params?: any, callback?: any): Promise<IncomingPhoneNumberPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface IncomingPhoneNumberSolution {
+  accountSid?: string;
+}
+
+interface IncomingPhoneNumberListInstanceImpl extends IncomingPhoneNumberListInstance {}
+class IncomingPhoneNumberListInstanceImpl implements IncomingPhoneNumberListInstance {
+  _version?: V2010;
+  _solution?: IncomingPhoneNumberSolution;
+  _uri?: string;
+
+  _local?: LocalListInstance;
+  _mobile?: MobileListInstance;
+  _tollFree?: TollFreeListInstance;
+}
+
+export function IncomingPhoneNumberListInstance(version: V2010, accountSid: string): IncomingPhoneNumberListInstance {
+  const instance = ((sid) => instance.get(sid)) as IncomingPhoneNumberListInstanceImpl;
+
+  instance.get = function get(sid): IncomingPhoneNumberContext {
+    return new IncomingPhoneNumberContextImpl(version, accountSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { accountSid };
+  instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers.json`;
+
+  Object.defineProperty(instance, "local", {
+    get: function local() {
+      if (!this._local) {
+        this._local = LocalListInstance(this._version, this._solution.accountSid);
+      }
+      return this._local;
+    }
+  });
+
+  Object.defineProperty(instance, "mobile", {
+    get: function mobile() {
+      if (!this._mobile) {
+        this._mobile = MobileListInstance(this._version, this._solution.accountSid);
+      }
+      return this._mobile;
+    }
+  });
+
+  Object.defineProperty(instance, "tollFree", {
+    get: function tollFree() {
+      if (!this._tollFree) {
+        this._tollFree = TollFreeListInstance(this._version, this._solution.accountSid);
+      }
+      return this._tollFree;
+    }
+  });
+
+  instance.create = function create(params?: any, callback?: any): Promise<IncomingPhoneNumberInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.apiVersion !== undefined) data['ApiVersion'] = params.apiVersion;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.smsApplicationSid !== undefined) data['SmsApplicationSid'] = params.smsApplicationSid;
+    if (params.smsFallbackMethod !== undefined) data['SmsFallbackMethod'] = params.smsFallbackMethod;
+    if (params.smsFallbackUrl !== undefined) data['SmsFallbackUrl'] = params.smsFallbackUrl;
+    if (params.smsMethod !== undefined) data['SmsMethod'] = params.smsMethod;
+    if (params.smsUrl !== undefined) data['SmsUrl'] = params.smsUrl;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+    if (params.statusCallbackMethod !== undefined) data['StatusCallbackMethod'] = params.statusCallbackMethod;
+    if (params.voiceApplicationSid !== undefined) data['VoiceApplicationSid'] = params.voiceApplicationSid;
+    if (params.voiceCallerIdLookup !== undefined) data['VoiceCallerIdLookup'] = serialize.bool(params.voiceCallerIdLookup);
+    if (params.voiceFallbackMethod !== undefined) data['VoiceFallbackMethod'] = params.voiceFallbackMethod;
+    if (params.voiceFallbackUrl !== undefined) data['VoiceFallbackUrl'] = params.voiceFallbackUrl;
+    if (params.voiceMethod !== undefined) data['VoiceMethod'] = params.voiceMethod;
+    if (params.voiceUrl !== undefined) data['VoiceUrl'] = params.voiceUrl;
+    if (params.emergencyStatus !== undefined) data['EmergencyStatus'] = params.emergencyStatus;
+    if (params.emergencyAddressSid !== undefined) data['EmergencyAddressSid'] = params.emergencyAddressSid;
+    if (params.trunkSid !== undefined) data['TrunkSid'] = params.trunkSid;
+    if (params.identitySid !== undefined) data['IdentitySid'] = params.identitySid;
+    if (params.addressSid !== undefined) data['AddressSid'] = params.addressSid;
+    if (params.voiceReceiveMode !== undefined) data['VoiceReceiveMode'] = params.voiceReceiveMode;
+    if (params.bundleSid !== undefined) data['BundleSid'] = params.bundleSid;
+    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
+    if (params.areaCode !== undefined) data['AreaCode'] = params.areaCode;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberInstance(operationVersion, payload, this._solution.accountSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<IncomingPhoneNumberPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.beta !== undefined) data['Beta'] = serialize.bool(params.beta);
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.phoneNumber !== undefined) data['PhoneNumber'] = params.phoneNumber;
+    if (params.origin !== undefined) data['Origin'] = params.origin;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<IncomingPhoneNumberPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new IncomingPhoneNumberPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberInstance> {
 /**
 * Initialize the IncomingPhoneNumberPage
@@ -1024,5 +1025,4 @@ constructor(version: V2010, response: Response<string>, solution: IncomingPhoneN
     return inspect(this.toJSON(), options);
     }
     }
-
 

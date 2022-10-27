@@ -36,52 +36,6 @@ export interface PhoneNumberContextFetchOptions {
   addOnsData?: object;
 }
 
-export interface PhoneNumberListInstance {
-  (phoneNumber: string): PhoneNumberContext;
-  get(phoneNumber: string): PhoneNumberContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface PhoneNumberSolution {
-}
-
-interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
-class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
-  _version?: V1;
-  _solution?: PhoneNumberSolution;
-  _uri?: string;
-
-}
-
-export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
-  const instance = ((phoneNumber) => instance.get(phoneNumber)) as PhoneNumberListInstanceImpl;
-
-  instance.get = function get(phoneNumber): PhoneNumberContext {
-    return new PhoneNumberContextImpl(version, phoneNumber);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/PhoneNumbers`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
-
 export interface PhoneNumberContext {
 
 
@@ -274,6 +228,52 @@ export class PhoneNumberInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface PhoneNumberListInstance {
+  (phoneNumber: string): PhoneNumberContext;
+  get(phoneNumber: string): PhoneNumberContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PhoneNumberSolution {
+}
+
+interface PhoneNumberListInstanceImpl extends PhoneNumberListInstance {}
+class PhoneNumberListInstanceImpl implements PhoneNumberListInstance {
+  _version?: V1;
+  _solution?: PhoneNumberSolution;
+  _uri?: string;
+
+}
+
+export function PhoneNumberListInstance(version: V1): PhoneNumberListInstance {
+  const instance = ((phoneNumber) => instance.get(phoneNumber)) as PhoneNumberListInstanceImpl;
+
+  instance.get = function get(phoneNumber): PhoneNumberContext {
+    return new PhoneNumberContextImpl(version, phoneNumber);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/PhoneNumbers`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

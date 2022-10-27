@@ -24,9 +24,9 @@ const serialize = require("../../../base/serialize");
 
 type IpCommandDirection = 'to_sim'|'from_sim';
 
-type IpCommandStatus = 'queued'|'sent'|'received'|'failed';
-
 type IpCommandPayloadType = 'text'|'binary';
+
+type IpCommandStatus = 'queued'|'sent'|'received'|'failed';
 
 
 /**
@@ -118,6 +118,199 @@ export interface IpCommandListInstancePageOptions {
   pageToken?: string;
 }
 
+
+
+export interface IpCommandContext {
+
+
+  /**
+   * Fetch a IpCommandInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpCommandInstance
+   */
+  fetch(callback?: (error: Error | null, item?: IpCommandInstance) => any): Promise<IpCommandInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface IpCommandContextSolution {
+  sid?: string;
+}
+
+export class IpCommandContextImpl implements IpCommandContext {
+  protected _solution: IpCommandContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, sid: string) {
+    this._solution = { sid };
+    this._uri = `/IpCommands/${sid}`;
+  }
+
+  fetch(callback?: any): Promise<IpCommandInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new IpCommandInstance(operationVersion, payload, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface IpCommandPayload extends IpCommandResource, Page.TwilioResponsePayload {
+}
+
+interface IpCommandResource {
+  sid?: string | null;
+  account_sid?: string | null;
+  sim_sid?: string | null;
+  sim_iccid?: string | null;
+  status?: IpCommandStatus;
+  direction?: IpCommandDirection;
+  device_ip?: string | null;
+  device_port?: number | null;
+  payload_type?: IpCommandPayloadType;
+  payload?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  url?: string | null;
+}
+
+export class IpCommandInstance {
+  protected _solution: IpCommandContextSolution;
+  protected _context?: IpCommandContext;
+
+  constructor(protected _version: V1, payload: IpCommandPayload, sid?: string) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.simSid = payload.sim_sid;
+    this.simIccid = payload.sim_iccid;
+    this.status = payload.status;
+    this.direction = payload.direction;
+    this.deviceIp = payload.device_ip;
+    this.devicePort = deserialize.integer(payload.device_port);
+    this.payloadType = payload.payload_type;
+    this.payload = payload.payload;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.url = payload.url;
+
+    this._solution = { sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Super SIM that this IP Command was sent to or from
+   */
+  simSid?: string | null;
+  /**
+   * The ICCID of the Super SIM that this IP Command was sent to or from
+   */
+  simIccid?: string | null;
+  status?: IpCommandStatus;
+  direction?: IpCommandDirection;
+  /**
+   * The IP address of the device that the IP Command was sent to or received from
+   */
+  deviceIp?: string | null;
+  /**
+   * The port that the IP Command either originated from or was sent to
+   */
+  devicePort?: number | null;
+  payloadType?: IpCommandPayloadType;
+  /**
+   * The payload of the IP Command sent to or from the Super SIM
+   */
+  payload?: string | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was last updated
+   */
+  dateUpdated?: Date | null;
+  /**
+   * The absolute URL of the IP Command resource
+   */
+  url?: string | null;
+
+  private get _proxy(): IpCommandContext {
+    this._context = this._context || new IpCommandContextImpl(this._version, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a IpCommandInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpCommandInstance
+   */
+  fetch(callback?: (error: Error | null, item?: IpCommandInstance) => any): Promise<IpCommandInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      accountSid: this.accountSid, 
+      simSid: this.simSid, 
+      simIccid: this.simIccid, 
+      status: this.status, 
+      direction: this.direction, 
+      deviceIp: this.deviceIp, 
+      devicePort: this.devicePort, 
+      payloadType: this.payloadType, 
+      payload: this.payload, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
 
 
 export interface IpCommandListInstance {
@@ -362,198 +555,6 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 }
 
 
-export interface IpCommandContext {
-
-
-  /**
-   * Fetch a IpCommandInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpCommandInstance
-   */
-  fetch(callback?: (error: Error | null, item?: IpCommandInstance) => any): Promise<IpCommandInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface IpCommandContextSolution {
-  sid?: string;
-}
-
-export class IpCommandContextImpl implements IpCommandContext {
-  protected _solution: IpCommandContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, sid: string) {
-    this._solution = { sid };
-    this._uri = `/IpCommands/${sid}`;
-  }
-
-  fetch(callback?: any): Promise<IpCommandInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new IpCommandInstance(operationVersion, payload, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface IpCommandPayload extends IpCommandResource, Page.TwilioResponsePayload {
-}
-
-interface IpCommandResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  sim_sid?: string | null;
-  sim_iccid?: string | null;
-  status?: IpCommandStatus;
-  direction?: IpCommandDirection;
-  device_ip?: string | null;
-  device_port?: number | null;
-  payload_type?: IpCommandPayloadType;
-  payload?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-}
-
-export class IpCommandInstance {
-  protected _solution: IpCommandContextSolution;
-  protected _context?: IpCommandContext;
-
-  constructor(protected _version: V1, payload: IpCommandPayload, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.simSid = payload.sim_sid;
-    this.simIccid = payload.sim_iccid;
-    this.status = payload.status;
-    this.direction = payload.direction;
-    this.deviceIp = payload.device_ip;
-    this.devicePort = deserialize.integer(payload.device_port);
-    this.payloadType = payload.payload_type;
-    this.payload = payload.payload;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-
-    this._solution = { sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The SID of the Super SIM that this IP Command was sent to or from
-   */
-  simSid?: string | null;
-  /**
-   * The ICCID of the Super SIM that this IP Command was sent to or from
-   */
-  simIccid?: string | null;
-  status?: IpCommandStatus;
-  direction?: IpCommandDirection;
-  /**
-   * The IP address of the device that the IP Command was sent to or received from
-   */
-  deviceIp?: string | null;
-  /**
-   * The port that the IP Command either originated from or was sent to
-   */
-  devicePort?: number | null;
-  payloadType?: IpCommandPayloadType;
-  /**
-   * The payload of the IP Command sent to or from the Super SIM
-   */
-  payload?: string | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
-   */
-  dateUpdated?: Date | null;
-  /**
-   * The absolute URL of the IP Command resource
-   */
-  url?: string | null;
-
-  private get _proxy(): IpCommandContext {
-    this._context = this._context || new IpCommandContextImpl(this._version, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a IpCommandInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpCommandInstance
-   */
-  fetch(callback?: (error: Error | null, item?: IpCommandInstance) => any): Promise<IpCommandInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      simSid: this.simSid, 
-      simIccid: this.simIccid, 
-      status: this.status, 
-      direction: this.direction, 
-      deviceIp: this.deviceIp, 
-      devicePort: this.devicePort, 
-      payloadType: this.payloadType, 
-      payload: this.payload, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class IpCommandPage extends Page<V1, IpCommandPayload, IpCommandResource, IpCommandInstance> {
 /**
 * Initialize the IpCommandPage
@@ -582,5 +583,4 @@ constructor(version: V1, response: Response<string>, solution: IpCommandSolution
     return inspect(this.toJSON(), options);
     }
     }
-
 

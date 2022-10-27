@@ -22,12 +22,34 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
+
 type UserChannelNotificationLevel = 'default'|'muted';
 
 type UserChannelWebhookEnabledType = 'true'|'false';
 
-type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
 
+/**
+ * Options to pass to remove a UserChannelInstance
+ *
+ * @property { UserChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ */
+export interface UserChannelContextRemoveOptions {
+  xTwilioWebhookEnabled?: UserChannelWebhookEnabledType;
+}
+
+/**
+ * Options to pass to update a UserChannelInstance
+ *
+ * @property { UserChannelNotificationLevel } [notificationLevel] 
+ * @property { number } [lastConsumedMessageIndex] The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+ * @property { Date } [lastConsumptionTimestamp] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
+ */
+export interface UserChannelContextUpdateOptions {
+  notificationLevel?: UserChannelNotificationLevel;
+  lastConsumedMessageIndex?: number;
+  lastConsumptionTimestamp?: Date;
+}
 /**
  * Options to pass to each
  *
@@ -75,215 +97,6 @@ export interface UserChannelListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to remove a UserChannelInstance
- *
- * @property { UserChannelWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- */
-export interface UserChannelContextRemoveOptions {
-  xTwilioWebhookEnabled?: UserChannelWebhookEnabledType;
-}
-
-/**
- * Options to pass to update a UserChannelInstance
- *
- * @property { UserChannelNotificationLevel } [notificationLevel] 
- * @property { number } [lastConsumedMessageIndex] The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
- * @property { Date } [lastConsumptionTimestamp] The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
- */
-export interface UserChannelContextUpdateOptions {
-  notificationLevel?: UserChannelNotificationLevel;
-  lastConsumedMessageIndex?: number;
-  lastConsumptionTimestamp?: Date;
-}
-
-export interface UserChannelListInstance {
-  (channelSid: string): UserChannelContext;
-  get(channelSid: string): UserChannelContext;
-
-
-
-  /**
-   * Streams UserChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams UserChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UserChannelListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: UserChannelListInstanceEachOptions, callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of UserChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
-  /**
-   * Retrieve a single target page of UserChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
-  getPage(params?: any, callback?: any): Promise<UserChannelPage>;
-  /**
-   * Lists UserChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: UserChannelInstance[]) => any): Promise<UserChannelInstance[]>;
-  /**
-   * Lists UserChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UserChannelListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: UserChannelListInstanceOptions, callback?: (error: Error | null, items: UserChannelInstance[]) => any): Promise<UserChannelInstance[]>;
-  list(params?: any, callback?: any): Promise<UserChannelInstance[]>;
-  /**
-   * Retrieve a single page of UserChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
-  /**
-   * Retrieve a single page of UserChannelInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { UserChannelListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: UserChannelListInstancePageOptions, callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
-  page(params?: any, callback?: any): Promise<UserChannelPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
-}
-
-interface UserChannelListInstanceImpl extends UserChannelListInstance {}
-class UserChannelListInstanceImpl implements UserChannelListInstance {
-  _version?: V2;
-  _solution?: UserChannelSolution;
-  _uri?: string;
-
-}
-
-export function UserChannelListInstance(version: V2, serviceSid: string, userSid: string): UserChannelListInstance {
-  const instance = ((channelSid) => instance.get(channelSid)) as UserChannelListInstanceImpl;
-
-  instance.get = function get(channelSid): UserChannelContext {
-    return new UserChannelContextImpl(version, serviceSid, userSid, channelSid);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid, userSid };
-  instance._uri = `/Services/${serviceSid}/Users/${userSid}/Channels`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<UserChannelPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new UserChannelPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UserChannelPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new UserChannelPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface UserChannelContext {
@@ -606,6 +419,194 @@ export class UserChannelInstance {
   }
 }
 
+
+export interface UserChannelListInstance {
+  (channelSid: string): UserChannelContext;
+  get(channelSid: string): UserChannelContext;
+
+
+
+  /**
+   * Streams UserChannelInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams UserChannelInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserChannelListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: UserChannelListInstanceEachOptions, callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of UserChannelInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  /**
+   * Retrieve a single target page of UserChannelInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  getPage(params?: any, callback?: any): Promise<UserChannelPage>;
+  /**
+   * Lists UserChannelInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: UserChannelInstance[]) => any): Promise<UserChannelInstance[]>;
+  /**
+   * Lists UserChannelInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserChannelListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: UserChannelListInstanceOptions, callback?: (error: Error | null, items: UserChannelInstance[]) => any): Promise<UserChannelInstance[]>;
+  list(params?: any, callback?: any): Promise<UserChannelInstance[]>;
+  /**
+   * Retrieve a single page of UserChannelInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  /**
+   * Retrieve a single page of UserChannelInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserChannelListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: UserChannelListInstancePageOptions, callback?: (error: Error | null, items: UserChannelPage) => any): Promise<UserChannelPage>;
+  page(params?: any, callback?: any): Promise<UserChannelPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface UserChannelSolution {
+  serviceSid?: string;
+  userSid?: string;
+}
+
+interface UserChannelListInstanceImpl extends UserChannelListInstance {}
+class UserChannelListInstanceImpl implements UserChannelListInstance {
+  _version?: V2;
+  _solution?: UserChannelSolution;
+  _uri?: string;
+
+}
+
+export function UserChannelListInstance(version: V2, serviceSid: string, userSid: string): UserChannelListInstance {
+  const instance = ((channelSid) => instance.get(channelSid)) as UserChannelListInstanceImpl;
+
+  instance.get = function get(channelSid): UserChannelContext {
+    return new UserChannelContextImpl(version, serviceSid, userSid, channelSid);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid, userSid };
+  instance._uri = `/Services/${serviceSid}/Users/${userSid}/Channels`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<UserChannelPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new UserChannelPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<UserChannelPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new UserChannelPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelResource, UserChannelInstance> {
 /**
 * Initialize the UserChannelPage
@@ -636,5 +637,4 @@ constructor(version: V2, response: Response<string>, solution: UserChannelSoluti
     return inspect(this.toJSON(), options);
     }
     }
-
 

@@ -73,194 +73,6 @@ export interface DeliveryReceiptListInstancePageOptions {
 
 
 
-export interface DeliveryReceiptListInstance {
-  (sid: string): DeliveryReceiptContext;
-  get(sid: string): DeliveryReceiptContext;
-
-
-
-  /**
-   * Streams DeliveryReceiptInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams DeliveryReceiptInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DeliveryReceiptListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: DeliveryReceiptListInstanceEachOptions, callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of DeliveryReceiptInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
-  /**
-   * Retrieve a single target page of DeliveryReceiptInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
-  getPage(params?: any, callback?: any): Promise<DeliveryReceiptPage>;
-  /**
-   * Lists DeliveryReceiptInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any): Promise<DeliveryReceiptInstance[]>;
-  /**
-   * Lists DeliveryReceiptInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DeliveryReceiptListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: DeliveryReceiptListInstanceOptions, callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any): Promise<DeliveryReceiptInstance[]>;
-  list(params?: any, callback?: any): Promise<DeliveryReceiptInstance[]>;
-  /**
-   * Retrieve a single page of DeliveryReceiptInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
-  /**
-   * Retrieve a single page of DeliveryReceiptInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DeliveryReceiptListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: DeliveryReceiptListInstancePageOptions, callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
-  page(params?: any, callback?: any): Promise<DeliveryReceiptPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DeliveryReceiptSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-  messageSid?: string;
-}
-
-interface DeliveryReceiptListInstanceImpl extends DeliveryReceiptListInstance {}
-class DeliveryReceiptListInstanceImpl implements DeliveryReceiptListInstance {
-  _version?: V1;
-  _solution?: DeliveryReceiptSolution;
-  _uri?: string;
-
-}
-
-export function DeliveryReceiptListInstance(version: V1, chatServiceSid: string, conversationSid: string, messageSid: string): DeliveryReceiptListInstance {
-  const instance = ((sid) => instance.get(sid)) as DeliveryReceiptListInstanceImpl;
-
-  instance.get = function get(sid): DeliveryReceiptContext {
-    return new DeliveryReceiptContextImpl(version, chatServiceSid, conversationSid, messageSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { chatServiceSid, conversationSid, messageSid };
-  instance._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages/${messageSid}/Receipts`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<DeliveryReceiptPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DeliveryReceiptPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DeliveryReceiptPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new DeliveryReceiptPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
-
 export interface DeliveryReceiptContext {
 
 
@@ -455,6 +267,195 @@ export class DeliveryReceiptInstance {
   }
 }
 
+
+export interface DeliveryReceiptListInstance {
+  (sid: string): DeliveryReceiptContext;
+  get(sid: string): DeliveryReceiptContext;
+
+
+
+  /**
+   * Streams DeliveryReceiptInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams DeliveryReceiptInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DeliveryReceiptListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: DeliveryReceiptListInstanceEachOptions, callback?: (item: DeliveryReceiptInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of DeliveryReceiptInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
+  /**
+   * Retrieve a single target page of DeliveryReceiptInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
+  getPage(params?: any, callback?: any): Promise<DeliveryReceiptPage>;
+  /**
+   * Lists DeliveryReceiptInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any): Promise<DeliveryReceiptInstance[]>;
+  /**
+   * Lists DeliveryReceiptInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DeliveryReceiptListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: DeliveryReceiptListInstanceOptions, callback?: (error: Error | null, items: DeliveryReceiptInstance[]) => any): Promise<DeliveryReceiptInstance[]>;
+  list(params?: any, callback?: any): Promise<DeliveryReceiptInstance[]>;
+  /**
+   * Retrieve a single page of DeliveryReceiptInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
+  /**
+   * Retrieve a single page of DeliveryReceiptInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DeliveryReceiptListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: DeliveryReceiptListInstancePageOptions, callback?: (error: Error | null, items: DeliveryReceiptPage) => any): Promise<DeliveryReceiptPage>;
+  page(params?: any, callback?: any): Promise<DeliveryReceiptPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DeliveryReceiptSolution {
+  chatServiceSid?: string;
+  conversationSid?: string;
+  messageSid?: string;
+}
+
+interface DeliveryReceiptListInstanceImpl extends DeliveryReceiptListInstance {}
+class DeliveryReceiptListInstanceImpl implements DeliveryReceiptListInstance {
+  _version?: V1;
+  _solution?: DeliveryReceiptSolution;
+  _uri?: string;
+
+}
+
+export function DeliveryReceiptListInstance(version: V1, chatServiceSid: string, conversationSid: string, messageSid: string): DeliveryReceiptListInstance {
+  const instance = ((sid) => instance.get(sid)) as DeliveryReceiptListInstanceImpl;
+
+  instance.get = function get(sid): DeliveryReceiptContext {
+    return new DeliveryReceiptContextImpl(version, chatServiceSid, conversationSid, messageSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { chatServiceSid, conversationSid, messageSid };
+  instance._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages/${messageSid}/Receipts`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<DeliveryReceiptPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DeliveryReceiptPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DeliveryReceiptPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new DeliveryReceiptPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class DeliveryReceiptPage extends Page<V1, DeliveryReceiptPayload, DeliveryReceiptResource, DeliveryReceiptInstance> {
 /**
 * Initialize the DeliveryReceiptPage
@@ -486,5 +487,4 @@ constructor(version: V1, response: Response<string>, solution: DeliveryReceiptSo
     return inspect(this.toJSON(), options);
     }
     }
-
 

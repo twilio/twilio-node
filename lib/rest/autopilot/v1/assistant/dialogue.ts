@@ -21,53 +21,6 @@ const serialize = require("../../../../base/serialize");
 
 
 
-export interface DialogueListInstance {
-  (sid: string): DialogueContext;
-  get(sid: string): DialogueContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DialogueSolution {
-  assistantSid?: string;
-}
-
-interface DialogueListInstanceImpl extends DialogueListInstance {}
-class DialogueListInstanceImpl implements DialogueListInstance {
-  _version?: V1;
-  _solution?: DialogueSolution;
-  _uri?: string;
-
-}
-
-export function DialogueListInstance(version: V1, assistantSid: string): DialogueListInstance {
-  const instance = ((sid) => instance.get(sid)) as DialogueListInstanceImpl;
-
-  instance.get = function get(sid): DialogueContext {
-    return new DialogueContextImpl(version, assistantSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { assistantSid };
-  instance._uri = `/Assistants/${assistantSid}/Dialogues`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
-
 export interface DialogueContext {
 
 
@@ -212,6 +165,53 @@ export class DialogueInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface DialogueListInstance {
+  (sid: string): DialogueContext;
+  get(sid: string): DialogueContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DialogueSolution {
+  assistantSid?: string;
+}
+
+interface DialogueListInstanceImpl extends DialogueListInstance {}
+class DialogueListInstanceImpl implements DialogueListInstance {
+  _version?: V1;
+  _solution?: DialogueSolution;
+  _uri?: string;
+
+}
+
+export function DialogueListInstance(version: V1, assistantSid: string): DialogueListInstance {
+  const instance = ((sid) => instance.get(sid)) as DialogueListInstanceImpl;
+
+  instance.get = function get(sid): DialogueContext {
+    return new DialogueContextImpl(version, assistantSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { assistantSid };
+  instance._uri = `/Assistants/${assistantSid}/Dialogues`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

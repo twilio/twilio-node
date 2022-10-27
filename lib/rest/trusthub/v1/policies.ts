@@ -71,6 +71,145 @@ export interface PoliciesListInstancePageOptions {
 
 
 
+export interface PoliciesContext {
+
+
+  /**
+   * Fetch a PoliciesInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PoliciesInstance
+   */
+  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface PoliciesContextSolution {
+  sid?: string;
+}
+
+export class PoliciesContextImpl implements PoliciesContext {
+  protected _solution: PoliciesContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, sid: string) {
+    this._solution = { sid };
+    this._uri = `/Policies/${sid}`;
+  }
+
+  fetch(callback?: any): Promise<PoliciesInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new PoliciesInstance(operationVersion, payload, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface PoliciesPayload extends PoliciesResource, Page.TwilioResponsePayload {
+}
+
+interface PoliciesResource {
+  sid?: string | null;
+  friendly_name?: string | null;
+  requirements?: any | null;
+  url?: string | null;
+}
+
+export class PoliciesInstance {
+  protected _solution: PoliciesContextSolution;
+  protected _context?: PoliciesContext;
+
+  constructor(protected _version: V1, payload: PoliciesPayload, sid?: string) {
+    this.sid = payload.sid;
+    this.friendlyName = payload.friendly_name;
+    this.requirements = payload.requirements;
+    this.url = payload.url;
+
+    this._solution = { sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the Policy resource
+   */
+  sid?: string | null;
+  /**
+   * A human-readable description of the Policy resource
+   */
+  friendlyName?: string | null;
+  /**
+   * The sid of a Policy object that dictates requirements
+   */
+  requirements?: any | null;
+  /**
+   * The absolute URL of the Policy resource
+   */
+  url?: string | null;
+
+  private get _proxy(): PoliciesContext {
+    this._context = this._context || new PoliciesContextImpl(this._version, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a PoliciesInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed PoliciesInstance
+   */
+  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      friendlyName: this.friendlyName, 
+      requirements: this.requirements, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface PoliciesListInstance {
   (sid: string): PoliciesContext;
   get(sid: string): PoliciesContext;
@@ -256,144 +395,6 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 }
 
 
-export interface PoliciesContext {
-
-
-  /**
-   * Fetch a PoliciesInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PoliciesInstance
-   */
-  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface PoliciesContextSolution {
-  sid?: string;
-}
-
-export class PoliciesContextImpl implements PoliciesContext {
-  protected _solution: PoliciesContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, sid: string) {
-    this._solution = { sid };
-    this._uri = `/Policies/${sid}`;
-  }
-
-  fetch(callback?: any): Promise<PoliciesInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new PoliciesInstance(operationVersion, payload, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface PoliciesPayload extends PoliciesResource, Page.TwilioResponsePayload {
-}
-
-interface PoliciesResource {
-  sid?: string | null;
-  friendly_name?: string | null;
-  requirements?: any | null;
-  url?: string | null;
-}
-
-export class PoliciesInstance {
-  protected _solution: PoliciesContextSolution;
-  protected _context?: PoliciesContext;
-
-  constructor(protected _version: V1, payload: PoliciesPayload, sid?: string) {
-    this.sid = payload.sid;
-    this.friendlyName = payload.friendly_name;
-    this.requirements = payload.requirements;
-    this.url = payload.url;
-
-    this._solution = { sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the Policy resource
-   */
-  sid?: string | null;
-  /**
-   * A human-readable description of the Policy resource
-   */
-  friendlyName?: string | null;
-  /**
-   * The sid of a Policy object that dictates requirements
-   */
-  requirements?: any | null;
-  /**
-   * The absolute URL of the Policy resource
-   */
-  url?: string | null;
-
-  private get _proxy(): PoliciesContext {
-    this._context = this._context || new PoliciesContextImpl(this._version, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a PoliciesInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed PoliciesInstance
-   */
-  fetch(callback?: (error: Error | null, item?: PoliciesInstance) => any): Promise<PoliciesInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      friendlyName: this.friendlyName, 
-      requirements: this.requirements, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class PoliciesPage extends Page<V1, PoliciesPayload, PoliciesResource, PoliciesInstance> {
 /**
 * Initialize the PoliciesPage
@@ -422,5 +423,4 @@ constructor(version: V1, response: Response<string>, solution: PoliciesSolution)
     return inspect(this.toJSON(), options);
     }
     }
-
 

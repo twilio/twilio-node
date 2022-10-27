@@ -80,6 +80,202 @@ export interface CredentialListMappingListInstancePageOptions {
 
 
 
+export interface CredentialListMappingContext {
+
+
+  /**
+   * Remove a CredentialListMappingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+
+  /**
+   * Fetch a CredentialListMappingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CredentialListMappingInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CredentialListMappingContextSolution {
+  accountSid?: string;
+  domainSid?: string;
+  sid?: string;
+}
+
+export class CredentialListMappingContextImpl implements CredentialListMappingContext {
+  protected _solution: CredentialListMappingContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V2010, accountSid: string, domainSid: string, sid: string) {
+    this._solution = { accountSid, domainSid, sid };
+    this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/CredentialListMappings/${sid}.json`;
+  }
+
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  fetch(callback?: any): Promise<CredentialListMappingInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new CredentialListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface CredentialListMappingPayload extends CredentialListMappingResource, Page.TwilioResponsePayload {
+}
+
+interface CredentialListMappingResource {
+  account_sid?: string | null;
+  date_created?: string | null;
+  date_updated?: string | null;
+  domain_sid?: string | null;
+  friendly_name?: string | null;
+  sid?: string | null;
+  uri?: string | null;
+}
+
+export class CredentialListMappingInstance {
+  protected _solution: CredentialListMappingContextSolution;
+  protected _context?: CredentialListMappingContext;
+
+  constructor(protected _version: V2010, payload: CredentialListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
+    this.accountSid = payload.account_sid;
+    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
+    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
+    this.domainSid = payload.domain_sid;
+    this.friendlyName = payload.friendly_name;
+    this.sid = payload.sid;
+    this.uri = payload.uri;
+
+    this._solution = { accountSid, domainSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique id of the Account that is responsible for this resource.
+   */
+  accountSid?: string | null;
+  /**
+   * The date that this resource was created, given as GMT in RFC 2822 format.
+   */
+  dateCreated?: string | null;
+  /**
+   * The date that this resource was last updated, given as GMT in RFC 2822 format.
+   */
+  dateUpdated?: string | null;
+  /**
+   * The unique string that identifies the SipDomain resource.
+   */
+  domainSid?: string | null;
+  /**
+   * A human readable descriptive text for this resource, up to 64 characters long.
+   */
+  friendlyName?: string | null;
+  /**
+   * A 34 character string that uniquely identifies this resource.
+   */
+  sid?: string | null;
+  /**
+   * The URI for this resource, relative to https://api.twilio.com
+   */
+  uri?: string | null;
+
+  private get _proxy(): CredentialListMappingContext {
+    this._context = this._context || new CredentialListMappingContextImpl(this._version, this._solution.accountSid, this._solution.domainSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Remove a CredentialListMappingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+     {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Fetch a CredentialListMappingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CredentialListMappingInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      domainSid: this.domainSid, 
+      friendlyName: this.friendlyName, 
+      sid: this.sid, 
+      uri: this.uri
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface CredentialListMappingListInstance {
   (sid: string): CredentialListMappingContext;
   get(sid: string): CredentialListMappingContext;
@@ -307,201 +503,6 @@ export function CredentialListMappingListInstance(version: V2010, accountSid: st
 }
 
 
-export interface CredentialListMappingContext {
-
-
-  /**
-   * Remove a CredentialListMappingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-
-  /**
-   * Fetch a CredentialListMappingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CredentialListMappingInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface CredentialListMappingContextSolution {
-  accountSid?: string;
-  domainSid?: string;
-  sid?: string;
-}
-
-export class CredentialListMappingContextImpl implements CredentialListMappingContext {
-  protected _solution: CredentialListMappingContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V2010, accountSid: string, domainSid: string, sid: string) {
-    this._solution = { accountSid, domainSid, sid };
-    this._uri = `/Accounts/${accountSid}/SIP/Domains/${domainSid}/CredentialListMappings/${sid}.json`;
-  }
-
-  remove(callback?: any): Promise<boolean> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  fetch(callback?: any): Promise<CredentialListMappingInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new CredentialListMappingInstance(operationVersion, payload, this._solution.accountSid, this._solution.domainSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface CredentialListMappingPayload extends CredentialListMappingResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialListMappingResource {
-  account_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
-  domain_sid?: string | null;
-  friendly_name?: string | null;
-  sid?: string | null;
-  uri?: string | null;
-}
-
-export class CredentialListMappingInstance {
-  protected _solution: CredentialListMappingContextSolution;
-  protected _context?: CredentialListMappingContext;
-
-  constructor(protected _version: V2010, payload: CredentialListMappingPayload, accountSid: string, domainSid: string, sid?: string) {
-    this.accountSid = payload.account_sid;
-    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
-    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.domainSid = payload.domain_sid;
-    this.friendlyName = payload.friendly_name;
-    this.sid = payload.sid;
-    this.uri = payload.uri;
-
-    this._solution = { accountSid, domainSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique id of the Account that is responsible for this resource.
-   */
-  accountSid?: string | null;
-  /**
-   * The date that this resource was created, given as GMT in RFC 2822 format.
-   */
-  dateCreated?: string | null;
-  /**
-   * The date that this resource was last updated, given as GMT in RFC 2822 format.
-   */
-  dateUpdated?: string | null;
-  /**
-   * The unique string that identifies the SipDomain resource.
-   */
-  domainSid?: string | null;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long.
-   */
-  friendlyName?: string | null;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid?: string | null;
-  /**
-   * The URI for this resource, relative to https://api.twilio.com
-   */
-  uri?: string | null;
-
-  private get _proxy(): CredentialListMappingContext {
-    this._context = this._context || new CredentialListMappingContextImpl(this._version, this._solution.accountSid, this._solution.domainSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Remove a CredentialListMappingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
-    return this._proxy.remove(callback);
-  }
-
-  /**
-   * Fetch a CredentialListMappingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CredentialListMappingInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      accountSid: this.accountSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      domainSid: this.domainSid, 
-      friendlyName: this.friendlyName, 
-      sid: this.sid, 
-      uri: this.uri
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class CredentialListMappingPage extends Page<V2010, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingInstance> {
 /**
 * Initialize the CredentialListMappingPage
@@ -532,5 +533,4 @@ constructor(version: V2010, response: Response<string>, solution: CredentialList
     return inspect(this.toJSON(), options);
     }
     }
-
 

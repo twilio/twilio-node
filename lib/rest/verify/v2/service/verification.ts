@@ -20,9 +20,9 @@ const serialize = require("../../../../base/serialize");
 
 
 
-type VerificationStatus = 'canceled'|'approved';
-
 type VerificationChannel = 'sms'|'call'|'email'|'whatsapp'|'sna';
+
+type VerificationStatus = 'canceled'|'approved';
 
 
 /**

@@ -19,14 +19,29 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { CustomerProfilesChannelEndpointAssignmentListInstance } from "./customerProfiles/customerProfilesChannelEndpointAssignment";
 import { CustomerProfilesEntityAssignmentsListInstance } from "./customerProfiles/customerProfilesEntityAssignments";
 import { CustomerProfilesEvaluationsListInstance } from "./customerProfiles/customerProfilesEvaluations";
 
 
+
 type CustomerProfileStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved';
 
+
+/**
+ * Options to pass to update a CustomerProfilesInstance
+ *
+ * @property { CustomerProfileStatus } [status] 
+ * @property { string } [statusCallback] The URL we call to inform your application of status changes.
+ * @property { string } [friendlyName] The string that you assigned to describe the resource.
+ * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
+ */
+export interface CustomerProfilesContextUpdateOptions {
+  status?: CustomerProfileStatus;
+  statusCallback?: string;
+  friendlyName?: string;
+  email?: string;
+}
 
 /**
  * Options to pass to create a CustomerProfilesInstance
@@ -107,260 +122,6 @@ export interface CustomerProfilesListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a CustomerProfilesInstance
- *
- * @property { CustomerProfileStatus } [status] 
- * @property { string } [statusCallback] The URL we call to inform your application of status changes.
- * @property { string } [friendlyName] The string that you assigned to describe the resource.
- * @property { string } [email] The email address that will receive updates when the Customer-Profile resource changes status.
- */
-export interface CustomerProfilesContextUpdateOptions {
-  status?: CustomerProfileStatus;
-  statusCallback?: string;
-  friendlyName?: string;
-  email?: string;
-}
-
-export interface CustomerProfilesListInstance {
-  (sid: string): CustomerProfilesContext;
-  get(sid: string): CustomerProfilesContext;
-
-
-  /**
-   * Create a CustomerProfilesInstance
-   *
-   * @param { CustomerProfilesListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CustomerProfilesInstance
-   */
-  create(params: CustomerProfilesListInstanceCreateOptions, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
-  create(params: any, callback?: any): Promise<CustomerProfilesInstance>
-
-
-
-  /**
-   * Streams CustomerProfilesInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams CustomerProfilesInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CustomerProfilesListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: CustomerProfilesListInstanceEachOptions, callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of CustomerProfilesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
-  /**
-   * Retrieve a single target page of CustomerProfilesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
-  getPage(params?: any, callback?: any): Promise<CustomerProfilesPage>;
-  /**
-   * Lists CustomerProfilesInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any): Promise<CustomerProfilesInstance[]>;
-  /**
-   * Lists CustomerProfilesInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CustomerProfilesListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: CustomerProfilesListInstanceOptions, callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any): Promise<CustomerProfilesInstance[]>;
-  list(params?: any, callback?: any): Promise<CustomerProfilesInstance[]>;
-  /**
-   * Retrieve a single page of CustomerProfilesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
-  /**
-   * Retrieve a single page of CustomerProfilesInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { CustomerProfilesListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: CustomerProfilesListInstancePageOptions, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
-  page(params?: any, callback?: any): Promise<CustomerProfilesPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface CustomerProfilesSolution {
-}
-
-interface CustomerProfilesListInstanceImpl extends CustomerProfilesListInstance {}
-class CustomerProfilesListInstanceImpl implements CustomerProfilesListInstance {
-  _version?: V1;
-  _solution?: CustomerProfilesSolution;
-  _uri?: string;
-
-}
-
-export function CustomerProfilesListInstance(version: V1): CustomerProfilesListInstance {
-  const instance = ((sid) => instance.get(sid)) as CustomerProfilesListInstanceImpl;
-
-  instance.get = function get(sid): CustomerProfilesContext {
-    return new CustomerProfilesContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/CustomerProfiles`;
-
-  instance.create = function create(params: any, callback?: any): Promise<CustomerProfilesInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    if (params.email === null || params.email === undefined) {
-      throw new Error('Required parameter "params.email" missing.');
-    }
-
-    if (params.policySid === null || params.policySid === undefined) {
-      throw new Error('Required parameter "params.policySid" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-    data['Email'] = params.email;
-    data['PolicySid'] = params.policySid;
-    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<CustomerProfilesPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.policySid !== undefined) data['PolicySid'] = params.policySid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CustomerProfilesPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new CustomerProfilesPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface CustomerProfilesContext {
@@ -702,6 +463,246 @@ export class CustomerProfilesInstance {
   }
 }
 
+
+export interface CustomerProfilesListInstance {
+  (sid: string): CustomerProfilesContext;
+  get(sid: string): CustomerProfilesContext;
+
+
+  /**
+   * Create a CustomerProfilesInstance
+   *
+   * @param { CustomerProfilesListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CustomerProfilesInstance
+   */
+  create(params: CustomerProfilesListInstanceCreateOptions, callback?: (error: Error | null, item?: CustomerProfilesInstance) => any): Promise<CustomerProfilesInstance>;
+  create(params: any, callback?: any): Promise<CustomerProfilesInstance>
+
+
+
+  /**
+   * Streams CustomerProfilesInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams CustomerProfilesInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomerProfilesListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: CustomerProfilesListInstanceEachOptions, callback?: (item: CustomerProfilesInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of CustomerProfilesInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  /**
+   * Retrieve a single target page of CustomerProfilesInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  getPage(params?: any, callback?: any): Promise<CustomerProfilesPage>;
+  /**
+   * Lists CustomerProfilesInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any): Promise<CustomerProfilesInstance[]>;
+  /**
+   * Lists CustomerProfilesInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomerProfilesListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: CustomerProfilesListInstanceOptions, callback?: (error: Error | null, items: CustomerProfilesInstance[]) => any): Promise<CustomerProfilesInstance[]>;
+  list(params?: any, callback?: any): Promise<CustomerProfilesInstance[]>;
+  /**
+   * Retrieve a single page of CustomerProfilesInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  /**
+   * Retrieve a single page of CustomerProfilesInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomerProfilesListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: CustomerProfilesListInstancePageOptions, callback?: (error: Error | null, items: CustomerProfilesPage) => any): Promise<CustomerProfilesPage>;
+  page(params?: any, callback?: any): Promise<CustomerProfilesPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CustomerProfilesSolution {
+}
+
+interface CustomerProfilesListInstanceImpl extends CustomerProfilesListInstance {}
+class CustomerProfilesListInstanceImpl implements CustomerProfilesListInstance {
+  _version?: V1;
+  _solution?: CustomerProfilesSolution;
+  _uri?: string;
+
+}
+
+export function CustomerProfilesListInstance(version: V1): CustomerProfilesListInstance {
+  const instance = ((sid) => instance.get(sid)) as CustomerProfilesListInstanceImpl;
+
+  instance.get = function get(sid): CustomerProfilesContext {
+    return new CustomerProfilesContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/CustomerProfiles`;
+
+  instance.create = function create(params: any, callback?: any): Promise<CustomerProfilesInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    if (params.email === null || params.email === undefined) {
+      throw new Error('Required parameter "params.email" missing.');
+    }
+
+    if (params.policySid === null || params.policySid === undefined) {
+      throw new Error('Required parameter "params.policySid" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+    data['Email'] = params.email;
+    data['PolicySid'] = params.policySid;
+    if (params.statusCallback !== undefined) data['StatusCallback'] = params.statusCallback;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new CustomerProfilesInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<CustomerProfilesPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.policySid !== undefined) data['PolicySid'] = params.policySid;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new CustomerProfilesPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<CustomerProfilesPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new CustomerProfilesPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class CustomerProfilesPage extends Page<V1, CustomerProfilesPayload, CustomerProfilesResource, CustomerProfilesInstance> {
 /**
 * Initialize the CustomerProfilesPage
@@ -730,5 +731,4 @@ constructor(version: V1, response: Response<string>, solution: CustomerProfilesS
     return inspect(this.toJSON(), options);
     }
     }
-
 

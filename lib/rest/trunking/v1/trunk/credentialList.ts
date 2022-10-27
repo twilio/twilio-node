@@ -80,6 +80,201 @@ export interface CredentialListListInstancePageOptions {
 
 
 
+export interface CredentialListContext {
+
+
+  /**
+   * Remove a CredentialListInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+
+  /**
+   * Fetch a CredentialListInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CredentialListInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CredentialListInstance) => any): Promise<CredentialListInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CredentialListContextSolution {
+  trunkSid?: string;
+  sid?: string;
+}
+
+export class CredentialListContextImpl implements CredentialListContext {
+  protected _solution: CredentialListContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, trunkSid: string, sid: string) {
+    this._solution = { trunkSid, sid };
+    this._uri = `/Trunks/${trunkSid}/CredentialLists/${sid}`;
+  }
+
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  fetch(callback?: any): Promise<CredentialListInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new CredentialListInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface CredentialListPayload extends CredentialListResource, Page.TwilioResponsePayload {
+}
+
+interface CredentialListResource {
+  account_sid?: string | null;
+  sid?: string | null;
+  trunk_sid?: string | null;
+  friendly_name?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  url?: string | null;
+}
+
+export class CredentialListInstance {
+  protected _solution: CredentialListContextSolution;
+  protected _context?: CredentialListContext;
+
+  constructor(protected _version: V1, payload: CredentialListPayload, trunkSid: string, sid?: string) {
+    this.accountSid = payload.account_sid;
+    this.sid = payload.sid;
+    this.trunkSid = payload.trunk_sid;
+    this.friendlyName = payload.friendly_name;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.url = payload.url;
+
+    this._solution = { trunkSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Trunk the credential list in associated with
+   */
+  trunkSid?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  friendlyName?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The RFC 2822 date and time in GMT when the resource was last updated
+   */
+  dateUpdated?: Date | null;
+  /**
+   * The absolute URL of the resource
+   */
+  url?: string | null;
+
+  private get _proxy(): CredentialListContext {
+    this._context = this._context || new CredentialListContextImpl(this._version, this._solution.trunkSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Remove a CredentialListInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+     {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Fetch a CredentialListInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CredentialListInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CredentialListInstance) => any): Promise<CredentialListInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      sid: this.sid, 
+      trunkSid: this.trunkSid, 
+      friendlyName: this.friendlyName, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface CredentialListListInstance {
   (sid: string): CredentialListContext;
   get(sid: string): CredentialListContext;
@@ -306,200 +501,6 @@ export function CredentialListListInstance(version: V1, trunkSid: string): Crede
 }
 
 
-export interface CredentialListContext {
-
-
-  /**
-   * Remove a CredentialListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-
-  /**
-   * Fetch a CredentialListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CredentialListInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CredentialListInstance) => any): Promise<CredentialListInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface CredentialListContextSolution {
-  trunkSid?: string;
-  sid?: string;
-}
-
-export class CredentialListContextImpl implements CredentialListContext {
-  protected _solution: CredentialListContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, trunkSid: string, sid: string) {
-    this._solution = { trunkSid, sid };
-    this._uri = `/Trunks/${trunkSid}/CredentialLists/${sid}`;
-  }
-
-  remove(callback?: any): Promise<boolean> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  fetch(callback?: any): Promise<CredentialListInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new CredentialListInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface CredentialListPayload extends CredentialListResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialListResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  trunk_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-}
-
-export class CredentialListInstance {
-  protected _solution: CredentialListContextSolution;
-  protected _context?: CredentialListContext;
-
-  constructor(protected _version: V1, payload: CredentialListPayload, trunkSid: string, sid?: string) {
-    this.accountSid = payload.account_sid;
-    this.sid = payload.sid;
-    this.trunkSid = payload.trunk_sid;
-    this.friendlyName = payload.friendly_name;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-
-    this._solution = { trunkSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Trunk the credential list in associated with
-   */
-  trunkSid?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  friendlyName?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT when the resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
-   */
-  dateUpdated?: Date | null;
-  /**
-   * The absolute URL of the resource
-   */
-  url?: string | null;
-
-  private get _proxy(): CredentialListContext {
-    this._context = this._context || new CredentialListContextImpl(this._version, this._solution.trunkSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Remove a CredentialListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
-    return this._proxy.remove(callback);
-  }
-
-  /**
-   * Fetch a CredentialListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CredentialListInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CredentialListInstance) => any): Promise<CredentialListInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      accountSid: this.accountSid, 
-      sid: this.sid, 
-      trunkSid: this.trunkSid, 
-      friendlyName: this.friendlyName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class CredentialListPage extends Page<V1, CredentialListPayload, CredentialListResource, CredentialListInstance> {
 /**
 * Initialize the CredentialListPage
@@ -529,5 +530,4 @@ constructor(version: V1, response: Response<string>, solution: CredentialListSol
     return inspect(this.toJSON(), options);
     }
     }
-
 

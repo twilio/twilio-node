@@ -19,17 +19,30 @@ import Response from "../../../../http/response";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { ParticipantListInstance } from "./conference/participant";
 import { RecordingListInstance } from "./conference/recording";
 
 
-type ConferenceUpdateStatus = 'completed';
-
-type ConferenceStatus = 'init'|'in-progress'|'completed';
 
 type ConferenceReasonConferenceEnded = 'conference-ended-via-api'|'participant-with-end-conference-on-exit-left'|'participant-with-end-conference-on-exit-kicked'|'last-participant-kicked'|'last-participant-left';
 
+type ConferenceStatus = 'init'|'in-progress'|'completed';
+
+type ConferenceUpdateStatus = 'completed';
+
+
+/**
+ * Options to pass to update a ConferenceInstance
+ *
+ * @property { ConferenceUpdateStatus } [status] 
+ * @property { string } [announceUrl] The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs.
+ * @property { string } [announceMethod] The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;
+ */
+export interface ConferenceContextUpdateOptions {
+  status?: ConferenceUpdateStatus;
+  announceUrl?: string;
+  announceMethod?: string;
+}
 /**
  * Options to pass to each
  *
@@ -125,213 +138,6 @@ export interface ConferenceListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a ConferenceInstance
- *
- * @property { ConferenceUpdateStatus } [status] 
- * @property { string } [announceUrl] The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains &#x60;&lt;Play&gt;&#x60;, &#x60;&lt;Say&gt;&#x60;, &#x60;&lt;Pause&gt;&#x60;, or &#x60;&lt;Redirect&gt;&#x60; verbs.
- * @property { string } [announceMethod] The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;
- */
-export interface ConferenceContextUpdateOptions {
-  status?: ConferenceUpdateStatus;
-  announceUrl?: string;
-  announceMethod?: string;
-}
-
-export interface ConferenceListInstance {
-  (sid: string): ConferenceContext;
-  get(sid: string): ConferenceContext;
-
-
-
-  /**
-   * Streams ConferenceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ConferenceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConferenceListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ConferenceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
-  /**
-   * Retrieve a single target page of ConferenceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
-  getPage(params?: any, callback?: any): Promise<ConferencePage>;
-  /**
-   * Lists ConferenceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
-  /**
-   * Lists ConferenceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConferenceListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ConferenceListInstanceOptions, callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
-  list(params?: any, callback?: any): Promise<ConferenceInstance[]>;
-  /**
-   * Retrieve a single page of ConferenceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
-  /**
-   * Retrieve a single page of ConferenceInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConferenceListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
-  page(params?: any, callback?: any): Promise<ConferencePage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ConferenceSolution {
-  accountSid?: string;
-}
-
-interface ConferenceListInstanceImpl extends ConferenceListInstance {}
-class ConferenceListInstanceImpl implements ConferenceListInstance {
-  _version?: V2010;
-  _solution?: ConferenceSolution;
-  _uri?: string;
-
-}
-
-export function ConferenceListInstance(version: V2010, accountSid: string): ConferenceListInstance {
-  const instance = ((sid) => instance.get(sid)) as ConferenceListInstanceImpl;
-
-  instance.get = function get(sid): ConferenceContext {
-    return new ConferenceContextImpl(version, accountSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { accountSid };
-  instance._uri = `/Accounts/${accountSid}/Conferences.json`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<ConferencePage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601Date(params.dateCreated);
-    if (params.dateCreatedBefore !== undefined) data['DateCreated<'] = serialize.iso8601Date(params.dateCreatedBefore);
-    if (params.dateCreatedAfter !== undefined) data['DateCreated>'] = serialize.iso8601Date(params.dateCreatedAfter);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601Date(params.dateUpdated);
-    if (params.dateUpdatedBefore !== undefined) data['DateUpdated<'] = serialize.iso8601Date(params.dateUpdatedBefore);
-    if (params.dateUpdatedAfter !== undefined) data['DateUpdated>'] = serialize.iso8601Date(params.dateUpdatedAfter);
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConferencePage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConferencePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ConferencePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ConferenceContext {
@@ -622,6 +428,201 @@ export class ConferenceInstance {
   }
 }
 
+
+export interface ConferenceListInstance {
+  (sid: string): ConferenceContext;
+  get(sid: string): ConferenceContext;
+
+
+
+  /**
+   * Streams ConferenceInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ConferenceInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConferenceListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of ConferenceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  /**
+   * Retrieve a single target page of ConferenceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  getPage(params?: any, callback?: any): Promise<ConferencePage>;
+  /**
+   * Lists ConferenceInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
+  /**
+   * Lists ConferenceInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConferenceListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: ConferenceListInstanceOptions, callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
+  list(params?: any, callback?: any): Promise<ConferenceInstance[]>;
+  /**
+   * Retrieve a single page of ConferenceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  /**
+   * Retrieve a single page of ConferenceInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConferenceListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
+  page(params?: any, callback?: any): Promise<ConferencePage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ConferenceSolution {
+  accountSid?: string;
+}
+
+interface ConferenceListInstanceImpl extends ConferenceListInstance {}
+class ConferenceListInstanceImpl implements ConferenceListInstance {
+  _version?: V2010;
+  _solution?: ConferenceSolution;
+  _uri?: string;
+
+}
+
+export function ConferenceListInstance(version: V2010, accountSid: string): ConferenceListInstance {
+  const instance = ((sid) => instance.get(sid)) as ConferenceListInstanceImpl;
+
+  instance.get = function get(sid): ConferenceContext {
+    return new ConferenceContextImpl(version, accountSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { accountSid };
+  instance._uri = `/Accounts/${accountSid}/Conferences.json`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<ConferencePage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601Date(params.dateCreated);
+    if (params.dateCreatedBefore !== undefined) data['DateCreated<'] = serialize.iso8601Date(params.dateCreatedBefore);
+    if (params.dateCreatedAfter !== undefined) data['DateCreated>'] = serialize.iso8601Date(params.dateCreatedAfter);
+    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601Date(params.dateUpdated);
+    if (params.dateUpdatedBefore !== undefined) data['DateUpdated<'] = serialize.iso8601Date(params.dateUpdatedBefore);
+    if (params.dateUpdatedAfter !== undefined) data['DateUpdated>'] = serialize.iso8601Date(params.dateUpdatedAfter);
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConferencePage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConferencePage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new ConferencePage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class ConferencePage extends Page<V2010, ConferencePayload, ConferenceResource, ConferenceInstance> {
 /**
 * Initialize the ConferencePage
@@ -651,5 +652,4 @@ constructor(version: V2010, response: Response<string>, solution: ConferenceSolu
     return inspect(this.toJSON(), options);
     }
     }
-
 

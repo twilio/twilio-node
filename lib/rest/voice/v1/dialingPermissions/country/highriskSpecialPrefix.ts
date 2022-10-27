@@ -21,14 +21,6 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
-export class VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes {
-  /**
-   * A prefix that includes the E.164 assigned country code
-   */
-  "prefix"?: string | null;
-}
-
-
 export class ListByocTrunkResponseMeta {
   "firstPageUrl"?: string;
   "nextPageUrl"?: string;
@@ -37,6 +29,14 @@ export class ListByocTrunkResponseMeta {
   "previousPageUrl"?: string;
   "url"?: string;
   "key"?: string;
+}
+
+
+export class VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes {
+  /**
+   * A prefix that includes the E.164 assigned country code
+   */
+  "prefix"?: string | null;
 }
 
 

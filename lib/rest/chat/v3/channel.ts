@@ -20,9 +20,9 @@ const serialize = require("../../../base/serialize");
 
 
 
-type ChannelWebhookEnabledType = 'true'|'false';
-
 type ChannelChannelType = 'public'|'private';
+
+type ChannelWebhookEnabledType = 'true'|'false';
 
 
 /**

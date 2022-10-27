@@ -22,9 +22,9 @@ const serialize = require("../../../base/serialize");
 
 
 
-type FlexFlowIntegrationType = 'studio'|'external'|'task';
-
 type FlexFlowChannelType = 'web'|'sms'|'facebook'|'whatsapp'|'line'|'custom';
+
+type FlexFlowIntegrationType = 'studio'|'external'|'task';
 
 
 /**

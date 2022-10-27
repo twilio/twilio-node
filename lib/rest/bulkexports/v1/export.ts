@@ -17,68 +17,11 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { JobListInstance } from "./export/job";
-
 import { DayListInstance } from "./export/day";
 import { ExportCustomJobListInstance } from "./export/exportCustomJob";
 
+import { JobListInstance } from "./export/job";
 
-
-export interface ExportListInstance {
-  (resourceType: string): ExportContext;
-  get(resourceType: string): ExportContext;
-
-  jobs: JobListInstance;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ExportSolution {
-}
-
-interface ExportListInstanceImpl extends ExportListInstance {}
-class ExportListInstanceImpl implements ExportListInstance {
-  _version?: V1;
-  _solution?: ExportSolution;
-  _uri?: string;
-
-  _jobs?: JobListInstance;
-}
-
-export function ExportListInstance(version: V1): ExportListInstance {
-  const instance = ((resourceType) => instance.get(resourceType)) as ExportListInstanceImpl;
-
-  instance.get = function get(resourceType): ExportContext {
-    return new ExportContextImpl(version, resourceType);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Exports`;
-
-  Object.defineProperty(instance, "jobs", {
-    get: function jobs() {
-      if (!this._jobs) {
-        this._jobs = JobListInstance(this._version);
-      }
-      return this._jobs;
-    }
-  });
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ExportContext {
@@ -238,6 +181,63 @@ export class ExportInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface ExportListInstance {
+  (resourceType: string): ExportContext;
+  get(resourceType: string): ExportContext;
+
+  jobs: JobListInstance;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ExportSolution {
+}
+
+interface ExportListInstanceImpl extends ExportListInstance {}
+class ExportListInstanceImpl implements ExportListInstance {
+  _version?: V1;
+  _solution?: ExportSolution;
+  _uri?: string;
+
+  _jobs?: JobListInstance;
+}
+
+export function ExportListInstance(version: V1): ExportListInstance {
+  const instance = ((resourceType) => instance.get(resourceType)) as ExportListInstanceImpl;
+
+  instance.get = function get(resourceType): ExportContext {
+    return new ExportContextImpl(version, resourceType);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Exports`;
+
+  Object.defineProperty(instance, "jobs", {
+    get: function jobs() {
+      if (!this._jobs) {
+        this._jobs = JobListInstance(this._version);
+      }
+      return this._jobs;
+    }
+  });
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

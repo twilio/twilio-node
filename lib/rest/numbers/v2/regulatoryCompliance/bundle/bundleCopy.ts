@@ -21,6 +21,19 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
+type BundleCopyStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
+
+export class ListBundleResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 export class NumbersV2RegulatoryComplianceBundleBundleCopy {
   /**
    * The unique string that identifies the resource
@@ -61,19 +74,6 @@ export class NumbersV2RegulatoryComplianceBundleBundleCopy {
   "dateUpdated"?: Date | null;
 }
 
-
-export class ListBundleResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
-}
-
-
-type BundleCopyStatus = 'draft'|'pending-review'|'in-review'|'twilio-rejected'|'twilio-approved'|'provisionally-approved';
 
 
 /**

@@ -28,6 +28,31 @@ type FactorFactorTypes = 'push'|'totp';
 
 type FactorTotpAlgorithms = 'sha1'|'sha256'|'sha512';
 
+
+/**
+ * Options to pass to update a FactorInstance
+ *
+ * @property { string } [authPayload] The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
+ * @property { string } [friendlyName] The new friendly name of this Factor. It can be up to 64 characters.
+ * @property { string } [configNotificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long.
+ * @property { string } [configSdkVersion] The Verify Push SDK version used to configure the factor
+ * @property { number } [configTimeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
+ * @property { number } [configSkew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
+ * @property { number } [configCodeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
+ * @property { FactorTotpAlgorithms } [configAlg] 
+ * @property { string } [configNotificationPlatform] The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60;, &#x60;fcm&#x60; or &#x60;none&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
+ */
+export interface FactorContextUpdateOptions {
+  authPayload?: string;
+  friendlyName?: string;
+  configNotificationToken?: string;
+  configSdkVersion?: string;
+  configTimeStep?: number;
+  configSkew?: number;
+  configCodeLength?: number;
+  configAlg?: FactorTotpAlgorithms;
+  configNotificationPlatform?: string;
+}
 /**
  * Options to pass to each
  *
@@ -75,218 +100,6 @@ export interface FactorListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a FactorInstance
- *
- * @property { string } [authPayload] The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
- * @property { string } [friendlyName] The new friendly name of this Factor. It can be up to 64 characters.
- * @property { string } [configNotificationToken] For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long.
- * @property { string } [configSdkVersion] The Verify Push SDK version used to configure the factor
- * @property { number } [configTimeStep] Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
- * @property { number } [configSkew] The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
- * @property { number } [configCodeLength] Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
- * @property { FactorTotpAlgorithms } [configAlg] 
- * @property { string } [configNotificationPlatform] The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60;, &#x60;fcm&#x60; or &#x60;none&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
- */
-export interface FactorContextUpdateOptions {
-  authPayload?: string;
-  friendlyName?: string;
-  configNotificationToken?: string;
-  configSdkVersion?: string;
-  configTimeStep?: number;
-  configSkew?: number;
-  configCodeLength?: number;
-  configAlg?: FactorTotpAlgorithms;
-  configNotificationPlatform?: string;
-}
-
-export interface FactorListInstance {
-  (sid: string): FactorContext;
-  get(sid: string): FactorContext;
-
-
-
-  /**
-   * Streams FactorInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams FactorInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FactorListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: FactorListInstanceEachOptions, callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of FactorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
-  /**
-   * Retrieve a single target page of FactorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
-  getPage(params?: any, callback?: any): Promise<FactorPage>;
-  /**
-   * Lists FactorInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
-  /**
-   * Lists FactorInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FactorListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: FactorListInstanceOptions, callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
-  list(params?: any, callback?: any): Promise<FactorInstance[]>;
-  /**
-   * Retrieve a single page of FactorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
-  /**
-   * Retrieve a single page of FactorInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FactorListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: FactorListInstancePageOptions, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
-  page(params?: any, callback?: any): Promise<FactorPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FactorSolution {
-  serviceSid?: string;
-  identity?: string;
-}
-
-interface FactorListInstanceImpl extends FactorListInstance {}
-class FactorListInstanceImpl implements FactorListInstance {
-  _version?: V2;
-  _solution?: FactorSolution;
-  _uri?: string;
-
-}
-
-export function FactorListInstance(version: V2, serviceSid: string, identity: string): FactorListInstance {
-  const instance = ((sid) => instance.get(sid)) as FactorListInstanceImpl;
-
-  instance.get = function get(sid): FactorContext {
-    return new FactorContextImpl(version, serviceSid, identity, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid, identity };
-  instance._uri = `/Services/${serviceSid}/Entities/${identity}/Factors`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<FactorPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FactorPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FactorPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new FactorPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface FactorContext {
@@ -597,6 +410,194 @@ export class FactorInstance {
   }
 }
 
+
+export interface FactorListInstance {
+  (sid: string): FactorContext;
+  get(sid: string): FactorContext;
+
+
+
+  /**
+   * Streams FactorInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams FactorInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FactorListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: FactorListInstanceEachOptions, callback?: (item: FactorInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of FactorInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  /**
+   * Retrieve a single target page of FactorInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  getPage(params?: any, callback?: any): Promise<FactorPage>;
+  /**
+   * Lists FactorInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
+  /**
+   * Lists FactorInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FactorListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: FactorListInstanceOptions, callback?: (error: Error | null, items: FactorInstance[]) => any): Promise<FactorInstance[]>;
+  list(params?: any, callback?: any): Promise<FactorInstance[]>;
+  /**
+   * Retrieve a single page of FactorInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  /**
+   * Retrieve a single page of FactorInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FactorListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: FactorListInstancePageOptions, callback?: (error: Error | null, items: FactorPage) => any): Promise<FactorPage>;
+  page(params?: any, callback?: any): Promise<FactorPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FactorSolution {
+  serviceSid?: string;
+  identity?: string;
+}
+
+interface FactorListInstanceImpl extends FactorListInstance {}
+class FactorListInstanceImpl implements FactorListInstance {
+  _version?: V2;
+  _solution?: FactorSolution;
+  _uri?: string;
+
+}
+
+export function FactorListInstance(version: V2, serviceSid: string, identity: string): FactorListInstance {
+  const instance = ((sid) => instance.get(sid)) as FactorListInstanceImpl;
+
+  instance.get = function get(sid): FactorContext {
+    return new FactorContextImpl(version, serviceSid, identity, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid, identity };
+  instance._uri = `/Services/${serviceSid}/Entities/${identity}/Factors`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<FactorPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new FactorPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FactorPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new FactorPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class FactorPage extends Page<V2, FactorPayload, FactorResource, FactorInstance> {
 /**
 * Initialize the FactorPage
@@ -627,5 +628,4 @@ constructor(version: V2, response: Response<string>, solution: FactorSolution) {
     return inspect(this.toJSON(), options);
     }
     }
-
 

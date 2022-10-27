@@ -71,6 +71,183 @@ export interface AssignedAddOnExtensionListInstancePageOptions {
 
 
 
+export interface AssignedAddOnExtensionContext {
+
+
+  /**
+   * Fetch a AssignedAddOnExtensionInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssignedAddOnExtensionInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AssignedAddOnExtensionContextSolution {
+  accountSid?: string;
+  resourceSid?: string;
+  assignedAddOnSid?: string;
+  sid?: string;
+}
+
+export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtensionContext {
+  protected _solution: AssignedAddOnExtensionContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string) {
+    this._solution = { accountSid, resourceSid, assignedAddOnSid, sid };
+    this._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns/${assignedAddOnSid}/Extensions/${sid}.json`;
+  }
+
+  fetch(callback?: any): Promise<AssignedAddOnExtensionInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new AssignedAddOnExtensionInstance(operationVersion, payload, this._solution.accountSid, this._solution.resourceSid, this._solution.assignedAddOnSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface AssignedAddOnExtensionPayload extends AssignedAddOnExtensionResource, Page.TwilioResponsePayload {
+}
+
+interface AssignedAddOnExtensionResource {
+  sid?: string | null;
+  account_sid?: string | null;
+  resource_sid?: string | null;
+  assigned_add_on_sid?: string | null;
+  friendly_name?: string | null;
+  product_name?: string | null;
+  unique_name?: string | null;
+  uri?: string | null;
+  enabled?: boolean | null;
+}
+
+export class AssignedAddOnExtensionInstance {
+  protected _solution: AssignedAddOnExtensionContextSolution;
+  protected _context?: AssignedAddOnExtensionContext;
+
+  constructor(protected _version: V2010, payload: AssignedAddOnExtensionPayload, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.resourceSid = payload.resource_sid;
+    this.assignedAddOnSid = payload.assigned_add_on_sid;
+    this.friendlyName = payload.friendly_name;
+    this.productName = payload.product_name;
+    this.uniqueName = payload.unique_name;
+    this.uri = payload.uri;
+    this.enabled = payload.enabled;
+
+    this._solution = { accountSid, resourceSid, assignedAddOnSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Phone Number to which the Add-on is assigned
+   */
+  resourceSid?: string | null;
+  /**
+   * The SID that uniquely identifies the assigned Add-on installation
+   */
+  assignedAddOnSid?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  friendlyName?: string | null;
+  /**
+   * A string that you assigned to describe the Product this Extension is used within
+   */
+  productName?: string | null;
+  /**
+   * An application-defined string that uniquely identifies the resource
+   */
+  uniqueName?: string | null;
+  /**
+   * The URI of the resource, relative to `https://api.twilio.com`
+   */
+  uri?: string | null;
+  /**
+   * Whether the Extension will be invoked
+   */
+  enabled?: boolean | null;
+
+  private get _proxy(): AssignedAddOnExtensionContext {
+    this._context = this._context || new AssignedAddOnExtensionContextImpl(this._version, this._solution.accountSid, this._solution.resourceSid, this._solution.assignedAddOnSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a AssignedAddOnExtensionInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssignedAddOnExtensionInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      accountSid: this.accountSid, 
+      resourceSid: this.resourceSid, 
+      assignedAddOnSid: this.assignedAddOnSid, 
+      friendlyName: this.friendlyName, 
+      productName: this.productName, 
+      uniqueName: this.uniqueName, 
+      uri: this.uri, 
+      enabled: this.enabled
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface AssignedAddOnExtensionListInstance {
   (sid: string): AssignedAddOnExtensionContext;
   get(sid: string): AssignedAddOnExtensionContext;
@@ -259,182 +436,6 @@ export function AssignedAddOnExtensionListInstance(version: V2010, accountSid: s
 }
 
 
-export interface AssignedAddOnExtensionContext {
-
-
-  /**
-   * Fetch a AssignedAddOnExtensionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssignedAddOnExtensionInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AssignedAddOnExtensionContextSolution {
-  accountSid?: string;
-  resourceSid?: string;
-  assignedAddOnSid?: string;
-  sid?: string;
-}
-
-export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtensionContext {
-  protected _solution: AssignedAddOnExtensionContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string) {
-    this._solution = { accountSid, resourceSid, assignedAddOnSid, sid };
-    this._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/${resourceSid}/AssignedAddOns/${assignedAddOnSid}/Extensions/${sid}.json`;
-  }
-
-  fetch(callback?: any): Promise<AssignedAddOnExtensionInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new AssignedAddOnExtensionInstance(operationVersion, payload, this._solution.accountSid, this._solution.resourceSid, this._solution.assignedAddOnSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface AssignedAddOnExtensionPayload extends AssignedAddOnExtensionResource, Page.TwilioResponsePayload {
-}
-
-interface AssignedAddOnExtensionResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  resource_sid?: string | null;
-  assigned_add_on_sid?: string | null;
-  friendly_name?: string | null;
-  product_name?: string | null;
-  unique_name?: string | null;
-  uri?: string | null;
-  enabled?: boolean | null;
-}
-
-export class AssignedAddOnExtensionInstance {
-  protected _solution: AssignedAddOnExtensionContextSolution;
-  protected _context?: AssignedAddOnExtensionContext;
-
-  constructor(protected _version: V2010, payload: AssignedAddOnExtensionPayload, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.resourceSid = payload.resource_sid;
-    this.assignedAddOnSid = payload.assigned_add_on_sid;
-    this.friendlyName = payload.friendly_name;
-    this.productName = payload.product_name;
-    this.uniqueName = payload.unique_name;
-    this.uri = payload.uri;
-    this.enabled = payload.enabled;
-
-    this._solution = { accountSid, resourceSid, assignedAddOnSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The SID of the Phone Number to which the Add-on is assigned
-   */
-  resourceSid?: string | null;
-  /**
-   * The SID that uniquely identifies the assigned Add-on installation
-   */
-  assignedAddOnSid?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  friendlyName?: string | null;
-  /**
-   * A string that you assigned to describe the Product this Extension is used within
-   */
-  productName?: string | null;
-  /**
-   * An application-defined string that uniquely identifies the resource
-   */
-  uniqueName?: string | null;
-  /**
-   * The URI of the resource, relative to `https://api.twilio.com`
-   */
-  uri?: string | null;
-  /**
-   * Whether the Extension will be invoked
-   */
-  enabled?: boolean | null;
-
-  private get _proxy(): AssignedAddOnExtensionContext {
-    this._context = this._context || new AssignedAddOnExtensionContextImpl(this._version, this._solution.accountSid, this._solution.resourceSid, this._solution.assignedAddOnSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a AssignedAddOnExtensionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssignedAddOnExtensionInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      resourceSid: this.resourceSid, 
-      assignedAddOnSid: this.assignedAddOnSid, 
-      friendlyName: this.friendlyName, 
-      productName: this.productName, 
-      uniqueName: this.uniqueName, 
-      uri: this.uri, 
-      enabled: this.enabled
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionInstance> {
 /**
 * Initialize the AssignedAddOnExtensionPage
@@ -466,5 +467,4 @@ constructor(version: V2010, response: Response<string>, solution: AssignedAddOnE
     return inspect(this.toJSON(), options);
     }
     }
-
 

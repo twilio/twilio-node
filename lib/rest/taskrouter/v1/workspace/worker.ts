@@ -19,15 +19,41 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-import { WorkersStatisticsListInstance } from "./worker/workersStatistics";
-
 import { ReservationListInstance } from "./worker/reservation";
 import { WorkerChannelListInstance } from "./worker/workerChannel";
 import { WorkerStatisticsListInstance } from "./worker/workerStatistics";
 import { WorkersCumulativeStatisticsListInstance } from "./worker/workersCumulativeStatistics";
 import { WorkersRealTimeStatisticsListInstance } from "./worker/workersRealTimeStatistics";
 
+import { WorkersStatisticsListInstance } from "./worker/workersStatistics";
 
+
+
+/**
+ * Options to pass to remove a WorkerInstance
+ *
+ * @property { string } [ifMatch] The If-Match HTTP request header
+ */
+export interface WorkerContextRemoveOptions {
+  ifMatch?: string;
+}
+
+/**
+ * Options to pass to update a WorkerInstance
+ *
+ * @property { string } [ifMatch] The If-Match HTTP request header
+ * @property { string } [activitySid] The SID of a valid Activity that will describe the Worker\\\&#39;s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+ * @property { string } [attributes] The JSON string that describes the Worker. For example: &#x60;{ \\\&quot;email\\\&quot;: \\\&quot;Bob@example.com\\\&quot;, \\\&quot;phone\\\&quot;: \\\&quot;+5095551234\\\&quot; }&#x60;. This data is passed to the &#x60;assignment_callback_url&#x60; when TaskRouter assigns a Task to the Worker. Defaults to {}.
+ * @property { string } [friendlyName] A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+ * @property { boolean } [rejectPendingReservations] Whether to reject the Worker\\\&#39;s pending reservations. This option is only valid if the Worker\\\&#39;s new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its &#x60;availability&#x60; property set to &#x60;False&#x60;.
+ */
+export interface WorkerContextUpdateOptions {
+  ifMatch?: string;
+  activitySid?: string;
+  attributes?: string;
+  friendlyName?: string;
+  rejectPendingReservations?: boolean;
+}
 
 /**
  * Options to pass to create a WorkerInstance
@@ -130,278 +156,6 @@ export interface WorkerListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to remove a WorkerInstance
- *
- * @property { string } [ifMatch] The If-Match HTTP request header
- */
-export interface WorkerContextRemoveOptions {
-  ifMatch?: string;
-}
-
-/**
- * Options to pass to update a WorkerInstance
- *
- * @property { string } [ifMatch] The If-Match HTTP request header
- * @property { string } [activitySid] The SID of a valid Activity that will describe the Worker\\\&#39;s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
- * @property { string } [attributes] The JSON string that describes the Worker. For example: &#x60;{ \\\&quot;email\\\&quot;: \\\&quot;Bob@example.com\\\&quot;, \\\&quot;phone\\\&quot;: \\\&quot;+5095551234\\\&quot; }&#x60;. This data is passed to the &#x60;assignment_callback_url&#x60; when TaskRouter assigns a Task to the Worker. Defaults to {}.
- * @property { string } [friendlyName] A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
- * @property { boolean } [rejectPendingReservations] Whether to reject the Worker\\\&#39;s pending reservations. This option is only valid if the Worker\\\&#39;s new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its &#x60;availability&#x60; property set to &#x60;False&#x60;.
- */
-export interface WorkerContextUpdateOptions {
-  ifMatch?: string;
-  activitySid?: string;
-  attributes?: string;
-  friendlyName?: string;
-  rejectPendingReservations?: boolean;
-}
-
-export interface WorkerListInstance {
-  (sid: string): WorkerContext;
-  get(sid: string): WorkerContext;
-
-  statistics: WorkersStatisticsListInstance;
-
-  /**
-   * Create a WorkerInstance
-   *
-   * @param { WorkerListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkerInstance
-   */
-  create(params: WorkerListInstanceCreateOptions, callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>;
-  create(params: any, callback?: any): Promise<WorkerInstance>
-
-
-
-  /**
-   * Streams WorkerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: WorkerInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams WorkerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkerListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: WorkerListInstanceEachOptions, callback?: (item: WorkerInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of WorkerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
-  /**
-   * Retrieve a single target page of WorkerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
-  getPage(params?: any, callback?: any): Promise<WorkerPage>;
-  /**
-   * Lists WorkerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: WorkerInstance[]) => any): Promise<WorkerInstance[]>;
-  /**
-   * Lists WorkerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkerListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: WorkerListInstanceOptions, callback?: (error: Error | null, items: WorkerInstance[]) => any): Promise<WorkerInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkerInstance[]>;
-  /**
-   * Retrieve a single page of WorkerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
-  /**
-   * Retrieve a single page of WorkerInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkerListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: WorkerListInstancePageOptions, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
-  page(params?: any, callback?: any): Promise<WorkerPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkerSolution {
-  workspaceSid?: string;
-}
-
-interface WorkerListInstanceImpl extends WorkerListInstance {}
-class WorkerListInstanceImpl implements WorkerListInstance {
-  _version?: V1;
-  _solution?: WorkerSolution;
-  _uri?: string;
-
-  _statistics?: WorkersStatisticsListInstance;
-}
-
-export function WorkerListInstance(version: V1, workspaceSid: string): WorkerListInstance {
-  const instance = ((sid) => instance.get(sid)) as WorkerListInstanceImpl;
-
-  instance.get = function get(sid): WorkerContext {
-    return new WorkerContextImpl(version, workspaceSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { workspaceSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workers`;
-
-  Object.defineProperty(instance, "statistics", {
-    get: function statistics() {
-      if (!this._statistics) {
-        this._statistics = WorkersStatisticsListInstance(this._version, this._solution.workspaceSid);
-      }
-      return this._statistics;
-    }
-  });
-
-  instance.create = function create(params: any, callback?: any): Promise<WorkerInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-    if (params.activitySid !== undefined) data['ActivitySid'] = params.activitySid;
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkerInstance(operationVersion, payload, this._solution.workspaceSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<WorkerPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.activityName !== undefined) data['ActivityName'] = params.activityName;
-    if (params.activitySid !== undefined) data['ActivitySid'] = params.activitySid;
-    if (params.available !== undefined) data['Available'] = params.available;
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.targetWorkersExpression !== undefined) data['TargetWorkersExpression'] = params.targetWorkersExpression;
-    if (params.taskQueueName !== undefined) data['TaskQueueName'] = params.taskQueueName;
-    if (params.taskQueueSid !== undefined) data['TaskQueueSid'] = params.taskQueueSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkerPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkerPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new WorkerPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface WorkerContext {
@@ -815,6 +569,253 @@ export class WorkerInstance {
   }
 }
 
+
+export interface WorkerListInstance {
+  (sid: string): WorkerContext;
+  get(sid: string): WorkerContext;
+
+  statistics: WorkersStatisticsListInstance;
+
+  /**
+   * Create a WorkerInstance
+   *
+   * @param { WorkerListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkerInstance
+   */
+  create(params: WorkerListInstanceCreateOptions, callback?: (error: Error | null, item?: WorkerInstance) => any): Promise<WorkerInstance>;
+  create(params: any, callback?: any): Promise<WorkerInstance>
+
+
+
+  /**
+   * Streams WorkerInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: WorkerInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams WorkerInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkerListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: WorkerListInstanceEachOptions, callback?: (item: WorkerInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of WorkerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
+  /**
+   * Retrieve a single target page of WorkerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
+  getPage(params?: any, callback?: any): Promise<WorkerPage>;
+  /**
+   * Lists WorkerInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: WorkerInstance[]) => any): Promise<WorkerInstance[]>;
+  /**
+   * Lists WorkerInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkerListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: WorkerListInstanceOptions, callback?: (error: Error | null, items: WorkerInstance[]) => any): Promise<WorkerInstance[]>;
+  list(params?: any, callback?: any): Promise<WorkerInstance[]>;
+  /**
+   * Retrieve a single page of WorkerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
+  /**
+   * Retrieve a single page of WorkerInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkerListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: WorkerListInstancePageOptions, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
+  page(params?: any, callback?: any): Promise<WorkerPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface WorkerSolution {
+  workspaceSid?: string;
+}
+
+interface WorkerListInstanceImpl extends WorkerListInstance {}
+class WorkerListInstanceImpl implements WorkerListInstance {
+  _version?: V1;
+  _solution?: WorkerSolution;
+  _uri?: string;
+
+  _statistics?: WorkersStatisticsListInstance;
+}
+
+export function WorkerListInstance(version: V1, workspaceSid: string): WorkerListInstance {
+  const instance = ((sid) => instance.get(sid)) as WorkerListInstanceImpl;
+
+  instance.get = function get(sid): WorkerContext {
+    return new WorkerContextImpl(version, workspaceSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { workspaceSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workers`;
+
+  Object.defineProperty(instance, "statistics", {
+    get: function statistics() {
+      if (!this._statistics) {
+        this._statistics = WorkersStatisticsListInstance(this._version, this._solution.workspaceSid);
+      }
+      return this._statistics;
+    }
+  });
+
+  instance.create = function create(params: any, callback?: any): Promise<WorkerInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+    if (params.activitySid !== undefined) data['ActivitySid'] = params.activitySid;
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkerInstance(operationVersion, payload, this._solution.workspaceSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<WorkerPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.activityName !== undefined) data['ActivityName'] = params.activityName;
+    if (params.activitySid !== undefined) data['ActivitySid'] = params.activitySid;
+    if (params.available !== undefined) data['Available'] = params.available;
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.targetWorkersExpression !== undefined) data['TargetWorkersExpression'] = params.targetWorkersExpression;
+    if (params.taskQueueName !== undefined) data['TaskQueueName'] = params.taskQueueName;
+    if (params.taskQueueSid !== undefined) data['TaskQueueSid'] = params.taskQueueSid;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkerPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkerPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new WorkerPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {
 /**
 * Initialize the WorkerPage
@@ -844,5 +845,4 @@ constructor(version: V1, response: Response<string>, solution: WorkerSolution) {
     return inspect(this.toJSON(), options);
     }
     }
-
 

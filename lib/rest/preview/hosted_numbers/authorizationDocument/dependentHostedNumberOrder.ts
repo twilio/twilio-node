@@ -21,6 +21,19 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+type DependentHostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
+
+export class ListDeployedDevicesCertificateResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder {
   /**
    * HostedNumberOrder sid.
@@ -112,19 +125,6 @@ export class PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrder
   "sms"?: boolean;
   "voice"?: boolean;
   "fax"?: boolean;
-}
-
-
-type DependentHostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
-
-export class ListDeployedDevicesCertificateResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
 }
 
 

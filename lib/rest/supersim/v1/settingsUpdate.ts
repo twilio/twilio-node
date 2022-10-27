@@ -21,6 +21,17 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
+export class ListBillingPeriodResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 export class SupersimV1SettingsUpdate {
   /**
    * The unique identifier of this Settings Update
@@ -51,17 +62,6 @@ export class SupersimV1SettingsUpdate {
    * The date this Settings Update was last updated
    */
   "dateUpdated"?: Date | null;
-}
-
-
-export class ListBillingPeriodResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
 }
 
 

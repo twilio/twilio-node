@@ -22,12 +22,29 @@ const serialize = require("../../../../base/serialize");
 
 
 
-type WebhookStatus = 'enabled'|'disabled';
-
 type WebhookMethods = 'GET'|'POST';
+
+type WebhookStatus = 'enabled'|'disabled';
 
 type WebhookVersion = 'v1'|'v2';
 
+
+/**
+ * Options to pass to update a WebhookInstance
+ *
+ * @property { string } [friendlyName] The string that you assigned to describe the webhook. **This value should not contain PII.**
+ * @property { Array<string> } [eventTypes] The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
+ * @property { string } [webhookUrl] The URL associated with this Webhook.
+ * @property { WebhookStatus } [status] 
+ * @property { WebhookVersion } [version] 
+ */
+export interface WebhookContextUpdateOptions {
+  friendlyName?: string;
+  eventTypes?: Array<string>;
+  webhookUrl?: string;
+  status?: WebhookStatus;
+  version?: WebhookVersion;
+}
 
 /**
  * Options to pass to create a WebhookInstance
@@ -92,261 +109,6 @@ export interface WebhookListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a WebhookInstance
- *
- * @property { string } [friendlyName] The string that you assigned to describe the webhook. **This value should not contain PII.**
- * @property { Array<string> } [eventTypes] The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
- * @property { string } [webhookUrl] The URL associated with this Webhook.
- * @property { WebhookStatus } [status] 
- * @property { WebhookVersion } [version] 
- */
-export interface WebhookContextUpdateOptions {
-  friendlyName?: string;
-  eventTypes?: Array<string>;
-  webhookUrl?: string;
-  status?: WebhookStatus;
-  version?: WebhookVersion;
-}
-
-export interface WebhookListInstance {
-  (sid: string): WebhookContext;
-  get(sid: string): WebhookContext;
-
-
-  /**
-   * Create a WebhookInstance
-   *
-   * @param { WebhookListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WebhookInstance
-   */
-  create(params: WebhookListInstanceCreateOptions, callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
-  create(params: any, callback?: any): Promise<WebhookInstance>
-
-
-
-  /**
-   * Streams WebhookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams WebhookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WebhookListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: WebhookListInstanceEachOptions, callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
-  /**
-   * Retrieve a single target page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
-  getPage(params?: any, callback?: any): Promise<WebhookPage>;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WebhookListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: WebhookListInstanceOptions, callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
-  list(params?: any, callback?: any): Promise<WebhookInstance[]>;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WebhookListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: WebhookListInstancePageOptions, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
-  page(params?: any, callback?: any): Promise<WebhookPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WebhookSolution {
-  serviceSid?: string;
-}
-
-interface WebhookListInstanceImpl extends WebhookListInstance {}
-class WebhookListInstanceImpl implements WebhookListInstance {
-  _version?: V2;
-  _solution?: WebhookSolution;
-  _uri?: string;
-
-}
-
-export function WebhookListInstance(version: V2, serviceSid: string): WebhookListInstance {
-  const instance = ((sid) => instance.get(sid)) as WebhookListInstanceImpl;
-
-  instance.get = function get(sid): WebhookContext {
-    return new WebhookContextImpl(version, serviceSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid };
-  instance._uri = `/Services/${serviceSid}/Webhooks`;
-
-  instance.create = function create(params: any, callback?: any): Promise<WebhookInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    if (params.eventTypes === null || params.eventTypes === undefined) {
-      throw new Error('Required parameter "params.eventTypes" missing.');
-    }
-
-    if (params.webhookUrl === null || params.webhookUrl === undefined) {
-      throw new Error('Required parameter "params.webhookUrl" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-    data['EventTypes'] = serialize.map(params.eventTypes, ((e) => e));
-    data['WebhookUrl'] = params.webhookUrl;
-    if (params.status !== undefined) data['Status'] = params.status;
-    if (params.version !== undefined) data['Version'] = params.version;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.serviceSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<WebhookPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WebhookPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WebhookPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new WebhookPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface WebhookContext {
@@ -642,6 +404,245 @@ export class WebhookInstance {
   }
 }
 
+
+export interface WebhookListInstance {
+  (sid: string): WebhookContext;
+  get(sid: string): WebhookContext;
+
+
+  /**
+   * Create a WebhookInstance
+   *
+   * @param { WebhookListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WebhookInstance
+   */
+  create(params: WebhookListInstanceCreateOptions, callback?: (error: Error | null, item?: WebhookInstance) => any): Promise<WebhookInstance>;
+  create(params: any, callback?: any): Promise<WebhookInstance>
+
+
+
+  /**
+   * Streams WebhookInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams WebhookInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WebhookListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: WebhookListInstanceEachOptions, callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of WebhookInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
+  /**
+   * Retrieve a single target page of WebhookInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
+  getPage(params?: any, callback?: any): Promise<WebhookPage>;
+  /**
+   * Lists WebhookInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
+  /**
+   * Lists WebhookInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WebhookListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: WebhookListInstanceOptions, callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
+  list(params?: any, callback?: any): Promise<WebhookInstance[]>;
+  /**
+   * Retrieve a single page of WebhookInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
+  /**
+   * Retrieve a single page of WebhookInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WebhookListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: WebhookListInstancePageOptions, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
+  page(params?: any, callback?: any): Promise<WebhookPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface WebhookSolution {
+  serviceSid?: string;
+}
+
+interface WebhookListInstanceImpl extends WebhookListInstance {}
+class WebhookListInstanceImpl implements WebhookListInstance {
+  _version?: V2;
+  _solution?: WebhookSolution;
+  _uri?: string;
+
+}
+
+export function WebhookListInstance(version: V2, serviceSid: string): WebhookListInstance {
+  const instance = ((sid) => instance.get(sid)) as WebhookListInstanceImpl;
+
+  instance.get = function get(sid): WebhookContext {
+    return new WebhookContextImpl(version, serviceSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid };
+  instance._uri = `/Services/${serviceSid}/Webhooks`;
+
+  instance.create = function create(params: any, callback?: any): Promise<WebhookInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    if (params.eventTypes === null || params.eventTypes === undefined) {
+      throw new Error('Required parameter "params.eventTypes" missing.');
+    }
+
+    if (params.webhookUrl === null || params.webhookUrl === undefined) {
+      throw new Error('Required parameter "params.webhookUrl" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+    data['EventTypes'] = serialize.map(params.eventTypes, ((e) => e));
+    data['WebhookUrl'] = params.webhookUrl;
+    if (params.status !== undefined) data['Status'] = params.status;
+    if (params.version !== undefined) data['Version'] = params.version;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WebhookInstance(operationVersion, payload, this._solution.serviceSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<WebhookPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WebhookPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WebhookPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new WebhookPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
 /**
 * Initialize the WebhookPage
@@ -671,5 +672,4 @@ constructor(version: V2, response: Response<string>, solution: WebhookSolution) 
     return inspect(this.toJSON(), options);
     }
     }
-
 

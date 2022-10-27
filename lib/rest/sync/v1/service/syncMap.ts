@@ -19,11 +19,22 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { SyncMapItemListInstance } from "./syncMap/syncMapItem";
 import { SyncMapPermissionListInstance } from "./syncMap/syncMapPermission";
 
 
+
+
+/**
+ * Options to pass to update a SyncMapInstance
+ *
+ * @property { number } [ttl] An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+ * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
+ */
+export interface SyncMapContextUpdateOptions {
+  ttl?: number;
+  collectionTtl?: number;
+}
 
 /**
  * Options to pass to create a SyncMapInstance
@@ -84,252 +95,6 @@ export interface SyncMapListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a SyncMapInstance
- *
- * @property { number } [ttl] An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
- * @property { number } [collectionTtl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
- */
-export interface SyncMapContextUpdateOptions {
-  ttl?: number;
-  collectionTtl?: number;
-}
-
-export interface SyncMapListInstance {
-  (sid: string): SyncMapContext;
-  get(sid: string): SyncMapContext;
-
-
-  /**
-   * Create a SyncMapInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncMapInstance
-   */
-  create(callback?: (error: Error | null, item?: SyncMapInstance) => any): Promise<SyncMapInstance>;
-  /**
-   * Create a SyncMapInstance
-   *
-   * @param { SyncMapListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncMapInstance
-   */
-  create(params: SyncMapListInstanceCreateOptions, callback?: (error: Error | null, item?: SyncMapInstance) => any): Promise<SyncMapInstance>;
-  create(params?: any, callback?: any): Promise<SyncMapInstance>
-
-
-
-  /**
-   * Streams SyncMapInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams SyncMapInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncMapListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: SyncMapListInstanceEachOptions, callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of SyncMapInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
-  /**
-   * Retrieve a single target page of SyncMapInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
-  getPage(params?: any, callback?: any): Promise<SyncMapPage>;
-  /**
-   * Lists SyncMapInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: SyncMapInstance[]) => any): Promise<SyncMapInstance[]>;
-  /**
-   * Lists SyncMapInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncMapListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: SyncMapListInstanceOptions, callback?: (error: Error | null, items: SyncMapInstance[]) => any): Promise<SyncMapInstance[]>;
-  list(params?: any, callback?: any): Promise<SyncMapInstance[]>;
-  /**
-   * Retrieve a single page of SyncMapInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
-  /**
-   * Retrieve a single page of SyncMapInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncMapListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: SyncMapListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
-  page(params?: any, callback?: any): Promise<SyncMapPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SyncMapSolution {
-  serviceSid?: string;
-}
-
-interface SyncMapListInstanceImpl extends SyncMapListInstance {}
-class SyncMapListInstanceImpl implements SyncMapListInstance {
-  _version?: V1;
-  _solution?: SyncMapSolution;
-  _uri?: string;
-
-}
-
-export function SyncMapListInstance(version: V1, serviceSid: string): SyncMapListInstance {
-  const instance = ((sid) => instance.get(sid)) as SyncMapListInstanceImpl;
-
-  instance.get = function get(sid): SyncMapContext {
-    return new SyncMapContextImpl(version, serviceSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid };
-  instance._uri = `/Services/${serviceSid}/Maps`;
-
-  instance.create = function create(params?: any, callback?: any): Promise<SyncMapInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-    if (params.collectionTtl !== undefined) data['CollectionTtl'] = params.collectionTtl;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncMapInstance(operationVersion, payload, this._solution.serviceSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<SyncMapPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncMapPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncMapPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new SyncMapPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface SyncMapContext {
@@ -652,6 +417,242 @@ export class SyncMapInstance {
   }
 }
 
+
+export interface SyncMapListInstance {
+  (sid: string): SyncMapContext;
+  get(sid: string): SyncMapContext;
+
+
+  /**
+   * Create a SyncMapInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncMapInstance
+   */
+  create(callback?: (error: Error | null, item?: SyncMapInstance) => any): Promise<SyncMapInstance>;
+  /**
+   * Create a SyncMapInstance
+   *
+   * @param { SyncMapListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncMapInstance
+   */
+  create(params: SyncMapListInstanceCreateOptions, callback?: (error: Error | null, item?: SyncMapInstance) => any): Promise<SyncMapInstance>;
+  create(params?: any, callback?: any): Promise<SyncMapInstance>
+
+
+
+  /**
+   * Streams SyncMapInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams SyncMapInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncMapListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: SyncMapListInstanceEachOptions, callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of SyncMapInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
+  /**
+   * Retrieve a single target page of SyncMapInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
+  getPage(params?: any, callback?: any): Promise<SyncMapPage>;
+  /**
+   * Lists SyncMapInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: SyncMapInstance[]) => any): Promise<SyncMapInstance[]>;
+  /**
+   * Lists SyncMapInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncMapListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: SyncMapListInstanceOptions, callback?: (error: Error | null, items: SyncMapInstance[]) => any): Promise<SyncMapInstance[]>;
+  list(params?: any, callback?: any): Promise<SyncMapInstance[]>;
+  /**
+   * Retrieve a single page of SyncMapInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
+  /**
+   * Retrieve a single page of SyncMapInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncMapListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: SyncMapListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
+  page(params?: any, callback?: any): Promise<SyncMapPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SyncMapSolution {
+  serviceSid?: string;
+}
+
+interface SyncMapListInstanceImpl extends SyncMapListInstance {}
+class SyncMapListInstanceImpl implements SyncMapListInstance {
+  _version?: V1;
+  _solution?: SyncMapSolution;
+  _uri?: string;
+
+}
+
+export function SyncMapListInstance(version: V1, serviceSid: string): SyncMapListInstance {
+  const instance = ((sid) => instance.get(sid)) as SyncMapListInstanceImpl;
+
+  instance.get = function get(sid): SyncMapContext {
+    return new SyncMapContextImpl(version, serviceSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid };
+  instance._uri = `/Services/${serviceSid}/Maps`;
+
+  instance.create = function create(params?: any, callback?: any): Promise<SyncMapInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+    if (params.collectionTtl !== undefined) data['CollectionTtl'] = params.collectionTtl;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SyncMapInstance(operationVersion, payload, this._solution.serviceSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<SyncMapPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SyncMapPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncMapPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new SyncMapPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class SyncMapPage extends Page<V1, SyncMapPayload, SyncMapResource, SyncMapInstance> {
 /**
 * Initialize the SyncMapPage
@@ -681,5 +682,4 @@ constructor(version: V1, response: Response<string>, solution: SyncMapSolution) 
     return inspect(this.toJSON(), options);
     }
     }
-
 

@@ -25,9 +25,9 @@ import { WebhookListInstance } from "./conversation/webhook";
 
 
 
-type ConversationWebhookEnabledType = 'true'|'false';
-
 type ConversationState = 'inactive'|'active'|'closed';
+
+type ConversationWebhookEnabledType = 'true'|'false';
 
 
 /**

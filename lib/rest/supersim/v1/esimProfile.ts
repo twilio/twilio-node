@@ -104,6 +104,198 @@ export interface EsimProfileListInstancePageOptions {
 
 
 
+export interface EsimProfileContext {
+
+
+  /**
+   * Fetch a EsimProfileInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed EsimProfileInstance
+   */
+  fetch(callback?: (error: Error | null, item?: EsimProfileInstance) => any): Promise<EsimProfileInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface EsimProfileContextSolution {
+  sid?: string;
+}
+
+export class EsimProfileContextImpl implements EsimProfileContext {
+  protected _solution: EsimProfileContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, sid: string) {
+    this._solution = { sid };
+    this._uri = `/ESimProfiles/${sid}`;
+  }
+
+  fetch(callback?: any): Promise<EsimProfileInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new EsimProfileInstance(operationVersion, payload, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface EsimProfilePayload extends EsimProfileResource, Page.TwilioResponsePayload {
+}
+
+interface EsimProfileResource {
+  sid?: string | null;
+  account_sid?: string | null;
+  iccid?: string | null;
+  sim_sid?: string | null;
+  status?: EsimProfileStatus;
+  eid?: string | null;
+  smdp_plus_address?: string | null;
+  error_code?: string | null;
+  error_message?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  url?: string | null;
+}
+
+export class EsimProfileInstance {
+  protected _solution: EsimProfileContextSolution;
+  protected _context?: EsimProfileContext;
+
+  constructor(protected _version: V1, payload: EsimProfilePayload, sid?: string) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.iccid = payload.iccid;
+    this.simSid = payload.sim_sid;
+    this.status = payload.status;
+    this.eid = payload.eid;
+    this.smdpPlusAddress = payload.smdp_plus_address;
+    this.errorCode = payload.error_code;
+    this.errorMessage = payload.error_message;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.url = payload.url;
+
+    this._solution = { sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account to which the eSIM Profile resource belongs
+   */
+  accountSid?: string | null;
+  /**
+   * The ICCID associated with the Sim resource
+   */
+  iccid?: string | null;
+  /**
+   * The SID of the Sim resource that this eSIM Profile controls
+   */
+  simSid?: string | null;
+  status?: EsimProfileStatus;
+  /**
+   * Identifier of the eUICC that can claim the eSIM Profile
+   */
+  eid?: string | null;
+  /**
+   * Address of the SM-DP+ server from which the Profile will be downloaded
+   */
+  smdpPlusAddress?: string | null;
+  /**
+   * Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
+   */
+  errorCode?: string | null;
+  /**
+   * Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
+   */
+  errorMessage?: string | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was last updated
+   */
+  dateUpdated?: Date | null;
+  /**
+   * The absolute URL of the eSIM Profile resource
+   */
+  url?: string | null;
+
+  private get _proxy(): EsimProfileContext {
+    this._context = this._context || new EsimProfileContextImpl(this._version, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a EsimProfileInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed EsimProfileInstance
+   */
+  fetch(callback?: (error: Error | null, item?: EsimProfileInstance) => any): Promise<EsimProfileInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      accountSid: this.accountSid, 
+      iccid: this.iccid, 
+      simSid: this.simSid, 
+      status: this.status, 
+      eid: this.eid, 
+      smdpPlusAddress: this.smdpPlusAddress, 
+      errorCode: this.errorCode, 
+      errorMessage: this.errorMessage, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface EsimProfileListInstance {
   (sid: string): EsimProfileContext;
   get(sid: string): EsimProfileContext;
@@ -341,197 +533,6 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
 }
 
 
-export interface EsimProfileContext {
-
-
-  /**
-   * Fetch a EsimProfileInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed EsimProfileInstance
-   */
-  fetch(callback?: (error: Error | null, item?: EsimProfileInstance) => any): Promise<EsimProfileInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface EsimProfileContextSolution {
-  sid?: string;
-}
-
-export class EsimProfileContextImpl implements EsimProfileContext {
-  protected _solution: EsimProfileContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, sid: string) {
-    this._solution = { sid };
-    this._uri = `/ESimProfiles/${sid}`;
-  }
-
-  fetch(callback?: any): Promise<EsimProfileInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new EsimProfileInstance(operationVersion, payload, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface EsimProfilePayload extends EsimProfileResource, Page.TwilioResponsePayload {
-}
-
-interface EsimProfileResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  iccid?: string | null;
-  sim_sid?: string | null;
-  status?: EsimProfileStatus;
-  eid?: string | null;
-  smdp_plus_address?: string | null;
-  error_code?: string | null;
-  error_message?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-}
-
-export class EsimProfileInstance {
-  protected _solution: EsimProfileContextSolution;
-  protected _context?: EsimProfileContext;
-
-  constructor(protected _version: V1, payload: EsimProfilePayload, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.iccid = payload.iccid;
-    this.simSid = payload.sim_sid;
-    this.status = payload.status;
-    this.eid = payload.eid;
-    this.smdpPlusAddress = payload.smdp_plus_address;
-    this.errorCode = payload.error_code;
-    this.errorMessage = payload.error_message;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-
-    this._solution = { sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Account to which the eSIM Profile resource belongs
-   */
-  accountSid?: string | null;
-  /**
-   * The ICCID associated with the Sim resource
-   */
-  iccid?: string | null;
-  /**
-   * The SID of the Sim resource that this eSIM Profile controls
-   */
-  simSid?: string | null;
-  status?: EsimProfileStatus;
-  /**
-   * Identifier of the eUICC that can claim the eSIM Profile
-   */
-  eid?: string | null;
-  /**
-   * Address of the SM-DP+ server from which the Profile will be downloaded
-   */
-  smdpPlusAddress?: string | null;
-  /**
-   * Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
-   */
-  errorCode?: string | null;
-  /**
-   * Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state
-   */
-  errorMessage?: string | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was last updated
-   */
-  dateUpdated?: Date | null;
-  /**
-   * The absolute URL of the eSIM Profile resource
-   */
-  url?: string | null;
-
-  private get _proxy(): EsimProfileContext {
-    this._context = this._context || new EsimProfileContextImpl(this._version, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a EsimProfileInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed EsimProfileInstance
-   */
-  fetch(callback?: (error: Error | null, item?: EsimProfileInstance) => any): Promise<EsimProfileInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      iccid: this.iccid, 
-      simSid: this.simSid, 
-      status: this.status, 
-      eid: this.eid, 
-      smdpPlusAddress: this.smdpPlusAddress, 
-      errorCode: this.errorCode, 
-      errorMessage: this.errorMessage, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class EsimProfilePage extends Page<V1, EsimProfilePayload, EsimProfileResource, EsimProfileInstance> {
 /**
 * Initialize the EsimProfilePage
@@ -560,5 +561,4 @@ constructor(version: V1, response: Response<string>, solution: EsimProfileSoluti
     return inspect(this.toJSON(), options);
     }
     }
-
 

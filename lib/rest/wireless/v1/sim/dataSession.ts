@@ -21,6 +21,17 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+export class ListAccountUsageRecordResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 export class WirelessV1SimDataSession {
   /**
    * The unique string that identifies the resource
@@ -86,17 +97,6 @@ export class WirelessV1SimDataSession {
    * The unique ID of the device using the SIM to connect
    */
   "imei"?: string | null;
-}
-
-
-export class ListAccountUsageRecordResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
 }
 
 

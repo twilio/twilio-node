@@ -19,12 +19,31 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { WorkflowCumulativeStatisticsListInstance } from "./workflow/workflowCumulativeStatistics";
 import { WorkflowRealTimeStatisticsListInstance } from "./workflow/workflowRealTimeStatistics";
 import { WorkflowStatisticsListInstance } from "./workflow/workflowStatistics";
 
 
+
+
+/**
+ * Options to pass to update a WorkflowInstance
+ *
+ * @property { string } [friendlyName] A descriptive string that you create to describe the Workflow resource. For example, &#x60;Inbound Call Workflow&#x60; or &#x60;2014 Outbound Campaign&#x60;.
+ * @property { string } [assignmentCallbackUrl] The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+ * @property { string } [fallbackAssignmentCallbackUrl] The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
+ * @property { string } [configuration] A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+ * @property { number } [taskReservationTimeout] How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
+ * @property { string } [reEvaluateTasks] Whether or not to re-evaluate Tasks. The default is &#x60;false&#x60;, which means Tasks in the Workflow will not be processed through the assignment loop again.
+ */
+export interface WorkflowContextUpdateOptions {
+  friendlyName?: string;
+  assignmentCallbackUrl?: string;
+  fallbackAssignmentCallbackUrl?: string;
+  configuration?: string;
+  taskReservationTimeout?: number;
+  reEvaluateTasks?: string;
+}
 
 /**
  * Options to pass to create a WorkflowInstance
@@ -95,260 +114,6 @@ export interface WorkflowListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a WorkflowInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the Workflow resource. For example, &#x60;Inbound Call Workflow&#x60; or &#x60;2014 Outbound Campaign&#x60;.
- * @property { string } [assignmentCallbackUrl] The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
- * @property { string } [fallbackAssignmentCallbackUrl] The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
- * @property { string } [configuration] A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
- * @property { number } [taskReservationTimeout] How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
- * @property { string } [reEvaluateTasks] Whether or not to re-evaluate Tasks. The default is &#x60;false&#x60;, which means Tasks in the Workflow will not be processed through the assignment loop again.
- */
-export interface WorkflowContextUpdateOptions {
-  friendlyName?: string;
-  assignmentCallbackUrl?: string;
-  fallbackAssignmentCallbackUrl?: string;
-  configuration?: string;
-  taskReservationTimeout?: number;
-  reEvaluateTasks?: string;
-}
-
-export interface WorkflowListInstance {
-  (sid: string): WorkflowContext;
-  get(sid: string): WorkflowContext;
-
-
-  /**
-   * Create a WorkflowInstance
-   *
-   * @param { WorkflowListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed WorkflowInstance
-   */
-  create(params: WorkflowListInstanceCreateOptions, callback?: (error: Error | null, item?: WorkflowInstance) => any): Promise<WorkflowInstance>;
-  create(params: any, callback?: any): Promise<WorkflowInstance>
-
-
-
-  /**
-   * Streams WorkflowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams WorkflowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkflowListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: WorkflowListInstanceEachOptions, callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of WorkflowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
-  /**
-   * Retrieve a single target page of WorkflowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
-  getPage(params?: any, callback?: any): Promise<WorkflowPage>;
-  /**
-   * Lists WorkflowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: WorkflowInstance[]) => any): Promise<WorkflowInstance[]>;
-  /**
-   * Lists WorkflowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkflowListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: WorkflowListInstanceOptions, callback?: (error: Error | null, items: WorkflowInstance[]) => any): Promise<WorkflowInstance[]>;
-  list(params?: any, callback?: any): Promise<WorkflowInstance[]>;
-  /**
-   * Retrieve a single page of WorkflowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
-  /**
-   * Retrieve a single page of WorkflowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { WorkflowListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: WorkflowListInstancePageOptions, callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
-  page(params?: any, callback?: any): Promise<WorkflowPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface WorkflowSolution {
-  workspaceSid?: string;
-}
-
-interface WorkflowListInstanceImpl extends WorkflowListInstance {}
-class WorkflowListInstanceImpl implements WorkflowListInstance {
-  _version?: V1;
-  _solution?: WorkflowSolution;
-  _uri?: string;
-
-}
-
-export function WorkflowListInstance(version: V1, workspaceSid: string): WorkflowListInstance {
-  const instance = ((sid) => instance.get(sid)) as WorkflowListInstanceImpl;
-
-  instance.get = function get(sid): WorkflowContext {
-    return new WorkflowContextImpl(version, workspaceSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { workspaceSid };
-  instance._uri = `/Workspaces/${workspaceSid}/Workflows`;
-
-  instance.create = function create(params: any, callback?: any): Promise<WorkflowInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    if (params.configuration === null || params.configuration === undefined) {
-      throw new Error('Required parameter "params.configuration" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-    data['Configuration'] = params.configuration;
-    if (params.assignmentCallbackUrl !== undefined) data['AssignmentCallbackUrl'] = params.assignmentCallbackUrl;
-    if (params.fallbackAssignmentCallbackUrl !== undefined) data['FallbackAssignmentCallbackUrl'] = params.fallbackAssignmentCallbackUrl;
-    if (params.taskReservationTimeout !== undefined) data['TaskReservationTimeout'] = params.taskReservationTimeout;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkflowInstance(operationVersion, payload, this._solution.workspaceSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<WorkflowPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new WorkflowPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkflowPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new WorkflowPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface WorkflowContext {
@@ -703,6 +468,242 @@ export class WorkflowInstance {
   }
 }
 
+
+export interface WorkflowListInstance {
+  (sid: string): WorkflowContext;
+  get(sid: string): WorkflowContext;
+
+
+  /**
+   * Create a WorkflowInstance
+   *
+   * @param { WorkflowListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed WorkflowInstance
+   */
+  create(params: WorkflowListInstanceCreateOptions, callback?: (error: Error | null, item?: WorkflowInstance) => any): Promise<WorkflowInstance>;
+  create(params: any, callback?: any): Promise<WorkflowInstance>
+
+
+
+  /**
+   * Streams WorkflowInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams WorkflowInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkflowListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: WorkflowListInstanceEachOptions, callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of WorkflowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
+  /**
+   * Retrieve a single target page of WorkflowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
+  getPage(params?: any, callback?: any): Promise<WorkflowPage>;
+  /**
+   * Lists WorkflowInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: WorkflowInstance[]) => any): Promise<WorkflowInstance[]>;
+  /**
+   * Lists WorkflowInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkflowListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: WorkflowListInstanceOptions, callback?: (error: Error | null, items: WorkflowInstance[]) => any): Promise<WorkflowInstance[]>;
+  list(params?: any, callback?: any): Promise<WorkflowInstance[]>;
+  /**
+   * Retrieve a single page of WorkflowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
+  /**
+   * Retrieve a single page of WorkflowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { WorkflowListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: WorkflowListInstancePageOptions, callback?: (error: Error | null, items: WorkflowPage) => any): Promise<WorkflowPage>;
+  page(params?: any, callback?: any): Promise<WorkflowPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface WorkflowSolution {
+  workspaceSid?: string;
+}
+
+interface WorkflowListInstanceImpl extends WorkflowListInstance {}
+class WorkflowListInstanceImpl implements WorkflowListInstance {
+  _version?: V1;
+  _solution?: WorkflowSolution;
+  _uri?: string;
+
+}
+
+export function WorkflowListInstance(version: V1, workspaceSid: string): WorkflowListInstance {
+  const instance = ((sid) => instance.get(sid)) as WorkflowListInstanceImpl;
+
+  instance.get = function get(sid): WorkflowContext {
+    return new WorkflowContextImpl(version, workspaceSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { workspaceSid };
+  instance._uri = `/Workspaces/${workspaceSid}/Workflows`;
+
+  instance.create = function create(params: any, callback?: any): Promise<WorkflowInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    if (params.configuration === null || params.configuration === undefined) {
+      throw new Error('Required parameter "params.configuration" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+    data['Configuration'] = params.configuration;
+    if (params.assignmentCallbackUrl !== undefined) data['AssignmentCallbackUrl'] = params.assignmentCallbackUrl;
+    if (params.fallbackAssignmentCallbackUrl !== undefined) data['FallbackAssignmentCallbackUrl'] = params.fallbackAssignmentCallbackUrl;
+    if (params.taskReservationTimeout !== undefined) data['TaskReservationTimeout'] = params.taskReservationTimeout;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkflowInstance(operationVersion, payload, this._solution.workspaceSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<WorkflowPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new WorkflowPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<WorkflowPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new WorkflowPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, WorkflowInstance> {
 /**
 * Initialize the WorkflowPage
@@ -732,5 +733,4 @@ constructor(version: V1, response: Response<string>, solution: WorkflowSolution)
     return inspect(this.toJSON(), options);
     }
     }
-
 

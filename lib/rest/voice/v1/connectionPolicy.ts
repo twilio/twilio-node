@@ -19,10 +19,19 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { ConnectionPolicyTargetListInstance } from "./connectionPolicy/connectionPolicyTarget";
 
 
+
+
+/**
+ * Options to pass to update a ConnectionPolicyInstance
+ *
+ * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+ */
+export interface ConnectionPolicyContextUpdateOptions {
+  friendlyName?: string;
+}
 
 /**
  * Options to pass to create a ConnectionPolicyInstance
@@ -79,247 +88,6 @@ export interface ConnectionPolicyListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a ConnectionPolicyInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
- */
-export interface ConnectionPolicyContextUpdateOptions {
-  friendlyName?: string;
-}
-
-export interface ConnectionPolicyListInstance {
-  (sid: string): ConnectionPolicyContext;
-  get(sid: string): ConnectionPolicyContext;
-
-
-  /**
-   * Create a ConnectionPolicyInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectionPolicyInstance
-   */
-  create(callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
-  /**
-   * Create a ConnectionPolicyInstance
-   *
-   * @param { ConnectionPolicyListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ConnectionPolicyInstance
-   */
-  create(params: ConnectionPolicyListInstanceCreateOptions, callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
-  create(params?: any, callback?: any): Promise<ConnectionPolicyInstance>
-
-
-
-  /**
-   * Streams ConnectionPolicyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ConnectionPolicyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConnectionPolicyListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ConnectionPolicyListInstanceEachOptions, callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ConnectionPolicyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
-  /**
-   * Retrieve a single target page of ConnectionPolicyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
-  getPage(params?: any, callback?: any): Promise<ConnectionPolicyPage>;
-  /**
-   * Lists ConnectionPolicyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ConnectionPolicyInstance[]) => any): Promise<ConnectionPolicyInstance[]>;
-  /**
-   * Lists ConnectionPolicyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConnectionPolicyListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ConnectionPolicyListInstanceOptions, callback?: (error: Error | null, items: ConnectionPolicyInstance[]) => any): Promise<ConnectionPolicyInstance[]>;
-  list(params?: any, callback?: any): Promise<ConnectionPolicyInstance[]>;
-  /**
-   * Retrieve a single page of ConnectionPolicyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
-  /**
-   * Retrieve a single page of ConnectionPolicyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConnectionPolicyListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ConnectionPolicyListInstancePageOptions, callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
-  page(params?: any, callback?: any): Promise<ConnectionPolicyPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ConnectionPolicySolution {
-}
-
-interface ConnectionPolicyListInstanceImpl extends ConnectionPolicyListInstance {}
-class ConnectionPolicyListInstanceImpl implements ConnectionPolicyListInstance {
-  _version?: V1;
-  _solution?: ConnectionPolicySolution;
-  _uri?: string;
-
-}
-
-export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListInstance {
-  const instance = ((sid) => instance.get(sid)) as ConnectionPolicyListInstanceImpl;
-
-  instance.get = function get(sid): ConnectionPolicyContext {
-    return new ConnectionPolicyContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/ConnectionPolicies`;
-
-  instance.create = function create(params?: any, callback?: any): Promise<ConnectionPolicyInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConnectionPolicyInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ConnectionPolicyPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConnectionPolicyPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConnectionPolicyPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ConnectionPolicyPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ConnectionPolicyContext {
@@ -598,6 +366,239 @@ export class ConnectionPolicyInstance {
   }
 }
 
+
+export interface ConnectionPolicyListInstance {
+  (sid: string): ConnectionPolicyContext;
+  get(sid: string): ConnectionPolicyContext;
+
+
+  /**
+   * Create a ConnectionPolicyInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConnectionPolicyInstance
+   */
+  create(callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
+  /**
+   * Create a ConnectionPolicyInstance
+   *
+   * @param { ConnectionPolicyListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ConnectionPolicyInstance
+   */
+  create(params: ConnectionPolicyListInstanceCreateOptions, callback?: (error: Error | null, item?: ConnectionPolicyInstance) => any): Promise<ConnectionPolicyInstance>;
+  create(params?: any, callback?: any): Promise<ConnectionPolicyInstance>
+
+
+
+  /**
+   * Streams ConnectionPolicyInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ConnectionPolicyInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConnectionPolicyListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: ConnectionPolicyListInstanceEachOptions, callback?: (item: ConnectionPolicyInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of ConnectionPolicyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
+  /**
+   * Retrieve a single target page of ConnectionPolicyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
+  getPage(params?: any, callback?: any): Promise<ConnectionPolicyPage>;
+  /**
+   * Lists ConnectionPolicyInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ConnectionPolicyInstance[]) => any): Promise<ConnectionPolicyInstance[]>;
+  /**
+   * Lists ConnectionPolicyInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConnectionPolicyListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: ConnectionPolicyListInstanceOptions, callback?: (error: Error | null, items: ConnectionPolicyInstance[]) => any): Promise<ConnectionPolicyInstance[]>;
+  list(params?: any, callback?: any): Promise<ConnectionPolicyInstance[]>;
+  /**
+   * Retrieve a single page of ConnectionPolicyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
+  /**
+   * Retrieve a single page of ConnectionPolicyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConnectionPolicyListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: ConnectionPolicyListInstancePageOptions, callback?: (error: Error | null, items: ConnectionPolicyPage) => any): Promise<ConnectionPolicyPage>;
+  page(params?: any, callback?: any): Promise<ConnectionPolicyPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ConnectionPolicySolution {
+}
+
+interface ConnectionPolicyListInstanceImpl extends ConnectionPolicyListInstance {}
+class ConnectionPolicyListInstanceImpl implements ConnectionPolicyListInstance {
+  _version?: V1;
+  _solution?: ConnectionPolicySolution;
+  _uri?: string;
+
+}
+
+export function ConnectionPolicyListInstance(version: V1): ConnectionPolicyListInstance {
+  const instance = ((sid) => instance.get(sid)) as ConnectionPolicyListInstanceImpl;
+
+  instance.get = function get(sid): ConnectionPolicyContext {
+    return new ConnectionPolicyContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/ConnectionPolicies`;
+
+  instance.create = function create(params?: any, callback?: any): Promise<ConnectionPolicyInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConnectionPolicyInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<ConnectionPolicyPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConnectionPolicyPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConnectionPolicyPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new ConnectionPolicyPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class ConnectionPolicyPage extends Page<V1, ConnectionPolicyPayload, ConnectionPolicyResource, ConnectionPolicyInstance> {
 /**
 * Initialize the ConnectionPolicyPage
@@ -626,5 +627,4 @@ constructor(version: V1, response: Response<string>, solution: ConnectionPolicyS
     return inspect(this.toJSON(), options);
     }
     }
-
 

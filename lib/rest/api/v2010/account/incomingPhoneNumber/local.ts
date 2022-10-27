@@ -21,8 +21,6 @@ const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
 
 
-type IncomingPhoneNumberLocalAddressRequirement = 'none'|'any'|'local'|'foreign';
-
 /**
  * Indicate if a phone can receive calls or messages
  */
@@ -33,10 +31,6 @@ export class ApiV2010AccountIncomingPhoneNumberCapabilities {
   "fax"?: boolean;
 }
 
-
-type IncomingPhoneNumberLocalEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
-
-type IncomingPhoneNumberLocalVoiceReceiveMode = 'voice'|'fax';
 
 export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal {
   /**
@@ -160,7 +154,13 @@ export class ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal {
 }
 
 
+type IncomingPhoneNumberLocalAddressRequirement = 'none'|'any'|'local'|'foreign';
+
+type IncomingPhoneNumberLocalEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
+
 type IncomingPhoneNumberLocalEmergencyStatus = 'Active'|'Inactive';
+
+type IncomingPhoneNumberLocalVoiceReceiveMode = 'voice'|'fax';
 
 
 /**

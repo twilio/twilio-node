@@ -21,6 +21,8 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+type EventTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
+
 export class InsightsV1CallEvent {
   "timestamp"?: string | null;
   "callSid"?: string | null;
@@ -35,8 +37,6 @@ export class InsightsV1CallEvent {
   "clientEdge"?: any | null;
 }
 
-
-type EventTwilioEdge = 'unknown_edge'|'carrier_edge'|'sip_edge'|'sdk_edge'|'client_edge';
 
 export class ListCallSummariesResponseMeta {
   "firstPageUrl"?: string;

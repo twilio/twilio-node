@@ -19,7 +19,6 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { CredentialListListInstance } from "./trunk/credentialList";
 import { IpAccessControlListListInstance } from "./trunk/ipAccessControlList";
 import { OriginationUrlListInstance } from "./trunk/originationUrl";
@@ -27,10 +26,34 @@ import { PhoneNumberListInstance } from "./trunk/phoneNumber";
 import { RecordingListInstance } from "./trunk/recording";
 
 
-type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
 
 type TrunkTransferCallerId = 'from-transferee'|'from-transferor';
 
+type TrunkTransferSetting = 'disable-all'|'enable-all'|'sip-only';
+
+
+/**
+ * Options to pass to update a TrunkInstance
+ *
+ * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+ * @property { string } [disasterRecoveryUrl] The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+ * @property { string } [disasterRecoveryMethod] The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
+ * @property { TrunkTransferSetting } [transferMode] 
+ * @property { boolean } [secure] Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+ * @property { boolean } [cnamLookupEnabled] Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+ * @property { TrunkTransferCallerId } [transferCallerId] 
+ */
+export interface TrunkContextUpdateOptions {
+  friendlyName?: string;
+  domainName?: string;
+  disasterRecoveryUrl?: string;
+  disasterRecoveryMethod?: string;
+  transferMode?: TrunkTransferSetting;
+  secure?: boolean;
+  cnamLookupEnabled?: boolean;
+  transferCallerId?: TrunkTransferCallerId;
+}
 
 /**
  * Options to pass to create a TrunkInstance
@@ -101,268 +124,6 @@ export interface TrunkListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a TrunkInstance
- *
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [domainName] The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and &#x60;-&#x60; and must end with &#x60;pstn.twilio.com&#x60;. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
- * @property { string } [disasterRecoveryUrl] The URL we should call using the &#x60;disaster_recovery_method&#x60; if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
- * @property { string } [disasterRecoveryMethod] The HTTP method we should use to call the &#x60;disaster_recovery_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
- * @property { TrunkTransferSetting } [transferMode] 
- * @property { boolean } [secure] Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
- * @property { boolean } [cnamLookupEnabled] Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
- * @property { TrunkTransferCallerId } [transferCallerId] 
- */
-export interface TrunkContextUpdateOptions {
-  friendlyName?: string;
-  domainName?: string;
-  disasterRecoveryUrl?: string;
-  disasterRecoveryMethod?: string;
-  transferMode?: TrunkTransferSetting;
-  secure?: boolean;
-  cnamLookupEnabled?: boolean;
-  transferCallerId?: TrunkTransferCallerId;
-}
-
-export interface TrunkListInstance {
-  (sid: string): TrunkContext;
-  get(sid: string): TrunkContext;
-
-
-  /**
-   * Create a TrunkInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TrunkInstance
-   */
-  create(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
-  /**
-   * Create a TrunkInstance
-   *
-   * @param { TrunkListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed TrunkInstance
-   */
-  create(params: TrunkListInstanceCreateOptions, callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
-  create(params?: any, callback?: any): Promise<TrunkInstance>
-
-
-
-  /**
-   * Streams TrunkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams TrunkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TrunkListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: TrunkListInstanceEachOptions, callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of TrunkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
-  /**
-   * Retrieve a single target page of TrunkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
-  getPage(params?: any, callback?: any): Promise<TrunkPage>;
-  /**
-   * Lists TrunkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
-  /**
-   * Lists TrunkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TrunkListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: TrunkListInstanceOptions, callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
-  list(params?: any, callback?: any): Promise<TrunkInstance[]>;
-  /**
-   * Retrieve a single page of TrunkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
-  /**
-   * Retrieve a single page of TrunkInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { TrunkListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: TrunkListInstancePageOptions, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
-  page(params?: any, callback?: any): Promise<TrunkPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface TrunkSolution {
-}
-
-interface TrunkListInstanceImpl extends TrunkListInstance {}
-class TrunkListInstanceImpl implements TrunkListInstance {
-  _version?: V1;
-  _solution?: TrunkSolution;
-  _uri?: string;
-
-}
-
-export function TrunkListInstance(version: V1): TrunkListInstance {
-  const instance = ((sid) => instance.get(sid)) as TrunkListInstanceImpl;
-
-  instance.get = function get(sid): TrunkContext {
-    return new TrunkContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Trunks`;
-
-  instance.create = function create(params?: any, callback?: any): Promise<TrunkInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.domainName !== undefined) data['DomainName'] = params.domainName;
-    if (params.disasterRecoveryUrl !== undefined) data['DisasterRecoveryUrl'] = params.disasterRecoveryUrl;
-    if (params.disasterRecoveryMethod !== undefined) data['DisasterRecoveryMethod'] = params.disasterRecoveryMethod;
-    if (params.transferMode !== undefined) data['TransferMode'] = params.transferMode;
-    if (params.secure !== undefined) data['Secure'] = serialize.bool(params.secure);
-    if (params.cnamLookupEnabled !== undefined) data['CnamLookupEnabled'] = serialize.bool(params.cnamLookupEnabled);
-    if (params.transferCallerId !== undefined) data['TransferCallerId'] = params.transferCallerId;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<TrunkPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new TrunkPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TrunkPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new TrunkPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface TrunkContext {
@@ -769,6 +530,246 @@ export class TrunkInstance {
   }
 }
 
+
+export interface TrunkListInstance {
+  (sid: string): TrunkContext;
+  get(sid: string): TrunkContext;
+
+
+  /**
+   * Create a TrunkInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TrunkInstance
+   */
+  create(callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  /**
+   * Create a TrunkInstance
+   *
+   * @param { TrunkListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed TrunkInstance
+   */
+  create(params: TrunkListInstanceCreateOptions, callback?: (error: Error | null, item?: TrunkInstance) => any): Promise<TrunkInstance>;
+  create(params?: any, callback?: any): Promise<TrunkInstance>
+
+
+
+  /**
+   * Streams TrunkInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams TrunkInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TrunkListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: TrunkListInstanceEachOptions, callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of TrunkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
+  /**
+   * Retrieve a single target page of TrunkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
+  getPage(params?: any, callback?: any): Promise<TrunkPage>;
+  /**
+   * Lists TrunkInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
+  /**
+   * Lists TrunkInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TrunkListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: TrunkListInstanceOptions, callback?: (error: Error | null, items: TrunkInstance[]) => any): Promise<TrunkInstance[]>;
+  list(params?: any, callback?: any): Promise<TrunkInstance[]>;
+  /**
+   * Retrieve a single page of TrunkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
+  /**
+   * Retrieve a single page of TrunkInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { TrunkListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: TrunkListInstancePageOptions, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
+  page(params?: any, callback?: any): Promise<TrunkPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface TrunkSolution {
+}
+
+interface TrunkListInstanceImpl extends TrunkListInstance {}
+class TrunkListInstanceImpl implements TrunkListInstance {
+  _version?: V1;
+  _solution?: TrunkSolution;
+  _uri?: string;
+
+}
+
+export function TrunkListInstance(version: V1): TrunkListInstance {
+  const instance = ((sid) => instance.get(sid)) as TrunkListInstanceImpl;
+
+  instance.get = function get(sid): TrunkContext {
+    return new TrunkContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Trunks`;
+
+  instance.create = function create(params?: any, callback?: any): Promise<TrunkInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.domainName !== undefined) data['DomainName'] = params.domainName;
+    if (params.disasterRecoveryUrl !== undefined) data['DisasterRecoveryUrl'] = params.disasterRecoveryUrl;
+    if (params.disasterRecoveryMethod !== undefined) data['DisasterRecoveryMethod'] = params.disasterRecoveryMethod;
+    if (params.transferMode !== undefined) data['TransferMode'] = params.transferMode;
+    if (params.secure !== undefined) data['Secure'] = serialize.bool(params.secure);
+    if (params.cnamLookupEnabled !== undefined) data['CnamLookupEnabled'] = serialize.bool(params.cnamLookupEnabled);
+    if (params.transferCallerId !== undefined) data['TransferCallerId'] = params.transferCallerId;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new TrunkInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<TrunkPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new TrunkPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<TrunkPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new TrunkPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInstance> {
 /**
 * Initialize the TrunkPage
@@ -797,5 +798,4 @@ constructor(version: V1, response: Response<string>, solution: TrunkSolution) {
     return inspect(this.toJSON(), options);
     }
     }
-
 

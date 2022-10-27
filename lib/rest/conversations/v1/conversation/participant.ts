@@ -26,6 +26,42 @@ type ConversationParticipantWebhookEnabledType = 'true'|'false';
 
 
 /**
+ * Options to pass to remove a ParticipantInstance
+ *
+ * @property { ConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ */
+export interface ParticipantContextRemoveOptions {
+  xTwilioWebhookEnabled?: ConversationParticipantWebhookEnabledType;
+}
+
+/**
+ * Options to pass to update a ParticipantInstance
+ *
+ * @property { ConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { Date } [dateCreated] The date that this resource was created.
+ * @property { Date } [dateUpdated] The date that this resource was last updated.
+ * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
+ * @property { string } [roleSid] The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
+ * @property { string } [messagingBindingProxyAddress] The address of the Twilio phone number that the participant is in contact with. \\\&#39;null\\\&#39; value will remove it.
+ * @property { string } [messagingBindingProjectedAddress] The address of the Twilio phone number that is used in Group MMS. \\\&#39;null\\\&#39; value will remove it.
+ * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
+ * @property { number } [lastReadMessageIndex] Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+ * @property { string } [lastReadTimestamp] Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+ */
+export interface ParticipantContextUpdateOptions {
+  xTwilioWebhookEnabled?: ConversationParticipantWebhookEnabledType;
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  attributes?: string;
+  roleSid?: string;
+  messagingBindingProxyAddress?: string;
+  messagingBindingProjectedAddress?: string;
+  identity?: string;
+  lastReadMessageIndex?: number;
+  lastReadTimestamp?: string;
+}
+
+/**
  * Options to pass to create a ParticipantInstance
  *
  * @property { ConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
@@ -96,283 +132,6 @@ export interface ParticipantListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to remove a ParticipantInstance
- *
- * @property { ConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- */
-export interface ParticipantContextRemoveOptions {
-  xTwilioWebhookEnabled?: ConversationParticipantWebhookEnabledType;
-}
-
-/**
- * Options to pass to update a ParticipantInstance
- *
- * @property { ConversationParticipantWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { Date } [dateCreated] The date that this resource was created.
- * @property { Date } [dateUpdated] The date that this resource was last updated.
- * @property { string } [attributes] An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
- * @property { string } [roleSid] The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
- * @property { string } [messagingBindingProxyAddress] The address of the Twilio phone number that the participant is in contact with. \\\&#39;null\\\&#39; value will remove it.
- * @property { string } [messagingBindingProjectedAddress] The address of the Twilio phone number that is used in Group MMS. \\\&#39;null\\\&#39; value will remove it.
- * @property { string } [identity] A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
- * @property { number } [lastReadMessageIndex] Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
- * @property { string } [lastReadTimestamp] Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
- */
-export interface ParticipantContextUpdateOptions {
-  xTwilioWebhookEnabled?: ConversationParticipantWebhookEnabledType;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  attributes?: string;
-  roleSid?: string;
-  messagingBindingProxyAddress?: string;
-  messagingBindingProjectedAddress?: string;
-  identity?: string;
-  lastReadMessageIndex?: number;
-  lastReadTimestamp?: string;
-}
-
-export interface ParticipantListInstance {
-  (sid: string): ParticipantContext;
-  get(sid: string): ParticipantContext;
-
-
-  /**
-   * Create a ParticipantInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ParticipantInstance
-   */
-  create(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  /**
-   * Create a ParticipantInstance
-   *
-   * @param { ParticipantListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed ParticipantInstance
-   */
-  create(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  create(params?: any, callback?: any): Promise<ParticipantInstance>
-
-
-
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ParticipantListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-  getPage(params?: any, callback?: any): Promise<ParticipantPage>;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ParticipantListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
-  list(params?: any, callback?: any): Promise<ParticipantInstance[]>;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ParticipantListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-  page(params?: any, callback?: any): Promise<ParticipantPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ParticipantSolution {
-  conversationSid?: string;
-}
-
-interface ParticipantListInstanceImpl extends ParticipantListInstance {}
-class ParticipantListInstanceImpl implements ParticipantListInstance {
-  _version?: V1;
-  _solution?: ParticipantSolution;
-  _uri?: string;
-
-}
-
-export function ParticipantListInstance(version: V1, conversationSid: string): ParticipantListInstance {
-  const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
-
-  instance.get = function get(sid): ParticipantContext {
-    return new ParticipantContextImpl(version, conversationSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { conversationSid };
-  instance._uri = `/Conversations/${conversationSid}/Participants`;
-
-  instance.create = function create(params?: any, callback?: any): Promise<ParticipantInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.identity !== undefined) data['Identity'] = params.identity;
-    if (params.messagingBindingAddress !== undefined) data['MessagingBinding.Address'] = params.messagingBindingAddress;
-    if (params.messagingBindingProxyAddress !== undefined) data['MessagingBinding.ProxyAddress'] = params.messagingBindingProxyAddress;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.messagingBindingProjectedAddress !== undefined) data['MessagingBinding.ProjectedAddress'] = params.messagingBindingProjectedAddress;
-    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.conversationSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ParticipantContext {
@@ -714,6 +473,248 @@ export class ParticipantInstance {
   }
 }
 
+
+export interface ParticipantListInstance {
+  (sid: string): ParticipantContext;
+  get(sid: string): ParticipantContext;
+
+
+  /**
+   * Create a ParticipantInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ParticipantInstance
+   */
+  create(callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  /**
+   * Create a ParticipantInstance
+   *
+   * @param { ParticipantListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed ParticipantInstance
+   */
+  create(params: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item?: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  create(params?: any, callback?: any): Promise<ParticipantInstance>
+
+
+
+  /**
+   * Streams ParticipantInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ParticipantInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single target page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  getPage(params?: any, callback?: any): Promise<ParticipantPage>;
+  /**
+   * Lists ParticipantInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  /**
+   * Lists ParticipantInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
+  list(params?: any, callback?: any): Promise<ParticipantInstance[]>;
+  /**
+   * Retrieve a single page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  /**
+   * Retrieve a single page of ParticipantInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ParticipantListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+  page(params?: any, callback?: any): Promise<ParticipantPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ParticipantSolution {
+  conversationSid?: string;
+}
+
+interface ParticipantListInstanceImpl extends ParticipantListInstance {}
+class ParticipantListInstanceImpl implements ParticipantListInstance {
+  _version?: V1;
+  _solution?: ParticipantSolution;
+  _uri?: string;
+
+}
+
+export function ParticipantListInstance(version: V1, conversationSid: string): ParticipantListInstance {
+  const instance = ((sid) => instance.get(sid)) as ParticipantListInstanceImpl;
+
+  instance.get = function get(sid): ParticipantContext {
+    return new ParticipantContextImpl(version, conversationSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { conversationSid };
+  instance._uri = `/Conversations/${conversationSid}/Participants`;
+
+  instance.create = function create(params?: any, callback?: any): Promise<ParticipantInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.identity !== undefined) data['Identity'] = params.identity;
+    if (params.messagingBindingAddress !== undefined) data['MessagingBinding.Address'] = params.messagingBindingAddress;
+    if (params.messagingBindingProxyAddress !== undefined) data['MessagingBinding.ProxyAddress'] = params.messagingBindingProxyAddress;
+    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
+    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params.messagingBindingProjectedAddress !== undefined) data['MessagingBinding.ProjectedAddress'] = params.messagingBindingProjectedAddress;
+    if (params.roleSid !== undefined) data['RoleSid'] = params.roleSid;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ParticipantInstance(operationVersion, payload, this._solution.conversationSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<ParticipantPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ParticipantPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ParticipantPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new ParticipantPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
 /**
 * Initialize the ParticipantPage
@@ -743,5 +744,4 @@ constructor(version: V1, response: Response<string>, solution: ParticipantSoluti
     return inspect(this.toJSON(), options);
     }
     }
-
 

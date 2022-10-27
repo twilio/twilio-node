@@ -26,9 +26,9 @@ import { WebhookListInstance } from "./channel/webhook";
 
 
 
-type ChannelWebhookEnabledType = 'true'|'false';
-
 type ChannelChannelType = 'public'|'private';
+
+type ChannelWebhookEnabledType = 'true'|'false';
 
 
 /**

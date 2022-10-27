@@ -19,10 +19,23 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { DocumentPermissionListInstance } from "./document/documentPermission";
 
 
+
+
+/**
+ * Options to pass to update a DocumentInstance
+ *
+ * @property { string } [ifMatch] The If-Match HTTP request header
+ * @property { any } [data] A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+ * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+ */
+export interface DocumentContextUpdateOptions {
+  ifMatch?: string;
+  data?: any;
+  ttl?: number;
+}
 
 /**
  * Options to pass to create a DocumentInstance
@@ -83,254 +96,6 @@ export interface DocumentListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a DocumentInstance
- *
- * @property { string } [ifMatch] The If-Match HTTP request header
- * @property { any } [data] A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
- * @property { number } [ttl] How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
- */
-export interface DocumentContextUpdateOptions {
-  ifMatch?: string;
-  data?: any;
-  ttl?: number;
-}
-
-export interface DocumentListInstance {
-  (sid: string): DocumentContext;
-  get(sid: string): DocumentContext;
-
-
-  /**
-   * Create a DocumentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DocumentInstance
-   */
-  create(callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
-  /**
-   * Create a DocumentInstance
-   *
-   * @param { DocumentListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed DocumentInstance
-   */
-  create(params: DocumentListInstanceCreateOptions, callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
-  create(params?: any, callback?: any): Promise<DocumentInstance>
-
-
-
-  /**
-   * Streams DocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams DocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DocumentListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: DocumentListInstanceEachOptions, callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of DocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
-  /**
-   * Retrieve a single target page of DocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
-  getPage(params?: any, callback?: any): Promise<DocumentPage>;
-  /**
-   * Lists DocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
-  /**
-   * Lists DocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DocumentListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: DocumentListInstanceOptions, callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
-  list(params?: any, callback?: any): Promise<DocumentInstance[]>;
-  /**
-   * Retrieve a single page of DocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
-  /**
-   * Retrieve a single page of DocumentInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DocumentListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: DocumentListInstancePageOptions, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
-  page(params?: any, callback?: any): Promise<DocumentPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DocumentSolution {
-  serviceSid?: string;
-}
-
-interface DocumentListInstanceImpl extends DocumentListInstance {}
-class DocumentListInstanceImpl implements DocumentListInstance {
-  _version?: V1;
-  _solution?: DocumentSolution;
-  _uri?: string;
-
-}
-
-export function DocumentListInstance(version: V1, serviceSid: string): DocumentListInstance {
-  const instance = ((sid) => instance.get(sid)) as DocumentListInstanceImpl;
-
-  instance.get = function get(sid): DocumentContext {
-    return new DocumentContextImpl(version, serviceSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid };
-  instance._uri = `/Services/${serviceSid}/Documents`;
-
-  instance.create = function create(params?: any, callback?: any): Promise<DocumentInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
-    if (params.data !== undefined) data['Data'] = params.data;
-    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, this._solution.serviceSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<DocumentPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DocumentPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DocumentPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new DocumentPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface DocumentContext {
@@ -647,6 +412,242 @@ export class DocumentInstance {
   }
 }
 
+
+export interface DocumentListInstance {
+  (sid: string): DocumentContext;
+  get(sid: string): DocumentContext;
+
+
+  /**
+   * Create a DocumentInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DocumentInstance
+   */
+  create(callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
+  /**
+   * Create a DocumentInstance
+   *
+   * @param { DocumentListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed DocumentInstance
+   */
+  create(params: DocumentListInstanceCreateOptions, callback?: (error: Error | null, item?: DocumentInstance) => any): Promise<DocumentInstance>;
+  create(params?: any, callback?: any): Promise<DocumentInstance>
+
+
+
+  /**
+   * Streams DocumentInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams DocumentInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DocumentListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: DocumentListInstanceEachOptions, callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of DocumentInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
+  /**
+   * Retrieve a single target page of DocumentInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
+  getPage(params?: any, callback?: any): Promise<DocumentPage>;
+  /**
+   * Lists DocumentInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
+  /**
+   * Lists DocumentInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DocumentListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: DocumentListInstanceOptions, callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
+  list(params?: any, callback?: any): Promise<DocumentInstance[]>;
+  /**
+   * Retrieve a single page of DocumentInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
+  /**
+   * Retrieve a single page of DocumentInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DocumentListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: DocumentListInstancePageOptions, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
+  page(params?: any, callback?: any): Promise<DocumentPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DocumentSolution {
+  serviceSid?: string;
+}
+
+interface DocumentListInstanceImpl extends DocumentListInstance {}
+class DocumentListInstanceImpl implements DocumentListInstance {
+  _version?: V1;
+  _solution?: DocumentSolution;
+  _uri?: string;
+
+}
+
+export function DocumentListInstance(version: V1, serviceSid: string): DocumentListInstance {
+  const instance = ((sid) => instance.get(sid)) as DocumentListInstanceImpl;
+
+  instance.get = function get(sid): DocumentContext {
+    return new DocumentContextImpl(version, serviceSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid };
+  instance._uri = `/Services/${serviceSid}/Documents`;
+
+  instance.create = function create(params?: any, callback?: any): Promise<DocumentInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.uniqueName !== undefined) data['UniqueName'] = params.uniqueName;
+    if (params.data !== undefined) data['Data'] = params.data;
+    if (params.ttl !== undefined) data['Ttl'] = params.ttl;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DocumentInstance(operationVersion, payload, this._solution.serviceSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<DocumentPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DocumentPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DocumentPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new DocumentPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, DocumentInstance> {
 /**
 * Initialize the DocumentPage
@@ -676,5 +677,4 @@ constructor(version: V1, response: Response<string>, solution: DocumentSolution)
     return inspect(this.toJSON(), options);
     }
     }
-
 

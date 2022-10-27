@@ -21,6 +21,10 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
 
+type CallSummariesProcessingStateRequest = 'completed'|'started'|'partial'|'all';
+
+type CallSummariesSortBy = 'start_time'|'end_time';
+
 export class InsightsV1CallSummaries {
   "accountSid"?: string | null;
   "callSid"?: string | null;
@@ -56,10 +60,6 @@ export class ListCallSummariesResponseMeta {
   "key"?: string;
 }
 
-
-type CallSummariesProcessingStateRequest = 'completed'|'started'|'partial'|'all';
-
-type CallSummariesSortBy = 'start_time'|'end_time';
 
 /**
  * Options to pass to each

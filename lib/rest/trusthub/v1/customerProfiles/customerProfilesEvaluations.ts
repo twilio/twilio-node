@@ -82,6 +82,165 @@ export interface CustomerProfilesEvaluationsListInstancePageOptions {
 
 
 
+export interface CustomerProfilesEvaluationsContext {
+
+
+  /**
+   * Fetch a CustomerProfilesEvaluationsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CustomerProfilesEvaluationsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CustomerProfilesEvaluationsInstance) => any): Promise<CustomerProfilesEvaluationsInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CustomerProfilesEvaluationsContextSolution {
+  customerProfileSid?: string;
+  sid?: string;
+}
+
+export class CustomerProfilesEvaluationsContextImpl implements CustomerProfilesEvaluationsContext {
+  protected _solution: CustomerProfilesEvaluationsContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
+    this._solution = { customerProfileSid, sid };
+    this._uri = `/CustomerProfiles/${customerProfileSid}/Evaluations/${sid}`;
+  }
+
+  fetch(callback?: any): Promise<CustomerProfilesEvaluationsInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new CustomerProfilesEvaluationsInstance(operationVersion, payload, this._solution.customerProfileSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface CustomerProfilesEvaluationsPayload extends CustomerProfilesEvaluationsResource, Page.TwilioResponsePayload {
+}
+
+interface CustomerProfilesEvaluationsResource {
+  sid?: string | null;
+  account_sid?: string | null;
+  policy_sid?: string | null;
+  customer_profile_sid?: string | null;
+  status?: CustomerProfileEvaluationStatus;
+  results?: Array<any> | null;
+  date_created?: Date | null;
+  url?: string | null;
+}
+
+export class CustomerProfilesEvaluationsInstance {
+  protected _solution: CustomerProfilesEvaluationsContextSolution;
+  protected _context?: CustomerProfilesEvaluationsContext;
+
+  constructor(protected _version: V1, payload: CustomerProfilesEvaluationsPayload, customerProfileSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.policySid = payload.policy_sid;
+    this.customerProfileSid = payload.customer_profile_sid;
+    this.status = payload.status;
+    this.results = payload.results;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.url = payload.url;
+
+    this._solution = { customerProfileSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the Evaluation resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The unique string of a policy
+   */
+  policySid?: string | null;
+  /**
+   * The unique string that identifies the resource
+   */
+  customerProfileSid?: string | null;
+  status?: CustomerProfileEvaluationStatus;
+  /**
+   * The results of the Evaluation resource
+   */
+  results?: Array<any> | null;
+  dateCreated?: Date | null;
+  url?: string | null;
+
+  private get _proxy(): CustomerProfilesEvaluationsContext {
+    this._context = this._context || new CustomerProfilesEvaluationsContextImpl(this._version, this._solution.customerProfileSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a CustomerProfilesEvaluationsInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CustomerProfilesEvaluationsInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CustomerProfilesEvaluationsInstance) => any): Promise<CustomerProfilesEvaluationsInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      accountSid: this.accountSid, 
+      policySid: this.policySid, 
+      customerProfileSid: this.customerProfileSid, 
+      status: this.status, 
+      results: this.results, 
+      dateCreated: this.dateCreated, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface CustomerProfilesEvaluationsListInstance {
   (sid: string): CustomerProfilesEvaluationsContext;
   get(sid: string): CustomerProfilesEvaluationsContext;
@@ -308,164 +467,6 @@ export function CustomerProfilesEvaluationsListInstance(version: V1, customerPro
 }
 
 
-export interface CustomerProfilesEvaluationsContext {
-
-
-  /**
-   * Fetch a CustomerProfilesEvaluationsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CustomerProfilesEvaluationsInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesEvaluationsInstance) => any): Promise<CustomerProfilesEvaluationsInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface CustomerProfilesEvaluationsContextSolution {
-  customerProfileSid?: string;
-  sid?: string;
-}
-
-export class CustomerProfilesEvaluationsContextImpl implements CustomerProfilesEvaluationsContext {
-  protected _solution: CustomerProfilesEvaluationsContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
-    this._solution = { customerProfileSid, sid };
-    this._uri = `/CustomerProfiles/${customerProfileSid}/Evaluations/${sid}`;
-  }
-
-  fetch(callback?: any): Promise<CustomerProfilesEvaluationsInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesEvaluationsInstance(operationVersion, payload, this._solution.customerProfileSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface CustomerProfilesEvaluationsPayload extends CustomerProfilesEvaluationsResource, Page.TwilioResponsePayload {
-}
-
-interface CustomerProfilesEvaluationsResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  policy_sid?: string | null;
-  customer_profile_sid?: string | null;
-  status?: CustomerProfileEvaluationStatus;
-  results?: Array<any> | null;
-  date_created?: Date | null;
-  url?: string | null;
-}
-
-export class CustomerProfilesEvaluationsInstance {
-  protected _solution: CustomerProfilesEvaluationsContextSolution;
-  protected _context?: CustomerProfilesEvaluationsContext;
-
-  constructor(protected _version: V1, payload: CustomerProfilesEvaluationsPayload, customerProfileSid: string, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.policySid = payload.policy_sid;
-    this.customerProfileSid = payload.customer_profile_sid;
-    this.status = payload.status;
-    this.results = payload.results;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
-
-    this._solution = { customerProfileSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the Evaluation resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The unique string of a policy
-   */
-  policySid?: string | null;
-  /**
-   * The unique string that identifies the resource
-   */
-  customerProfileSid?: string | null;
-  status?: CustomerProfileEvaluationStatus;
-  /**
-   * The results of the Evaluation resource
-   */
-  results?: Array<any> | null;
-  dateCreated?: Date | null;
-  url?: string | null;
-
-  private get _proxy(): CustomerProfilesEvaluationsContext {
-    this._context = this._context || new CustomerProfilesEvaluationsContextImpl(this._version, this._solution.customerProfileSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a CustomerProfilesEvaluationsInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CustomerProfilesEvaluationsInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesEvaluationsInstance) => any): Promise<CustomerProfilesEvaluationsInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      policySid: this.policySid, 
-      customerProfileSid: this.customerProfileSid, 
-      status: this.status, 
-      results: this.results, 
-      dateCreated: this.dateCreated, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class CustomerProfilesEvaluationsPage extends Page<V1, CustomerProfilesEvaluationsPayload, CustomerProfilesEvaluationsResource, CustomerProfilesEvaluationsInstance> {
 /**
 * Initialize the CustomerProfilesEvaluationsPage
@@ -495,5 +496,4 @@ constructor(version: V1, response: Response<string>, solution: CustomerProfilesE
     return inspect(this.toJSON(), options);
     }
     }
-
 

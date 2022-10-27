@@ -118,6 +118,250 @@ export interface BindingListInstancePageOptions {
 
 
 
+export interface BindingContext {
+
+
+  /**
+   * Remove a BindingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+
+  /**
+   * Fetch a BindingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BindingInstance
+   */
+  fetch(callback?: (error: Error | null, item?: BindingInstance) => any): Promise<BindingInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface BindingContextSolution {
+  serviceSid?: string;
+  sid?: string;
+}
+
+export class BindingContextImpl implements BindingContext {
+  protected _solution: BindingContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, serviceSid: string, sid: string) {
+    this._solution = { serviceSid, sid };
+    this._uri = `/Services/${serviceSid}/Bindings/${sid}`;
+  }
+
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  fetch(callback?: any): Promise<BindingInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new BindingInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
+}
+
+interface BindingResource {
+  sid?: string | null;
+  account_sid?: string | null;
+  service_sid?: string | null;
+  credential_sid?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  notification_protocol_version?: string | null;
+  endpoint?: string | null;
+  identity?: string | null;
+  binding_type?: string | null;
+  address?: string | null;
+  tags?: Array<string> | null;
+  url?: string | null;
+  links?: object | null;
+}
+
+export class BindingInstance {
+  protected _solution: BindingContextSolution;
+  protected _context?: BindingContext;
+
+  constructor(protected _version: V1, payload: BindingPayload, serviceSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.accountSid = payload.account_sid;
+    this.serviceSid = payload.service_sid;
+    this.credentialSid = payload.credential_sid;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.notificationProtocolVersion = payload.notification_protocol_version;
+    this.endpoint = payload.endpoint;
+    this.identity = payload.identity;
+    this.bindingType = payload.binding_type;
+    this.address = payload.address;
+    this.tags = payload.tags;
+    this.url = payload.url;
+    this.links = payload.links;
+
+    this._solution = { serviceSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The SID of the Service that the resource is associated with
+   */
+  serviceSid?: string | null;
+  /**
+   * The SID of the Credential resource to be used to send notifications to this Binding
+   */
+  credentialSid?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The RFC 2822 date and time in GMT when the resource was last updated
+   */
+  dateUpdated?: Date | null;
+  /**
+   * The protocol version to use to send the notification
+   */
+  notificationProtocolVersion?: string | null;
+  /**
+   * Deprecated
+   */
+  endpoint?: string | null;
+  /**
+   * The `identity` value that identifies the new resource\'s User
+   */
+  identity?: string | null;
+  /**
+   * The type of the Binding
+   */
+  bindingType?: string | null;
+  /**
+   * The channel-specific address
+   */
+  address?: string | null;
+  /**
+   * The list of tags associated with this Binding
+   */
+  tags?: Array<string> | null;
+  /**
+   * The absolute URL of the Binding resource
+   */
+  url?: string | null;
+  /**
+   * The URLs of related resources
+   */
+  links?: object | null;
+
+  private get _proxy(): BindingContext {
+    this._context = this._context || new BindingContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Remove a BindingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+     {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Fetch a BindingInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed BindingInstance
+   */
+  fetch(callback?: (error: Error | null, item?: BindingInstance) => any): Promise<BindingInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      accountSid: this.accountSid, 
+      serviceSid: this.serviceSid, 
+      credentialSid: this.credentialSid, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      notificationProtocolVersion: this.notificationProtocolVersion, 
+      endpoint: this.endpoint, 
+      identity: this.identity, 
+      bindingType: this.bindingType, 
+      address: this.address, 
+      tags: this.tags, 
+      url: this.url, 
+      links: this.links
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface BindingListInstance {
   (sid: string): BindingContext;
   get(sid: string): BindingContext;
@@ -362,249 +606,6 @@ export function BindingListInstance(version: V1, serviceSid: string): BindingLis
 }
 
 
-export interface BindingContext {
-
-
-  /**
-   * Remove a BindingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-
-  /**
-   * Fetch a BindingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BindingInstance
-   */
-  fetch(callback?: (error: Error | null, item?: BindingInstance) => any): Promise<BindingInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface BindingContextSolution {
-  serviceSid?: string;
-  sid?: string;
-}
-
-export class BindingContextImpl implements BindingContext {
-  protected _solution: BindingContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
-    this._solution = { serviceSid, sid };
-    this._uri = `/Services/${serviceSid}/Bindings/${sid}`;
-  }
-
-  remove(callback?: any): Promise<boolean> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  fetch(callback?: any): Promise<BindingInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new BindingInstance(operationVersion, payload, this._solution.serviceSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
-}
-
-interface BindingResource {
-  sid?: string | null;
-  account_sid?: string | null;
-  service_sid?: string | null;
-  credential_sid?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  notification_protocol_version?: string | null;
-  endpoint?: string | null;
-  identity?: string | null;
-  binding_type?: string | null;
-  address?: string | null;
-  tags?: Array<string> | null;
-  url?: string | null;
-  links?: object | null;
-}
-
-export class BindingInstance {
-  protected _solution: BindingContextSolution;
-  protected _context?: BindingContext;
-
-  constructor(protected _version: V1, payload: BindingPayload, serviceSid: string, sid?: string) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.credentialSid = payload.credential_sid;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.notificationProtocolVersion = payload.notification_protocol_version;
-    this.endpoint = payload.endpoint;
-    this.identity = payload.identity;
-    this.bindingType = payload.binding_type;
-    this.address = payload.address;
-    this.tags = payload.tags;
-    this.url = payload.url;
-    this.links = payload.links;
-
-    this._solution = { serviceSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The SID of the Service that the resource is associated with
-   */
-  serviceSid?: string | null;
-  /**
-   * The SID of the Credential resource to be used to send notifications to this Binding
-   */
-  credentialSid?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT when the resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
-   */
-  dateUpdated?: Date | null;
-  /**
-   * The protocol version to use to send the notification
-   */
-  notificationProtocolVersion?: string | null;
-  /**
-   * Deprecated
-   */
-  endpoint?: string | null;
-  /**
-   * The `identity` value that identifies the new resource\'s User
-   */
-  identity?: string | null;
-  /**
-   * The type of the Binding
-   */
-  bindingType?: string | null;
-  /**
-   * The channel-specific address
-   */
-  address?: string | null;
-  /**
-   * The list of tags associated with this Binding
-   */
-  tags?: Array<string> | null;
-  /**
-   * The absolute URL of the Binding resource
-   */
-  url?: string | null;
-  /**
-   * The URLs of related resources
-   */
-  links?: object | null;
-
-  private get _proxy(): BindingContext {
-    this._context = this._context || new BindingContextImpl(this._version, this._solution.serviceSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Remove a BindingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
-    return this._proxy.remove(callback);
-  }
-
-  /**
-   * Fetch a BindingInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed BindingInstance
-   */
-  fetch(callback?: (error: Error | null, item?: BindingInstance) => any): Promise<BindingInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      accountSid: this.accountSid, 
-      serviceSid: this.serviceSid, 
-      credentialSid: this.credentialSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      notificationProtocolVersion: this.notificationProtocolVersion, 
-      endpoint: this.endpoint, 
-      identity: this.identity, 
-      bindingType: this.bindingType, 
-      address: this.address, 
-      tags: this.tags, 
-      url: this.url, 
-      links: this.links
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {
 /**
 * Initialize the BindingPage
@@ -634,5 +635,4 @@ constructor(version: V1, response: Response<string>, solution: BindingSolution) 
     return inspect(this.toJSON(), options);
     }
     }
-
 

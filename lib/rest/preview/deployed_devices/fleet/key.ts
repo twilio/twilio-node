@@ -24,6 +24,17 @@ const serialize = require("../../../../base/serialize");
 
 
 /**
+ * Options to pass to update a KeyInstance
+ *
+ * @property { string } [friendlyName] Provides a human readable descriptive text for this Key credential, up to 256 characters long.
+ * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
+ */
+export interface KeyContextUpdateOptions {
+  friendlyName?: string;
+  deviceSid?: string;
+}
+
+/**
  * Options to pass to create a KeyInstance
  *
  * @property { string } [friendlyName] Provides a human readable descriptive text for this Key credential, up to 256 characters long.
@@ -86,252 +97,6 @@ export interface KeyListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a KeyInstance
- *
- * @property { string } [friendlyName] Provides a human readable descriptive text for this Key credential, up to 256 characters long.
- * @property { string } [deviceSid] Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
- */
-export interface KeyContextUpdateOptions {
-  friendlyName?: string;
-  deviceSid?: string;
-}
-
-export interface KeyListInstance {
-  (sid: string): KeyContext;
-  get(sid: string): KeyContext;
-
-
-  /**
-   * Create a KeyInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed KeyInstance
-   */
-  create(callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
-  /**
-   * Create a KeyInstance
-   *
-   * @param { KeyListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed KeyInstance
-   */
-  create(params: KeyListInstanceCreateOptions, callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
-  create(params?: any, callback?: any): Promise<KeyInstance>
-
-
-
-  /**
-   * Streams KeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: KeyInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams KeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { KeyListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: KeyListInstanceEachOptions, callback?: (item: KeyInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of KeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
-  /**
-   * Retrieve a single target page of KeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
-  getPage(params?: any, callback?: any): Promise<KeyPage>;
-  /**
-   * Lists KeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
-  /**
-   * Lists KeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { KeyListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: KeyListInstanceOptions, callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
-  list(params?: any, callback?: any): Promise<KeyInstance[]>;
-  /**
-   * Retrieve a single page of KeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
-  /**
-   * Retrieve a single page of KeyInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { KeyListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: KeyListInstancePageOptions, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
-  page(params?: any, callback?: any): Promise<KeyPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface KeySolution {
-  fleetSid?: string;
-}
-
-interface KeyListInstanceImpl extends KeyListInstance {}
-class KeyListInstanceImpl implements KeyListInstance {
-  _version?: DeployedDevices;
-  _solution?: KeySolution;
-  _uri?: string;
-
-}
-
-export function KeyListInstance(version: DeployedDevices, fleetSid: string): KeyListInstance {
-  const instance = ((sid) => instance.get(sid)) as KeyListInstanceImpl;
-
-  instance.get = function get(sid): KeyContext {
-    return new KeyContextImpl(version, fleetSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { fleetSid };
-  instance._uri = `/Fleets/${fleetSid}/Keys`;
-
-  instance.create = function create(params?: any, callback?: any): Promise<KeyInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.fleetSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<KeyPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new KeyPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<KeyPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new KeyPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface KeyContext {
@@ -612,6 +377,242 @@ export class KeyInstance {
   }
 }
 
+
+export interface KeyListInstance {
+  (sid: string): KeyContext;
+  get(sid: string): KeyContext;
+
+
+  /**
+   * Create a KeyInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed KeyInstance
+   */
+  create(callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
+  /**
+   * Create a KeyInstance
+   *
+   * @param { KeyListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed KeyInstance
+   */
+  create(params: KeyListInstanceCreateOptions, callback?: (error: Error | null, item?: KeyInstance) => any): Promise<KeyInstance>;
+  create(params?: any, callback?: any): Promise<KeyInstance>
+
+
+
+  /**
+   * Streams KeyInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: KeyInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams KeyInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { KeyListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: KeyListInstanceEachOptions, callback?: (item: KeyInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of KeyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  /**
+   * Retrieve a single target page of KeyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  getPage(params?: any, callback?: any): Promise<KeyPage>;
+  /**
+   * Lists KeyInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
+  /**
+   * Lists KeyInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { KeyListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: KeyListInstanceOptions, callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
+  list(params?: any, callback?: any): Promise<KeyInstance[]>;
+  /**
+   * Retrieve a single page of KeyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  /**
+   * Retrieve a single page of KeyInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { KeyListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: KeyListInstancePageOptions, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
+  page(params?: any, callback?: any): Promise<KeyPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface KeySolution {
+  fleetSid?: string;
+}
+
+interface KeyListInstanceImpl extends KeyListInstance {}
+class KeyListInstanceImpl implements KeyListInstance {
+  _version?: DeployedDevices;
+  _solution?: KeySolution;
+  _uri?: string;
+
+}
+
+export function KeyListInstance(version: DeployedDevices, fleetSid: string): KeyListInstance {
+  const instance = ((sid) => instance.get(sid)) as KeyListInstanceImpl;
+
+  instance.get = function get(sid): KeyContext {
+    return new KeyContextImpl(version, fleetSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { fleetSid };
+  instance._uri = `/Fleets/${fleetSid}/Keys`;
+
+  instance.create = function create(params?: any, callback?: any): Promise<KeyInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.friendlyName !== undefined) data['FriendlyName'] = params.friendlyName;
+    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new KeyInstance(operationVersion, payload, this._solution.fleetSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<KeyPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.deviceSid !== undefined) data['DeviceSid'] = params.deviceSid;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new KeyPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<KeyPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new KeyPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, KeyInstance> {
 /**
 * Initialize the KeyPage
@@ -641,5 +642,4 @@ constructor(version: DeployedDevices, response: Response<string>, solution: KeyS
     return inspect(this.toJSON(), options);
     }
     }
-
 

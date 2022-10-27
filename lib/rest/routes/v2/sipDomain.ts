@@ -32,52 +32,6 @@ export interface SipDomainContextUpdateOptions {
   friendlyName?: string;
 }
 
-export interface SipDomainListInstance {
-  (sipDomain: string): SipDomainContext;
-  get(sipDomain: string): SipDomainContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SipDomainSolution {
-}
-
-interface SipDomainListInstanceImpl extends SipDomainListInstance {}
-class SipDomainListInstanceImpl implements SipDomainListInstance {
-  _version?: V2;
-  _solution?: SipDomainSolution;
-  _uri?: string;
-
-}
-
-export function SipDomainListInstance(version: V2): SipDomainListInstance {
-  const instance = ((sipDomain) => instance.get(sipDomain)) as SipDomainListInstanceImpl;
-
-  instance.get = function get(sipDomain): SipDomainContext {
-    return new SipDomainContextImpl(version, sipDomain);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/SipDomains`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
-
 export interface SipDomainContext {
 
 
@@ -288,6 +242,52 @@ export class SipDomainInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface SipDomainListInstance {
+  (sipDomain: string): SipDomainContext;
+  get(sipDomain: string): SipDomainContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SipDomainSolution {
+}
+
+interface SipDomainListInstanceImpl extends SipDomainListInstance {}
+class SipDomainListInstanceImpl implements SipDomainListInstance {
+  _version?: V2;
+  _solution?: SipDomainSolution;
+  _uri?: string;
+
+}
+
+export function SipDomainListInstance(version: V2): SipDomainListInstance {
+  const instance = ((sipDomain) => instance.get(sipDomain)) as SipDomainListInstanceImpl;
+
+  instance.get = function get(sipDomain): SipDomainContext {
+    return new SipDomainContextImpl(version, sipDomain);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/SipDomains`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

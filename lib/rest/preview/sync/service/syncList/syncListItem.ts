@@ -22,10 +22,30 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-type SyncListItemQueryResultOrder = 'asc'|'desc';
-
 type SyncListItemQueryFromBoundType = 'inclusive'|'exclusive';
 
+type SyncListItemQueryResultOrder = 'asc'|'desc';
+
+
+/**
+ * Options to pass to remove a SyncListItemInstance
+ *
+ * @property { string } [ifMatch] The If-Match HTTP request header
+ */
+export interface SyncListItemContextRemoveOptions {
+  ifMatch?: string;
+}
+
+/**
+ * Options to pass to update a SyncListItemInstance
+ *
+ * @property { any } data 
+ * @property { string } [ifMatch] The If-Match HTTP request header
+ */
+export interface SyncListItemContextUpdateOptions {
+  data: any;
+  ifMatch?: string;
+}
 
 /**
  * Options to pass to create a SyncListItemInstance
@@ -100,256 +120,6 @@ export interface SyncListItemListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to remove a SyncListItemInstance
- *
- * @property { string } [ifMatch] The If-Match HTTP request header
- */
-export interface SyncListItemContextRemoveOptions {
-  ifMatch?: string;
-}
-
-/**
- * Options to pass to update a SyncListItemInstance
- *
- * @property { any } data 
- * @property { string } [ifMatch] The If-Match HTTP request header
- */
-export interface SyncListItemContextUpdateOptions {
-  data: any;
-  ifMatch?: string;
-}
-
-export interface SyncListItemListInstance {
-  (index: number): SyncListItemContext;
-  get(index: number): SyncListItemContext;
-
-
-  /**
-   * Create a SyncListItemInstance
-   *
-   * @param { SyncListItemListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed SyncListItemInstance
-   */
-  create(params: SyncListItemListInstanceCreateOptions, callback?: (error: Error | null, item?: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
-  create(params: any, callback?: any): Promise<SyncListItemInstance>
-
-
-
-  /**
-   * Streams SyncListItemInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams SyncListItemInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncListItemListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: SyncListItemListInstanceEachOptions, callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of SyncListItemInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
-  /**
-   * Retrieve a single target page of SyncListItemInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
-  getPage(params?: any, callback?: any): Promise<SyncListItemPage>;
-  /**
-   * Lists SyncListItemInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: SyncListItemInstance[]) => any): Promise<SyncListItemInstance[]>;
-  /**
-   * Lists SyncListItemInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncListItemListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: SyncListItemListInstanceOptions, callback?: (error: Error | null, items: SyncListItemInstance[]) => any): Promise<SyncListItemInstance[]>;
-  list(params?: any, callback?: any): Promise<SyncListItemInstance[]>;
-  /**
-   * Retrieve a single page of SyncListItemInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
-  /**
-   * Retrieve a single page of SyncListItemInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { SyncListItemListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: SyncListItemListInstancePageOptions, callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
-  page(params?: any, callback?: any): Promise<SyncListItemPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SyncListItemSolution {
-  serviceSid?: string;
-  listSid?: string;
-}
-
-interface SyncListItemListInstanceImpl extends SyncListItemListInstance {}
-class SyncListItemListInstanceImpl implements SyncListItemListInstance {
-  _version?: Sync;
-  _solution?: SyncListItemSolution;
-  _uri?: string;
-
-}
-
-export function SyncListItemListInstance(version: Sync, serviceSid: string, listSid: string): SyncListItemListInstance {
-  const instance = ((index) => instance.get(index)) as SyncListItemListInstanceImpl;
-
-  instance.get = function get(index): SyncListItemContext {
-    return new SyncListItemContextImpl(version, serviceSid, listSid, index);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid, listSid };
-  instance._uri = `/Services/${serviceSid}/Lists/${listSid}/Items`;
-
-  instance.create = function create(params: any, callback?: any): Promise<SyncListItemInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.data === null || params.data === undefined) {
-      throw new Error('Required parameter "params.data" missing.');
-    }
-
-    const data: any = {};
-
-    data['Data'] = params.data;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncListItemInstance(operationVersion, payload, this._solution.serviceSid, this._solution.listSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<SyncListItemPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.from !== undefined) data['From'] = params.from;
-    if (params.bounds !== undefined) data['Bounds'] = params.bounds;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new SyncListItemPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncListItemPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new SyncListItemPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface SyncListItemContext {
@@ -625,6 +395,237 @@ export class SyncListItemInstance {
   }
 }
 
+
+export interface SyncListItemListInstance {
+  (index: number): SyncListItemContext;
+  get(index: number): SyncListItemContext;
+
+
+  /**
+   * Create a SyncListItemInstance
+   *
+   * @param { SyncListItemListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed SyncListItemInstance
+   */
+  create(params: SyncListItemListInstanceCreateOptions, callback?: (error: Error | null, item?: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
+  create(params: any, callback?: any): Promise<SyncListItemInstance>
+
+
+
+  /**
+   * Streams SyncListItemInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams SyncListItemInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncListItemListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: SyncListItemListInstanceEachOptions, callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of SyncListItemInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
+  /**
+   * Retrieve a single target page of SyncListItemInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
+  getPage(params?: any, callback?: any): Promise<SyncListItemPage>;
+  /**
+   * Lists SyncListItemInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: SyncListItemInstance[]) => any): Promise<SyncListItemInstance[]>;
+  /**
+   * Lists SyncListItemInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncListItemListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: SyncListItemListInstanceOptions, callback?: (error: Error | null, items: SyncListItemInstance[]) => any): Promise<SyncListItemInstance[]>;
+  list(params?: any, callback?: any): Promise<SyncListItemInstance[]>;
+  /**
+   * Retrieve a single page of SyncListItemInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
+  /**
+   * Retrieve a single page of SyncListItemInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { SyncListItemListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: SyncListItemListInstancePageOptions, callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
+  page(params?: any, callback?: any): Promise<SyncListItemPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SyncListItemSolution {
+  serviceSid?: string;
+  listSid?: string;
+}
+
+interface SyncListItemListInstanceImpl extends SyncListItemListInstance {}
+class SyncListItemListInstanceImpl implements SyncListItemListInstance {
+  _version?: Sync;
+  _solution?: SyncListItemSolution;
+  _uri?: string;
+
+}
+
+export function SyncListItemListInstance(version: Sync, serviceSid: string, listSid: string): SyncListItemListInstance {
+  const instance = ((index) => instance.get(index)) as SyncListItemListInstanceImpl;
+
+  instance.get = function get(index): SyncListItemContext {
+    return new SyncListItemContextImpl(version, serviceSid, listSid, index);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid, listSid };
+  instance._uri = `/Services/${serviceSid}/Lists/${listSid}/Items`;
+
+  instance.create = function create(params: any, callback?: any): Promise<SyncListItemInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.data === null || params.data === undefined) {
+      throw new Error('Required parameter "params.data" missing.');
+    }
+
+    const data: any = {};
+
+    data['Data'] = params.data;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SyncListItemInstance(operationVersion, payload, this._solution.serviceSid, this._solution.listSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<SyncListItemPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.order !== undefined) data['Order'] = params.order;
+    if (params.from !== undefined) data['From'] = params.from;
+    if (params.bounds !== undefined) data['Bounds'] = params.bounds;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new SyncListItemPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<SyncListItemPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new SyncListItemPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class SyncListItemPage extends Page<Sync, SyncListItemPayload, SyncListItemResource, SyncListItemInstance> {
 /**
 * Initialize the SyncListItemPage
@@ -655,5 +656,4 @@ constructor(version: Sync, response: Response<string>, solution: SyncListItemSol
     return inspect(this.toJSON(), options);
     }
     }
-
 

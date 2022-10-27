@@ -17,55 +17,9 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { SchemaVersionListInstance } from "./schema/schemaVersion";
 
 
-
-export interface SchemaListInstance {
-  (id: string): SchemaContext;
-  get(id: string): SchemaContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface SchemaSolution {
-}
-
-interface SchemaListInstanceImpl extends SchemaListInstance {}
-class SchemaListInstanceImpl implements SchemaListInstance {
-  _version?: V1;
-  _solution?: SchemaSolution;
-  _uri?: string;
-
-}
-
-export function SchemaListInstance(version: V1): SchemaListInstance {
-  const instance = ((id) => instance.get(id)) as SchemaListInstanceImpl;
-
-  instance.get = function get(id): SchemaContext {
-    return new SchemaContextImpl(version, id);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Schemas`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface SchemaContext {
@@ -225,6 +179,52 @@ export class SchemaInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface SchemaListInstance {
+  (id: string): SchemaContext;
+  get(id: string): SchemaContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface SchemaSolution {
+}
+
+interface SchemaListInstanceImpl extends SchemaListInstance {}
+class SchemaListInstanceImpl implements SchemaListInstance {
+  _version?: V1;
+  _solution?: SchemaSolution;
+  _uri?: string;
+
+}
+
+export function SchemaListInstance(version: V1): SchemaListInstance {
+  const instance = ((id) => instance.get(id)) as SchemaListInstanceImpl;
+
+  instance.get = function get(id): SchemaContext {
+    return new SchemaContextImpl(version, id);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Schemas`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

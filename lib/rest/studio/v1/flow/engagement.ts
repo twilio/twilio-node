@@ -19,9 +19,9 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { EngagementContextListInstance } from "./engagement/engagementContext";
 import { StepListInstance } from "./engagement/step";
+
 
 
 type EngagementStatus = 'active'|'ended';
@@ -86,238 +86,6 @@ export interface EngagementListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-export interface EngagementListInstance {
-  (sid: string): EngagementContext;
-  get(sid: string): EngagementContext;
-
-
-  /**
-   * Create a EngagementInstance
-   *
-   * @param { EngagementListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed EngagementInstance
-   */
-  create(params: EngagementListInstanceCreateOptions, callback?: (error: Error | null, item?: EngagementInstance) => any): Promise<EngagementInstance>;
-  create(params: any, callback?: any): Promise<EngagementInstance>
-
-
-
-  /**
-   * Streams EngagementInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: EngagementInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams EngagementInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { EngagementListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: EngagementListInstanceEachOptions, callback?: (item: EngagementInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of EngagementInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
-  /**
-   * Retrieve a single target page of EngagementInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
-  getPage(params?: any, callback?: any): Promise<EngagementPage>;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: EngagementInstance[]) => any): Promise<EngagementInstance[]>;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { EngagementListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: EngagementListInstanceOptions, callback?: (error: Error | null, items: EngagementInstance[]) => any): Promise<EngagementInstance[]>;
-  list(params?: any, callback?: any): Promise<EngagementInstance[]>;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { EngagementListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: EngagementListInstancePageOptions, callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
-  page(params?: any, callback?: any): Promise<EngagementPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface EngagementSolution {
-  flowSid?: string;
-}
-
-interface EngagementListInstanceImpl extends EngagementListInstance {}
-class EngagementListInstanceImpl implements EngagementListInstance {
-  _version?: V1;
-  _solution?: EngagementSolution;
-  _uri?: string;
-
-}
-
-export function EngagementListInstance(version: V1, flowSid: string): EngagementListInstance {
-  const instance = ((sid) => instance.get(sid)) as EngagementListInstanceImpl;
-
-  instance.get = function get(sid): EngagementContext {
-    return new EngagementContextImpl(version, flowSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { flowSid };
-  instance._uri = `/Flows/${flowSid}/Engagements`;
-
-  instance.create = function create(params: any, callback?: any): Promise<EngagementInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.to === null || params.to === undefined) {
-      throw new Error('Required parameter "params.to" missing.');
-    }
-
-    if (params.from === null || params.from === undefined) {
-      throw new Error('Required parameter "params.from" missing.');
-    }
-
-    const data: any = {};
-
-    data['To'] = params.to;
-    data['From'] = params.from;
-    if (params.parameters !== undefined) data['Parameters'] = params.parameters;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EngagementInstance(operationVersion, payload, this._solution.flowSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<EngagementPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new EngagementPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EngagementPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new EngagementPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface EngagementContext {
@@ -567,6 +335,239 @@ export class EngagementInstance {
   }
 }
 
+
+export interface EngagementListInstance {
+  (sid: string): EngagementContext;
+  get(sid: string): EngagementContext;
+
+
+  /**
+   * Create a EngagementInstance
+   *
+   * @param { EngagementListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed EngagementInstance
+   */
+  create(params: EngagementListInstanceCreateOptions, callback?: (error: Error | null, item?: EngagementInstance) => any): Promise<EngagementInstance>;
+  create(params: any, callback?: any): Promise<EngagementInstance>
+
+
+
+  /**
+   * Streams EngagementInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: EngagementInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams EngagementInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EngagementListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: EngagementListInstanceEachOptions, callback?: (item: EngagementInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of EngagementInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
+  /**
+   * Retrieve a single target page of EngagementInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
+  getPage(params?: any, callback?: any): Promise<EngagementPage>;
+  /**
+   * Lists EngagementInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: EngagementInstance[]) => any): Promise<EngagementInstance[]>;
+  /**
+   * Lists EngagementInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EngagementListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: EngagementListInstanceOptions, callback?: (error: Error | null, items: EngagementInstance[]) => any): Promise<EngagementInstance[]>;
+  list(params?: any, callback?: any): Promise<EngagementInstance[]>;
+  /**
+   * Retrieve a single page of EngagementInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
+  /**
+   * Retrieve a single page of EngagementInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { EngagementListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: EngagementListInstancePageOptions, callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
+  page(params?: any, callback?: any): Promise<EngagementPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface EngagementSolution {
+  flowSid?: string;
+}
+
+interface EngagementListInstanceImpl extends EngagementListInstance {}
+class EngagementListInstanceImpl implements EngagementListInstance {
+  _version?: V1;
+  _solution?: EngagementSolution;
+  _uri?: string;
+
+}
+
+export function EngagementListInstance(version: V1, flowSid: string): EngagementListInstance {
+  const instance = ((sid) => instance.get(sid)) as EngagementListInstanceImpl;
+
+  instance.get = function get(sid): EngagementContext {
+    return new EngagementContextImpl(version, flowSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { flowSid };
+  instance._uri = `/Flows/${flowSid}/Engagements`;
+
+  instance.create = function create(params: any, callback?: any): Promise<EngagementInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.to === null || params.to === undefined) {
+      throw new Error('Required parameter "params.to" missing.');
+    }
+
+    if (params.from === null || params.from === undefined) {
+      throw new Error('Required parameter "params.from" missing.');
+    }
+
+    const data: any = {};
+
+    data['To'] = params.to;
+    data['From'] = params.from;
+    if (params.parameters !== undefined) data['Parameters'] = params.parameters;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new EngagementInstance(operationVersion, payload, this._solution.flowSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<EngagementPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new EngagementPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<EngagementPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new EngagementPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class EngagementPage extends Page<V1, EngagementPayload, EngagementResource, EngagementInstance> {
 /**
 * Initialize the EngagementPage
@@ -596,5 +597,4 @@ constructor(version: V1, response: Response<string>, solution: EngagementSolutio
     return inspect(this.toJSON(), options);
     }
     }
-
 

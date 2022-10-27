@@ -22,6 +22,19 @@ const serialize = require("../../../../../base/serialize");
 
 
 
+
+/**
+ * Options to pass to update a DocumentPermissionInstance
+ *
+ * @property { boolean } read Boolean flag specifying whether the identity can read the Sync Document.
+ * @property { boolean } write Boolean flag specifying whether the identity can update the Sync Document.
+ * @property { boolean } manage Boolean flag specifying whether the identity can delete the Sync Document.
+ */
+export interface DocumentPermissionContextUpdateOptions {
+  read: boolean;
+  write: boolean;
+  manage: boolean;
+}
 /**
  * Options to pass to each
  *
@@ -69,206 +82,6 @@ export interface DocumentPermissionListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a DocumentPermissionInstance
- *
- * @property { boolean } read Boolean flag specifying whether the identity can read the Sync Document.
- * @property { boolean } write Boolean flag specifying whether the identity can update the Sync Document.
- * @property { boolean } manage Boolean flag specifying whether the identity can delete the Sync Document.
- */
-export interface DocumentPermissionContextUpdateOptions {
-  read: boolean;
-  write: boolean;
-  manage: boolean;
-}
-
-export interface DocumentPermissionListInstance {
-  (identity: string): DocumentPermissionContext;
-  get(identity: string): DocumentPermissionContext;
-
-
-
-  /**
-   * Streams DocumentPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams DocumentPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DocumentPermissionListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: DocumentPermissionListInstanceEachOptions, callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of DocumentPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
-  /**
-   * Retrieve a single target page of DocumentPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
-  getPage(params?: any, callback?: any): Promise<DocumentPermissionPage>;
-  /**
-   * Lists DocumentPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any): Promise<DocumentPermissionInstance[]>;
-  /**
-   * Lists DocumentPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DocumentPermissionListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: DocumentPermissionListInstanceOptions, callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any): Promise<DocumentPermissionInstance[]>;
-  list(params?: any, callback?: any): Promise<DocumentPermissionInstance[]>;
-  /**
-   * Retrieve a single page of DocumentPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
-  /**
-   * Retrieve a single page of DocumentPermissionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { DocumentPermissionListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: DocumentPermissionListInstancePageOptions, callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
-  page(params?: any, callback?: any): Promise<DocumentPermissionPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface DocumentPermissionSolution {
-  serviceSid?: string;
-  documentSid?: string;
-}
-
-interface DocumentPermissionListInstanceImpl extends DocumentPermissionListInstance {}
-class DocumentPermissionListInstanceImpl implements DocumentPermissionListInstance {
-  _version?: Sync;
-  _solution?: DocumentPermissionSolution;
-  _uri?: string;
-
-}
-
-export function DocumentPermissionListInstance(version: Sync, serviceSid: string, documentSid: string): DocumentPermissionListInstance {
-  const instance = ((identity) => instance.get(identity)) as DocumentPermissionListInstanceImpl;
-
-  instance.get = function get(identity): DocumentPermissionContext {
-    return new DocumentPermissionContextImpl(version, serviceSid, documentSid, identity);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid, documentSid };
-  instance._uri = `/Services/${serviceSid}/Documents/${documentSid}/Permissions`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<DocumentPermissionPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new DocumentPermissionPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DocumentPermissionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new DocumentPermissionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface DocumentPermissionContext {
@@ -537,6 +350,194 @@ export class DocumentPermissionInstance {
   }
 }
 
+
+export interface DocumentPermissionListInstance {
+  (identity: string): DocumentPermissionContext;
+  get(identity: string): DocumentPermissionContext;
+
+
+
+  /**
+   * Streams DocumentPermissionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams DocumentPermissionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DocumentPermissionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: DocumentPermissionListInstanceEachOptions, callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of DocumentPermissionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
+  /**
+   * Retrieve a single target page of DocumentPermissionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
+  getPage(params?: any, callback?: any): Promise<DocumentPermissionPage>;
+  /**
+   * Lists DocumentPermissionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any): Promise<DocumentPermissionInstance[]>;
+  /**
+   * Lists DocumentPermissionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DocumentPermissionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: DocumentPermissionListInstanceOptions, callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any): Promise<DocumentPermissionInstance[]>;
+  list(params?: any, callback?: any): Promise<DocumentPermissionInstance[]>;
+  /**
+   * Retrieve a single page of DocumentPermissionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
+  /**
+   * Retrieve a single page of DocumentPermissionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { DocumentPermissionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: DocumentPermissionListInstancePageOptions, callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
+  page(params?: any, callback?: any): Promise<DocumentPermissionPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface DocumentPermissionSolution {
+  serviceSid?: string;
+  documentSid?: string;
+}
+
+interface DocumentPermissionListInstanceImpl extends DocumentPermissionListInstance {}
+class DocumentPermissionListInstanceImpl implements DocumentPermissionListInstance {
+  _version?: Sync;
+  _solution?: DocumentPermissionSolution;
+  _uri?: string;
+
+}
+
+export function DocumentPermissionListInstance(version: Sync, serviceSid: string, documentSid: string): DocumentPermissionListInstance {
+  const instance = ((identity) => instance.get(identity)) as DocumentPermissionListInstanceImpl;
+
+  instance.get = function get(identity): DocumentPermissionContext {
+    return new DocumentPermissionContextImpl(version, serviceSid, documentSid, identity);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid, documentSid };
+  instance._uri = `/Services/${serviceSid}/Documents/${documentSid}/Permissions`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<DocumentPermissionPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new DocumentPermissionPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<DocumentPermissionPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new DocumentPermissionPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class DocumentPermissionPage extends Page<Sync, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {
 /**
 * Initialize the DocumentPermissionPage
@@ -567,5 +568,4 @@ constructor(version: Sync, response: Response<string>, solution: DocumentPermiss
     return inspect(this.toJSON(), options);
     }
     }
-
 

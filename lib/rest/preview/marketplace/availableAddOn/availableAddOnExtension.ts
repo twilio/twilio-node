@@ -71,6 +71,160 @@ export interface AvailableAddOnExtensionListInstancePageOptions {
 
 
 
+export interface AvailableAddOnExtensionContext {
+
+
+  /**
+   * Fetch a AvailableAddOnExtensionInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AvailableAddOnExtensionInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AvailableAddOnExtensionInstance) => any): Promise<AvailableAddOnExtensionInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AvailableAddOnExtensionContextSolution {
+  availableAddOnSid?: string;
+  sid?: string;
+}
+
+export class AvailableAddOnExtensionContextImpl implements AvailableAddOnExtensionContext {
+  protected _solution: AvailableAddOnExtensionContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: Marketplace, availableAddOnSid: string, sid: string) {
+    this._solution = { availableAddOnSid, sid };
+    this._uri = `/AvailableAddOns/${availableAddOnSid}/Extensions/${sid}`;
+  }
+
+  fetch(callback?: any): Promise<AvailableAddOnExtensionInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new AvailableAddOnExtensionInstance(operationVersion, payload, this._solution.availableAddOnSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface AvailableAddOnExtensionPayload extends AvailableAddOnExtensionResource, Page.TwilioResponsePayload {
+}
+
+interface AvailableAddOnExtensionResource {
+  sid?: string | null;
+  available_add_on_sid?: string | null;
+  friendly_name?: string | null;
+  product_name?: string | null;
+  unique_name?: string | null;
+  url?: string | null;
+}
+
+export class AvailableAddOnExtensionInstance {
+  protected _solution: AvailableAddOnExtensionContextSolution;
+  protected _context?: AvailableAddOnExtensionContext;
+
+  constructor(protected _version: Marketplace, payload: AvailableAddOnExtensionPayload, availableAddOnSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.availableAddOnSid = payload.available_add_on_sid;
+    this.friendlyName = payload.friendly_name;
+    this.productName = payload.product_name;
+    this.uniqueName = payload.unique_name;
+    this.url = payload.url;
+
+    this._solution = { availableAddOnSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the AvailableAddOn resource to which this extension applies
+   */
+  availableAddOnSid?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  friendlyName?: string | null;
+  /**
+   * The name of the Extension\'s Product
+   */
+  productName?: string | null;
+  /**
+   * An application-defined string that uniquely identifies the resource
+   */
+  uniqueName?: string | null;
+  /**
+   * The absolute URL of the resource
+   */
+  url?: string | null;
+
+  private get _proxy(): AvailableAddOnExtensionContext {
+    this._context = this._context || new AvailableAddOnExtensionContextImpl(this._version, this._solution.availableAddOnSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a AvailableAddOnExtensionInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AvailableAddOnExtensionInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AvailableAddOnExtensionInstance) => any): Promise<AvailableAddOnExtensionInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      availableAddOnSid: this.availableAddOnSid, 
+      friendlyName: this.friendlyName, 
+      productName: this.productName, 
+      uniqueName: this.uniqueName, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface AvailableAddOnExtensionListInstance {
   (sid: string): AvailableAddOnExtensionContext;
   get(sid: string): AvailableAddOnExtensionContext;
@@ -257,159 +411,6 @@ export function AvailableAddOnExtensionListInstance(version: Marketplace, availa
 }
 
 
-export interface AvailableAddOnExtensionContext {
-
-
-  /**
-   * Fetch a AvailableAddOnExtensionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AvailableAddOnExtensionInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AvailableAddOnExtensionInstance) => any): Promise<AvailableAddOnExtensionInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AvailableAddOnExtensionContextSolution {
-  availableAddOnSid?: string;
-  sid?: string;
-}
-
-export class AvailableAddOnExtensionContextImpl implements AvailableAddOnExtensionContext {
-  protected _solution: AvailableAddOnExtensionContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: Marketplace, availableAddOnSid: string, sid: string) {
-    this._solution = { availableAddOnSid, sid };
-    this._uri = `/AvailableAddOns/${availableAddOnSid}/Extensions/${sid}`;
-  }
-
-  fetch(callback?: any): Promise<AvailableAddOnExtensionInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new AvailableAddOnExtensionInstance(operationVersion, payload, this._solution.availableAddOnSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface AvailableAddOnExtensionPayload extends AvailableAddOnExtensionResource, Page.TwilioResponsePayload {
-}
-
-interface AvailableAddOnExtensionResource {
-  sid?: string | null;
-  available_add_on_sid?: string | null;
-  friendly_name?: string | null;
-  product_name?: string | null;
-  unique_name?: string | null;
-  url?: string | null;
-}
-
-export class AvailableAddOnExtensionInstance {
-  protected _solution: AvailableAddOnExtensionContextSolution;
-  protected _context?: AvailableAddOnExtensionContext;
-
-  constructor(protected _version: Marketplace, payload: AvailableAddOnExtensionPayload, availableAddOnSid: string, sid?: string) {
-    this.sid = payload.sid;
-    this.availableAddOnSid = payload.available_add_on_sid;
-    this.friendlyName = payload.friendly_name;
-    this.productName = payload.product_name;
-    this.uniqueName = payload.unique_name;
-    this.url = payload.url;
-
-    this._solution = { availableAddOnSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the AvailableAddOn resource to which this extension applies
-   */
-  availableAddOnSid?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  friendlyName?: string | null;
-  /**
-   * The name of the Extension\'s Product
-   */
-  productName?: string | null;
-  /**
-   * An application-defined string that uniquely identifies the resource
-   */
-  uniqueName?: string | null;
-  /**
-   * The absolute URL of the resource
-   */
-  url?: string | null;
-
-  private get _proxy(): AvailableAddOnExtensionContext {
-    this._context = this._context || new AvailableAddOnExtensionContextImpl(this._version, this._solution.availableAddOnSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a AvailableAddOnExtensionInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AvailableAddOnExtensionInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AvailableAddOnExtensionInstance) => any): Promise<AvailableAddOnExtensionInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      availableAddOnSid: this.availableAddOnSid, 
-      friendlyName: this.friendlyName, 
-      productName: this.productName, 
-      uniqueName: this.uniqueName, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class AvailableAddOnExtensionPage extends Page<Marketplace, AvailableAddOnExtensionPayload, AvailableAddOnExtensionResource, AvailableAddOnExtensionInstance> {
 /**
 * Initialize the AvailableAddOnExtensionPage
@@ -439,5 +440,4 @@ constructor(version: Marketplace, response: Response<string>, solution: Availabl
     return inspect(this.toJSON(), options);
     }
     }
-
 

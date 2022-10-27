@@ -21,52 +21,6 @@ const serialize = require("../../../../base/serialize");
 
 
 
-export interface JobListInstance {
-  (jobSid: string): JobContext;
-  get(jobSid: string): JobContext;
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface JobSolution {
-}
-
-interface JobListInstanceImpl extends JobListInstance {}
-class JobListInstanceImpl implements JobListInstance {
-  _version?: V1;
-  _solution?: JobSolution;
-  _uri?: string;
-
-}
-
-export function JobListInstance(version: V1): JobListInstance {
-  const instance = ((jobSid) => instance.get(jobSid)) as JobListInstanceImpl;
-
-  instance.get = function get(jobSid): JobContext {
-    return new JobContextImpl(version, jobSid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Exports/Jobs`;
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
-
 export interface JobContext {
 
 
@@ -290,6 +244,52 @@ export class JobInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface JobListInstance {
+  (jobSid: string): JobContext;
+  get(jobSid: string): JobContext;
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface JobSolution {
+}
+
+interface JobListInstanceImpl extends JobListInstance {}
+class JobListInstanceImpl implements JobListInstance {
+  _version?: V1;
+  _solution?: JobSolution;
+  _uri?: string;
+
+}
+
+export function JobListInstance(version: V1): JobListInstance {
+  const instance = ((jobSid) => instance.get(jobSid)) as JobListInstanceImpl;
+
+  instance.get = function get(jobSid): JobContext {
+    return new JobContextImpl(version, jobSid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Exports/Jobs`;
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

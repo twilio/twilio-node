@@ -22,9 +22,9 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-type InteractionType = 'message'|'voice'|'unknown';
-
 type InteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
+
+type InteractionType = 'message'|'voice'|'unknown';
 
 /**
  * Options to pass to each
@@ -73,193 +73,6 @@ export interface InteractionListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-export interface InteractionListInstance {
-  (sid: string): InteractionContext;
-  get(sid: string): InteractionContext;
-
-
-
-  /**
-   * Streams InteractionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams InteractionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InteractionListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: InteractionListInstanceEachOptions, callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of InteractionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
-  /**
-   * Retrieve a single target page of InteractionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
-  getPage(params?: any, callback?: any): Promise<InteractionPage>;
-  /**
-   * Lists InteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: InteractionInstance[]) => any): Promise<InteractionInstance[]>;
-  /**
-   * Lists InteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InteractionListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: InteractionListInstanceOptions, callback?: (error: Error | null, items: InteractionInstance[]) => any): Promise<InteractionInstance[]>;
-  list(params?: any, callback?: any): Promise<InteractionInstance[]>;
-  /**
-   * Retrieve a single page of InteractionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
-  /**
-   * Retrieve a single page of InteractionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InteractionListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: InteractionListInstancePageOptions, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
-  page(params?: any, callback?: any): Promise<InteractionPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface InteractionSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-}
-
-interface InteractionListInstanceImpl extends InteractionListInstance {}
-class InteractionListInstanceImpl implements InteractionListInstance {
-  _version?: V1;
-  _solution?: InteractionSolution;
-  _uri?: string;
-
-}
-
-export function InteractionListInstance(version: V1, serviceSid: string, sessionSid: string): InteractionListInstance {
-  const instance = ((sid) => instance.get(sid)) as InteractionListInstanceImpl;
-
-  instance.get = function get(sid): InteractionContext {
-    return new InteractionContextImpl(version, serviceSid, sessionSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid, sessionSid };
-  instance._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Interactions`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<InteractionPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new InteractionPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InteractionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new InteractionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface InteractionContext {
@@ -532,6 +345,194 @@ export class InteractionInstance {
   }
 }
 
+
+export interface InteractionListInstance {
+  (sid: string): InteractionContext;
+  get(sid: string): InteractionContext;
+
+
+
+  /**
+   * Streams InteractionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams InteractionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InteractionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: InteractionListInstanceEachOptions, callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of InteractionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
+  /**
+   * Retrieve a single target page of InteractionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
+  getPage(params?: any, callback?: any): Promise<InteractionPage>;
+  /**
+   * Lists InteractionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: InteractionInstance[]) => any): Promise<InteractionInstance[]>;
+  /**
+   * Lists InteractionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InteractionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: InteractionListInstanceOptions, callback?: (error: Error | null, items: InteractionInstance[]) => any): Promise<InteractionInstance[]>;
+  list(params?: any, callback?: any): Promise<InteractionInstance[]>;
+  /**
+   * Retrieve a single page of InteractionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
+  /**
+   * Retrieve a single page of InteractionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InteractionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: InteractionListInstancePageOptions, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
+  page(params?: any, callback?: any): Promise<InteractionPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface InteractionSolution {
+  serviceSid?: string;
+  sessionSid?: string;
+}
+
+interface InteractionListInstanceImpl extends InteractionListInstance {}
+class InteractionListInstanceImpl implements InteractionListInstance {
+  _version?: V1;
+  _solution?: InteractionSolution;
+  _uri?: string;
+
+}
+
+export function InteractionListInstance(version: V1, serviceSid: string, sessionSid: string): InteractionListInstance {
+  const instance = ((sid) => instance.get(sid)) as InteractionListInstanceImpl;
+
+  instance.get = function get(sid): InteractionContext {
+    return new InteractionContextImpl(version, serviceSid, sessionSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid, sessionSid };
+  instance._uri = `/Services/${serviceSid}/Sessions/${sessionSid}/Interactions`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<InteractionPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InteractionPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InteractionPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new InteractionPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class InteractionPage extends Page<V1, InteractionPayload, InteractionResource, InteractionInstance> {
 /**
 * Initialize the InteractionPage
@@ -562,5 +563,4 @@ constructor(version: V1, response: Response<string>, solution: InteractionSoluti
     return inspect(this.toJSON(), options);
     }
     }
-
 

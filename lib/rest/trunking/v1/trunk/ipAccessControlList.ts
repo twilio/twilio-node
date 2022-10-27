@@ -80,6 +80,201 @@ export interface IpAccessControlListListInstancePageOptions {
 
 
 
+export interface IpAccessControlListContext {
+
+
+  /**
+   * Remove a IpAccessControlListInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+
+  /**
+   * Fetch a IpAccessControlListInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpAccessControlListInstance
+   */
+  fetch(callback?: (error: Error | null, item?: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface IpAccessControlListContextSolution {
+  trunkSid?: string;
+  sid?: string;
+}
+
+export class IpAccessControlListContextImpl implements IpAccessControlListContext {
+  protected _solution: IpAccessControlListContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, trunkSid: string, sid: string) {
+    this._solution = { trunkSid, sid };
+    this._uri = `/Trunks/${trunkSid}/IpAccessControlLists/${sid}`;
+  }
+
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  fetch(callback?: any): Promise<IpAccessControlListInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new IpAccessControlListInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface IpAccessControlListPayload extends IpAccessControlListResource, Page.TwilioResponsePayload {
+}
+
+interface IpAccessControlListResource {
+  account_sid?: string | null;
+  sid?: string | null;
+  trunk_sid?: string | null;
+  friendly_name?: string | null;
+  date_created?: Date | null;
+  date_updated?: Date | null;
+  url?: string | null;
+}
+
+export class IpAccessControlListInstance {
+  protected _solution: IpAccessControlListContextSolution;
+  protected _context?: IpAccessControlListContext;
+
+  constructor(protected _version: V1, payload: IpAccessControlListPayload, trunkSid: string, sid?: string) {
+    this.accountSid = payload.account_sid;
+    this.sid = payload.sid;
+    this.trunkSid = payload.trunk_sid;
+    this.friendlyName = payload.friendly_name;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+    this.url = payload.url;
+
+    this._solution = { trunkSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The SID of the Trunk the resource is associated with
+   */
+  trunkSid?: string | null;
+  /**
+   * The string that you assigned to describe the resource
+   */
+  friendlyName?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The RFC 2822 date and time in GMT when the resource was last updated
+   */
+  dateUpdated?: Date | null;
+  /**
+   * The absolute URL of the resource
+   */
+  url?: string | null;
+
+  private get _proxy(): IpAccessControlListContext {
+    this._context = this._context || new IpAccessControlListContextImpl(this._version, this._solution.trunkSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Remove a IpAccessControlListInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+     {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Fetch a IpAccessControlListInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed IpAccessControlListInstance
+   */
+  fetch(callback?: (error: Error | null, item?: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      sid: this.sid, 
+      trunkSid: this.trunkSid, 
+      friendlyName: this.friendlyName, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface IpAccessControlListListInstance {
   (sid: string): IpAccessControlListContext;
   get(sid: string): IpAccessControlListContext;
@@ -306,200 +501,6 @@ export function IpAccessControlListListInstance(version: V1, trunkSid: string): 
 }
 
 
-export interface IpAccessControlListContext {
-
-
-  /**
-   * Remove a IpAccessControlListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-
-  /**
-   * Fetch a IpAccessControlListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpAccessControlListInstance
-   */
-  fetch(callback?: (error: Error | null, item?: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface IpAccessControlListContextSolution {
-  trunkSid?: string;
-  sid?: string;
-}
-
-export class IpAccessControlListContextImpl implements IpAccessControlListContext {
-  protected _solution: IpAccessControlListContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, trunkSid: string, sid: string) {
-    this._solution = { trunkSid, sid };
-    this._uri = `/Trunks/${trunkSid}/IpAccessControlLists/${sid}`;
-  }
-
-  remove(callback?: any): Promise<boolean> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  fetch(callback?: any): Promise<IpAccessControlListInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new IpAccessControlListInstance(operationVersion, payload, this._solution.trunkSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface IpAccessControlListPayload extends IpAccessControlListResource, Page.TwilioResponsePayload {
-}
-
-interface IpAccessControlListResource {
-  account_sid?: string | null;
-  sid?: string | null;
-  trunk_sid?: string | null;
-  friendly_name?: string | null;
-  date_created?: Date | null;
-  date_updated?: Date | null;
-  url?: string | null;
-}
-
-export class IpAccessControlListInstance {
-  protected _solution: IpAccessControlListContextSolution;
-  protected _context?: IpAccessControlListContext;
-
-  constructor(protected _version: V1, payload: IpAccessControlListPayload, trunkSid: string, sid?: string) {
-    this.accountSid = payload.account_sid;
-    this.sid = payload.sid;
-    this.trunkSid = payload.trunk_sid;
-    this.friendlyName = payload.friendly_name;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
-
-    this._solution = { trunkSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The SID of the Trunk the resource is associated with
-   */
-  trunkSid?: string | null;
-  /**
-   * The string that you assigned to describe the resource
-   */
-  friendlyName?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT when the resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The RFC 2822 date and time in GMT when the resource was last updated
-   */
-  dateUpdated?: Date | null;
-  /**
-   * The absolute URL of the resource
-   */
-  url?: string | null;
-
-  private get _proxy(): IpAccessControlListContext {
-    this._context = this._context || new IpAccessControlListContextImpl(this._version, this._solution.trunkSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Remove a IpAccessControlListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
-    return this._proxy.remove(callback);
-  }
-
-  /**
-   * Fetch a IpAccessControlListInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed IpAccessControlListInstance
-   */
-  fetch(callback?: (error: Error | null, item?: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      accountSid: this.accountSid, 
-      sid: this.sid, 
-      trunkSid: this.trunkSid, 
-      friendlyName: this.friendlyName, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class IpAccessControlListPage extends Page<V1, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListInstance> {
 /**
 * Initialize the IpAccessControlListPage
@@ -529,5 +530,4 @@ constructor(version: V1, response: Response<string>, solution: IpAccessControlLi
     return inspect(this.toJSON(), options);
     }
     }
-
 

@@ -19,10 +19,19 @@ import Response from "../../../../http/response";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
-
 import { AssetVersionListInstance } from "./asset/assetVersion";
 
 
+
+
+/**
+ * Options to pass to update a AssetInstance
+ *
+ * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+ */
+export interface AssetContextUpdateOptions {
+  friendlyName: string;
+}
 
 /**
  * Options to pass to create a AssetInstance
@@ -79,241 +88,6 @@ export interface AssetListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a AssetInstance
- *
- * @property { string } friendlyName A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
- */
-export interface AssetContextUpdateOptions {
-  friendlyName: string;
-}
-
-export interface AssetListInstance {
-  (sid: string): AssetContext;
-  get(sid: string): AssetContext;
-
-
-  /**
-   * Create a AssetInstance
-   *
-   * @param { AssetListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AssetInstance
-   */
-  create(params: AssetListInstanceCreateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>;
-  create(params: any, callback?: any): Promise<AssetInstance>
-
-
-
-  /**
-   * Streams AssetInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: AssetInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams AssetInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AssetListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: AssetListInstanceEachOptions, callback?: (item: AssetInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of AssetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
-  /**
-   * Retrieve a single target page of AssetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
-  getPage(params?: any, callback?: any): Promise<AssetPage>;
-  /**
-   * Lists AssetInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: AssetInstance[]) => any): Promise<AssetInstance[]>;
-  /**
-   * Lists AssetInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AssetListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: AssetListInstanceOptions, callback?: (error: Error | null, items: AssetInstance[]) => any): Promise<AssetInstance[]>;
-  list(params?: any, callback?: any): Promise<AssetInstance[]>;
-  /**
-   * Retrieve a single page of AssetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
-  /**
-   * Retrieve a single page of AssetInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { AssetListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: AssetListInstancePageOptions, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
-  page(params?: any, callback?: any): Promise<AssetPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AssetSolution {
-  serviceSid?: string;
-}
-
-interface AssetListInstanceImpl extends AssetListInstance {}
-class AssetListInstanceImpl implements AssetListInstance {
-  _version?: V1;
-  _solution?: AssetSolution;
-  _uri?: string;
-
-}
-
-export function AssetListInstance(version: V1, serviceSid: string): AssetListInstance {
-  const instance = ((sid) => instance.get(sid)) as AssetListInstanceImpl;
-
-  instance.get = function get(sid): AssetContext {
-    return new AssetContextImpl(version, serviceSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { serviceSid };
-  instance._uri = `/Services/${serviceSid}/Assets`;
-
-  instance.create = function create(params: any, callback?: any): Promise<AssetInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<AssetPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new AssetPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssetPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new AssetPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface AssetContext {
@@ -585,6 +359,233 @@ export class AssetInstance {
   }
 }
 
+
+export interface AssetListInstance {
+  (sid: string): AssetContext;
+  get(sid: string): AssetContext;
+
+
+  /**
+   * Create a AssetInstance
+   *
+   * @param { AssetListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AssetInstance
+   */
+  create(params: AssetListInstanceCreateOptions, callback?: (error: Error | null, item?: AssetInstance) => any): Promise<AssetInstance>;
+  create(params: any, callback?: any): Promise<AssetInstance>
+
+
+
+  /**
+   * Streams AssetInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: AssetInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams AssetInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssetListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: AssetListInstanceEachOptions, callback?: (item: AssetInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of AssetInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  /**
+   * Retrieve a single target page of AssetInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  getPage(params?: any, callback?: any): Promise<AssetPage>;
+  /**
+   * Lists AssetInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: AssetInstance[]) => any): Promise<AssetInstance[]>;
+  /**
+   * Lists AssetInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssetListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: AssetListInstanceOptions, callback?: (error: Error | null, items: AssetInstance[]) => any): Promise<AssetInstance[]>;
+  list(params?: any, callback?: any): Promise<AssetInstance[]>;
+  /**
+   * Retrieve a single page of AssetInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  /**
+   * Retrieve a single page of AssetInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AssetListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: AssetListInstancePageOptions, callback?: (error: Error | null, items: AssetPage) => any): Promise<AssetPage>;
+  page(params?: any, callback?: any): Promise<AssetPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AssetSolution {
+  serviceSid?: string;
+}
+
+interface AssetListInstanceImpl extends AssetListInstance {}
+class AssetListInstanceImpl implements AssetListInstance {
+  _version?: V1;
+  _solution?: AssetSolution;
+  _uri?: string;
+
+}
+
+export function AssetListInstance(version: V1, serviceSid: string): AssetListInstance {
+  const instance = ((sid) => instance.get(sid)) as AssetListInstanceImpl;
+
+  instance.get = function get(sid): AssetContext {
+    return new AssetContextImpl(version, serviceSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { serviceSid };
+  instance._uri = `/Services/${serviceSid}/Assets`;
+
+  instance.create = function create(params: any, callback?: any): Promise<AssetInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AssetInstance(operationVersion, payload, this._solution.serviceSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<AssetPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new AssetPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<AssetPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new AssetPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class AssetPage extends Page<V1, AssetPayload, AssetResource, AssetInstance> {
 /**
 * Initialize the AssetPage
@@ -614,5 +615,4 @@ constructor(version: V1, response: Response<string>, solution: AssetSolution) {
     return inspect(this.toJSON(), options);
     }
     }
-
 

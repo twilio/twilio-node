@@ -22,19 +22,19 @@ const serialize = require("../../../base/serialize");
 
 
 
+export class PricingV2TrunkingCountryInstanceOriginatingCallPrices {
+  "basePrice"?: number;
+  "currentPrice"?: number;
+  "numberType"?: string;
+}
+
+
 export class PricingV2TrunkingCountryInstanceTerminatingPrefixPrices {
   "originationPrefixes"?: Array<string>;
   "destinationPrefixes"?: Array<string>;
   "basePrice"?: number;
   "currentPrice"?: number;
   "friendlyName"?: string;
-}
-
-
-export class PricingV2TrunkingCountryInstanceOriginatingCallPrices {
-  "basePrice"?: number;
-  "currentPrice"?: number;
-  "numberType"?: string;
 }
 
 

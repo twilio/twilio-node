@@ -94,6 +94,201 @@ export interface CustomerProfilesChannelEndpointAssignmentListInstancePageOption
 
 
 
+export interface CustomerProfilesChannelEndpointAssignmentContext {
+
+
+  /**
+   * Remove a CustomerProfilesChannelEndpointAssignmentInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+
+  /**
+   * Fetch a CustomerProfilesChannelEndpointAssignmentInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CustomerProfilesChannelEndpointAssignmentContextSolution {
+  customerProfileSid?: string;
+  sid?: string;
+}
+
+export class CustomerProfilesChannelEndpointAssignmentContextImpl implements CustomerProfilesChannelEndpointAssignmentContext {
+  protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
+    this._solution = { customerProfileSid, sid };
+    this._uri = `/CustomerProfiles/${customerProfileSid}/ChannelEndpointAssignments/${sid}`;
+  }
+
+  remove(callback?: any): Promise<boolean> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  fetch(callback?: any): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new CustomerProfilesChannelEndpointAssignmentInstance(operationVersion, payload, this._solution.customerProfileSid, this._solution.sid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface CustomerProfilesChannelEndpointAssignmentPayload extends CustomerProfilesChannelEndpointAssignmentResource, Page.TwilioResponsePayload {
+}
+
+interface CustomerProfilesChannelEndpointAssignmentResource {
+  sid?: string | null;
+  customer_profile_sid?: string | null;
+  account_sid?: string | null;
+  channel_endpoint_type?: string | null;
+  channel_endpoint_sid?: string | null;
+  date_created?: Date | null;
+  url?: string | null;
+}
+
+export class CustomerProfilesChannelEndpointAssignmentInstance {
+  protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
+  protected _context?: CustomerProfilesChannelEndpointAssignmentContext;
+
+  constructor(protected _version: V1, payload: CustomerProfilesChannelEndpointAssignmentPayload, customerProfileSid: string, sid?: string) {
+    this.sid = payload.sid;
+    this.customerProfileSid = payload.customer_profile_sid;
+    this.accountSid = payload.account_sid;
+    this.channelEndpointType = payload.channel_endpoint_type;
+    this.channelEndpointSid = payload.channel_endpoint_sid;
+    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
+    this.url = payload.url;
+
+    this._solution = { customerProfileSid, sid: sid || this.sid };
+  }
+
+  /**
+   * The unique string that identifies the resource
+   */
+  sid?: string | null;
+  /**
+   * The unique string that identifies the CustomerProfile resource.
+   */
+  customerProfileSid?: string | null;
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The type of channel endpoint
+   */
+  channelEndpointType?: string | null;
+  /**
+   * The sid of an channel endpoint
+   */
+  channelEndpointSid?: string | null;
+  /**
+   * The ISO 8601 date and time in GMT when the resource was created
+   */
+  dateCreated?: Date | null;
+  /**
+   * The absolute URL of the Identity resource
+   */
+  url?: string | null;
+
+  private get _proxy(): CustomerProfilesChannelEndpointAssignmentContext {
+    this._context = this._context || new CustomerProfilesChannelEndpointAssignmentContextImpl(this._version, this._solution.customerProfileSid, this._solution.sid);
+    return this._context;
+  }
+
+  /**
+   * Remove a CustomerProfilesChannelEndpointAssignmentInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed boolean
+   */
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+     {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Fetch a CustomerProfilesChannelEndpointAssignmentInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance
+   */
+  fetch(callback?: (error: Error | null, item?: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      sid: this.sid, 
+      customerProfileSid: this.customerProfileSid, 
+      accountSid: this.accountSid, 
+      channelEndpointType: this.channelEndpointType, 
+      channelEndpointSid: this.channelEndpointSid, 
+      dateCreated: this.dateCreated, 
+      url: this.url
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface CustomerProfilesChannelEndpointAssignmentListInstance {
   (sid: string): CustomerProfilesChannelEndpointAssignmentContext;
   get(sid: string): CustomerProfilesChannelEndpointAssignmentContext;
@@ -327,200 +522,6 @@ export function CustomerProfilesChannelEndpointAssignmentListInstance(version: V
 }
 
 
-export interface CustomerProfilesChannelEndpointAssignmentContext {
-
-
-  /**
-   * Remove a CustomerProfilesChannelEndpointAssignmentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-
-  /**
-   * Fetch a CustomerProfilesChannelEndpointAssignmentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface CustomerProfilesChannelEndpointAssignmentContextSolution {
-  customerProfileSid?: string;
-  sid?: string;
-}
-
-export class CustomerProfilesChannelEndpointAssignmentContextImpl implements CustomerProfilesChannelEndpointAssignmentContext {
-  protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
-    this._solution = { customerProfileSid, sid };
-    this._uri = `/CustomerProfiles/${customerProfileSid}/ChannelEndpointAssignments/${sid}`;
-  }
-
-  remove(callback?: any): Promise<boolean> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.remove({ uri: this._uri, method: 'delete' });
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  fetch(callback?: any): Promise<CustomerProfilesChannelEndpointAssignmentInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new CustomerProfilesChannelEndpointAssignmentInstance(operationVersion, payload, this._solution.customerProfileSid, this._solution.sid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface CustomerProfilesChannelEndpointAssignmentPayload extends CustomerProfilesChannelEndpointAssignmentResource, Page.TwilioResponsePayload {
-}
-
-interface CustomerProfilesChannelEndpointAssignmentResource {
-  sid?: string | null;
-  customer_profile_sid?: string | null;
-  account_sid?: string | null;
-  channel_endpoint_type?: string | null;
-  channel_endpoint_sid?: string | null;
-  date_created?: Date | null;
-  url?: string | null;
-}
-
-export class CustomerProfilesChannelEndpointAssignmentInstance {
-  protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
-  protected _context?: CustomerProfilesChannelEndpointAssignmentContext;
-
-  constructor(protected _version: V1, payload: CustomerProfilesChannelEndpointAssignmentPayload, customerProfileSid: string, sid?: string) {
-    this.sid = payload.sid;
-    this.customerProfileSid = payload.customer_profile_sid;
-    this.accountSid = payload.account_sid;
-    this.channelEndpointType = payload.channel_endpoint_type;
-    this.channelEndpointSid = payload.channel_endpoint_sid;
-    this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
-    this.url = payload.url;
-
-    this._solution = { customerProfileSid, sid: sid || this.sid };
-  }
-
-  /**
-   * The unique string that identifies the resource
-   */
-  sid?: string | null;
-  /**
-   * The unique string that identifies the CustomerProfile resource.
-   */
-  customerProfileSid?: string | null;
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The type of channel endpoint
-   */
-  channelEndpointType?: string | null;
-  /**
-   * The sid of an channel endpoint
-   */
-  channelEndpointSid?: string | null;
-  /**
-   * The ISO 8601 date and time in GMT when the resource was created
-   */
-  dateCreated?: Date | null;
-  /**
-   * The absolute URL of the Identity resource
-   */
-  url?: string | null;
-
-  private get _proxy(): CustomerProfilesChannelEndpointAssignmentContext {
-    this._context = this._context || new CustomerProfilesChannelEndpointAssignmentContextImpl(this._version, this._solution.customerProfileSid, this._solution.sid);
-    return this._context;
-  }
-
-  /**
-   * Remove a CustomerProfilesChannelEndpointAssignmentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed boolean
-   */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-     {
-    return this._proxy.remove(callback);
-  }
-
-  /**
-   * Fetch a CustomerProfilesChannelEndpointAssignmentInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed CustomerProfilesChannelEndpointAssignmentInstance
-   */
-  fetch(callback?: (error: Error | null, item?: CustomerProfilesChannelEndpointAssignmentInstance) => any): Promise<CustomerProfilesChannelEndpointAssignmentInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      sid: this.sid, 
-      customerProfileSid: this.customerProfileSid, 
-      accountSid: this.accountSid, 
-      channelEndpointType: this.channelEndpointType, 
-      channelEndpointSid: this.channelEndpointSid, 
-      dateCreated: this.dateCreated, 
-      url: this.url
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class CustomerProfilesChannelEndpointAssignmentPage extends Page<V1, CustomerProfilesChannelEndpointAssignmentPayload, CustomerProfilesChannelEndpointAssignmentResource, CustomerProfilesChannelEndpointAssignmentInstance> {
 /**
 * Initialize the CustomerProfilesChannelEndpointAssignmentPage
@@ -550,5 +551,4 @@ constructor(version: V1, response: Response<string>, solution: CustomerProfilesC
     return inspect(this.toJSON(), options);
     }
     }
-
 

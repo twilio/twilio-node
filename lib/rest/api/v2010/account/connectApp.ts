@@ -24,6 +24,29 @@ const serialize = require("../../../../base/serialize");
 
 type ConnectAppPermission = 'get-all'|'post-all';
 
+
+/**
+ * Options to pass to update a ConnectAppInstance
+ *
+ * @property { string } [authorizeRedirectUrl] The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+ * @property { string } [companyName] The company name to set for the Connect App.
+ * @property { string } [deauthorizeCallbackMethod] The HTTP method to use when calling &#x60;deauthorize_callback_url&#x60;.
+ * @property { string } [deauthorizeCallbackUrl] The URL to call using the &#x60;deauthorize_callback_method&#x60; to de-authorize the Connect App.
+ * @property { string } [description] A description of the Connect App.
+ * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+ * @property { string } [homepageUrl] A public URL where users can obtain more information about this Connect App.
+ * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
+ */
+export interface ConnectAppContextUpdateOptions {
+  authorizeRedirectUrl?: string;
+  companyName?: string;
+  deauthorizeCallbackMethod?: string;
+  deauthorizeCallbackUrl?: string;
+  description?: string;
+  friendlyName?: string;
+  homepageUrl?: string;
+  permissions?: Array<ConnectAppPermission>;
+}
 /**
  * Options to pass to each
  *
@@ -71,215 +94,6 @@ export interface ConnectAppListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a ConnectAppInstance
- *
- * @property { string } [authorizeRedirectUrl] The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
- * @property { string } [companyName] The company name to set for the Connect App.
- * @property { string } [deauthorizeCallbackMethod] The HTTP method to use when calling &#x60;deauthorize_callback_url&#x60;.
- * @property { string } [deauthorizeCallbackUrl] The URL to call using the &#x60;deauthorize_callback_method&#x60; to de-authorize the Connect App.
- * @property { string } [description] A description of the Connect App.
- * @property { string } [friendlyName] A descriptive string that you create to describe the resource. It can be up to 64 characters long.
- * @property { string } [homepageUrl] A public URL where users can obtain more information about this Connect App.
- * @property { Array<ConnectAppPermission> } [permissions] A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: &#x60;get-all&#x60; and &#x60;post-all&#x60;.
- */
-export interface ConnectAppContextUpdateOptions {
-  authorizeRedirectUrl?: string;
-  companyName?: string;
-  deauthorizeCallbackMethod?: string;
-  deauthorizeCallbackUrl?: string;
-  description?: string;
-  friendlyName?: string;
-  homepageUrl?: string;
-  permissions?: Array<ConnectAppPermission>;
-}
-
-export interface ConnectAppListInstance {
-  (sid: string): ConnectAppContext;
-  get(sid: string): ConnectAppContext;
-
-
-
-  /**
-   * Streams ConnectAppInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams ConnectAppInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConnectAppListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: ConnectAppListInstanceEachOptions, callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of ConnectAppInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
-  /**
-   * Retrieve a single target page of ConnectAppInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
-  getPage(params?: any, callback?: any): Promise<ConnectAppPage>;
-  /**
-   * Lists ConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: ConnectAppInstance[]) => any): Promise<ConnectAppInstance[]>;
-  /**
-   * Lists ConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConnectAppListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: ConnectAppListInstanceOptions, callback?: (error: Error | null, items: ConnectAppInstance[]) => any): Promise<ConnectAppInstance[]>;
-  list(params?: any, callback?: any): Promise<ConnectAppInstance[]>;
-  /**
-   * Retrieve a single page of ConnectAppInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
-  /**
-   * Retrieve a single page of ConnectAppInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { ConnectAppListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: ConnectAppListInstancePageOptions, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
-  page(params?: any, callback?: any): Promise<ConnectAppPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface ConnectAppSolution {
-  accountSid?: string;
-}
-
-interface ConnectAppListInstanceImpl extends ConnectAppListInstance {}
-class ConnectAppListInstanceImpl implements ConnectAppListInstance {
-  _version?: V2010;
-  _solution?: ConnectAppSolution;
-  _uri?: string;
-
-}
-
-export function ConnectAppListInstance(version: V2010, accountSid: string): ConnectAppListInstance {
-  const instance = ((sid) => instance.get(sid)) as ConnectAppListInstanceImpl;
-
-  instance.get = function get(sid): ConnectAppContext {
-    return new ConnectAppContextImpl(version, accountSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { accountSid };
-  instance._uri = `/Accounts/${accountSid}/ConnectApps.json`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<ConnectAppPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new ConnectAppPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConnectAppPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new ConnectAppPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface ConnectAppContext {
@@ -581,6 +395,193 @@ export class ConnectAppInstance {
   }
 }
 
+
+export interface ConnectAppListInstance {
+  (sid: string): ConnectAppContext;
+  get(sid: string): ConnectAppContext;
+
+
+
+  /**
+   * Streams ConnectAppInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams ConnectAppInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConnectAppListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: ConnectAppListInstanceEachOptions, callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of ConnectAppInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  /**
+   * Retrieve a single target page of ConnectAppInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  getPage(params?: any, callback?: any): Promise<ConnectAppPage>;
+  /**
+   * Lists ConnectAppInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: ConnectAppInstance[]) => any): Promise<ConnectAppInstance[]>;
+  /**
+   * Lists ConnectAppInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConnectAppListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: ConnectAppListInstanceOptions, callback?: (error: Error | null, items: ConnectAppInstance[]) => any): Promise<ConnectAppInstance[]>;
+  list(params?: any, callback?: any): Promise<ConnectAppInstance[]>;
+  /**
+   * Retrieve a single page of ConnectAppInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  /**
+   * Retrieve a single page of ConnectAppInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { ConnectAppListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: ConnectAppListInstancePageOptions, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
+  page(params?: any, callback?: any): Promise<ConnectAppPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface ConnectAppSolution {
+  accountSid?: string;
+}
+
+interface ConnectAppListInstanceImpl extends ConnectAppListInstance {}
+class ConnectAppListInstanceImpl implements ConnectAppListInstance {
+  _version?: V2010;
+  _solution?: ConnectAppSolution;
+  _uri?: string;
+
+}
+
+export function ConnectAppListInstance(version: V2010, accountSid: string): ConnectAppListInstance {
+  const instance = ((sid) => instance.get(sid)) as ConnectAppListInstanceImpl;
+
+  instance.get = function get(sid): ConnectAppContext {
+    return new ConnectAppContextImpl(version, accountSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { accountSid };
+  instance._uri = `/Accounts/${accountSid}/ConnectApps.json`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<ConnectAppPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new ConnectAppPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<ConnectAppPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new ConnectAppPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppResource, ConnectAppInstance> {
 /**
 * Initialize the ConnectAppPage
@@ -610,5 +611,4 @@ constructor(version: V2010, response: Response<string>, solution: ConnectAppSolu
     return inspect(this.toJSON(), options);
     }
     }
-
 

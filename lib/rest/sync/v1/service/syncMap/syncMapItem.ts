@@ -22,9 +22,9 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-type SyncMapItemQueryResultOrder = 'asc'|'desc';
-
 type SyncMapItemQueryFromBoundType = 'inclusive'|'exclusive';
+
+type SyncMapItemQueryResultOrder = 'asc'|'desc';
 
 
 /**

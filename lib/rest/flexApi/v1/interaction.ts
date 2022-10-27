@@ -17,8 +17,8 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { InteractionChannelListInstance } from "./interaction/interactionChannel";
+
 
 
 
@@ -32,97 +32,6 @@ export interface InteractionListInstanceCreateOptions {
   channel: any;
   routing: any;
 }
-
-export interface InteractionListInstance {
-  (sid: string): InteractionContext;
-  get(sid: string): InteractionContext;
-
-
-  /**
-   * Create a InteractionInstance
-   *
-   * @param { InteractionListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed InteractionInstance
-   */
-  create(params: InteractionListInstanceCreateOptions, callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>;
-  create(params: any, callback?: any): Promise<InteractionInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface InteractionSolution {
-}
-
-interface InteractionListInstanceImpl extends InteractionListInstance {}
-class InteractionListInstanceImpl implements InteractionListInstance {
-  _version?: V1;
-  _solution?: InteractionSolution;
-  _uri?: string;
-
-}
-
-export function InteractionListInstance(version: V1): InteractionListInstance {
-  const instance = ((sid) => instance.get(sid)) as InteractionListInstanceImpl;
-
-  instance.get = function get(sid): InteractionContext {
-    return new InteractionContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Interactions`;
-
-  instance.create = function create(params: any, callback?: any): Promise<InteractionInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.channel === null || params.channel === undefined) {
-      throw new Error('Required parameter "params.channel" missing.');
-    }
-
-    if (params.routing === null || params.routing === undefined) {
-      throw new Error('Required parameter "params.routing" missing.');
-    }
-
-    const data: any = {};
-
-    data['Channel'] = params.channel;
-    data['Routing'] = params.routing;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
-
 
 export interface InteractionContext {
 
@@ -275,6 +184,97 @@ export class InteractionInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
+}
+
+
+export interface InteractionListInstance {
+  (sid: string): InteractionContext;
+  get(sid: string): InteractionContext;
+
+
+  /**
+   * Create a InteractionInstance
+   *
+   * @param { InteractionListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed InteractionInstance
+   */
+  create(params: InteractionListInstanceCreateOptions, callback?: (error: Error | null, item?: InteractionInstance) => any): Promise<InteractionInstance>;
+  create(params: any, callback?: any): Promise<InteractionInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface InteractionSolution {
+}
+
+interface InteractionListInstanceImpl extends InteractionListInstance {}
+class InteractionListInstanceImpl implements InteractionListInstance {
+  _version?: V1;
+  _solution?: InteractionSolution;
+  _uri?: string;
+
+}
+
+export function InteractionListInstance(version: V1): InteractionListInstance {
+  const instance = ((sid) => instance.get(sid)) as InteractionListInstanceImpl;
+
+  instance.get = function get(sid): InteractionContext {
+    return new InteractionContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Interactions`;
+
+  instance.create = function create(params: any, callback?: any): Promise<InteractionInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.channel === null || params.channel === undefined) {
+      throw new Error('Required parameter "params.channel" missing.');
+    }
+
+    if (params.routing === null || params.routing === undefined) {
+      throw new Error('Required parameter "params.routing" missing.');
+    }
+
+    const data: any = {};
+
+    data['Channel'] = params.channel;
+    data['Routing'] = params.routing;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InteractionInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
 }
 
 

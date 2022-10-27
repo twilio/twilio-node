@@ -19,14 +19,42 @@ import Response from "../../../../../http/response";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
 const serialize = require("../../../../../base/serialize");
-
 import { DeliveryReceiptListInstance } from "./message/deliveryReceipt";
+
 
 
 type ServiceConversationMessageOrderType = 'asc'|'desc';
 
 type ServiceConversationMessageWebhookEnabledType = 'true'|'false';
 
+
+/**
+ * Options to pass to remove a MessageInstance
+ *
+ * @property { ServiceConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ */
+export interface MessageContextRemoveOptions {
+  xTwilioWebhookEnabled?: ServiceConversationMessageWebhookEnabledType;
+}
+
+/**
+ * Options to pass to update a MessageInstance
+ *
+ * @property { ServiceConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
+ * @property { string } [author] The channel specific identifier of the message\\\&#39;s author. Defaults to &#x60;system&#x60;.
+ * @property { string } [body] The content of the message, can be up to 1,600 characters long.
+ * @property { Date } [dateCreated] The date that this resource was created.
+ * @property { Date } [dateUpdated] The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited.
+ * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
+ */
+export interface MessageContextUpdateOptions {
+  xTwilioWebhookEnabled?: ServiceConversationMessageWebhookEnabledType;
+  author?: string;
+  body?: string;
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  attributes?: string;
+}
 
 /**
  * Options to pass to create a MessageInstance
@@ -101,275 +129,6 @@ export interface MessageListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to remove a MessageInstance
- *
- * @property { ServiceConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- */
-export interface MessageContextRemoveOptions {
-  xTwilioWebhookEnabled?: ServiceConversationMessageWebhookEnabledType;
-}
-
-/**
- * Options to pass to update a MessageInstance
- *
- * @property { ServiceConversationMessageWebhookEnabledType } [xTwilioWebhookEnabled] The X-Twilio-Webhook-Enabled HTTP request header
- * @property { string } [author] The channel specific identifier of the message\\\&#39;s author. Defaults to &#x60;system&#x60;.
- * @property { string } [body] The content of the message, can be up to 1,600 characters long.
- * @property { Date } [dateCreated] The date that this resource was created.
- * @property { Date } [dateUpdated] The date that this resource was last updated. &#x60;null&#x60; if the message has not been edited.
- * @property { string } [attributes] A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\&quot;{}\\\&quot; will be returned.
- */
-export interface MessageContextUpdateOptions {
-  xTwilioWebhookEnabled?: ServiceConversationMessageWebhookEnabledType;
-  author?: string;
-  body?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  attributes?: string;
-}
-
-export interface MessageListInstance {
-  (sid: string): MessageContext;
-  get(sid: string): MessageContext;
-
-
-  /**
-   * Create a MessageInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInstance
-   */
-  create(callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
-  /**
-   * Create a MessageInstance
-   *
-   * @param { MessageListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed MessageInstance
-   */
-  create(params: MessageListInstanceCreateOptions, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
-  create(params?: any, callback?: any): Promise<MessageInstance>
-
-
-
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MessageListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-  getPage(params?: any, callback?: any): Promise<MessagePage>;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MessageListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
-  list(params?: any, callback?: any): Promise<MessageInstance[]>;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { MessageListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-  page(params?: any, callback?: any): Promise<MessagePage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface MessageSolution {
-  chatServiceSid?: string;
-  conversationSid?: string;
-}
-
-interface MessageListInstanceImpl extends MessageListInstance {}
-class MessageListInstanceImpl implements MessageListInstance {
-  _version?: V1;
-  _solution?: MessageSolution;
-  _uri?: string;
-
-}
-
-export function MessageListInstance(version: V1, chatServiceSid: string, conversationSid: string): MessageListInstance {
-  const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
-
-  instance.get = function get(sid): MessageContext {
-    return new MessageContextImpl(version, chatServiceSid, conversationSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { chatServiceSid, conversationSid };
-  instance._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages`;
-
-  instance.create = function create(params?: any, callback?: any): Promise<MessageInstance> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.author !== undefined) data['Author'] = params.author;
-    if (params.body !== undefined) data['Body'] = params.body;
-    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
-    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
-    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
-    if (params.mediaSid !== undefined) data['MediaSid'] = params.mediaSid;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.conversationSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<MessagePage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.order !== undefined) data['Order'] = params.order;
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new MessagePage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MessagePage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new MessagePage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface MessageContext {
@@ -743,6 +502,248 @@ export class MessageInstance {
   }
 }
 
+
+export interface MessageListInstance {
+  (sid: string): MessageContext;
+  get(sid: string): MessageContext;
+
+
+  /**
+   * Create a MessageInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MessageInstance
+   */
+  create(callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
+  /**
+   * Create a MessageInstance
+   *
+   * @param { MessageListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed MessageInstance
+   */
+  create(params: MessageListInstanceCreateOptions, callback?: (error: Error | null, item?: MessageInstance) => any): Promise<MessageInstance>;
+  create(params?: any, callback?: any): Promise<MessageInstance>
+
+
+
+  /**
+   * Streams MessageInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams MessageInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of MessageInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  /**
+   * Retrieve a single target page of MessageInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  getPage(params?: any, callback?: any): Promise<MessagePage>;
+  /**
+   * Lists MessageInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
+  /**
+   * Lists MessageInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
+  list(params?: any, callback?: any): Promise<MessageInstance[]>;
+  /**
+   * Retrieve a single page of MessageInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  /**
+   * Retrieve a single page of MessageInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { MessageListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
+  page(params?: any, callback?: any): Promise<MessagePage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface MessageSolution {
+  chatServiceSid?: string;
+  conversationSid?: string;
+}
+
+interface MessageListInstanceImpl extends MessageListInstance {}
+class MessageListInstanceImpl implements MessageListInstance {
+  _version?: V1;
+  _solution?: MessageSolution;
+  _uri?: string;
+
+}
+
+export function MessageListInstance(version: V1, chatServiceSid: string, conversationSid: string): MessageListInstance {
+  const instance = ((sid) => instance.get(sid)) as MessageListInstanceImpl;
+
+  instance.get = function get(sid): MessageContext {
+    return new MessageContextImpl(version, chatServiceSid, conversationSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { chatServiceSid, conversationSid };
+  instance._uri = `/Services/${chatServiceSid}/Conversations/${conversationSid}/Messages`;
+
+  instance.create = function create(params?: any, callback?: any): Promise<MessageInstance> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.author !== undefined) data['Author'] = params.author;
+    if (params.body !== undefined) data['Body'] = params.body;
+    if (params.dateCreated !== undefined) data['DateCreated'] = serialize.iso8601DateTime(params.dateCreated);
+    if (params.dateUpdated !== undefined) data['DateUpdated'] = serialize.iso8601DateTime(params.dateUpdated);
+    if (params.attributes !== undefined) data['Attributes'] = params.attributes;
+    if (params.mediaSid !== undefined) data['MediaSid'] = params.mediaSid;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    if (params.xTwilioWebhookEnabled !== undefined) headers['X-Twilio-Webhook-Enabled'] = params.xTwilioWebhookEnabled;
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MessageInstance(operationVersion, payload, this._solution.chatServiceSid, this._solution.conversationSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<MessagePage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.order !== undefined) data['Order'] = params.order;
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new MessagePage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<MessagePage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new MessagePage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
 /**
 * Initialize the MessagePage
@@ -773,5 +774,4 @@ constructor(version: V1, response: Response<string>, solution: MessageSolution) 
     return inspect(this.toJSON(), options);
     }
     }
-
 

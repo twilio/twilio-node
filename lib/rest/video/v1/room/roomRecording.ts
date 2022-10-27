@@ -24,11 +24,11 @@ const serialize = require("../../../../base/serialize");
 
 type RoomRecordingCodec = 'VP8'|'H264'|'OPUS'|'PCMU';
 
-type RoomRecordingType = 'audio'|'video'|'data';
+type RoomRecordingFormat = 'mka'|'mkv';
 
 type RoomRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
 
-type RoomRecordingFormat = 'mka'|'mkv';
+type RoomRecordingType = 'audio'|'video'|'data';
 
 /**
  * Options to pass to each

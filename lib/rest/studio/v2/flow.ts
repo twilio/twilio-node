@@ -19,14 +19,29 @@ import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-
 import { ExecutionListInstance } from "./flow/execution";
 import { FlowRevisionListInstance } from "./flow/flowRevision";
 import { FlowTestUserListInstance } from "./flow/flowTestUser";
 
 
+
 type FlowStatus = 'draft'|'published';
 
+
+/**
+ * Options to pass to update a FlowInstance
+ *
+ * @property { FlowStatus } status 
+ * @property { string } [friendlyName] The string that you assigned to describe the Flow.
+ * @property { any } [definition] JSON representation of flow definition.
+ * @property { string } [commitMessage] Description of change made in the revision.
+ */
+export interface FlowContextUpdateOptions {
+  status: FlowStatus;
+  friendlyName?: string;
+  definition?: any;
+  commitMessage?: string;
+}
 
 /**
  * Options to pass to create a FlowInstance
@@ -89,257 +104,6 @@ export interface FlowListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a FlowInstance
- *
- * @property { FlowStatus } status 
- * @property { string } [friendlyName] The string that you assigned to describe the Flow.
- * @property { any } [definition] JSON representation of flow definition.
- * @property { string } [commitMessage] Description of change made in the revision.
- */
-export interface FlowContextUpdateOptions {
-  status: FlowStatus;
-  friendlyName?: string;
-  definition?: any;
-  commitMessage?: string;
-}
-
-export interface FlowListInstance {
-  (sid: string): FlowContext;
-  get(sid: string): FlowContext;
-
-
-  /**
-   * Create a FlowInstance
-   *
-   * @param { FlowListInstanceCreateOptions } params - Parameter for request
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed FlowInstance
-   */
-  create(params: FlowListInstanceCreateOptions, callback?: (error: Error | null, item?: FlowInstance) => any): Promise<FlowInstance>;
-  create(params: any, callback?: any): Promise<FlowInstance>
-
-
-
-  /**
-   * Streams FlowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: FlowInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams FlowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FlowListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: FlowListInstanceEachOptions, callback?: (item: FlowInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of FlowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
-  /**
-   * Retrieve a single target page of FlowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
-  getPage(params?: any, callback?: any): Promise<FlowPage>;
-  /**
-   * Lists FlowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: FlowInstance[]) => any): Promise<FlowInstance[]>;
-  /**
-   * Lists FlowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FlowListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: FlowListInstanceOptions, callback?: (error: Error | null, items: FlowInstance[]) => any): Promise<FlowInstance[]>;
-  list(params?: any, callback?: any): Promise<FlowInstance[]>;
-  /**
-   * Retrieve a single page of FlowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
-  /**
-   * Retrieve a single page of FlowInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { FlowListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: FlowListInstancePageOptions, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
-  page(params?: any, callback?: any): Promise<FlowPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface FlowSolution {
-}
-
-interface FlowListInstanceImpl extends FlowListInstance {}
-class FlowListInstanceImpl implements FlowListInstance {
-  _version?: V2;
-  _solution?: FlowSolution;
-  _uri?: string;
-
-}
-
-export function FlowListInstance(version: V2): FlowListInstance {
-  const instance = ((sid) => instance.get(sid)) as FlowListInstanceImpl;
-
-  instance.get = function get(sid): FlowContext {
-    return new FlowContextImpl(version, sid);
-  }
-
-  instance._version = version;
-  instance._solution = {  };
-  instance._uri = `/Flows`;
-
-  instance.create = function create(params: any, callback?: any): Promise<FlowInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
-    }
-
-    if (params.friendlyName === null || params.friendlyName === undefined) {
-      throw new Error('Required parameter "params.friendlyName" missing.');
-    }
-
-    if (params.status === null || params.status === undefined) {
-      throw new Error('Required parameter "params.status" missing.');
-    }
-
-    if (params.definition === null || params.definition === undefined) {
-      throw new Error('Required parameter "params.definition" missing.');
-    }
-
-    const data: any = {};
-
-    data['FriendlyName'] = params.friendlyName;
-    data['Status'] = params.status;
-    data['Definition'] = params.definition;
-    if (params.commitMessage !== undefined) data['CommitMessage'] = params.commitMessage;
-
-    const headers: any = {};
-    headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlowInstance(operationVersion, payload));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-    }
-
-  instance.page = function page(params?: any, callback?: any): Promise<FlowPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new FlowPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FlowPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new FlowPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface FlowContext {
@@ -684,6 +448,243 @@ export class FlowInstance {
   }
 }
 
+
+export interface FlowListInstance {
+  (sid: string): FlowContext;
+  get(sid: string): FlowContext;
+
+
+  /**
+   * Create a FlowInstance
+   *
+   * @param { FlowListInstanceCreateOptions } params - Parameter for request
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed FlowInstance
+   */
+  create(params: FlowListInstanceCreateOptions, callback?: (error: Error | null, item?: FlowInstance) => any): Promise<FlowInstance>;
+  create(params: any, callback?: any): Promise<FlowInstance>
+
+
+
+  /**
+   * Streams FlowInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: FlowInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams FlowInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FlowListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: FlowListInstanceEachOptions, callback?: (item: FlowInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of FlowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  /**
+   * Retrieve a single target page of FlowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  getPage(params?: any, callback?: any): Promise<FlowPage>;
+  /**
+   * Lists FlowInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: FlowInstance[]) => any): Promise<FlowInstance[]>;
+  /**
+   * Lists FlowInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FlowListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: FlowListInstanceOptions, callback?: (error: Error | null, items: FlowInstance[]) => any): Promise<FlowInstance[]>;
+  list(params?: any, callback?: any): Promise<FlowInstance[]>;
+  /**
+   * Retrieve a single page of FlowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  /**
+   * Retrieve a single page of FlowInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { FlowListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: FlowListInstancePageOptions, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
+  page(params?: any, callback?: any): Promise<FlowPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface FlowSolution {
+}
+
+interface FlowListInstanceImpl extends FlowListInstance {}
+class FlowListInstanceImpl implements FlowListInstance {
+  _version?: V2;
+  _solution?: FlowSolution;
+  _uri?: string;
+
+}
+
+export function FlowListInstance(version: V2): FlowListInstance {
+  const instance = ((sid) => instance.get(sid)) as FlowListInstanceImpl;
+
+  instance.get = function get(sid): FlowContext {
+    return new FlowContextImpl(version, sid);
+  }
+
+  instance._version = version;
+  instance._solution = {  };
+  instance._uri = `/Flows`;
+
+  instance.create = function create(params: any, callback?: any): Promise<FlowInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params.friendlyName === null || params.friendlyName === undefined) {
+      throw new Error('Required parameter "params.friendlyName" missing.');
+    }
+
+    if (params.status === null || params.status === undefined) {
+      throw new Error('Required parameter "params.status" missing.');
+    }
+
+    if (params.definition === null || params.definition === undefined) {
+      throw new Error('Required parameter "params.definition" missing.');
+    }
+
+    const data: any = {};
+
+    data['FriendlyName'] = params.friendlyName;
+    data['Status'] = params.status;
+    data['Definition'] = params.definition;
+    if (params.commitMessage !== undefined) data['CommitMessage'] = params.commitMessage;
+
+    const headers: any = {};
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    let operationVersion = version,
+        operationPromise = operationVersion.create({ uri: this._uri, method: 'post', data, headers });
+    
+    operationPromise = operationPromise.then(payload => new FlowInstance(operationVersion, payload));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+    }
+
+  instance.page = function page(params?: any, callback?: any): Promise<FlowPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new FlowPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<FlowPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new FlowPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class FlowPage extends Page<V2, FlowPayload, FlowResource, FlowInstance> {
 /**
 * Initialize the FlowPage
@@ -712,5 +713,4 @@ constructor(version: V2, response: Response<string>, solution: FlowSolution) {
     return inspect(this.toJSON(), options);
     }
     }
-
 

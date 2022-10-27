@@ -22,9 +22,9 @@ const serialize = require("../../../../../base/serialize");
 
 
 
-type ServiceUserConversationState = 'inactive'|'active'|'closed';
-
 type ServiceUserConversationNotificationLevel = 'default'|'muted';
+
+type ServiceUserConversationState = 'inactive'|'active'|'closed';
 
 
 /**

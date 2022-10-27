@@ -21,6 +21,17 @@ const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 
 
+export class ListAccountUsageRecordResponseMeta {
+  "firstPageUrl"?: string;
+  "nextPageUrl"?: string;
+  "page"?: number;
+  "pageSize"?: number;
+  "previousPageUrl"?: string;
+  "url"?: string;
+  "key"?: string;
+}
+
+
 type UsageRecordGranularity = 'hourly'|'daily'|'all';
 
 export class WirelessV1SimUsageRecord {
@@ -44,17 +55,6 @@ export class WirelessV1SimUsageRecord {
    * An object that describes the SIM\'s data usage during the specified period
    */
   "data"?: any | null;
-}
-
-
-export class ListAccountUsageRecordResponseMeta {
-  "firstPageUrl"?: string;
-  "nextPageUrl"?: string;
-  "page"?: number;
-  "pageSize"?: number;
-  "previousPageUrl"?: string;
-  "url"?: string;
-  "key"?: string;
 }
 
 

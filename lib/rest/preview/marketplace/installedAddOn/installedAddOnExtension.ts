@@ -22,6 +22,15 @@ const serialize = require("../../../../base/serialize");
 
 
 
+
+/**
+ * Options to pass to update a InstalledAddOnExtensionInstance
+ *
+ * @property { boolean } enabled Whether the Extension should be invoked.
+ */
+export interface InstalledAddOnExtensionContextUpdateOptions {
+  enabled: boolean;
+}
 /**
  * Options to pass to each
  *
@@ -69,201 +78,6 @@ export interface InstalledAddOnExtensionListInstancePageOptions {
   pageToken?: string;
 }
 
-
-
-/**
- * Options to pass to update a InstalledAddOnExtensionInstance
- *
- * @property { boolean } enabled Whether the Extension should be invoked.
- */
-export interface InstalledAddOnExtensionContextUpdateOptions {
-  enabled: boolean;
-}
-
-export interface InstalledAddOnExtensionListInstance {
-  (sid: string): InstalledAddOnExtensionContext;
-  get(sid: string): InstalledAddOnExtensionContext;
-
-
-
-  /**
-   * Streams InstalledAddOnExtensionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Function to process each record
-   */
-  each(callback?: (item: InstalledAddOnExtensionInstance, done: (err?: Error) => void) => void): void;
-  /**
-   * Streams InstalledAddOnExtensionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory
-   * efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InstalledAddOnExtensionListInstanceEachOptions } [params] - Options for request
-   * @param { function } [callback] - Function to process each record
-   */
-  each(params?: InstalledAddOnExtensionListInstanceEachOptions, callback?: (item: InstalledAddOnExtensionInstance, done: (err?: Error) => void) => void): void;
-  each(params?: any, callback?: any): void;
-  /**
-   * Retrieve a single target page of InstalledAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
-  /**
-   * Retrieve a single target page of InstalledAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { string } [targetUrl] - API-generated URL for the requested results page
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  getPage(targetUrl?: string, callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
-  getPage(params?: any, callback?: any): Promise<InstalledAddOnExtensionPage>;
-  /**
-   * Lists InstalledAddOnExtensionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance[]) => any): Promise<InstalledAddOnExtensionInstance[]>;
-  /**
-   * Lists InstalledAddOnExtensionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InstalledAddOnExtensionListInstanceOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  list(params?: InstalledAddOnExtensionListInstanceOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance[]) => any): Promise<InstalledAddOnExtensionInstance[]>;
-  list(params?: any, callback?: any): Promise<InstalledAddOnExtensionInstance[]>;
-  /**
-   * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
-  /**
-   * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
-   *
-   * The request is executed immediately.
-   *
-   * If a function is passed as the first argument, it will be used as the callback
-   * function.
-   *
-   * @param { InstalledAddOnExtensionListInstancePageOptions } [params] - Options for request
-   * @param { function } [callback] - Callback to handle list of records
-   */
-  page(params: InstalledAddOnExtensionListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
-  page(params?: any, callback?: any): Promise<InstalledAddOnExtensionPage>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface InstalledAddOnExtensionSolution {
-  installedAddOnSid?: string;
-}
-
-interface InstalledAddOnExtensionListInstanceImpl extends InstalledAddOnExtensionListInstance {}
-class InstalledAddOnExtensionListInstanceImpl implements InstalledAddOnExtensionListInstance {
-  _version?: Marketplace;
-  _solution?: InstalledAddOnExtensionSolution;
-  _uri?: string;
-
-}
-
-export function InstalledAddOnExtensionListInstance(version: Marketplace, installedAddOnSid: string): InstalledAddOnExtensionListInstance {
-  const instance = ((sid) => instance.get(sid)) as InstalledAddOnExtensionListInstanceImpl;
-
-  instance.get = function get(sid): InstalledAddOnExtensionContext {
-    return new InstalledAddOnExtensionContextImpl(version, installedAddOnSid, sid);
-  }
-
-  instance._version = version;
-  instance._solution = { installedAddOnSid };
-  instance._uri = `/InstalledAddOns/${installedAddOnSid}/Extensions`;
-
-  instance.page = function page(params?: any, callback?: any): Promise<InstalledAddOnExtensionPage> {
-    if (typeof params === "function") {
-      callback = params;
-      params = {};
-    } else {
-      params = params || {};
-    }
-
-    const data: any = {};
-
-    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
-    if (params.page !== undefined) data['Page'] = params.pageNumber;
-    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
-
-    const headers: any = {};
-
-    let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
-    
-    operationPromise = operationPromise.then(payload => new InstalledAddOnExtensionPage(operationVersion, payload, this._solution));
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-  }
-  instance.each = instance._version.each;
-  instance.list = instance._version.list;
-
-  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InstalledAddOnExtensionPage> {
-    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
-
-    operationPromise = operationPromise.then(payload => new InstalledAddOnExtensionPage(this._version, payload, this._solution));
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-  }
-
-
-  instance.toJSON = function toJSON() {
-    return this._solution;
-  }
-
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-
-  return instance;
-}
 
 
 export interface InstalledAddOnExtensionContext {
@@ -480,6 +294,193 @@ export class InstalledAddOnExtensionInstance {
   }
 }
 
+
+export interface InstalledAddOnExtensionListInstance {
+  (sid: string): InstalledAddOnExtensionContext;
+  get(sid: string): InstalledAddOnExtensionContext;
+
+
+
+  /**
+   * Streams InstalledAddOnExtensionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Function to process each record
+   */
+  each(callback?: (item: InstalledAddOnExtensionInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Streams InstalledAddOnExtensionInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InstalledAddOnExtensionListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(params?: InstalledAddOnExtensionListInstanceEachOptions, callback?: (item: InstalledAddOnExtensionInstance, done: (err?: Error) => void) => void): void;
+  each(params?: any, callback?: any): void;
+  /**
+   * Retrieve a single target page of InstalledAddOnExtensionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
+  /**
+   * Retrieve a single target page of InstalledAddOnExtensionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
+  getPage(params?: any, callback?: any): Promise<InstalledAddOnExtensionPage>;
+  /**
+   * Lists InstalledAddOnExtensionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance[]) => any): Promise<InstalledAddOnExtensionInstance[]>;
+  /**
+   * Lists InstalledAddOnExtensionInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InstalledAddOnExtensionListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(params?: InstalledAddOnExtensionListInstanceOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance[]) => any): Promise<InstalledAddOnExtensionInstance[]>;
+  list(params?: any, callback?: any): Promise<InstalledAddOnExtensionInstance[]>;
+  /**
+   * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
+  /**
+   * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { InstalledAddOnExtensionListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(params: InstalledAddOnExtensionListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
+  page(params?: any, callback?: any): Promise<InstalledAddOnExtensionPage>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface InstalledAddOnExtensionSolution {
+  installedAddOnSid?: string;
+}
+
+interface InstalledAddOnExtensionListInstanceImpl extends InstalledAddOnExtensionListInstance {}
+class InstalledAddOnExtensionListInstanceImpl implements InstalledAddOnExtensionListInstance {
+  _version?: Marketplace;
+  _solution?: InstalledAddOnExtensionSolution;
+  _uri?: string;
+
+}
+
+export function InstalledAddOnExtensionListInstance(version: Marketplace, installedAddOnSid: string): InstalledAddOnExtensionListInstance {
+  const instance = ((sid) => instance.get(sid)) as InstalledAddOnExtensionListInstanceImpl;
+
+  instance.get = function get(sid): InstalledAddOnExtensionContext {
+    return new InstalledAddOnExtensionContextImpl(version, installedAddOnSid, sid);
+  }
+
+  instance._version = version;
+  instance._solution = { installedAddOnSid };
+  instance._uri = `/InstalledAddOns/${installedAddOnSid}/Extensions`;
+
+  instance.page = function page(params?: any, callback?: any): Promise<InstalledAddOnExtensionPage> {
+    if (typeof params === "function") {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    const data: any = {};
+
+    if (params.pageSize !== undefined) data['PageSize'] = params.pageSize;
+    if (params.page !== undefined) data['Page'] = params.pageNumber;
+    if (params.pageToken !== undefined) data['PageToken'] = params.pageToken;
+
+    const headers: any = {};
+
+    let operationVersion = version,
+        operationPromise = operationVersion.page({ uri: this._uri, method: 'get', params: data, headers });
+    
+    operationPromise = operationPromise.then(payload => new InstalledAddOnExtensionPage(operationVersion, payload, this._solution));
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+  }
+  instance.each = instance._version.each;
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(targetUrl?: any, callback?: any): Promise<InstalledAddOnExtensionPage> {
+    let operationPromise = this._version._domain.twilio.request({method: 'get', uri: targetUrl});
+
+    operationPromise = operationPromise.then(payload => new InstalledAddOnExtensionPage(this._version, payload, this._solution));
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+  }
+
+
+  instance.toJSON = function toJSON() {
+    return this._solution;
+  }
+
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+
+  return instance;
+}
+
+
 export class InstalledAddOnExtensionPage extends Page<Marketplace, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionInstance> {
 /**
 * Initialize the InstalledAddOnExtensionPage
@@ -509,5 +510,4 @@ constructor(version: Marketplace, response: Response<string>, solution: Installe
     return inspect(this.toJSON(), options);
     }
     }
-
 

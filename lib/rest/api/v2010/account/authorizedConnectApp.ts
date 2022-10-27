@@ -73,6 +73,188 @@ export interface AuthorizedConnectAppListInstancePageOptions {
 
 
 
+export interface AuthorizedConnectAppContext {
+
+
+  /**
+   * Fetch a AuthorizedConnectAppInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AuthorizedConnectAppInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>
+
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface AuthorizedConnectAppContextSolution {
+  accountSid?: string;
+  connectAppSid?: string;
+}
+
+export class AuthorizedConnectAppContextImpl implements AuthorizedConnectAppContext {
+  protected _solution: AuthorizedConnectAppContextSolution;
+  protected _uri: string;
+
+
+  constructor(protected _version: V2010, accountSid: string, connectAppSid: string) {
+    this._solution = { accountSid, connectAppSid };
+    this._uri = `/Accounts/${accountSid}/AuthorizedConnectApps/${connectAppSid}.json`;
+  }
+
+  fetch(callback?: any): Promise<AuthorizedConnectAppInstance> {
+  
+    let operationVersion = this._version,
+        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
+    
+    operationPromise = operationPromise.then(payload => new AuthorizedConnectAppInstance(operationVersion, payload, this._solution.accountSid, this._solution.connectAppSid));
+    
+
+    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
+    return operationPromise;
+
+
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface AuthorizedConnectAppPayload extends AuthorizedConnectAppResource, Page.TwilioResponsePayload {
+}
+
+interface AuthorizedConnectAppResource {
+  account_sid?: string | null;
+  connect_app_company_name?: string | null;
+  connect_app_description?: string | null;
+  connect_app_friendly_name?: string | null;
+  connect_app_homepage_url?: string | null;
+  connect_app_sid?: string | null;
+  date_created?: string | null;
+  date_updated?: string | null;
+  permissions?: Array<AuthorizedConnectAppPermission> | null;
+  uri?: string | null;
+}
+
+export class AuthorizedConnectAppInstance {
+  protected _solution: AuthorizedConnectAppContextSolution;
+  protected _context?: AuthorizedConnectAppContext;
+
+  constructor(protected _version: V2010, payload: AuthorizedConnectAppPayload, accountSid: string, connectAppSid?: string) {
+    this.accountSid = payload.account_sid;
+    this.connectAppCompanyName = payload.connect_app_company_name;
+    this.connectAppDescription = payload.connect_app_description;
+    this.connectAppFriendlyName = payload.connect_app_friendly_name;
+    this.connectAppHomepageUrl = payload.connect_app_homepage_url;
+    this.connectAppSid = payload.connect_app_sid;
+    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
+    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
+    this.permissions = payload.permissions;
+    this.uri = payload.uri;
+
+    this._solution = { accountSid, connectAppSid: connectAppSid || this.connectAppSid };
+  }
+
+  /**
+   * The SID of the Account that created the resource
+   */
+  accountSid?: string | null;
+  /**
+   * The company name set for the Connect App
+   */
+  connectAppCompanyName?: string | null;
+  /**
+   * A detailed description of the app
+   */
+  connectAppDescription?: string | null;
+  /**
+   * The name of the Connect App
+   */
+  connectAppFriendlyName?: string | null;
+  /**
+   * The public URL for the Connect App
+   */
+  connectAppHomepageUrl?: string | null;
+  /**
+   * The SID that we assigned to the Connect App
+   */
+  connectAppSid?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was created
+   */
+  dateCreated?: string | null;
+  /**
+   * The RFC 2822 date and time in GMT that the resource was last updated
+   */
+  dateUpdated?: string | null;
+  /**
+   * Permissions authorized to the app
+   */
+  permissions?: Array<AuthorizedConnectAppPermission> | null;
+  /**
+   * The URI of the resource, relative to `https://api.twilio.com`
+   */
+  uri?: string | null;
+
+  private get _proxy(): AuthorizedConnectAppContext {
+    this._context = this._context || new AuthorizedConnectAppContextImpl(this._version, this._solution.accountSid, this._solution.connectAppSid);
+    return this._context;
+  }
+
+  /**
+   * Fetch a AuthorizedConnectAppInstance
+   *
+   * @param { function } [callback] - Callback to handle processed record
+   *
+   * @returns { Promise } Resolves to processed AuthorizedConnectAppInstance
+   */
+  fetch(callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>
+     {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      accountSid: this.accountSid, 
+      connectAppCompanyName: this.connectAppCompanyName, 
+      connectAppDescription: this.connectAppDescription, 
+      connectAppFriendlyName: this.connectAppFriendlyName, 
+      connectAppHomepageUrl: this.connectAppHomepageUrl, 
+      connectAppSid: this.connectAppSid, 
+      dateCreated: this.dateCreated, 
+      dateUpdated: this.dateUpdated, 
+      permissions: this.permissions, 
+      uri: this.uri
+    }
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+
 export interface AuthorizedConnectAppListInstance {
   (connectAppSid: string): AuthorizedConnectAppContext;
   get(connectAppSid: string): AuthorizedConnectAppContext;
@@ -259,187 +441,6 @@ export function AuthorizedConnectAppListInstance(version: V2010, accountSid: str
 }
 
 
-export interface AuthorizedConnectAppContext {
-
-
-  /**
-   * Fetch a AuthorizedConnectAppInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AuthorizedConnectAppInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>
-
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface AuthorizedConnectAppContextSolution {
-  accountSid?: string;
-  connectAppSid?: string;
-}
-
-export class AuthorizedConnectAppContextImpl implements AuthorizedConnectAppContext {
-  protected _solution: AuthorizedConnectAppContextSolution;
-  protected _uri: string;
-
-
-  constructor(protected _version: V2010, accountSid: string, connectAppSid: string) {
-    this._solution = { accountSid, connectAppSid };
-    this._uri = `/Accounts/${accountSid}/AuthorizedConnectApps/${connectAppSid}.json`;
-  }
-
-  fetch(callback?: any): Promise<AuthorizedConnectAppInstance> {
-  
-    let operationVersion = this._version,
-        operationPromise = operationVersion.fetch({ uri: this._uri, method: 'get' });
-    
-    operationPromise = operationPromise.then(payload => new AuthorizedConnectAppInstance(operationVersion, payload, this._solution.accountSid, this._solution.connectAppSid));
-    
-
-    operationPromise = this._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
-
-
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface AuthorizedConnectAppPayload extends AuthorizedConnectAppResource, Page.TwilioResponsePayload {
-}
-
-interface AuthorizedConnectAppResource {
-  account_sid?: string | null;
-  connect_app_company_name?: string | null;
-  connect_app_description?: string | null;
-  connect_app_friendly_name?: string | null;
-  connect_app_homepage_url?: string | null;
-  connect_app_sid?: string | null;
-  date_created?: string | null;
-  date_updated?: string | null;
-  permissions?: Array<AuthorizedConnectAppPermission> | null;
-  uri?: string | null;
-}
-
-export class AuthorizedConnectAppInstance {
-  protected _solution: AuthorizedConnectAppContextSolution;
-  protected _context?: AuthorizedConnectAppContext;
-
-  constructor(protected _version: V2010, payload: AuthorizedConnectAppPayload, accountSid: string, connectAppSid?: string) {
-    this.accountSid = payload.account_sid;
-    this.connectAppCompanyName = payload.connect_app_company_name;
-    this.connectAppDescription = payload.connect_app_description;
-    this.connectAppFriendlyName = payload.connect_app_friendly_name;
-    this.connectAppHomepageUrl = payload.connect_app_homepage_url;
-    this.connectAppSid = payload.connect_app_sid;
-    this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
-    this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.permissions = payload.permissions;
-    this.uri = payload.uri;
-
-    this._solution = { accountSid, connectAppSid: connectAppSid || this.connectAppSid };
-  }
-
-  /**
-   * The SID of the Account that created the resource
-   */
-  accountSid?: string | null;
-  /**
-   * The company name set for the Connect App
-   */
-  connectAppCompanyName?: string | null;
-  /**
-   * A detailed description of the app
-   */
-  connectAppDescription?: string | null;
-  /**
-   * The name of the Connect App
-   */
-  connectAppFriendlyName?: string | null;
-  /**
-   * The public URL for the Connect App
-   */
-  connectAppHomepageUrl?: string | null;
-  /**
-   * The SID that we assigned to the Connect App
-   */
-  connectAppSid?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was created
-   */
-  dateCreated?: string | null;
-  /**
-   * The RFC 2822 date and time in GMT that the resource was last updated
-   */
-  dateUpdated?: string | null;
-  /**
-   * Permissions authorized to the app
-   */
-  permissions?: Array<AuthorizedConnectAppPermission> | null;
-  /**
-   * The URI of the resource, relative to `https://api.twilio.com`
-   */
-  uri?: string | null;
-
-  private get _proxy(): AuthorizedConnectAppContext {
-    this._context = this._context || new AuthorizedConnectAppContextImpl(this._version, this._solution.accountSid, this._solution.connectAppSid);
-    return this._context;
-  }
-
-  /**
-   * Fetch a AuthorizedConnectAppInstance
-   *
-   * @param { function } [callback] - Callback to handle processed record
-   *
-   * @returns { Promise } Resolves to processed AuthorizedConnectAppInstance
-   */
-  fetch(callback?: (error: Error | null, item?: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>
-     {
-    return this._proxy.fetch(callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      accountSid: this.accountSid, 
-      connectAppCompanyName: this.connectAppCompanyName, 
-      connectAppDescription: this.connectAppDescription, 
-      connectAppFriendlyName: this.connectAppFriendlyName, 
-      connectAppHomepageUrl: this.connectAppHomepageUrl, 
-      connectAppSid: this.connectAppSid, 
-      dateCreated: this.dateCreated, 
-      dateUpdated: this.dateUpdated, 
-      permissions: this.permissions, 
-      uri: this.uri
-    }
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppInstance> {
 /**
 * Initialize the AuthorizedConnectAppPage
@@ -469,5 +470,4 @@ constructor(version: V2010, response: Response<string>, solution: AuthorizedConn
     return inspect(this.toJSON(), options);
     }
     }
-
 
