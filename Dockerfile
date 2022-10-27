@@ -8,6 +8,8 @@ ENV NODE_PATH /usr/local/lib/node_modules
 COPY lib ./lib
 COPY spec ./spec
 COPY examples ./examples
-COPY index.js package.json babel.config.js ./
+COPY index.js package.json babel.config.js tsconfig.json ./
 
-RUN npm install . -g && npm install . --include=dev
+RUN npm run build; npm pack
+RUN npm install -g twilio-*.tgz
+RUN npm install . --include=dev
