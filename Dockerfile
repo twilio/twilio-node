@@ -10,6 +10,7 @@ COPY spec ./spec
 COPY examples ./examples
 COPY index.js package.json babel.config.js tsconfig.json ./
 
+RUN npm install . --include=dev
+
 RUN npm run build; npm pack
 RUN npm install -g twilio-*.tgz
-RUN npm install . --include=dev
