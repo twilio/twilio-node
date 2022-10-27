@@ -17,8 +17,6 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { CallSummariesListInstance } from "./call/callSummaries";
-import { SettingListInstance } from "./call/setting";
 
 import { AnnotationListInstance } from "./call/annotation";
 import { CallSummaryListInstance } from "./call/callSummary";
@@ -31,8 +29,6 @@ export interface CallListInstance {
   (sid: string): CallContext;
   get(sid: string): CallContext;
 
-  callSummaries: CallSummariesListInstance;
-  settings: SettingListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -50,8 +46,6 @@ class CallListInstanceImpl implements CallListInstance {
   _solution?: CallSolution;
   _uri?: string;
 
-  _callSummaries?: CallSummariesListInstance;
-  _settings?: SettingListInstance;
 }
 
 export function CallListInstance(version: V1): CallListInstance {
@@ -64,24 +58,6 @@ export function CallListInstance(version: V1): CallListInstance {
   instance._version = version;
   instance._solution = {  };
   instance._uri = `/Voice`;
-
-  Object.defineProperty(instance, "callSummaries", {
-    get: function callSummaries() {
-      if (!this._callSummaries) {
-        this._callSummaries = CallSummariesListInstance(this._version);
-      }
-      return this._callSummaries;
-    }
-  });
-
-  Object.defineProperty(instance, "settings", {
-    get: function settings() {
-      if (!this._settings) {
-        this._settings = SettingListInstance(this._version);
-      }
-      return this._settings;
-    }
-  });
 
   instance.toJSON = function toJSON() {
     return this._solution;

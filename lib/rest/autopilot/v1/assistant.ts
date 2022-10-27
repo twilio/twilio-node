@@ -28,7 +28,6 @@ import { StyleSheetListInstance } from "./assistant/styleSheet";
 import { TaskListInstance } from "./assistant/task";
 import { WebhookListInstance } from "./assistant/webhook";
 
-import { RestoreAssistantListInstance } from "./assistant/restoreAssistant";
 
 
 
@@ -559,7 +558,6 @@ export interface AssistantListInstance {
   (sid: string): AssistantContext;
   get(sid: string): AssistantContext;
 
-  restoreAssistant: RestoreAssistantListInstance;
 
   /**
    * Create a AssistantInstance
@@ -699,7 +697,6 @@ class AssistantListInstanceImpl implements AssistantListInstance {
   _solution?: AssistantSolution;
   _uri?: string;
 
-  _restoreAssistant?: RestoreAssistantListInstance;
 }
 
 export function AssistantListInstance(version: V1): AssistantListInstance {
@@ -712,15 +709,6 @@ export function AssistantListInstance(version: V1): AssistantListInstance {
   instance._version = version;
   instance._solution = {  };
   instance._uri = `/Assistants`;
-
-  Object.defineProperty(instance, "restoreAssistant", {
-    get: function restoreAssistant() {
-      if (!this._restoreAssistant) {
-        this._restoreAssistant = RestoreAssistantListInstance(this._version);
-      }
-      return this._restoreAssistant;
-    }
-  });
 
   instance.create = function create(params?: any, callback?: any): Promise<AssistantInstance> {
     if (typeof params === "function") {

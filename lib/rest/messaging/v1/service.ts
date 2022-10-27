@@ -19,13 +19,12 @@ import Response from "../../../http/response";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { ExternalCampaignListInstance } from "./service/externalCampaign";
-import { UsecaseListInstance } from "./service/usecase";
 
 import { AlphaSenderListInstance } from "./service/alphaSender";
 import { PhoneNumberListInstance } from "./service/phoneNumber";
 import { ShortCodeListInstance } from "./service/shortCode";
 import { UsAppToPersonListInstance } from "./service/usAppToPerson";
+import { UsAppToPersonUsecaseListInstance } from "./service/usAppToPersonUsecase";
 
 
 type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
@@ -161,8 +160,6 @@ export interface ServiceListInstance {
   (sid: string): ServiceContext;
   get(sid: string): ServiceContext;
 
-  externalCampaign: ExternalCampaignListInstance;
-  usecases: UsecaseListInstance;
 
   /**
    * Create a ServiceInstance
@@ -294,8 +291,6 @@ class ServiceListInstanceImpl implements ServiceListInstance {
   _solution?: ServiceSolution;
   _uri?: string;
 
-  _externalCampaign?: ExternalCampaignListInstance;
-  _usecases?: UsecaseListInstance;
 }
 
 export function ServiceListInstance(version: V1): ServiceListInstance {
@@ -308,24 +303,6 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
   instance._version = version;
   instance._solution = {  };
   instance._uri = `/Services`;
-
-  Object.defineProperty(instance, "externalCampaign", {
-    get: function externalCampaign() {
-      if (!this._externalCampaign) {
-        this._externalCampaign = ExternalCampaignListInstance(this._version);
-      }
-      return this._externalCampaign;
-    }
-  });
-
-  Object.defineProperty(instance, "usecases", {
-    get: function usecases() {
-      if (!this._usecases) {
-        this._usecases = UsecaseListInstance(this._version);
-      }
-      return this._usecases;
-    }
-  });
 
   instance.create = function create(params: any, callback?: any): Promise<ServiceInstance> {
     if (params === null || params === undefined) {
@@ -425,6 +402,7 @@ export interface ServiceContext {
   phoneNumbers: PhoneNumberListInstance;
   shortCodes: ShortCodeListInstance;
   usAppToPerson: UsAppToPersonListInstance;
+  usAppToPersonUsecases: UsAppToPersonUsecaseListInstance;
 
   /**
    * Remove a ServiceInstance
@@ -485,6 +463,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _shortCodes?: ShortCodeListInstance;
   protected _usAppToPerson?: UsAppToPersonListInstance;
+  protected _usAppToPersonUsecases?: UsAppToPersonUsecaseListInstance;
 
   constructor(protected _version: V1, sid: string) {
     this._solution = { sid };
@@ -509,6 +488,11 @@ export class ServiceContextImpl implements ServiceContext {
   get usAppToPerson(): UsAppToPersonListInstance {
     this._usAppToPerson = this._usAppToPerson || UsAppToPersonListInstance(this._version, this._solution.sid);
     return this._usAppToPerson;
+  }
+
+  get usAppToPersonUsecases(): UsAppToPersonUsecaseListInstance {
+    this._usAppToPersonUsecases = this._usAppToPersonUsecases || UsAppToPersonUsecaseListInstance(this._version, this._solution.sid);
+    return this._usAppToPersonUsecases;
   }
 
   remove(callback?: any): Promise<boolean> {
@@ -823,6 +807,13 @@ export class ServiceInstance {
    */
   usAppToPerson(): UsAppToPersonListInstance {
     return this._proxy.usAppToPerson;
+  }
+
+  /**
+   * Access the usAppToPersonUsecases.
+   */
+  usAppToPersonUsecases(): UsAppToPersonUsecaseListInstance {
+    return this._proxy.usAppToPersonUsecases;
   }
 
   /**

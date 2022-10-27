@@ -19,6 +19,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { BulkCountryUpdateListInstance } from "./dialingPermissions/bulkCountryUpdate";
 import { CountryListInstance } from "./dialingPermissions/country";
+import { SettingsListInstance } from "./dialingPermissions/settings";
 
 
 
@@ -26,6 +27,7 @@ export interface DialingPermissionsListInstance {
 
   bulkCountryUpdates: BulkCountryUpdateListInstance;
   countries: CountryListInstance;
+  settings: SettingsListInstance;
 
   /**
    * Provide a user-friendly representation
@@ -45,6 +47,7 @@ class DialingPermissionsListInstanceImpl implements DialingPermissionsListInstan
 
   _bulkCountryUpdates?: BulkCountryUpdateListInstance;
   _countries?: CountryListInstance;
+  _settings?: SettingsListInstance;
 }
 
 export function DialingPermissionsListInstance(version: V1): DialingPermissionsListInstance {
@@ -69,6 +72,15 @@ export function DialingPermissionsListInstance(version: V1): DialingPermissionsL
         this._countries = CountryListInstance(this._version);
       }
       return this._countries;
+    }
+  });
+
+  Object.defineProperty(instance, "settings", {
+    get: function settings() {
+      if (!this._settings) {
+        this._settings = SettingsListInstance(this._version);
+      }
+      return this._settings;
     }
   });
 

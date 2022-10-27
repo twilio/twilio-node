@@ -17,7 +17,6 @@ import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { AddressConfigurationListInstance } from "./configuration/addressConfiguration";
 import { WebhookListInstance } from "./configuration/webhook";
 
 
@@ -39,7 +38,6 @@ export interface ConfigurationListInstanceUpdateOptions {
 
 export interface ConfigurationListInstance {
 
-  addressConfigurations: AddressConfigurationListInstance;
   webhooks: WebhookListInstance;
 
   /**
@@ -88,7 +86,6 @@ class ConfigurationListInstanceImpl implements ConfigurationListInstance {
   _solution?: ConfigurationSolution;
   _uri?: string;
 
-  _addressConfigurations?: AddressConfigurationListInstance;
   _webhooks?: WebhookListInstance;
 }
 
@@ -98,15 +95,6 @@ export function ConfigurationListInstance(version: V1): ConfigurationListInstanc
   instance._version = version;
   instance._solution = {  };
   instance._uri = `/Configuration`;
-
-  Object.defineProperty(instance, "addressConfigurations", {
-    get: function addressConfigurations() {
-      if (!this._addressConfigurations) {
-        this._addressConfigurations = AddressConfigurationListInstance(this._version);
-      }
-      return this._addressConfigurations;
-    }
-  });
 
   Object.defineProperty(instance, "webhooks", {
     get: function webhooks() {

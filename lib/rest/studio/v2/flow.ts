@@ -19,7 +19,6 @@ import Response from "../../../http/response";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
-import { FlowValidateListInstance } from "./flow/flowValidate";
 
 import { ExecutionListInstance } from "./flow/execution";
 import { FlowRevisionListInstance } from "./flow/flowRevision";
@@ -111,7 +110,6 @@ export interface FlowListInstance {
   (sid: string): FlowContext;
   get(sid: string): FlowContext;
 
-  flowValidate: FlowValidateListInstance;
 
   /**
    * Create a FlowInstance
@@ -243,7 +241,6 @@ class FlowListInstanceImpl implements FlowListInstance {
   _solution?: FlowSolution;
   _uri?: string;
 
-  _flowValidate?: FlowValidateListInstance;
 }
 
 export function FlowListInstance(version: V2): FlowListInstance {
@@ -256,15 +253,6 @@ export function FlowListInstance(version: V2): FlowListInstance {
   instance._version = version;
   instance._solution = {  };
   instance._uri = `/Flows`;
-
-  Object.defineProperty(instance, "flowValidate", {
-    get: function flowValidate() {
-      if (!this._flowValidate) {
-        this._flowValidate = FlowValidateListInstance(this._version);
-      }
-      return this._flowValidate;
-    }
-  });
 
   instance.create = function create(params: any, callback?: any): Promise<FlowInstance> {
     if (params === null || params === undefined) {

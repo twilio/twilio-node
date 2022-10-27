@@ -20,7 +20,6 @@ import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 
-import { VerificationAttemptsSummaryListInstance } from "./verificationAttempt/verificationAttemptsSummary";
 
 
 type VerificationAttemptChannels = 'sms'|'call'|'email'|'whatsapp';
@@ -307,7 +306,6 @@ export interface VerificationAttemptListInstance {
   (sid: string): VerificationAttemptContext;
   get(sid: string): VerificationAttemptContext;
 
-  verificationAttemptsSummary: VerificationAttemptsSummaryListInstance;
 
 
   /**
@@ -427,7 +425,6 @@ class VerificationAttemptListInstanceImpl implements VerificationAttemptListInst
   _solution?: VerificationAttemptSolution;
   _uri?: string;
 
-  _verificationAttemptsSummary?: VerificationAttemptsSummaryListInstance;
 }
 
 export function VerificationAttemptListInstance(version: V2): VerificationAttemptListInstance {
@@ -440,15 +437,6 @@ export function VerificationAttemptListInstance(version: V2): VerificationAttemp
   instance._version = version;
   instance._solution = {  };
   instance._uri = `/Attempts`;
-
-  Object.defineProperty(instance, "verificationAttemptsSummary", {
-    get: function verificationAttemptsSummary() {
-      if (!this._verificationAttemptsSummary) {
-        this._verificationAttemptsSummary = VerificationAttemptsSummaryListInstance(this._version);
-      }
-      return this._verificationAttemptsSummary;
-    }
-  });
 
   instance.page = function page(params?: any, callback?: any): Promise<VerificationAttemptPage> {
     if (typeof params === "function") {
