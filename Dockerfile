@@ -8,7 +8,6 @@ ENV NODE_PATH /usr/local/lib/node_modules
 COPY lib ./lib
 COPY spec ./spec
 COPY examples ./examples
-COPY index.js .
-COPY package* ./
+COPY index.js package.json babel.config.js ./
 
-RUN npm install . --include=dev
+RUN npm install . -g && npm install . --include=dev
